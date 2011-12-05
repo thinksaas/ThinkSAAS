@@ -38,7 +38,7 @@ switch($ts){
 			$newphotoname = $photoid.'.'.$extension;
 				
 			$dest=$dest_dir.'/'.$newphotoname;
-			move_uploaded_file($_FILES['Filedata']['tmp_name'], iconv("UTF-8","gb2312",$dest));
+			move_uploaded_file($_FILES['Filedata']['tmp_name'], mb_convert_encoding($dest,"gb2312","UTF-8"));
 			chmod($dest, 0755);
 			
 			$photourl = $newdir.'/'.$newphotoname;

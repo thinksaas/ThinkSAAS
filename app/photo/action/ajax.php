@@ -79,7 +79,7 @@ switch($ts){
 					
 					//$dest=$dest_dir.'/'.$item;
 					$dest=$dest_dir.'/'.date("YmdHis").mt_rand(10000,99999).'.'.$extension;
-					move_uploaded_file($_FILES['photo']['tmp_name'][$key], iconv("UTF-8","gb2312",$dest));
+					move_uploaded_file($_FILES['photo']['tmp_name'][$key], mb_convert_encoding($dest,"gb2312","UTF-8"));
 					chmod($dest, 0755);
 					
 					$arrData = array(
@@ -127,7 +127,7 @@ switch($ts){
 			$newphotoname = date("YmdHis").mt_rand(10000,99999).'.'.$extension;
 				
 			$dest=$dest_dir.'/'.$newphotoname;
-			move_uploaded_file($_FILES['Filedata']['tmp_name'], iconv("UTF-8","gb2312",$dest));
+			move_uploaded_file($_FILES['Filedata']['tmp_name'], mb_convert_encoding($dest,"gb2312","UTF-8"));
 			chmod($dest, 0755);
 			
 			$photourl = $newdir.'/'.$newphotoname;

@@ -286,7 +286,7 @@ switch ($ts) {
 			$newphotoname = $groupid.'.'.$extension;
 			$dest=$dest_dir.'/'.$newphotoname;
 
-			move_uploaded_file($f['tmp_name'],iconv("UTF-8","gb2312",$dest));
+			move_uploaded_file($f['tmp_name'],mb_convert_encoding($dest,"gb2312","UTF-8"));
 			chmod($dest, 0755);
 
 			$groupicon = $newdir.'/'.$newphotoname;
@@ -388,7 +388,7 @@ switch ($ts) {
 					$attachsize = $_FILES['attach']['size'][$key];
 					
 					$dest=$dest_dir.'/'.$item;
-					move_uploaded_file($_FILES['attach']['tmp_name'][$key], iconv("UTF-8","gb2312",$dest));
+					move_uploaded_file($_FILES['attach']['tmp_name'][$key], mb_convert_encoding($dest,"gb2312","UTF-8"));
 					chmod($dest, 0755);
 					
 					$arrData = array(

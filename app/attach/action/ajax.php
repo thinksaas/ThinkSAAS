@@ -47,7 +47,7 @@ switch($ts){
 					$newname = date("YmdHis").mt_rand(10000,99999).'.'.$attachtype;
 					
 					$dest=$dest_dir.'/'.$newname;
-					move_uploaded_file($_FILES['attach']['tmp_name'][$key], iconv("UTF-8","gb2312",$dest));
+					move_uploaded_file($_FILES['attach']['tmp_name'][$key], mb_convert_encoding($dest,"gb2312","UTF-8"));
 					chmod($dest, 0755);
 					
 					$attachurl = $date.'/'.$userid.'/'.$newname;

@@ -89,7 +89,7 @@ class location{
 	function getfirstchar($s0){   
 			$fchar=ord($s0{0});   
 			if($fchar>=ord("A") and $fchar<=ord("z") )return strtoupper($s0{0});   
-			$s=iconv("UTF-8","gb2312", $s0);   
+			$s=mb_convert_encoding($s0,"gb2312", "UTF-8");   
 			$asc=ord($s{0})*256+ord($s{1})-65536;   
 			if($asc>=-20319 and $asc<=-20284)return "A";   
 			if($asc>=-20283 and $asc<=-19776)return "B";   
