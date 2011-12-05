@@ -1,0 +1,23 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+
+<div class="cleft">
+<h1>同城 - {$strCity[cityname]}</h1>
+
+{php doAction('location_my_left',$strCity)}
+
+</div>
+
+<div class="cright">
+
+{php doAction('location_my_right',$strCity)}
+
+</div>
+
+</div>
+</div>
+
+{template footer}

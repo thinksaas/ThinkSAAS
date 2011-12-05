@@ -1,0 +1,22 @@
+{php echo '<?xml version="1.0" encoding="UTF-8"?>'}
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+  <title>{$TS_SITE[base][site_title]}: {$strGroup[groupname]}小组的讨论</title>
+  <link>{$TS_SITE[base][site_url]}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}</link>
+  <description><![CDATA[{$TS_SITE[base][site_title]} {$strGroup[groupname]}小组二日内的最新讨论话题]]></description>
+  <language>zh_cn</language>
+  <copyright>&amp;amp;copy; {$TS_SOFT[info][year]}, {$TS_SOFT[info][copyright]}.</copyright>
+  <pubDate>{php echo date('Y-m-d H:i:s',$pubdate)}</pubDate>
+	<!--{loop $arrTopic $key $item}-->
+    <item>
+        <title>{$item[title]}{$TS_SITE[base][site_title]}{$strGroup[groupname]}小组)</title>
+        <link>{$TS_SITE[base][site_url]}{tsurl('group','topic',array(topicid=>$item[topicid]))}</link>
+        <description><![CDATA[{$item[content]}]]></description>
+        <content:encoded><![CDATA[{$item[content]}]]></content:encoded>
+        <dc:creator>{$item[username]}</dc:creator>
+        <pubDate>{php echo date('Y-m-d H:i:s',$item[addtime])}</pubDate>
+        <guid isPermaLink="true">{$TS_SITE[base][site_url]}{tsurl('group','topic',array(topicid=>$item[topicid]))}</guid>
+   </item>
+	<!--{/loop}-->
+    </channel>
+</rss>

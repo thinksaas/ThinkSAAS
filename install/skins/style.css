@@ -1,0 +1,20 @@
+/**框架CSS**/
+
+body{ margin:0; padding:0; font-family:Arial; font-size:12px;text-align:left;}
+img{border:0;}
+h2{font-size:14px;padding:5px;margin:0px;}
+a {color:#336699;text-decoration:none;}
+/*头部*/
+.header{background:#3A81C0;width:100%;overflow:hidden;}
+.header .head{width:960px;height:60px;margin:0 auto;overflow:hidden;}
+
+.header .head .logo{float:left;margin:10px 0 0 0;color:#FFFFFF;}
+
+.header .head .menu{float:right;margin:20px 0 0 0;color:#FFFFFF;}
+
+/*中部*/
+.midder{width:960px;margin:0 auto;overflow:hidden;}
+
+
+/*底部*/
+.footer{background:#F0F0F0;padding:10px 0;text-align:center;color:#999999;}

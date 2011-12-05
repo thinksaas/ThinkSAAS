@@ -1,0 +1,27 @@
+<div class="s_menu">
+<a <!--{if $ts==''}-->class="s_select"<!--{/if}--> href="{SITE_URL}{tsurl('search','s',array(kw=>$kw))}">全部</a> | 
+<a <!--{if $ts=='group'}-->class="s_select"<!--{/if}--> href="{SITE_URL}{tsurl('search','s',array(ts=>group,kw=>$kw))}">小组</a> | 
+<a <!--{if $ts=='topic'}-->class="s_select"<!--{/if}--> href="{SITE_URL}{tsurl('search','s',array(ts=>topic,kw=>$kw))}">帖子</a> | 
+<a <!--{if $ts=='user'}-->class="s_select"<!--{/if}--> href="{SITE_URL}{tsurl('search','s',array(ts=>user,kw=>$kw))}">用户</a>
+</div>
+
+<div>
+<form method="GET" action="{SITE_URL}index.php">
+<input type="hidden" name="app" value="search" />
+<input type="hidden" name="ac" value="s" />
+
+<!--{if $ts=='group'}-->
+<input type="hidden" name="ts" value="group" />
+<!--{elseif $ts=='topic'}-->
+<input type="hidden" name="ts" value="topic" />
+<!--{elseif $ts=='user'}-->
+<input type="hidden" name="ts" value="user" />
+<!--{else}-->
+<!--{/if}-->
+
+<input class="s_input" name="kw" value="{$kw}"  /> 
+<input class="submit f14" type="submit" value="搜 索" />
+</form>
+<br />
+<br />
+</div>

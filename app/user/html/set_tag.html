@@ -1,0 +1,23 @@
+{template header}
+
+<!--main-->
+<div class="midder">
+<div class="mc">
+{template set_menu}
+
+<div>
+<div class="tags">
+<!--{loop $arrTag $key $item}-->
+<a rel="tag" title="" class="post-tag" href="">{$item[tagname]}</a>
+<!--{/loop}-->
+
+<a rel="tag"  href="javascript:void('0');" onclick="art.dialog.open('{SITE_URL}index.php?app=tag&ac=add_ajax&objname=user&idname=userid&objid={$userid}', {title: '添加个人标签',width:300,height:100});">+添加个人标签</a>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+{template footer}

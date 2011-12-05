@@ -1,0 +1,21 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table>
+<tr class="old"><td width="100">ID</td><td>活动标题</td><td>操作</td></tr>
+
+{loop $arrEvent $key $item}
+<tr><td>{$item[eventid]}</td><td><a target="_blank" href="{SITE_URL}index.php?app=event&ac=show&eventid={$item[eventid]}">{$item[title]}</a></td><td></td></tr>
+{/loop}
+
+</table>
+
+</div>
+
+{php include template("admin/footer");}

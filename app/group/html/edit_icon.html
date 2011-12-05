@@ -1,0 +1,36 @@
+{template header}
+
+<!--main-->
+<div class="midder">
+
+<div class="mc">
+{template edit_xbar}
+<div class="cleft">
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=groupicon" enctype="multipart/form-data" >
+<table style="clear: both;">
+<tbody>
+<tr>
+<td valign="top">
+     <img align="left" alt="{$strGroup[groupname]}" title="{$strGroup[groupname]}" valign="middle" src="{$strGroup[icon_48]}" class="pil"></td>
+     <td><div class="m">{$TS_HL[app][1115]}</div><br>
+      <input type="file" name="picfile">
+	  
+<input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
+<input type="submit" value="上传照片" />
+	  
+    </td>
+</tr></tbody></table>
+</form>
+</div>
+
+<div class="cright">
+
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1109]}{$strGroup[groupname]}{$TS_HL[app][1110]}</a></p>
+
+</div>
+
+</div>
+
+</div>
+{template footer}

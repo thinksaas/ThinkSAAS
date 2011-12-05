@@ -1,0 +1,32 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+
+<div class="cleft">
+<h1>同城{if $arrArea[one]} - <a href="{SITE_URL}{tsurl('location','area',array(areaid=>$arrArea[one][areaid]))}">{$arrArea[one][areaname]}</a>{/if}{if $arrArea[two]} - <a href="{SITE_URL}{tsurl('location','area',array(areaid=>$arrArea[two][areaid]))}">{$arrArea[two][areaname]}</a>{/if}{if $arrArea[three]} - <a href="{SITE_URL}{tsurl('location','area',array(areaid=>$arrArea[three][areaid]))}">{$arrArea[three][areaname]}</a>{/if}</h1>
+
+{php doAction('location_my_left',$arrArea)}
+
+</div>
+
+<div class="cright">
+
+{php doAction('location_my_right',$arrArea)}
+
+{if $referArea}
+<h2>{$strArea[areaname]}下的区域</h2>
+<div>
+{loop $referArea $key $item}
+<a href="{SITE_URL}{tsurl('location','area',array(areaid=>$item[areaid]))}">{$item[areaname]}</a> 
+{/loop}
+</div>
+{/if}
+
+</div>
+
+</div>
+</div>
+
+{template footer}

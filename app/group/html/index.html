@@ -1,0 +1,70 @@
+{template header}
+<div class="midder">
+<div class="mc">
+<div class="cleft">
+
+<h2>全部小组</h2>
+
+<div>
+
+<!--{loop $arrRecommendGroup $key $item}-->
+<div class="sub-item">
+<div class="pic">
+<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">
+<img data-defer-src="{$item[icon_48]}" src="{$item[icon_48]}" alt="{$item[groupname]}">
+</a>
+<a style="background:#F0F0F0;padding: 0px 6px;" href="javascript:void(0);" onclick="joinGroup('{$item[groupid]}');">+加入</a>
+</div>
+<div class="info">
+<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}/<font color="orange">{$item[count_topic]}</font>)             
+<p>{$item[groupdesc]}</p>
+</div>
+</div>
+<!--{/loop}-->
+
+</div>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+</div>
+
+<div class="cright">
+
+<div>
+<form method="GET" action="index.php">
+<input type="hidden" name="app" value="search" />
+<input type="hidden" name="ac" value="s" />
+<span class="inp"><input type="text" autocomplete="off" name="kw" title="" size="22" maxlength="60" value="" style="color: rgb(212, 212, 212); width: 206px;"></span>
+<span>
+<input type="submit" class="submit" value="{$TS_HL[app][1013]}" />
+</span>
+</form>
+</div>
+
+<div class="clear"></div>
+<h2>热门帖子</h2>
+<div class="line23">
+{loop $arrTopic $key $item}
+<a href="{SITE_URL}{tsurl('group','topic',array('topicid'=>$item[topicid]))}">{$item[title]}</a> ({$item[count_comment]})
+<br />
+{/loop}
+</div>
+
+<div class="clear"></div>
+
+<h2>{$TS_HL[app][1012]}</h2>
+
+<div class="line23">
+<!--{if $arrNewGroup}-->
+<!--{loop $arrNewGroup $key $item}-->
+<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
+<!--{/loop}-->
+<!--{/if}-->
+</div>
+
+<div class="clear"></div>
+
+</div>
+</div>
+</div>
+{template footer}

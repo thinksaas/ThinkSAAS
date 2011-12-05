@@ -1,0 +1,26 @@
+{template header}
+<!--main-->
+<div class="midder">
+
+<div class="mc">
+<h1>重设密码</h1>
+<form method="POST" action="{SITE_URL}index.php?app=user&ac=resetpwd&ts=do">
+<table>
+<tr><td>Email：</td><td><input type="text" name="email" value="{$email}" disabled="true" /></td></tr>
+<tr><td>新密码：<td><input type="password" name="pwd" /></td></td></tr>
+<tr><td>重复新密码：<td><input type="password" name="repwd" /></td></td></tr>
+<tr><td></td><td>
+
+<input type="hidden" name="email" value="{$email}" />
+<input type="hidden" name="resetpwd" value="{$resetpwd}" />
+
+<input type="submit" value="提 交" /> </td></tr>
+</table>
+</form>
+<p></p>
+</div>
+
+
+</div>
+
+{template footer}

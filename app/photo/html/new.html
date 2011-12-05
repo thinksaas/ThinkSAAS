@@ -1,0 +1,124 @@
+{template header}
+
+<style>
+.w220{width:220px; display: inline;float: left;margin-left: 7px;margin-right: 7px;}
+.w180{ background: none repeat scroll 0 0 #F0F0F0;margin-top: 14px;overflow: hidden;padding: 18px 20px 14px;width: 180px;}
+
+/*meilishuo*/
+.comm, .comm_outbox {
+    color: #029ACB;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 8px 0;
+}
+.comm span, .comm_outbox span {
+    padding-right: 3px;
+}
+.comm a, .comm_outbox a {
+    color: #666666;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.notlikeit {
+    background-position: 0 0;
+}
+.notlikeit, .likeit {
+    background: url("http://img.meilishuo.net/css/images/twitter/likebg.gif") no-repeat scroll 0 0 transparent;
+    padding-left: 17px;
+}
+.nums {
+    color: #FF679A;
+    font-size: 14px;
+    margin: 0 2px;
+}
+.comm a, .comm_outbox a {
+    color: #666666;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.bookdiscuss {
+    background: url("http://img.meilishuo.net/css/images/twitter/likebg.gif") no-repeat scroll 0 -45px transparent;
+    padding-left: 18px;
+}
+ .author_wrapper {
+    overflow: hidden;
+    width: 180px;
+}
+ .author_wrapper dt {
+    float: left;
+    height: 32px;
+    padding: 0 5px 3px 0;
+    width: 32px;
+}
+ .author_wrapper dt img {
+    height: 32px;
+    width: 32px;
+}
+ .author_wrapper dd {
+    color: #999999;
+    float: left;
+    line-height: 16px;
+    width: 140px;
+}
+ .author_wrapper dd a {
+    color: #FF679A;
+}
+ .tuijian {
+    color: #666666;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 18px;
+    padding-top: 2px;
+}
+.break-word {
+    word-wrap: break-word;
+}
+
+ul, ol, dl, li {
+    list-style: none outside none;
+}
+h4,dl,dt,dd{margin: 0;
+    padding: 0;}
+</style>
+
+<div class="midder">
+<div class="mc">
+{template menu}
+<div id="container">
+{loop $arrPhoto $key $item}
+<div class="box w220">
+<div class="w180">
+<a href="{SITE_URL}{tsurl('photo','show',array(photoid=>$item[photoid]))}"><img src="{SITE_URL}{php echo miniimg($item[photourl],'photo',180,180,$item[path])}"></a>
+<div>
+<h4 class="comm">
+<span>
+<a onclick="" class="notlikeit" id="">
+<b class="nums">1699</b>我喜欢</a>
+</span>
+<span>
+<a target="_blank" href="#" class="bookdiscuss">
+<b class="nums">{$item[count_view]}</b>浏览
+</a>
+</span>
+</h4>
+<dl class="author_wrapper">
+<dt><a target="_blank" href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img src="{$item[user][face_32]}" class="namecard js_processed"></a></dt>
+<dd><a id="" title="{$item[user][username]}" target="_blank" href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}">{$item[user][username]}</a></dd>
+<dd>{php echo date('m月d日 H:i',$item['addtime'])}</dd>
+</dl>
+{$item[photodesc]}</div>
+</div>
+
+</div>
+{/loop}
+</div>
+
+
+</div>
+</div>
+
+{template footer}

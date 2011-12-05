@@ -1,0 +1,43 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<h1>{$TS_HL[app][1180]}{$strTopic[title]}</h1>
+<div class="cleft">
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=topic_eidt">
+<table width="800">
+<tbody><tr><td width="50">{$TS_HL[app][1042]}</td>
+    <td><input style="padding:3px 0;width:400px;" type="text" value="{$strTopic[title]}" maxlength="100" size="50" name="title" gtbfieldid="2"></td></tr>
+	
+<tr><td height="30">{$TS_HL[app][1043]}</td><td>
+<select name="typeid">
+<option <!--{if $strTopic[typeid]=='0'}-->selected="select"<!--{/if}--> value="0">{$TS_HL[app][1044]}</option>
+<!--{loop $arrGroupType $key $item}-->
+<option <!--{if $item[typeid]==$strTopic[typeid]}-->selected="select"<!--{/if}--> value="{$item[typeid]}">{$item[typename]}</option>
+<!--{/loop}-->
+</select></td></tr>
+    <tr>
+	<td valign="top">
+	{$TS_HL[app][1045]}
+    </td><td><textarea style="width:100%;" id="editor_full" cols="55" rows="20" name="content">{$strTopic[content]}</textarea></td></tr>
+	
+	<tr><td height="50">{$TS_HL[app][1046]}</td><td><input type="radio" <!--{if $strTopic[iscomment]=='0'}-->checked="select"<!--{/if}-->   name="iscomment" value="0" />{$TS_HL[app][1047]} <input type="radio" <!--{if $strTopic[iscomment]=='1'}-->checked="select"<!--{/if}-->  name="iscomment" value="1" />{$TS_HL[app][1048]}</td></tr>
+	
+    <tr><td></td><td>
+	
+	<input type="hidden" name="topicid" value="{$strTopic[topicid]}" />
+    <input type="submit" class="submit" value="{$TS_HL[app][1181]}"> 
+	<a href="{SITE_URL}{tsurl('group','topic',array(topicid=>$strTopic[topicid]))}">{$TS_HL[app][1177]}</a>
+	</td></tr></tbody></table>
+</form>
+</div>
+
+
+</div>
+</div>
+<!--加载编辑器-->
+<script src="{SITE_URL}public/js/editor/xheditor/xheditor.js" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/editor/xheditor/ubb.min.js" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/editor/xheditor/loadeditor.js" type="text/javascript"></script>
+{template footer}

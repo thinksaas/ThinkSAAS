@@ -1,0 +1,26 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+{template s_menu}
+<div class="s_top">获得约 {$group_num} 条结果</div>
+
+<!--{loop $arrGroup $key $item}-->
+<div class="result">
+<div class="pic">
+<a title="{$item[gname]}" href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}" class="nbg"><img alt="{$item[groupname]}" src="{$item[icon_48]}" width="48" /></a>
+</div>
+<div class="content">
+<h3><span>[小组] </span>&nbsp;<a  href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a></h3>
+<div class="info">创建于 {php echo date('Y-m-d',$item[addtime])} &nbsp; <a href="#">{$item[count_user]} 人</a></div>
+<p>{php echo hview($item[groupdesc])}</p>
+</div>
+</div>
+<!--{/loop}-->
+
+<div class="page">{$pageUrl}</div>
+</div>
+</div>
+
+{template footer}

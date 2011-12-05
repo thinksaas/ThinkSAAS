@@ -1,0 +1,7 @@
+<?php
+	/*
+	 *包含数据库配置文件
+	 */
+	$skin = 'default';
+	$TS_APP['options']['appname']	= '同城';
+	require_once THINKDATA."/config.inc.php";

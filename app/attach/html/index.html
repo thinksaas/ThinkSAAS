@@ -1,0 +1,29 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+
+<div class="cleft">
+
+<table>
+<tr><td>附件</td><td>作者</td><td>时间</td></tr>
+{loop $arrAttach $key $item}
+<tr><td><a href="{SITE_URL}{tsurl('attach','show',array(attachid=>$item[attachid]))}">{$item[attachname]}</a></td><td>{$item[user][username]}</td><td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td></tr>
+{/loop}
+</table>
+
+<div class="page">{$pageUrl}</div>
+
+</div>
+
+<div class="cright">
+
+<a href="#">+分享资料</a>
+
+</div>
+
+</div>
+</div>
+
+{template footer}

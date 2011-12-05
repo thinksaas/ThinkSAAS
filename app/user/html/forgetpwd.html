@@ -1,0 +1,16 @@
+{template header}
+<!--main-->
+<div class="midder">
+<div class="mc">
+<h1>{$TS_HL[app][1090]}</h1>
+<form method="POST" action="{SITE_URL}index.php?app=user&ac=forgetpwd&ts=do">
+<table>
+<tr><td>{$TS_HL[app][1091]}</td><td><input class="uinput" type="text" name="email" /></td></tr>
+<tr><td></td><td>
+<input type="submit" class="submit" value="{$TS_HL[app][1092]}" /> <a href="{SITE_URL}index.php">{$TS_HL[app][1093]}</a><td></tr>
+</table>
+</form>
+</div>
+</div>
+
+{template footer}

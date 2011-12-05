@@ -1,0 +1,38 @@
+{template header}
+<div class="midder">
+<div class="mc">
+<h1>{$strGroup[groupname]}</h1>
+<div class="cleft">
+<div class="infobox">
+
+<div class="bd"><img align="left" alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}" class="pil groupicon" valign="top" />
+<p>{$TS_HL[app][1147]}{php echo date('Y-m-d',$strGroup[addtime])}&nbsp; &nbsp; {$TS_HL[app][1186]}<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strLeader[userid]))}">{$strLeader[username]}</a><br></p>
+{$strGroup[groupdesc]}
+<div class="clearfix" style="margin-top: 10px;">
+
+
+<span class="fright mr5 color-gray"><a rel="nofollow" class="j a_show_login submit" href="javascript:void(0);" onclick="joinGroup('{$strGroup[groupid]}');"><span>{$TS_HL[app][1173]}</span></a></span>
+
+
+</div>
+</div>
+
+</div>
+
+<div>
+<p>{$TS_HL[app][1189]}</p>
+<p>{$TS_HL[app][1190]}{$strGroup[count_user]}  {$TS_HL[app][1191]}{$strGroup[count_topic]}</p>
+</div>
+
+</div>
+
+
+<div class="cright">
+
+<p class="pl">{$TS_HL[app][1192]}<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">{$TS_SITE[base][site_url]}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}</a></p>
+
+</div>
+</div>
+</div>
+
+{template footer}

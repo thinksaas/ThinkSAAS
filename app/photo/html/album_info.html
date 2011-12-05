@@ -1,0 +1,42 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<h1>{$title}</h1>
+<div class="cleft">
+
+<form class="photo-complete" method="post" action="{SITE_URL}index.php?app=photo&ac=album&ts=info_do">
+
+<!--{loop $arrPhoto $key $item}-->
+<div class="photo-item">
+<div class="cover">
+<a href=""><img src="{SITE_URL}{php echo miniimg($item[photourl],'photo',100,100,$item[path])}"></a>
+<div class="choose-cover">
+<input type="hidden" name="photoid[]" value="{$item[photoid]}" />
+<input type="radio" <!--{if $strAlbum[albumface]==$item[photourl]}-->checked="checked"<!--{/if}--> value="{$item[photourl]}" name="albumface"><label>设置为封面</label>
+</div>
+</div>
+<div class="intro">
+<textarea class="most128" name="photodesc[]">{$item[photodesc]}</textarea>
+<p><a class="j a_confirm_link" title="删除这张照片" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$item[photoid]}">删除照片</a></p>
+</div>
+</div>
+<div class="clear"></div>
+<!--{/loop}-->
+<input type="hidden" name="albumid" value="{$strAlbum[albumid]}" />
+<input class="submit" type="submit" value="保存">
+</form>
+
+</div>
+
+<div class="cright">
+<p class="pl2">
+    &gt;&nbsp;<a href="{SITE_URL}{tsurl('photo','album',array(ts=>photo,albumid=>$strAlbum[albumid]))}">回相册“{$strAlbum[albumname]}”</a>
+</p>
+</div>
+
+</div>
+</div>
+
+{template footer}

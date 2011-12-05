@@ -1,0 +1,48 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<div class="cleft">
+
+<div id="db-usr-profile">
+<div class="pic">
+<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strUser[userid]))}">
+<img alt="{$strUser[username]}" src="{$strUser[face]}">
+</a>
+</div>
+<div class="info">
+<h1>
+{$strUser[username]}跟随的人
+</h1>
+
+<!-- <ul>
+<li><a href="">小组</a></li>
+</ul> -->
+
+</div>
+</div>
+<div class="clear"></div>
+
+
+<div class="obss">
+
+<!--{loop $arrFollowUser $key $item}-->
+<dl class="obu"><dt><a class="nbg" href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}"></a></dt>
+<dd><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[username]}</a></dd></dl>
+<!--{/loop}-->
+<br clear="all">
+</div>
+
+
+
+</div>
+
+<div class="cright">
+
+</div>
+
+
+</div>
+</div>
+{template footer}

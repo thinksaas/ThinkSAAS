@@ -1,0 +1,74 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<h1>{$strGroup[groupname]}小组成员</h1>
+<div class="cleft">
+
+<h2>{$strGroup[role_leader]} &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2>
+
+<div class="obss"><dl class="obu"><dt><a class="nbg" href="{SITE_URL}{tsurl('user','space',array(userid=>$strLeader[userid]))}"><img alt="mido" class="m_sub_img" src="{$strLeader[face]}"></a></dt>
+<dd>{$strLeader[username]}<br><span class="pl">(<a href="{SITE_URL}{tsurl('location','area',array(areaid=>$strLeader[area][areaid]))}">{$strLeader[area][areaname]}</a>)</span></dd></dl><br clear="all">
+</div>
+
+<h2>{$strGroup[role_admin]} &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2>
+
+<div class="obss">
+
+<!--{loop $arrAdmin $key $item}-->
+<dl class="obu"><dt><a class="nbg" href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}"><img alt="{$item[username]}" class="imgg" src="{$item[face]}"></a>
+<!--{if $TS_USER[user][userid] == $strLeader[userid]}-->
+<span title="取消管理员" class="gact"><a title="取消{$item[username]}的管理员" class="j a_confirm_link" href="{SITE_URL}index.php?app=group&ac=group_user_set&ts=isadmin&userid={$item[userid]}&groupid={$strGroup[groupid]}&isadmin=0" rel="nofollow">^</a></span>
+<!--{/if}-->
+</dt><dd>{$item[username]}<br><span class="pl">(<a href="{SITE_URL}{tsurl('location','area',array(areaid=>$item[area][areaid]))}">{$item[area][areaname]}</a>)</span></dd></dl>
+<!--{/loop}-->
+
+
+<br clear="all">
+</div>
+
+<h2>{$strGroup[role_user]} &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2>
+
+<div class="page">{$pageUrl}</div>
+
+<div class="obss">
+
+<!--{loop $arrGroupUser $key $item}-->
+<dl class="obu">
+<dt>
+<a class="nbg" href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}"><img alt="{$item[username]}" class="imgg" src="{$item[face]}"></a>
+
+<!--{if $TS_USER[user][userid] == $strLeader[userid]}-->
+<!--{if $item[isadmin] != '1'}-->
+<span title="提升为管理员" class="gact"><a title="把{$item[username]}提升为管理员" class="j a_confirm_link" href="{SITE_URL}index.php?app=group&ac=group_user_set&ts=isadmin&userid={$item[userid]}&groupid={$strGroup[groupid]}&isadmin=1" rel="nofollow">^</a></span>
+<br />
+<!--{/if}-->
+<!--{if $item[userid] !=$strGroup[userid]}-->
+<span title="踢出小组" class="gact"><a title="把{$item[username]}踢出小组" class="j a_confirm_link" href="{SITE_URL}index.php?app=group&ac=group_user_set&ts=isuser&userid={$item[userid]}&groupid={$strGroup[groupid]}" rel="nofollow">k</a></span>
+<br />
+<!--{/if}-->
+
+<!--{/if}-->
+</dt>
+<dd>{$item[username]}<br><span class="pl">(<a href="{SITE_URL}{tsurl('location','area',array(areaid=>$item[area][areaid]))}">{$item[area][areaname]}</a>)</span></dd></dl>
+<!--{/loop}-->
+
+<br clear="all">
+</div>
+
+<div class="page">{$pageUrl}</div>
+
+<br />
+
+</div>
+
+
+<div class="cright">
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">回{$strGroup[groupname]}小组</a></p>
+
+</div>
+</div>
+</div>
+
+{template footer}

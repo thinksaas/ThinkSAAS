@@ -1,0 +1,156 @@
+{include file='header.html'}
+
+<style>
+.main{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #DFDFDF;
+    border-radius: 11px 11px 11px 11px;
+    color: #333333;
+    font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+    margin: 2em auto;
+    padding: 1em 2em;
+    width: 700px;
+}
+p, li, dd, dt {
+    font-size: 12px;
+    line-height: 18px;
+    padding-bottom: 2px;
+}
+.step {
+    margin: 20px 0 15px;
+}
+.step, th {
+    padding: 0;
+    text-align: left;
+}
+.submit input, .button, .button-secondary {
+    -moz-box-sizing: content-box;
+    border: 1px solid #BBBBBB;
+    border-radius: 15px 15px 15px 15px;
+    color: #464646;
+    cursor: pointer;
+    font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+    font-size: 14px !important;
+    line-height: 16px;
+    padding: 6px 12px;
+    text-decoration: none;
+}
+.button:hover, .button-secondary:hover, .submit input:hover {
+    border-color: #666666;
+    color: #000000;
+}
+.button, .submit input, .button-secondary {
+    background:#F2F2F2;
+}
+.button:active, .submit input:active, .button-secondary:active {
+    background: #EEEEEE;
+}
+
+.form-table {
+    border-collapse: collapse;
+    margin-top: 1em;
+    width: 100%;
+}
+.form-table td {
+    border-bottom: 8px solid #FFFFFF;
+    font-size: 12px;
+    margin-bottom: 9px;
+    padding: 10px;
+}
+.form-table th {
+    border-bottom: 8px solid #FFFFFF;
+    font-size: 13px;
+    padding: 16px 10px 10px;
+    text-align: left;
+    vertical-align: top;
+    width: 130px;
+}
+.form-table tr {
+    background: none repeat scroll 0 0 #F3F3F3;
+}
+.form-table code {
+    font-size: 18px;
+    line-height: 18px;
+}
+.form-table p {
+    font-size: 11px;
+    margin: 4px 0 0;
+}
+.form-table input {
+    font-size: 15px;
+    line-height: 20px;
+    padding: 2px;
+}
+.form-table th p {
+    font-weight: normal;
+}
+#error-page {
+    margin-top: 50px;
+}
+#error-page p {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 25px 0 20px;
+}
+#error-page code, .code {
+    font-family: Consolas,Monaco,Courier,monospace;
+}
+#pass-strength-result {
+    background-color: #EEEEEE;
+    border-color: #DDDDDD !important;
+    border-style: solid;
+    border-width: 1px;
+    display: none;
+    margin: 5px 5px 5px 1px;
+    padding: 5px;
+    text-align: center;
+    width: 200px;
+}
+#pass-strength-result.bad {
+    background-color: #FFB78C;
+    border-color: #FF853C !important;
+}
+#pass-strength-result.good {
+    background-color: #FFEC8B;
+    border-color: #FFCC00 !important;
+}
+#pass-strength-result.short {
+    background-color: #FFA0A0;
+    border-color: #F04040 !important;
+}
+#pass-strength-result.strong {
+    background-color: #C3FF88;
+    border-color: #8DFF1C !important;
+}
+.message {
+    background-color: #FFFFE0;
+    border: 1px solid #E6DB55;
+    margin: 5px 0 15px;
+    padding: 0.3em 0.6em;
+}
+
+</style>
+
+<!--main-->
+<div class="midder">
+
+<div class="main">
+
+	<p>
+</p><h1>数据库连接错误</h1>
+<p>您在 <code>config.inc.php</code> 文件中提供的数据库用户名和密码可能不正确，或者无法连接到 <code>localhost</code> 上数据库服务器，这意味着您的主机数据库服务器已停止工作。</p>
+<ul>
+	<li>您确认您提供的用户名和密码正确么？</li>
+	<li>您确认您提供的主机名正确么？</li>
+	<li>您确认数据库服务器正常运行么？</li>
+</ul>
+<p>如果您无法确定这些问题，请联系您的主机管理员。如果您仍需帮助，请访问 <a href="http://www.thinksaas.cn">ThinkSAAS新社区</a>。</p>
+<p class="step"><a class="button" onclick="javascript:history.go(-1);return false;" href="#">重试</a></p><p></p>
+
+
+</div>
+
+</div>
+
+{include file='footer.html'}
+

@@ -1,0 +1,18 @@
+{php include template("ajax/header");}
+<div style="padding:10px;">
+<script src="{SITE_URL}public/js/jquery.js" type="text/javascript"></script>
+<script>
+function insertImgs(x){
+	callback('<img src="'+x+'">');
+}
+</script>
+<div>图片地址：<br />
+<input  id="networkImg" type="text" value="http://" size="50" /> <br />
+<a href="javascript:void('0');" onclick="insertImgs(document.getElementById('networkImg').value);">插入图片</a>
+<br />
+<br />
+例如：http://www.thinksaas.cn/theme/miliao/logo.gif
+</div>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table>
+<tr class="old">
+<td width="100">分类ID</td><td>分类名称</td> <td>操作</td>
+</tr>
+
+<!--{loop $arrCate $key $item}-->
+<tr><td>{$item[cateid]}</td><td>{$item[catename]}</td><td><a href="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=edit&cateid={$item[cateid]}">修改</a></td></tr>
+<!--{/loop}-->
+
+</table>
+
+</div>
+
+{php include template("admin/footer");}
