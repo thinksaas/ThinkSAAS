@@ -7,22 +7,36 @@
 <div class="cleft">
 <h1>同城{if $arrArea[one]} - <a href="{SITE_URL}{tsurl('location','area',array(areaid=>$arrArea[one][areaid]))}">{$arrArea[one][areaname]}</a>{/if}{if $arrArea[two]} - <a href="{SITE_URL}{tsurl('location','area',array(areaid=>$arrArea[two][areaid]))}">{$arrArea[two][areaname]}</a>{/if}{if $arrArea[three]} - <a href="{SITE_URL}{tsurl('location','area',array(areaid=>$arrArea[three][areaid]))}">{$arrArea[three][areaname]}</a>{/if}</h1>
 
-{php doAction('location_my_left',$arrArea)}
+<h2>同城里的人</h2>
+<div>
+<!--{loop $arrUser $key $item}-->
+<dl class="obu">
+<dt><a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[userid]))}" class="nbg"><img src="{$item[face]}" class="m_sub_img" /></a></dt>
+<dd><a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[userid]))}">{$item[username]}</a></dd>
+</dl>
+<!--{/loop}-->
+</div>
+<div class="clear"></div>
 
 </div>
 
 <div class="cright">
 
-{php doAction('location_my_right',$arrArea)}
+<div style="margin-bottom: 10px;">
+<div class="bd">
+今天 <span class="date">年月日</span> 
+<span class="week">星期</span>
+</div>
+</div>
 
-{if $referArea}
+<!--{if $referArea}-->
 <h2>{$strArea[areaname]}下的区域</h2>
 <div>
-{loop $referArea $key $item}
-<a href="{SITE_URL}{tsurl('location','area',array(areaid=>$item[areaid]))}">{$item[areaname]}</a> 
-{/loop}
+<!--{loop $referArea $key $item}-->
+<a href="{SITE_URL}{tsurl('location','area',array(areaid=>$item[areaid]))}">{$item[areaname]}</a>
+<!--{/loop}-->
 </div>
-{/if}
+<!--{/if}-->
 
 </div>
 
