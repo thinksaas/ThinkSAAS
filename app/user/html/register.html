@@ -85,7 +85,7 @@ $(document).ready(function() {
 	
 //选择一级区域
 $('#oneid').change(function(){
-	$("#stwoid").html('<img src="'+siteUrl+'public/image/loading.gif" />');
+	$("#stwoid").html('<img src="'+siteUrl+'public/images/loading.gif" />');
 	var oneid = $(this).children('option:selected').val();  //弹出select的值
 	
 	if(oneid==0){
@@ -101,7 +101,7 @@ $('#oneid').change(function(){
 				
 				//选择二级区域
 				$('#twoid').change(function(){
-					$("#sthreeid").html('<img src="'+siteUrl+'public/image/loading.gif" />');
+					$("#sthreeid").html('<img src="'+siteUrl+'public/images/loading.gif" />');
 					var twoid = $(this).children('option:selected').val();  //弹出select的值
 					
 					if(twoid == 0){

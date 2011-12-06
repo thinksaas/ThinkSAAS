@@ -36,7 +36,7 @@
 <!--{if $arrEvent}-->
 <div class="block_headerline"><div class="nof clearfix"><div class="evtlstimg">
 <a href="{SITE_URL}{tsurl('event','show',array(eventid=>$arrEvent[0][eventid]))}" class="phs_link">
-<img src="<!--{if $arrEvent[0][poster]}-->{SITE_URL}{php echo miniimg($arrEvent[0][poster],'event',100,100,$arrEvent[0][path],1)}<!--{else}-->{SITE_URL}uploadfile/event/event_dft.jpg<!--{/if}-->"></a>
+<img src="<!--{if $arrEvent[0][poster]}-->{SITE_URL}{php echo miniimg($arrEvent[0][poster],'event',100,100,$arrEvent[0][path],1)}<!--{else}-->{SITE_URL}public/images/event_dft.jpg<!--{/if}-->"></a>
 </div><h2><a  href="{SITE_URL}{tsurl('event','show',array(eventid=>$arrEvent[0][eventid]))}">{$arrEvent[0][title]}</a> <span class="pl2">[{$arrEvent[0][type][typename]}]</span></h2>
 <div class="pl intro">
 时间：{$arrEvent[0][time_start]} - {$arrEvent[0][time_end]}<br>
@@ -56,7 +56,7 @@
 <div class="title">
 <a href="{SITE_URL}{tsurl('event','show',array(eventid=>$item[eventid]))}">{$item[title]}</a>
 </div><a href="{SITE_URL}{tsurl('event','show',array(eventid=>$item[eventid]))}">
-<img class="actimgs" src="<!--{if $item[poster]}-->{SITE_URL}{php echo miniimg($item[poster],'event',48,48,$item[path],1)}<!--{else}-->{SITE_URL}uploadfile/event/event_dft.jpg<!--{/if}-->" width="48"></a>
+<img class="actimgs" src="<!--{if $item[poster]}-->{SITE_URL}{php echo miniimg($item[poster],'event',48,48,$item[path],1)}<!--{else}-->{SITE_URL}public/images/event_dft.jpg<!--{/if}-->" width="48"></a>
 <div class="evtdesc">
 {$item[time_start]} - {$item[time_end]}<br><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}">{$item[user][username]}</a><br>{$item[count_userdo]}人参加 &nbsp; {$item[count_userwish]}人感兴趣<br>
 </div></li>

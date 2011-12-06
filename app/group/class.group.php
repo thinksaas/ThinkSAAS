@@ -50,8 +50,8 @@ class group{
 	function getOneGroup($groupid){
 		$strGroup = $this->db->once_fetch_assoc("select * from ".dbprefix."group where groupid=$groupid");
 		if($strGroup['groupicon'] == ''){
-			$strGroup['icon_48'] = SITE_URL.'uploadfile/group/default.gif';
-			$strGroup['icon_16'] = SITE_URL.'uploadfile/group/default.gif';
+			$strGroup['icon_48'] = SITE_URL.'public/images/group.gif';
+			$strGroup['icon_16'] = SITE_URL.'public/images/group.gif';
 		}else{
 			$strGroup['icon_48'] = SITE_URL.miniimg($strGroup['groupicon'],'group',48,48,$strGroup['path'],1);
 			$strGroup['icon_16'] = SITE_URL.miniimg($strGroup['groupicon'],'group',16,16,$strGroup['path'],1);
@@ -63,8 +63,8 @@ class group{
 	function getSimpleGroup($groupid){
 		$strGroup = $this->db->once_fetch_assoc("select groupid,groupname,path,groupicon from ".dbprefix."group where groupid=$groupid");
 		if($strGroup['groupicon'] == ''){
-			$strGroup['icon_48'] = SITE_URL.'uploadfile/group/default.gif';
-			$strGroup['icon_16'] = SITE_URL.'uploadfile/group/default.gif';
+			$strGroup['icon_48'] = SITE_URL.'public/images/group.gif';
+			$strGroup['icon_16'] = SITE_URL.'public/images/group.gif';
 		}else{
 			$strGroup['icon_48'] = SITE_URL.miniimg($strGroup['groupicon'],'group',48,48,$strGroup['path'],1);
 			$strGroup['icon_16'] = SITE_URL.miniimg($strGroup['groupicon'],'group',16,16,$strGroup['path'],1);
