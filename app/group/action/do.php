@@ -873,15 +873,6 @@ switch ($ts) {
 		
 		break;
 		
-	//主题 
-	case "theme":
-		$theme = $_POST['site_theme'];
-		setcookie("ts_theme", $theme, time()+3600*30,'/');   
-		
-		qiMsg("主题更换成功！");
-		
-		break;
-		
 	//置顶帖子 
 	case "isposts":
 		$userid = intval($TS_USER['user']['userid']);

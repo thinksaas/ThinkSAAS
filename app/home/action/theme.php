@@ -1,10 +1,23 @@
 <?php 
-//$Id: theme.php 573 2011-11-24 17:05:42Z qiujun $
-
 defined('IN_TS') or die('Access Denied.');
 
-$title = '更换主题';
+switch($ts){
+	
+	case "":
+	
+		$title = '更换主题';
 
-$arrTheme	= dirList('theme');
+		$arrTheme	= dirList('theme');
 
-include template("theme");
+		include template("theme");
+		
+		break;
+	
+	//执行
+	case "do":
+		$theme = $_POST['site_theme'];
+		setcookie("ts_theme", $theme, time()+3600*30,'/');   
+		
+		qiMsg("主题更换成功！");
+		break;
+}
