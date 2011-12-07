@@ -2,13 +2,13 @@
 function userDoWish(eventid,status){
 	$.ajax({
 		type: "POST",
-		url: siteUrl+"index.php/event/do/ts-dowish",
+		url: siteUrl+"index.php?app=event&ac=do&ts=dowish",
 		data: "eventid="+eventid+"&status="+status,
 		beforeSend:function(){
 		},
 		success:function(result){
 			if(result == '0'){
-				art.dialog.open(siteUrl+'index.php/user/ajax/ts-login', {title: '登录'});
+				art.dialog.open(siteUrl+'index.php?app=user&ac=ajax&ts=login', {title: '登录'});
 			}else if(result == '1'){
 				art.dialog({
 					icon: 'warning',
@@ -31,7 +31,7 @@ function cancelEvent(eventid,userid){
 	art.dialog.confirm('确定不参加了吗？', function(){
 	$.ajax({
 		type: "POST",
-		url: siteUrl+"index.php/event/do/ts-cancel",
+		url: siteUrl+"index.php?app=event&ac=do&ts=cancel",
 		data: "eventid="+eventid+"&userid="+userid,
 		beforeSend:function(){
 		},
@@ -53,7 +53,7 @@ function cancelEvent(eventid,userid){
 function doEvent(eventid,userid){
 	$.ajax({
 		type: "POST",
-		url: siteUrl+"index.php/event/do/ts-do",
+		url: siteUrl+"index.php?app=event&ac=do&ts=do",
 		data: "eventid="+eventid+"&userid="+userid,
 		beforeSend:function(){
 		},
