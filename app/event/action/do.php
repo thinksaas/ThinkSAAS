@@ -135,11 +135,17 @@ defined('IN_TS') or die('Access Denied.');
 				}
 				
 				$feed_data = array(
-					'photo'	=> SITE_URL.miniimg($strEvent['poster'],'event',85,85,$strEvent['path']),
 					'link'	=> SITE_URL.tsurl('event','show',array('eventid'=>$eventid)),
 					'title'	=> $strEvent['title'],
 					'content'	=> '开始时间：'.$strEvent['time_start'].' / 地点：'.$strEvent['address'].' / 参加人数：'.$strEvent['count_userdo'],
 				);
+				
+				if($strEvent['poster'] != ''){
+					$feed_data['photo']	= SITE_URL.miniimg($strEvent['poster'],'event',85,85,$strEvent['path']);
+				}else{
+					$feed_data['photo']	= SITE_URL.'public/images/event_dft.jpg';
+				}
+				
 				aac('feed')->addFeed($userid,$feed_template,serialize($feed_data));
 				//feed结束
 				
