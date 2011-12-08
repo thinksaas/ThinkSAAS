@@ -803,6 +803,9 @@ a.mini-share:hover {
 .topic_list{overflow:hidden;}
 .topic_list ul{overflow:hidden;}
 .topic_list ul li{overflow:hidden;padding:15px 0;border-bottom: 1px solid #DDDDDD;display: block;}
+
+.topic_list ul li:hover{background:#F0F0F0;}
+
 .topic_list .userimg{float:left;width:38px;overflow:hidden;}
 .topic_list .userimg img{padding:2px;border:solid 1px #DDDDDD;background:#FFFFFF;}
 
@@ -897,17 +900,9 @@ a.mini-share:hover {
 	margin-right:10px;
 }
 .tabs li .current {
-    background-color: #FFFFFF;
-    border-bottom: 1px solid #FFFFFF;
-    border-top: 0 none;
-    font-size: 14px;
-    height: 32px;
-    line-height: 32px;
-    margin-top: 0;
+	background:#FFFFFF;
+	border-bottom:solid 1px #FFFFFF;
 }
 .tabs li .current span {
-    border-top: 3px solid #29A2CF;
-    display: block;
-    margin: 0 -11px;
-    padding: 0 15px;
+
 }
