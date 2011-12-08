@@ -216,14 +216,20 @@ switch($ts){
 	
 	//用户跟随
 	case "user_follow":
-		$userid = $_POST['userid'];
-		$userid_follow = $_POST['userid_follow'];
+		
+		$userid = aac('user')->isLogin();
+		
+		
+		$userid_follow = $_GET['userid_follow'];
 		
 		$followNum = $db->once_num_rows("select * from ".dbprefix."user_follow where userid='$userid' and userid_follow='$userid_follow'");
 		
 		if($followNum > '0'){
-			echo '0';
+			
+			qiMsg("请不要重复关注同一用户！");
+			
 		}else{
+			
 			$db->query("insert into ".dbprefix."user_follow (`userid`,`userid_follow`,`addtime`) values ('$userid','$userid_follow','".time()."')");
 			
 			//统计更新跟随和被跟随数
@@ -245,15 +251,40 @@ switch($ts){
 			$msg_content = '恭喜，您被人跟随啦！看看他是谁吧<br />'.SITE_URL.'index.php?app=user&ac=space&userid='.$userid;
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 			
-			echo '1';
+			$strUser = $db->once_fetch_assoc("select userid,username,path,face from ".dbprefix."user_info where `userid`='$userid_follow'");
+			
+			//feed开始
+			$feed_template = '<a href="{link}"><img title="{username}" alt="{username}" src="{face}" class="broadimg"></a>
+			<span class="pl">关注<a href="{link}">{username}</a></span>';
+			
+			$feed_data = array(
+				'link'	=> SITE_URL.tsurl('user','space',array('userid'=>$userid_follow)),
+				'username'	=> $strUser['username'],
+			);
+			
+			if($strUser['face']!=''){
+				$feed_data['face'] = SITE_URL.miniimg($strUser['face'],'user',48,48,$strUser['path']);
+			}else{
+				$feed_data['face'] = SITE_URL.'public/images/noavatar.gif';
+			}
+			
+			aac('feed')->addFeed($userid,$feed_template,serialize($feed_data));
+			//feed结束
+			
+			
+			
+			header("Location: ".SITE_URL.tsurl('user','space',array('userid'=>$userid_follow)));
+			
 		}
 		
 		break;
 	
 	//用户取消跟随 
 	case "user_nofollow":
-		$userid = $_POST['userid'];
-		$userid_follow = $_POST['userid_follow'];
+		
+		$userid = aac('user')->isLogin();
+		
+		$userid_follow = $_GET['userid_follow'];
 		
 		$db->query("DELETE FROM ".dbprefix."user_follow WHERE userid = '$userid' AND userid_follow = '$userid_follow'");
 		
@@ -270,7 +301,7 @@ switch($ts){
 		
 		$db->query("update ".dbprefix."user_info set `count_follow`='$count_follow_userid',`count_followed`='$count_followed_userid' where userid='$userid_follow'");
 		
-		echo '1';
+		header("Location: ".SITE_URL.tsurl('user','space',array('userid'=>$userid_follow)));
 		
 		break;
 }

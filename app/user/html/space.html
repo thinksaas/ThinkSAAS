@@ -135,10 +135,13 @@
 <!--{if $strUser[isfollow]}-->
 <div class="user-group" style="display: block;">
 <span class="user-cs">{$TS_HL[app][1068]}</span>
-<span class="user-rs"><a href="javascript:void('0');" onclick="user_nofollow('{$TS_USER[user][userid]}','{$strUser[userid]}');">{$TS_HL[app][1069]}</a></span>
+<span class="user-rs">
+
+<a href="{SITE_URL}index.php?app=user&ac=do&ts=user_nofollow&userid_follow={$strUser[userid]}">{$TS_HL[app][1069]}</a></span>
+
 </div>
 <!--{else}-->
-<a class="a-btn-add mr10 add_contact" id="follow" href="javascript:void(0);" onclick="user_follow('{$TS_USER[user][userid]}','{$strUser[userid]}');">{$TS_HL[app][1070]}</a>
+<a class="a-btn-add mr10 add_contact" href="{SITE_URL}index.php?app=user&ac=do&ts=user_follow&userid_follow={$strUser[userid]}">{$TS_HL[app][1070]}</a>
 <!--{/if}-->
 <a href="{SITE_URL}{tsurl('user','message',array(ts=>message_add,touserid=>$strUser[userid]))}" rel="nofollow" class="a-btn mr5">{$TS_HL[app][1071]}</a>
 <div id="divac"></div>
