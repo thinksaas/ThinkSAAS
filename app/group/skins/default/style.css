@@ -160,10 +160,7 @@ white-space:nowrap;}
 }
 
 .pil {
-	background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #CCCCCC;
     height: 48px;
-    padding: 2px;
     width: 48px;
 }
 
@@ -802,14 +799,13 @@ a.mini-share:hover {
 /*帖子列表*/
 .topic_list{overflow:hidden;}
 .topic_list ul{overflow:hidden;}
-.topic_list ul li{overflow:hidden;padding:15px 0;border-bottom: 1px solid #DDDDDD;display: block;}
+.topic_list ul li{overflow:hidden;padding:15px 0;border-bottom: 1px solid #C2D5E3;display: block;}
 
 .topic_list ul li:hover{background:#F0F0F0;}
 
 .topic_list .userimg{float:left;width:38px;overflow:hidden;}
-.topic_list .userimg img{padding:2px;border:solid 1px #DDDDDD;background:#FFFFFF;}
 
-.topic_list .topic_title{float: right;width:545px;overflow:hidden;padding-top: 2px;}
+.topic_list .topic_title{width:545px;overflow:hidden;}
 
 .topic_list .topic_title .title a{font-size:14px;color:#343434;}
 
