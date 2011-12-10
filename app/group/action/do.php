@@ -4,20 +4,20 @@ defined('IN_TS') or die('Access Denied.');
 //发表评论 
 if($ts=='addcomment'){
 	if (IS_POST) {
-
+		
+		$userid = aac('user')->isLogin();
+		
 		$topicid	= intval($_POST['topicid']);
 		$content	= trim($_POST['content']);
 		//标签
 		doAction('add_comment','',$content,'');
 		
-		if($TS_USER['user'] == ''){
-			qiMsg('请登陆后再发表内容^_^','点击登陆',SITE_URL.'index.php?app=user&ac=login');
-		}elseif(empty($content)){
+		if($content==''){
 			qiMsg('没有任何内容是不允许你通过滴^_^');
 		}else{
 			$arrData	= array(
 				'topicid'			=> $topicid,
-				'userid'			=> $TS_USER['user']['userid'],
+				'userid'			=> $userid,
 				'content'	=> $content,
 				'addtime'		=> time(),
 			);
@@ -33,7 +33,6 @@ if($ts=='addcomment'){
 			$db->query("update ".dbprefix."group_topics set uptime='$uptime',count_comment='$count_comment' where topicid='$topicid'");
 			
 			//积分记录
-			$userid = $TS_USER['user']['userid'];
 			$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','回帖','20','".time()."')");
 			
 			$strScore = $db->once_fetch_assoc("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
@@ -74,6 +73,9 @@ if($ts=='addcomment'){
 switch ($ts) {
 
 	case "new_topic":
+	
+		$userid = aac('user')->isLogin();
+	
 		$groupid	= intval($_POST['groupid']);
 		
 		$title	= htmlspecialchars(trim($_POST['title']));
@@ -87,15 +89,11 @@ switch ($ts) {
 		$iscomment = $_POST['iscomment'];
 		
 		
-		if($TS_USER['user'] == ''){
-		
-			qiMsg('请登陆后再发表内容^_^','点击登陆',SITE_URL.'index.php?app=user&ac=login');
-			
-		}elseif(empty($title)){
+		if($title==''){
 
 			qiMsg('不要这么偷懒嘛，多少请写一点内容哦^_^');
 			
-		}elseif(empty($content)){
+		}elseif($content==''){
 
 			qiMsg('没有任何内容是不允许你通过滴^_^');
 			
@@ -188,7 +186,7 @@ switch ($ts) {
 	//加入该小组
 	case "joingroup":
 		
-		$userid = intval($TS_USER['user']['userid']);
+		$userid = aac('user')->isLogin();
 		
 		$groupid = intval($_POST['groupid']);
 		
@@ -216,7 +214,8 @@ switch ($ts) {
 	//退出该小组
 	case "exitgroup":
 		
-		$userid = $TS_USER['user']['userid'];
+		$userid = aac('user')->isLogin();
+		
 		$groupid = intval($_POST['groupid']);
 		
 		//判断是否是组长，是组长不能退出小组
@@ -422,7 +421,7 @@ switch ($ts) {
 	//创建小组
 	case "group_add":
 		
-		$userid = intval($TS_USER['user']['userid']);
+		$userid = aac('user')->isLogin();
 		
 		$oneid = intval($_POST['oneid']);
 		$twoid = intval($_POST['twoid']);
@@ -512,10 +511,12 @@ switch ($ts) {
 		
 	//删除帖子
 	case "topic_del":
+	
+		$userid = aac('user')->isLogin();
 		
 		$groupid = $_POST['groupid'];
 		$topicid = $_POST['topicid'];
-		$userid = intval($TS_USER['user']['userid']);
+		
 		
 		$strGroup = $db->once_fetch_assoc("select userid from ".dbprefix."group where groupid='$groupid'");
 		
@@ -547,6 +548,8 @@ switch ($ts) {
 		
 	//编辑帖子 
 	case "topic_eidt":
+	
+		$userid = aac('user')->isLogin();
 		
 		$topicid = $_POST['topicid'];
 		$title = htmlspecialchars(trim($_POST['title']));
@@ -554,8 +557,6 @@ switch ($ts) {
 		$content = trim($_POST['content']);
 		
 		$iscomment = $_POST['iscomment'];
-		
-		$userid = intval($TS_USER['user']['userid']);
 		
 		if($topicid == '' || $title=='' || $content=='') qiMsg("都不能为空的哦!");
 		
@@ -598,7 +599,8 @@ switch ($ts) {
 	//收藏帖子
 	case "topic_collect":
 		
-		$userid = $TS_USER['user']['userid'];
+		$userid = aac('user')->isLogin();
+		
 		$topicid = $_POST['topicid'];
 		
 		$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='".$topicid."'");
@@ -621,7 +623,8 @@ switch ($ts) {
 	//置顶帖子
 	case "topic_istop":
 	
-		$userid = intval($TS_USER['user']['userid']);
+		$userid = aac('user')->isLogin();
+		
 		$topicid = intval($_GET['topicid']);
 		
 		$strTopic = $db->once_fetch_assoc("select userid,groupid,istop from ".dbprefix."group_topics where topicid='$topicid'");
@@ -642,9 +645,7 @@ switch ($ts) {
 		
 	//隐藏显示帖子
 	case "topic_isshow":
-		$userid = intval($TS_USER['user']['userid']);
-		
-		
+		$userid = aac('user')->isLogin();
 		
 		$topicid =intval($_GET['topicid']);
 		
@@ -736,7 +737,7 @@ switch ($ts) {
 			
 	//回复评论
 	case "recomment":
-		$userid = $TS_USER['user']['userid'];
+		$userid = aac('user')->isLogin();
 		$referid = $_POST['referid'];
 		$topicid = $_POST['topicid'];
 		$content = t($_POST['content']);
@@ -836,6 +837,7 @@ switch ($ts) {
 			}
 		}
 		break;
+	
 	case 'parseurl':
 		function formPost($url,$post_data){
 		  $o='';
@@ -875,7 +877,7 @@ switch ($ts) {
 		
 	//置顶帖子 
 	case "isposts":
-		$userid = intval($TS_USER['user']['userid']);
+		$userid = aac('user')->isLogin();
 		$topicid = intval($_GET['topicid']);
 		
 		if($userid == 0 || $topicid == 0) qiMsg("非法操作"); 

@@ -9,17 +9,18 @@
 
 <form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=edit_base">
 <table align="center" style="width:100%;clear: both;">
-    <tbody><tr><td valign="top" align="center" class="m">{$TS_HL[app][1096]}</td>
+    <tbody>
+	<tr><td width="100">{$TS_HL[app][1096]}</td>
     <td><input type="text" value="{$strGroup[groupname]}" maxlength="63" size="31" name="groupname" gtbfieldid="13"><br><br></td></tr>
-    <tr><td valign="top" align="center" class="m">{$TS_HL[app][1097]}</td>
-    <td><textarea cols="50" rows="15" name="groupdesc" id="editor_mini">{$strGroup[groupdesc]}</textarea><br><br></td></tr>
+    <tr><td>{$TS_HL[app][1097]}</td>
+    <td><textarea style="width:100%;height:250px;" name="groupdesc" id="editor_mini">{$strGroup[groupdesc]}</textarea><br><br></td></tr>
 	
 	<tr><td>{$TS_HL[app][1098]}</td><td><input <!--{if $strGroup[joinway]=='0'}-->checked="select"<!--{/if}--> name="joinway" type="radio" value="0" />{$TS_HL[app][1099]} <input <!--{if $strGroup[joinway]=='1'}-->checked="select"<!--{/if}-->  name="joinway" type="radio" value="1" />{$TS_HL[app][1100]}</td></tr>
 	
 	<tr><td>{$TS_HL[app][1101]}</td><td><input <!--{if $strGroup[isopen]=='0'}-->checked="select"<!--{/if}--> type="radio" name="isopen" value="0" />{$TS_HL[app][1102]} <input <!--{if $strGroup[isopen]=='1'}checked="select"<!--{/if}--> type="radio" name="isopen" value="1" />{$TS_HL[app][1103]}</td></tr>
 	
 	<tr>
-	<td valign="top">{$TS_HL[app][1104]}</td>
+	<td>{$TS_HL[app][1104]}</td>
 	<td>
 	{$TS_HL[app][1105]}<input name="role_leader" value="{$strGroup[role_leader]}" /><br />
 	{$TS_HL[app][1106]}<input name="role_admin" value="{$strGroup[role_admin]}" /><br />
@@ -40,7 +41,7 @@
 
 <div class="cright">
 
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1109]}{$strGroup[groupname]}{$TS_HL[app][1110]}</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1109]}{$strGroup[groupname]}</a></p>
 
 </div>
 
