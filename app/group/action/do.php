@@ -97,11 +97,11 @@ switch ($ts) {
 
 			qiMsg('没有任何内容是不允许你通过滴^_^');
 			
-		}elseif(mb_strlen($title,'utf8')>30){//限制发表内容多长度，默认为30
+		}elseif(mb_strlen($title,'utf8')>64){//限制发表内容多长度，默认为30
 			
 		 	qiMsg('标题很长很长很长很长...^_^');
 		
-		}elseif(mb_strlen($content,'utf8')>10000){//限制发表内容多长度，默认为1w
+		}elseif(mb_strlen($content,'utf8')>20000){//限制发表内容多长度，默认为1w
 			
 		 	qiMsg('发这么多内容干啥^_^');
 		
