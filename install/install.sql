@@ -236,8 +236,8 @@ CREATE TABLE IF NOT EXISTS `ts_event_users` (
 CREATE TABLE IF NOT EXISTS `ts_feed` (
   `feedid` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `template` varchar(300) NOT NULL DEFAULT '' COMMENT '动态模板',
-  `data` varchar(600) NOT NULL DEFAULT '' COMMENT '动态数据',
+  `template` varchar(1024) NOT NULL DEFAULT '' COMMENT '动态模板',
+  `data` varchar(1024) NOT NULL DEFAULT '' COMMENT '动态数据',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
   PRIMARY KEY (`feedid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='全站动态' AUTO_INCREMENT=1 ;
@@ -616,10 +616,12 @@ CREATE TABLE IF NOT EXISTS `ts_photo_album` (
   `albumdesc` varchar(400) NOT NULL DEFAULT '' COMMENT '相册介绍',
   `count_photo` int(11) NOT NULL DEFAULT '0',
   `count_view` int(11) NOT NULL DEFAULT '0',
+  `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否推荐',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
   `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`albumid`),
-  KEY `userid` (`userid`)
+  KEY `userid` (`userid`),
+  KEY `isrecommend` (`isrecommend`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='相册' AUTO_INCREMENT=1 ;
 
 --
