@@ -146,6 +146,40 @@ switch($ts){
 		
 		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid' and  userid='$userid' and addtime>'$addtime'");
 		
+		//添加动态
+		if($addtime > 0){
+		
+			$num = $db->once_fetch_assoc("select count(*) from ".dbprefix."photo where albumid='$albumid' and  userid='$userid' and addtime>'$addtime'");
+		
+			//feed开始
+			$feed_template = '<span class="pl">上传了{photonum}张照片到<a  href="{albumlink}" target="_blank">{albumname}</a></span><div class="indentrec clearfix">';
+			
+			foreach($arrPhoto as $key=>$item){
+				if($key < 4){
+					$feed_template .= '<div class="timeline-album"><a href="{photolink'.$key.'}" title="myself" target="_blank"><img alt="myself" src="{photo'.$key.'}"></a></div>';
+				}
+			}
+			
+			$feed_template .= '</div>';
+			
+			$feed_data = array(
+				'photonum' => $num['count(*)'],
+				'albumlink'	=> SITE_URL.tsurl('photo','album',array('ts'=>'photo','albumid'=>$strAlbum['albumid'])),
+				'albumname'	=> $strAlbum['albumname'],
+			);
+			
+			foreach($arrPhoto as $key=>$item){
+				if($key < 4){
+					$feed_data['photolink'.$key] = SITE_URL.tsurl('photo','show',array('photoid'=>$item['photoid']));
+					$feed_data['photo'.$key] = miniimg($item['photourl'],'photo',100,100,$item['path']);
+				}
+			}
+			
+			aac('feed')->addFeed($userid,$feed_template,serialize($feed_data));
+			//feed结束
+			
+		}
+		
 		$title = '批量修改-'.$strAlbum['albumname'];
 		include template("album_info");
 		break;
@@ -170,7 +204,7 @@ switch($ts){
 		//更新相册封面 
 		$db->query("update ".dbprefix."photo_album set `albumface`='$albumface' where `albumid`='$albumid'");
 		
-		qiMsg("图片信息批量修改成功！");
+		header("Location: ".SITE_URL.tsurl('photo','album',array('ts'=>'photo','albumid'=>$albumid)));
 		
 		break;
 	
