@@ -6,9 +6,9 @@ $url = SITE_URL."index.php?app=photo&ac=index&page=";
 
 $lstart = $page*28-28;
 
-$arrAlbum = $db->fetch_all_assoc("select * from ".dbprefix."photo_album order by albumid desc limit $lstart,28");
+$arrAlbum = $db->fetch_all_assoc("select * from ".dbprefix."photo_album where `isrecommend`='1' order by albumid desc limit $lstart,28");
 
-$albumNum = $db->once_num_rows("select * from ".dbprefix."photo_album");
+$albumNum = $db->once_num_rows("select * from ".dbprefix."photo_album  where `isrecommend`='1'");
 
 $pageUrl = pagination($albumNum, 28, $page, $url);
 

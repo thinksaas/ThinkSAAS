@@ -5,6 +5,7 @@
 <div class="mc">
 <h1>{$title}</h1>
 
+<div class="cleft">
 <div class="pl photitle">
 <!--{if $strAlbum[userid] == $TS_USER[user][userid]}-->    &nbsp;&gt;&nbsp;<a href="{SITE_URL}index.php?app=photo&ac=album&ts=edit&albumid={$strAlbum[albumid]}">修改相册属性</a>
     &nbsp;&gt;&nbsp;<a href="{SITE_URL}index.php?app=photo&ac=upload&albumid={$strAlbum[albumid]}">添加照片</a>
@@ -17,13 +18,18 @@
 <!--{loop $arrPhoto $key $item}-->
     <div class="box photo_wrap">
         <a title="{$item[photodesc]}" class="photolst_photo" href="{SITE_URL}{tsurl('photo','show',array(photoid=>$item[photoid]))}">
-        <img src="{SITE_URL}{php echo miniimg($item[photourl],'photo',170,170,$item[path])}">
+        <img src="{SITE_URL}{php echo miniimg($item[photourl],'photo',170,170,$item[path],1)}">
         </a><br>
         <div class="pl">{$item[photodesc]}</div>
         <div style="color:#999">
                     &nbsp;{$item[count_view]}浏览
         </div>
     </div>
+	
+	<!--{if is_int(($key+1)/3)}-->
+	<div class="clear"></div>
+	<!--{/if}-->
+	
 <!--{/loop}-->
 <!--{else}-->
 <br>
@@ -46,7 +52,7 @@
 &nbsp;{php echo date('Y-m-d',$strAlbum[addtime])}&nbsp;创建
 </span>
 <!--{if $strAlbum[userid] == $TS_USER[user][userid]}-->
-<span class="gact">&nbsp;&gt;&nbsp;<a title="将相册以及相册中的所有照片一并删除，确定吗" class="j a_confirm_link" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=album&ts=del&albumid={$strAlbum[albumid]}">删除相册</a>&nbsp;&nbsp;</span>
+<span class="gact">&nbsp;&gt;&nbsp;<a title="将相册以及相册中的所有照片一并删除，确定吗" class="j a_confirm_link" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=album&ts=del&albumid={$strAlbum[albumid]}">删除相册</a></span>
 <!--{/if}-->
 </div>
 
@@ -69,8 +75,9 @@
 <div>
 
 </div>
+</div>
 
-
+<div class="cright"></div>
 
 </div>
 </div>

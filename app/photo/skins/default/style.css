@@ -6,23 +6,23 @@
 }
 
 .albumlst {
-    float: left;
+  float: left;
     line-height: 1.65em;
-    margin: 5px;
-    padding: 10px;
-    width: 180px;
-	background:#F0F0F0;
+    margin: 9px 0 10px;
+    padding: 0 0 10px;
+    width: 49%;
 }
 
 .album_photo {
-    display: block;
+ display: block;
+    height: 181px;
     overflow: hidden;
     width: 181px;
-	text-align:center;
-	padding: 4px 7px 7px 0px;
 }
 
-.album_photo img{vertical-align:middle;margin:0px;}
+.album_photo img{
+background: url("albumback.gif") no-repeat scroll 1px 1px transparent;
+    padding: 4px 7px 7px 4px;}
 
 .album_photo:link {
     color: #777777;
@@ -36,10 +36,11 @@
 }
 
 .albumlst_r {
-    color: #777777;
+  color: #777777;
     float: left;
     overflow: hidden;
     padding-top: 4px;
+    width: 240px;
     word-wrap: break-word;
 }
 
@@ -84,10 +85,8 @@
     display: inline;
     float: left;
     margin: 10px 13px 25px;
-	padding:10px;
     overflow: hidden;
     width: 170px;
-	background:#F0F0F0;
 	
 }
 .photolst_photo {

@@ -129,8 +129,6 @@ class location{
 		$areaCount = $this->db->once_fetch_assoc("select count(areaid) from ".dbprefix."area where areaid='$areaid'");
 		if($areaCount['count(areaid)'] > 0){
 			
-			$
-			
 			$arrArea = $this->db->fetch_all_assoc("select areaid from ".dbprefix."area where referid='$areaid'");
 			foreach($arrArea as $item){
 				

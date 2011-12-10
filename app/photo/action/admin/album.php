@@ -101,4 +101,22 @@ switch($ts){
 		qiMsg("统计完成！");
 		
 		break;
+		
+	//推荐相册 
+	case "isrecommend":
+	
+		$albumid = $_GET['albumid'];
+		
+		$strAlbum = $db->once_fetch_assoc("select isrecommend from ".dbprefix."photo_album where `albumid`='$albumid'");
+		
+		if($strAlbum['isrecommend']==0){
+			$db->query("update ".dbprefix."photo_album set `isrecommend`='1' where `albumid`='$albumid'");
+		}else{
+			$db->query("update ".dbprefix."photo_album set `isrecommend`='0' where `albumid`='$albumid'");
+		}
+	
+		qiMsg("操作成功！");
+	
+		break;
+	
 }
