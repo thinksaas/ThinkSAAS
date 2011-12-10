@@ -269,7 +269,6 @@ function cleanJs($text){
 	
 	$text = preg_replace ( '/<\?|\?>/', '', $text );
 	
-	
 	//完全过滤js
 	$text = preg_replace ( '/<script?.*\/script>/', '', $text );
 	//过滤多余html
