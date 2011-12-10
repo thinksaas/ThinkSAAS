@@ -21,7 +21,7 @@
 }
 
 .album_photo img{
-background: url("albumback.gif") no-repeat scroll 1px 1px transparent;
+background:;
     padding: 4px 7px 7px 4px;}
 
 .album_photo:link {
@@ -59,9 +59,10 @@ background: url("albumback.gif") no-repeat scroll 1px 1px transparent;
     padding: 0;
 }
 .mbtl {
-    float: left;
+float: left;
     margin: 8px 7px 0 0;
     padding: 0;
+    width: 55px;
 }
 
 .mbtrdot {

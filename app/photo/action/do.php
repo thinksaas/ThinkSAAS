@@ -3,8 +3,7 @@
 switch($ts){
 	case "flash":
 		
-		$userid = intval($_GET['userid']);
-		if($userid=='0') header("Location: ".SITE_URL."index.php");
+		$userid = aac('user')->isLogin();
 		
 		$albumid = intval($_GET['albumid']);
 		
@@ -53,7 +52,9 @@ switch($ts){
 		
 	//删除照片
 	case "photo_del":
-		$userid = intval($TS_USER['user']['userid']);
+	
+		$userid = aac('user')->isLogin();
+		
 		aac('user')->isUser($userid);
 		
 		$photoid = $_GET['photoid'];
@@ -97,7 +98,8 @@ switch($ts){
 		//标签
 		doAction('add_comment','',$content,'');
 		
-		$userid = intval($TS_USER['user']['userid']);
+		$userid = aac('user')->isLogin();
+		
 		aac('user')->isUser($userid);
 		
 		$arrData	= array(
@@ -124,5 +126,30 @@ switch($ts){
 		
 		header("Location: ".SITE_URL."index.php?app=photo&ac=show&photoid=".$photoid);
 
+		break;
+		
+	//删除评论
+	case "delcomment":
+	
+		$userid = aac('user')->isLogin();
+	
+		$commentid = $_GET['commentid'];
+		
+		$strComment = $db->once_fetch_assoc("select photoid,userid from ".dbprefix."photo_comment where `commentid`='$commentid'");
+		
+		$strPhoto = $db->once_fetch_assoc("select userid from ".dbprefix."photo where `photoid`='".$strComment['photoid']."'");
+		
+		if($userid == $strPhoto['userid'] || $TS_USER['user']['isadmin']=='1'){
+		
+			$db->query("delete from ".dbprefix."photo_comment where `commentid`='$commentid'");
+			
+			qiMsg("删除评论成功！");
+			
+		}else{
+			qiMsg("非法操作！");
+		}
+		
+		
+	
 		break;
 }

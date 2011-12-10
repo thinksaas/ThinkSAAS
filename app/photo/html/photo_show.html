@@ -5,6 +5,8 @@
 <div class="mc">
 <h1>{$title}</h1>
 
+<div class="cleft">
+
 <div style="padding:3px;border-bottom:1px solid #ddd;margin:5px 0 10px 0;text-align:center;overflow: hidden;" class="pl">
     <span class="rr">&gt; <a href="{SITE_URL}{tsurl('photo','album',array(ts=>photo,albumid=>$strAlbum[albumid]))}">返回相册</a></span>
     <span class="ll">第{$nowPage}张 / 共{$conutPage}张</span>
@@ -77,7 +79,7 @@
 <div class="align-right">
 
 <!--{if intval($TS_USER[user][isadmin]) == 1}-->
-<span class="gact">&gt; <a class="j a_confirm_link" href="">删除</a></span>
+<span class="gact">&gt; <a class="j a_confirm_link" href="{SITE_URL}index.php?app=photo&ac=do&ts=delcomment&commentid={$item[commentid]}">删除</a></span>
 <!--{/if}-->
 
 </div>
@@ -102,6 +104,8 @@
 
 </div>
 <br>
+</div>
+
 </div>
 
 </div>

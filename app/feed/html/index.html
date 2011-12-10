@@ -58,13 +58,13 @@
 
 <ul>
 <!--{loop $arrFeed $key $item}-->
-{if date('Y-m-d',$item[addtime]) !=date('Y-m-d',$arrFeed[$key-1][addtime])}
+<!--{if date('Y-m-d',$item[addtime]) !=date('Y-m-d',$arrFeed[$key-1][addtime])}-->
 <li style="margin-top:10px;border-bottom:1px solid #ddd;"><h2>{php echo date('Y-m-d',$item[addtime])}</h2></li>
-{/if}
+<!--{/if}-->
 <li class="mbtl">
-{if $item[user][userid] !=$arrFeed[$key-1][user][userid]}
+<!--{if $item[user][userid] !=$arrFeed[$key-1][user][userid]}-->
 <a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[user][userid]))}"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}"></a>
-{/if}
+<!--{/if}-->
 </li>
 <li class="mbtr">
 <a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[user][userid]))}">{$item[user][username]}</a> 

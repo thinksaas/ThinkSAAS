@@ -12,13 +12,15 @@ $albumNum = $db->once_num_rows("select * from ".dbprefix."photo_album  where `is
 
 $pageUrl = pagination($albumNum, 28, $page, $url);
 
-$arrComments = $db->fetch_all_assoc("select * from ".dbprefix."photo_comment order by commentid desc limit 8");
 
+
+//获取最新的评论
+$arrComments = $db->fetch_all_assoc("select * from ".dbprefix."photo_comment order by addtime desc limit 30");
 foreach($arrComments as $key=>$item){
 	$arrComment[] = $item;
-	$arrComment[$key]['user'] = aac('user')->getUserForApp($item['userid']);
-	$arrComment[$key]['photo'] = $new['photo']->getPhotoForApp($item['photoid']);
+	$arrComment[$key]['user'] = aac('user')->getUserForApp($item['userid']);;
 }
+
 
 $title = '最新相册';
 include template("index");
