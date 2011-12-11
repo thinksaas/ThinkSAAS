@@ -1,7 +1,8 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 //调出活动类型 
-$arrEventType = AppCacheRead('event','types.php');
+$arrEventType = fileRead('types.php','data','event');
+
 
 //推荐活动
 $arrEvents = $db->fetch_all_assoc("select eventid from ".dbprefix."event where `isrecommend`='1' order by addtime desc limit 7");

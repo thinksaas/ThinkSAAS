@@ -19,7 +19,7 @@ switch($ts){
 				$arrOption[$item['optionname']] = $item['optionvalue'];
 		}
 		
-		AppCacheWrite($arrOption,'system','options.php');
+		fileWrite('system_options.php','data',$arrOption);
 		
 		qiMsg("系统主题更换成功！");
 	

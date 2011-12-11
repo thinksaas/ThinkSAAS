@@ -24,7 +24,7 @@ switch($ts){
 			$arrOption[$item['optionname']] = $item['optionvalue'];
 		}
 		
-		AppCacheWrite($arrOption,'mail','options.php');
+		fileWrite('mail_options.php','data',$arrOption);
 		
 		qiMsg("邮件配置更新成功，并重置了缓存文件^_^");
 		

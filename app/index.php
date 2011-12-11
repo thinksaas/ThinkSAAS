@@ -29,8 +29,8 @@ $TS_APP['system']	= array(
 //加载APP应用首页和配置文件
 if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 
-	//加载系统缓存文件 
-	$TS_SITE['base'] = AppCacheRead('system','options.php');
+	//加载系统缓存文件
+	$TS_SITE['base'] = fileRead('options.php','data','system');
 	
 	//语言
 	$hl_c = isset($_COOKIE['ts_lang']) ? $_COOKIE['ts_lang'] : '';
@@ -43,8 +43,9 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	//设置时区
 	date_default_timezone_set($TS_SITE['base']['timezone']);
 	
-	//加载APP导航 
-	$TS_SITE['appnav'] = AppCacheRead('system','appnav.php');
+	//加载APP导航
+	$TS_SITE['appnav'] = fileRead('appnav.php','data','system');
+
 	
 	define('SITE_URL', $TS_SITE['base']['site_url']);
 	
@@ -61,13 +62,15 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	}
 	
 	//加载APP配置缓存文件
-	if(is_dir('data/cache/'.$app) && $app != 'system'){
-		if(is_file('data/cache/'.$app.'/options.php')){
-			$TS_APP['options'] = AppCacheRead($app,'options.php');
+	if($app != 'system'){
+		if(is_file('data/'.$app.'_options.php')){
+		
+			$TS_APP['options'] = fileRead('options.php','data',$app);
 			
 			if($TS_APP['options']['isenable']=='1' && $ac != 'admin') qiMsg($app."应用关闭，请开启后访问！");
 		}
 	}
+	
 
 	//加载APP配置文件
 	include_once 'app/'.$app.'/config.php';
@@ -123,11 +126,14 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 		}
 	}
 	
-	//加载公用插件 
+	
 	$tsHooks = array();
-	if(is_dir('data/cache/pubs') && $app != 'pubs'){
-		if(is_file('data/cache/pubs/plugins.php')){
-		$public_plugins = AppCacheRead('pubs','plugins.php');
+	if($app != 'pubs'){
+		
+		//加载公用插件 
+		if(is_file('data/pubs_plugins.php')){
+			$public_plugins = fileRead('plugins.php','data','pubs');
+		
 			if ($public_plugins && is_array($public_plugins)) {
 				foreach($public_plugins as $item) {
 					if(is_file('plugins/pubs/'.$item.'/'.$item.'.php')) {
@@ -136,12 +142,10 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 				}
 			}
 		}
-	}
-	
-	//加载APP插件
-	if(is_dir('data/cache/'.$app) && $app != 'pubs'){
-		if(is_file('data/cache/'.$app.'/plugins.php')){
-			$active_plugins = AppCacheRead($app,'plugins.php');
+		
+		//加载APP插件
+		if(is_file('data/'.$app.'_plugins.php')){
+			$active_plugins = fileRead('plugins.php','data',$app);
 			if ($active_plugins && is_array($active_plugins)) {
 				foreach($active_plugins as $item) {
 					if(is_file('plugins/'.$app.'/'.$item.'/'.$item.'.php')) {

@@ -21,14 +21,17 @@ switch($ts){
 		
 			$pkey = array_search($pname,$active_plugins);
 			unset($active_plugins[$pkey]);
-			AppCacheWrite($active_plugins,$app,'plugins.php');
+			
+			fileWrite('group_plugins.php','data',$active_plugins);
 			
 			qiMsg("插件停用成功！");
 			
 		}elseif($isused == '1'){
 		
 			array_push($active_plugins,$pname);
-			AppCacheWrite($active_plugins,$app,'plugins.php');
+			
+			fileWrite('group_plugins.php','data',$active_plugins);
+			
 			qiMsg("插件启用成功！");
 		
 		}

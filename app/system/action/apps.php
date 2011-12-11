@@ -93,7 +93,7 @@ switch($ts){
 		$appkey = $_POST['appkey'];
 		$appname = $_POST['appname'];
 		
-		$arrNav = include 'data/cache/system/appnav.php';
+		$arrNav = include 'data/system_appnav.php';
 		
 		if(is_array($arrNav)){
 			$arrNav[$appkey] = $appname;
@@ -103,7 +103,7 @@ switch($ts){
 			);
 		}
 		
-		AppCacheWrite($arrNav,'system','appnav.php');
+		fileWrite('system_appnav.php','data',$arrNav);
 		
 		echo '1';
 		
@@ -114,11 +114,11 @@ switch($ts){
 		
 		$appkey = $_POST['appkey'];
 
-		$arrNav = include 'data/cache/system/appnav.php';
+		$arrNav = include 'data/system_appnav.php';
 		
 		unset($arrNav[$appkey]);
 		
-		AppCacheWrite($arrNav,'system','appnav.php');
+		fileWrite('system_appnav.php','data',$arrNav);
 		
 		echo '1';
 		

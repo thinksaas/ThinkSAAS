@@ -11,7 +11,7 @@ foreach($arrOptions as $item){
 }
 
 //时区和语言
-$arrTime = AppCacheRead('system','timezone.php');
-$arrLang = AppCacheRead('system','lang.php');
+$arrTime = fileRead('timezone.php','data','system');
+$arrLang = fileRead('lang.php','data','system');
 
 include template("options");

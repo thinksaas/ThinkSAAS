@@ -15,7 +15,7 @@ class mail{
 	
 	//发送邮件
 	function postMail($sendmail,$subject,$content){
-		$options = AppCacheRead('mail','options.php');
+		$options = fileRead('options.php','data','mail');
 		date_default_timezone_set('Asia/Shanghai');
 		require_once THINKSAAS.'/PHPMailer/class.phpmailer.php';
 		$mail = new PHPMailer();

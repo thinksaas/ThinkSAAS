@@ -25,7 +25,7 @@ switch($ts){
 				$arrOption[$item['optionname']] = $item['optionvalue'];
 		}
 		
-		AppCacheWrite($arrOption,'system','options.php');
+		fileWrite('system_options.php','data',$arrOption);
 		
 		qiMsg("系统选项更新成功，并重置了缓存文件^_^");
 		

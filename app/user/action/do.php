@@ -190,28 +190,6 @@ switch($ts){
 		qiMsg("密码修改成功！");
 		
 		break;
-	
-	//选择常住城市
-	case "city":
-		$provinceid = $_GET['provinceid'];
-		//$arrCity = $db->fetch_all_assoc("select * from ".dbprefix."app_location_city where provinceid = '$provinceid' and isshow='0'");
-		$arrCitys = AppCacheRead('location','city.php');
-		
-		$arrCity = $arrCitys[$provinceid];
-		
-		include template("city");
-		
-		break;
-	//选择区县
-	case "area":
-		$cityid = $_GET['cityid'];
-		//$arrArea = $db->fetch_all_assoc("select * from ".dbprefix."app_location_area where cityid = '$cityid' and isshow='0'");
-		$arrAreas = AppCacheRead('location','area.php');
-		$arrArea = $arrAreas[$cityid];
-	
-		include template("area");
-	
-		break;
 
 	
 	//用户跟随

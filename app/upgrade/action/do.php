@@ -19,7 +19,8 @@ $arrOptions = $db->fetch_all_assoc("select optionname,optionvalue from ".dbprefi
 foreach($arrOptions as $item){
 		$arrOption[$item['optionname']] = $item['optionvalue'];
 }
-AppCacheWrite($arrOption,'system','options.php');
+
+fileWrite('system_options.php','data',$arrOption);
 
 //删除data/up.php文件
 unlink('data/up.php');

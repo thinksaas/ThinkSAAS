@@ -14,6 +14,6 @@ $eventNum = $db->once_fetch_assoc("select count(eventid) from ".dbprefix."event"
 $arrTypes['count'] = $eventNum['count(eventid)'];
 
 //生成缓存文件
-AppCacheWrite($arrTypes,'event','types.php');
+fileWrite('event_types.php','data',$arrTypes);
 
 qiMsg("更新成功！");

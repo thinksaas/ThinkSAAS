@@ -59,7 +59,7 @@ defined('IN_TS') or die('Access Denied.');
 			$arrTypes['count'] = $eventNum['count(eventid)'];
 			
 			//生成缓存文件
-			AppCacheWrite($arrTypes,'event','types.php');
+			fileWrite('event_types.php','data',$arrTypes);
 			
 			//上传海报图片 
 			if (!empty($_FILES)) {

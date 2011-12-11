@@ -23,14 +23,16 @@ switch($ts){
 		
 			$pkey = array_search($pname,$public_plugins);
 			unset($public_plugins[$pkey]);
-			AppCacheWrite($public_plugins,'pubs','plugins.php');
+
+			fileWrite('pubs_plugins.php','data',$public_plugins);
 			
 			qiMsg("插件停用成功！");
 			
 		}elseif($isused == '1'){
 		
 			array_push($public_plugins,$pname);
-			AppCacheWrite($public_plugins,'pubs','plugins.php');
+
+			fileWrite('pubs_plugins.php','data',$public_plugins);
 			qiMsg("插件启用成功！");
 		
 		}

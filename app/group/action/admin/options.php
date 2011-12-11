@@ -37,7 +37,7 @@ switch($ts){
 			$arrOption[$item['optionname']] = $item['optionvalue'];
 		}
 		
-		AppCacheWrite($arrOption,'group','options.php');
+		fileWrite('group_options.php','data',$arrOption);
 		
 		qiMsg("小组配置修改成功！");
 		

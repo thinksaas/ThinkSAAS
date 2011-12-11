@@ -3,8 +3,9 @@ defined('IN_TS') or die('Access Denied.');
 //活动类型
 
 $typeid = $_GET['typeid'];
-//调出活动类型 
-$arrEventType = AppCacheRead('event','types.php');
+//调出活动类型
+$arrEventType = fileRead('types.php','data','event');
+
 
 if($typeid == 0){
 	$arrEvents = $db->fetch_all_assoc("select eventid from ".dbprefix."event order by addtime desc");

@@ -20,7 +20,7 @@ switch($ts){
 				$arrOption[$item['optionname']] = $item['optionvalue'];
 		}
 		
-		AppCacheWrite($arrOption,'system','options.php');
+		fileWrite('system_options.php','cache',$arrOption);
 		
 		if($site_urltype == 4){
 		
