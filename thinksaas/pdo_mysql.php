@@ -171,7 +171,7 @@ class MySql {
 	    </table>
 </body>
 		</html>';
-	$this->log($e);
+	//$this->log($e);
 	exit();
 	}
 	

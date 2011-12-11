@@ -65,7 +65,7 @@ header('Content-Type: text/html; charset=UTF-8');
 //加载软件信息
 $TS_SOFT['info'] = array(
 	'name'	=>	'ThinkSAAS',
-	'version'	=>	'1.5-1210',
+	'version'	=>	'1.6',
 	'url'		=>	'http://www.thinksaas.cn/',
 	'email'	=>	'thinksaas@qq.com',
 	'copyright' =>	'ThinkSAAS',

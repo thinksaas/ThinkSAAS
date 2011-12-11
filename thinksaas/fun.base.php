@@ -377,46 +377,44 @@ function getmicrotime(){
 	return ((float)$usec + (float)$sec); 
 }
 
-//写入APP文件缓存
-function AppCacheWrite($cacheData,$app,$cacheFile){
-	$appFile = THINKDATA.'/cache/'.$app;
+/*写入文件
+ @By QiuJun 2011-12-10
+ @$file 缓存文件
+ @$dir 缓存目录
+ @$data 内容
+ */
+function fileWrite($file,$dir,$data){
+
+	!is_dir($dir)?mkdir($dir,0777):'';
 	
-	!is_dir($appFile)?mkdir($appFile):'';
+	$dfile = $dir.'/'.$file;
 	
-	$cacheFile = $appFile.'/'.$cacheFile;
+	if($dfile) unlink($dfile);
 	
-	if($cacheFile) unlink($cacheFile);
+	$data = "<?php\ndefined('IN_TS') or die('Access Denied.');\nreturn ".var_export($data,true).";";
 	
-	@ $fp = fopen($cacheFile,'a') OR qiMsg('读取缓存失败。如果您使用的是Unix/Linux主机，请修改缓存目录 (data/cache/'.$app.') 下所有文件的权限为777。如果您使用的是Windows主机，请联系管理员，将该目录下所有文件设为everyone可写');
-	//$cacheData = serialize($cacheData);
-	$cacheData = "<?php\ndefined('IN_TS') or die('Access Denied.');\nreturn ".var_export($cacheData,true).";\n?>";
-	@ $fw = fwrite($fp,$cacheData) OR qiMsg('写入缓存失败，缓存目录 (data/cache/'.$app.') 不可写');
-	fclose($fp);
+	file_put_contents($dfile,$data);
+	
+	return true;
+	
 }
 
-//读取APP文件缓存
-function AppCacheRead($app,$cacheFile){
-	$arrData = require_once THINKDATA.'/cache/'.$app.'/'.$cacheFile;
-	return $arrData;
-}
-
-//插件缓存写入
-function PluginCacheWrite($cacheData,$app,$plugin,$cacheFile){
-	$appFile = 'plugins/'.$app.'/'.$plugin;
-	!is_dir($appFile)?mkdir($appFile):'';
-	$cacheFile = $appFile.'/'.$cacheFile;
-	if($cacheFile) unlink($cacheFile);
-	@ $fp = fopen($cacheFile,'a') OR qiMsg('读取缓存失败。如果您使用的是Unix/Linux主机，请修改缓存目录 (plugins/'.$app.'/'.$plugin.'/'.$cacheFile.') 的权限为777。如果您使用的是Windows主机，请联系管理员，将该目录下所有文件设为everyone可写');
-	//$cacheData = serialize($cacheData);
-	$cacheData = "<?php\ndefined('IN_TS') or die('Access Denied.');\nreturn ".var_export($cacheData,true).";\n?>";
-	@ $fw = fwrite($fp,$cacheData) OR qiMsg('写入缓存失败，缓存目录 (plugins/'.$app.'/'.$plugin.'/'.$cacheFile.') 不可写');
-	fclose($fp);
-}
-
-//插件缓存读取
-function PluginCacheRead($app,$plugin,$cacheFile){
-	$cacheData = require_once 'plugins/'.$app.'/'.$plugin.'/'.$cacheFile;
-	return $cacheData;
+/*读取文件，过渡期ThinkSAAS1.6，到1.8的时间可以全面进行精简到fileRead($dfile)
+ @$file 文件
+ @$dir 目录
+ @$app 过渡一下app
+*/
+function fileRead($file,$dir,$app){
+	if(is_file($dir.'/'.$app.'_'.$file)){
+		$data = require_once $dir.'/'.$app.'_'.$file;
+		return $data;
+	}elseif(is_file($dir.'/cache/'.$app.'/'.$file)){
+		$data = require_once $dir.'/cache/'.$app.'/'.$file;
+		return $data;
+	}else{
+		echo 'No File:'.$dir.'/'.$app.'_'.$file;
+		exit;
+	}
 }
 
 //把数组转换为,号分割的字符串
@@ -696,7 +694,7 @@ function ob_gzip($content) {
  */
 function tsurl($app,$ac='',$params=array()){
 	
-	$options = include 'data/cache/system/options.php';
+	$options = include 'data/system_options.php';
 	
 	$urlset = $options['site_urltype'];
 	
