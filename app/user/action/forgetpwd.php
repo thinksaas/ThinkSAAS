@@ -15,15 +15,13 @@ switch($ts){
 	//执行登录
 	case "do":
 	
-		$email	= t($_POST['email']);
+		$email	= trim($_POST['email']);
 		
-		$isEmail = $db->once_num_rows("SELECT * FROM ".dbprefix."user WHERE email='$email'");
+		$emailNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."user where `email`='$email'");
 		
-		if(empty($email)){
+		if($email==''){
 			qiMsg('Email输入不能为空^_^');
-		}elseif(valid_email($email) == false){
-			qiMsg('Email邮箱输入有误^_^');
-		}elseif($isEmail == '0'){
+		}elseif($emailNum['count(*)'] == '0'){
 			qiMsg("Email不存在，你可能还没有注册^_^");
 		}else{
 		
