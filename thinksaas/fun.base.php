@@ -694,7 +694,11 @@ function ob_gzip($content) {
  */
 function tsurl($app,$ac='',$params=array()){
 	
-	$options = include 'data/system_options.php';
+	if(is_file('data/system_options.php')){
+		$options = include 'data/system_options.php';
+	}else{
+		$options = include 'data/cache/system/options.php';
+	}
 	
 	$urlset = $options['site_urltype'];
 	
