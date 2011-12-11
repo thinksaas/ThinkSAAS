@@ -2,8 +2,8 @@
 defined('IN_TS') or die('Access Denied.');
 return array (
   'site_title' => 'ThinkSAAS',
-  'site_subtitle' => '又一个ThinkSAAS社区',
-  'site_url' => 'http://localhost/thinksaas/svv/',
+  'site_subtitle' => '又一个ThinkSAAS小组社区',
+  'site_url' => 'http://localhost/thinksaas/git/ThinkSAAS/',
   'site_email' => 'admin@admin.com',
   'site_icp' => '京ICP备09050100号',
   'isface' => '0',
@@ -15,4 +15,3 @@ return array (
   'timezone' => 'Asia/Hong_Kong',
   'lang' => 'zh_cn',
 );
-?>
