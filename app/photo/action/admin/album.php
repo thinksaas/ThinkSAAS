@@ -9,11 +9,11 @@ switch($ts){
 		
 		$url = SITE_URL.'index.php?app=photo&ac=admin&mg=album&ts=list&page=';
 		
-		$arrAlbum = $db->fetch_all_assoc("select * from ".dbprefix."photo_album limit $lstart,10");
+		$arrAlbum = $db->fetch_all_assoc("select * from ".dbprefix."photo_album order by addtime desc limit $lstart,10");
 		
-		$album_num = $db->once_fetch_assoc("select count(albumid) from ".dbprefix."photo_album");
+		$albumNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."photo_album");
 		
-		$pageUrl = pagination($album_num['count(albumid)'], 10, $page, $url);
+		$pageUrl = pagination($albumNum['count(*)'], 10, $page, $url);
 		
 		include template("admin/album_list");
 		break;
@@ -50,7 +50,7 @@ switch($ts){
 		
 		$db->query("delete from ".dbprefix."photo where albumid='$albumid'");
 		
-		qiMsg("相册删除成功！",'返回相册列表！',SITE_URL.'index.php?app=photo&ac=admin&mg=album&ts=list');
+		qiMsg("相册删除成功！");
 		
 		break;
 		

@@ -1,6 +1,17 @@
 <?php
 $photoid = intval($_GET['photoid']);
-if($photoid == 0) header("Location: ".SITE_URL."index.php");
+
+if($photoid == 0){
+	header("Location: ".SITE_URL.tsurl('photo'));
+	exit;
+}
+
+$photoNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."photo where `photoid`='$photoid'");
+
+if($photoNum['count(*)']==0){
+	header("Location: ".SITE_URL.tsurl('photo'));
+	exit;
+}
 
 $strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
 

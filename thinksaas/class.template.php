@@ -20,9 +20,7 @@ class template {
 
 		$template = file_get_contents($tplfile);
 		$template = $this->parse($template);
-		
-		!is_dir(dirname($objfile))?mkdir(dirname($objfile),0777):'';
-		
+		makedir(dirname($objfile));
 		isWriteFile($objfile, $template, $mod = 'w', TRUE);
 
 	}

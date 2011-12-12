@@ -3,7 +3,11 @@
 switch($ts){
 	case "flash":
 		
-		$userid = aac('user')->isLogin();
+		$userid = intval($_GET['userid']);
+		if($userid=='0'){
+			echo '00000';
+			exit;
+		}
 		
 		$albumid = intval($_GET['albumid']);
 		
@@ -53,7 +57,12 @@ switch($ts){
 	//删除照片
 	case "photo_del":
 	
-		$userid = aac('user')->isLogin();
+		//用户是否登录
+		$userid = intval($TS_USER['user']['userid']);
+		if($userid == 0){
+			header("Location: ".SITE_URL.tsurl('user','login'));
+			exit;
+		}
 		
 		aac('user')->isUser($userid);
 		
@@ -95,12 +104,18 @@ switch($ts){
 	case "comment_do":
 		$photoid	= intval($_POST['photoid']);
 		$content	= h($_POST['content']);
-		//标签
-		doAction('add_comment','',$content,'');
 		
-		$userid = aac('user')->isLogin();
+		//用户是否登录
+		$userid = intval($TS_USER['user']['userid']);
+		if($userid == 0){
+			header("Location: ".SITE_URL.tsurl('user','login'));
+			exit;
+		}
 		
 		aac('user')->isUser($userid);
+		
+		//标签
+		doAction('add_comment','',$content,'');
 		
 		$arrData	= array(
 			'photoid'			=> $photoid,
@@ -131,7 +146,12 @@ switch($ts){
 	//删除评论
 	case "delcomment":
 	
-		$userid = aac('user')->isLogin();
+		//用户是否登录
+		$userid = intval($TS_USER['user']['userid']);
+		if($userid == 0){
+			header("Location: ".SITE_URL.tsurl('user','login'));
+			exit;
+		}
 	
 		$commentid = $_GET['commentid'];
 		

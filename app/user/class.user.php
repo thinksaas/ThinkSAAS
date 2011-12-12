@@ -157,19 +157,6 @@
 			}
 		}
 		
-		//判断会员是否登录
-		function isLogin(){
-			global $TS_USER;
-			$userid = intval($TS_USER['user']['userid']);
-						
-			if($userid == 0){
-				header("Location: ".SITE_URL.tsurl('user','login'));exit;
-			}else{
-				return $userid;
-			}
-			
-		}
-		
 		/*获取salt*/
 		 function randstr($len=6) {
 			$chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-@#~*^%$!()'; 

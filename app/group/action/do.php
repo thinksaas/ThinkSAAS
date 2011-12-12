@@ -5,7 +5,12 @@ defined('IN_TS') or die('Access Denied.');
 if($ts=='addcomment'){
 	if (IS_POST) {
 		
-		$userid = aac('user')->isLogin();
+		//用户是否登录
+		$userid = intval($TS_USER['user']['userid']);
+		if($userid == 0){
+			header("Location: ".SITE_URL.tsurl('user','login'));
+			exit;
+		}
 		
 		$topicid	= intval($_POST['topicid']);
 		$content	= trim($_POST['content']);
@@ -74,7 +79,12 @@ switch ($ts) {
 
 	case "new_topic":
 	
-		$userid = aac('user')->isLogin();
+		//用户是否登录
+		$userid = intval($TS_USER['user']['userid']);
+		if($userid == 0){
+			header("Location: ".SITE_URL.tsurl('user','login'));
+			exit;
+		}
 	
 		$groupid	= intval($_POST['groupid']);
 		
@@ -186,7 +196,7 @@ switch ($ts) {
 	//加入该小组
 	case "joingroup":
 		
-		$userid = aac('user')->isLogin();
+		$userid = intval($TS_USER['user']['userid']);
 		
 		$groupid = intval($_POST['groupid']);
 		
@@ -214,7 +224,7 @@ switch ($ts) {
 	//退出该小组
 	case "exitgroup":
 		
-		$userid = aac('user')->isLogin();
+		$userid = intval($TS_USER['user']['userid']);
 		
 		$groupid = intval($_POST['groupid']);
 		
@@ -421,7 +431,12 @@ switch ($ts) {
 	//创建小组
 	case "group_add":
 		
-		$userid = aac('user')->isLogin();
+		//用户是否登录
+		$userid = intval($TS_USER['user']['userid']);
+		if($userid == 0){
+			header("Location: ".SITE_URL.tsurl('user','login'));
+			exit;
+		}
 		
 		$oneid = intval($_POST['oneid']);
 		$twoid = intval($_POST['twoid']);
@@ -512,7 +527,8 @@ switch ($ts) {
 	//删除帖子
 	case "topic_del":
 	
-		$userid = aac('user')->isLogin();
+		//用户是否登录
+		$userid = intval($TS_USER['user']['userid']);
 		
 		$groupid = $_POST['groupid'];
 		$topicid = $_POST['topicid'];
@@ -549,7 +565,12 @@ switch ($ts) {
 	//编辑帖子 
 	case "topic_eidt":
 	
-		$userid = aac('user')->isLogin();
+		//用户是否登录
+		$userid = intval($TS_USER['user']['userid']);
+		if($userid == 0){
+			header("Location: ".SITE_URL.tsurl('user','login'));
+			exit;
+		}
 		
 		$topicid = $_POST['topicid'];
 		$title = htmlspecialchars(trim($_POST['title']));
@@ -599,7 +620,7 @@ switch ($ts) {
 	//收藏帖子
 	case "topic_collect":
 		
-		$userid = aac('user')->isLogin();
+		$userid = intval($TS_USER['user']['userid']);
 		
 		$topicid = $_POST['topicid'];
 		
@@ -607,7 +628,7 @@ switch ($ts) {
 		
 		$collectNum = $db->once_num_rows("select * from ".dbprefix."group_topics_collects where userid='$userid' and topicid='$topicid'");
 		
-		if($userid == ''){
+		if($userid == '0'){
 			echo 0;
 		}elseif($userid == $strTopic['userid']){
 			echo 1;
@@ -623,7 +644,12 @@ switch ($ts) {
 	//置顶帖子
 	case "topic_istop":
 	
-		$userid = aac('user')->isLogin();
+		//用户是否登录
+		$userid = intval($TS_USER['user']['userid']);
+		if($userid == 0){
+			header("Location: ".SITE_URL.tsurl('user','login'));
+			exit;
+		}
 		
 		$topicid = intval($_GET['topicid']);
 		
@@ -645,7 +671,12 @@ switch ($ts) {
 		
 	//隐藏显示帖子
 	case "topic_isshow":
-		$userid = aac('user')->isLogin();
+		//用户是否登录
+		$userid = intval($TS_USER['user']['userid']);
+		if($userid == 0){
+			header("Location: ".SITE_URL.tsurl('user','login'));
+			exit;
+		}
 		
 		$topicid =intval($_GET['topicid']);
 		
@@ -737,7 +768,9 @@ switch ($ts) {
 			
 	//回复评论
 	case "recomment":
-		$userid = aac('user')->isLogin();
+	
+		$userid = intval($TS_USER['user']['userid']);
+		
 		$referid = $_POST['referid'];
 		$topicid = $_POST['topicid'];
 		$content = trim($_POST['content']);
@@ -877,7 +910,12 @@ switch ($ts) {
 		
 	//置顶帖子 
 	case "isposts":
-		$userid = aac('user')->isLogin();
+		//用户是否登录
+		$userid = intval($TS_USER['user']['userid']);
+		if($userid == 0){
+			header("Location: ".SITE_URL.tsurl('user','login'));
+			exit;
+		}
 		$topicid = intval($_GET['topicid']);
 		
 		if($userid == 0 || $topicid == 0) qiMsg("非法操作"); 
