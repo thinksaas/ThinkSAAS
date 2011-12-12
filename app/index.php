@@ -63,12 +63,12 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	
 	//加载APP配置缓存文件
 	if($app != 'system'){
-		if(is_file('data/'.$app.'_options.php')){
+		
 		
 			$TS_APP['options'] = fileRead('options.php','data',$app);
 			
 			if($TS_APP['options']['isenable']=='1' && $ac != 'admin') qiMsg($app."应用关闭，请开启后访问！");
-		}
+		
 	}
 	
 

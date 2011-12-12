@@ -32,7 +32,7 @@
 				$arrOption[$item['optionname']] = $item['optionvalue'];
 			}
 			
-			fileWrite('user_options','data',$arrOption);
+			fileWrite('user_options.php','data',$arrOption);
 			
 			qiMsg("用户APP配置成功！");
 			
