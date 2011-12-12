@@ -1,4 +1,5 @@
 <?php
+defined('IN_TS') or die('Access Denied.');
 return array (
   'appname' => '用户',
   'appdesc' => '用户中心',
@@ -9,4 +10,3 @@ return array (
   'isauthcode' => '0',
   'isgroup' => '',
 );
-?>
