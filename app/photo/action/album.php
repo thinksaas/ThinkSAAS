@@ -146,6 +146,8 @@ switch($ts){
 		
 		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid' and  userid='$userid' and addtime>'$addtime'");
 		
+		
+		/*
 		//添加动态
 		if($addtime > 0){
 		
@@ -179,6 +181,7 @@ switch($ts){
 			//feed结束
 			
 		}
+		*/
 		
 		$title = '批量修改-'.$strAlbum['albumname'];
 		include template("album_info");
