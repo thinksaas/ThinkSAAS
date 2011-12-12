@@ -72,7 +72,8 @@ if($db){
 	foreach($arrOptions as $item){
 		$arrOption[$item['optionname']] = $item['optionvalue'];
 	}
-	AppCacheWrite($arrOption,'system','options.php');
+	
+	fileWrite('system_options.php','data',$arrOption);
 	
 	//生成配置文件
 	$fp =  fopen(THINKDATA.'/config.inc.php','w');
