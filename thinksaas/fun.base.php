@@ -411,9 +411,6 @@ function fileRead($file,$dir,$app){
 	}elseif(is_file($dir.'/cache/'.$app.'/'.$file)){
 		$data = require_once $dir.'/cache/'.$app.'/'.$file;
 		return $data;
-	}else{
-		echo 'No File:'.$dir.'/'.$app.'_'.$file;
-		exit;
 	}
 }
 
