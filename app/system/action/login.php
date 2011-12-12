@@ -28,7 +28,7 @@ switch($ts){
 		
 		$_SESSION['tsadmin']	= $strAdmin;
 		
-		header("Location: ".SITE_URL."index.php?app=system");
+		header("Location: index.php?app=system");
 		
 		break;
 		
@@ -36,7 +36,7 @@ switch($ts){
 	case "out":
 		unset($_SESSION['tsadmin']);
 		
-		header("Location: ".SITE_URL."index.php?app=system&ac=login");
+		header("Location: index.php?app=system&ac=login");
 		
 		break;
 }

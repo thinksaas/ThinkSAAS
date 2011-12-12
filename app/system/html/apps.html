@@ -1,13 +1,13 @@
 {template header}
 
-<script src="{SITE_URL}public/js/jquery.js" type="text/javascript"></script>
+<script src="public/js/jquery.js" type="text/javascript"></script>
 <script>
 //安装卸载APP
 function isinstall(appname){
-	$('#isinstall_'+appname).html('<img src="{SITE_URL}app/{$app}/skins/{$skin}/loading.gif">');
+	$('#isinstall_'+appname).html('<img src="app/{$app}/skins/{$skin}/loading.gif">');
 	$.ajax({
 		type: "GET",
-		url:  "{SITE_URL}index.php?app=system&ac=apps&ts=install&appname="+appname,
+		url:  "index.php?app=system&ac=apps&ts=install&appname="+appname,
 		success: function(result){
 			if(result=='1'){
 				window.location.reload(true); 
@@ -34,7 +34,7 @@ function isupdate(appkey,version){
 function isappnav(appkey,appname){
 	$.ajax({
 		type:"POST",
-		url:"{SITE_URL}index.php?app=system&ac=apps&ts=appnav",
+		url:"index.php?app=system&ac=apps&ts=appnav",
 		data:"&appkey="+appkey+"&appname="+appname,
 		beforeSend:function(){},
 		success:function(result){
@@ -49,7 +49,7 @@ function isappnav(appkey,appname){
 function unisappnav(appkey){
 	$.ajax({
 		type:"POST",
-		url:"{SITE_URL}index.php?app=system&ac=apps&ts=unappnav",
+		url:"index.php?app=system&ac=apps&ts=unappnav",
 		data:"&appkey="+appkey,
 		beforeSend:function(){},
 		success:function(result){
@@ -69,8 +69,8 @@ function unisappnav(appkey){
 
 <div class="tabnav">
 <ul>
-<li class="select"><a href="{SITE_URL}index.php?app=system&ac=apps&ts=list">APP列表</a></li>
-<!-- <li><a href="{SITE_URL}index.php?app=system&ac=installonline&ts=list">在线安装</a></li> -->
+<li class="select"><a href="index.php?app=system&ac=apps&ts=list">APP列表</a></li>
+<!-- <li><a href="index.php?app=system&ac=installonline&ts=list">在线安装</a></li> -->
 </ul>
 </div>
 
@@ -79,14 +79,14 @@ function unisappnav(appkey){
 <tr class="old"><td width="150">APP名称</td><td>版本</td><td>介绍</td><td>作者</td><td>APP操作</td></tr>
 <!--{loop $arrApp $keys $item}-->
 <tr class="odd">
-<td><img src="{SITE_URL}app/{$item[name]}/icon.png" title="{$item}" align="absmiddle" />
+<td><img src="app/{$item[name]}/icon.png" title="{$item}" align="absmiddle" />
 {$item[about][name]}({$item[name]})</td>
 <td>{$item[about][version]}<span id="{$item[name]}"></span>
 </td>
 <td>{$item[about][desc]}</td>
 <td>{$item[about][author]}</td>
 <td>
-<!--{if $item[about][isoption] == '1' && $item[about][isinstall]=='1'}--><a href="{SITE_URL}index.php?app={$item[name]}&ac=admin&mg=options">[管理]</a><!--{/if}--> 
+<!--{if $item[about][isoption] == '1' && $item[about][isinstall]=='1'}--><a href="index.php?app={$item[name]}&ac=admin&mg=options">[管理]</a><!--{/if}--> 
 
 <!--{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] == ''}--><a href="javascript:void('0');" onclick="isappnav('{$item[name]}','{$item[about][name]}');">[导航]</a><!--{/if}-->
 
