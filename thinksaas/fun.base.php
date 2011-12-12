@@ -495,7 +495,6 @@ function object_array($array){
 	return $array;
 }
 
-/*此处开始借用moophp的模板代码*/	
 
 /**
 * 写文件
@@ -518,11 +517,6 @@ if(!@$fp = @fopen($file, $mod)) {
 	@fclose($fp);
 	return true;
 }
-}
-
-//创建目录
-function makedir($dir) {
-return is_dir($dir) or (makedir(dirname($dir)) and mkdir($dir, 0777)); 
 }
 
 /**
