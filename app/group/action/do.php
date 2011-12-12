@@ -740,7 +740,7 @@ switch ($ts) {
 		$userid = aac('user')->isLogin();
 		$referid = $_POST['referid'];
 		$topicid = $_POST['topicid'];
-		$content = t($_POST['content']);
+		$content = trim($_POST['content']);
 		$addtime = time();
 
 		$db->query("insert into ".dbprefix."group_topics_comments (`referid`,`topicid`,`userid`,`content`,`addtime`) values ('$referid','$topicid','$userid','$content','$addtime')");
