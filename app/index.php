@@ -89,18 +89,30 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	$new[$app] = new $app($db);
 
 	//控制前台ADMIN访问权限
-	if($ac == 'admin' && $TS_USER['admin']['isadmin']!=1 && $app != 'system') header("Location: ".SITE_URL."index.php");
+	if($ac == 'admin' && $TS_USER['admin']['isadmin']!=1 && $app != 'system'){
+		header("Location: ".SITE_URL."index.php");
+		exit;
+	}
 	
 	//控制后台访问权限
-	if($TS_USER['admin']['isadmin'] != 1 && $app=='system' && $ac != 'login') header("Location: ".SITE_URL."index.php?app=system&ac=login");
+	if($TS_USER['admin']['isadmin'] != 1 && $app=='system' && $ac != 'login'){
+		header("Location: ".SITE_URL."index.php?app=system&ac=login");
+		exit;
+	}
 	
 	//控制插件设置权限
-	if($TS_USER['admin']['isadmin'] != 1 && $in == 'edit') header("Location: ".SITE_URL."index.php?app=system&ac=login");
+	if($TS_USER['admin']['isadmin'] != 1 && $in == 'edit'){
+		header("Location: ".SITE_URL."index.php?app=system&ac=login");
+		exit;
+	}
 	
 	//判断用户是否上传头像
 	if($TS_SITE['base']['isface']==1 && $TS_USER['user'] != '' && $app != 'system' && $ac != 'admin'){
 		$faceUser = $db->once_fetch_assoc("select face from ".dbprefix."user_info where userid='".intval($TS_USER['user']['userid'])."'");
-		if($faceUser['face']=='' && $ts != 'face') header("Location: ".SITE_URL."index.php?app=user&ac=set&ts=face");
+		if($faceUser['face']=='' && $ts != 'face'){
+			header("Location: ".SITE_URL."index.php?app=user&ac=set&ts=face");
+			exit;
+		}
 	}
 	
 	//运行统计结束
@@ -128,7 +140,7 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	
 	
 	$tsHooks = array();
-	if($app != 'pubs'){
+	if($app != 'pubs' || $app != 'system'){
 		
 		//加载公用插件 
 		if(is_file('data/pubs_plugins.php')){
