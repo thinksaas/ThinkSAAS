@@ -404,34 +404,33 @@ function fileWrite($file,$dir,$data){
  @$dir 目录
  @$app 过渡一下app
 */
-function fileRead($file,$dir,$app){
-	if(is_file($dir.'/'.$app.'_'.$file)){
-		$data = require_once $dir.'/'.$app.'_'.$file;
-		return $data;
-	}elseif(is_file($dir.'/cache/'.$app.'/'.$file)){
-		$data = require_once $dir.'/cache/'.$app.'/'.$file;
-		return $data;
+function fileRead($file,$dir,$app,$plugin=''){
+
+	if($plugin!=''){
+		
+		//plugins
+		if(is_file($dir.'/'.$app.'/'.$plugin.'/'.$file)){
+			$data = include $dir.'/'.$app.'/'.$plugin.'/'.$file;
+			return $data;
+		}
+		
+	}else{
+		
+		//app
+		if(is_file($dir.'/'.$app.'_'.$file)){
+			$data = include $dir.'/'.$app.'_'.$file;
+			return $data;
+		}elseif(is_file($dir.'/cache/'.$app.'/'.$file)){
+			$data = include $dir.'/cache/'.$app.'/'.$file;
+			return $data;
+		}
+	
 	}
-}
 
 
-//插件缓存写入
-function PluginCacheWrite($cacheData,$app,$plugin,$cacheFile){
-	$appFile = 'plugins/'.$app.'/'.$plugin;
-	!is_dir($appFile)?mkdir($appFile):'';
-	$cacheFile = $appFile.'/'.$cacheFile;
-	if($cacheFile) unlink($cacheFile);
-	@ $fp = fopen($cacheFile,'a') OR qiMsg('读取缓存失败。如果您使用的是Unix/Linux主机，请修改缓存目录 (plugins/'.$app.'/'.$plugin.'/'.$cacheFile.') 的权限为777。如果您使用的是Windows主机，请联系管理员，将该目录下所有文件设为everyone可写');
-	//$cacheData = serialize($cacheData);
-	$cacheData = "<?php\ndefined('IN_TS') or die('Access Denied.');\nreturn ".var_export($cacheData,true).";\n?>";
-	@ $fw = fwrite($fp,$cacheData) OR qiMsg('写入缓存失败，缓存目录 (plugins/'.$app.'/'.$plugin.'/'.$cacheFile.') 不可写');
-	fclose($fp);
-}
-
-//插件缓存读取
-function PluginCacheRead($app,$plugin,$cacheFile){
-	$cacheData = require_once 'plugins/'.$app.'/'.$plugin.'/'.$cacheFile;
-	return $cacheData;
+	
+	
+	
 }
 
 //把数组转换为,号分割的字符串
