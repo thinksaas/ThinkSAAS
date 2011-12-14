@@ -1,2 +1,2 @@
-<?php
-header("HTTP/1.1 404 Not Found");
+<?php 
+defined('IN_TS') or die('Access Denied.');
