@@ -1,4 +1,2 @@
 *.svn*
-cache/*
-uploadfile/*
 data/config.inc.php
