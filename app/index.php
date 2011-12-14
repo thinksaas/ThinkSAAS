@@ -111,7 +111,6 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 		$faceUser = $db->once_fetch_assoc("select face from ".dbprefix."user_info where userid='".intval($TS_USER['user']['userid'])."'");
 		if($faceUser['face']=='' && $ts != 'face'){
 			header("Location: ".SITE_URL."index.php?app=user&ac=set&ts=face");
-			exit;
 		}
 	}
 	
