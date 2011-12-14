@@ -25,15 +25,17 @@
 </div>
 
 <div style="text-align:center">
-    <!--{if $nowPage < $conutPage}--><a title="点击查看下一张" href="{SITE_URL}{tsurl('photo','show',array(photoid=>$next))}" class="mainphoto"><!--{/if}-->
+    <!--{if $nowPage < $conutPage}-->
+	<a title="点击查看下一张" href="{SITE_URL}{tsurl('photo','show',array(photoid=>$next))}" class="mainphoto">
         <img src="{SITE_URL}{php echo miniimg($strPhoto[photourl],'photo',600,600,$strPhoto[path])}">
-   <!--{if $nowPage < $conutPage}--><!--</a>--><!--{/if}-->
+   </a>
+   <!--{/if}-->
 </div>
 
 <div class="photo_descri">
     <div class="j a_editable edtext pl">
         <span id="display">{$strPhoto[photodesc]}</span>
-       <!--{if $TS_USER[user][userid] == $strPhoto[userid]}--><span id="edi">　<a href="">修改</a></span><!--{/if}-->
+       <!--{if $TS_USER[user][userid] == $strPhoto[userid] || $TS_USER[user][isadmin]==1}--><span id="edi">　<a href="">修改</a></span><!--{/if}-->
     </div>
 </div>
 
@@ -43,22 +45,7 @@
 
 <a class="thickbox" target="_blank" href="{SITE_URL}uploadfile/photo/{$strPhoto[photourl]}">查看原图</a>
 
-　<!--{if $TS_USER[user][userid] == $strPhoto[userid]}--><span class="gact">&gt;&nbsp;<a class="j a_confirm_link" title="删除这张照片" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$strPhoto[photoid]}">删除照片</a>&nbsp;&nbsp;</span><!--{/if}-->
-</div>
-
-<div class="sns-bar">
-<div class="sns-bar-donate">
-</div>
-<div class="sns-bar-rec">
-<div class="rec-sec">
-    <span class="rec">
-<a class="lnk-sharing lnk-douban-sharing"  href="">推荐</a>
-</span>
-</div>
-</div>
-<div class="sns-bar-fav">
- <a  href="#" title="标为喜欢？" class="fav-add btn-fav">喜欢</a>
-</div>
+　<!--{if $TS_USER[user][userid] == $strPhoto[userid] || $TS_USER[user][isadmin]==1}--><span class="gact">&gt;&nbsp;<a class="j a_confirm_link" title="删除这张照片" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$strPhoto[photoid]}">删除照片</a>&nbsp;&nbsp;</span><!--{/if}-->
 </div>
 
 <div class="clear"></div>
@@ -78,7 +65,7 @@
 </span>{$item[content]}<br>
 <div class="align-right">
 
-<!--{if intval($TS_USER[user][isadmin]) == 1}-->
+<!--{if intval($TS_USER[user][isadmin]) == 1 || $strPhoto[userid]==$TS_USER[user][userid]}-->
 <span class="gact">&gt; <a class="j a_confirm_link" href="{SITE_URL}index.php?app=photo&ac=do&ts=delcomment&commentid={$item[commentid]}">删除</a></span>
 <!--{/if}-->
 

@@ -7,7 +7,7 @@
 
 <div class="cleft">
 <div class="pl photitle">
-<!--{if $strAlbum[userid] == $TS_USER[user][userid]}-->    &nbsp;&gt;&nbsp;<a href="{SITE_URL}index.php?app=photo&ac=album&ts=edit&albumid={$strAlbum[albumid]}">修改相册属性</a>
+<!--{if $strAlbum[userid] == $TS_USER[user][userid] || $TS_USER[user][isadmin]==1}-->    &nbsp;&gt;&nbsp;<a href="{SITE_URL}index.php?app=photo&ac=album&ts=edit&albumid={$strAlbum[albumid]}">修改相册属性</a>
     &nbsp;&gt;&nbsp;<a href="{SITE_URL}index.php?app=photo&ac=upload&albumid={$strAlbum[albumid]}">添加照片</a>
     <!--{if $strAlbum[count_photo]>'0'}-->&nbsp;&gt;&nbsp;<a href="{SITE_URL}index.php?app=photo&ac=album&ts=info&albumid={$strAlbum[albumid]}">批量修改</a><!--{/if}--><!--{/if}-->
     &nbsp;&gt;&nbsp;<a href="{SITE_URL}{tsurl('photo','album',array(ts=>user,userid=>$strAlbum[userid]))}">返回<!--{if $strAlbum[userid] == $TS_USER[user][userid]}-->我<!--{else}-->{$strUser[username]}<!--{/if}-->的相册首页</a>
@@ -51,24 +51,9 @@
 <span class="pl">{$strAlbum[count_photo]}&nbsp;张照片
 &nbsp;{php echo date('Y-m-d',$strAlbum[addtime])}&nbsp;创建
 </span>
-<!--{if $strAlbum[userid] == $TS_USER[user][userid]}-->
-<span class="gact">&nbsp;&gt;&nbsp;<a title="将相册以及相册中的所有照片一并删除，确定吗" class="j a_confirm_link" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=album&ts=del&albumid={$strAlbum[albumid]}">删除相册</a></span>
+<!--{if $strAlbum[userid] == $TS_USER[user][userid] || $TS_USER[user][isadmin]==1}-->
+<span class="gact">&nbsp;&gt;&nbsp;<a  class="j a_confirm_link" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=album&ts=del&albumid={$strAlbum[albumid]}">删除相册</a></span>
 <!--{/if}-->
-</div>
-
-<div class="sns-bar">
-<div class="sns-bar-donate">
-</div>
-<div class="sns-bar-rec">
-<div class="rec-sec">
-    <span class="rec">
-<a class="lnk-sharing lnk-douban-sharing"  href="#">推荐</a>
-</span>
-</div>
-</div>
-<div class="sns-bar-fav">
- <a href="#" title="标为喜欢？" class="fav-add btn-fav">喜欢</a>
- </div>
 </div>
 
 

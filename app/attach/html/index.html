@@ -1,17 +1,46 @@
 {template header}
 
+<style>
+
+.mbt {
+    clear: both;
+    margin: 0;
+    padding: 0;
+}
+.mbtl {
+    float: left;
+    margin: 8px 7px 0 0;
+    padding: 0;
+    width: 55px;
+}
+.mbtrdot {
+    min-height: 55px;
+    overflow: hidden;
+    padding: 4px 0;
+}
+.extra {
+    clear: both;
+    text-align: right;
+}
+
+</style>
+
 <div class="midder">
 
 <div class="mc">
 
 <div class="cleft">
 
-<table>
-<tr><td>附件</td><td>作者</td><td>时间</td></tr>
+<ul class="mbt">
 {loop $arrAttach $key $item}
-<tr><td><a href="{SITE_URL}{tsurl('attach','show',array(attachid=>$item[attachid]))}">{$item[attachname]}</a></td><td>{$item[user][username]}</td><td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td></tr>
+<li class="mbtl">
+<!--{if $item[user][userid] !=$arrAttach[$key-1][user][userid]}-->
+<a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[user][userid]))}"><img src="{$item[user][face]}"></a>
+<!--{/if}-->
+</li>
+<li class="mbtrdot"><a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[user][userid]))}">{$item[user][username]}</a>上传资料<a href="{SITE_URL}{tsurl('attach','show',array(attachid=>$item[attachid]))}">{$item[attachname]}</a><span class="pl">{php echo getTime($item[addtime],time())}</span></li>
 {/loop}
-</table>
+</ul>
 
 <div class="page">{$pageUrl}</div>
 
@@ -19,7 +48,7 @@
 
 <div class="cright">
 
-<a href="#">+分享资料</a>
+<a href="#">+上传资料</a>
 
 </div>
 
