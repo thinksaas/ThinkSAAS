@@ -6,8 +6,6 @@
 <li <!--{if $mg=='cate' && $ts=='list'}-->class="select"<!--{/if}-->><a href="{SITE_URL}index.php?app=group&ac=admin&mg=cate&ts=list">小组分类</a></li>
 <li <!--{if $mg=='cate' && $ts=='add'}-->class="select"<!--{/if}-->><a href="{SITE_URL}index.php?app=group&ac=admin&mg=cate&ts=add">添加分类</a></li>
 
-<li <!--{if $mg=='plugin'}-->class="select"<!--{/if}-->><a href="{SITE_URL}index.php?app={$app}&ac=admin&mg=plugin&ts=list">插件管理</a></li>
-
 <!--{if $mg=='group' && $ts=='edit'}--><li class="select"><a href="">编辑{$arrGroup[groupname]}</a></li><!--{/if}-->
 
 <!--{if $mg=='cate' && $ts=='edit'}--><li class="select"><a href="">编辑{$strCate[catename]}分类</a></li><!--{/if}-->
