@@ -1,0 +1,91 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+<h1>{$strApple[title]}</h1>
+
+<div class="cleft">
+
+<div class="indent">
+<div class="subjectwrap clearfix">
+<div class="subject clearfix">
+<div id="mainpic">
+<a href="#" class="nbg">
+<img src="<!--{if $strApple[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($strApple[photo],'apple',150,150,$strApple[path])}<!--{/if}-->">
+</a><br>
+<p class="gact"></p>
+</div>
+<div id="info">
+
+{loop $strApple[model] $key $item}
+<span class="pl">{$item[virtuename]}</span>: {$item[parameter]}<br>
+{/loop}
+</div>
+</div>
+
+<div id="interest_sectl">
+<div rel="v:rating" class="rating_wrap clearbox">
+<p typeof="v:Rating" class="rating_self clearfix">
+<span class="ll bigstar40"></span>
+<strong property="v:average" class="ll rating_num">7.4</strong>
+<span content="10.0" property="v:best"></span>
+</p>
+<p class="rating_self font_normal">(<a href="collections"><span property="v:votes">349</span>人评价</a>)</p>
+<span title="力荐" class="stars5 starstop"></span><div style="width:21px" class="power"></div>
+16.9%<br>
+<span title="推荐" class="stars4 starstop"></span><div style="width:59px" class="power"></div>
+47.6%<br>
+<span title="还行" class="stars3 starstop"></span><div style="width:38px" class="power"></div>
+30.4%<br>
+<span title="较差" class="stars2 starstop"></span><div style="width:6px" class="power"></div>
+4.9%<br>
+<span title="很差" class="stars1 starstop"></span><div style="width:0px" class="power"></div>
+0.3%<br>
+</div></div>
+
+</div>
+
+<div class="clearfix" id="interest_sect_level">
+<!-- <a class="collect_btn colbutt ll" rel="nofollow" href=""><span>想读</span></a>
+<a class="collect_btn colbutt ll" rel="nofollow" href=""><span>在读</span></a>
+<a class="collect_btn colbutt ll" rel="nofollow" href=""><span>读过</span></a> -->
+<div class="ll j a_stars">评价:
+    <span id="rating">
+	<span id="stars">
+<a class="j a_collect_btn" href="javascript:void(0)"><img id="star1" src="http://img3.douban.com/pics/nst.gif"></a>
+<a class="j a_collect_btn" href="javascript:void(0)"><img id="star2" src="http://img3.douban.com/pics/nst.gif"></a>
+<a class="j a_collect_btn" href="javascript:void(0)"><img id="star3" src="http://img3.douban.com/pics/nst.gif"></a>
+<a class="j a_collect_btn" href="javascript:void(0)"><img id="star4" src="http://img3.douban.com/pics/nst.gif"></a>
+<a class="j a_collect_btn" href="javascript:void(0)"><img id="star5" src="http://img3.douban.com/pics/nst.gif"></a>
+</span>
+<span class="pl" id="rateword"></span>
+<input type="hidden" value="" id="n_rating">
+</span></div></div>
+
+<div class="clear"></div>
+
+<div class="gtleft">
+<ul class="ul_subject_menu bicelink color_gray pt6 clearfix">
+<li>
+<img src="http://img3.douban.com/pics/add-review.gif">&nbsp;<a rel="nofollow" href="">写点评</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="clear"></div>
+<div>
+<h2>介绍......</h2>
+<div>{php echo nl2br($strApple[content])}</div>
+</div>
+
+</div>
+
+<div class="cright">
+
+
+</div>
+</div>
+</div>
+
+{template footer}
