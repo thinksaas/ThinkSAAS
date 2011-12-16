@@ -568,7 +568,7 @@ switch ($ts) {
 		//用户是否登录
 		$userid = intval($TS_USER['user']['userid']);
 		if($userid == 0){
-			header("Location: ".SITE_URL.tsurl('user','login'));
+			header("Location: ".SITE_URL);
 			exit;
 		}
 		
@@ -585,35 +585,39 @@ switch ($ts) {
 		
 		$strGroup = $db->once_fetch_assoc("select userid from ".dbprefix."group where groupid='".$strTopic['groupid']."'");
 		
-		$strGroupUser = $db->once_fetch_assoc("select * from ".dbprefix."group_users where userid='$userid' and groupid='".$strTopic['groupid']."'");
+		if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['user']['isadmin']==1){
 		
-		if($TS_USER['user']['userid'] != $strTopic['userid'] && $TS_USER['user']['userid'] != $strGroup['userid'] && $strGroupUser['isadmin'] == '0') qiMsg("机房重地，请勿进入！");
-		
-		$arrData = array(
-			'typeid' => $typeid,
-			'title' => $title,
-			'content' => $content,
-			'iscomment' => $iscomment,
-		);
-		
-		//判断是否有图片和附件
-		preg_match_all('/\[(photo)=(\d+)\]/is', $content, $isphoto);
-		if($isphoto[2]){
-			$arrData['isphoto'] = '1';
-		}else{
-			$arrData['isphoto'] = '0';
-		}
-		//判断附件
-		preg_match_all('/\[(attach)=(\d+)\]/is', $content, $isattach);
-		if($isattach[2]){
-			$arrData['isattach'] = '1';
-		}else{
-			$arrData['isattach'] = '0';
-		}
-		
-		$db->updateArr($arrData,dbprefix.'group_topics','where topicid='.$topicid.'');
+			$arrData = array(
+				'typeid' => $typeid,
+				'title' => $title,
+				'content' => $content,
+				'iscomment' => $iscomment,
+			);
+			
+			//判断是否有图片和附件
+			preg_match_all('/\[(photo)=(\d+)\]/is', $content, $isphoto);
+			if($isphoto[2]){
+				$arrData['isphoto'] = '1';
+			}else{
+				$arrData['isphoto'] = '0';
+			}
+			//判断附件
+			preg_match_all('/\[(attach)=(\d+)\]/is', $content, $isattach);
+			if($isattach[2]){
+				$arrData['isattach'] = '1';
+			}else{
+				$arrData['isattach'] = '0';
+			}
+			
+			$db->updateArr($arrData,dbprefix.'group_topics','where topicid='.$topicid.'');
 
-		header("Location: ".SITE_URL."index.php?app=group&ac=topic&topicid=".$topicid);
+			header("Location: ".SITE_URL."index.php?app=group&ac=topic&topicid=".$topicid);
+			
+		}else{
+			header("Location: ".SITE_URL);
+			exit;
+		}
+		
 		
 		break;
 		
