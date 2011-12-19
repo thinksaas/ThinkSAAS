@@ -93,7 +93,7 @@ function pageInit()
 
 
 
-	var fulltools = 'Paste,|,Bold,Italic,Underline,Strikethrough,|,FontColor,BackColor,Align,List,Outdent,Indent,|,Link,Unlink,|,tsAttach,tsImg,tsMusic,Flash,tsVideo,Emot,tsCode,|Fullscreen';
+	var fulltools = 'Paste,|,Bold,FontSize,Italic,Underline,Strikethrough,|,FontColor,BackColor,Align,List,Outdent,Indent,|,Link,Unlink,|,tsAttach,tsImg,tsMusic,Flash,tsVideo,Emot,tsCode,|Fullscreen';
 	var minitools = 'Bold,FontColor,Link,Unlink,|,tsAttach,tsImg,tsMusic,Flash,tsVideo,Emot,tsCode,|Fullscreen';
 	
 	$('#editor_mini').xheditor({plugins:tsplugin,tools:minitools,skin:'nostyle',urlType:'abs',emotPath:siteUrl+'public/emot/',emots:{360:{name:'360',count:24,width:32,height:32,line:8}},shortcuts:{'ctrl+enter':miniSubmit}});
