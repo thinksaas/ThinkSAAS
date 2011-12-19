@@ -98,7 +98,7 @@ switch($ts){
 		setcookie("ts_email", '', time()+3600,'/');   
 		setcookie("ts_pwd", '', time()+3600,'/');
 		
-		if($ump != ''){
+		if($jump != ''){
 			header('Location: '.$jump);
 		}else{
 			header('Location: '.SITE_URL);
