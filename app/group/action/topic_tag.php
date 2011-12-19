@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
 
 $tagname = urldecode(trim($_GET['tagname']));
 
-$tagid = aac('tag')->getTagId($tagname);
+$tagid = aac('tag')->getTagId(t($tagname));
 
 $strTag = $db->once_fetch_assoc("select * from ".dbprefix."tag where tagid='$tagid'");
 

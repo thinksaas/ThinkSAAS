@@ -91,10 +91,18 @@ switch($ts){
 	
 	//退出	
 	case "out":
+		
+		$jump = $_SERVER['HTTP_REFERER'];
+		
 		session_destroy();
 		setcookie("ts_email", '', time()+3600,'/');   
 		setcookie("ts_pwd", '', time()+3600,'/');
 		
-		header('Location: '.SITE_URL.'index.php');
+		if($ump != ''){
+			header('Location: '.$jump);
+		}else{
+			header('Location: '.SITE_URL);
+		}
+		
 		break;
 }
