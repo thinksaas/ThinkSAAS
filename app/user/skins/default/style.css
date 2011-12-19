@@ -1,6 +1,6 @@
 /**框架CSS**/
 
-.uinput{width:200px;border-color: #999999 #E1E1E1 #E1E1E1 #999999;border-style: solid;border-width: 1px; padding: 3px 0 3px 0;font-size: 14px;}
+.uinput{width:200px;padding: 3px 0 3px 0;font-size: 14px;}
 
 .utext{width:300px;height:50;border-color: #999999 #E1E1E1 #E1E1E1 #999999;border-style: solid;border-width: 1px; padding: 3px 0 3px 0;font-size: 14px;}
 

@@ -184,30 +184,6 @@ obj.src = url+ '&nowtime=' + new Date().getTime();
 <td class="status"></td>
 </tr>
 
-<tr>
-<td class="label"><label>{$TS_HL[app][1041]}</label></td>
-<td class="field">
-<input name="sex" type="radio" value="0" />{$TS_HL[app][1042]} 
-<input name="sex" type="radio" value="1" />{$TS_HL[app][1043]} 
-<input checked="select" name="sex" type="radio" value="2" />{$TS_HL[app][1044]}
-</td>
-<td class="status"></td>
-</tr>
-
-<tr>
-<td class="label"><label>{$TS_HL[app][1045]}</label></td>
-<td class="field">
-<select id="oneid" name="oneid">
-<option value="0">{$TS_HL[app][1046]}</option>
-<!--{loop $arrOne $key $item}-->
-<option value="{$item[areaid]}">{$item[areaname]}</option>
-<!--{/loop}-->
-</select>
-<span id="stwoid"></span>
-<span id="sthreeid"></span>
-</td>
-<td class="status"></td></tr>
-
 <tr><td class="label">{$TS_HL[app][1047]}</td><td class="field"><input name="authcode" />
  <img src="{SITE_URL}index.php?app=user&ac=checkcode" align="absmiddle" onclick="javascript:newgdcode(this,this.src);" alt="{$TS_HL[app][1048]}" style="cursor:pointer;"/></td>
 <td class="status"></td></tr>

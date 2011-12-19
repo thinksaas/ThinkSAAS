@@ -22,23 +22,7 @@ switch($ts){
 		$repwd		= trim($_POST['repwd']);
 		$username		= t($_POST['username']);
 		
-		$sex = $_POST['sex'];
-		
 		$fuserid = intval($_POST['fuserid']);
-		
-		$oneid = intval($_POST['oneid']);
-		$twoid = intval($_POST['twoid']);
-		$threeid = intval($_POST['threeid']);
-		
-		if($oneid != 0 && $twoid==0 && $threeid==0){
-			$areaid = $oneid;
-		}elseif($oneid!=0 && $twoid !=0 && $threeid==0){
-			$areaid = $twoid;
-		}elseif($oneid!=0 && $twoid !=0 && $threeid!=0){
-			$areaid = $threeid;
-		}else{
-			$areaid = 0;
-		}
 		
 		$authcode = strtoupper($_POST['authcode']); //strtoupper将字符转成大写
 		
@@ -85,8 +69,6 @@ switch($ts){
 				'fuserid'	=> $fuserid,
 				'username' 	=> $username,
 				'email'		=> $email,
-				'sex'	=> $sex,
-				'areaid'		=> $areaid,
 				'ip'			=> getIp(),
 				'count_score'	=> '1000',
 				'addtime'	=> time(),
