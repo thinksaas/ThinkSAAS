@@ -139,8 +139,9 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	
 	
 	$tsHooks = array();
-	if($app != 'pubs' || $app != 'system'){
-		
+	
+	if($app != 'system' && $app !='pubs'){
+
 		//加载公用插件 
 		if(is_file('data/pubs_plugins.php')){
 			$public_plugins = fileRead('plugins.php','data','pubs');
@@ -153,7 +154,7 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 				}
 			}
 		}
-		
+	
 		//加载APP插件
 		if(is_file('data/'.$app.'_plugins.php')){
 			$active_plugins = fileRead('plugins.php','data',$app);
