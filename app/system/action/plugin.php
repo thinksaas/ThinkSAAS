@@ -58,4 +58,10 @@ switch($ts){
 		delDir('plugins/pubs/'.$pname);
 		qiMsg("插件删除成功！");
 		break;
+		
+		
+	//插件编辑
+	case "edit":
+		
+		break;
 }

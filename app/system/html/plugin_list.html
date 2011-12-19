@@ -20,7 +20,7 @@
 
 <!--{if in_array($item[name],$app_plugins)}--><a href="index.php?app=system&ac=plugin&ts=do&apps={$apps}&pname={$item[name]}&isused=0">停用</a><!--{else}--><a href="index.php?app=system&ac=plugin&ts=do&apps={$apps}&pname={$item[name]}&isused=1">启用</a><!--{/if}-->
 
-<!--{if $item[about][isedit]=='1' && in_array($item[name],$public_plugins)}--><a href="index.php?app=pubs&ac=plugin&plugin={$item[name]}&in=edit&ts=set">编辑</a><!--{/if}-->
+<!--{if $item[about][isedit]=='1' && in_array($item[name],$app_plugins)}--><a href="index.php?app={$apps}&ac=plugin&plugin={$item[name]}&in=edit&ts=set">编辑</a><!--{/if}-->
 
 <a href="index.php?app=system&ac=plugin&ts=del&pname={$item[name]}">删除</a>
 
