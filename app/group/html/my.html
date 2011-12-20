@@ -29,7 +29,11 @@
 <!--{if $arrTopic}-->
 <!--{loop $arrTopic $key $item}-->
 <li>
-<div class="userimg"><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a></div>
+<div class="userimg">
+<!--{if $item[user][userid] !=$arrTopic[$key-1][user][userid]}-->
+<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a>
+<!--{/if}-->
+</div>
 
 <div class="topic_title">
 <div class="title">

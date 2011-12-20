@@ -44,7 +44,9 @@
 <a href="{SITE_URL}tsurl('user','space',array('userid'=>$item[user][userid]))"><img src="{$item[user][face]}"></a>
 <!--{/if}-->
 </li>
-<li class="mbtrdot"><a href="{SITE_URL}{tsurl('photo','show',array('photoid'=>$item[photoid]))}">$item[user][username] : {$item[content]}</a><span class="pl">  {php echo getTime($item[addtime],time())}</span></li>
+<li class="mbtrdot"><a href="{SITE_URL}{tsurl('photo','show',array('photoid'=>$item[photoid]))}">$item[user][username] : {$item[content]}</a><span class="pl">  {php echo getTime($item[addtime],time())}</span>
+<div class="clear"></div>
+</li>
 <!--{/loop}-->
 </ul>
 </div>
