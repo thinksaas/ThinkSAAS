@@ -14,8 +14,9 @@ if($ts=='addcomment'){
 		
 		$topicid	= intval($_POST['topicid']);
 		$content	= trim($_POST['content']);
-		//标签
-		doAction('add_comment','',$content,'');
+		
+		//添加评论标签
+		doAction('group_comment_add','',$content,'');
 		
 		if($content==''){
 			qiMsg('没有任何内容是不允许你通过滴^_^');
@@ -81,6 +82,7 @@ switch ($ts) {
 	
 		//用户是否登录
 		$userid = intval($TS_USER['user']['userid']);
+		
 		if($userid == 0){
 			header("Location: ".SITE_URL.tsurl('user','login'));
 			exit;
@@ -91,8 +93,8 @@ switch ($ts) {
 		$title	= htmlspecialchars(trim($_POST['title']));
 		$content	= trim($_POST['content']);
 		
-		//标签
-		doAction('add_topic',$title,$content,'');
+		//发布帖子标签
+		doAction('group_topic_add',$title,$content,'');
 		
 		$typeid = intval($_POST['typeid']);
 		
