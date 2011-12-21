@@ -26,12 +26,9 @@ class MySql {
 	进行 updata insert delete 操作
 	返回行数
 	*/
-	function query($s,$symbols = 0)
-	{
+	function query($s,$symbols = 0){
 			$result = $this->db->exec($s);
-			
 			$this->query_count += 1;
-
 			if ($this->db->errorCode() != 00000){
 				if($symbols == 0){
 					$this->error($this->db->errorInfo());

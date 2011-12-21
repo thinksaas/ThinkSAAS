@@ -22,6 +22,7 @@ require_once 'fun.base.php';
 //开始处理url路由
 reurl();
 
+//处理过滤
 if (!get_magic_quotes_gpc()) {     
 	Add_S($_POST);
 	Add_S($_GET);
@@ -35,9 +36,10 @@ function Add_S(&$array){
 			} else {                 
 				Add_S($array[$key]);             
 			}        
-		}     
+		}
 	} 
 }
+
 
 $app = isset($_GET['app']) ? $_GET['app'] : 'home';
 $ac = isset($_GET['ac']) ? $_GET['ac'] : 'index';
