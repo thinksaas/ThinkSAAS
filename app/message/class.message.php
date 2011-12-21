@@ -17,7 +17,7 @@ class message{
 	function sendmsg($useridd,$touseridd,$contentt){
 			$userid = intval($useridd);
 			$touserid = intval($touseridd);
-			$content = trim($contentt);
+			$content = addslashes(trim($contentt));
   if($touserid||$contect){
 		$arrData = array(
 			'userid'		=> $userid,

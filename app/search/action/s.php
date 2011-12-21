@@ -14,10 +14,18 @@ if($strKey){
 
 $kw=urldecode(t($_GET['kw']));
 
-$db->query("insert into ".dbprefix."search_key (`userid`,`keyword`,`addtime`) values ('$userid','$kw','".time()."')");
+if($kw==''){
+	header("Location: ".SITE_URL.tsurl('search'));
+	exit;
+}
 
-if($kw=='') qiMsg("关键词不能为空！");
-if(strlen($kw)<2) qiMsg("不支持单字符查询，请至少写2个汉字");
+
+if(strlen($kw)<2) {
+	header("Location: ".SITE_URL.tsurl('search'));
+	exit;
+};
+
+//$db->query("insert into ".dbprefix."search_key (`userid`,`keyword`,`addtime`) values ('$userid','$kw','".time()."')");
 
 switch($ts){
 	case "":

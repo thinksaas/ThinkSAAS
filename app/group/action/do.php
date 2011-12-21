@@ -93,8 +93,10 @@ switch ($ts) {
 		$title	= htmlspecialchars(trim($_POST['title']));
 		$content	= trim($_POST['content']);
 		
+		$tag = trim($_POST['tag']);
+		
 		//发布帖子标签
-		doAction('group_topic_add',$title,$content,'');
+		doAction('group_topic_add',$title,$content,$tag);
 		
 		$typeid = intval($_POST['typeid']);
 		
@@ -153,7 +155,7 @@ switch ($ts) {
 				$db->query("update ".dbprefix."group_topics_type set `count_topic`='$topicTypeNum' where typeid='$typeid'");
 			}
 			//处理标签
-			aac('tag')->addTag('topic','topicid',$topicid,$_POST['tag']);
+			aac('tag')->addTag('topic','topicid',$topicid,$tag);
 			
 			//统计小组下帖子数并更新
 			$count_topic = $db->once_num_rows("select * from ".dbprefix."group_topics where groupid='$groupid'");
