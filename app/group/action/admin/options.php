@@ -17,18 +17,36 @@ switch($ts){
 		break;
 		
 	case "do":
+	
+		if(intval($_POST['ismode'])=='1'){
+			//判断默认小组是否存在
+			$oneGroupNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group where `groupid`='1'");
+			
+			//计算小组数 
+			$groupNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group");
+			
+			if($oneGroupNum['count(*)'] == 0 || $groupNum['count(*)'] > 1){
+				qiMsg("默认小组不存在或者你的小组数已经多余1个，你不能使用单小组模式！");
+			}
+			
+		}
+	
 		$arrData = array(
 			'appname' => trim($_POST['appname']),
 			'appdesc' => trim($_POST['appdesc']),
 			'isenable' => trim($_POST['isenable']),
 			'iscreate' => trim($_POST['iscreate']),
 			'isaudit' => trim($_POST['isaudit']),
-			'isrewrite' => trim($_POST['isrewrite']),
 			'iscate' => trim($_POST['iscate']),
+			'ismode'=> trim($_POST['ismode']),
+			
 		);
 	
 		foreach ($arrData as $key => $val){
-			$db->query("UPDATE ".dbprefix."group_options SET optionvalue='$val' where optionname='$key'");
+			if($val!=''){
+				$db->query("UPDATE ".dbprefix."group_options SET optionvalue='$val' where optionname='$key'");
+			}
+			
 		}
 		
 		//更新缓存

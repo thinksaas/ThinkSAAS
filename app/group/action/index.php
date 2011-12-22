@@ -39,6 +39,12 @@ if($TS_USER['user'] == ''){
 	$userid = intval($TS_USER['user']['userid']);
 	if($userid == '0') header("Location: ".SITE_URL."index.php");
 	
+	//小组模式的跳转
+	if($TS_APP['options']['ismode']=='1'){
+		header("Location: ".SITE_URL.tsurl('group','group',array('groupid'=>'1')));
+		exit;
+	}
+	
 	//我的小组
 	$myGroup = $db->fetch_all_assoc("select * from ".dbprefix."group_users where userid='$userid'");
 	
