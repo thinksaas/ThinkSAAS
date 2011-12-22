@@ -192,7 +192,5 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	
 }else{
 	header("HTTP/1.1 404 Not Found");
-	//qiMsg('sorry:no app!');
-	header("Location: index.php");
 	exit;
 }

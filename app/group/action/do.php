@@ -514,16 +514,31 @@ switch ($ts) {
 		
 	//删除评论回帖
 	case "comment_del":
-	
-		$topicid = intval($_POST['topicid']);
-		$commentid = intval($_POST['commentid']);
 		
-		$db->query("DELETE FROM ".dbprefix."group_topics_comments WHERE commentid = '".$commentid."'");
+		//用户是否登录
+		$userid = intval($TS_USER['user']['userid']);
+		if($userid == 0){
+			header("Location: ".SITE_URL.tsurl('user','login'));
+			exit;
+		}
 		
-		//统计
-		$db->query("update ".dbprefix."group_topics set count_comment=count_comment-1 where topicid='".$topicid."'");
+		$commentid = intval($_GET['commentid']);
 		
-		echo '0';
+		$strComment = $db->once_fetch_assoc("select topicid from ".dbprefix."group_topics_comments where `commentid`='$commentid'");
+		
+		$strTopic = $db->once_fetch_assoc("select userid,groupid from ".dbprefix."group_topics where `topicid`='".$strComment['topicid']."'");
+		
+		$strGroup = $db->once_fetch_assoc("select userid from ".dbprefix."group where `groupid`='".$strTopic['groupid']."'");
+		
+		if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['user']['isadmin']==1){
+			
+			$db->query("DELETE FROM ".dbprefix."group_topics_comments WHERE commentid = '".$commentid."'");
+			//统计
+			$db->query("update ".dbprefix."group_topics set count_comment=count_comment-1 where topicid='".$strComment['topicid']."'");
+		}
+		
+		//跳转回到帖子页
+		header("Location: ".SITE_URL.tsurl('group','topic',array('topicid'=>$strComment['topicid'])));
 		
 		
 		break;

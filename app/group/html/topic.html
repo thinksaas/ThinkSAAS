@@ -117,7 +117,7 @@
 <!--{/if}-->
 
 <!--{if $TS_USER[user][userid] == $strGroup[userid] || $TS_USER[user][userid] == $item[userid] || $strGroupUser[isadmin]==1 || $TS_USER[user][isadmin]==1}-->
-<span><a class="j a_confirm_link" href="javascript:void('0');" onclick="comment_del('{$item[topicid]}','{$item[commentid]}');" rel="nofollow">{$TS_HL[app][1067]}</a>
+<span><a class="j a_confirm_link" href="{SITE_URL}index.php?app=group&ac=do&ts=comment_del&commentid={$item[commentid]}" rel="nofollow">{$TS_HL[app][1067]}</a>
 </span>
 <!--{/if}-->
 </div>

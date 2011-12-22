@@ -60,10 +60,10 @@ $(document).ready(function() {
 <h1>{$TS_HL[app][1130]}</h1>
 <div class="cleft">
 
-<!--{if $TS_USER[user][userid]==''}-->
+<!--{if intval($TS_USER[user][userid])=='0'}-->
 <div style="font-size:14px;line-height:25px;padding-top:50px;text-align:center;">{$TS_HL[app][1131]}<br /><a href="{SITE_URL}{tsurl('user','login')}">{$TS_HL[app][1132]}</a></div>
 
-<!--{elseif $TS_APP[options][iscreate] == '1'}-->
+<!--{elseif $TS_APP[options][iscreate] == '1' && intval($TS_USER[user][isadmin])=='0'}-->
 
 <div style="font-size:14px;line-height:25px;padding-top:50px;text-align:center;">{$TS_HL[app][1133]}<br /><a href="{SITE_URL}{tsurl('group')}">{$TS_HL[app][1134]}</a></div>
 

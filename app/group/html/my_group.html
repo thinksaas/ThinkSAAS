@@ -31,8 +31,7 @@
 </dd>
 </dl>
 <!--{/loop}-->
-		
-		<br></div>
+<br></div>
 <div class="clear"></div>
 
 </div>
@@ -40,7 +39,9 @@
 <div class="cright">
 <div class="clear"></div>
 <p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','cate')}">浏览小组分类</a></p>
+<!--{if $TS_APP[options][iscreate]==0 || $TS_USER[user][isadmin]==1}-->
 <p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','create')}">申请创建小组</a></p>
+<!--{/if}-->
 <br />
 
 </div>

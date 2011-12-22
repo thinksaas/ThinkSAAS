@@ -121,19 +121,6 @@ function addgroupcateindex(gid,cid){
 		})
 }
 
-//删除帖子评论
-function comment_del(tid,cid){
-	art.dialog.confirm('确定删除吗？', function(){								  
-		var url = siteUrl+'index.php?app=group&ac=do&ts=comment_del';
-		$.post(url,{topicid:tid,commentid:cid},function(rs){
-					if(rs == 0){
-						succ('删除成功^_^');
-						window.location.reload();
-					}
-		})
-	});
-}
-
 //删除帖子
 function topic_del(gid,tid){
 	art.dialog.confirm('确定删除吗？', function(){							  

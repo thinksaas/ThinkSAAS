@@ -32,6 +32,8 @@
 <div class="userimg">
 <!--{if $item[user][userid] !=$arrTopic[$key-1][user][userid]}-->
 <a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a>
+<!--{else}-->
+&nbsp;
 <!--{/if}-->
 </div>
 
@@ -112,7 +114,10 @@
 
 <div class="clear"></div>
 
+<!--{if $TS_APP[options][iscreate]==0 || $TS_USER[user][isadmin]==1}-->
 <p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','create')}">{$TS_HL[app][1011]}</a></p>
+<!--{/if}-->
+
 <p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','all')}">{$TS_HL[app][1008]}</a></p>
 
 

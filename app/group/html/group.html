@@ -56,6 +56,8 @@
 <div class="userimg">
 <!--{if $item[user][userid] !=$arrTopic[$key-1][user][userid]}-->
 <a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32" /></a>
+<!--{else}-->
+&nbsp;
 <!--{/if}-->
 </div>
 
