@@ -80,13 +80,24 @@ switch($ts){
 	
 	//小组删除
 	case "del":
-		$groupid = $_POST['groupid'];
+		$groupid = intval($_GET['groupid']);
+		
+		if($groupid == 1){
+			qiMsg("默认小组不能删除！");
+		}
+		
+		$topicNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topics where `groupid`='$groupid'");
+		
+		if($topicNum['count(*)'] > 0){
+			qiMsg("本小组还有帖子，不允许删除。");
+		}
 		
 		$db->query("DELETE FROM ".dbprefix."group WHERE groupid = '$groupid'");
 		$db->query("DELETE FROM ".dbprefix."group_cates_index WHERE groupid = '$groupid'");
 		$db->query("DELETE FROM ".dbprefix."group_users WHERE groupid = '$groupid'");
 		
-		echo '0';
+		qiMsg("小组删除成功！");
+		
 		break;
 		
 	//审核小组 

@@ -38,12 +38,19 @@ switch($ts){
 	//分类删除
 	case "del":
 		
-		$cateid = $_POST['cateid'];
+		$cateid = intval($_GET['cateid']);
+
+		$groupNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group where `cateid`='$cateid'");
+		
+		if($groupNum['count(*)'] > 0){
+			qiMsg("此分类有小组存在，不允许删除！");
+		}
+		
 		$db->query("delete from ".dbprefix."group_cates where cateid='$cateid'");
 		$db->query("delete from ".dbprefix."group_cates where catereferid='$cateid'");
 		$db->query("delete from ".dbprefix."group_cates_index where cateid='$cateid'");
 		
-		echo '0';
+		qiMsg("分类删除成功！");
 		
 		break;
 	

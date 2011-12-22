@@ -5,6 +5,13 @@ defined('IN_TS') or die('Access Denied.');
 
 $userid = intval($_GET['userid']);
 
+if($userid == 0){
+	header("Location: ".SITE_URL);
+	exit;
+}
+
+$new['user']->isUser($userid);
+
 $strUser = $new['user']->getOneUserByUserid($userid);
 
 //是否跟随

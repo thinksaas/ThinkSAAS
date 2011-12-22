@@ -225,7 +225,14 @@ switch($ts){
 		}
 		
 		
-		$userid_follow = $_GET['userid_follow'];
+		$userid_follow = intval($_GET['userid_follow']);
+
+		if($userid_follow==0){
+			header("Location: ".SITE_URL);
+			exit;
+		}
+		
+		$new['user']->isUser($userid_follow);
 		
 		$followNum = $db->once_num_rows("select * from ".dbprefix."user_follow where userid='$userid' and userid_follow='$userid_follow'");
 		

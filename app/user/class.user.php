@@ -154,6 +154,7 @@
 			$isUser = $this->db->once_fetch_assoc("select count(userid) from ".dbprefix."user where userid='$userid'");
 			if($isUser['count(userid)'] == 0){
 				header("Location: ".SITE_URL);
+				exit;
 			}
 		}
 		
