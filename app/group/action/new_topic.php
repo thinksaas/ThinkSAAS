@@ -3,26 +3,36 @@ defined('IN_TS') or die('Access Denied.');
 
 $userid = intval($TS_USER['user']['userid']);
 
-//用户信息
+if($userid == 0){
+	header("Location: ".SITE_URL.tsurl('user','login'));
+	exit;
+}
 
 $groupid = intval($_GET['groupid']);
 
 //小组数目
-$groupNum = $db->once_num_rows("select * from ".dbprefix."group where groupid='$groupid'");
+$groupNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group where groupid='$groupid'");
+
+if($groupNum['count(*)'] == 0){
+	header("Location: ".SITE_URL);
+	exit;
+}
 
 //小组会员
-$isGroupUser = $db->once_num_rows("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
+$isGroupUser = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
 
 $strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='$groupid'");
 
-if($userid == '0'){
-	echo '0';return false; //未登陆不能发帖子^_^
-}elseif($groupNum == '0'){
-	echo '1';return false; //坏蛋加笨蛋的你是永远不能得逞滴^_^
-}elseif($isGroupUser == '0'){
-	echo '2';return false; //不是本小组成员不能发帖子
-}elseif($strGroup['ispost'] == '1' && $strGroup['userid'] != $userid){
-	echo '3';return false; //判断是否允许会员发帖子
+//允许小组成员发帖
+if($strGroup['ispost']==0 && $isGroupUser['count(*)'] == 0 && $userid != $strGroup['userid']){
+	
+	qiMsg("本小组只允许小组成员发贴，请加入小组后再发帖！");
+	
+}
+
+//不允许小组成员发帖
+if($strGroup['ispost'] == 1 && $userid != $strGroup['userid']){
+	qiMsg("本小组只允许小组组长发帖！");
 }
 
 //帖子类型

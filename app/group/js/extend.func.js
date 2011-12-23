@@ -90,24 +90,6 @@ function exitGroup(gid){
 	});
 }
 
-//进入发帖页面
-function newTopic(groupid){
-	var url = siteUrl+'index.php?app=group&ac=new_topic&groupid='+groupid;
-		$.post(url,function(rs){
-			  if(rs == 0){
-				  $.dialog.open(siteUrl+'index.php?app=user&ac=ajax&ts=login', {title: '登录'});
-			  }else if(rs == 1){
-				  error('非法操作');
-			  }else if(rs == 2){
-				  error('不是本组成员不能发帖');
-			  }else if(rs == 3){
-				  error('本小组仅限组长和管理员发帖，会员可以评论^_^');
-			  }else{
-				  window.location = siteUrl+"index.php?app=group&ac=new_topic&groupid="+groupid;
-			  }
-		})
-}
-
 //添加小组分类索引
 function addgroupcateindex(gid,cid){
 	var url = siteUrl+'index.php?app=group&ac=do&ts=addgroupcateindex';

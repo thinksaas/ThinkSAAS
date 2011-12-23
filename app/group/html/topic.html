@@ -161,7 +161,7 @@
 <div class="cright">
 <p class="pl2"><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1077]}{$strGroup[groupname]}</a></p>
 <p class="pl2">
-<a style="background:#336699;color:#FFFFFF;padding:3px 5px;" href="javascript:void(0)" onclick="newTopic({$strGroup[groupid]});">
+<a style="background:#336699;color:#FFFFFF;padding:3px 5px;" href="{SITE_URL}{tsurl('group','new_topic',array('groupid'=>$strGroup[groupid]))}">
 <span>{$TS_HL[app][1078]}</span>
 </a>
 </p>

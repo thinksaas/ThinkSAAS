@@ -320,12 +320,13 @@ switch ($ts) {
 	
 		$arrData = array(
 			'groupname'	=> h($_POST['groupname']),
-			'groupdesc'	=> $_POST['groupdesc'],
-			'joinway'		=> trim($_POST['joinway']),
-			'isopen'		=> trim($_POST['isopen']),
-			'role_leader'	=> trim($_POST['role_leader']),
-			'role_admin'	=> trim($_POST['role_admin']),
-			'role_user'	=> trim($_POST['role_user']),
+			'groupdesc'	=> trim($_POST['groupdesc']),
+			'joinway'		=> intval($_POST['joinway']),
+			'ispost'	=> intval($_POST['ispost']),
+			'isopen'		=> intval($_POST['isopen']),
+			'role_leader'	=> t($_POST['role_leader']),
+			'role_admin'	=> t($_POST['role_admin']),
+			'role_user'	=> t($_POST['role_user']),
 		);
 		
 		$groupid = intval($_POST['groupid']);

@@ -17,6 +17,10 @@
 	
 	<tr><td>{$TS_HL[app][1098]}</td><td><input <!--{if $strGroup[joinway]=='0'}-->checked="select"<!--{/if}--> name="joinway" type="radio" value="0" />{$TS_HL[app][1099]} <input <!--{if $strGroup[joinway]=='1'}-->checked="select"<!--{/if}-->  name="joinway" type="radio" value="1" />{$TS_HL[app][1100]}</td></tr>
 	
+	<!--发帖方式-->
+	<tr><td>发帖方式：</td><td><input <!--{if $strGroup[ispost]=='0'}-->checked="select"<!--{/if}--> type="radio" name="ispost" value="0" />允许会员发帖 <input <!--{if $strGroup[ispost]=='1'}checked="select"<!--{/if}--> type="radio" name="ispost" value="1" />不允许会员发帖 <input <!--{if $strGroup[ispost]=='2'}checked="select"<!--{/if}--> type="radio" name="ispost" value="2" />自由发帖(无需加入小组)</td></tr>
+	
+	
 	<tr><td>{$TS_HL[app][1101]}</td><td><input <!--{if $strGroup[isopen]=='0'}-->checked="select"<!--{/if}--> type="radio" name="isopen" value="0" />{$TS_HL[app][1102]} <input <!--{if $strGroup[isopen]=='1'}checked="select"<!--{/if}--> type="radio" name="isopen" value="1" />{$TS_HL[app][1103]}</td></tr>
 	
 	<tr>
