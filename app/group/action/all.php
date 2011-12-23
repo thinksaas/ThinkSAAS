@@ -1,4 +1,5 @@
-<?php 
+<?php
+defined('IN_TS') or die('Access Denied.');
 //所有小组
 $page = isset($_GET['page']) ? $_GET['page'] : '1';
 $url = SITE_URL.tsurl('group','all',array('page'=>''));
