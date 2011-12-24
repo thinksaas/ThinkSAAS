@@ -46,30 +46,15 @@
 </div>
 <!--{/loop}-->
 </div>
-
 <script src="{SITE_URL}public/js/jquery.masonry.min.js"></script>
 <script>
-
-//加载图片
-/*
-$(document).ready(function() {
-	$("#container").html('<img src="{SITE_URL}public/images/bigload.gif" />');
-	$.ajax({
-		type: "GET",
-		url:  "{SITE_URL}index.php?app=photo&ac=pinte",
-		success: function(data){
-			$("#container").html(data);
-		}
-	});
-});
-*/
-
 $(function(){
-$('#container').masonry({
-  itemSelector: '.card-item'
-});
-});
 
+	$('#container').masonry({
+		itemSelector: '.card-item'
+	});
+
+});
 </script>
 
 </div>

@@ -1,8 +1,8 @@
-
 .card-item  {
-  width: 228px;
+width: 228px;
 margin: 3px;
 float:left;
+overflow: hidden;
 }
 .card-item .head-box {
     -moz-border-bottom-colors: none;
