@@ -59,6 +59,5 @@ switch($ts){
 		
 		qiMsg("小组配置修改成功！");
 		
-		//header("Location: ".SITE_URL."index.php?app=group&ac=admin&mg=options");
 		break;
 }
