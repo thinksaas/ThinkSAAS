@@ -1,5 +1,5 @@
 <?php 
-
+defined('IN_TS') or die('Access Denied.');
 $articleid = intval($_GET['articleid']);
 
 $strArticle = $db->once_fetch_assoc("select * from ".dbprefix."article where articleid='$articleid'");

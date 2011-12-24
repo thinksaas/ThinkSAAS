@@ -1,4 +1,5 @@
 <?php
+defined('IN_TS') or die('Access Denied.');
 return array(
 	'name'	=> '同城',
 	'version'	=> '1.0',

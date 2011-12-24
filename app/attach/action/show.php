@@ -1,5 +1,5 @@
 <?php 
-
+defined('IN_TS') or die('Access Denied.');
 $attachid = $_GET['attachid'];
 
 $strAttach = $db->once_fetch_assoc("select * from ".dbprefix."attach where attachid='$attachid'");

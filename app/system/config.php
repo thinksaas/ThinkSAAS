@@ -1,11 +1,8 @@
 <?php
-	/*
-	 *包含数据库配置文件
-	 *如果要单独配置请去除包含数据库配置文件，并将数据库配置信息粘贴在此处
-	 */
-	require_once THINKDATA."/config.inc.php";
-	
-	$skin = 'default';
+defined('IN_TS') or die('Access Denied.');
 
-	//APP配置
-	$TS_APP['options']['appname']	= '系统管理'; 
+require_once THINKDATA."/config.inc.php";
+
+$skin = 'default';
+
+$TS_APP['options']['appname']	= '系统管理'; 

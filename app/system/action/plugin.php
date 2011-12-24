@@ -1,4 +1,5 @@
 <?php 
+defined('IN_TS') or die('Access Denied.');
 switch($ts){
 	//插件列表
 	case "list":

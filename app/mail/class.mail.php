@@ -1,4 +1,5 @@
 <?php 
+defined('IN_TS') or die('Access Denied.');
 /*
  *模型：邮件
  *class.mail.php

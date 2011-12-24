@@ -1,5 +1,5 @@
 <?php 
-
+defined('IN_TS') or die('Access Denied.');
 $cateid = intval($_GET['cateid']);
 $strCate = $new['article']->getOneCate($cateid);
 

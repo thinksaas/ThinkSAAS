@@ -1,4 +1,5 @@
 <?php
+defined('IN_TS') or die('Access Denied.');
 class feed{
 
 	var $db;

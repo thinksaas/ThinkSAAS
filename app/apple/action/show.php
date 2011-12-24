@@ -1,5 +1,5 @@
 <?php
-
+defined('IN_TS') or die('Access Denied.');
 //苹果机 
 $appleid = $_GET['appleid'];
 

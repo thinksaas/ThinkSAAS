@@ -1,14 +1,12 @@
 <?php
-	/*
-	 *模型：系统管理
-	 */
+defined('IN_TS') or die('Access Denied.');
 
-	class system{
+class system{
 
-		var $db;
+	var $db;
 
-		function system($dbhandle){
-			$this->db = $dbhandle;
-		}
+	function system($dbhandle){
+		$this->db = $dbhandle;
+	}
 
 }

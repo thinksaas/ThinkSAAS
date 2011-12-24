@@ -1,4 +1,5 @@
 <?php
+defined('IN_TS') or die('Access Denied.');
 return array(
 	'name'	=> '搜索',
 	'version'	=> '1.0',

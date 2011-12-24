@@ -1,5 +1,5 @@
 <?php 
-
+defined('IN_TS') or die('Access Denied.');
 $page = isset($_GET['page']) ? $_GET['page'] : '1';
 
 $url = SITE_URL."index.php?app=photo&ac=index&page=";

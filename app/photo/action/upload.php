@@ -1,4 +1,5 @@
 <?php 
+defined('IN_TS') or die('Access Denied.');
 //上传照片
 $userid = intval($TS_USER['user']['userid']);
 if($userid == 0) header("Location: ".SITE_URL."index.php");

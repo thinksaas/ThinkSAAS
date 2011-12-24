@@ -1,4 +1,5 @@
-<?php 
+<?php
+defined('IN_TS') or die('Access Denied.'); 
 if(intval($TS_USER['user']['isadmin']) == 1){
 
 	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;

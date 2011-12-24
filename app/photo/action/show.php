@@ -1,4 +1,5 @@
 <?php
+defined('IN_TS') or die('Access Denied.');
 $photoid = intval($_GET['photoid']);
 
 if($photoid == 0){

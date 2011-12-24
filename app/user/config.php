@@ -1,8 +1,5 @@
 <?php
-
-/*
- *包含数据库配置文件
- */
+defined('IN_TS') or die('Access Denied.');
 require_once THINKDATA."/config.inc.php";
 
 $skin = 'default';

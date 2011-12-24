@@ -1,5 +1,5 @@
 <?php 
-
+defined('IN_TS') or die('Access Denied.');
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $url = SITE_URL.tsurl('attach','index',array('page'=>''));
 $lstart = $page*20-20;
