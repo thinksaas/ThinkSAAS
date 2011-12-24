@@ -1,4 +1,5 @@
 <?php
+defined('IN_TS') or die('Access Denied.');
 /**
  * @copyright (c) ThinkSAAS All Rights Reserved
  * @code by QiuJun

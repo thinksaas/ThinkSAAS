@@ -1,4 +1,5 @@
-<?php 
+<?php
+defined('IN_TS') or die('Access Denied.');
 /*
  * ThinkSAAS core function
  * @copyright (c) ThinkSAAS All Rights Reserved

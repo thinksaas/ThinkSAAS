@@ -1,8 +1,5 @@
 <?php
-
-/*
- *template
- */
+defined('IN_TS') or die('Access Denied.');
 
 class template {
 	var $var_regexp = "\@?\\\$[a-zA-Z_][\\\$\w]*(?:\[[\w\-\.\"\'\[\]\$]+\])*";

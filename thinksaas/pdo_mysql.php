@@ -1,7 +1,5 @@
 <?php
-/*
- *数据库操作类
- */
+defined('IN_TS') or die('Access Denied.');
  
 class MySql {
 	
