@@ -25,8 +25,9 @@ switch($ts){
 		break;
 	
 	//安装APP
-	/*case "install":
-		$appname = $_GET['appname'];
+	/*
+	case "install":
+		$appname = trim($_GET['appname']);
 		
 		$appAbout = require_once 'app/'.$appname.'/about.php';
 		
@@ -87,7 +88,7 @@ switch($ts){
 		}
 		
 		break;
-	*/	
+	*/
 	//导航 
 	case "appnav":
 		$appkey = $_POST['appkey'];

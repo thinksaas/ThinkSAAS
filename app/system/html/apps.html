@@ -4,7 +4,7 @@
 <script>
 //安装卸载APP
 function isinstall(appname){
-	$('#isinstall_'+appname).html('<img src="app/{$app}/skins/{$skin}/loading.gif">');
+	$('#isinstall_'+appname).html('<img src="public/images/loading.gif">');
 	$.ajax({
 		type: "GET",
 		url:  "index.php?app=system&ac=apps&ts=install&appname="+appname,
@@ -76,7 +76,7 @@ function unisappnav(appkey){
 
 <table  cellpadding="0" cellspacing="0">
 
-<tr class="old"><td width="150">APP名称</td><td>版本</td><td>介绍</td><td>作者</td><td>APP操作</td></tr>
+<tr class="old"><td width="150">APP名称</td><td>版本</td><td>介绍</td><td>作者</td><td>操作</td><td>导航</td><td>安装</td></tr>
 <!--{loop $arrApp $keys $item}-->
 <tr class="odd">
 <td><img src="app/{$item[name]}/icon.png" title="{$item}" align="absmiddle" />
@@ -87,11 +87,13 @@ function unisappnav(appkey){
 <td>{$item[about][author]}</td>
 <td>
 <!--{if $item[about][isoption] == '1' && $item[about][isinstall]=='1'}--><a href="index.php?app={$item[name]}&ac=admin&mg=options">[管理]</a><!--{/if}--> 
-
+</td>
+<td>
 <!--{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] == ''}--><a href="javascript:void('0');" onclick="isappnav('{$item[name]}','{$item[about][name]}');">[导航]</a><!--{/if}-->
 
 <!--{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] != ''}--><a href="javascript:void('0');" onclick="unisappnav('{$item[name]}');">[取消导航]</a><!--{/if}-->
-
+</td>
+<td>
 <span id="isinstall_{$item[name]}"><a href="javascript:void('0');" onclick="isinstall('{$item[name]}');"><!--{if $item[about][isinstall]=='0'}-->[安装]<!--{elseif $item[about][issystem]=='0'}-->[卸载]<!--{/if}--></a></span>
 </td>
 <tr>
