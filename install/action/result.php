@@ -1,8 +1,5 @@
 <?php 
-/*
- *By QIUJUN
- *thinksaas@qq.com
- */
+defined('IN_TS') or die('Access Denied.');
 
 $host = trim($_POST['host']);
 $user = trim($_POST['user']);

@@ -1,5 +1,5 @@
 <?php 
-//安装首页
+defined('IN_TS') or die('Access Denied.');
 
 $site_url = getHttpUrl();
 

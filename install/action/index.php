@@ -1,5 +1,5 @@
-<?php 
-//安装首页
+<?php
+defined('IN_TS') or die('Access Denied.');
 
 //判断目录可写
 $f_cache =  iswriteable('cache');
