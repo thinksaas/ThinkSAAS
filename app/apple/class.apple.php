@@ -8,6 +8,12 @@ class apple{
 		$this->db = $dbhandle;
 	}
 	
+	//获取苹果机 
+	function getApple($appleid){
+		$strApple = $this->db->once_fetch_assoc("select * from ".dbprefix."apple where `appleid`='$appleid'");
+		return $strApple;
+	}
+	
 	//根据模型属性ID获取模型属性名称 
 	function getVirtueName($virtueid){
 		

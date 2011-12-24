@@ -78,7 +78,7 @@
 
 
 
-<div class="clear"></div><div id="comments"><br><span align="right" class="pl2"><a href="http://www.douban.com/register?reason=comment" class="j a_show_login">&gt; 我来回应</a></span><br></div>
+<div class="clear"></div><div id="comments"><br><span align="right" class="pl2"><a href="#" class="j a_show_login">&gt; 我来回应</a></span><br></div>
 
 
 
@@ -94,13 +94,18 @@
 <h2>《<a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$strApple[appleid]))}">{$strApple[title]}</a>》</h2>
 <div class="indent">
 <div>
-<a href="http://book.douban.com/subject/6401128/"><img rel="v:image" src="http://img3.douban.com/mpic/s6643899.jpg" title="批评官员的尺度" alt="批评官员的尺度" class="fil"></a>
+<a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$strApple[appleid]))}">
+
+<img src="<!--{if $strApple[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($strApple[photo],'apple',120,'',$strApple[path])}<!--{/if}-->" title="{$strApple[title]}" alt="{$strApple[title]}" class="fil"></a>
 <br clear="all">
 <!--{loop $strApple[model] $key $item}-->
 <span class="pl">{$item[virtuename]}：</span> {$item[parameter]}<br>
 <!--{/loop}-->
 </div>
 </div>
+
+<div class="clear"></div>
+{php doAction('apple_review_right_footer')}
 
 </div>
 
