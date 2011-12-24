@@ -23,7 +23,7 @@ h1 a{color:#555555;}
 h2 {color: #555555;font-size: 14px;font-weight:normal;}
 h2 span{font-size:12px;}
 
-input,textarea{border-color: #999999 #E1E1E1 #E1E1E1 #999999;border-style: solid;border-width: 1px; padding: 3px 2px;}
+input,textarea{padding: 3px 2px;}
 
 .clear {clear: both;font-size: 0;line-height: 0;}
 
