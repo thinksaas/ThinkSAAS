@@ -10,4 +10,5 @@ return array (
   'home' => '首页',
   'feed' => '动态',
   'apple' => '苹果机',
+  'article' => '文章',
 );
