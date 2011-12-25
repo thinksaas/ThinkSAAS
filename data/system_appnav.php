@@ -8,7 +8,6 @@ return array (
   'location' => '同城',
   'attach' => '附件',
   'home' => '首页',
-  'article' => '文章',
   'feed' => '动态',
+  'apple' => '苹果机',
 );
-?>
