@@ -244,12 +244,14 @@ CREATE TABLE IF NOT EXISTS `ts_article_cate` (
   `catename` char(16) NOT NULL DEFAULT '' COMMENT '分类名称',
   `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
   PRIMARY KEY (`cateid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `ts_article_cate`
 --
 
+INSERT INTO `ts_article_cate` (`cateid`, `catename`, `orderid`) VALUES
+(1, '默认分类', 0);
 
 -- --------------------------------------------------------
 
