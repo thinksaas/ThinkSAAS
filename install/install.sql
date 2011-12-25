@@ -1,6 +1,195 @@
-DROP TABLE IF EXISTS `ts_area`, `ts_article`, `ts_article_cate`, `ts_article_comment`, `ts_attach`, `ts_event`, `ts_event_comment`, `ts_event_group_index`, `ts_event_type`, `ts_event_users`, `ts_feed`, `ts_group`, `ts_group_cates`, `ts_group_cates_index`, `ts_group_links`, `ts_group_options`, `ts_group_topics`, `ts_group_topics_collects`, `ts_group_topics_comments`, `ts_group_topics_type`, `ts_group_users`, `ts_home_info`, `ts_mail_options`, `ts_message`, `ts_photo`, `ts_photo_album`, `ts_photo_comment`, `ts_photo_options`, `ts_search_key`, `ts_system_options`, `ts_tag`, `ts_tag_article_index`, `ts_tag_group_index`, `ts_tag_topic_index`, `ts_tag_user_index`, `ts_user`, `ts_user_follow`, `ts_user_info`, `ts_user_invites`, `ts_user_options`, `ts_user_role`, `ts_user_scores`;
+DROP TABLE IF EXISTS `ts_apple`, `ts_apple_comment`, `ts_apple_index`, `ts_apple_model`, `ts_apple_options`, `ts_apple_review`, `ts_apple_score`, `ts_apple_virtue`, `ts_area`, `ts_article`, `ts_article_cate`, `ts_article_comment`, `ts_attach`, `ts_event`, `ts_event_comment`, `ts_event_group_index`, `ts_event_type`, `ts_event_users`, `ts_feed`, `ts_group`, `ts_group_cates`, `ts_group_cates_index`, `ts_group_links`, `ts_group_options`, `ts_group_topics`, `ts_group_topics_collects`, `ts_group_topics_comments`, `ts_group_topics_type`, `ts_group_users`, `ts_home_info`, `ts_mail_options`, `ts_message`, `ts_photo`, `ts_photo_album`, `ts_photo_comment`, `ts_photo_options`, `ts_search_key`, `ts_system_options`, `ts_tag`, `ts_tag_article_index`, `ts_tag_group_index`, `ts_tag_topic_index`, `ts_tag_user_index`, `ts_user`, `ts_user_follow`, `ts_user_info`, `ts_user_invites`, `ts_user_options`, `ts_user_role`, `ts_user_scores`;
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- 数据库: `thinksaas_svv`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ts_apple`
+--
+
+CREATE TABLE IF NOT EXISTS `ts_apple` (
+  `appleid` int(11) NOT NULL AUTO_INCREMENT COMMENT '苹果机编号',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '苹果机制造者',
+  `title` char(64) NOT NULL DEFAULT '' COMMENT '苹果机名称',
+  `content` text NOT NULL COMMENT '苹果机介绍',
+  `path` char(32) NOT NULL DEFAULT '' COMMENT '图片路劲',
+  `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片地址',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '苹果机创建时间',
+  PRIMARY KEY (`appleid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='苹果机' AUTO_INCREMENT=1 ;
+
+--
+-- 转存表中的数据 `ts_apple`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ts_apple_comment`
+--
+
+CREATE TABLE IF NOT EXISTS `ts_apple_comment` (
+  `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '评论ID',
+  `reviewid` int(11) NOT NULL DEFAULT '0' COMMENT '点评ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `content` text NOT NULL COMMENT '内容',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`commentid`),
+  KEY `reviewid` (`reviewid`),
+  KEY `userid` (`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- 转存表中的数据 `ts_apple_comment`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ts_apple_index`
+--
+
+CREATE TABLE IF NOT EXISTS `ts_apple_index` (
+  `appleid` int(11) NOT NULL DEFAULT '0' COMMENT '苹果机编号',
+  `modelid` int(11) NOT NULL DEFAULT '0' COMMENT '模型ID',
+  `virtueid` int(11) NOT NULL DEFAULT '0' COMMENT '模型属性名称',
+  `parameter` char(64) NOT NULL DEFAULT '' COMMENT '苹果属性参数',
+  KEY `appleid` (`appleid`),
+  KEY `modelid` (`modelid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='模型属性索引';
+
+--
+-- 转存表中的数据 `ts_apple_index`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ts_apple_model`
+--
+
+CREATE TABLE IF NOT EXISTS `ts_apple_model` (
+  `modelid` int(11) NOT NULL AUTO_INCREMENT,
+  `modelkey` char(32) NOT NULL DEFAULT '' COMMENT '模型key',
+  `modelname` char(32) NOT NULL DEFAULT '' COMMENT '模型名称',
+  PRIMARY KEY (`modelid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='苹果模型' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `ts_apple_model`
+--
+
+INSERT INTO `ts_apple_model` (`modelid`, `modelkey`, `modelname`) VALUES
+(1, 'book', '书籍'),
+(2, 'movie', '电影');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ts_apple_options`
+--
+
+CREATE TABLE IF NOT EXISTS `ts_apple_options` (
+  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
+  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
+  UNIQUE KEY `optionname` (`optionname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
+
+--
+-- 转存表中的数据 `ts_apple_options`
+--
+
+INSERT INTO `ts_apple_options` (`optionname`, `optionvalue`) VALUES
+('appname', '苹果机'),
+('appdesc', '苹果机，点评模块'),
+('isenable', '0'),
+('modelid', '1');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ts_apple_review`
+--
+
+CREATE TABLE IF NOT EXISTS `ts_apple_review` (
+  `reviewid` int(11) NOT NULL AUTO_INCREMENT,
+  `appleid` int(11) NOT NULL DEFAULT '0' COMMENT '苹果机ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `title` char(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `content` text NOT NULL COMMENT '内容',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`reviewid`),
+  KEY `appleid` (`appleid`),
+  KEY `userid` (`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='苹果机点评' AUTO_INCREMENT=1 ;
+
+--
+-- 转存表中的数据 `ts_apple_review`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ts_apple_score`
+--
+
+CREATE TABLE IF NOT EXISTS `ts_apple_score` (
+  `appleid` int(11) NOT NULL DEFAULT '0' COMMENT '苹果机ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `score` int(11) NOT NULL DEFAULT '0' COMMENT '分数',
+  UNIQUE KEY `appleid` (`appleid`,`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='苹果机用户打分';
+
+--
+-- 转存表中的数据 `ts_apple_score`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ts_apple_virtue`
+--
+
+CREATE TABLE IF NOT EXISTS `ts_apple_virtue` (
+  `virtueid` int(11) NOT NULL AUTO_INCREMENT COMMENT '模型属性ID',
+  `modelid` int(11) NOT NULL DEFAULT '0' COMMENT '模型ID',
+  `virtuename` char(32) NOT NULL DEFAULT '' COMMENT '模型属性名称',
+  PRIMARY KEY (`virtueid`),
+  KEY `modelid` (`modelid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+
+--
+-- 转存表中的数据 `ts_apple_virtue`
+--
+
+INSERT INTO `ts_apple_virtue` (`virtueid`, `modelid`, `virtuename`) VALUES
+(1, 1, '作者'),
+(2, 1, '出版社'),
+(3, 1, '出版年'),
+(4, 1, '页数'),
+(5, 1, '定价'),
+(6, 1, '装帧'),
+(7, 1, 'ISBN'),
+(8, 2, '导演'),
+(9, 2, '编剧'),
+(10, 2, '主演'),
+(11, 2, '类型'),
+(12, 2, '制片国家/地区'),
+(13, 2, '语言'),
+(14, 2, '上映日期'),
+(15, 2, '片长');
+
+-- --------------------------------------------------------
 
 --
 -- 表的结构 `ts_area`
@@ -279,14 +468,14 @@ CREATE TABLE IF NOT EXISTS `ts_group` (
   KEY `userid` (`userid`),
   KEY `isshow` (`isshow`),
   KEY `groupname` (`groupname`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='小组' AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='小组' AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `ts_group`
 --
 
 INSERT INTO `ts_group` (`groupid`, `userid`, `groupname`, `groupname_en`, `groupdesc`, `path`, `groupicon`, `count_topic`, `count_topic_today`, `count_user`, `joinway`, `role_leader`, `role_admin`, `role_user`, `addtime`, `isrecommend`, `isopen`, `isaudit`, `ispost`, `isshow`, `uptime`) VALUES
-(1, 1, '默认小组', '', '默认小组<br />', '', '', 0, 0, 1, 0, '组长', '管理员', '成员', 1322304027, 0, 0, 0, 0, 0, 0);
+(1, 1, '默认小组', '', '默认小组<br />', '', '', 7, 2, 1, 1, '组长', '管理员', '成员', 1321804548, 1, 0, 0, 0, 0, 1322878060);
 
 -- --------------------------------------------------------
 
@@ -302,14 +491,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_cates` (
   `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '最后更新时间',
   PRIMARY KEY (`cateid`),
   KEY `referid` (`catereferid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- 转存表中的数据 `ts_group_cates`
 --
 
-INSERT INTO `ts_group_cates` (`cateid`, `catename`, `catereferid`, `count_group`, `uptime`) VALUES
-(1, '默认分类', 0, 1, 1322304027);
 
 -- --------------------------------------------------------
 
@@ -329,8 +516,6 @@ CREATE TABLE IF NOT EXISTS `ts_group_cates_index` (
 -- 转存表中的数据 `ts_group_cates_index`
 --
 
-INSERT INTO `ts_group_cates_index` (`groupid`, `cateid`) VALUES
-(1, 1);
 
 -- --------------------------------------------------------
 
@@ -356,25 +541,23 @@ CREATE TABLE IF NOT EXISTS `ts_group_links` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_group_options` (
-  `optionid` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项ID',
   `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
   `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  PRIMARY KEY (`optionid`),
   UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='配置' AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
 
 --
 -- 转存表中的数据 `ts_group_options`
 --
 
-INSERT INTO `ts_group_options` (`optionid`, `optionname`, `optionvalue`) VALUES
-(1, 'appname', '小组'),
-(2, 'appdesc', 'ThinkSAAS小组'),
-(3, 'isenable', '0'),
-(4, 'iscreate', '0'),
-(5, 'isaudit', '0'),
-(6, 'isrewrite', '0'),
-(7, 'iscate', '1');
+INSERT INTO `ts_group_options` (`optionname`, `optionvalue`) VALUES
+('appname', '小组'),
+('appdesc', 'ThinkSAAS小组'),
+('isenable', '0'),
+('iscreate', '0'),
+('isaudit', '1'),
+('iscate', '1'),
+('ismode', '0');
 
 -- --------------------------------------------------------
 
@@ -499,7 +682,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_users` (
 --
 
 INSERT INTO `ts_group_users` (`userid`, `groupid`, `isadmin`, `addtime`) VALUES
-(1, 1, 0, 1322304027);
+(1, 1, 0, 1321804548);
 
 -- --------------------------------------------------------
 
@@ -592,6 +775,7 @@ CREATE TABLE IF NOT EXISTS `ts_photo` (
   `photosize` char(32) NOT NULL DEFAULT '',
   `photodesc` char(120) NOT NULL DEFAULT '',
   `count_view` int(11) NOT NULL DEFAULT '0',
+  `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不推荐1推荐',
   `addtime` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`photoid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -715,12 +899,12 @@ CREATE TABLE IF NOT EXISTS `ts_system_options` (
 INSERT INTO `ts_system_options` (`optionid`, `optionname`, `optionvalue`) VALUES
 (1, 'site_title', 'ThinkSAAS'),
 (2, 'site_subtitle', '又一个ThinkSAAS社区'),
-(3, 'site_url', 'http://localhost/thinksaas/svv/'),
+(3, 'site_url', 'http://localhost/thinksaas/git/ThinkSAAS/'),
 (4, 'site_email', 'admin@admin.com'),
 (6, 'site_icp', '京ICP备09050100号'),
 (7, 'isface', '0'),
 (8, 'site_key', 'thinksaas'),
-(9, 'site_desc', '又一个ThinkSAAS社区小组'),
+(9, 'site_desc', '又一个ThinkSAAS社区'),
 (10, 'site_theme', 'miliao'),
 (11, 'site_urltype', '1'),
 (12, 'isgzip', '0'),
@@ -739,8 +923,8 @@ CREATE TABLE IF NOT EXISTS `ts_tag` (
   `count_user` int(11) NOT NULL DEFAULT '0',
   `count_group` int(11) NOT NULL DEFAULT '0',
   `count_topic` int(11) NOT NULL DEFAULT '0',
-  `count_article` int(11) NOT NULL DEFAULT '0' COMMENT '统计文章',
   `count_bang` int(11) NOT NULL DEFAULT '0',
+  `count_article` int(11) NOT NULL DEFAULT '0',
   `isenable` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否可用',
   `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`tagid`),
