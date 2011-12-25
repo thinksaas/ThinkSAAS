@@ -74,17 +74,27 @@
 	{$strReview[content]}
 	</span>
 
+<div class="clear"></div>
+
+<div style="text-align:right;">
+<!--{if $strReview[userid] == intval($TS_USER[user][userid]) || intval($TS_USER[user][isadmin])==1}-->
+<a href="{SITE_URL}index.php?app=apple&ac=review&ts=edit&reviewid={$strReview[reviewid]}">修改</a> 
+<a href="{SITE_URL}index.php?app=apple&ac=review&ts=del&reviewid={$strReview[reviewid]}">删除</a>
+<!--{/if}-->
+</div>
+
 <div class="clear"></div> 
 
 
-
-<div class="clear"></div><div id="comments"><br><span align="right" class="pl2"><a href="#" class="j a_show_login">&gt; 我来回应</a></span><br></div>
-
+<div id="comments"><br><span align="right" class="pl2"><a href="#" class="j a_show_login">&gt; 我来回应</a></span><br></div>
 
 
 
 
-</div></div>
+
+</div>
+
+</div>
 
 </div>
 
@@ -96,7 +106,7 @@
 <div>
 <a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$strApple[appleid]))}">
 
-<img src="<!--{if $strApple[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($strApple[photo],'apple',120,'',$strApple[path])}<!--{/if}-->" title="{$strApple[title]}" alt="{$strApple[title]}" class="fil"></a>
+<img src="<!--{if $strApple[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($strApple[photo],'apple',150,'150',$strApple[path])}<!--{/if}-->" title="{$strApple[title]}" alt="{$strApple[title]}" class="fil"></a>
 <br clear="all">
 <!--{loop $strApple[model] $key $item}-->
 <span class="pl">{$item[virtuename]}：</span> {$item[parameter]}<br>

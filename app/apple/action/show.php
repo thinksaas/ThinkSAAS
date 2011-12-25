@@ -25,7 +25,7 @@ $score = $db->once_fetch_assoc("select sum(score) from ".dbprefix."apple_score w
 $allScore = $score['sum(score)'];
 
 //平均分
-$average = $allScore/$userNumCount;
+$average = round($allScore/$userNumCount,2);
 
 //计算当前用户的评分 
 if(intval($TS_USER['user']['userid'])>0){
