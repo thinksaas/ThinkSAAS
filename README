@@ -1,11 +1,12 @@
-ThinkSAAS, a community from China's best system, it can be simply developed, extended power capabilities.
+=========ThinkSAAS1.6更新说明=======
 
-=========ThinkSAAS官方网站=========
-
-http://www.thinksaas.cn
-
-Email:thinksaas@qq.com
-QQ:1078700473
+1、增加苹果机(点评APP)，自定义项目模型和属性，自带书籍和电影模型
+2、优化如果前台出问题，可以通过顺利进入后台配置解决前台问题
+3、优化app配置data存储方案，让存储静态文件数据更简单
+4、优化后台插件管理，实现插件统一管理
+5、增加自带常用插件安装（QQ登录、广告插件、友情链接、统计，敏感词过滤等至少8个常用插件）
+6、简化注册流程，减少对js的使用和依赖
+7、加强数据操作的过滤，加强消息盒子和feed插入数据库时的过滤
 
 
 =========ThinkSAAS安装说明=========
@@ -33,3 +34,10 @@ Based on ThinkSAAS
 9、在ThinkSAAS未进行商业运作之前，ThinkSAAS(邱君)将拥有对ThinkSAAS的所有权，任何个人，公司和组织不得以任何形式和目的侵犯ThinkSAAS的版权和著作权
 
 10、ThinkSAAS拥有对此协议的修改和不断完善
+
+=========ThinkSAAS官方网站=========
+
+http://www.thinksaas.cn
+
+Email:thinksaas@qq.com
+QQ:1078700473
