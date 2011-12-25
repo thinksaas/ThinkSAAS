@@ -1,0 +1,27 @@
+<?php  include PubTemplate("header"); ?>
+
+<div class="midder">
+<div class="mc">
+
+<h1>完善QQ帐号信息</h1>
+
+<div style="padding:0 0 10px 0">
+<img src="<?php echo SITE_URL; ?>plugins/pubs/qq/connect_qq.gif" align="absmiddle" /> 您将使用QQ账号 <strong><?php echo $arr['nickname']; ?></strong> 登录本站。
+</div>
+
+<form method="POST" action="<?php echo SITE_URL; ?>index.php?app=pubs&ac=plugin&plugin=qq&in=do">
+<table class="utable">
+<tr><th>用户名：</th><td><input class="uinput" name="username" value="<?php echo $arr['nickname'] ?>" /> *必须</td></tr>
+<tr><th>Email：</th><td><input class="uinput" name="email" /> * 必须</td></tr>
+<tr><th>头像：</th><td><img src="<?php echo $arr['figureurl_2'] ?>" /></td></tr>
+<tr><th></th><td></td></tr>
+<tr><th></th><td><input class="submit" style="width:130px;" type="submit" value="完成，继续浏览" /> 
+<br />
+<input type="checkbox" checked="select" disabled="true" /> 同意网站服务条款</td></tr>
+</table>
+</form>
+
+</div>
+</div>
+
+<?php  include PubTemplate("footer"); ?>

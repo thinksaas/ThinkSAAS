@@ -150,9 +150,10 @@ white-space:nowrap;}
 }
 
 .infobox .bd {
-    padding: 4px 0px;
+    padding: 10px;
 	margin:0;
 	overflow: hidden;
+	background:#F4F4EC;
 }
 
 .groupicon {
