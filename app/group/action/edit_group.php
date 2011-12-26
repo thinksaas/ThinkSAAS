@@ -1,17 +1,14 @@
 <?php
-	/* 
-	 * 编辑小组信息
-	 */
-	defined('IN_TS') or die('Access Denied.');
-	
-	$groupid = intval($_GET['groupid']);
-	
-	$strGroup = $new['group']->getOneGroup($groupid);
-	
-	$strGroup['groupdesc'] = stripslashes($strGroup['groupdesc']);
-	
-	if($TS_USER['user']['userid'] != $strGroup['userid']) header("Location: ".SITE_URL."index.php");
-	
+defined('IN_TS') or die('Access Denied.');
+
+$groupid = intval($_GET['groupid']);
+
+$strGroup = $new['group']->getOneGroup($groupid);
+
+$strGroup['groupdesc'] = stripslashes($strGroup['groupdesc']);
+
+if(intval($TS_USER['user']['userid']) == $strGroup['userid'] || intval($TS_USER['user']['isadmin']==1)){
+
 	switch($ts){
 		
 		//编辑小组基本信息
@@ -32,7 +29,7 @@
 		
 		//修改访问权限
 		case "privacy":
-	
+
 			$title = '编辑小组权限';
 			include template("edit_privacy");
 			
@@ -79,3 +76,7 @@
 			break;
 		
 	}
+
+}else{
+	header("Location: ".SITE_URL);
+}

@@ -123,7 +123,7 @@
 <!--{/loop}-->
 <br clear="all">
 
-<!--{if $TS_USER[user][userid] == $strGroup[userid]}-->
+<!--{if intval($TS_USER[user][userid]) == $strGroup[userid] || intval($TS_USER[user][isadmin]==1)}-->
 <p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group_user',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1176]} ({$strGroup[count_user]})</a></p>
 
 <p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','edit_group',array(groupid=>$strGroup[groupid],ts=>base))}">{$TS_HL[app][1177]} </a></p>
