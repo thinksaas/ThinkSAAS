@@ -10,16 +10,16 @@ $strGroup = $db->once_fetch_assoc("select groupid,userid from ".dbprefix."group 
 
 $strTopic = $db->once_fetch_assoc("select topicid,userid,groupid,title from ".dbprefix."group_topics where topicid='$topicid'");
 
-$strUser = $db->once_fetch_assoc("select userid,isadmin from ".dbprefix."user_info where userid='$userid'");
 
-
-if($userid == $strTopic['userid'] || $strUser['isadmin']=='1' || $userid==$strGroup['userid']){
+if($userid == $strTopic['userid'] || $TS_USER['user']['isadmin']=='1' || $userid==$strGroup['userid']){
 
 	if($strGroup && $strTopic){
 		if($strTopic['groupid'] == $groupid){
 			$arrGroups = $db->fetch_all_assoc("select groupid from ".dbprefix."group_users where userid='".$strTopic['userid']."'");
 			foreach($arrGroups as $item){
-				$arrGroup[] = aac('group')->getOneGroup($item['groupid']);
+				if($item['groupid'] != $groupid){
+					$arrGroup[] = aac('group')->getOneGroup($item['groupid']);
+				}
 			}
 			
 			$title = '移动帖子';

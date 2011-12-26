@@ -923,8 +923,12 @@ switch ($ts) {
 		
 	//移动帖子
 	case "topic_move":
-		$groupid = $_POST['groupid'];
-		$topicid = $_POST['topicid'];
+		$groupid = intval($_POST['groupid']);
+		$topicid = intval($_POST['topicid']);
+		
+		if($groupid == 0 || $topicid==0){
+			header("Location: ".SITE_URL);
+		}
 		
 		$db->query("update ".dbprefix."group_topics set `groupid`='$groupid' where topicid='$topicid'");
 		
