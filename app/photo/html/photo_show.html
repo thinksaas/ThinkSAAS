@@ -27,9 +27,9 @@
 <div style="text-align:center">
     <!--{if $nowPage < $conutPage}-->
 	<a title="点击查看下一张" href="{SITE_URL}{tsurl('photo','show',array(photoid=>$next))}" class="mainphoto">
-        <img src="{SITE_URL}{php echo miniimg($strPhoto[photourl],'photo',600,600,$strPhoto[path])}">
-   </a>
    <!--{/if}-->
+     <img src="{SITE_URL}{php echo miniimg($strPhoto[photourl],'photo',600,600,$strPhoto[path])}">
+	 <!--{if $nowPage < $conutPage}--></a><!--{/if}-->
 </div>
 
 <div class="photo_descri">
