@@ -1,20 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>首页</title>
+<meta name="description" content="描述" /> 
+<meta name="keywords" content="关键字" />
+<style>
+*{margin:0;padding:0;}
+body{background:#666;}
+.box{margin:10px auto;width:975px;}
+.box div{width:200px;padding:10px;float:left;display:inline;margin:10px 0 0 10px;background:white;}
+.box img{display:block;}
+</style>
+@import url({SITE_URL}app/{$app}/skins/{$skin}/pinte.css);
+
+<script>
+window.onload = function(){
+var oBox = document.getElementById('box');
+var aImg = oBox.getElementsByTagName('img');
+var aDiv =  oBox.getElementsByTagName('div');
+function setPos(arr){
+    var aCon = arr;
+    var aRowHeight = [0,0,0,0];
+    var width = aCon[0].offsetWidth;
+    aCon[0].parentNode.style.position = 'relative';
+    for(var i=0;i<aCon.length;i++){
+        aCon[i].style.position = 'absolute';
+        aCon[i].style.margin = 0;
+    }
+    for(var i=0;i<aCon.length;i++){
+        var min = findmin(aRowHeight)
+        aCon[i].style.left = (min*width+(min+1)*15)+'px';
+        aCon[i].style.top = (aRowHeight[min]+15)+'px';    
+        aRowHeight[min] += aCon[i].offsetHeight+15;
+    }
+    var max = findMax(aRowHeight);
+    oBox.style.height = aRowHeight[max]+'px';
+}
+
+function findmin(arr){
+    var rowHeight = arr;
+    var min = 0;
+    for(var i=0;i<rowHeight.length;i++){
+        if(rowHeight[i]<rowHeight[min]){
+            min = i
+        }
+    }
+    return min;
+}
+function findMax(arr){
+    var rowHeight = arr;
+    var min = 0;
+    for(var i=0;i<rowHeight.length;i++){
+        if(rowHeight[i]>rowHeight[min]){
+            min = i
+        }
+    }
+    return min;
+}
+setPos(aDiv);
+}
+</script>
+
+</head>
+<body>
+<div class="box" id="box">
 <!--{loop $arrPhoto $key $item}-->
-    <div class="item">
+    <div>
         <a title="{$item[photodesc]}" class="photolst_photo" href="{SITE_URL}{tsurl('photo','show',array(photoid=>$item[photoid]))}">
         <img src="{SITE_URL}{php echo miniimg($item[photourl],'photo',200,'',$item[path])}">
         </a>
     </div>
 <!--{/loop}-->
-
-<script src="{SITE_URL}public/js/jquery.masonry.min.js"></script>
-<script>
-
-$(function(){
-  $('#container').masonry({
-    // options
-    itemSelector : '.box',
-
-  });
-});
-
-</script>
+</div>
+</body>
+</html>
