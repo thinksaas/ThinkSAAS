@@ -64,9 +64,9 @@ h3 {
 <ul style="clear:both" class="tlst clearfix">
 <li class="nlst"><h3><a style="float:left" href="{SITE_URL}{tsurl('apple','review',array('reviewid'=>$item[reviewid]))}" title="{$item[title]}">{$item[title]}</a></h3></li>
 <li style="clear:both;" class="ilst">
-<a title="{$item[apple][title]}" href="{SITE_URL}{tsrul('apple','show',array('appleid'=>$item[apple][appleid]))}"><img alt="{$item[apple][title]}" class="fil" src="<!--{if $item[apple][photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($item[apple][photo],'apple',96,'96',$item[apple][path])}<!--{/if}-->" /></a>
+<a title="{$item[apple][title]}" href="{SITE_URL}{tsrul('apple','subject',array('appleid'=>$item[apple][appleid]))}"><img alt="{$item[apple][title]}" class="fil" src="<!--{if $item[apple][photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($item[apple][photo],'apple',96,'96',$item[apple][path])}<!--{/if}-->" /></a>
 </li>
-<li class="clst"><span class="pl ll obss"><span class="starb"> <a href="">{$item[user][username]}</a> &nbsp;评论: <a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$item[appleid]))}">{$item[apple][title]}</a>
+<li class="clst"><span class="pl ll obss"><span class="starb"> <a href="">{$item[user][username]}</a> &nbsp;评论: <a href="{SITE_URL}{tsurl('apple','subject',array('appleid'=>$item[appleid]))}">{$item[apple][title]}</a>
 </span><span title="很差" class="stars1 stars"></span></span><br><br><div>{$item[content]}<a href="#" class="pl">(0回应)</a></div>
 </li>
 </ul>
