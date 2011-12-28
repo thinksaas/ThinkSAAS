@@ -274,4 +274,29 @@ switch($ts){
 		qiMsg("修改成功");
 		
 		break;
+		
+	//删除项目
+	case "del":
+		
+		$appleid = intval($_GET['appleid']);
+		
+		if($TS_USER['user']['isadmin']!='1'){
+			header("Location: ".SITE_URL);
+			exit;
+		}
+		
+		$arrReview = $db->fetch_all_assoc("select * from ".dbprefix."apple_review where `appleid`='$appleid'");
+		foreach($arrReview as $item){
+			$db->query("delete from ".dbprefix."apple_comment where `reviewid`='".$item['reviewid']."'");
+		}
+		
+		$db->query("delete from ".dbprefix."apple where `appleid`='$appleid'");
+		$db->query("delete from ".dbprefix."apple_index where `appleid`='$appleid'");
+		$db->query("delete from ".dbprefix."apple_review where `appleid`='$appleid'");
+		$db->query("delete from ".dbprefix."apple_score where `appleid`='$appleid'");
+		
+		header("Location: ".tsurl('apple'));
+		
+		break;
+		
 }
