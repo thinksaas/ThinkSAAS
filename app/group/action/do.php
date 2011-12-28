@@ -685,7 +685,7 @@ switch ($ts) {
 		
 		$strGroup = $db->once_fetch_assoc("select userid from ".dbprefix."group where groupid='".$strTopic['groupid']."'");
 		
-		if($userid!=$strGroup['userid'] || $TS_USER['user']['isadmin']==1){
+		if($userid==$strGroup['userid'] || $TS_USER['user']['isadmin']==1){
 			$db->query("update ".dbprefix."group_topics set istop='$istop' where topicid='$topicid'");
 			qiMsg("帖子置顶成功！");
 		}else{
