@@ -32,7 +32,7 @@ switch($ts){
 					
 					$arrAttach = explode('.',$attachname);
 					
-					$attachtype = $arrAttach[1];
+					$attachtype = array_pop($arrAttach);
 					
 					$attachsize = $_FILES['attach']['size'][$key];
 					

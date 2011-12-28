@@ -79,7 +79,7 @@ defined('IN_TS') or die('Access Denied.');
 				$photoname = $_FILES["photo"]['name'];
 				
 				$arrType = explode('.',$photoname);
-				$phototype = $arrType[1];
+				$phototype = array_pop($arrType);
 				
 				if (in_array($phototype,$uptypes)) {
 					//上传图片

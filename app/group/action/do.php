@@ -260,14 +260,7 @@ switch ($ts) {
 		//处理目录存储方式
 		$menu = substr($groupid,0,1);
 		
-		$uptypes = array( 
-			'image/jpg',
-			'image/jpeg',
-			'image/png',
-			'image/pjpeg',
-			'image/gif',
-			'image/x-png',
-		);
+		$uptypes = array( 'jpg','jpeg','png','gif');
 
 		if(isset($_FILES['picfile'])){
 		
@@ -278,7 +271,11 @@ switch ($ts) {
 				qiMsg("头像不能为空！");
 				
 			}elseif ($f['name']){
-				if (!in_array($_FILES['picfile']['type'],$uptypes)) {
+			
+				$arrAttach = explode('.',$f['name']);
+				$attachtype = array_pop($arrAttach);
+			
+				if (!in_array($attachtype,$uptypes)) {
 					qiMsg('你上传的头像图片类型不正确，系统仅支持 jpg,gif,png 格式的图片!');
 				}
 			} 

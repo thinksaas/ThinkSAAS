@@ -30,16 +30,10 @@ switch($ts){
 		break;
 	
 	
+	//普通上传执行
 	case "upload_do":
-		$uptypes = array( 
-			'image/jpg',
-			'image/jpeg',
-			'image/png',
-			'image/pjpeg',
-			'image/gif',
-			'image/bmp',
-			'image/x-png',
-		);
+	
+		$uptypes = array('jpg','gif','png');
 	
 		if($_FILES['photo']['name'][0] == '') qiMsg("上传图片不能为空！");
 		
@@ -56,7 +50,10 @@ switch($ts){
 			
 			foreach($arrFileName as $key=>$item){
 				if($item != ''){
-					$phototype = $_FILES['photo']['type'][$key];
+				
+					$arrType = explode('.',$item);
+					$phototype = array_pop($arrType);
+					
 					$photosize = $_FILES['photo']['size'][$key];
 					if (!in_array($phototype,$uptypes)) {
 						qiMsg("只支持图片上传！");

@@ -7,14 +7,7 @@ switch($ts){
 		$userid = intval($TS_USER['user']['userid']);
 		if($userid == '0') qiMsg("非法操作！");
 
-		$uptypes = array( 
-			'image/jpg',
-			'image/jpeg',
-			'image/png',
-			'image/pjpeg',
-			'image/gif',
-			'image/x-png',
-		);
+		$uptypes = array( 'jpg','jpeg','png','gif');
 
 		if(isset($_FILES['picfile'])){
 
@@ -23,7 +16,10 @@ switch($ts){
 			if($f['name']==''){
 				qiMsg("上传图片不能为空！");
 			}elseif ($f['name']){
-				if (!in_array($_FILES['picfile']['type'],$uptypes)) {
+				$arrAttach = explode('.',$f['name']);
+				$attachtype = array_pop($arrAttach);
+				
+				if (!in_array($attachtype,$uptypes)) {
 					qiMsg("仅支持 jpg,gif,png 格式的图片！");
 				}
 			}
