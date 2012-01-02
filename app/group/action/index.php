@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 
 //小组首页
 
-if($TS_USER['user'] == ''){
+if(intval($TS_USER['user']['userid']) == 0){
 
 	//所有小组
 	$page = isset($_GET['page']) ? $_GET['page'] : '1';
