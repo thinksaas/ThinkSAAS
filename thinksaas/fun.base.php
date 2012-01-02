@@ -390,7 +390,7 @@ function fileWrite($file,$dir,$data){
 	
 	$dfile = $dir.'/'.$file;
 	
-	if($dfile) unlink($dfile);
+	if(is_file($dfile)) unlink($dfile);
 	
 	$data = "<?php\ndefined('IN_TS') or die('Access Denied.');\nreturn ".var_export($data,true).";";
 	
