@@ -168,6 +168,10 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 		}
 	}
 	
+	require_once  'thinksaas/class.i18n.php';
+	$i18n = new i18n('app/'.$app.'/lang/lang_{LANGUAGE}.ini', 'cache/lang/', 'cn'); 
+	$i18n->init();
+	
 	//加载语言包，公共语言包和APP语言包
 	if(is_file('public/lang/'.$hl.'.php')){
 		$TS_HL['pub'] = include 'public/lang/'.$hl.'.php';
@@ -176,6 +180,7 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 			$TS_HL['pub'] = include 'public/lang/zh_cn.php';
 		}
 	}
+	
 	
 	if(is_file('app/'.$app.'/lang/'.$hl.'.php')){
 		
@@ -188,7 +193,6 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	
 	//开始执行APP action
 	include $app.'/action/'.$ac.'.php';
-	
 	
 }else{
 	header("HTTP/1.1 404 Not Found");
