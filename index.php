@@ -13,8 +13,8 @@ define('THINKROOT', dirname(__FILE__));
 define('THINKAPP', THINKROOT.'/app');
 define('THINKDATA',THINKROOT.'/data');
 define('THINKSAAS', THINKROOT.'/thinksaas');
-define('THINKINSTALL',THINKDATA.'/install');
-define('THINKPLUGIN',THINKDATA.'/plugins');
+define('THINKINSTALL',THINKROOT.'/install');
+define('THINKPLUGIN',THINKROOT.'/plugins');
 
 //装载ThinkSAAS核心
 
