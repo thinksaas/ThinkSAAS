@@ -166,16 +166,27 @@ class i18n {
         }
 
         // abort if no language file was found
+		
         if($this->appliedLang == NULL) {
             throw new RuntimeException('No language file was found.');
         }
+		
         // search for cache file
         $this->cacheFilePath = $this->cachePath . '/php_i18n_' . md5_file(__FILE__) . '_' . $this->appliedLang . '.cache.php';
 
         // if no cache file exists or if it is older than the language file create a new one
         if(!file_exists($this->cacheFilePath) || filemtime($this->cacheFilePath) < filemtime($this->langFilePath)) {
 
+			/*此处开始由QIUJUN添加*/
+			$pub_ini = parse_ini_file('public/lang/lang_'.$this->appliedLang.'.ini', true);
+			
+			/*添加结束*/
+		
             $ini = parse_ini_file($this->langFilePath, true);
+			
+			//合并
+			$ini = array_merge($pub_ini,$ini);
+			
             $compiled = "<?php class L {\n";
             $compiled .= $this->compile_ini($ini);
             $compiled .= '}';
