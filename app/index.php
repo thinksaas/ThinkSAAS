@@ -168,9 +168,12 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 		}
 	}
 	
+	//i18n
 	require_once  'thinksaas/class.i18n.php';
-	$i18n = new i18n('app/'.$app.'/lang/lang_{LANGUAGE}.ini', 'cache/lang/', 'cn'); 
+	
+	$i18n= new i18n('app/'.$app.'/lang/lang_{LANGUAGE}.ini', 'cache/lang/', 'en'); 
 	$i18n->init();
+	
 	
 	//加载语言包，公共语言包和APP语言包
 	if(is_file('public/lang/'.$hl.'.php')){
