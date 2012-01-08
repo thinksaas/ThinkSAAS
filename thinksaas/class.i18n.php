@@ -9,8 +9,10 @@
  */
 
 class i18n {
-
+	
+	//by QIUJUN
 	protected $app = NULL;
+	//by QIUJUN
 	/*
 	 * Editable settings via constructor
 	 */
