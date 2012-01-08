@@ -37,27 +37,27 @@
 <div class="left"><a href="{SITE_URL}index.php"><img src="{SITE_URL}theme/{$site_theme}/logo.gif" alt="{$TS_SITE[base][site_title]}" /></a></div>
 <div class="nav">
 <ul>
-<li><a href="{SITE_URL}index.php">{php echo L::home}</a></li>
+<li><a href="{SITE_URL}index.php">{php echo L::public_home}</a></li>
 {php doAction('pub_header_nav')}
-<li><a href="{SITE_URL}{tsurl('group','explore')}">{php echo L::explore}</a></li>
+<li><a href="{SITE_URL}{tsurl('group','explore')}">{php echo L::public_explore}</a></li>
 </ul>
 </div>
 
 <div class="right">
 <!--{if $TS_USER[user] == ''}-->
-<a href="{SITE_URL}{tsurl('user','register')}"><img class="fimg" src="{SITE_URL}public/images/avatar_24.gif" width="24" align="absmiddle" /></a> {php echo L::welcome}
+<a href="{SITE_URL}{tsurl('user','register')}"><img class="fimg" src="{SITE_URL}public/images/avatar_24.gif" width="24" align="absmiddle" /></a> {php echo L::public_welcome}
 <br />
-<a href="{SITE_URL}{tsurl('user','login')}">{php echo L::login}</a> | <a href="{SITE_URL}{tsurl('user','register')}">{php echo L::register}</a>
+<a href="{SITE_URL}{tsurl('user','login')}">{php echo L::public_login}</a> | <a href="{SITE_URL}{tsurl('user','register')}">{php echo L::public_register}</a>
 <!--{else}-->
 <a href="{SITE_URL}{tsurl('user','space',array(userid=>$TS_USER[user][userid]))}">
 <img class="fimg" src="<!--{if $TS_USER[user][face]==""}-->{SITE_URL}public/images/avatar_24.gif<!--{else}-->{SITE_URL}{php echo miniimg($TS_USER[user][face],'user','24','24',$TS_USER[user][path],'1')}<!--{/if}-->" width="24" align="absmiddle" /> 
 </a>
-<a href="{SITE_URL}{tsurl('user','space',array(userid=>$TS_USER[user][userid]))}">{$TS_USER[user][username]}</a>   |  <span id="newmsg"><a href="{SITE_URL}{tsurl('message','my')}">{php echo L::message}</a></span> <img src="{SITE_URL}public/images/score.gif" /> {$TS_USER[user][count_score]}
+<a href="{SITE_URL}{tsurl('user','space',array(userid=>$TS_USER[user][userid]))}">{$TS_USER[user][username]}</a>   |  <span id="newmsg"><a href="{SITE_URL}{tsurl('message','my')}">{php echo L::public_message}</a></span> <img src="{SITE_URL}public/images/score.gif" /> {$TS_USER[user][count_score]}
 <br />
-<a href="{SITE_URL}{tsurl('user','set',array(ts=>base))}">{php echo L::set}</a> | <a href="{SITE_URL}{tsurl('user','invite')}">{php echo L::invite}</a>  | <a href="{SITE_URL}{tsurl('user','login',array(ts=>out))}">{php echo L::logout}</a>
+<a href="{SITE_URL}{tsurl('user','set',array(ts=>base))}">{php echo L::public_set}</a> | <a href="{SITE_URL}{tsurl('user','invite')}">{php echo L::public_invite}</a>  | <a href="{SITE_URL}{tsurl('user','login',array(ts=>out))}">{php echo L::public_logout}</a>
 <!--{/if}-->
 
-| <a href="{SITE_URL}{tsurl('home','theme')}">{php echo L::theme}</a>
+| <a href="{SITE_URL}{tsurl('home','theme')}">{php echo L::public_theme}</a>
 
 </div>
 </div>
