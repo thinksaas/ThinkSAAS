@@ -37,7 +37,11 @@ if(intval($TS_USER['user']['userid']) == 0){
 }else{
 
 	$userid = intval($TS_USER['user']['userid']);
-	if($userid == '0') header("Location: ".SITE_URL."index.php");
+	//未登录的情况下
+	if($userid == '0'){
+		header("Location: ".SITE_URL."index.php");
+		exit;
+	}
 	
 	//小组模式的跳转
 	if(intval($TS_APP['options']['ismode'])=='1'){
@@ -45,44 +49,6 @@ if(intval($TS_USER['user']['userid']) == 0){
 		exit;
 	}
 	
-	//我的小组
-	$myGroup = $db->fetch_all_assoc("select * from ".dbprefix."group_users where userid='$userid'");
-	
-	if($myGroup != ''){
-	
-		//我加入的小组
-		$myGroups = $db->fetch_all_assoc("select * from ".dbprefix."group_users where userid='$userid' limit 30");
-		
-		if(is_array($myGroups)){
-			foreach($myGroups as $key=>$item){
-				$arrMyGroup[] = $new['group']->getOneGroup($item['groupid']);
-			}
-		}
-		
-		//我加入的所有小组的话题
-		
-		if(is_array($myGroup)){
-			foreach($myGroup as $item){
-				$arrGroup[] = $item['groupid'];
-			}
-		}
-		
-		//@bug fixed by anythink
-		$strGroup = implode(',',$arrGroup);
-		if($strGroup){
-			$arrTopics = $db->fetch_all_assoc("select topicid,userid,groupid,title,count_comment,count_view,istop,isphoto,isattach,isposts,addtime,uptime from ".dbprefix."group_topics where groupid in ($strGroup) and isshow='0' order by uptime desc limit 50");
-			foreach($arrTopics as $key=>$item){
-				$arrTopic[] = $item;
-				$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
-				$arrTopic[$key]['group'] = aac('group')->getSimpleGroup($item['groupid']);
-				$arrTopic[$key]['photo'] = $new['group']->getOnePhoto($item['topicid']);
-			}
-		}
-	
-	}
-	
-	$title = '我的首页';
-	
-	include template("my");
+	header("Location: ".SITE_URL.tsurl('group','user',array('userid'=>$userid)));
 	
 }

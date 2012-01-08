@@ -13,16 +13,9 @@
 <div class="mc">
 <div class="cleft">
 
-<div class="top-wp">
-<ul class="tabs">
-<li><a href="{SITE_URL}{tsurl('group','all')}">{php echo L::my_allgroups}</a></li>
-<li><a class="current" href="{SITE_URL}"><span>{php echo L::my_newtopics}</span></a></li>
-</ul>
-</div>
-
 <div class="clear"></div>
 
-{template my_menu}
+{template user_menu}
 
 <div class="topic_list">
 <ul>
@@ -100,7 +93,7 @@
 
 <div class="clear"></div>
 <h2>{php echo L::my_mygroups}<span class="pl">(
-<a href="{SITE_URL}{tsurl('group','my_group')}">{php echo L::my_allgroups}</a>
+<a href="{SITE_URL}{tsurl('group','user',array('userid'=>intval($TS_USER[user][userid]),'ts'=>'group'))}">{php echo L::my_allgroups}</a>
 ) </span></h2>
 <div class="mygroup">
 <ul>
