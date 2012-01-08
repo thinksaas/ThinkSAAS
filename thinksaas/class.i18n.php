@@ -10,6 +10,7 @@
 
 class i18n {
 
+	protected $app = NULL;
 	/*
 	 * Editable settings via constructor
 	 */
@@ -118,7 +119,11 @@ class i18n {
 	 * @param string [$forcedLang] If you want to force a specific language define it here.
 	 * @param string [$sectionSeperator] This is the seperator used for sections in your ini-file.
 	 */
-	public function __construct($filePath = NULL, $cachePath = NULL, $fallbackLang = NULL, $forcedLang = NULL, $sectionSeperator = NULL) {
+	public function __construct($app = NULL, $filePath = NULL, $cachePath = NULL, $fallbackLang = NULL, $forcedLang = NULL, $sectionSeperator = NULL) {
+		
+		if($app != NULL) {
+			$this->app = $app;
+		}
 		
 		// Apply settings
 		if($filePath != NULL) {
@@ -174,7 +179,7 @@ class i18n {
 		
 		
         // search for cache file
-        $this->cacheFilePath = $this->cachePath . '/php_i18n_' . md5_file(__FILE__) . '_' . $this->appliedLang . '.cache.php';
+        $this->cacheFilePath = $this->cachePath . '/php_i18n_'.$this->app.'_' . $this->appliedLang . '.cache.php';
 
         // if no cache file exists or if it is older than the language file create a new one
         if(!file_exists($this->cacheFilePath) || filemtime($this->cacheFilePath) < filemtime($this->langFilePath)) {
