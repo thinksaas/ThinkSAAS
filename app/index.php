@@ -171,7 +171,7 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	//i18n
 	require_once  'thinksaas/class.i18n.php';
 	
-	$i18n= new i18n('app/'.$app.'/lang/lang_{LANGUAGE}.ini', 'cache/lang/', 'en'); 
+	$i18n= new i18n($app,'app/'.$app.'/lang/lang_{LANGUAGE}.ini', 'cache/lang/', 'en'); 
 	$i18n->init();
 	
 	
