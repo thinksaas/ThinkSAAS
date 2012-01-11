@@ -50,7 +50,7 @@ switch($ts){
 			qiMsg('两次输入密码不正确！');
 		}elseif(strlen($username) < 4 || strlen($username) > 20){
 			qiMsg('姓名长度必须在4和20之间!');
-		}elseif($username > 0){
+		}elseif($isusername > 0){
 			qiMsg("用户名已经存在，请换个用户名！");
 		}elseif($authcode != $_SESSION['authcode']){
 			qiMsg("验证码输入有误，请重新输入！");
