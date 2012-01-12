@@ -111,7 +111,7 @@ switch($ts){
 			$arrTopic[$key]['group'] = aac('group')->getSimpleGroup($item['groupid']);
 		}
 
-		$title = $strUser['username'].'收藏的帖子';
+		$title = $strUser['username'].' Collection of post';
 
 		include template("user_collect");
 

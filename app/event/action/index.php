@@ -1,7 +1,7 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 //调出活动类型 
-$arrEventType = fileRead('types.php','data','event');
+$arrEventType = fileRead('data/event_types.php');
 
 
 //推荐活动

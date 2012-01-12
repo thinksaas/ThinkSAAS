@@ -1,8 +1,12 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-	/*
-	 *包含数据库配置文件
-	 */
-	require_once THINKDATA."/config.inc.php";
-	
-	$skin = 'default';
+
+//config
+require_once THINKDATA."/config.inc.php";
+
+//options
+$TS_APP['options']['appname'] = L::config_appname;
+$TS_APP['options']['appdesc'] = L::config_appdesc;
+
+//sink
+$skin = 'default';
