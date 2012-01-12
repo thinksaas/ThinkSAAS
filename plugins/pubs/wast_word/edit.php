@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
 switch($ts){
 	case "set":
 	
-		$word = fileRead('data.php','plugins','pubs','wast_word');
+		$word = fileRead('plugins/pubs/wast_word/data.php');
 		$word = stripslashes($word);
 		
 		include 'edit_set.html';

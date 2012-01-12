@@ -2,7 +2,7 @@
 defined('IN_TS') or die('Access Denied.');
 //统计代码
 function gobad_html(){
-	$code = fileRead('data.php','plugins','pubs','gobad');
+	$code = fileRead('plugins/pubs/gobad/data.php');
 	
 	$code = stripcslashes($code);
 	
@@ -11,6 +11,9 @@ function gobad_html(){
 
 //home首页右侧底部
 addAction('home_index_right_footer','gobad_html');
+
+//group首页右侧底部
+addAction('group_index_right_footer','gobad_html');
 
 //动态首页右侧底部
 addAction('feed_index_right_footer','gobad_html');

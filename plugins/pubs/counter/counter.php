@@ -2,7 +2,7 @@
 defined('IN_TS') or die('Access Denied.');
 //统计代码
 function counter_html(){
-	$code = fileRead('data.php','plugins','pubs','counter');
+	$code = fileRead('plugins/pubs/counter/data.php');
 	
 	$code = stripcslashes($code);
 	

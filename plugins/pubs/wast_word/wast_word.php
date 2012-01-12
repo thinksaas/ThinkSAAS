@@ -7,7 +7,7 @@ function wast_word($title='',$content='',$tag=''){
 	global $content;
 	global $tag;
 	
-	$words = fileRead('data.php','plugins','pubs','wast_word');
+	$words = fileRead('plugins/pubs/wast_word/data.php');
 	
 	if($title != ''){
 		$title = preg_replace("/$words/i",'',$title);

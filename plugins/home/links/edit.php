@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 //插件编辑
 switch($ts){
 	case "set":
-		$arrLink = fileRead('data.php','plugins','home','links');
+		$arrLink = fileRead('plugins/home/links/data.php');
 		
 		include 'edit_set.html';
 		break;
