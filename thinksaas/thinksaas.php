@@ -17,11 +17,46 @@ $TS_USER = array(
 	'admin'		=> isset($_SESSION['tsadmin']) ? $_SESSION['tsadmin'] : '',
 );
 
-//加载基础函数
-require_once 'fun.base.php';
-
 //开始处理url路由
-reurl();
+$scriptName = explode('index.php',$_SERVER['SCRIPT_NAME']);
+
+$rurl = substr($_SERVER['REQUEST_URI'], strlen($scriptName[0]));
+
+if(strpos($rurl,'?')==false){
+
+	if(preg_match('/index.php/i',$rurl)){
+		$rurl = str_replace('index.php','',$rurl);
+		$rurl = substr($rurl, 1);
+		$params = $rurl;
+	}else{
+		$params = $rurl;
+	}
+
+	if($rurl){
+		
+		$params = explode('/', $params);
+		
+		foreach( $params as $p => $v )
+		{
+			switch($p)
+			{
+				case 0:$_GET['app']=$v;break;
+				case 1:$_GET['ac']=$v;break;
+				default:
+					$kv = explode('-', $v);
+					if(count($kv)>1)
+					{
+						$_GET[$kv[0]] = $kv[1];
+					}
+					else
+					{
+						$_GET['params'.$p] = $kv[0];
+					}
+					break;
+			}
+		}
+	}
+}
 
 //处理过滤
 if (!get_magic_quotes_gpc()) {     
@@ -29,19 +64,7 @@ if (!get_magic_quotes_gpc()) {
 	Add_S($_GET);
 }
 
-function Add_S(&$array){
-	if (is_array($array)) {        
-		foreach ($array as $key => $value) {             
-			if (!is_array($value)) {                 
-				$array[$key] = addslashes($value);             
-			} else {                 
-				Add_S($array[$key]);             
-			}        
-		}
-	} 
-}
-
-
+//给出所有ThinkSAAS自身的变量
 $app = isset($_GET['app']) ? $_GET['app'] : 'home';
 $ac = isset($_GET['ac']) ? $_GET['ac'] : 'index';
 
@@ -63,6 +86,15 @@ $in = isset($_GET['in']) ? $_GET['in'] : '';
 //语言包专用
 $hl = isset($_GET['hl']) ? $_GET['hl'] : 'zh_cn';
 
+
+//i18n语言
+require_once  'class.i18n.php';
+$i18n= new i18n($app,'app/'.$app.'/lang/lang_{LANGUAGE}.ini', 'cache/lang/', 'en'); 
+$i18n->init();
+
+//加载基础函数
+require_once 'fun.base.php';
+
 header('Content-Type: text/html; charset=UTF-8');
 
 //加载软件信息
@@ -75,3 +107,16 @@ $TS_SOFT['info'] = array(
 	'year'		=>	'2009 - 2011',
 	'author'	=>	'QiuJun',
 );
+
+//
+function Add_S(&$array){
+	if (is_array($array)) {        
+		foreach ($array as $key => $value) {             
+			if (!is_array($value)) {                 
+				$array[$key] = addslashes($value);             
+			} else {                 
+				Add_S($array[$key]);             
+			}        
+		}
+	} 
+}

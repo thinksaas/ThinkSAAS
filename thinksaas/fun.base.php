@@ -400,38 +400,14 @@ function fileWrite($file,$dir,$data){
 	
 }
 
-/*读取文件，过渡期ThinkSAAS1.6，到1.8的时间可以全面进行精简到fileRead($dfile)
- @$file 文件
- @$dir 目录
- @$app 过渡一下app
+/*读取文件
+ @$dfile 文件
 */
-function fileRead($file,$dir,$app,$plugin=''){
-
-	if($plugin!=''){
-		
-		//plugins
-		if(is_file($dir.'/'.$app.'/'.$plugin.'/'.$file)){
-			$data = include $dir.'/'.$app.'/'.$plugin.'/'.$file;
-			return $data;
-		}
-		
-	}else{
-		
-		//app
-		if(is_file($dir.'/'.$app.'_'.$file)){
-			$data = include $dir.'/'.$app.'_'.$file;
-			return $data;
-		}elseif(is_file($dir.'/cache/'.$app.'/'.$file)){
-			$data = include $dir.'/cache/'.$app.'/'.$file;
-			return $data;
-		}
-	
+function fileRead($dfile){
+	if(is_file($dfile)){
+		$data = include $dfile;
+		return $data;
 	}
-
-
-	
-	
-	
 }
 
 //把数组转换为,号分割的字符串
@@ -758,51 +734,6 @@ function tsurl($app,$ac='',$params=array()){
 		$url = $app.$ac.$str;
 	}
 	return $url;
-}
-
-//reurl BY QIUJUN 2011-10-23
-
-function reurl(){
-
-	$scriptName = explode('index.php',$_SERVER['SCRIPT_NAME']);
-
-	$rurl = substr($_SERVER['REQUEST_URI'], strlen($scriptName[0]));
-
-	if(strpos($rurl,'?')==false){
-
-		if(preg_match('/index.php/i',$rurl)){
-			$rurl = str_replace('index.php','',$rurl);
-			$rurl = substr($rurl, 1);
-			$params = $rurl;
-		}else{
-			$params = $rurl;
-		}
-
-		if($rurl){
-			
-			$params = explode('/', $params);
-			
-			foreach( $params as $p => $v )
-			{
-				switch($p)
-				{
-					case 0:$_GET['app']=$v;break;
-					case 1:$_GET['ac']=$v;break;
-					default:
-						$kv = explode('-', $v);
-						if(count($kv)>1)
-						{
-							$_GET[$kv[0]] = $kv[1];
-						}
-						else
-						{
-							$_GET['params'.$p] = $kv[0];
-						}
-						break;
-				}
-			}
-		}
-	}
 }
 
 //检测目录是否可写1可写，0不可写
