@@ -22,7 +22,8 @@ $scriptName = explode('index.php',$_SERVER['SCRIPT_NAME']);
 
 $rurl = substr($_SERVER['REQUEST_URI'], strlen($scriptName[0]));
 
-if(strpos($rurl,'?')==false){
+if(strpos($rurl,'?')===false){
+//if(strpos($rurl,'?')==false){
 
 	if(preg_match('/index.php/i',$rurl)){
 		$rurl = str_replace('index.php','',$rurl);
