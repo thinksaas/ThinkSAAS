@@ -22,8 +22,8 @@ $scriptName = explode('index.php',$_SERVER['SCRIPT_NAME']);
 
 $rurl = substr($_SERVER['REQUEST_URI'], strlen($scriptName[0]));
 
-if(strpos($rurl,'?')==false){
-
+if(strpos($rurl,'?')===false){
+//if(strpos($rurl,'?')==false){
 	if(preg_match('/index.php/i',$rurl)){
 		$rurl = str_replace('index.php','',$rurl);
 		$rurl = substr($rurl, 1);
@@ -104,7 +104,7 @@ $TS_SOFT['info'] = array(
 	'url'		=>	'http://www.thinksaas.cn/',
 	'email'	=>	'thinksaas@qq.com',
 	'copyright' =>	'ThinkSAAS',
-	'year'		=>	'2009 - 2011',
+	'year'		=>	'2011-2012',
 	'author'	=>	'QiuJun',
 );
 
