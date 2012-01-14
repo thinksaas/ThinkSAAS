@@ -8,19 +8,19 @@
 
 <div class="bd">
 <img align="left" alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}" class="pil mr5 groupicon" valign="top" />
-<div>{$TS_HL[app][1170]}{php echo date('Y-m-d',$strGroup[addtime])}&nbsp; &nbsp; {$strGroup[role_leader]}：<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strLeader[userid]))}">{$strLeader[username]}</a><br></div>
+<div>{php echo L::group_foundedin} {php echo date('Y-m-d',$strGroup[addtime])}&nbsp; &nbsp; {$strGroup[role_leader]}：<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strLeader[userid]))}">{$strLeader[username]}</a><br></div>
 {$strGroup[groupdesc]}
 <div class="clearfix" style="margin-top: 10px;">
 
 <!--{if $isGroupUser > 0 && $TS_USER[user][userid] != $strGroup[userid]}-->
-<span class="fleft mr5 color-gray">{$TS_HL[app][1171]}{$strGroup[role_user]} <a title="{$TS_HL[app][1172]}" class="j a_confirm_link" href="javascript:void(0);" onclick="exitGroup('{$strGroup[groupid]}');" style="margin-left: 6px;">&gt;{$TS_HL[app][1172]}</a></span>
+<span class="fleft mr5 color-gray">{php echo L::group_iwasthegroups} {$strGroup[role_user]} <a class="j a_confirm_link" href="javascript:void(0);" onclick="exitGroup('{$strGroup[groupid]}');" style="margin-left: 6px;">&gt;{php echo L::group_quit}</a></span>
 <!--{elseif $isGroupUser > 0 && $TS_USER[user][userid] == $strGroup[userid]}-->
-<span class="fleft mr5 color-gray">{$TS_HL[app][1171]}{$strGroup[role_leader]}</span>
+<span class="fleft mr5 color-gray">{php echo L::group_iwasthegroups} {$strGroup[role_leader]}</span>
 <!--{elseif $strGroup[joinway] == '0'}-->
-<span class="fright"><a class="submit" href="javascript:void(0);" onclick="joinGroup('{$strGroup[groupid]}');">{$TS_HL[app][1173]}</a></span>
+<span class="fright"><a class="submit" href="javascript:void(0);" onclick="joinGroup('{$strGroup[groupid]}');">{php echo L::group_join}</a></span>
 
 <!--{else}-->
-<span class="fright">本小组禁止加入</span>
+<span class="fright">{php echo L::group_nottojoin}</span>
 <!--{/if}-->
 
 
@@ -34,12 +34,12 @@
 <div class="box_content">
 
 <h2 style="margin-top: 10px;" class="fabu">
-<a class="submit" href="{SITE_URL}{tsurl('group','new_topic',array('groupid'=>$strGroup[groupid]))}">{$TS_HL[app][1174]}</a></h2>
+<a class="submit" href="{SITE_URL}{tsurl('group','addtopic',array('groupid'=>$strGroup[groupid]))}">{php echo L::group_addtopic}</a></h2>
 
 <!--帖子分类-->
 <div class="topictype">
 <ul>
-<li <!--{if $typeid=="0"}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}"><span>{$TS_HL[app][1026]}</span></a></li>
+<li <!--{if $typeid=="0"}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}"><span>{php echo L::group_all}</span></a></li>
 <!--{loop $arrTopicType $key $item}-->
 <li <!--{if $typeid==$item[typeid]}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid],typeid=>$item[typeid]))}"><span>{$item[typename]}</span></a></li>
 <!--{/loop}-->
@@ -67,21 +67,21 @@
 
 <a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a>
 <!--{if $item[istop]=='1'}-->
-<img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" title="[置顶]" alt="[置顶]" /> 
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" /> 
 <!--{/if}-->
 <!--{if $item[addtime]>strtotime(date('Y-m-d 00:00:00'))}-->
-<img src="{SITE_URL}app/{$app}/skins/{$skin}/topic_new.gif" align="absmiddle"  title="[新帖]" alt="[新帖]" />
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/topic_new.gif" align="absmiddle" />
 <!--{/if}--> 
 
 <!--{if $item[isphoto]=='1'}-->
-<img src="{SITE_URL}app/{$app}/skins/{$skin}/image_s.gif" title="[图片]" alt="[图片]" align="absmiddle" />
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/image_s.gif" align="absmiddle" />
 <!--{/if}--> 
 
-<!--{if $item[isattach] == '1'}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/attach.gif" title="[附件]" alt="[附件]" />
+<!--{if $item[isattach] == '1'}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/attach.gif" />
 <!--{/if}-->
 
 <!--{if $item[isposts] == '1'}-->
-<img src="{SITE_URL}public/images/posts.gif" title="[精华]" alt="[精华]" />
+<img src="{SITE_URL}public/images/posts.gif" />
 <!--{/if}-->
 
 </div>
@@ -114,7 +114,7 @@
 
 <div class="cright">
 <div>
-<h2>{$TS_HL[app][1175]}</h2>
+<h2>{php echo L::group_newmembers}</h2>
 
 <!--{loop $arrGroupUser $key $item}-->
 <dl class="obu">
@@ -123,14 +123,11 @@
 <!--{/loop}-->
 <br clear="all">
 
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group_user',array(groupid=>$strGroup[groupid]))}">{php echo L::group_members}  ({$strGroup[count_user]})</a></p>
+
 <!--{if intval($TS_USER[user][userid]) == $strGroup[userid] || intval($TS_USER[user][isadmin]==1)}-->
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group_user',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1176]} ({$strGroup[count_user]})</a></p>
-
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','edit_group',array(groupid=>$strGroup[groupid],ts=>base))}">{$TS_HL[app][1177]} </a></p>
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group_recovery',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1178]} ({$strGroup[recoverynum]})</a></p>
-
-<!--{else}-->
-<p class="pl2"><a href="{SITE_URL}{tsurl('group','group_user',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1179]}  ({$strGroup[count_user]})</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','edit_group',array(groupid=>$strGroup[groupid],ts=>base))}">{php echo L::group_management} </a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group_recovery',array(groupid=>$strGroup[groupid]))}">{php echo L::group_recover} ({$strGroup[recoverynum]})</a></p>
 <!--{/if}-->
 <div class="clear"></div>
 </div>

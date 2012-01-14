@@ -28,7 +28,7 @@ if(intval($TS_USER['user']['userid']) == 0){
 	//小组分类
 	$arrCate = $new['group']->getCates();
 	
-	$title = '小组';
+	$title = L::config_appname;
 
 	include template("index");
 	

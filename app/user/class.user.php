@@ -60,8 +60,8 @@ class user{
 			$strUser['face'] = SITE_URL.miniimg($strUser['face'],'user',48,48,$strUser['path'],1);
 			
 		}else{
-			$strUser['bigface'] = SITE_URL.'public/images/n_default.gif';
-			$strUser['face']	= SITE_URL.'public/images/noavatar.gif';
+			$strUser['bigface'] = SITE_URL.'public/images/user_large.jpg';
+			$strUser['face']	= SITE_URL.'public/images/user_normal.jpg';
 		}
 		
 		$pattern='/(http:\/\/|https:\/\/|ftp:\/\/)([\w:\/\.\?=&-_]+)/is';
@@ -78,7 +78,7 @@ class user{
 		
 		//头像
 		if($strUser['face'] == ''){
-			$strUser['face']	= SITE_URL.'public/images/noavatar.gif';
+			$strUser['face']	= SITE_URL.'public/images/user_normal.jpg';
 		}else{
 			$strUser['face'] = SITE_URL.miniimg($strUser['face'],'user',48,48,$strUser['path'],1);
 		}
@@ -94,7 +94,7 @@ class user{
 		
 		//头像
 		if($strUser['face']==''){
-			$strUser['face'] = SITE_URL.'public/images/noavatar.gif';
+			$strUser['face'] = SITE_URL.'public/images/user_normal.jpg';
 		}else{
 			$strUser['face_32'] = SITE_URL.miniimg($strUser['face'],'user',32,32,$strUser['path'],1);
 			$strUser['face'] = SITE_URL.miniimg($strUser['face'],'user',48,48,$strUser['path'],1);
@@ -113,8 +113,8 @@ class user{
 		
 		//头像
 		if($strUser['face']==''){
-			$strUser['face'] = SITE_URL.'public/images/noavatar.gif';
-			$strUser['face_32'] = SITE_URL.'public/images/noavatar.gif';
+			$strUser['face'] = SITE_URL.'public/images/user_normal.jpg';
+			$strUser['face_32'] = SITE_URL.'public/images/user_normal.jpg';
 		}else{
 			$strUser['face_32'] = SITE_URL.miniimg($strUser['face'],'user',32,32,$strUser['path'],1);
 			$strUser['face'] = SITE_URL.miniimg($strUser['face'],'user',48,48,$strUser['path'],1);

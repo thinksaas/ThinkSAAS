@@ -15,9 +15,9 @@ foreach($arrData as $key=>$item){
 $groupNum = $db->once_fetch_assoc("select count(groupid) from ".dbprefix."group");
 $pageUrl = pagination($groupNum['count(groupid)'], 20, $page, $url);
 if($page > 1){
-	$title = '全部小组 - 第'.$page.'页';
+	$title = L::all_allgroups.' - '.$page.L::all_page;
 }else{
-	$title = '全部小组';
+	$title = L::all_allgroups;
 }
 
 
