@@ -31,6 +31,6 @@ if($page > '1'){
 	$titlepage='';
 }
 
-$title =$title.'小组的回收站'.$titlepage;
+$title =$title.'的回收站'.$titlepage;
 
-include template("group_recovery");
+include template("recovery");

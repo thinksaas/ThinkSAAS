@@ -170,8 +170,8 @@
 <h2>活动支持小组</h2>
 
 <!--{loop $arrGroup $key $item}-->
-<dl class="obu"><dt><a class="nbg" href="{SITE_URL}{tsurl('group','g',array(id=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}"></a></dt>
-<dd><a href="{SITE_URL}{tsurl('group','g',array(id=>$item[groupid]))}">{$item[groupname]}</a></dd></dl>
+<dl class="obu"><dt><a class="nbg" href="{SITE_URL}{tsurl('group','group',array(id=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}"></a></dt>
+<dd><a href="{SITE_URL}{tsurl('group','group',array(id=>$item[groupid]))}">{$item[groupname]}</a></dd></dl>
 <!--{/loop}-->
 
 <div class="clear"></div>

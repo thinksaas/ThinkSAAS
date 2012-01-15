@@ -143,16 +143,16 @@ switch($ts){
 			//feed开始
 			$feed_template = '<span class="pl">在 <a href="{group_link}">{group_name}</a> 创建了新话题：<a href="{topic_link}">{topic_title}</a></span><div class="broadsmr">{content}</div><div class="indentrec"><span><a  class="j a_rec_reply" href="{topic_link}">回应</a></span></div>';
 			$feed_data = array(
-				'group_link'	=> SITE_URL.tsurl('group','g',array('id'=>$strGroup['groupid'])),
+				'group_link'	=> SITE_URL.tsurl('group','group',array('id'=>$strGroup['groupid'])),
 				'group_name'	=> $strGroup['groupname'],
-				'topic_link'	=> SITE_URL.tsurl('group','t',array('id'=>$topicid)),
+				'topic_link'	=> SITE_URL.tsurl('group','topic',array('id'=>$topicid)),
 				'topic_title'	=> $title,
 				'content'	=> getsubstrutf8(t($content),'0','50'),
 			);
 			aac('feed')->addFeed($userid,$feed_template,serialize($feed_data));
 			//feed结束
 			
-			header("Location: ".SITE_URL.tsurl('group','t',array('id'=>$topicid)));
+			header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 			
 		}
 	

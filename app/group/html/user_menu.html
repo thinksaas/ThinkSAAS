@@ -1,8 +1,8 @@
 <div class="tabnav">
 <ul>
-<li <!--{if $ac=='u' && $ts=='topic'}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','u',array('id'=>intval($TS_USER[user][userid]),'ts'=>'topic'))}">{php echo L::user_topics}</a></li>
-<li <!--{if $ac=='u' && $ts=='reply'}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','u',array('id'=>intval($TS_USER[user][userid]),'ts'=>'reply'))}">{php echo L::user_replytopics}</a></li>
-<li <!--{if $ac=='u' && $ts=='collect'}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','u',array('id'=>intval($TS_USER[user][userid]),'ts'=>'collect'))}">{php echo L::user_collecttopics}</a></li>
+<li <!--{if $ac=='user' && $ts=='topic'}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','user',array('id'=>intval($TS_USER[user][userid]),'ts'=>'topic'))}">{php echo L::user_topics}</a></li>
+<li <!--{if $ac=='user' && $ts=='reply'}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','user',array('id'=>intval($TS_USER[user][userid]),'ts'=>'reply'))}">{php echo L::user_replytopics}</a></li>
+<li <!--{if $ac=='user' && $ts=='collect'}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','user',array('id'=>intval($TS_USER[user][userid]),'ts'=>'collect'))}">{php echo L::user_collecttopics}</a></li>
 </ul>
 </div>
 <div class="clear"></div>
