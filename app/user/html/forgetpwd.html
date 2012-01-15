@@ -5,7 +5,7 @@
 <h1>{php echo L::forgetpwd_retrievepassword}</h1>
 <form method="POST" action="{SITE_URL}index.php?app=user&ac=forgetpwd&ts=do">
 <table>
-<tr><td>{php echo L::email}：</td><td><input class="uinput" type="text" name="email" /></td></tr>
+<tr><td>{php echo L::email}：</td><td><input class="uinput" type="email" name="email" /></td></tr>
 <tr><td></td><td>
 <input type="submit" class="submit" value="{php echo L::forgetpwd_submit}" /> <a href="{SITE_URL}index.php">{php echo L::forgetpwd_home}</a><td></tr>
 </table>

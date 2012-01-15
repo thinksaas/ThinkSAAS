@@ -1,0 +1,12 @@
+<h1>{php echo L::edit_editgroup}</h1>
+<div class="tabnav">
+<ul>
+<li <!--{if $ts=="base"}-->class="select"<!--{/if}-->><a href="{SITE_URL}index.php?app=group&ac=edit&groupid={$strGroup[groupid]}&ts=base">{php echo L::edit_groupbasic}</a></li>
+
+<li <!--{if $ts=="icon"}-->class="select"<!--{/if}-->><a href="{SITE_URL}index.php?app=group&ac=edit&groupid={$strGroup[groupid]}&ts=icon">{php echo L::edit_groupicon}</a></li>
+
+<li <!--{if $ts=="cate"}-->class="select"<!--{/if}-->><a href="{SITE_URL}index.php?app=group&ac=edit&groupid={$strGroup[groupid]}&ts=cate">{php echo L::edit_groupcate}</a></li>
+
+<li <!--{if $ts=="type"}-->class="select"<!--{/if}-->><a href="{SITE_URL}index.php?app=group&ac=edit&groupid={$strGroup[groupid]}&ts=type">{php echo L::edit_topiccate}</a></li>
+</ul>
+</div>

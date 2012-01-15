@@ -39,9 +39,9 @@
 <!--帖子分类-->
 <div class="topictype">
 <ul>
-<li <!--{if $typeid=="0"}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}"><span>{php echo L::group_all}</span></a></li>
+<li <!--{if $typeid=="0"}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','g',array(id=>$strGroup[groupid]))}"><span>{php echo L::group_all}</span></a></li>
 <!--{loop $arrTopicType $key $item}-->
-<li <!--{if $typeid==$item[typeid]}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid],typeid=>$item[typeid]))}"><span>{$item[typename]}</span></a></li>
+<li <!--{if $typeid==$item[typeid]}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','g',array(id=>$strGroup[groupid],typeid=>$item[typeid]))}"><span>{$item[typename]}</span></a></li>
 <!--{/loop}-->
 </ul>
 </div>
@@ -63,9 +63,9 @@
 
 <div class="topic_title">
 <div class="title">
-<!--{if $item[typeid] != 0}--><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid],typeid=>$item[typeid]))}">[{$item[typename]}]</a><!--{/if}-->
+<!--{if $item[typeid] != 0}--><a href="{SITE_URL}{tsurl('group','g',array(id=>$item[groupid],typeid=>$item[typeid]))}">[{$item[typename]}]</a><!--{/if}-->
 
-<a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a>
+<a title="{$item[title]}" href="{SITE_URL}{tsurl('group','t',array(id=>$item[topicid]))}">{$item[title]}</a>
 <!--{if $item[istop]=='1'}-->
 <img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" /> 
 <!--{/if}-->
@@ -93,7 +93,7 @@
 <span style="float:right;">
 <a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[user][username]}</a>
 
-<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
+<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('group','t',array(id=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
 </span>
 </div>
 </div>
@@ -123,11 +123,11 @@
 <!--{/loop}-->
 <br clear="all">
 
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group_user',array(groupid=>$strGroup[groupid]))}">{php echo L::group_members}  ({$strGroup[count_user]})</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','guser',array(groupid=>$strGroup[groupid]))}">{php echo L::group_members}  ({$strGroup[count_user]})</a></p>
 
 <!--{if intval($TS_USER[user][userid]) == $strGroup[userid] || intval($TS_USER[user][isadmin]==1)}-->
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','edit_group',array(groupid=>$strGroup[groupid],ts=>base))}">{php echo L::group_management} </a></p>
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group_recovery',array(groupid=>$strGroup[groupid]))}">{php echo L::group_recover} ({$strGroup[recoverynum]})</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">{php echo L::group_management} </a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','grecovery',array(groupid=>$strGroup[groupid]))}">{php echo L::group_recover} ({$strGroup[recoverynum]})</a></p>
 <!--{/if}-->
 <div class="clear"></div>
 </div>

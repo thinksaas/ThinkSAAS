@@ -50,7 +50,7 @@
 <br />
 <!--{loop $arrGroup $key $item}-->
 <div style="margin-bottom:6px;" class="ul"></div>
-<div class="clist2"><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}"><img align="left" alt="{$item[groupname]}" style="margin:0 20px 0 10px;" src="{$item[icon_48]}" /></a><div style="float:right;" class="pl">{$TS_HL[app][1147]}{php echo date('Y-m-d',$item[addtime])} <a href="{SITE_URL}{tsurl('group','group_user',array(groupid=>$item[groupid]))}">{$item[count_user]}{$TS_HL[app][1148]}</a></div><span class="pl2"><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a></span> <br><div class="pl">{php echo getsubstrutf8(t($item[groupdesc]),0,30)}</div></div>
+<div class="clist2"><a href="{SITE_URL}{tsurl('group','g',array(id=>$item[groupid]))}"><img align="left" alt="{$item[groupname]}" style="margin:0 20px 0 10px;" src="{$item[icon_48]}" /></a><div style="float:right;" class="pl">{$TS_HL[app][1147]}{php echo date('Y-m-d',$item[addtime])} <a href="{SITE_URL}{tsurl('group','guser',array(groupid=>$item[groupid]))}">{$item[count_user]}{$TS_HL[app][1148]}</a></div><span class="pl2"><a href="{SITE_URL}{tsurl('group','g',array(id=>$item[groupid]))}">{$item[groupname]}</a></span> <br><div class="pl">{php echo getsubstrutf8(t($item[groupdesc]),0,30)}</div></div>
 <br clear="all">
 <!--{/loop}-->
 </div>

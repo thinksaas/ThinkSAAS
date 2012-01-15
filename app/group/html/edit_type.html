@@ -1,76 +1,41 @@
 {template header}
-<script src="{SITE_URL}public/js/jeditable/jeditable.js" type="text/javascript"></script>
-<script type="text/javascript" charset="utf-8">
-$(function() {
-
-$(".editable_textarea").editable("{SITE_URL}index.php?app=group&ac=do&ts=edit_type", { 
-  indicator : '<img src="'+siteUrl+'public/js/jeditable/indicator.gif">',
-  type   : 'textarea',
-  submitdata: { _method: "put"},
-  select : true,
-  submit : '{$TS_HL[app][1116]}',
-  cancel : '{$TS_HL[app][1117]}',
-  cssclass : "editable",
-  tooltip   : '{$TS_HL[app][1118]}'
-});
-
-});
-
-//删除帖子类型
-function deltopictype(typeid){
-	if(confirm("{$TS_HL[app][1119]}")){
-		$.ajax({
-			type: "POST",
-			url: siteUrl+'index.php?app=group&ac=do&ts=del_type',
-			data: "&typeid=" + typeid,
-			beforeSend: function(){},
-			success: function(result){
-				if(result == '0'){
-					alert('{$TS_HL[app][1119]}');
-					window.location.reload(); 	
-				}
-			}
-		});
-	}
-}
-
-</script>
 
 <!--main-->
 <div class="midder">
 
 <div class="mc">
-{template edit_xbar}
+{template edit_menu}
 <div class="cleft">
 
 <div>
-<!--{if $arrGroupType}-->
-<table class="topictype" width="100%">
+<h2>{php echo L::edit_topiccate}</h2>
+<ul>
 <!--{loop $arrGroupType $key $item}-->
-<tr>
-<td class="editable_textarea" id="{$item[typeid]}">{$item[typename]}</td><td><a href="javascript:void('0');" onclick="deltopictype('{$item[typeid]}')">{$TS_HL[app][1113]}</a></td>
-</tr>
+<li>
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=edit&ts=type_do">
+<input name="typename" value="{$item[typename]}" /> 
+<input type="hidden" name="typeid" value="{$item[typeid]}">
+<input type="hidden" name="groupid" value="{$groupid}">
+<input type="submit" value="{php echo L::edit_submit}" /> 
+<a href="{SITE_URL}index.php?app=group&ac=edit&ts=type_del&groupid={$groupid}&typeid={$item[typeid]}">删除</a>
+</form>
+</li>
 <!--{/loop}-->
-
-</table>
-<!--{/if}-->
+</ul>
 </div>
 
 <div style="margin-top:30px;">
-<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=topic_type">
-{$TS_HL[app][1121]}
-<input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
-<input name="typename" /> <input type="submit" value="{$TS_HL[app][1122]}" />
+<h2>{php echo L::edit_addtopiccate}</h2>
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=edit&ts=type_add">
+<input type="hidden" name="groupid" value="{$groupid}" />
+<input name="typename" /> <input type="submit" value="{php echo L::edit_submit}" />
 </form>
 </div>
-
-
-
 </div>
 
 <div class="cright">
 
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1109]}{$strGroup[groupname]}{$TS_HL[app][1110]}</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','g',array(id=>$strGroup[groupid]))}">{php echo L::edit_return} {$strGroup[groupname]}</a></p>
 
 </div>
 

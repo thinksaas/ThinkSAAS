@@ -4,29 +4,27 @@
 <div class="midder">
 
 <div class="mc">
-{template edit_xbar}
+{template edit_menu}
 <div class="cleft">
 
 <div style="clear: both;" class="indent">
 
-<!--{if $arrCate == ''}-->
-<p class="pl2">{$TS_HL[app][1111]}</p><br>
-<!--{else}-->
-<p class="wrap"><h3>{$TS_HL[app][1112]}</h3></p>
+
+<h2>{php echo L::edit_groupcate}</h2>
 <ul>
 <!--{loop $arrCate $key $item}-->
-<li>{$item[catename]} <a href="javascript:void('0');" onclick="cancelCate('{$item[cateid]}','{$strGroup[groupid]}')">{$TS_HL[app][1113]}</a></li>
+<li>{$item[catename]} <a href="javascript:void('0');" onclick="cancelCate('{$item[cateid]}','{$strGroup[groupid]}')">{php echo L::edit_delete}</a></li>
 <!--{/loop}-->
 </ul>
-<!--{/if}-->
-<p> &gt; <a href="{SITE_URL}{tsurl('group','cate',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1114]}</a></p><br></div>
+
+<p> &gt; <a href="{SITE_URL}{tsurl('group','cate',array(groupid=>$strGroup[groupid]))}">{php echo L::edit_addcate}</a></p><br></div>
 
 
 </div>
 
 <div class="cright">
 
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1109]}{$strGroup[groupname]}{$TS_HL[app][1110]}</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','g',array(id=>$strGroup[groupid]))}">{php echo L::edit_return} {$strGroup[groupname]}</a></p>
 
 </div>
 

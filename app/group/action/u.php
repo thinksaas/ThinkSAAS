@@ -1,6 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-$userid = intval($_GET['userid']);
+$userid = intval($_GET['id']);
 aac('user')->isUser($userid);
 $strUser = aac('user')->getSimpleUser($userid);
 

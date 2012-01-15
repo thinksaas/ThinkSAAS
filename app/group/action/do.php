@@ -58,20 +58,18 @@ if($ts=='addcomment'){
 				
 			}
 			
-			
 			//feed开始
 			$feed_template = '<span class="pl">评论了帖子：<a href="{link}">{title}</a></span><div class="quote"><span class="inq">{content}</span> <span><a class="j a_saying_reply" href="{link}" rev="unfold">回应</a>
     </span></div>';
 			$feed_data = array(
-				'link'	=> SITE_URL.tsurl('group','topic',array('topicid'=>$topicid)),
+				'link'	=> SITE_URL.tsurl('group','t',array('id'=>$topicid)),
 				'title'	=> $strTopic['title'],
 				'content'	=> getsubstrutf8(t($content),'0','50'),
 			);
 			aac('feed')->addFeed($userid,$feed_template,serialize($feed_data));
 			//feed结束
 			
-			
-			header("Location: ".SITE_URL."index.php?app=group&ac=topic&topicid=".$topicid);
+			header("Location: ".SITE_URL.tsurl('group','t',array('id'=>$topicid)));
 		}	
 	}
 }
@@ -129,91 +127,6 @@ switch ($ts) {
 			
 			echo '1';return false;
 		}
-		
-		break;
-	
-	//上传小组头像
-	
-	case "groupicon":
-		
-		$groupid = intval($_POST['groupid']);
-		
-		//处理目录存储方式
-		$menu = substr($groupid,0,1);
-		
-		$uptypes = array( 'jpg','jpeg','png','gif');
-
-		if(isset($_FILES['picfile'])){
-		
-			$f=$_FILES['picfile'];
-			
-			if(empty($f['name'])){
-			
-				qiMsg("头像不能为空！");
-				
-			}elseif ($f['name']){
-			
-				$arrAttach = explode('.',$f['name']);
-				$attachtype = array_pop($arrAttach);
-			
-				if (!in_array($attachtype,$uptypes)) {
-					qiMsg('你上传的头像图片类型不正确，系统仅支持 jpg,gif,png 格式的图片!');
-				}
-			} 
-			
-			//存储方式
-			//1000个文件一个目录 
-			$menu2=intval($groupid/1000);
-			$menu1=intval($menu2/1000);
-			$menu = $menu1.'/'.$menu2;
-			
-			$newdir = $menu;
-			$dest_dir='uploadfile/group/'.$newdir;
-			createFolders($dest_dir);
-			
-			//原图
-			$fileInfo=pathinfo($f['name']);
-			$extension=$fileInfo['extension'];
-			$newphotoname = $groupid.'.'.$extension;
-			$dest=$dest_dir.'/'.$newphotoname;
-
-			move_uploaded_file($f['tmp_name'],mb_convert_encoding($dest,"gb2312","UTF-8"));
-			chmod($dest, 0755);
-
-			$groupicon = $newdir.'/'.$newphotoname;
-			
-			//更新小组头像
-			$db->query("update ".dbprefix."group set `path`='$menu',`groupicon`='$groupicon' where groupid='$groupid'");
-
-			qiMsg("小组图标修改成功！");
-			
-		}
-		
-		break;
-	
-	//编辑小组基本信息
-	case "edit_base":
-	
-		if($_POST['groupname']=='' || $_POST['groupdesc']=='') qiMsg("小组名称和介绍都不能为空！");
-	
-		$arrData = array(
-			'groupname'	=> h($_POST['groupname']),
-			'groupdesc'	=> trim($_POST['groupdesc']),
-			'joinway'		=> intval($_POST['joinway']),
-			'ispost'	=> intval($_POST['ispost']),
-			'isopen'		=> intval($_POST['isopen']),
-			'role_leader'	=> t($_POST['role_leader']),
-			'role_admin'	=> t($_POST['role_admin']),
-			'role_user'	=> t($_POST['role_user']),
-		);
-		
-		$groupid = intval($_POST['groupid']);
-		
-		$db->updateArr($arrData,dbprefix.'group','where groupid='.$groupid.'');
-		
-		//更新所有帖子中对应小组的名称
-		
-		header("Location: ".SITE_URL."index.php?app=group&ac=edit_group&groupid=".$groupid."&ts=base");
 		
 		break;
 	
@@ -307,7 +220,7 @@ switch ($ts) {
 		$count_attach = $db->once_num_rows("select * from ".dbprefix."group_topics_attachs where topicid='".$topicid."'");
 		$db->query("update ".dbprefix."group_topics set `count_attach`='".$count_attach."' where topicid='".$topicid."'");
 		
-		header("Location: ".SITE_URL."index.php?app=group&ac=topic&topicid=".$topicid);
+		header("Location: ".SITE_URL.tsurl('group','t',array('id'=>$topicid)));
 		
 		break;
 		
@@ -337,7 +250,7 @@ switch ($ts) {
 		}
 		
 		//跳转回到帖子页
-		header("Location: ".SITE_URL.tsurl('group','topic',array('topicid'=>$strComment['topicid'])));
+		header("Location: ".SITE_URL.tsurl('group','t',array('id'=>$strComment['topicid'])));
 		
 		
 		break;
@@ -429,7 +342,7 @@ switch ($ts) {
 			
 			$db->updateArr($arrData,dbprefix.'group_topics','where topicid='.$topicid.'');
 
-			header("Location: ".SITE_URL."index.php?app=group&ac=topic&topicid=".$topicid);
+			header("Location: ".SITE_URL.tsurl('group','t',array('id'=>$topicid)));
 			
 		}else{
 			header("Location: ".SITE_URL);
@@ -575,18 +488,6 @@ switch ($ts) {
 		}
 		
 		break;
-		
-	//帖子分类
-	case "topic_type":
-	
-		$groupid = intval($_POST['groupid']);
-		$typename = t($_POST['typename']);
-		if($typename != '')
-		  $db->query("insert into ".dbprefix."group_topics_type (`groupid`,`typename`) values ('$groupid','$typename')");
-		
-		header("Location: ".SITE_URL."index.php?app=group&ac=edit_group&ts=type&groupid=".$groupid);
-		
-		break;
 			
 	//回复评论
 	case "recomment":
@@ -730,7 +631,7 @@ switch ($ts) {
 		
 		$db->query("update ".dbprefix."group_topics set `groupid`='$groupid' where topicid='$topicid'");
 		
-		header("Location: ".SITE_URL."index.php?app=group&ac=topic&topicid=".$topicid);
+		header("Location: ".SITE_URL.tsurl('group','t',array('id'=>$topicid)));
 		
 		break;
 		
