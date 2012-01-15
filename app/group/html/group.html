@@ -123,7 +123,7 @@
 <!--{/loop}-->
 <br clear="all">
 
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','guser',array(groupid=>$strGroup[groupid]))}">{php echo L::group_members}  ({$strGroup[count_user]})</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group',array('id'=>$strGroup[groupid],'ts'=>'user'))}">{php echo L::group_members}  ({$strGroup[count_user]})</a></p>
 
 <!--{if intval($TS_USER[user][userid]) == $strGroup[userid] || intval($TS_USER[user][isadmin]==1)}-->
 <p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">{php echo L::group_management} </a></p>
