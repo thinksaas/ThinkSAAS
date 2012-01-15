@@ -19,7 +19,7 @@ switch($ts){
 		
 		$db->query("update ".dbprefix."group_users set `isadmin`='".$isadmin."' where userid='".$userid."' and groupid='".$groupid."'");
 
-		header("Location: ".SITE_URL.tsurl('group','group',array('id'=>$groupid,'ts'=>'user')));
+		header("Location: ".SITE_URL.tsurl('group','group',array('groupid'=>$groupid,'ts'=>'user')));
 		
 		break;
 	
@@ -41,7 +41,7 @@ switch($ts){
 		//更新小组成员统计
 		$db->query("update ".dbprefix."group set `count_user`='$groupUserNum' where groupid='$groupid'");
 		
-		header("Location: ".SITE_URL.tsurl('group','group',array('id'=>$groupid,'ts'=>'user')));
+		header("Location: ".SITE_URL.tsurl('group','group',array('groupid'=>$groupid,'ts'=>'user')));
 		
 		break;
 }

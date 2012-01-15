@@ -22,7 +22,7 @@ if($userid == $strTopic['userid'] || $TS_USER['user']['isadmin']=='1' || $userid
 				}
 			}
 			
-			$title = '移动帖子';
+			$title = L::topic_move_movetopic;
 			//包含模板 
 			include template("topic_move");
 		}

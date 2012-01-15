@@ -16,7 +16,7 @@
 	<table width="100%">
 	<!--{loop $arrTopic $key $item}-->
 	<tr>
-	<td><a href="{SITE_URL}{tsurl('group','topic',array(id=>$item[topicid]))}">{$item[title]}</a></td>
+	<td><a href="{SITE_URL}{tsurl('group','topic',array('topicid'=>$item[topicid]))}">{$item[title]}</a></td>
 	<td><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[username]}</a></td>
 	<td>{$item[count_view]}/{$item[count_comment]}</td>
 	<td  align="right" style="width:120px;color:#999999;font-size:10px;">{php echo date('m-d H:i',$item[addtime])}</td>
@@ -34,8 +34,8 @@
 <div class="cright">
 
 
-<p><a href="{SITE_URL}{tsurl('group','group',array(id=>$strGroup[groupid]))}"><img alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}"></a></p>
-<p class="pl2"><a href="{SITE_URL}{tsurl('group','group',array(id=>$strGroup[groupid]))}">回到{$strGroup[groupname]}</a></p>
+<p><a href="{SITE_URL}{tsurl('group','group',array('groupid'=>$strGroup[groupid]))}"><img alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}"></a></p>
+<p class="pl2"><a href="{SITE_URL}{tsurl('group','group',array('groupid'=>$strGroup[groupid]))}">回到{$strGroup[groupname]}</a></p>
 
 <p></p>
 

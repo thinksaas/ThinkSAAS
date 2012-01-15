@@ -1,6 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-$userid = intval($_GET['id']);
+$userid = intval($_GET['userid']);
 aac('user')->isUser($userid);
 $strUser = aac('user')->getSimpleUser($userid);
 
@@ -71,7 +71,7 @@ switch($ts){
 			}
 		}
 		
-		$title = $strUser['username'].'加入的小组';
+		$title = $strUser['username'].L::user_sgroup;
 		
 		include template("user_group");
 		

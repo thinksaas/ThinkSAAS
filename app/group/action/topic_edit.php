@@ -39,7 +39,7 @@ if($strTopic['userid'] == $userid || $strGroup['userid']==$userid || $TS_USER['u
 	//帖子类型
 	$arrGroupType = $db->fetch_all_assoc("select * from ".dbprefix."group_topics_type where `groupid`='".$strGroup['groupid']."'");
 
-	$title = '编辑帖子';
+	$title = L::topic_edit_edittopic;
 
 	include template("topic_edit");
 	
