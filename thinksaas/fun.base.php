@@ -96,6 +96,21 @@ function editor2html($str)
 	unset($db);
 }
 
+function tsNotice(){
+	global $app;
+	global $TS_SITE;
+	global $TS_APP;
+	global $site_theme;
+	global $skin;
+	global $TS_USER;
+	global $TS_SOFT;
+	global $runTime;
+	
+	$title = 'ThinkSAAS提示：';
+	
+	include pubTemplate('notice');
+	exit;
+}
  
 //系统消息
  
