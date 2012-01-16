@@ -30,7 +30,15 @@ switch($ts){
 		$emailNum = $db->once_num_rows("select * from ".dbprefix."user where email='$email'");
 		
 		if($email=='' || $pwd==''){
-			qiMsg("所有输入项都不能为空^_^");
+			//qiMsg("所有输入项都不能为空^_^");
+
+			tsNotice();
+			
+			/*
+			$title = "所有输入项都不能为空^_^";
+			include pubTemplate('notice');
+			exit;
+			*/
 		}elseif(valid_email($email) == false){
 			qiMsg("Email书写不正确^_^");
 		}elseif($emailNum == '0'){
