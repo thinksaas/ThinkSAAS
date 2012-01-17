@@ -1,13 +1,11 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-$title = '找回登陆密码';
-
-
 switch($ts){
 
 	case "":
 
+		$title = L::forgetpwd_forgetpassword;
 		include template("forgetpwd");
 
 		break;
