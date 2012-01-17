@@ -11,7 +11,7 @@ switch($ts){
 			
 			$articleid = $_POST['articleid'];
 			$content = trim($_POST['content']);
-			if($content == '') qiMsg("内容不能为空！");
+			if($content == '') tsNotice("内容不能为空！");
 			
 			$addtime = time();
 			

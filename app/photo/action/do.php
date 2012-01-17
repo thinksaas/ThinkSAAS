@@ -68,7 +68,7 @@ switch($ts){
 		
 		$photoid = $_GET['photoid'];
 		$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
-		if($strPhoto['userid']!=$userid) qiMsg("非法操作！");
+		if($strPhoto['userid']!=$userid) tsNotice("非法操作！");
 		
 		$albumid = $strPhoto['albumid'];
 		
@@ -80,7 +80,7 @@ switch($ts){
 		
 		$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
 		
-		qiMsg("照片删除成功！",'点击返回','index.php?app=photo&ac=album&ts=photo&albumid='.$albumid);
+		tsNotice("照片删除成功！",'点击返回','index.php?app=photo&ac=album&ts=photo&albumid='.$albumid);
 		
 		break;
 	
@@ -163,10 +163,10 @@ switch($ts){
 		
 			$db->query("delete from ".dbprefix."photo_comment where `commentid`='$commentid'");
 			
-			qiMsg("删除评论成功！");
+			tsNotice("删除评论成功！");
 			
 		}else{
-			qiMsg("非法操作！");
+			tsNotice("非法操作！");
 		}
 		
 		

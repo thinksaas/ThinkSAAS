@@ -45,7 +45,7 @@ switch($ts){
 		if($userid == 0) header("Location: ".SITE_URL."index.php");
 		
 		$albumname = t($_POST['albumname']);
-		if($albumname == '') qiMsg("相册名称不能为空！");
+		if($albumname == '') tsNotice("相册名称不能为空！");
 		
 		$albumdesc = h($_POST['albumdesc']);
 		$addtime = time();
@@ -103,7 +103,7 @@ switch($ts){
 		
 		$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
 		
-		if($strAlbum['userid'] != $userid) qiMsg("非法操作！");
+		if($strAlbum['userid'] != $userid) tsNotice("非法操作！");
 		
 		$title = '修改相册属性-'.$strAlbum['albumname'];
 		include template("album_edit");
@@ -111,7 +111,7 @@ switch($ts){
 	case "edit_do":
 		$albumid = $_POST['albumid'];
 		$albumname = t($_POST['albumname']);
-		if($albumname == '') qiMsg("相册名称不能为空！");
+		if($albumname == '') tsNotice("相册名称不能为空！");
 		
 		$albumdesc = h($_POST['albumdesc']);
 		
@@ -131,7 +131,7 @@ switch($ts){
 		
 		$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
 		
-		if($strAlbum['userid'] != $userid) qiMsg("非法操作！");
+		if($strAlbum['userid'] != $userid) tsNotice("非法操作！");
 		
 		//统计 
 		$count_photo = $db->once_num_rows("select * from ".dbprefix."photo where albumid='$albumid'");
@@ -220,7 +220,7 @@ switch($ts){
 		$albumid = $_GET['albumid'];
 		$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
 		
-		if($strAlbum['userid'] != $userid) qiMsg("非法操作！");
+		if($strAlbum['userid'] != $userid) tsNotice("非法操作！");
 		
 		$db->query("delete from ".dbprefix."photo_album where albumid='$albumid'");
 		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid'");

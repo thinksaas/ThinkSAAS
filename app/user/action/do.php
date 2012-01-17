@@ -5,7 +5,7 @@ switch($ts){
 	
 	case "setface":
 		$userid = intval($TS_USER['user']['userid']);
-		if($userid == '0') qiMsg("非法操作！");
+		if($userid == '0') tsNotice("非法操作！");
 
 		$uptypes = array( 'jpg','jpeg','png','gif');
 
@@ -14,13 +14,13 @@ switch($ts){
 			$f=$_FILES['picfile'];
 
 			if($f['name']==''){
-				qiMsg("上传图片不能为空！");
+				tsNotice("上传图片不能为空！");
 			}elseif ($f['name']){
 				$arrAttach = explode('.',$f['name']);
 				$attachtype = array_pop($arrAttach);
 				
 				if (!in_array($attachtype,$uptypes)) {
-					qiMsg("仅支持 jpg,gif,png 格式的图片！");
+					tsNotice("仅支持 jpg,gif,png 格式的图片！");
 				}
 			}
 			
@@ -60,7 +60,7 @@ switch($ts){
 			unlink('cache/user/'.$menu.'/32/'.$cache_32);
 			unlink('cache/user/'.$menu.'/48/'.$cache_48);
 
-			qiMsg("头像修改成功！请返回ctrl+f5强制刷新下！");
+			tsNotice("头像修改成功！请返回ctrl+f5强制刷新下！");
 
 		}
 
@@ -81,18 +81,18 @@ switch($ts){
 			'about'			=> h($_POST['about']),
 		);
 
-		if($TS_USER['user'] == '') qiMsg("机房重地，闲人免进！");
-		if($username == '') qiMsg("不管做什么都需要有一个名号吧^_^");
-		if(strlen($username) < 4 || strlen($username) > 20) qiMsg("用户名长度必须在4到20字符之间!");
+		if($TS_USER['user'] == '') tsNotice("机房重地，闲人免进！");
+		if($username == '') tsNotice("不管做什么都需要有一个名号吧^_^");
+		if(strlen($username) < 4 || strlen($username) > 20) tsNotice("用户名长度必须在4到20字符之间!");
 		
 		if($username != $strUser['username']){
 			$isusername = $db->once_num_rows("select * from ".dbprefix."user_info where username='$username'");
-			if($isusername > 0) qiMsg("用户名已经存在，请换个用户名！");
+			if($isusername > 0) tsNotice("用户名已经存在，请换个用户名！");
 		}
 
 		$db->updateArr($arrData,dbprefix."user_info","where userid='$userid'");
 
-		qiMsg("基本资料更新成功！");
+		tsNotice("基本资料更新成功！");
 
 		break;
 	//修改常居地
@@ -120,7 +120,7 @@ switch($ts){
 		
 		$_SESSION['tsuser']['areaid'] = $areaid;
 
-		qiMsg("常居地更新成功！");
+		tsNotice("常居地更新成功！");
 		
 		break;
 		
@@ -172,18 +172,18 @@ switch($ts){
 		$newpwd = trim($_POST['newpwd']);
 		$renewpwd = trim($_POST['renewpwd']);
 		
-		if($oldpwd == '' || $newpwd=='' || $renewpwd=='') qiMsg("所有项都不能为空！");
+		if($oldpwd == '' || $newpwd=='' || $renewpwd=='') tsNotice("所有项都不能为空！");
 		
 		$userid = $TS_USER['user']['userid'];
 		$strUser = $db->once_fetch_assoc("select pwd from ".dbprefix."user where userid='$userid'");
 		
-		if(md5($oldpwd) != $strUser['pwd']) qiMsg("旧密码输入有误！");
+		if(md5($oldpwd) != $strUser['pwd']) tsNotice("旧密码输入有误！");
 		
-		if($newpwd != $renewpwd) qiMsg("两次输入新密码密码不一样！");
+		if($newpwd != $renewpwd) tsNotice("两次输入新密码密码不一样！");
 		
 		$db->query("update ".dbprefix."user set `pwd`='".md5($newpwd)."' where userid='$userid'");
 		
-		qiMsg("密码修改成功！");
+		tsNotice("密码修改成功！");
 		
 		break;
 	
@@ -234,7 +234,7 @@ switch($ts){
 		
 		if($followNum > '0'){
 			
-			qiMsg("请不要重复关注同一用户！");
+			tsNotice("请不要重复关注同一用户！");
 			
 		}else{
 			

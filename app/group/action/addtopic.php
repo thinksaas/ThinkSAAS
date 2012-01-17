@@ -27,13 +27,13 @@ switch($ts){
 		//允许小组成员发帖
 		if($strGroup['ispost']==0 && $isGroupUser['count(*)'] == 0 && $userid != $strGroup['userid']){
 			
-			qiMsg("本小组只允许小组成员发贴，请加入小组后再发帖！");
+			tsNotice("本小组只允许小组成员发贴，请加入小组后再发帖！");
 			
 		}
 
 		//不允许小组成员发帖
 		if($strGroup['ispost'] == 1 && $userid != $strGroup['userid']){
-			qiMsg("本小组只允许小组组长发帖！");
+			tsNotice("本小组只允许小组组长发帖！");
 		}
 
 		//帖子类型
@@ -65,19 +65,19 @@ switch($ts){
 		
 		if($title==''){
 
-			qiMsg('不要这么偷懒嘛，多少请写一点内容哦^_^');
+			tsNotice('不要这么偷懒嘛，多少请写一点内容哦^_^');
 			
 		}elseif($content==''){
 
-			qiMsg('没有任何内容是不允许你通过滴^_^');
+			tsNotice('没有任何内容是不允许你通过滴^_^');
 			
 		}elseif(mb_strlen($title,'utf8')>64){//限制发表内容多长度，默认为30
 			
-		 	qiMsg('标题很长很长很长很长...^_^');
+		 	tsNotice('标题很长很长很长很长...^_^');
 		
 		}elseif(mb_strlen($content,'utf8')>20000){//限制发表内容多长度，默认为1w
 			
-		 	qiMsg('发这么多内容干啥^_^');
+		 	tsNotice('发这么多内容干啥^_^');
 		
 		}else{
 			

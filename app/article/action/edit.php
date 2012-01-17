@@ -30,7 +30,7 @@ switch($ts){
 		$content = trim($_POST['content']);
 		$addtime = time();
 		
-		if($title=='' || $content=='') qiMsg("标题和内容都不能为空！");
+		if($title=='' || $content=='') tsNotice("标题和内容都不能为空！");
 		
 		$isphoto = 0;
 		$isattach = 0;

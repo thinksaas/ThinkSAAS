@@ -19,7 +19,7 @@ if($ts=='addcomment'){
 		doAction('group_comment_add','',$content,'');
 		
 		if($content==''){
-			qiMsg('没有任何内容是不允许你通过滴^_^');
+			tsNotice('没有任何内容是不允许你通过滴^_^');
 		}else{
 			$arrData	= array(
 				'topicid'			=> $topicid,
@@ -168,7 +168,7 @@ switch ($ts) {
 	//添加话题附件
 	case "topic_attach_add":
 		
-		if($_FILES['attach']['name'][0] == '') qiMsg("上传文件不能为空！");
+		if($_FILES['attach']['name'][0] == '') tsNotice("上传文件不能为空！");
 		
 		$groupid = $_POST['groupid'];
 		$topicid = $_POST['topicid'];
@@ -310,7 +310,7 @@ switch ($ts) {
 		
 		$iscomment = $_POST['iscomment'];
 		
-		if($topicid == '' || $title=='' || $content=='') qiMsg("都不能为空的哦!");
+		if($topicid == '' || $title=='' || $content=='') tsNotice("都不能为空的哦!");
 		
 		$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='".$topicid."'");
 		
@@ -398,9 +398,9 @@ switch ($ts) {
 		
 		if($userid==$strGroup['userid'] || $TS_USER['user']['isadmin']==1){
 			$db->query("update ".dbprefix."group_topics set istop='$istop' where topicid='$topicid'");
-			qiMsg("帖子置顶成功！");
+			tsNotice("帖子置顶成功！");
 		}else{
-			qiMsg("非法操作！");
+			tsNotice("非法操作！");
 		}
 		break;
 		
@@ -425,9 +425,9 @@ switch ($ts) {
 		
 		if($userid == $strGroup['userid'] || $TS_USER['user']['isadmin']==1){
 			$db->query("update ".dbprefix."group_topics set isshow='$isshow' where topicid='$topicid'");
-			qiMsg("操作成功！");
+			tsNotice("操作成功！");
 		}else{
-			qiMsg("非法操作！");
+			tsNotice("非法操作！");
 		}
 		
 		break;
@@ -444,14 +444,14 @@ switch ($ts) {
 		
 		$topicid = intval($_POST['topicid']);
 		
-		if($topicid == 0) qiMsg("非法操作！");
+		if($topicid == 0) tsNotice("非法操作！");
 		
 		$tagname = t($_POST['tagname']);
 		$uptime	= time();
 		
 		if($tagname != ''){
 		
-			if(strlen($tagname) > '32') qiMsg("TAG长度大于32个字节（不能超过16个汉字）");
+			if(strlen($tagname) > '32') tsNotice("TAG长度大于32个字节（不能超过16个汉字）");
 			
 			$tagcount = $db->once_num_rows("select * from ".dbprefix."tag where tagname='".$tagname."'");
 			
@@ -645,7 +645,7 @@ switch ($ts) {
 		}
 		$topicid = intval($_GET['topicid']);
 		
-		if($userid == 0 || $topicid == 0) qiMsg("非法操作"); 
+		if($userid == 0 || $topicid == 0) tsNotice("非法操作"); 
 		
 		$strTopic = $db->once_fetch_assoc("select userid,groupid,title,isposts from ".dbprefix."group_topics where topicid='$topicid'");
 		
@@ -666,9 +666,9 @@ switch ($ts) {
 				$db->query("update ".dbprefix."group_topics set `isposts`='0' where `topicid`='$topicid'");
 			}
 			
-			qiMsg("操作成功！");
+			tsNotice("操作成功！");
 		}else{
-			qiMsg("非法操作！");
+			tsNotice("非法操作！");
 		}
 		
 		break;

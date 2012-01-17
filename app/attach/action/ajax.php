@@ -9,9 +9,9 @@ switch($ts){
 	case "add_do":
 	
 		$userid = intval($TS_USER['user']['userid']);
-		if($userid == '0') qiMsg("非法操作！");
+		if($userid == '0') tsNotice("非法操作！");
 	
-		if($_FILES['attach']['name'][0] == '') qiMsg("上传文件不能为空！");
+		if($_FILES['attach']['name'][0] == '') tsNotice("上传文件不能为空！");
 		
 		$uptypes = array('gif','jpg','png','bmp','rar','zip','doc','pdf','txt');
 		
@@ -37,11 +37,11 @@ switch($ts){
 					$attachsize = $_FILES['attach']['size'][$key];
 					
 					if (!in_array($attachtype,$uptypes)) {
-						qiMsg("附件只支持gif，jpg,png等图片格式和zip,rar,doc,pdf,txt格式！");
+						tsNotice("附件只支持gif，jpg,png等图片格式和zip,rar,doc,pdf,txt格式！");
 					}
 					
 					if($attachsize>1024000){
-						qiMsg("最大只支持1M的附件！");
+						tsNotice("最大只支持1M的附件！");
 					}
 					
 					//换个名称
@@ -93,7 +93,7 @@ switch($ts){
 		$attachid = $_GET['attachid'];
 		
 		//登录
-		//if(intval($TS_USER['user']['userid']) == 0) qiMsg("请登录后下载此文件！");
+		//if(intval($TS_USER['user']['userid']) == 0) tsNotice("请登录后下载此文件！");
 		//积分
 		
 		$strAttach = $db->once_fetch_assoc("select * from ".dbprefix."attach where attachid='$attachid'");

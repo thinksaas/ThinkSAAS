@@ -10,13 +10,13 @@ switch($ts){
 		$userid = intval($TS_USER['user']['userid']);
 		$touserid = intval($_GET['touserid']);
 		
-		if($userid == $touserid || !$touserid) qiMsg("Sorry！自己不能给自己发送消息的！& 对方为空!");
+		if($userid == $touserid || !$touserid) tsNotice("Sorry！自己不能给自己发送消息的！& 对方为空!");
 		
 		$strUser = $new['user']->getUserForApp($userid);
 		
 		$strTouser = $new['user']->getUserForApp($touserid);
 
-		if(!$strTouser) qiMsg("Sorry！对方不存在!");
+		if(!$strTouser) tsNotice("Sorry！对方不存在!");
 		$title = "发送短消息";
 		include template("message_add");
 		break;

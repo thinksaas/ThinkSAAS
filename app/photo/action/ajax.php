@@ -35,7 +35,7 @@ switch($ts){
 	
 		$uptypes = array('jpg','gif','png');
 	
-		if($_FILES['photo']['name'][0] == '') qiMsg("上传图片不能为空！");
+		if($_FILES['photo']['name'][0] == '') tsNotice("上传图片不能为空！");
 		
 		//处理目录存储方式
 		$menu = substr($userid,0,1);
@@ -56,10 +56,10 @@ switch($ts){
 					
 					$photosize = $_FILES['photo']['size'][$key];
 					if (!in_array($phototype,$uptypes)) {
-						qiMsg("只支持图片上传！");
+						tsNotice("只支持图片上传！");
 					}
 					if($photosize>1024000){
-						qiMsg("最大只支持1M的图片！");
+						tsNotice("最大只支持1M的图片！");
 					}
 				}
 			}
@@ -177,7 +177,7 @@ switch($ts){
 		
 	case "create_do":
 		$albumname = t($_POST['albumname']);
-		if($albumname == '') qiMsg("相册名称不能为空！");
+		if($albumname == '') tsNotice("相册名称不能为空！");
 		
 		$albumdesc = h($_POST['albumdesc']);
 		$addtime = time();
@@ -197,7 +197,7 @@ switch($ts){
 		
 		$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
 		
-		if($strAlbum['userid'] != $userid) qiMsg("非法操作！");
+		if($strAlbum['userid'] != $userid) tsNotice("非法操作！");
 		
 		//统计 
 		$count_photo = $db->once_num_rows("select * from ".dbprefix."photo where albumid='$albumid'");

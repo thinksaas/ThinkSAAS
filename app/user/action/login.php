@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 //程序主体
 switch($ts){
 	case "":
-		if(intval($TS_USER['user']['userid']) > 0) qiMsg("已经登陆啦!");
+		if(intval($TS_USER['user']['userid']) > 0) tsNotice("已经登陆啦!");
 		
 		//记录上次访问地址
 		$jump = $_SERVER['HTTP_REFERER'];
@@ -30,9 +30,9 @@ switch($ts){
 		$emailNum = $db->once_num_rows("select * from ".dbprefix."user where email='$email'");
 		
 		if($email=='' || $pwd==''){
-			//qiMsg("所有输入项都不能为空^_^");
+			//tsNotice("所有输入项都不能为空^_^");
 
-			tsNotice();
+			tsNotice("所有输入项都不能为空^_^");
 			
 			/*
 			$title = "所有输入项都不能为空^_^";
@@ -40,20 +40,20 @@ switch($ts){
 			exit;
 			*/
 		}elseif(valid_email($email) == false){
-			qiMsg("Email书写不正确^_^");
+			tsNotice("Email书写不正确^_^");
 		}elseif($emailNum == '0'){
 
-			qiMsg("你还没有注册呢，请注册吧^_^");
+			tsNotice("你还没有注册呢，请注册吧^_^");
 			
 		}elseif($emailNum > '0' && $userNum == '0'){
 			
-			qiMsg("密码输入有误，忘记可以找回密码^_^");
+			tsNotice("密码输入有误，忘记可以找回密码^_^");
 			
 		}else{
 		
 			$userData	= $db->once_fetch_assoc("select  * from ".dbprefix."user_info where email='$email'");
 			
-			if($userData['isenable'] == 1) qiMsg("sorry，你的帐号已被禁用！");
+			if($userData['isenable'] == 1) tsNotice("sorry，你的帐号已被禁用！");
 			
 			//记住登录Cookie
 			 if($cktime != ''){   

@@ -27,7 +27,7 @@ defined('IN_TS') or die('Access Denied.');
 			}
 			
 			if($userid == '0' || $title=='' || $time_end <=$time_start || $address=='' || $content==''){
-				qiMsg("活动信息不符合要求！");
+				tsNotice("活动信息不符合要求！");
 			}
 			
 			$eventData = array(
@@ -257,9 +257,9 @@ defined('IN_TS') or die('Access Denied.');
 			$content	= trim($_POST['content']);
 			
 			if($TS_USER['user'] == ''){
-				qiMsg('请登陆后再发表内容^_^','点击登陆','index.php/user/login');
+				tsNotice('请登陆后再发表内容^_^','点击登陆','index.php/user/login');
 			}elseif(empty($content)){
-				qiMsg('没有任何内容是不允许你通过滴^_^');
+				tsNotice('没有任何内容是不允许你通过滴^_^');
 			}else{
 				$arrData	= array(
 					'eventid'			=> $eventid,
@@ -295,7 +295,7 @@ defined('IN_TS') or die('Access Denied.');
 			
 			$db->query("update ".dbprefix."event set `isrecommend`='$isrecommend' where `eventid`='$eventid'");
 			
-			qiMsg("操作成功！");
+			tsNotice("操作成功！");
 			
 			break;
 			

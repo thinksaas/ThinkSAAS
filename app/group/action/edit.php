@@ -16,7 +16,7 @@ if(intval($TS_USER['user']['userid']) == $strGroup['userid'] || intval($TS_USER[
 			break;
 		
 		case "base_do":
-			if($_POST['groupname']=='' || $_POST['groupdesc']=='') qiMsg("小组名称和介绍都不能为空！");
+			if($_POST['groupname']=='' || $_POST['groupdesc']=='') tsNotice("小组名称和介绍都不能为空！");
 		
 			$arrData = array(
 				'groupname'	=> h($_POST['groupname']),
@@ -104,7 +104,7 @@ if(intval($TS_USER['user']['userid']) == $strGroup['userid'] || intval($TS_USER[
 			$typename = trim($_POST['typename']);
 			$db->query("update ".dbprefix."group_topics_type set 	`typename`='$typename' where `typeid`='$typeid'");
 			
-			qiMsg("修改成功！");
+			tsNotice("修改成功！");
 			
 			break;
 			

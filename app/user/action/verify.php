@@ -5,7 +5,7 @@ switch($ts){
 	case "post":
 		$userid = intval($TS_USER['user']['userid']);
 
-		if($userid == 0) qiMsg("非法操作！");
+		if($userid == 0) tsNotice("非法操作！");
 
 		$strUser = $db->once_fetch_assoc("select username,email,isverify,verifycode from ".dbprefix."user_info where userid='$userid'");
 
@@ -25,9 +25,9 @@ switch($ts){
 		$result = aac('mail')->postMail($email,$subject,$content);
 
 		if($result == '0'){
-			qiMsg("验证失败，可能是你的Email邮箱错误哦^_^");
+			tsNotice("验证失败，可能是你的Email邮箱错误哦^_^");
 		}elseif($result == '1'){
-			qiMsg("系统已经向你的邮箱发送了验证邮件，请尽快查收^_^");
+			tsNotice("系统已经向你的邮箱发送了验证邮件，请尽快查收^_^");
 		}
 		break;
 		
@@ -40,9 +40,9 @@ switch($ts){
 		
 		if($verify['count(*)'] > 0){
 			$db->query("update ".dbprefix."user_info set `isverify`='1' where `email`='$email'");
-			qiMsg("Email验证成功！点击返回首页！",'点击回首页！',SITE_URL);
+			tsNotice("Email验证成功！点击返回首页！",'点击回首页！',SITE_URL);
 		}else{
-			qiMsg("Email验证失败！");
+			tsNotice("Email验证失败！");
 		}
 		
 		break;

@@ -9,7 +9,7 @@ if($strKey){
 	$nowTime = time();
 	$addtime = $strKey['addtime'];
 	$forTime = $nowTime - $addtime;
-	if($forTime < 30000) qiMsg("请等待30秒后再搜索！",'点击返回','index.php?app=search');
+	if($forTime < 30000) tsNotice("请等待30秒后再搜索！",'点击返回','index.php?app=search');
 }
 */
 

@@ -271,7 +271,7 @@ switch($ts){
 			
 		}
 		
-		qiMsg("修改成功");
+		tsNotice("修改成功");
 		
 		break;
 		

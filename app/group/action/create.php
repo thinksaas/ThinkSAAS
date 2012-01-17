@@ -12,7 +12,7 @@ switch($ts){
 	case "":
 		
 		if($TS_APP['options']['iscreate'] == '1'){
-			qiMsg("暂停申请创建小组，稍后开放");
+			tsNotice("暂停申请创建小组，稍后开放");
 		}
 		
 		$title = L::create_creategroup;
@@ -22,7 +22,7 @@ switch($ts){
 	//创建执行
 	case "do":
 		
-		if($userid=='0' || $_POST['groupname']=='' || $_POST['groupdesc']=='') qiMsg("必填项不能为空！");
+		if($userid=='0' || $_POST['groupname']=='' || $_POST['groupdesc']=='') tsNotice("必填项不能为空！");
 		
 		//配置文件是否需要审核
 		$isaudit = intval($TS_APP['options']['isaudit']);
@@ -31,7 +31,7 @@ switch($ts){
 		
 		$isGroup = $db->once_fetch_assoc("select count(groupid) from ".dbprefix."group where groupname='$groupname'");
 		
-		if($isGroup['count(groupid)'] > 0) qiMsg("小组名称已经存在，请更换其他小组名称！");
+		if($isGroup['count(groupid)'] > 0) tsNotice("小组名称已经存在，请更换其他小组名称！");
 		
 		$arrData = array(
 			'userid'			=> $userid,

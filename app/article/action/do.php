@@ -40,7 +40,7 @@ switch($ts){
 			header("Location: ".SITE_URL.tsurl('article'));
 			
 		}else{
-			qiMsg("非法操作！");
+			tsNotice("非法操作！");
 		}
 		
 		break;
