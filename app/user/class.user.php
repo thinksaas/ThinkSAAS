@@ -26,28 +26,6 @@ class user{
 		}
 		return $arrHotUser;
 	}
-	//
-	 
-	function getAllUser($page = 1, $prePageNum){
-		$start_limit = !empty($page) ? ($page - 1) * $prePageNum : 0;
-		$limit = $prePageNum ? "LIMIT $start_limit, $prePageNum" : '';
-		$users	= $this->db->fetch_all_assoc("select * from ".dbprefix."user order by userid desc $limit");
-		if($users){
-		foreach($users as $item){
-			$arrUser[]	= $this->getOneUserByUserid($item['userid']);	
-		}}
-		
-		return $arrUser;
-	}
-	
-	//
-	 
-	function getUserNum($virtue, $setvirtue){
-		$where = 'where '.$virtue.'='.$setvirtue.'';
-		$res = "SELECT * FROM ".dbprefix."user $where";
-		$userNum = $this->db->once_num_rows($res);
-		return $userNum;
-	}
 	
 	//获取一个用户的信息
 	function getOneUserByUserid($userid){
@@ -62,25 +40,6 @@ class user{
 		}else{
 			$strUser['bigface'] = SITE_URL.'public/images/user_large.jpg';
 			$strUser['face']	= SITE_URL.'public/images/user_normal.jpg';
-		}
-		
-		$pattern='/(http:\/\/|https:\/\/|ftp:\/\/)([\w:\/\.\?=&-_]+)/is';
-
-		$strUser['signed'] = hview(preg_replace($pattern, '<a rel="nofollow" target="_blank" href="\1\2">\1\2</a>', $strUser['signed']));
-		
-		return $strUser;
-	}
-	
-	//获取要编辑的用户信息
-	function getUserForEdit($userid){
-	
-		$strUser = $this->db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
-		
-		//头像
-		if($strUser['face'] == ''){
-			$strUser['face']	= SITE_URL.'public/images/user_normal.jpg';
-		}else{
-			$strUser['face'] = SITE_URL.miniimg($strUser['face'],'user',48,48,$strUser['path'],1);
 		}
 		
 		return $strUser;
@@ -99,9 +58,6 @@ class user{
 			$strUser['face_32'] = SITE_URL.miniimg($strUser['face'],'user',32,32,$strUser['path'],1);
 			$strUser['face'] = SITE_URL.miniimg($strUser['face'],'user',48,48,$strUser['path'],1);
 		}
-		//签名 
-		$pattern='/(http:\/\/|https:\/\/|ftp:\/\/)([\w:\/\.\?=&-_]+)/is';
-		$strUser['signed'] = hview(preg_replace($pattern, '<a rel="nofollow" target="_blank" href="\1\2">\1\2</a>', $strUser['signed']));
 		
 		return $strUser;
 		
@@ -125,7 +81,6 @@ class user{
 	
 	//收藏的帖子 
 	function getCollectTopic($userid,$limit){
-	
 		$arrCollect = $this->db->fetch_all_assoc("select * from ".dbprefix."group_topics_collects where userid='".$userid."' order by addtime desc limit $limit");
 		
 		if(is_array($arrCollect)){
@@ -137,12 +92,6 @@ class user{
 		
 		return $arrTopic;
 		
-	}
-	
-	//获取用户积分 
-	function getUserScore($userid){
-		$strUser = $this->db->once_fetch_assoc("select count_score from".dbprefix."user_info where userid='$userid'");
-		return $strUser['count_score'];
 	}
 	
 	//判断是否是否是会员
