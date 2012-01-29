@@ -1,6 +1,29 @@
 MySQL Log Change
 -------------------------------------------------
 
+ThinkSAAS1.7 sql change
+-------------------------------------------------
+ALTER TABLE `ts_user_info` DROP `sex`
+
+ALTER TABLE `ts_user_info` DROP `phone` 
+
+ALTER TABLE `ts_user_info` DROP `roleid`
+
+ALTER TABLE `ts_user_info` DROP `areaid` 
+
+ALTER TABLE `ts_user_info` DROP `address` 
+
+ALTER TABLE `ts_user_info`
+  DROP `signed`,
+  DROP `ip`,
+  DROP `qqt_oauth_token`,
+  DROP `qqt_oauth_token_secret`,
+  DROP `count_score`,
+  DROP `count_follow`,
+  DROP `count_followed`;
+
+ 
+
 ThinkSAAS1.6 sql change
 -------------------------------------------------
 
