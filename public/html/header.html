@@ -39,7 +39,7 @@
 <ul>
 <li><a href="{SITE_URL}index.php">{php echo L::public_home}</a></li>
 {php doAction('pub_header_nav')}
-<li><a href="{SITE_URL}{tsurl('group','explore')}">{php echo L::public_explore}</a></li>
+<li><a href="{SITE_URL}{tsurl('feed')}">{php echo L::public_explore}</a></li>
 </ul>
 </div>
 
@@ -54,7 +54,7 @@
 </a>
 <a href="{SITE_URL}{tsurl('user','space',array(userid=>$TS_USER[user][userid]))}">{$TS_USER[user][username]}</a>   |  <span id="newmsg"><a href="{SITE_URL}{tsurl('message','my')}">{php echo L::public_message}</a></span> <img src="{SITE_URL}public/images/score.gif" /> {$TS_USER[user][count_score]}
 <br />
-<a href="{SITE_URL}{tsurl('user','set',array(ts=>base))}">{php echo L::public_set}</a> | <a href="{SITE_URL}{tsurl('user','invite')}">{php echo L::public_invite}</a>  | <a href="{SITE_URL}{tsurl('user','login',array(ts=>out))}">{php echo L::public_logout}</a>
+<a href="{SITE_URL}{tsurl('user','set',array(ts=>base))}">{php echo L::public_set}</a> | <a href="{SITE_URL}{tsurl('user','login',array(ts=>out))}">{php echo L::public_logout}</a>
 <!--{/if}-->
 
 | <a href="{SITE_URL}{tsurl('home','theme')}">{php echo L::public_theme}</a>
