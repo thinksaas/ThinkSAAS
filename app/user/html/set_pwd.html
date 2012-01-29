@@ -5,14 +5,14 @@
 <div class="mc">
 {template set_menu}
 
-<div style="padding:20px;">
-<form method="POST" action="{SITE_URL}index.php?app=user&ac=do&ts=setpwd">
+<div style="padding:20px 0;">
+<form method="POST" action="{SITE_URL}index.php?app=user&ac=set&ts=pwd_do">
 <table cellpadding="5" cellspacing="5">
 <tr>
-<th>旧密码：</th><td><input name="oldpwd" value="" type="password" /></td>
+<th>旧密码：</th><td><input class="uinput" name="oldpwd" value="" type="password" /></td>
 </tr>
 <tr>
-<th>新密码：</th><td><input name="newpwd" value="" type="password" /></td>
+<th>新密码：</th><td><input class="uinput" name="newpwd" value="" type="password" /></td>
 </tr>
 
 <tr><th></th><td><input class="submit" type="submit" value="修改密码"  /></td></tr>

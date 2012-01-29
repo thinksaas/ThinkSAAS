@@ -5,12 +5,7 @@
 <div class="mc">
 {template set_menu}
 
-<div style="padding:20px;">
-
-<!--{if $TS_USER[user][face] == ''}-->
-<div style="text-align:center;font-size:14px;padding:20px;">请上传头像后才可以正常使用浏览网站^_^</div>
-<!--{/if}-->
-
+<div style="padding:20px 0;">
 
 <div>
 <img alt="{$TS_USER[uname]}" valign="middle" src="{$strUser[bigface]}" />
@@ -23,7 +18,7 @@
 从你的电脑上选择图像文件：(仅支持jpg，gif，png格式的图片)
 <br />
 <br />
-<form method="POST" action="{SITE_URL}index.php?app=user&ac=do&ts=setface" enctype="multipart/form-data" >
+<form method="POST" action="{SITE_URL}index.php?app=user&ac=set&ts=face_do" enctype="multipart/form-data" >
 <input type="file" name="picfile" />
 <input class="submit" type="submit" value="上传照片" />
 </form>

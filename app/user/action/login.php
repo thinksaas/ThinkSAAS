@@ -25,27 +25,23 @@ switch($ts){
 		
 		$cktime = $_POST['cktime'];
 	
-		$userNum	= $db->once_num_rows("select * from ".dbprefix."user where email='$email' and pwd='$pwd'");
+		$isUser	= $db->once_fetch_assoc("select count(*) from ".dbprefix."user where email='$email' and pwd='$pwd'");
 		
-		$emailNum = $db->once_num_rows("select * from ".dbprefix."user where email='$email'");
+		$isEmail = $db->once_num_rows("select count(*) from ".dbprefix."user where email='$email'");
 		
 		if($email=='' || $pwd==''){
-			//tsNotice("所有输入项都不能为空^_^");
 
 			tsNotice("所有输入项都不能为空^_^");
 			
-			/*
-			$title = "所有输入项都不能为空^_^";
-			include pubTemplate('notice');
-			exit;
-			*/
 		}elseif(valid_email($email) == false){
+			
 			tsNotice("Email书写不正确^_^");
-		}elseif($emailNum == '0'){
+			
+		}elseif($isEmail['count(*)'] == '0'){
 
 			tsNotice("你还没有注册呢，请注册吧^_^");
 			
-		}elseif($emailNum > '0' && $userNum == '0'){
+		}elseif($isEmail['count(*)'] > 0 && $isUser['count(*)'] == 0){
 			
 			tsNotice("密码输入有误，忘记可以找回密码^_^");
 			
@@ -65,10 +61,8 @@ switch($ts){
 			$sessionData = array(
 				'userid' => $userData['userid'],
 				'username'	=> $userData['username'],
-				'areaid'	=> $userData['areaid'],
 				'path'	=> $userData['path'],
 				'face'	=> $userData['face'],
-				'count_score'	=> $userData['count_score'],
 				'isadmin'	=> $userData['isadmin'],
 				'uptime'	=> $userData['uptime'],
 			);
@@ -78,13 +72,8 @@ switch($ts){
 			$userid = $userData['userid'];
 			
 			
-			//积分记录
-			$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','登录','10','".time()."')");
-			
-			$strScore = $db->once_fetch_assoc("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
-			
 			//更新登录时间
-			$db->query("update ".dbprefix."user_info set `uptime`='".time()."' , `count_score`='".$strScore['score']."' where userid='$userid'");
+			$db->query("update ".dbprefix."user_info set `uptime`='".time()."' where userid='$userid'");
 
 			//跳转
 			if($jump != ''){

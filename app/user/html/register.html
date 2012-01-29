@@ -32,17 +32,9 @@ obj.src = url+ '&nowtime=' + new Date().getTime();
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0"  class="Tabletext">
 
-<!--{if $TS_APP[options][isregister]=='1'}-->
-<tr>
-<th>{php echo L::register_invitecode}</th>
-<td><input class="uinput" id="invitecode" name="invitecode" type="text" value="" /></td>
-</tr>
-<!--{/if}-->
-
-
 <tr>
 <th>{php echo L::email}：</th>
-<td><input class="uinput" type="email" name="email" value="" /></td>
+<td><input class="uinput" type="email" name="email" /></td>
 </tr>
 <tr>
 <th>{php echo L::password}：</th>

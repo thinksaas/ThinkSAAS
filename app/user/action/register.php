@@ -10,9 +10,6 @@ switch($ts){
 	
 		$title = '注册';
 		
-		//调出省份数据
-		$arrOne = $db->fetch_all_assoc("select * from ".dbprefix."area where referid='0'");
-		
 		include template("register");
 		break;
 
@@ -25,16 +22,6 @@ switch($ts){
 		$fuserid = intval($_POST['fuserid']);
 		
 		$authcode = strtoupper($_POST['authcode']); //strtoupper将字符转成大写
-		
-		//是否开启邀请注册
-		if($TS_APP['options']['isregister']=='1'){
-		
-			$invitecode = trim($_POST['invitecode']);
-			if($invitecode == '') tsNotice("邀请码不能为空！");
-			$codeNum = $db->once_num_rows("select * from ".dbprefix."user_invites where invitecode='$invitecode' and isused='0'");
-			if($codeNum == '0') tsNotice("邀请码无效，请更换邀请码！");
-		
-		}
 
 		$isEmail = $db->once_num_rows("SELECT * FROM ".dbprefix."user WHERE email='$email'");
 		$isusername = $db->once_num_rows("select * from ".dbprefix."user_info where username='$username'");
@@ -60,38 +47,18 @@ switch($ts){
 			
 			$userid = $db->insert_id();
 			
-			//积分
-			$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','注册','1000','".time()."')");
-			
 			//用户信息
 			$arrData = array(
 				'userid'			=> $userid,
 				'fuserid'	=> $fuserid,
 				'username' 	=> $username,
 				'email'		=> $email,
-				'ip'			=> getIp(),
-				'count_score'	=> '1000',
 				'addtime'	=> time(),
 				'uptime'	=> time(),
 			);
 			
 			//插入用户信息
 			$db->insertArr($arrData,dbprefix.'user_info');
-			
-			//默认加入小组
-			$isgroup = $db->once_fetch_assoc("select optionvalue from ".dbprefix."user_options where optionname='isgroup'");
-			if($isgroup['optionvalue'] != ''){
-				$arrGroup = explode(',',$isgroup['optionvalue']);
-				foreach($arrGroup as $item){
-					$groupusernum = $db->once_num_rows("select * from ".dbprefix."group_users where `userid`='".$userid."' and `groupid`='".$item."'");
-					if($groupusernum == '0'){
-						$db->query("insert into ".dbprefix."group_users (`userid`,`groupid`,`addtime`) values('".$userid."','".$item."','".time()."')");
-						//统计更新
-						$count_user = $db->once_num_rows("select * from ".dbprefix."group_users where groupid='".$item."'");
-						$db->query("update ".dbprefix."group set `count_user`='".$count_user."' where groupid='".$item."'");
-					}
-				}
-			}
 			
 			//用户信息
 			$userData = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
@@ -100,13 +67,12 @@ switch($ts){
 			$sessionData = array(
 				'userid' => $userData['userid'],
 				'username'	=> $userData['username'],
-				'areaid'	=> $userData['areaid'],
 				'path'	=> $userData['path'],
 				'face'	=> $userData['face'],
-				'count_score'	=> $userData['count_score'],
 				'isadmin'	=> $userData['isadmin'],
 				'uptime'	=> $userData['uptime'],
 			);
+			
 			$_SESSION['tsuser']	= $sessionData;
 			
 			//发送系统消息(恭喜注册成功)
@@ -115,11 +81,6 @@ switch($ts){
 			$msg_content = '亲爱的 '.$username.' ：<br />您成功加入了 '
 										.$TS_SITE['base']['site_title'].'<br />在遵守本站的规定的同时，享受您的愉快之旅吧!';
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
-			
-			//注销邀请码
-			if($TS_APP['options']['isregister']=='1'){
-				$db->query("update ".dbprefix."user_invites set `isused`='1' where invitecode='$invitecode'");
-			}
 			
 			//跳转
 			header('Location: '.SITE_URL.'index.php');
