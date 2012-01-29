@@ -47,9 +47,7 @@ class user{
 	
 	//获取简单用户信息为其他APP调用
 	function getUserForApp($userid){
-		$strUser = $this->db->once_fetch_assoc("select userid,username,areaid,path,face,signed,count_score,count_follow,count_followed from ".dbprefix."user_info where userid='$userid'");
-		
-		$strUser['area'] = aac('location')->getOneArea($strUser['areaid']);
+		$strUser = $this->db->once_fetch_assoc("select userid,username,path,face from ".dbprefix."user_info where userid='$userid'");
 		
 		//头像
 		if($strUser['face']==''){
