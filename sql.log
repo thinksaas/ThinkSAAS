@@ -22,7 +22,12 @@ ALTER TABLE `ts_user_info`
   DROP `count_follow`,
   DROP `count_followed`;
 
+  
+DROP TABLE `ts_user_follow`, `ts_user_invites`, `ts_user_role`, `ts_user_scores`;
  
+DROP TABLE `ts_tag_user_index` ;
+
+DROP TABLE `ts_search_key` ;
 
 ThinkSAAS1.6 sql change
 -------------------------------------------------
