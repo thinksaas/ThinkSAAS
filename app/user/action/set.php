@@ -16,7 +16,8 @@ switch($ts){
 	//修改基本信息
 	case "base":
 		
-		$title = '基本设置';
+		$title = L::set_editinfo;
+		
 		include template("set_base");
 		break;
 	
@@ -30,23 +31,29 @@ switch($ts){
 			'about'	=> h($_POST['about']),
 		);
 
-		if($username == '') tsNotice('用户名不能为空！');
-		if(strlen($username) < 4 || strlen($username) > 20) tsNotice("用户名长度必须在4到20字符之间!");
+		if($username == '') tsNotice(L::set_usernameempty);
+		
+		if(strlen($username) < 4 || strlen($username) > 20) tsNotice(L::set_usernamelength);
 		
 		if($username != $strUser['username']){
+		
 			$isUserName = $db->once_fetch_assoc("select count(*) from ".dbprefix."user_info where username='$username'");
-			if($isUserName['count(*)'] > 0) tsNotice("用户名已经存在，请换个用户名！");
+			
+			if($isUserName['count(*)'] > 0) tsNotice(L::set_usernameregistered);
+			
 		}
 
 		$db->updateArr($arrData,dbprefix."user_info","where userid='$userid'");
 
-		tsNotice("基本资料更新成功！");
+		tsNotice(L::set_success);
+		
 		break;
 	
 	//修改头像
 	case "face":
 
-		$title = '头像设置';
+		$title = L::set_editface;
+		
 		include template("set_face");
 
 		break;
@@ -60,13 +67,17 @@ switch($ts){
 			$f=$_FILES['picfile'];
 
 			if($f['name']==''){
-				tsNotice("上传图片不能为空！");
+			
+				tsNotice(L::set_uploadpicempty);
+				
 			}elseif ($f['name']){
 				$arrAttach = explode('.',$f['name']);
 				$attachtype = array_pop($arrAttach);
 				
 				if (!in_array($attachtype,$uptypes)) {
-					tsNotice("仅支持 jpg,gif,png 格式的图片！");
+				
+					tsNotice(L::set_onlyjpeg);
+					
 				}
 			}
 			
@@ -106,7 +117,7 @@ switch($ts){
 			unlink('cache/user/'.$menu.'/32/'.$cache_32);
 			unlink('cache/user/'.$menu.'/48/'.$cache_48);
 
-			tsNotice("头像修改成功！请返回ctrl+f5强制刷新下！");
+			tsNotice(L::set_success);
 
 		}
 	
@@ -115,7 +126,8 @@ switch($ts){
 	//修改密码
 	case "pwd":
 	
-		$title = '密码修改';
+		$title = L::set_editpwd;
+		
 		include template("set_pwd");
 
 		break;
@@ -123,18 +135,20 @@ switch($ts){
 	case "pwd_do":
 	
 		$oldpwd = trim($_POST['oldpwd']);
+		
 		$newpwd = trim($_POST['newpwd']);
 		
-		if($oldpwd == '' || $newpwd=='') tsNotice("所有项都不能为空！");
+		if($oldpwd == '' || $newpwd=='') tsNotice(L::set_entryempty);
 		
 		$userid = $TS_USER['user']['userid'];
+		
 		$strUser = $db->once_fetch_assoc("select pwd from ".dbprefix."user where userid='$userid'");
 		
-		if(md5($oldpwd) != $strUser['pwd']) tsNotice("旧密码输入有误，请返回重新输入");
+		if(md5($oldpwd) != $strUser['pwd']) tsNotice(L::set_oldpwderror);
 		
 		$db->query("update ".dbprefix."user set `pwd`='".md5($newpwd)."' where userid='$userid'");
 		
-		tsNotice("密码修改成功！");
+		tsNotice(L::set_success);
 	
 		break;
 	

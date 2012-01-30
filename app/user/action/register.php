@@ -1,14 +1,14 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-//用户注册
+
 switch($ts){
 	case "":
-		if(intval($TS_USER['user']['userid']) > 0) tsNotice("请退出后再注册！");
+		if(intval($TS_USER['user']['userid']) > 0) tsNotice(L::register_exitregister);
 		
-		//邀请用户ID
+		//invite userid
 		$fuserid = intval($_GET['fuserid']);
 	
-		$title = '注册';
+		$title = L::register_register;
 		
 		include template("register");
 		break;
@@ -21,33 +21,47 @@ switch($ts){
 		
 		$fuserid = intval($_POST['fuserid']);
 		
-		$authcode = strtoupper($_POST['authcode']); //strtoupper将字符转成大写
+		$authcode = strtoupper($_POST['authcode']);
 
-		$isEmail = $db->once_num_rows("SELECT * FROM ".dbprefix."user WHERE email='$email'");
-		$isusername = $db->once_num_rows("select * from ".dbprefix."user_info where username='$username'");
+		$isEmail = $db->once_fetch_assoc("select count(*) from ".dbprefix."user where email='$email'");
+		$isUserName = $db->once_fetch_assoc("select count(*) from ".dbprefix."user_info where username='$username'");
 		
 		
 		if(empty($email) || empty($pwd) || empty($repwd) || empty($username)){
-			tsNotice('所有必选项都不能为空！');
+		
+			tsNotice(L::register_entryempty);
+			
 		}elseif(valid_email($email) == false){
-			tsNotice('Email邮箱输入有误!');
-		}elseif($isEmail != '0'){
-			tsNotice('Email已经注册^_^');
+		
+			tsNotice(L::register_emailerror);
+		
+		}elseif($isEmail['count(*)'] > 0){
+		
+			tsNotice(L::register_emialregistered);
+			
 		}elseif($pwd != $repwd){
-			tsNotice('两次输入密码不正确！');
+		
+			tsNotice(L::register_pwdnotsame);
+			
 		}elseif(strlen($username) < 4 || strlen($username) > 20){
-			tsNotice('姓名长度必须在4和20之间!');
-		}elseif($isusername > 0){
-			tsNotice("用户名已经存在，请换个用户名！");
+		
+			tsNotice(L::register_usernamelength);
+		
+		}elseif($isUserName['count(*)'] > 0){
+		
+			tsNotice(L::register_usernameregistered);
+			
 		}elseif($authcode != $_SESSION['authcode']){
-			tsNotice("验证码输入有误，请重新输入！");
+		
+			tsNotice(L::register_verificationerror);
+			
 		}else{
 			
 			$db->query("INSERT INTO ".dbprefix."user (`pwd` , `email`) VALUES ('".md5($pwd)."', '$email');");
 			
 			$userid = $db->insert_id();
 			
-			//用户信息
+			//user info
 			$arrData = array(
 				'userid'			=> $userid,
 				'fuserid'	=> $fuserid,
@@ -57,13 +71,12 @@ switch($ts){
 				'uptime'	=> time(),
 			);
 			
-			//插入用户信息
+			//input user info
 			$db->insertArr($arrData,dbprefix.'user_info');
 			
-			//用户信息
 			$userData = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
 			
-			//用户session信息
+			//user session
 			$sessionData = array(
 				'userid' => $userData['userid'],
 				'username'	=> $userData['username'],

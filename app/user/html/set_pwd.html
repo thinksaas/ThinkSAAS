@@ -9,13 +9,13 @@
 <form method="POST" action="{SITE_URL}index.php?app=user&ac=set&ts=pwd_do">
 <table cellpadding="5" cellspacing="5">
 <tr>
-<th>旧密码：</th><td><input class="uinput" name="oldpwd" value="" type="password" /></td>
+<th>{php echo L::set_oldpwd}</th><td><input class="uinput" name="oldpwd" value="" type="password" /></td>
 </tr>
 <tr>
-<th>新密码：</th><td><input class="uinput" name="newpwd" value="" type="password" /></td>
+<th>{php echo L::set_newpwd}</th><td><input class="uinput" name="newpwd" value="" type="password" /></td>
 </tr>
 
-<tr><th></th><td><input class="submit" type="submit" value="修改密码"  /></td></tr>
+<tr><th></th><td><input class="submit" type="submit" value="{php echo L::set_submit}"  /></td></tr>
 </table>
 </form>
 </div>

@@ -8,10 +8,10 @@
 <div style="padding:20px 0;">
 <form method="POST" action="{SITE_URL}index.php?app=user&ac=set&ts=base_do">
 <table cellpadding="5" cellspacing="5">
-<tr><th>用户名：</th><td><input class="uinput" name="username" value="{$strUser[username]}"  /></td></tr>
-<tr><th>个人博客：</th><td><input class="uinput" name="blog" value="{$strUser[blog]}"  /></td></tr>
-<tr><th valign="top">自我介绍：</th><td><textarea class="utext" name="about">{$strUser[about]}</textarea></td></tr>
-<tr><th></th><td><input class="submit" type="submit" value="更新个人资料"  /></td></tr>
+<tr><th>{php echo L::set_username}</th><td><input class="uinput" name="username" value="{$strUser[username]}"  /></td></tr>
+<tr><th>{php echo L::set_blog}</th><td><input class="uinput" name="blog" value="{$strUser[blog]}"  /></td></tr>
+<tr><th valign="top">{php echo L::set_aboutme}</th><td><textarea class="utext" name="about">{$strUser[about]}</textarea></td></tr>
+<tr><th></th><td><input class="submit" type="submit" value="{php echo L::set_submit}"  /></td></tr>
 </table>
 </div>
 </div>

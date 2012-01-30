@@ -15,12 +15,12 @@
 <div>
 <br />
 <br />
-从你的电脑上选择图像文件：(仅支持jpg，gif，png格式的图片)
+{php echo L::set_onlyjpeg}
 <br />
 <br />
 <form method="POST" action="{SITE_URL}index.php?app=user&ac=set&ts=face_do" enctype="multipart/form-data" >
 <input type="file" name="picfile" />
-<input class="submit" type="submit" value="上传照片" />
+<input class="submit" type="submit" value="{php echo L::set_upload}" />
 </form>
 
 </div>
