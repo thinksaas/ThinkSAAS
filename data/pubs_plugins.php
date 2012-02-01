@@ -5,5 +5,4 @@ return array (
   2 => 'gotop',
   4 => 'feedback',
   5 => 'counter',
-  6 => 'wast_word',
 );
