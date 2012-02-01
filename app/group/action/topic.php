@@ -26,6 +26,7 @@ $strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid
 
 //判断会员是否加入该小组
 $groupid = intval($strGroup['groupid']);
+
 $userid = intval($TS_USER['user']['userid']);
 
 $isGroupUser = $db->once_num_rows("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
@@ -40,10 +41,11 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	
 	
 	//帖子标签
-	$strTopic['tags'] = aac('tag')->getObjTagByObjid('topic','topicid',$topicid);
+	
 	$strTopic['content'] = editor2html($strTopic['content']);
 	$strTopic['user']	= aac('user')->getUserForApp($strTopic['userid']);
 	$strTopic['user']['signed'] = hview($strTopic['user']['signed']);
+	
 	$title = $strTopic['title'];
 	
 	//评论列表开始
