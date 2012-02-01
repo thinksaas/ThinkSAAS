@@ -145,7 +145,7 @@
 {php echo L::topic_iscomment}
 <!--{else}-->
 
-<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=addcomment" onSubmit="return submitonce(this)" id="formMini">
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=comment&ts=do" onSubmit="return submitonce(this)" id="formMini">
 <textarea  style="width:100%;height:100px;" name="content"></textarea><br>
 <input type="hidden" name="topicid" value="{$strTopic[topicid]}" />
 <input class="submit" type="submit" value="{php echo L::topic_submit}(Crtl+Enter)" style="margin:10px 0px">
