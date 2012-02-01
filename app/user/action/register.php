@@ -56,8 +56,10 @@ switch($ts){
 			tsNotice(L::register_verificationerror);
 			
 		}else{
+		
+			$salt = md5(rand());
 			
-			$db->query("INSERT INTO ".dbprefix."user (`pwd` , `email`) VALUES ('".md5($pwd)."', '$email');");
+			$db->query("insert into ".dbprefix."user (`pwd` , `salt`,`email`) values ('".md5($salt.$pwd)."', '$salt' ,'$email');");
 			
 			$userid = $db->insert_id();
 			
