@@ -12,13 +12,13 @@
 <!--{loop $arrGroup $key $item}-->
 <div class="sub-item">
 <div class="pic">
-<a href="{SITE_URL}{tsurl('group','group',array('groupid'=>$item[groupid]))}">
+<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">
 <img data-defer-src="{$item[icon_48]}" src="{$item[icon_48]}" alt="{$item[groupname]}">
 </a>
 <a style="background:#F0F0F0;padding: 0px 7px;" href="javascript:void(0);" onclick="joinGroup('{$item[groupid]}');">{php echo L::all_joingroup}</a>
 </div>
 <div class="info">
-<a href="{SITE_URL}{tsurl('group','group',array('groupid'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]})             
+<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]})             
 <p>{$item[groupdesc]}</p>
 </div>
 </div>
@@ -37,7 +37,7 @@
 <h2>{php echo L::all_hottopics}</h2>
 <div class="line23">
 {loop $arrTopic $key $item}
-<a href="{SITE_URL}{tsurl('group','topic',array('topicid'=>$item[topicid]))}">{$item[title]}</a> ({$item[count_comment]})
+<a href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a> ({$item[count_comment]})
 <br />
 {/loop}
 </div>
@@ -47,7 +47,7 @@
 <div class="line23">
 <!--{if $arrNewGroup}-->
 <!--{loop $arrNewGroup $key $item}-->
-<a href="{SITE_URL}{tsurl('group','group',array('groupid'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
+<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
 <!--{/loop}-->
 <!--{/if}-->
 </div>

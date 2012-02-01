@@ -62,14 +62,14 @@ if($ts=='addcomment'){
 			$feed_template = '<span class="pl">评论了帖子：<a href="{link}">{title}</a></span><div class="quote"><span class="inq">{content}</span> <span><a class="j a_saying_reply" href="{link}" rev="unfold">回应</a>
     </span></div>';
 			$feed_data = array(
-				'link'	=> SITE_URL.tsurl('group','topic',array('topicid'=>$topicid)),
+				'link'	=> SITE_URL.tsurl('group','topic',array('id'=>$topicid)),
 				'title'	=> $strTopic['title'],
 				'content'	=> getsubstrutf8(t($content),'0','50'),
 			);
 			aac('feed')->addFeed($userid,$feed_template,serialize($feed_data));
 			//feed结束
 			
-			header("Location: ".SITE_URL.tsurl('group','topic',array('topicid'=>$topicid)));
+			header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 		}	
 	}
 }
@@ -220,7 +220,7 @@ switch ($ts) {
 		$count_attach = $db->once_num_rows("select * from ".dbprefix."group_topics_attachs where topicid='".$topicid."'");
 		$db->query("update ".dbprefix."group_topics set `count_attach`='".$count_attach."' where topicid='".$topicid."'");
 		
-		header("Location: ".SITE_URL.tsurl('group','topic',array('topicid'=>$topicid)));
+		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 		
 		break;
 		
@@ -250,7 +250,7 @@ switch ($ts) {
 		}
 		
 		//跳转回到帖子页
-		header("Location: ".SITE_URL.tsurl('group','topic',array('topicid'=>$strComment['topicid'])));
+		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$strComment['topicid'])));
 		
 		
 		break;
@@ -342,7 +342,7 @@ switch ($ts) {
 			
 			$db->updateArr($arrData,dbprefix.'group_topics','where topicid='.$topicid.'');
 
-			header("Location: ".SITE_URL.tsurl('group','topic',array('topicid'=>$topicid)));
+			header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 			
 		}else{
 			header("Location: ".SITE_URL);
@@ -631,7 +631,7 @@ switch ($ts) {
 		
 		$db->query("update ".dbprefix."group_topics set `groupid`='$groupid' where topicid='$topicid'");
 		
-		header("Location: ".SITE_URL.tsurl('group','topic',array('topicid'=>$topicid)));
+		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 		
 		break;
 		

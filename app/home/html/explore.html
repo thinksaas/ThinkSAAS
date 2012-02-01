@@ -41,8 +41,8 @@
 <!--{loop $arrRecommendGroup $key $item}-->
 
 <dl class="ob">
-<dt><a href="{SITE_URL}{tsurl('group','group',array('groupid'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}" width="48" /></a></dt>
-<dd><a href="{SITE_URL}{tsurl('group','group',array('groupid'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]}{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)</span>
+<dt><a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}" width="48" /></a></dt>
+<dd><a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]}{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)</span>
 </dd>
 </dl>
 
@@ -65,12 +65,12 @@
 
 <div class="topic_title">
 <div class="title">
-<a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array('topicid'=>$item[topicid]))}">{$item[title]}</a>
+<a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
 <!--{if $item[istop]=='1'}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" title="[置顶]" alt="[置顶]" /> <!--{elseif $item[addtime]>strtotime(date('Y-m-d 00:00:00'))}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/topic_new.gif" align="absmiddle"  title="[新帖]" alt="[新帖]" /><!--{else}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/topic.gif" align="absmiddle"  title="[帖子]" alt="[帖子]" /><!--{/if}--> <!--{if $item[isphoto]=='1'}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/image_s.gif" title="[图片]" alt="[图片]" align="absmiddle" /><!--{/if}--> <!--{if $item[isattach] == '1'}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/attach.gif" title="[附件]" alt="[附件]" /><!--{/if}-->
 </div>
 <div class="topic_info">
 <span style="float:left;">
-<a href="{SITE_URL}{tsurl('group','group',array('groupid'=>$item[groupid]))}">{$item[group][groupname]}</a>
+<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[group][groupname]}</a>
 </span>
 
 <span style="float:right;">
@@ -78,7 +78,7 @@
 
 <a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[user][username]}</a>
 
-<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('group','topic',array('topicid'=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
+<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
 </span>
 </div>
 
@@ -128,7 +128,7 @@
 <div class="line23">
 <!--{if $arrNewGroup}-->
 <!--{loop $arrNewGroup $key $item}-->
-<a href="{SITE_URL}{tsurl('group','group',array('groupid'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
+<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
 <!--{/loop}-->
 <!--{/if}-->
 </div>
@@ -139,7 +139,7 @@
 <div>
 <ul>
 {loop $arrPosts $key $item}
-<li><a href="{SITE_URL}{tsurl('group','topic',array('topicid'=>$item[topicid]))}">{$item[title]}</a></li>
+<li><a href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a></li>
 {/loop}
 </ul>
 </div>

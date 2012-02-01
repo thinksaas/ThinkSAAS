@@ -1,7 +1,7 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-$groupid = intval($_GET['groupid']);
+$groupid = intval($_GET['id']);
 if($groupid == '0') header("Location: ".SITE_URL."index.php");
 $strGroup = $new['group']->getOneGroup($groupid);
 $strGroup['groupdesc'] = stripslashes($strGroup['groupdesc']);
@@ -53,10 +53,10 @@ switch($ts){
 
 			if($typeid == '0'){
 				$andType = '';
-				$url = SITE_URL.tsurl('group','group',array('groupid'=>$groupid,'page'=>''));
+				$url = SITE_URL.tsurl('group','show',array('id'=>$groupid,'page'=>''));
 			}else{
 				$andType = "and typeid='$typeid'";
-				$url = SITE_URL.tsurl('group','group',array('groupid'=>$groupid,'typeid'=>$typeid,'page'=>''));
+				$url = SITE_URL.tsurl('group','show',array('id'=>$groupid,'typeid'=>$typeid,'page'=>''));
 			}
 
 			$sql = "select topicid,typeid,groupid,userid,title,count_comment,count_view,istop,isphoto,isattach,isposts,addtime,uptime from ".dbprefix."group_topics where groupid='$groupid' ".$andType." and isshow='0' order by istop desc,uptime desc limit $lstart,30";

@@ -50,111 +50,48 @@ switch($ts){
 	
 		$groupid	= intval($_POST['groupid']);
 		
-		$title	= htmlspecialchars(trim($_POST['title']));
+		$title	= trim($_POST['title']);
 		$content	= trim($_POST['content']);
 		
-		$tag = trim($_POST['tag']);
-		
 		//发布帖子标签
-		doAction('group_topic_add',$title,$content,$tag);
+		doAction('group_topic_add',$title,$content);
 		
 		$typeid = intval($_POST['typeid']);
 		
 		$iscomment = $_POST['iscomment'];
 		
+		if($title == '' || $content == '') tsNotice('标题和内容都不能为空！');
 		
-		if($title==''){
-
-			tsNotice('不要这么偷懒嘛，多少请写一点内容哦^_^');
-			
-		}elseif($content==''){
-
-			tsNotice('没有任何内容是不允许你通过滴^_^');
-			
-		}elseif(mb_strlen($title,'utf8')>64){//限制发表内容多长度，默认为30
-			
-		 	tsNotice('标题很长很长很长很长...^_^');
+		if(mb_strlen($title,'utf8')>64) tsNotice('标题最长32个字符！');
 		
-		}elseif(mb_strlen($content,'utf8')>20000){//限制发表内容多长度，默认为1w
-			
-		 	tsNotice('发这么多内容干啥^_^');
+		//开始插入数据
+		$uptime = time();
 		
-		}else{
-			
-			$uptime = time();
-			
-			$arrData = array(
-				'groupid'				=> $groupid,
-				'typeid'	=> $typeid,
-				'userid'				=> $TS_USER['user']['userid'],
-				'title'				=> $title,
-				'content'		=> $content,
-				'iscomment'		=> $iscomment,
-				'addtime'			=> time(),
-				'uptime'	=> $uptime,
-			);
-			
-			//判断是否有图片和附件
-			preg_match_all('/\[(photo)=(\d+)\]/is', $content, $isphoto);
-			if($isphoto[2]){
-				$arrData['isphoto'] = '1';
-			}
-			//判断附件
-			preg_match_all('/\[(attach)=(\d+)\]/is', $content, $isattach);
-			if($isattach[2]){
-				$arrData['isattach'] = '1';
-			}
-			
-			$topicid = $db->insertArr($arrData,dbprefix.'group_topics');
-			
-			$strGroup = $db->once_fetch_assoc("select groupid,groupname from ".dbprefix."group where `groupid`='$groupid'");
-			
-			//统计帖子类型 
-			if($typeid != '0'){
-				$topicTypeNum = $db->once_num_rows("select * from ".dbprefix."group_topics where typeid='$typeid'");
-				$db->query("update ".dbprefix."group_topics_type set `count_topic`='$topicTypeNum' where typeid='$typeid'");
-			}
-			//处理标签
-			aac('tag')->addTag('topic','topicid',$topicid,$tag);
-			
-			//统计小组下帖子数并更新
-			$count_topic = $db->once_num_rows("select * from ".dbprefix."group_topics where groupid='$groupid'");
-			
-			//统计今天发布帖子数
-			$today_start = strtotime(date('Y-m-d 00:00:00'));
-			$today_end = strtotime(date('Y-m-d 23:59:59'));
-			
-			$count_topic_today = $db->once_num_rows("select * from ".dbprefix."group_topics where groupid='$groupid' and addtime > '$today_start'");
-			
-			
-			$db->query("update ".dbprefix."group set count_topic='$count_topic',count_topic_today='$count_topic_today',uptime='$uptime' where groupid='$groupid'");
-			
-			
-			
-			//积分记录
-			$userid = $TS_USER['user']['userid'];
-			$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','发帖','50','".time()."')");
-			
-			$strScore = $db->once_fetch_assoc("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
-			
-			//更新积分
-			$db->query("update ".dbprefix."user_info set `count_score`='".$strScore['score']."' where userid='$userid'");
-			
-			//feed开始
-			$feed_template = '<span class="pl">在 <a href="{group_link}">{group_name}</a> 创建了新话题：<a href="{topic_link}">{topic_title}</a></span><div class="broadsmr">{content}</div><div class="indentrec"><span><a  class="j a_rec_reply" href="{topic_link}">回应</a></span></div>';
-			$feed_data = array(
-				'group_link'	=> SITE_URL.tsurl('group','group',array('groupid'=>$strGroup['groupid'])),
-				'group_name'	=> $strGroup['groupname'],
-				'topic_link'	=> SITE_URL.tsurl('group','topic',array('topicid'=>$topicid)),
-				'topic_title'	=> $title,
-				'content'	=> getsubstrutf8(t($content),'0','50'),
-			);
-			aac('feed')->addFeed($userid,$feed_template,serialize($feed_data));
-			//feed结束
-			
-			header("Location: ".SITE_URL.tsurl('group','topic',array('topicid'=>$topicid)));
-			
-		}
+		$arrData = array(
+			'groupid'				=> $groupid,
+			'typeid'	=> $typeid,
+			'userid'				=> $TS_USER['user']['userid'],
+			'title'				=> $title,
+			'content'		=> $content,
+			'iscomment'		=> $iscomment,
+			'addtime'			=> time(),
+			'uptime'	=> $uptime,
+		);
+		
+		$topicid = $db->insertArr($arrData,dbprefix.'group_topics');
+		
+		//统计小组下帖子数并更新
+		$count_topic = $db->once_num_rows("select * from ".dbprefix."group_topics where groupid='$groupid'");
+		
+		//统计今天发布帖子数
+		$today_start = strtotime(date('Y-m-d 00:00:00'));
+		$today_end = strtotime(date('Y-m-d 23:59:59'));
+		
+		$count_topic_today = $db->once_num_rows("select * from ".dbprefix."group_topics where groupid='$groupid' and addtime > '$today_start'");
+		
+		$db->query("update ".dbprefix."group set count_topic='$count_topic',count_topic_today='$count_topic_today',uptime='$uptime' where groupid='$groupid'");
+		
+		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 	
 		break;
 }

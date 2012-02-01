@@ -10,7 +10,7 @@
 <div class="midder">
 <div class="mc">
 
-<h1><!--{if $strTopic[typeid] !='0'}--><a href="{SITE_URL}{tsurl('group','group',array('groupid'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}<a href="{SITE_URL}{tsurl('group','topic',array('topicid'=>$strTopic[topicid]))}">{$strTopic[title]}</a></h1>
+<h1><!--{if $strTopic[typeid] !='0'}--><a href="{SITE_URL}{tsurl('group','show',array('id'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}<a href="{SITE_URL}{tsurl('group','topic',array('id'=>$strTopic[topicid]))}">{$strTopic[title]}</a></h1>
 
 <div class="cleft">
 
@@ -76,9 +76,9 @@
 <!--{if $page == '1'}-->
 <div style="text-align:right;">
 <!--{if $sc=='desc'}-->
-<a href="{SITE_URL}{tsurl('group','topic',array('topicid'=>$topicid,'sc'=>'asc'))}">{php echo L::topic_asc}</a>
+<a href="{SITE_URL}{tsurl('group','topic',array('id'=>$topicid,'sc'=>'asc'))}">{php echo L::topic_asc}</a>
 <!--{else}-->
-<a href="{SITE_URL}{tsurl('group','topic',array('topicid'=>$topicid))}">{php echo L::topic_desc}</a>
+<a href="{SITE_URL}{tsurl('group','topic',array('id'=>$topicid))}">{php echo L::topic_desc}</a>
 <!--{/if}-->
 </div>
 <!--{/if}-->
@@ -146,7 +146,7 @@
 <!--{else}-->
 
 <form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=addcomment" onSubmit="return submitonce(this)" id="formMini">
-<textarea  style="width:100%;height:100px;" id="editor_mini" name="content"></textarea><br>
+<textarea  style="width:100%;height:100px;" name="content"></textarea><br>
 <input type="hidden" name="topicid" value="{$strTopic[topicid]}" />
 <input class="submit" type="submit" value="{php echo L::topic_submit}(Crtl+Enter)" style="margin:10px 0px">
 </form>
@@ -158,7 +158,7 @@
 </div>
 
 <div class="cright">
-<p class="pl2"><a href="{SITE_URL}{tsurl('group','group',array('groupid'=>$strGroup[groupid]))}">{php echo L::topic_return} {$strGroup[groupname]}</a></p>
+<p class="pl2"><a href="{SITE_URL}{tsurl('group','show',array('id'=>$strGroup[groupid]))}">{php echo L::topic_return} {$strGroup[groupname]}</a></p>
 <p class="pl2">
 <a style="background:#336699;color:#FFFFFF;padding:3px 5px;" href="{SITE_URL}{tsurl('group','addtopic',array('groupid'=>$strGroup[groupid]))}">
 <span>{php echo L::topic_addtopic}</span>
@@ -169,7 +169,7 @@
 <div class="indent newtopic">
 <ul>
 <!--{loop $newTopic $key $item}-->
-<li><a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array('topicid'=>$item[topicid]))}">{$item[title]}</a> &nbsp;
+<li><a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a> &nbsp;
 <span class="pl">(<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}">{$item[user][username]}</a>) </span>
 </li>
 <!--{/loop}-->
@@ -178,13 +178,9 @@
 
 <div class="clear"></div>
 {php doAction('group_topic_right_footer',$strTopic)}
-
 </div>
 
 
 </div>
 </div>
-<!--加载编辑器-->
-<script src="{SITE_URL}public/js/editor/xheditor/xheditor.js" type="text/javascript"></script>
-<script src="{SITE_URL}public/js/editor/xheditor/loadeditor.js" type="text/javascript"></script>
 {template footer}

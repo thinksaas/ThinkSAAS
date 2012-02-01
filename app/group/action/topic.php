@@ -5,10 +5,11 @@ defined('IN_TS') or die('Access Denied.');
  * 小组话题内容页
  */
 
-$topicid = intval($_GET['topicid']);
+$topicid = intval($_GET['id']);
 
 if($topicid == 0){
 	header("Location: ".SITE_URL);
+	exit;
 }
 
 $new['group']->isTopic($topicid);
@@ -52,9 +53,9 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	
 	//倒序asc
 	if($sc=='asc'){
-		$url = SITE_URL.tsurl('group','topic',array('topicid'=>$topicid,'sc'=>$sc,'page'=>''));
+		$url = SITE_URL.tsurl('group','topic',array('id'=>$topicid,'sc'=>$sc,'page'=>''));
 	}else{
-		$url = SITE_URL.tsurl('group','topic',array('topicid'=>$topicid,'page'=>''));
+		$url = SITE_URL.tsurl('group','topic',array('id'=>$topicid,'page'=>''));
 	}
 	
 	
