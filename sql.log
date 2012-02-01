@@ -30,6 +30,7 @@ DROP TABLE `ts_tag_user_index` ;
 DROP TABLE `ts_search_key` ;
 
 ALTER TABLE `ts_user` ADD `salt` CHAR( 32 ) NOT NULL DEFAULT '' COMMENT '加点盐' AFTER `pwd` ;
+ALTER TABLE `ts_group_topics_type` DROP `count_topic` ;
 
 ThinkSAAS1.6 sql change
 -------------------------------------------------
