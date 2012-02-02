@@ -17,10 +17,10 @@ a img {border:none}
 
 form input[type='radio'] {vertical-align:text-bottom;}
 
-h1 {color: #494949;font-size: 16px;font-weight: bold;margin: 0;padding:10px 0;}
+h1 {color: #494949;font-size: 18px;font-weight: bold;margin: 0;padding:10px 0;}
 h1 a{color:#555555;}
 
-h2 {color: #555555;font-size: 14px;font-weight:normal;}
+h2 {color: #555555;font-size: 14px;}
 h2 span{font-size:12px;}
 
 input,textarea{padding: 3px 2px;}
