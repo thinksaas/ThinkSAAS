@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 02 月 01 日 10:18
+-- 生成日期: 2012 年 02 月 02 日 10:27
 -- 服务器版本: 5.5.8
 -- PHP 版本: 5.3.5
 
@@ -29,24 +29,20 @@ CREATE TABLE IF NOT EXISTS `ts_group` (
   `groupid` int(11) NOT NULL AUTO_INCREMENT COMMENT '小组ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `groupname` char(32) NOT NULL DEFAULT '' COMMENT '群组名字',
-  `groupname_en` char(32) NOT NULL DEFAULT '' COMMENT '小组英文名称',
   `groupdesc` text NOT NULL COMMENT '小组介绍',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '图标路径',
   `groupicon` char(32) DEFAULT '' COMMENT '小组图标',
   `count_topic` int(11) NOT NULL DEFAULT '0' COMMENT '帖子统计',
   `count_topic_today` int(11) NOT NULL DEFAULT '0' COMMENT '统计今天发帖',
-  `count_user` int(11) NOT NULL DEFAULT '0' COMMENT '小组成员数',
-  `joinway` tinyint(1) NOT NULL DEFAULT '0' COMMENT '加入方式',
-  `role_leader` char(32) NOT NULL DEFAULT '组长' COMMENT '组长角色名称',
-  `role_admin` char(32) NOT NULL DEFAULT '管理员' COMMENT '管理员角色名称',
-  `role_user` char(32) NOT NULL DEFAULT '成员' COMMENT '成员角色名称',
-  `addtime` int(11) DEFAULT '0' COMMENT '创建时间',
+  `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '统计评论',
+  `count_comment_today` int(11) NOT NULL DEFAULT '0' COMMENT '统计今日评论数',
   `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否推荐',
   `isopen` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否公开或者私密',
   `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否审核',
-  `ispost` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否允许会员发帖',
+  `ispost` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否允许其他人发帖',
   `isshow` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否显示',
-  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '最后更新时间',
+  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `uptime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后更新时间',
   PRIMARY KEY (`groupid`),
   KEY `userid` (`userid`),
   KEY `isshow` (`isshow`),
@@ -57,63 +53,9 @@ CREATE TABLE IF NOT EXISTS `ts_group` (
 -- 转存表中的数据 `ts_group`
 --
 
-INSERT INTO `ts_group` (`groupid`, `userid`, `groupname`, `groupname_en`, `groupdesc`, `path`, `groupicon`, `count_topic`, `count_topic_today`, `count_user`, `joinway`, `role_leader`, `role_admin`, `role_user`, `addtime`, `isrecommend`, `isopen`, `isaudit`, `ispost`, `isshow`, `uptime`) VALUES
-(1, 1, '默认小组', '', '默认小组', '', '', 1, 1, 1, 0, '组长', '管理员', '成员', 1321804548, 1, 0, 0, 0, 0, 1328089131);
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_group_cates`
---
-
-CREATE TABLE IF NOT EXISTS `ts_group_cates` (
-  `cateid` int(11) NOT NULL AUTO_INCREMENT COMMENT '分类ID',
-  `catename` char(32) NOT NULL DEFAULT '' COMMENT '分类名字',
-  `count_group` int(11) NOT NULL DEFAULT '0' COMMENT '群组个数',
-  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '最后更新时间',
-  PRIMARY KEY (`cateid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- 转存表中的数据 `ts_group_cates`
---
-
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_group_cates_index`
---
-
-CREATE TABLE IF NOT EXISTS `ts_group_cates_index` (
-  `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
-  `cateid` int(11) NOT NULL DEFAULT '0' COMMENT '分类ID',
-  UNIQUE KEY `groupid_2` (`groupid`,`cateid`),
-  KEY `groupid` (`groupid`),
-  KEY `cateid` (`cateid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组分类索引';
-
---
--- 转存表中的数据 `ts_group_cates_index`
---
-
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_group_links`
---
-
-CREATE TABLE IF NOT EXISTS `ts_group_links` (
-  `groupid` int(11) NOT NULL DEFAULT '0',
-  `linkid` int(11) NOT NULL DEFAULT '0',
-  KEY `groupid` (`groupid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `ts_group_links`
---
-
+INSERT INTO `ts_group` (`groupid`, `userid`, `groupname`, `groupdesc`, `path`, `groupicon`, `count_topic`, `count_topic_today`, `count_comment`, `count_comment_today`, `isrecommend`, `isopen`, `isaudit`, `ispost`, `isshow`, `addtime`, `uptime`) VALUES
+(1, 1, '站长大本营', '站长大本营', '0/0', '0/0/1.jpg', 1, 1, 2, 2, 1, 0, 1, 0, 0, '2012-02-02 17:00:00', '2012-02-02 17:20:09'),
+(2, 1, '非凡体育', '非凡体育', '0/0', '0/0/2.jpg', 0, 0, 0, 0, 1, 0, 1, 0, 0, '2012-02-02 17:00:58', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -136,9 +78,7 @@ INSERT INTO `ts_group_options` (`optionname`, `optionvalue`) VALUES
 ('appdesc', 'ThinkSAAS小组'),
 ('isenable', '0'),
 ('iscreate', '0'),
-('isaudit', '1'),
-('iscate', '1'),
-('ismode', '0');
+('isaudit', '1');
 
 -- --------------------------------------------------------
 
@@ -155,16 +95,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_topics` (
   `content` text NOT NULL,
   `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '回复统计',
   `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '帖子展示数',
-  `count_attach` int(11) NOT NULL DEFAULT '0' COMMENT '统计附件',
   `istop` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否置顶',
   `isshow` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否显示',
   `iscomment` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否允许评论',
-  `isphoto` tinyint(1) NOT NULL DEFAULT '0',
-  `isattach` tinyint(1) NOT NULL DEFAULT '0',
-  `isnotice` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否通知',
   `isposts` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否精华帖子',
-  `addtime` int(11) DEFAULT '0' COMMENT '创建时间',
-  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `addtime` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `uptime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   PRIMARY KEY (`topicid`),
   KEY `groupid` (`groupid`),
   KEY `userid` (`userid`),
@@ -177,28 +113,8 @@ CREATE TABLE IF NOT EXISTS `ts_group_topics` (
 -- 转存表中的数据 `ts_group_topics`
 --
 
-INSERT INTO `ts_group_topics` (`topicid`, `typeid`, `groupid`, `userid`, `title`, `content`, `count_comment`, `count_view`, `count_attach`, `istop`, `isshow`, `iscomment`, `isphoto`, `isattach`, `isnotice`, `isposts`, `addtime`, `uptime`) VALUES
-(1, 2, 1, 1, '我看可以啊', '我看可以啊', 1, 25, 0, 0, 0, 0, 0, 0, 0, 0, 1328089131, 1328091106);
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_group_topics_collects`
---
-
-CREATE TABLE IF NOT EXISTS `ts_group_topics_collects` (
-  `userid` int(11) NOT NULL DEFAULT '0',
-  `topicid` int(11) NOT NULL DEFAULT '0',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '收藏时间',
-  UNIQUE KEY `userid_2` (`userid`,`topicid`),
-  KEY `userid` (`userid`),
-  KEY `topicid` (`topicid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='帖子收藏';
-
---
--- 转存表中的数据 `ts_group_topics_collects`
---
-
+INSERT INTO `ts_group_topics` (`topicid`, `typeid`, `groupid`, `userid`, `title`, `content`, `count_comment`, `count_view`, `istop`, `isshow`, `iscomment`, `isposts`, `addtime`, `uptime`) VALUES
+(1, 2, 1, 1, '《生化危机5》首曝海报 病毒肆虐"末日"来临', '《生化危机5》首曝海报 病毒肆虐"末日"来临', 2, 39, 0, 0, 0, 0, '2012-02-02 17:20:09', '2012-02-02 17:35:13');
 
 -- --------------------------------------------------------
 
@@ -209,22 +125,24 @@ CREATE TABLE IF NOT EXISTS `ts_group_topics_collects` (
 CREATE TABLE IF NOT EXISTS `ts_group_topics_comments` (
   `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '评论ID',
   `referid` int(11) NOT NULL DEFAULT '0',
+  `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
   `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '话题ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `content` text NOT NULL COMMENT '回复内容',
-  `addtime` int(11) DEFAULT '0' COMMENT '回复时间',
+  `addtime` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '回复时间',
   PRIMARY KEY (`commentid`),
   KEY `topicid` (`topicid`),
   KEY `userid` (`userid`),
   KEY `referid` (`referid`,`topicid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='话题回复/评论' AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='话题回复/评论' AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `ts_group_topics_comments`
 --
 
-INSERT INTO `ts_group_topics_comments` (`commentid`, `referid`, `topicid`, `userid`, `content`, `addtime`) VALUES
-(1, 0, 1, 1, '可以啊', 1328091106);
+INSERT INTO `ts_group_topics_comments` (`commentid`, `referid`, `groupid`, `topicid`, `userid`, `content`, `addtime`) VALUES
+(1, 0, 1, 1, 1, '防辐射服斯蒂芬', '2012-02-02 17:35:09'),
+(2, 0, 1, 1, 1, '放松放松房贷放松十点', '2012-02-02 17:35:13');
 
 -- --------------------------------------------------------
 
@@ -246,29 +164,6 @@ CREATE TABLE IF NOT EXISTS `ts_group_topics_type` (
 
 INSERT INTO `ts_group_topics_type` (`typeid`, `groupid`, `typename`) VALUES
 (2, 1, '音乐');
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_group_users`
---
-
-CREATE TABLE IF NOT EXISTS `ts_group_users` (
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '群组ID',
-  `isadmin` int(11) NOT NULL DEFAULT '0' COMMENT '是否管理员',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '加入时间',
-  UNIQUE KEY `userid_2` (`userid`,`groupid`),
-  KEY `userid` (`userid`),
-  KEY `groupid` (`groupid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='群组和用户对应关系';
-
---
--- 转存表中的数据 `ts_group_users`
---
-
-INSERT INTO `ts_group_users` (`userid`, `groupid`, `isadmin`, `addtime`) VALUES
-(1, 1, 0, 1321804548);
 
 -- --------------------------------------------------------
 
@@ -440,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
 --
 
 INSERT INTO `ts_user_info` (`userid`, `fuserid`, `username`, `email`, `path`, `face`, `blog`, `about`, `qq_openid`, `qq_token`, `qq_secret`, `isadmin`, `isenable`, `isverify`, `verifycode`, `addtime`, `uptime`) VALUES
-(1, 0, 'admin', 'admin@admin.com', '', '', 'http://www.thinksaas.cn', 'I love ThinkSAAS', '', '', '', 1, 0, 0, '', 1324865594, 1328091099),
+(1, 0, 'admin', 'admin@admin.com', '', '', 'http://www.thinksaas.cn', 'I love ThinkSAAS', '', '', '', 1, 0, 0, '', 1324865594, 1328157019),
 (2, 0, 'thinksaas', 'thinksaas@qq.com', '', '', '', '', '', '', '', 0, 0, 0, '', 1328080799, 1328080799);
 
 -- --------------------------------------------------------
