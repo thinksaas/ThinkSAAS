@@ -29,10 +29,8 @@ $groupid = intval($strGroup['groupid']);
 
 $userid = intval($TS_USER['user']['userid']);
 
-$isGroupUser = $db->once_num_rows("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
-
 //浏览方式
-if($strGroup['isopen']=='1' && $isGroupUser=='0'){
+if($strGroup['isopen']=='1'){
 	
 	$title = $strTopic['title'];
 	include template("topic_isopen");
@@ -44,7 +42,6 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	
 	$strTopic['content'] = editor2html($strTopic['content']);
 	$strTopic['user']	= aac('user')->getUserForApp($strTopic['userid']);
-	$strTopic['user']['signed'] = hview($strTopic['user']['signed']);
 	
 	$title = $strTopic['title'];
 	
@@ -74,18 +71,6 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	$commentNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topics_comments where `topicid`='$topicid'");
 	
 	$pageUrl = pagination($commentNum['count(*)'], 15, $page, $url);
-	//评论列表结束
-	
-	
-	//判断会员是否加入该小组
-	$userid = intval($TS_USER['user']['userid']);
-	$isGroupUser = $db->once_num_rows("select * from ".dbprefix."group_users where userid='$userid' and groupid='".$strTopic['groupid']."'");
-
-	
-	$groupid = $strTopic['groupid'];
-	
-	//小组成员
-	$strGroupUser = $db->once_fetch_assoc("select * from ".dbprefix."group_users where userid='$userid' and groupid='".$strTopic['groupid']."'");
 	
 	//最新帖子
 	$newTopics = $db->fetch_all_assoc("select topicid,userid,title from ".dbprefix."group_topics where groupid='$groupid' and isshow='0' order by addtime desc limit 6");

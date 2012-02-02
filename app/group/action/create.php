@@ -64,14 +64,8 @@ switch($ts){
 				$db->query("update ".dbprefix."group set `path`='$menu',`groupicon`='$photo' where groupid='$groupid'");
 			}
 		}
-		
-		//绑定成员
-		$db->query("insert into ".dbprefix."group_users (`userid`,`groupid`,`addtime`) values ('".$userid."','".$groupid."','".time()."')");
-		
-		//更新
-		$db->query("update ".dbprefix."group set `count_user` = '1' where groupid='".$groupid."'");
 
-		header("Location: ".SITE_URL."index.php?app=group&ac=group&groupid=".$groupid."");
+		header("Location: ".SITE_URL.tsurl('group','show',array('id'=>$groupid)));
 		
 	
 		break;

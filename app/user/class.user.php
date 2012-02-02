@@ -51,6 +51,7 @@ class user{
 		
 		//头像
 		if($strUser['face']==''){
+			$strUser['face_32'] = SITE_URL.'public/images/user_normal.jpg';
 			$strUser['face'] = SITE_URL.'public/images/user_normal.jpg';
 		}else{
 			$strUser['face_32'] = SITE_URL.miniimg($strUser['face'],'user',32,32,$strUser['path'],1);

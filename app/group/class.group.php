@@ -22,31 +22,6 @@ class group{
 		return $groups;
 	}
 	
-	//显示所有小组分类带分页
-	function getArrCate($page='1',$prePageNum,$where=''){
-		$start_limit = !empty($page) ? ($page - 1) * $prePageNum : 0;
-		$limit = $prePageNum ? "LIMIT $start_limit, $prePageNum" : '';
-		$cates	= $this->db->fetch_all_assoc("select * from ".dbprefix."group_cates ".$where." ".$limit."");
-		if($cates){
-		foreach($cates as $item){
-			$topCate = $this->getOneCateById($item['catereferid']);
-			$arrCate[] = array(
-				'cateid'			=> $item['cateid'],
-				'catename'	=> $item['catename'],
-				'topcateid'		=> $topCate['cateid'],
-				'topcatename'		=> $topCate['catename'],
-			);
-		}}
-		
-		return $arrCate;
-	}
-	
-	//获取一条分类的名字BY cateid
-	function getOneCateById($cateid){
-		$strCate = $this->db->once_fetch_assoc("select * from ".dbprefix."group_cates where cateid='$cateid'");
-		return $strCate;
-	}
-	
 	//获取一个小组
 	function getOneGroup($groupid){
 		$strGroup = $this->db->once_fetch_assoc("select * from ".dbprefix."group where groupid=$groupid");
@@ -114,33 +89,6 @@ class group{
 			}
 		}
 		return $arrNewGroup;
-	}
-	
-	//获取小组的所有分类 
-	function getCates(){
-		$ArrTopCates = $this->db->fetch_all_assoc("select * from ".dbprefix."group_cates where catereferid='0'");
-		
-		$arrCate = array();
-		
-		if(is_array($ArrTopCates)){
-			foreach($ArrTopCates as $item){
-				$arrCate[] = array(
-					'cateid'	=> $item['cateid'],
-					'catename'	=> $item['catename'],
-					'count_group'	=> $item['count_group'],
-					'cates'	=> $this->db->fetch_all_assoc("select * from ".dbprefix."group_cates where catereferid='".$item['cateid']."'"),
-				);
-				
-			}
-		}
-		
-		return $arrCate;
-		
-	}
-	
-	//我的小组（加入的和管理的）
-	function getMyGroup(){
-		
 	}
 	
 	
@@ -243,26 +191,7 @@ class group{
 		echo '1';
 		
 	}
-	
-	//匹配内容中的附件 
-	function matchAttach($content){
-		preg_match_all('/\[(attach)=(\d+)\]/is', $content, $attachs);
-		if($attachs[2]){
-			foreach ($attachs[2] as $aitem) {
-				$content = str_replace("[attach={$aitem}]",'附件：', $content);
-			}
-		}
-	}
-	//为内容准备的附件格式
-	function attachForContent($attachid,$userid){
-		$strAttach = acc('attach')->getOneAttach($attachid);
-		$userScore = acc('user')->getUserScore($userid);
-		if($strAttach['score'] > '0' && $userScore< $strAttach['score']) {
-			$result = "下载附件：需要".$strAttach['score']."积分";
-		}else{
-			$result = '下载附件：<a href="'.SITE_URL.'index.php?app=attach&ajax&ts=down&attachid='.$strAttach["attachid"].'">'.$strAttach["attachname"].'</a>';
-		}
-	}
+
 	
 	//判断是否存在小组
 	function isGroup($groupid){
@@ -279,20 +208,6 @@ class group{
 		if($isTopic['count(topicid)']==0){
 			header("Location: ".SITE_URL);
 			exit;
-		}
-	}
-	
-	//获取帖子第一张图片
-	function getOnePhoto($topicid){
-		$strTopic = $this->db->once_fetch_assoc("select content,isphoto from ".dbprefix."group_topics where `topicid`='$topicid'");
-		if($strTopic['isphoto']=='1'){
-			preg_match_all('/\[(photo)=(\d+)\]/is', $strTopic['content'], $photos);
-			$photoid = $photos[2][0];
-			
-			$strPhoto = aac('photo')->getSamplePhoto($photoid);
-			
-			return $strPhoto;
-			
 		}
 	}
 	

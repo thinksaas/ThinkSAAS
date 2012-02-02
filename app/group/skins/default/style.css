@@ -800,15 +800,13 @@ a.mini-share:hover {
 /*帖子列表*/
 .topic_list{overflow:hidden;}
 .topic_list ul{overflow:hidden;}
-.topic_list ul li{overflow:hidden;padding:15px 0;border-bottom: 1px solid #C2D5E3;display: block;}
-
-.topic_list ul li:hover{background:#F0F0F0;}
+.topic_list ul li{overflow:hidden;padding:10px 0;display: block;}
 
 .topic_list .userimg{float:left;width:38px;overflow:hidden;}
 
 .topic_list .topic_title{width:545px;overflow:hidden;}
 
-.topic_list .topic_title .title a{font-size:14px;color:#343434;}
+.topic_list .topic_title .title a{font-size:14px;}
 
 .topic_list .topic_info{overflow: hidden;font-size:12px;color:#999999;}
 
