@@ -57,6 +57,11 @@ ALTER TABLE `ts_group_topics` DROP `count_attach` ,
 DROP `isphoto` ,
 DROP `isattach` ;
 
+ALTER TABLE `ts_group` ADD `count_comment` INT( 11 ) NOT NULL DEFAULT '0' COMMENT '统计评论数' AFTER `count_topic_today` ;
+ALTER TABLE `ts_group` ADD `count_comment_today` INT( 11 ) NOT NULL DEFAULT '0' COMMENT '统计今日评论数' AFTER `count_comment` ;
+
+ALTER TABLE `ts_group` DROP `groupname_en` ;
+
 
 ThinkSAAS1.6 sql change
 -------------------------------------------------
