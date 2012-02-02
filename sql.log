@@ -32,6 +32,32 @@ DROP TABLE `ts_search_key` ;
 ALTER TABLE `ts_user` ADD `salt` CHAR( 32 ) NOT NULL DEFAULT '' COMMENT '加点盐' AFTER `pwd` ;
 ALTER TABLE `ts_group_topics_type` DROP `count_topic` ;
 
+DROP TABLE `ts_group_cates` ;
+
+DROP TABLE `ts_group_cates_index` ;
+
+DROP TABLE `ts_group_links` ;
+
+DROP TABLE `ts_group_topics_collects` ;
+
+DELETE FROM `ts_group_options` WHERE `ts_group_options`.`optionname` = 'ismode';
+
+DELETE FROM `ts_group_options` WHERE `ts_group_options`.`optionname` = 'iscate';
+
+DROP TABLE `ts_group_users` ;
+
+ALTER TABLE `ts_group` DROP `role_leader` ,
+DROP `role_admin` ,
+DROP `role_user` ;
+ALTER TABLE `ts_group` DROP `count_user` ;
+
+ALTER TABLE `ts_group` DROP `joinway` ;
+
+ALTER TABLE `ts_group_topics` DROP `count_attach` ,
+DROP `isphoto` ,
+DROP `isattach` ;
+
+
 ThinkSAAS1.6 sql change
 -------------------------------------------------
 
