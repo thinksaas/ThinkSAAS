@@ -11,6 +11,7 @@ switch($ts){
 		}
 		
 		$topicid	= intval($_POST['topicid']);
+		$groupid = intval($_POST['groupid']);
 		$content	= trim($_POST['content']);
 		
 		//添加评论标签
@@ -21,20 +22,28 @@ switch($ts){
 		}else{
 			$arrData	= array(
 				'topicid'			=> $topicid,
+				'groupid'	=> $groupid,
 				'userid'			=> $userid,
 				'content'	=> $content,
-				'addtime'		=> time(),
+				'addtime'		=> date('Y-m-d H:i:s'),
 			);
 			
 			$commentid = $db->insertArr($arrData,dbprefix.'group_topics_comments');
 			
-			//统计评论数
-			$count_comment = $db->once_num_rows("select * from ".dbprefix."group_topics_comments where topicid='$topicid'");
+			//统计帖子评论数
+			$countTopicComment = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topics_comments where `topicid`='$topicid'");
+
+			$uptime = date('Y-m-d H:i:s');			
+			$db->query("update ".dbprefix."group_topics set uptime='$uptime',count_comment='".$countTopicComment['count(*)']."' where topicid='$topicid'");
 			
-			//更新帖子最后回应时间和评论数
-			$uptime = time();
+			//统计小组下所有帖子总评论数
+			$countGroupComment = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topics_comments where `groupid`='$groupid'");
 			
-			$db->query("update ".dbprefix."group_topics set uptime='$uptime',count_comment='$count_comment' where topicid='$topicid'");
+			//今日总评论数
+			$today_start = date('Y-m-d 00:00:00');
+			$countGroupCommentToday = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topics_comments where groupid='$groupid' and addtime > '$today_start'");
+			
+			$db->query("update ".dbprefix."group set `count_comment`='".$countGroupComment['count(*)']."',`count_comment_today`='".$countGroupCommentToday['count(*)']."' where `groupid`='$groupid'");
 			
 			//发送系统消息
 			$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='$topicid'");

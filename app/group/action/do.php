@@ -179,7 +179,6 @@ switch ($ts) {
 		//跳转回到帖子页
 		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$strComment['topicid'])));
 		
-		
 		break;
 		
 	//删除帖子

@@ -39,8 +39,6 @@ if($strGroup['isopen']=='1'){
 	
 	
 	//帖子标签
-	
-	$strTopic['content'] = editor2html($strTopic['content']);
 	$strTopic['user']	= aac('user')->getUserForApp($strTopic['userid']);
 	
 	$title = $strTopic['title'];
@@ -64,7 +62,6 @@ if($strGroup['isopen']=='1'){
 	foreach($arrComment as $key=>$item){
 		$arrTopicComment[] = $item;
 		$arrTopicComment[$key]['user'] = aac('user')->getUserForApp($item['userid']);
-		$arrTopicComment[$key]['content'] = editor2html($item['content']);
 		$arrTopicComment[$key]['recomment'] = $new['group']->recomment($item['referid']);
 	}
 	

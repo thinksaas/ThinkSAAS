@@ -17,15 +17,18 @@
 </a>
 </div>
 <div class="info">
-<a href="{SITE_URL}{tsurl('group','show',array(id=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_topic]}/<font color="orange">{$item[count_topic]}</font>)             
-<p>{$item[groupdesc]}</p>
+<a href="{SITE_URL}{tsurl('group','show',array(id=>$item[groupid]))}">{$item[groupname]}</a> {if $item[count_topic_today] > 0}<font color="orange">({$item[count_topic_today]})</font>{/if}            
+<p>
+帖数：{$item[count_topic]} 
+回应：{$item[count_comment]}
+</p>
 </div>
 </div>
 <!--{/loop}-->
 </div>
 <div class="clear"></div>
 
-<h2>大家正在讨论</h2>
+<h2>We are discussing......</h2>
 
 <div class="topic_list">
 <ul>
@@ -60,7 +63,7 @@
 <div class="topic_info">
 
 <span>
-{php echo getTime($item[uptime],time())}
+{$item[uptime]}
 </span>
 
 <span style="float:right;">
@@ -92,6 +95,8 @@
 <div class="clear"></div>
 
 <a href="">发起新话题</a>
+<br />
+<a href="{SITE_URL}{tsurl('group','create')}">创建讨论组</a>
 
 <h2>{php echo L::index_hottopics}</h2>
 <div class="line23">
@@ -99,6 +104,15 @@
 <a href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a> ({$item[count_comment]})
 <br />
 {/loop}
+</div>
+
+<h2>New Group</h2>
+<div>
+<ul>
+{loop $arrNewGroup $key $item}
+<li><img src="{$item[icon_28]}">{$item[groupname]}</li>
+{/loop}
+</ul>
 </div>
 
 <div class="clear"></div>

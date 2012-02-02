@@ -56,7 +56,6 @@ switch($ts){
 		if(mb_strlen($title,'utf8')>64) tsNotice('标题最长32个字符！');
 		
 		//开始插入数据
-		$uptime = time();
 		
 		$arrData = array(
 			'groupid'				=> $groupid,
@@ -65,22 +64,20 @@ switch($ts){
 			'title'				=> $title,
 			'content'		=> $content,
 			'iscomment'		=> $iscomment,
-			'addtime'			=> time(),
-			'uptime'	=> $uptime,
+			'addtime'			=> date('Y-m-d H:i:s'),
+			'uptime'	=> date('Y-m-d H:i:s'),
 		);
 		
 		$topicid = $db->insertArr($arrData,dbprefix.'group_topics');
 		
 		//统计小组下帖子数并更新
-		$count_topic = $db->once_num_rows("select * from ".dbprefix."group_topics where groupid='$groupid'");
+		$countGroupTopic = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topics where groupid='$groupid'");
 		
 		//统计今天发布帖子数
-		$today_start = strtotime(date('Y-m-d 00:00:00'));
-		$today_end = strtotime(date('Y-m-d 23:59:59'));
+		$todayStart = date('Y-m-d 00:00:00');
+		$countGroupTopicToday = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topics where groupid='$groupid' and addtime > '$todayStart'");
 		
-		$count_topic_today = $db->once_num_rows("select * from ".dbprefix."group_topics where groupid='$groupid' and addtime > '$today_start'");
-		
-		$db->query("update ".dbprefix."group set count_topic='$count_topic',count_topic_today='$count_topic_today',uptime='$uptime' where groupid='$groupid'");
+		$db->query("update ".dbprefix."group set `count_topic`='".$countGroupTopic['count(*)']."',`count_topic_today`='".$countGroupTopicToday['count(*)']."',`uptime`='".date('Y-m-d H:i:s')."' where `groupid`='$groupid'");
 		
 		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 	

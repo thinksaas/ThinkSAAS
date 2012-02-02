@@ -7,7 +7,6 @@ $arrTopics = $db->fetch_all_assoc("select * from ".dbprefix."group_topics where 
 
 foreach($arrTopics as $key=>$item){
 	$arrTopic[] = $item;
-	$arrTopic[$key]['content'] = editor2html($item['content']);
 }
 
 $pubdate = time();

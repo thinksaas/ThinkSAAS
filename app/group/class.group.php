@@ -27,10 +27,10 @@ class group{
 		$strGroup = $this->db->once_fetch_assoc("select * from ".dbprefix."group where groupid=$groupid");
 		if($strGroup['groupicon'] == ''){
 			$strGroup['icon_48'] = SITE_URL.'public/images/group.jpg';
-			$strGroup['icon_16'] = SITE_URL.'public/images/group.jpg';
+			$strGroup['icon_28'] = SITE_URL.'public/images/group.jpg';
 		}else{
 			$strGroup['icon_48'] = SITE_URL.miniimg($strGroup['groupicon'],'group',48,48,$strGroup['path'],1);
-			$strGroup['icon_16'] = SITE_URL.miniimg($strGroup['groupicon'],'group',16,16,$strGroup['path'],1);
+			$strGroup['icon_28'] = SITE_URL.miniimg($strGroup['groupicon'],'group',28,28,$strGroup['path'],1);
 		}
 		return $strGroup;
 	}
@@ -125,7 +125,6 @@ class group{
 		if(is_array($arrGroupContentComment)){
 			foreach($arrGroupContentComment as $key=>$item){
 				$arrGroupContentComment[$key]['user'] = aac('user')->getUserForApp($item['userid']);
-				$arrGroupContentComment[$key]['content'] = editor2html($item['content']);
 				$arrGroupContentComment[$key]['recomment'] = $this->recomment($item['referid']);
 			}
 		}
@@ -137,7 +136,6 @@ class group{
 	function recomment($referid){
 		$strComment = $this->db->once_fetch_assoc("select * from ".dbprefix."group_topics_comments where commentid='$referid'");
 		$strComment['user'] = aac('user')->getUserForApp($strComment['userid']);
-		$strComment['content'] = editor2html($strComment['content']);
 		
 		return $strComment;
 	}

@@ -38,7 +38,7 @@ switch($ts){
 			'groupname'	=> $groupname,
 			'groupdesc'		=> $_POST['groupdesc'],
 			'isaudit'	=> $isaudit,
-			'addtime'		=> time(),
+			'addtime'		=> date('Y-m-d H:i:s'),
 		);
 		
 		$groupid = $db->insertArr($arrData,dbprefix.'group');

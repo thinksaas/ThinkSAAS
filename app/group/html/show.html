@@ -8,21 +8,11 @@
 
 <div class="bd">
 <img align="left" alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}" class="pil mr5 groupicon" valign="top" />
-<div>{php echo L::group_foundedin} {php echo date('Y-m-d',$strGroup[addtime])}&nbsp; &nbsp; {$strGroup[role_leader]}：<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strLeader[userid]))}">{$strLeader[username]}</a><br></div>
+<div>{php echo L::group_foundedin} {$strGroup[addtime]}&nbsp; &nbsp; 组长：<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strLeader[userid]))}">{$strLeader[username]}</a><br></div>
 {$strGroup[groupdesc]}
-<div class="clearfix" style="margin-top: 10px;">
+<div style="float:right;margin-top: 10px;">
 
-<!--{if $isGroupUser > 0 && $TS_USER[user][userid] != $strGroup[userid]}-->
-<span class="fleft mr5 color-gray">{php echo L::group_iwasthegroups} {$strGroup[role_user]} <a class="j a_confirm_link" href="javascript:void(0);" onclick="exitGroup('{$strGroup[groupid]}');" style="margin-left: 6px;">&gt;{php echo L::group_quit}</a></span>
-<!--{elseif $isGroupUser > 0 && $TS_USER[user][userid] == $strGroup[userid]}-->
-<span class="fleft mr5 color-gray">{php echo L::group_iwasthegroups} {$strGroup[role_leader]}</span>
-<!--{elseif $strGroup[joinway] == '0'}-->
-<span class="fright"><a class="submit" href="javascript:void(0);" onclick="joinGroup('{$strGroup[groupid]}');">{php echo L::group_join}</a></span>
-
-<!--{else}-->
-<span class="fright">{php echo L::group_nottojoin}</span>
-<!--{/if}-->
-
+<a class="submit" href="{SITE_URL}{tsurl('group','addtopic',array('groupid'=>$strGroup[groupid]))}">{php echo L::group_addtopic}</a>
 
 </div>
 </div>
@@ -32,9 +22,6 @@
 <div class="box">
 
 <div class="box_content">
-
-<h2 style="margin-top: 10px;" class="fabu">
-<a class="submit" href="{SITE_URL}{tsurl('group','addtopic',array('groupid'=>$strGroup[groupid]))}">{php echo L::group_addtopic}</a></h2>
 
 <!--帖子分类-->
 <div class="topictype">
@@ -69,16 +56,9 @@
 <!--{if $item[istop]=='1'}-->
 <img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" /> 
 <!--{/if}-->
-<!--{if $item[addtime]>strtotime(date('Y-m-d 00:00:00'))}-->
+<!--{if $item[addtime]>date('Y-m-d 00:00:00')}-->
 <img src="{SITE_URL}app/{$app}/skins/{$skin}/topic_new.gif" align="absmiddle" />
 <!--{/if}--> 
-
-<!--{if $item[isphoto]=='1'}-->
-<img src="{SITE_URL}app/{$app}/skins/{$skin}/image_s.gif" align="absmiddle" />
-<!--{/if}--> 
-
-<!--{if $item[isattach] == '1'}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/attach.gif" />
-<!--{/if}-->
 
 <!--{if $item[isposts] == '1'}-->
 <img src="{SITE_URL}public/images/posts.gif" />
@@ -128,6 +108,7 @@
 {php doAction('group_group_right_footer',$strTopic)}
 
 </div>
+
 </div>
 </div>
 

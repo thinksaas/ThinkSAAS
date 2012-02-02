@@ -10,8 +10,6 @@ $typeid = intval($_GET['typeid']);
 
 $strGroup['recoverynum'] = $db->once_num_rows("select * from ".dbprefix."group_topics where groupid='$groupid' and isshow='1'");
 
-$strGroup['groupdesc'] = editor2html($strGroup['groupdesc']);
-
 $title = $strGroup['groupname'];
 
 //小组帖子分类
