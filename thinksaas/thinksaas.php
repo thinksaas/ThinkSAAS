@@ -64,7 +64,7 @@ if (!get_magic_quotes_gpc()) {
 }
 
 //给出所有ThinkSAAS自身的变量
-$app = isset($_GET['app']) ? $_GET['app'] : 'home';
+$app = isset($_GET['app']) ? $_GET['app'] : 'group';
 $ac = isset($_GET['ac']) ? $_GET['ac'] : 'index';
 
 //安装
