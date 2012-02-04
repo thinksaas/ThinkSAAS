@@ -42,19 +42,19 @@
 <div class="mc">
 <div class="cleft">
 
-<h2>{php echo L::index_recommedgroups} <span class="pl">&nbsp;(<a href="{SITE_URL}{tsurl('group','all')}">{php echo L::index_allgroups}</a>) </span></h2>
+<h2>{php echo L::index_recommedgroups} <span class="pl">&nbsp;(<a href="{SITE_URL}{tsurl('discuss','all')}">{php echo L::index_allgroups}</a>) </span></h2>
 
 <div style="overflow:hidden;">
 <!--{if $arrRecommendGroup}-->
 <!--{loop $arrRecommendGroup $key $item}-->
 <div class="sub-item">
 <div class="pic">
-<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">
+<a href="{SITE_URL}{tsurl('discuss','show',array('id'=>$item[groupid]))}">
 <img data-defer-src="{$item[icon_48]}" src="{$item[icon_48]}" alt="{$item[groupname]}">
 </a>
 </div>
 <div class="info">
-<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}/<font color="orange">{$item[count_topic]}</font>)             
+<a href="{SITE_URL}{tsurl('discuss','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}/<font color="orange">{$item[count_topic]}</font>)             
 <p>{$item[groupdesc]}</p>
 </div>
 </div>
@@ -84,7 +84,7 @@
 <div class="line23">
 <!--{if $arrNewGroup}-->
 <!--{loop $arrNewGroup $key $item}-->
-<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
+<a href="{SITE_URL}{tsurl('discuss','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
 <!--{/loop}-->
 <!--{/if}-->
 </div>

@@ -20,6 +20,6 @@ if($TS_USER['user'] == ''){
 	
 }else{
 	
-	header("Location: ".SITE_URL.tsurl('group'));
+	header("Location: ".SITE_URL.tsurl('discuss'));
 	
 }

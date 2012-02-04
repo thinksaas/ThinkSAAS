@@ -80,11 +80,11 @@ class user{
 	
 	//收藏的帖子 
 	function getCollectTopic($userid,$limit){
-		$arrCollect = $this->db->fetch_all_assoc("select * from ".dbprefix."group_topics_collects where userid='".$userid."' order by addtime desc limit $limit");
+		$arrCollect = $this->db->fetch_all_assoc("select * from ".dbprefix."discuss_topics_collects where userid='".$userid."' order by addtime desc limit $limit");
 		
 		if(is_array($arrCollect)){
 			foreach($arrCollect as $item){
-				$strTopic = $this->db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid = '".$item['topicid']."'");
+				$strTopic = $this->db->once_fetch_assoc("select * from ".dbprefix."discuss_topics where topicid = '".$item['topicid']."'");
 				$arrTopic[] = $strTopic;
 			}
 		}

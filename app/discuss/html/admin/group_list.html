@@ -1,0 +1,22 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table  cellpadding="0" cellspacing="0">
+<tr class="old"><td width="20">ID</td><td width="100">小组名字</td><td>帖子统计</td><td>创建时间</td><td>操作</td></tr>
+<!--{loop $arrAllGroup $key $item}-->
+<tr class="odd"><td>{$item[groupid]}</td><td><a href="{SITE_URL}{tsurl('discuss','show',array('id'=>$item[groupid]))}" target="_blank">[{$item[groupname]}]</a></td><td>{$item[count_topic]}</td><td>{$item[addtime]}</td><td>
+
+<a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=isrecommend&groupid={$item[groupid]}"><!--{if $item[isrecommend]=='0'}--><font color="red">[推荐]</font><!--{else}-->[取消推荐]<!--{/if}--></a>
+
+ <a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=edit&groupid={$item[groupid]}">[修改]</a> <a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=del&groupid={$item[groupid]}">[删除]</a></td></tr>
+<!--{/loop}-->
+</table>
+
+</div>
+{php include template("admin/footer");}

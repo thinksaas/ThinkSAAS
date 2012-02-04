@@ -1,0 +1,113 @@
+{template header}
+<div class="midder">
+<div class="mc">
+
+<h1>Discussion group</h1>
+
+<div class="cleft">
+
+<h2></h2>
+
+<div>
+<!--{loop $arrDiscuss $key $item}-->
+<div class="sub-item">
+<div class="pic">
+<a href="{SITE_URL}{tsurl('discuss','show',array('id'=>$item[id]))}">
+<img src="{$item[icon_48]}" alt="{$item[groupname]}">
+</a>
+</div>
+<div class="info">
+<a href="{SITE_URL}{tsurl('discuss','show',array(id=>$item[id]))}">{$item[name]}</a> {if $item[count_topic_today] > 0}<font color="orange">({$item[count_topic_today]})</font>{/if}            
+<p>
+帖数：{$item[count_topic]} 
+回应：{$item[count_comment]}
+</p>
+</div>
+</div>
+<!--{/loop}-->
+</div>
+<div class="clear"></div>
+
+<h2>We are discussing......</h2>
+
+<div class="topic_list">
+<ul>
+
+<!--{loop $arrNewTopic $key $item}-->
+<li>
+
+<div class="userimg">
+<!--{if $item[user][userid] !=$arrNewTopic[$key-1][user][userid]}-->
+<a href="{SITE_URL}"><img src="{$item[user][face_32]}" width="32" /></a>
+<!--{else}-->
+&nbsp;
+<!--{/if}-->
+</div>
+
+<div class="topic_title">
+<div class="title">
+<a title="{$item[title]}" href="{SITE_URL}{tsurl('discuss','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
+<!--{if $item[istop]=='1'}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" /> 
+<!--{/if}-->
+<!--{if $item[addtime]>strtotime(date('Y-m-d 00:00:00'))}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/topic_new.gif" align="absmiddle" />
+<!--{/if}--> 
+
+<!--{if $item[isposts] == '1'}-->
+<img src="{SITE_URL}public/images/posts.gif" />
+<!--{/if}-->
+
+
+</div>
+<div class="topic_info">
+
+<span>
+{$item[uptime]}
+</span>
+
+<span style="float:right;">
+{$item[count_comment]} 回应
+</span>
+</div>
+</div>
+<div class="clear"></div>
+</li>	
+<!--{/loop}-->
+</ul>
+</div>
+
+</div>
+
+<div class="cright">
+
+<a href="{SITE_URL}{tsurl('group','add')}">发起新话题</a>
+
+<div>
+<form method="GET" action="index.php">
+<input type="hidden" name="app" value="" />
+<input type="hidden" name="ac" value="s" />
+<span class="inp"><input type="text" autocomplete="off" name="kw" title="" size="22" maxlength="60" value="" style="color: rgb(212, 212, 212); width: 206px;"></span>
+<span>
+<input type="submit" class="submit" value="{php echo L::index_search}" />
+</span>
+</form>
+</div>
+
+<div class="clear"></div>
+
+<h2>{php echo L::index_hottopics}</h2>
+<div class="line23">
+{loop $arrTopic $key $item}
+<a href="{SITE_URL}{tsurl('discuss','topic',array('id'=>$item[topicid]))}">{$item[title]}</a> ({$item[count_comment]})
+<br />
+{/loop}
+</div>
+
+<div class="clear"></div>
+{php doAction('group_index_right_footer')}
+
+</div>
+</div>
+</div>
+{template footer}

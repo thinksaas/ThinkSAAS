@@ -1,0 +1,123 @@
+{template header}
+
+<style>
+.mygroup{}
+.mygroup ul{}
+.mygroup ul li{font-size:14px;padding:5px 0}
+
+</style>
+
+<div class="midder">
+
+
+<div class="mc">
+<div class="cleft">
+
+<div class="clear"></div>
+
+{template user_menu}
+
+<div class="topic_list">
+<ul>
+<!--{if $arrTopic}-->
+<!--{loop $arrTopic $key $item}-->
+<li>
+<div class="userimg">
+<!--{if $item[user][userid] !=$arrTopic[$key-1][user][userid]}-->
+<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a>
+<!--{else}-->
+&nbsp;
+<!--{/if}-->
+</div>
+
+<div class="topic_title">
+<div class="title">
+<a title="{$item[title]}" href="{SITE_URL}{tsurl('discuss','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
+<!--{if $item[istop]=='1'}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" />
+<!--{/if}-->
+<!--{if $item[addtime]>strtotime(date('Y-m-d 00:00:00'))}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/topic_new.gif" align="absmiddle"   />
+<!--{/if}--> 
+<!--{if $item[isphoto]=='1'}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/image_s.gif"  align="absmiddle" />
+<!--{/if}--> 
+<!--{if $item[isattach] == '1'}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/attach.gif"  />
+<!--{/if}-->
+<!--{if $item[isposts] == '1'}-->
+<img src="{SITE_URL}public/images/posts.gif" />
+<!--{/if}-->
+</div>
+
+<div class="topic_info">
+<span style="float:left;">
+<a href="{SITE_URL}{tsurl('discuss','show',array('id'=>$item[groupid]))}">{$item[group][groupname]}</a>
+</span>
+
+<span style="float:right;">
+{php echo getTime($item[uptime],time())}
+
+<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[user][username]}</a>
+
+<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('discuss','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
+</span>
+</div>
+</div>
+<div class="clear"></div>
+
+</li>	
+<!--{/loop}-->
+<!--{/if}-->
+</ul>
+</div>
+
+<div class="clear"></div>
+
+
+</div>
+
+<div class="cright" id="cright">
+{php doAction('my_right_top')}
+<div>
+<form method="GET" action="index.php">
+<input type="hidden" name="app" value="search" />
+<input type="hidden" name="ac" value="s" />
+<span class="inp">
+<input type="text" name="kw" size="22" maxlength="60" /></span>
+<span>
+<input type="submit" class="submit" value="{php echo L::my_search}" />
+</span>
+</form>
+</div>
+
+<div class="clear"></div>
+<h2>{php echo L::my_mygroups}<span class="pl">(
+<a href="{SITE_URL}{tsurl('discuss','user',array('userid'=>intval($TS_USER[user][userid]),'ts'=>'group'))}">{php echo L::my_allgroups}</a>
+) </span></h2>
+<div class="mygroup">
+<ul>
+<!--{loop $arrMyGroup $key $item}-->
+<li>
+<a href="{SITE_URL}{tsurl('discuss','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_16]}" width="16" align="absmiddle" /></a> <a href="{SITE_URL}{tsurl('discuss','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)</span>
+</li>
+<!--{/loop}-->	
+</ul>
+</div>
+
+<div class="clear"></div>
+
+<!--{if $TS_APP[options][iscreate]==0 || $TS_USER[user][isadmin]==1}-->
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('discuss','create')}">{php echo L::my_creategroup}</a></p>
+<!--{/if}-->
+
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('discuss','all')}">{php echo L::my_allgroups}</a></p>
+
+<div class="clear"></div>
+{php doAction('group_index_right_footer')}
+
+</div>
+</div>
+</div>
+
+{template footer}

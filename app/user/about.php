@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 return array(
 	'name'	=> '用户',
 	'version'	=> '1.0',
-	'desc'	=> '用户中心，积分，头衔',
+	'desc'	=> '用户',
 	'url' => 'http://www.thinksaas.cn',
 	'email' => 'qiniao@vip.qq.com',
 	'author' => '邱君',

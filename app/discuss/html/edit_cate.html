@@ -1,0 +1,34 @@
+{template header}
+
+<!--main-->
+<div class="midder">
+
+<div class="mc">
+{template edit_menu}
+<div class="cleft">
+
+<div style="clear: both;" class="indent">
+
+
+<h2>{php echo L::edit_groupcate}</h2>
+<ul>
+<!--{loop $arrCate $key $item}-->
+<li>{$item[catename]} <a href="javascript:void('0');" onclick="cancelCate('{$item[cateid]}','{$strGroup[groupid]}')">{php echo L::edit_delete}</a></li>
+<!--{/loop}-->
+</ul>
+
+<p> &gt; <a href="{SITE_URL}{tsurl('discuss','cate',array(groupid=>$strGroup[groupid]))}">{php echo L::edit_addcate}</a></p><br></div>
+
+
+</div>
+
+<div class="cright">
+
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('discuss','show',array('id'=>$strGroup[groupid]))}">{php echo L::edit_return} {$strGroup[groupname]}</a></p>
+
+</div>
+
+</div>
+
+</div>
+{template footer}
