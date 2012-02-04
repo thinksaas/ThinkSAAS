@@ -10,8 +10,8 @@ class discuss{
 	}
 	
 	//获取一个讨论组
-	public function getOneDiscuss($id){
-		$strDiscuss = $this->db->once_fetch_assoc("select * from ".dbprefix."discuss where `id`=$id");
+	public function getOneDiscuss($discussid){
+		$strDiscuss = $this->db->once_fetch_assoc("select * from ".dbprefix."discuss where `discussid`=$discussid");
 		return $strDiscuss;
 	}
 	
@@ -19,6 +19,12 @@ class discuss{
 	public function getArrDiscuss(){
 		$arrDiscuss = $this->db->fetch_all_assoc("select * from ".dbprefix."discuss order by orderid desc");
 		return $arrDiscuss;
+	}
+	
+	//获取讨论组帖子分类 
+	public function getTopicType($discussid){
+		$arrType = $this->db->fetch_all_assoc("select * from ".dbprefix."discuss_topics_type where `discussid`='$discussid'");
+		return $arrType;
 	}
 	
 	/*
@@ -88,25 +94,6 @@ class discuss{
 		//删除成功
 		echo '1';
 		
-	}
-
-	
-	//判断是否存在小组
-	function isGroup($groupid){
-		$isGroup = $this->db->once_fetch_assoc("select count(groupid) from ".dbprefix."discuss where groupid='$groupid'");
-		if($isGroup['count(groupid)']==0){
-			header("Location: ".SITE_URL);
-			exit;
-		}
-	}
-	
-	//判断是否存在帖子
-	function isTopic($topicid){
-		$isTopic = $this->db->once_fetch_assoc("select count(topicid) from ".dbprefix."discuss_topics where topicid='$topicid'");
-		if($isTopic['count(topicid)']==0){
-			header("Location: ".SITE_URL);
-			exit;
-		}
 	}
 	
 }

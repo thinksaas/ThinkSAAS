@@ -12,12 +12,12 @@
 <!--{loop $arrDiscuss $key $item}-->
 <div class="sub-item">
 <div class="pic">
-<a href="{SITE_URL}{tsurl('discuss','show',array('id'=>$item[id]))}">
+<a href="{SITE_URL}{tsurl('discuss','show',array('id'=>$item[discussid]))}">
 <img src="{$item[icon_48]}" alt="{$item[groupname]}">
 </a>
 </div>
 <div class="info">
-<a href="{SITE_URL}{tsurl('discuss','show',array(id=>$item[id]))}">{$item[name]}</a> {if $item[count_topic_today] > 0}<font color="orange">({$item[count_topic_today]})</font>{/if}            
+<a href="{SITE_URL}{tsurl('discuss','show',array(id=>$item[discussid]))}">{$item[name]}</a> {if $item[count_topic_today] > 0}<font color="orange">({$item[count_topic_today]})</font>{/if}            
 <p>
 帖数：{$item[count_topic]} 
 回应：{$item[count_comment]}

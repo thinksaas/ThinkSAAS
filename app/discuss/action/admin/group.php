@@ -47,10 +47,7 @@ switch($ts){
 		//上传头像
 		if (!empty($_FILES)) {
 			$uptypes = array('jpg','gif','png');
-			$menu2=intval($groupid/1000);
-			$menu1=intval($menu2/1000);
-			$menu = $menu1.'/'.$menu2;
-			$dest_dir='uploadfile/group/'.$menu;
+			$dest_dir='uploadfile/group';
 			createFolders($dest_dir);
 			$arrType = explode('.',$_FILES['photo']['name']);
 			$phototype = array_pop($arrType);
@@ -61,8 +58,6 @@ switch($ts){
 				$dest=$dest_dir.'/'.$photoname;
 				move_uploaded_file($_FILES['photo']['tmp_name'],mb_convert_encoding($dest,"gb2312","UTF-8"));
 				chmod($dest, 0755);
-				$photo = $menu.'/'.$photoname;
-				$db->query("update ".dbprefix."discuss set `path`='$menu',`groupicon`='$photo' where groupid='$groupid'");
 			}
 		}
 		

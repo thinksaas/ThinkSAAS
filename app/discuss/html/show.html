@@ -7,8 +7,8 @@
 <div class="infobox">
 
 <div class="bd">
-<img align="left" alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}" class="pil mr5 groupicon" valign="top" />
-<div>{php echo L::group_foundedin} {$strGroup[addtime]}&nbsp; &nbsp; 组长：<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strLeader[userid]))}">{$strLeader[username]}</a><br></div>
+<img align="left" alt="{$strGroup[name]}" src="{$strGroup[icon_48]}" class="pil mr5 groupicon" valign="top" />
+<div>{php echo L::group_foundedin} {$strGroup[addtime]}&nbsp; &nbsp; 管理员：<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strDiscuss['user']['userid']))}">{$strDiscuss[user][username]}</a><br></div>
 {$strGroup[groupdesc]}
 <div style="float:right;margin-top: 10px;">
 
@@ -93,19 +93,10 @@
 
 
 <div class="cright">
-<div>
 
-<!--{if intval($TS_USER[user][userid]) == $strGroup[userid] || intval($TS_USER[user][isadmin]==1)}-->
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('discuss','edit',array(groupid=>$strGroup[groupid],ts=>base))}">{php echo L::group_management} </a></p>
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('discuss','recovery',array(groupid=>$strGroup[groupid]))}">{php echo L::group_recover} ({$strGroup[recoverynum]})</a></p>
-<!--{/if}-->
-<div class="clear"></div>
-</div>
-
-<p class="pl"><span class="feed"><a href="{SITE_URL}{tsurl('discuss','rss',array(groupid=>$strGroup[groupid]))}">feed: rss 2.0</a></span></p>
+<p class="pl"><span class="feed"><a href="{SITE_URL}{tsurl('discuss','rss',array(id=>$strDiscuss[discussid]))}">feed: rss 2.0</a></span></p>
 
 <div class="clear"></div>
-{php doAction('group_group_right_footer',$strTopic)}
 
 </div>
 
