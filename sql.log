@@ -3,64 +3,7 @@ MySQL Log Change
 
 ThinkSAAS1.7 sql change
 -------------------------------------------------
-ALTER TABLE `ts_user_info` DROP `sex`
 
-ALTER TABLE `ts_user_info` DROP `phone` 
-
-ALTER TABLE `ts_user_info` DROP `roleid`
-
-ALTER TABLE `ts_user_info` DROP `areaid` 
-
-ALTER TABLE `ts_user_info` DROP `address` 
-
-ALTER TABLE `ts_user_info`
-  DROP `signed`,
-  DROP `ip`,
-  DROP `qqt_oauth_token`,
-  DROP `qqt_oauth_token_secret`,
-  DROP `count_score`,
-  DROP `count_follow`,
-  DROP `count_followed`;
-
-  
-DROP TABLE `ts_user_follow`, `ts_user_invites`, `ts_user_role`, `ts_user_scores`;
- 
-DROP TABLE `ts_tag_user_index` ;
-
-DROP TABLE `ts_search_key` ;
-
-ALTER TABLE `ts_user` ADD `salt` CHAR( 32 ) NOT NULL DEFAULT '' COMMENT '加点盐' AFTER `pwd` ;
-ALTER TABLE `ts_group_topics_type` DROP `count_topic` ;
-
-DROP TABLE `ts_group_cates` ;
-
-DROP TABLE `ts_group_cates_index` ;
-
-DROP TABLE `ts_group_links` ;
-
-DROP TABLE `ts_group_topics_collects` ;
-
-DELETE FROM `ts_group_options` WHERE `ts_group_options`.`optionname` = 'ismode';
-
-DELETE FROM `ts_group_options` WHERE `ts_group_options`.`optionname` = 'iscate';
-
-DROP TABLE `ts_group_users` ;
-
-ALTER TABLE `ts_group` DROP `role_leader` ,
-DROP `role_admin` ,
-DROP `role_user` ;
-ALTER TABLE `ts_group` DROP `count_user` ;
-
-ALTER TABLE `ts_group` DROP `joinway` ;
-
-ALTER TABLE `ts_group_topics` DROP `count_attach` ,
-DROP `isphoto` ,
-DROP `isattach` ;
-
-ALTER TABLE `ts_group` ADD `count_comment` INT( 11 ) NOT NULL DEFAULT '0' COMMENT '统计评论数' AFTER `count_topic_today` ;
-ALTER TABLE `ts_group` ADD `count_comment_today` INT( 11 ) NOT NULL DEFAULT '0' COMMENT '统计今日评论数' AFTER `count_comment` ;
-
-ALTER TABLE `ts_group` DROP `groupname_en` ;
 
 
 ThinkSAAS1.6 sql change
