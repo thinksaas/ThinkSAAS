@@ -10,12 +10,12 @@ switch($ts){
 		$groupid = intval($_GET['groupid']);
 		$isadmin = intval($_GET['isadmin']);
 		
-		if($userid == '' && $groupid=='' && $isadmin=='') qiMsg("请不要冒险进入危险境地！");
+		if($userid == '' && $groupid=='' && $isadmin=='') tsNotice("请不要冒险进入危险境地！");
 		
 		$strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='".$groupid."'");
 		
 		
-		if($TS_USER['user']['userid'] != $strGroup['userid']) qiMsg("机房重地，闲人免进！");
+		if($TS_USER['user']['userid'] != $strGroup['userid']) tsNotice("机房重地，闲人免进！");
 		
 		$db->query("update ".dbprefix."group_users set `isadmin`='".$isadmin."' where userid='".$userid."' and groupid='".$groupid."'");
 
@@ -29,9 +29,9 @@ switch($ts){
 		$groupid = intval($_GET['groupid']);
 		$isuser = intval($_GET['isuser']);
 		
-		if($userid == '' && $groupid=='' && $isuser=='') qiMsg("请不要冒险进入危险境地！");
+		if($userid == '' && $groupid=='' && $isuser=='') tsNotice("请不要冒险进入危险境地！");
 		$strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='".$groupid."'");
-		if($TS_USER['user']['userid'] != $strGroup['userid']) qiMsg("机房重地，闲人免进！");
+		if($TS_USER['user']['userid'] != $strGroup['userid']) tsNotice("机房重地，闲人免进！");
 		
 		$db->query("DELETE FROM ".dbprefix."group_users WHERE userid = '$userid' AND groupid = '$groupid'");
 		

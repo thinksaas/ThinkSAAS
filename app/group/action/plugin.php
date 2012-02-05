@@ -10,7 +10,7 @@ echo $in;
 if(is_file('plugins/'.$app.'/'.$plugin.'/'.$in.'.php')){
 	require_once('plugins/'.$app.'/'.$plugin.'/'.$in.'.php');
 }else{
-	qiMsg('sorry:no plugin!');
+	tsNotice('sorry:no plugin!');
 }
 
 //形如这样

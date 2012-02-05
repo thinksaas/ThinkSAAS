@@ -8,7 +8,7 @@ $groupid = intval($_GET['groupid']);
 //判断是否存在这个群组
 $isGroup = $db->once_num_rows("select * from ".dbprefix."group where groupid='$groupid'");
 
-if($isGroup == '0') qiMsg("你是坏蛋吗？不是请返回！");
+if($isGroup == '0') tsNotice("你是坏蛋吗？不是请返回！");
 
 $strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='$groupid'");
 

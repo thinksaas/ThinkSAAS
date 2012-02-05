@@ -26,13 +26,13 @@ $strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid
 //允许小组成员发帖
 if($strGroup['ispost']==0 && $isGroupUser['count(*)'] == 0 && $userid != $strGroup['userid']){
 	
-	qiMsg("本小组只允许小组成员发贴，请加入小组后再发帖！");
+	tsNotice("本小组只允许小组成员发贴，请加入小组后再发帖！");
 	
 }
 
 //不允许小组成员发帖
 if($strGroup['ispost'] == 1 && $userid != $strGroup['userid']){
-	qiMsg("本小组只允许小组组长发帖！");
+	tsNotice("本小组只允许小组组长发帖！");
 }
 
 //帖子类型

@@ -27,15 +27,15 @@ defined('IN_TS') or die('Access Denied.');
 			
 			$topicid = intval($_GET['topicid']);
 			
-			if($topicid == '') qiMsg("请打道回府吧！");
+			if($topicid == '') tsNotice("请打道回府吧！");
 			
-			if($TS_USER['user'] =='') qiMsg("机房重地，闲人免进^_^");
+			if($TS_USER['user'] =='') tsNotice("机房重地，闲人免进^_^");
 			
 			$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='".$topicid."'");
 			
-			if($TS_USER['user']['userid']!=$strTopic['userid']) qiMsg("机房重地，闲人免进^_^");
+			if($TS_USER['user']['userid']!=$strTopic['userid']) tsNotice("机房重地，闲人免进^_^");
 			
-			if($TS_USER['user']['count_score'] < '1000') qiMsg("您还没有到1000积分，请积累够积分后再上传附件！");
+			if($TS_USER['user']['count_score'] < '1000') tsNotice("您还没有到1000积分，请积累够积分后再上传附件！");
 			
 			$title = '添加附件';
 			
@@ -55,7 +55,7 @@ defined('IN_TS') or die('Access Denied.');
 				header("Location:".$strAttach['attachurl']);
 			}else{
 				$userid = $TS_USER['user']['userid'];
-				if($userid == '') qiMsg("请登录后再下载！");
+				if($userid == '') tsNotice("请登录后再下载！");
 				$strUser = $db->once_fetch_assoc("select count_score from ".dbprefix."user_info where userid='$userid'");
 				$count_score = $strUser['count_score'];
 				$count_score = $count_score-$strAttach['score'];

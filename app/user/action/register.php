@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 //用户注册
 switch($ts){
 	case "":
-		if(intval($TS_USER['user']['userid']) > 0) qiMsg("请退出后再注册！");
+		if(intval($TS_USER['user']['userid']) > 0) tsNotice("请退出后再注册！");
 		
 		//邀请用户ID
 		$fuserid = intval($_GET['fuserid']);
@@ -30,9 +30,9 @@ switch($ts){
 		if($TS_APP['options']['isregister']=='1'){
 		
 			$invitecode = trim($_POST['invitecode']);
-			if($invitecode == '') qiMsg("邀请码不能为空！");
+			if($invitecode == '') tsNotice("邀请码不能为空！");
 			$codeNum = $db->once_num_rows("select * from ".dbprefix."user_invites where invitecode='$invitecode' and isused='0'");
-			if($codeNum == '0') qiMsg("邀请码无效，请更换邀请码！");
+			if($codeNum == '0') tsNotice("邀请码无效，请更换邀请码！");
 		
 		}
 
@@ -41,19 +41,19 @@ switch($ts){
 		
 		
 		if(empty($email) || empty($pwd) || empty($repwd) || empty($username)){
-			qiMsg('所有必选项都不能为空！');
+			tsNotice('所有必选项都不能为空！');
 		}elseif(valid_email($email) == false){
-			qiMsg('Email邮箱输入有误!');
+			tsNotice('Email邮箱输入有误!');
 		}elseif($isEmail != '0'){
-			qiMsg('Email已经注册^_^');
+			tsNotice('Email已经注册^_^');
 		}elseif($pwd != $repwd){
-			qiMsg('两次输入密码不正确！');
+			tsNotice('两次输入密码不正确！');
 		}elseif(strlen($username) < 4 || strlen($username) > 20){
-			qiMsg('姓名长度必须在4和20之间!');
+			tsNotice('姓名长度必须在4和20之间!');
 		}elseif($username > 0){
-			qiMsg("用户名已经存在，请换个用户名！");
+			tsNotice("用户名已经存在，请换个用户名！");
 		}elseif($authcode != $_SESSION['authcode']){
-			qiMsg("验证码输入有误，请重新输入！");
+			tsNotice("验证码输入有误，请重新输入！");
 		}else{
 			
 			$db->query("INSERT INTO ".dbprefix."user (`pwd` , `email`) VALUES ('".md5($pwd)."', '$email');");

@@ -20,9 +20,9 @@ switch($ts){
 		$emailNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."user where `email`='$email'");
 		
 		if($email==''){
-			qiMsg('Email输入不能为空^_^');
+			tsNotice('Email输入不能为空^_^');
 		}elseif($emailNum['count(*)'] == '0'){
-			qiMsg("Email不存在，你可能还没有注册^_^");
+			tsNotice("Email不存在，你可能还没有注册^_^");
 		}else{
 		
 			//随机MD5加密
@@ -38,9 +38,9 @@ switch($ts){
 			$result = aac('mail')->postMail($email,$subject,$content);
 			
 			if($result == '0'){
-				qiMsg("找回密码所需信息不完整^_^");
+				tsNotice("找回密码所需信息不完整^_^");
 			}elseif($result == '1'){
-				qiMsg("系统已经向你的邮箱发送了邮件，请尽快查收^_^");
+				tsNotice("系统已经向你的邮箱发送了邮件，请尽快查收^_^");
 			}
 			
 		}
