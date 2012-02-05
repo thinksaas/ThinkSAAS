@@ -1,0 +1,56 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<div class="cleft">
+
+{template my_menu}
+
+<div class="topic_list">
+<ul>
+<!--{if $arrTopic}-->
+<!--{loop $arrTopic $key $item}-->
+<li>
+<div class="userimg"><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a></div>
+
+<div class="topic_title">
+<div class="title"><a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a>
+<!--{if $item[istop]=='1'}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" title="[置顶]" alt="[置顶]" /> <!--{elseif $item[addtime]>strtotime(date('Y-m-d 00:00:00'))}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/topic_new.gif" align="absmiddle"  title="[新帖]" alt="[新帖]" /><!--{else}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/topic.gif" align="absmiddle"  title="[帖子]" alt="[帖子]" /><!--{/if}--> <!--{if $item[isphoto]=='1'}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/image_s.gif" title="[图片]" alt="[图片]" align="absmiddle" /><!--{/if}--> <!--{if $item[isattach] == '1'}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/attach.gif" title="[附件]" alt="[附件]" /><!--{/if}-->
+</div>
+
+<div class="topic_info">
+<span style="float:left;">
+<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[group][groupname]}</a>
+</span>
+
+<span style="float:right;">
+{php echo getTime($item[uptime],time())}
+
+<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[user][username]}</a>
+
+<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
+</span>
+</div>
+</div>
+<div class="clear"></div>
+</li>	
+<!--{/loop}-->
+<!--{/if}-->
+</ul>
+</div>
+
+<div class="clear"></div>
+
+</div>
+
+<div class="cright">
+
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group')}">{$TS_HL[app][1032]}</a></p>
+
+</div>
+</div>
+</div>
+
+
+{template footer}

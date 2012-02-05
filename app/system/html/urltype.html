@@ -1,0 +1,25 @@
+{template header}
+
+<div class="midder">
+{template menu}
+
+<h2>链接形式</h2>
+
+<div>
+<form method="POST" action="index.php?app=system&ac=urltype&ts=do">
+
+<table>
+    <tr><td width="100">形式1：</td><td><input type="radio" <!--{if $TS_SITE[base][site_urltype]==1}-->checked="select"<!--{/if}--> name="site_urltype" value="1" /> index.php?app=group&ac=topic&topicid=1</td></tr>
+    <tr><td>形式2：</td><td><input type="radio" <!--{if $TS_SITE[base][site_urltype]==2}-->checked="select"<!--{/if}--> name="site_urltype" value="2" /> index.php/group/topic/topicid-1</td></tr>
+	<tr><td>形式3：</td><td><input type="radio" <!--{if $TS_SITE[base][site_urltype]==4}-->checked="select"<!--{/if}--> name="site_urltype" value="4" /> group/topic/topicid-1 (暂只支持apache环境的rewrite，非apache环境勿动)</td></tr>
+</table>
+
+<div class="clear"></div>
+<br />
+<input type="submit" value="更改链接形式" />
+</form>
+
+</div>
+
+</div>
+{template footer}

@@ -1,0 +1,99 @@
+{template header}
+<div class="midder">
+
+<div class="anony-nav">
+<div class="bd">
+<div class="reg">
+
+<strong>{$TS_HL[app][1000]}</strong>
+<div>
+{$TS_HL[app][1001]}
+</div>
+<a class="submit" href="{SITE_URL}{tsurl('user','register')}">{$TS_HL[app][1002]}</a>
+</div>
+
+<div class="login">
+<form action="{SITE_URL}index.php?app=user&ac=login&ts=do" method="post" name="lzform" id="lzform">
+<fieldset>
+<legend>{$TS_HL[app][1003]}</legend>
+<div class="item">
+<label>{$TS_HL[app][1004]}</label>
+<br />
+<input type="email" tabindex="1" value="" name="email">
+</div>
+<div class="item">
+<label>{$TS_HL[app][1005]}</label>
+<br />
+<input type="password" tabindex="2" class="text" name="pwd">
+<br /><a href="{SITE_URL}index.php?app=user&ac=forgetpwd">{$TS_HL[app][1006]}</a>
+</div>
+
+<div class="item1">
+<input type="hidden" name="cktime" value="2592000" />
+<input type="submit" tabindex="4" class="submit" value="{$TS_HL[app][1003]}">
+{php doAction('pub_header_login')}
+</div>
+</fieldset>
+</form>
+</div>
+
+</div>
+</div>
+
+<div class="mc">
+<div class="cleft">
+
+<h2>{$TS_HL[app][1007]} <span class="pl">&nbsp;(<a href="{SITE_URL}{tsurl('group','all')}">{$TS_HL[app][1008]}</a>) </span></h2>
+
+<div style="overflow:hidden;">
+<!--{if $arrRecommendGroup}-->
+<!--{loop $arrRecommendGroup $key $item}-->
+<div class="sub-item">
+<div class="pic">
+<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">
+<img data-defer-src="{$item[icon_48]}" src="{$item[icon_48]}" alt="{$item[groupname]}">
+</a>
+</div>
+<div class="info">
+<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}/<font color="orange">{$item[count_topic]}</font>)             
+<p>{$item[groupdesc]}</p>
+</div>
+</div>
+<!--{/loop}-->
+<!--{/if}-->
+</div>
+
+<div class="clear"></div>
+
+</div>
+
+<div class="cright">
+{php doAction('index_right')}
+<div>
+<form method="GET" action="index.php">
+<input type="hidden" name="app" value="search" />
+<input type="hidden" name="ac" value="s" />
+<span class="inp"><input type="text" autocomplete="off" name="kw" title="" size="22" maxlength="60" value="" style="color: rgb(212, 212, 212); width: 206px;"></span>
+<span>
+<input type="submit" class="submit" value="{$TS_HL[app][1013]}" />
+</span>
+</form>
+</div>
+
+<h2>{$TS_HL[app][1012]}</h2>
+
+<div class="line23">
+<!--{if $arrNewGroup}-->
+<!--{loop $arrNewGroup $key $item}-->
+<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
+<!--{/loop}-->
+<!--{/if}-->
+</div>
+
+<div class="clear"></div>
+{php doAction('home_index_right_footer')}
+</div>
+{php doAction('index_footer')}
+</div>
+</div>
+{template footer}

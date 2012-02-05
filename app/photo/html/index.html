@@ -1,0 +1,57 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+<div class="cleft">
+
+{template menu}
+
+<div id="container" class="wr">
+
+<!--{loop $arrAlbum $key $item}-->
+        <div class="box albumlst">
+        <a href="{SITE_URL}{tsurl('photo','album',array(ts=>photo,albumid=>$item[albumid]))}" class="album_photo"><img src="<!--{if $item[albumface] == ''}-->{SITE_URL}app/{$app}/skins/{$skin}/photo_album.png<!--{else}-->{SITE_URL}{php echo miniimg($item[albumface],'photo',170,170,$item[path],'1')}<!--{/if}-->"></a>
+        <div class="albumlst_r">
+            <div><a href="{SITE_URL}{tsurl('photo','albumid',array(ts=>photo,albumid=>$item[albumid]))}">{$item[albumname]}</a></div>
+        <div class="albumlst_descri">{$item[albumdesc]}</div>
+
+        <span class="pl">
+        {$item[count_photo]}张照片&nbsp;
+           {php echo date('Y-m-d',$item[addtime])}创建<br>
+        </span>
+
+        </div>
+        <br>
+        </div>
+	<!--{if $key%2}--><div class="clear"></div><!--{/if}-->
+<!--{/loop}-->
+<div class="clear"></div>
+ </div>
+ 
+ <div class="page">{$pageUrl}</div>
+
+</div>
+
+<div class="cright">
+
+<h2>谁在评论照片</h2>
+
+<ul class="mbt">
+<!--{loop $arrComment $key $item}-->
+<li class="mbtl">
+<!--{if $item[user][userid] !=$arrComment[$key-1][user][userid]}-->
+<a href="{SITE_URL}tsurl('user','space',array('userid'=>$item[user][userid]))"><img src="{$item[user][face]}"></a>
+<!--{/if}-->
+</li>
+<li class="mbtrdot"><a href="{SITE_URL}{tsurl('photo','show',array('photoid'=>$item[photoid]))}">$item[user][username] : {$item[content]}</a><span class="pl">  {php echo getTime($item[addtime],time())}</span>
+<div class="clear"></div>
+</li>
+<!--{/loop}-->
+</ul>
+</div>
+
+</div>
+</div>
+
+{template footer}

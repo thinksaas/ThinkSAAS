@@ -1,0 +1,58 @@
+{template header}
+
+<style>
+
+.mbt {
+    clear: both;
+    margin: 0;
+    padding: 0;
+}
+.mbtl {
+    float: left;
+    margin: 8px 7px 0 0;
+    padding: 0;
+    width: 55px;
+}
+.mbtrdot {
+    min-height: 55px;
+    overflow: hidden;
+    padding: 4px 0;
+}
+.extra {
+    clear: both;
+    text-align: right;
+}
+
+</style>
+
+<div class="midder">
+
+<div class="mc">
+
+<div class="cleft">
+
+<ul class="mbt">
+{loop $arrAttach $key $item}
+<li class="mbtl">
+<!--{if $item[user][userid] !=$arrAttach[$key-1][user][userid]}-->
+<a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[user][userid]))}"><img src="{$item[user][face]}"></a>
+<!--{/if}-->
+</li>
+<li class="mbtrdot"><a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[user][userid]))}">{$item[user][username]}</a>上传资料<a href="{SITE_URL}{tsurl('attach','show',array(attachid=>$item[attachid]))}">{$item[attachname]}</a><span class="pl">{php echo getTime($item[addtime],time())}</span></li>
+{/loop}
+</ul>
+
+<div class="page">{$pageUrl}</div>
+
+</div>
+
+<div class="cright">
+
+<a href="#">+上传资料</a>
+
+</div>
+
+</div>
+</div>
+
+{template footer}

@@ -1,0 +1,10 @@
+<h1>用户信息管理</h1>
+<div class="tabnav">
+<ul>
+<li <!--{if $ts=="base"}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('user','set',array(ts=>base))}">基本信息</a></li>
+<li <!--{if $ts=="face"}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('user','set',array(ts=>face))}">会员头像</a></li>
+<li <!--{if $ts=="pwd"}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('user','set',array(ts=>pwd))}">修改密码</a></li>
+<li <!--{if $ts=="city"}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('user','set',array(ts=>city))}">常居地</a></li>
+<li <!--{if $ts=="tag"}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('user','set',array(ts=>tag))}">个人标签</a></li>
+</ul>
+</div>

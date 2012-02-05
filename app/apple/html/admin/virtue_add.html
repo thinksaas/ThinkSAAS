@@ -1,0 +1,20 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<form method="POST" action="{SITE_URL}index.php?app=apple&ac=admin&mg=virtue&ts=add_do">
+<table>
+<tr><td width="100">属性名称：</td><td><input name="virtuename"  /></td></tr>
+
+<tr><td></td><td>
+<input type="hidden" name="modelid" value="{$modelid}" />
+<input type="submit" value="添加" /> <a href="{SITE_URL}index.php?app=apple&ac=admin&mg=virtue&ts=list&modelid={$modelid}">返回列表</a></td></tr>
+</table>
+</form>
+
+</div>
+
+{php include template("admin/footer");}

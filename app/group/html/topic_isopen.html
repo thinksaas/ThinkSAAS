@@ -1,0 +1,62 @@
+{template header}
+
+<style>
+.thumbnail{overflow:hidden;max-width:400px;max-height:400px;}
+.newtopic{}
+.newtopic ul{}
+.newtopic ul li{border-top: 1px dashed #CCCCCC;padding: 5px 0;}
+</style>
+
+<div class="midder">
+<div class="mc">
+
+<h1><!--{if $strTopic[typeid] !='0'}--><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}<a href="{SITE_URL}{tsurl('group','topic',array(topicid=>$strTopic[topicid]))}">{$strTopic[title]}</a></h1>
+
+<div class="cleft">
+
+<div style="text_align:center;">
+<p>本小组帖子只有小组成员才可以浏览</p>
+<p><a class="submit" href="javascript:void(0);" onclick="joinGroup('{$strGroup[groupid]}');">加入小组</a></p>
+</div>
+
+</div>
+
+<div class="cright">
+<p class="pl2"><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1077]}{$strGroup[groupname]}</a></p>
+<p class="pl2">
+<a style="background:#336699;color:#FFFFFF;padding:3px 5px;" href="{SITE_URL}{tsurl('group','new_topic',array('groupid'=>$strGroup[groupid]))}">
+<span>{$TS_HL[app][1078]}</span>
+</a>
+</p>
+
+<div>
+<h2>{$TS_HL[app][1079]}</h2>
+<script>topic_collect_user('{$strTopic[topicid]}')</script>
+<div id="collects">
+<div style="padding:10px;text-align:center;"><img src="{SITE_URL}public/images/loading.gif" />{$TS_HL[app][1080]}</div>
+</div>
+</div>
+
+<h2 class="usf">{$TS_HL[app][1081]}</h2>
+<div class="indent newtopic">
+<ul>
+<!--{loop $newTopic $key $item}-->
+<li><a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a> &nbsp;
+<span class="pl">(<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}">{$item[user][username]}</a>) </span>
+</li>
+<!--{/loop}-->
+</ul>
+</div>
+
+{php doAction('group_topic_right',$strTopic)}
+
+</div>
+
+
+</div>
+</div>
+<!--加载编辑器-->
+<script src="{SITE_URL}public/js/editor/xheditor/xheditor.js" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/editor/xheditor/ubb.min.js" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/editor/xheditor/loadeditor.js" type="text/javascript"></script>
+{template footer}

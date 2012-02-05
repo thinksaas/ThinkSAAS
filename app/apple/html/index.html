@@ -1,0 +1,176 @@
+{template header}
+
+<style>
+.movie_new h2 {
+    margin-bottom: 15px;
+}
+
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.movie_new ul.content li {
+    border-bottom: 1px dashed #DDDDDD;
+    float: left;
+    
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding-bottom: 3px;
+    padding-right: 10px;
+    width: 285px;
+}
+
+.clearfix {
+    display: block;
+}
+
+.movie_new ul.content li .img {
+    float: left;
+    height: 140px;
+    overflow: hidden;
+    width: 80px;
+}
+.movie_new ul.content li .intro {
+    color: #000000;
+    float: right;
+    width: 200px;
+}
+.movie_new ul.content li .intro h3 {
+    background: none repeat scroll 0 50% transparent;
+    font-size: 14px;
+    height: auto;
+    line-height: 16px;
+    margin: 0;
+    padding: 0;
+}
+.movie_new ul.content li .intro h3 span {
+    color: black;
+    font-size: 14px;
+    line-height: 16px;
+    margin-right: 5px;
+}
+.movie_new ul.content li .intro .star {
+    color: #FF5138;
+    font-size: 10px;
+}
+
+.movie_review {
+    margin-bottom: 30px;
+}
+.tlst {
+    margin: 0;
+    padding: 5px 0 15px;
+}
+.movie_review .nlst {
+    margin-left: 0;
+}
+
+.nlst {
+    background: url("http://img3.douban.com/pics/topicbar.gif") no-repeat scroll 0 0 transparent;
+    margin: 0 0 0 102px;
+}
+h3 {
+    background: url("http://img3.douban.com/pics/topicbar.gif") no-repeat scroll right top transparent;
+    color: #666666;
+    font: 14px/150% Arial,Helvetica,sans-serif;
+    height: 26px;
+    margin-bottom: 1px;
+    margin-left: 4px;
+}
+.movie_review .clst {
+    margin-left: 3px;
+    padding-left: 0;
+}
+
+.clst {
+    float: none;
+    overflow: hidden;
+    padding: 0 0 0 105px;
+    word-wrap: break-word;
+}
+.obss {
+    width: 100%;
+}
+.ilst {
+    display: block;
+    float: left;
+    margin: -27px -105px 0 0;
+    text-align: center;
+    width: 105px;
+}
+.movie_review .ilst {
+    display: none;
+}
+</style>
+
+<div class="midder">
+<div class="mc">
+
+<div class="cleft">
+
+<div class="movie_new">
+<h2>最新书籍</h2>
+<ul class="content clearfix" style="display: block;">
+
+<!--{loop $arrApple $key $item}-->
+<li class="clearfix">
+<div class="img"><a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$item[appleid]))}"><img src="<!--{if $item[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($item[photo],'apple',80,'',$item[path])}<!--{/if}-->" /></a></div>
+<div class="intro">
+<h3><a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$item[appleid]))}">{$item[title]}</a></h3>
+
+<!--{loop $item[model] $mkey $mitem}-->
+<span class="pl">{$mitem[virtuename]} ：</span> {$mitem[parameter]}<br>
+<!--{/loop}-->
+
+</div>
+</li>
+<!--{/loop}-->
+</ul>
+<div class="clear"></div>
+<div style="float:right">&gt; <a href="{SITE_URL}{tsurl('apple','list')}">更多书籍</a></div>
+</div>
+
+<div class="movie_review clearfix">
+<h2>最新点评</h2>    
+<div class="content" id="review1" style="display: block;">
+
+<!--{loop $arrReview $key $item}-->
+<ul style="clear:both" class="tlst clearfix">
+<li class="nlst"><h3><a style="float:left" href="{SITE_URL}{tsurl('apple','review',array('reviewid'=>$item[reviewid]))}" title="{$item[title]}">{$item[title]}</a></h3></li>
+<li style="clear:both;" class="ilst">
+<a title="{$item[apple][title]}" href=""><img alt="{$item[apple][title]}" class="fil" src="http://img3.douban.com/spic/s7006205.jpg"></a>
+</li>
+<li class="clst"><span class="pl ll obss"><span class="starb"> <a href="">{$item[user][username]}</a> &nbsp;评论: <a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$item[appleid]))}">{$item[apple][title]}</a>
+</span><span title="很差" class="stars1 stars"></span></span><br><br><div>{$item[content]}<a href="#" class="pl">(0回应)</a></div>
+</li>
+</ul>
+<div class="clear"></div>
+<!--{/loop}-->
+
+<div style="float:right">&gt; <a href="{SITE_URL}{tsurl('apple','review',array('ts'=>'list'))}">更多点评</a></div>
+</div>
+</div>
+
+</div>
+
+<div class="cright">
+
+<div class="clear"></div>
+{php doAction('apple_index_right_footer')}
+</div>
+</div>
+</div>
+
+{template footer}

@@ -1,0 +1,60 @@
+{template header}
+
+<!--main-->
+<div class="midder">
+
+<div class="mc">
+<div class="cleft">
+
+{include file="edit_xbar.html"}
+
+<h2>目前小组为公开小组 &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2>
+<ul class="mb10">
+<li> 豆瓣的任何成员都可见。 </li>
+<li> 可以设置成员的加入方式。 </li>
+<li> 非小组成员可以浏览、订阅小组话题。 </li>
+<li> 以后可以变为私密小组。 </li>
+</ul>
+
+<div class="indent3 mb30">
+<h2 class="pt10">成员加入方式  · · · · · · </h2>
+<ul>
+<li><input type="radio" value="R" name="grp_join_type">&nbsp;需要小组管理员批准后才能加入小组</li>
+
+<li><input type="radio" value="I" name="grp_join_type">&nbsp;只有接受组员邀请才能加入小组</li>
+
+<li class="pb10"><input type="radio" checked="checked" value="A" name="grp_join_type">&nbsp;允许任何人加入小组<br></li><li>
+<input type="submit" title="修改小组成员的加入方式吗" class="j a_confirm_link" value="更改加入方式" name="join_type_submit">
+</li></ul>
+<script type="text/javascript">
+function check_reqs () {
+var new_type = $("input:checked").attr("value");
+if (new_type != $("old_join_type").attr("value") ) {
+return pop_win.load('/j/group/310982/join_type_form?new_type='+new_type);
+} else {
+return false;
+}
+}
+</script>
+</div>
+
+<hr color="#dddddd" size="1">
+<h2>变为私密小组 &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2>
+<ul class="mb10">
+<li> 只有小组成员知道小组的存在。 </li>
+<li> 只有接受组员邀请才能加入小组。 </li>
+<li> <span class="color-red">一旦成为私密小组，以后永远不能变为公开的小组。</span> </li>
+</ul>
+<div><input type="submit" title="变为 私密小组 吗" class="j a_confirm_link" value="变为私密小组" name="R"></div>
+
+</div>
+
+<div class="cright">
+
+<p class="pl2">&gt; <a href="{SITE_URL}{$TS_URL.group}{$strGroup.groupid}{$TS_URL.suffix}">回{$strGroup.groupname}小组</a></p>
+</div>
+
+</div>
+
+</div>
+{template footer}

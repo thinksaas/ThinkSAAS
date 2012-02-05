@@ -1,0 +1,225 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<div class="cleft">
+
+<div id="db-usr-profile">
+<div class="pic">
+<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strUser[userid]))}">
+<img alt="{$strUser[username]}" src="{$strUser[face]}">
+</a>
+</div>
+<div class="info">
+<h1>
+{$strUser[username]}
+</h1>
+
+<ul>
+<li><a href="{SITE_URL}{tsurl('group')}">{$TS_HL[app][1060]}</a></li>
+<li><a href="{SITE_URL}{tsurl('photo','album',array(ts=>user,userid=>$strUser[userid]))}">{$TS_HL[app][1061]}</a></li>
+</ul>
+
+</div>
+</div>
+<div class="clear"></div>
+
+<div id="recs" class="">
+    <h2>
+        {$strUser[username]}{$TS_HL[app][1062]}
+         &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+            <span class="pl">&nbsp;(
+                <a href="#">{$TS_HL[app][1063]}</a>
+            ) </span>
+    </h2>
+
+<div class="spacetopic">
+<!--{if $arrMyTopic}-->
+<table width="100%">
+<!--{loop $arrMyTopic $key $item}-->
+<tr>
+<td><img src="{SITE_URL}public/images/topic.gif" align="absmiddle"  title="[帖子]" alt="[帖子]" />
+<a href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a>&nbsp;&nbsp;</td>
+<td style="font-size:10px;">{$item[count_comment]}</td>
+<td style="width:100px;text-align:right;color:#999999;font-size:10px;">{php echo date('Y-m-d H:i',$item[addtime])}</td>
+</tr>
+<!--{/loop}-->
+</table>
+<!--{else}-->
+<div style="padding:50 0;color:#999999;">{$TS_HL[app][1064]}</div>
+<!--{/if}-->
+</div>
+
+<div class="clear"></div>
+</div>
+
+<div id="recs" class="">
+    <h2>
+        {$strUser[username]}{$TS_HL[app][1065]}
+         &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+            <span class="pl">&nbsp;(
+                <a href="#">{$TS_HL[app][1063]}</a>
+            ) </span>
+    </h2>
+
+<div class="spacetopic">
+<!--{if $arrMyComment}-->
+<table width="100%">
+<!--{loop $arrMyComment $key $item}-->
+<tr>
+<td><img src="{SITE_URL}public/images/topic.gif" align="absmiddle"  title="[帖子]" alt="[帖子]" />
+<a href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a>&nbsp;&nbsp;</td>
+<td style="font-size:10px;">{$item[count_comment]}</td>
+<td style="width:100px;text-align:right;color:#999999;font-size:10px;">{php echo date('Y-m-d H:i',$item[addtime])}</td>
+</tr>
+<!--{/loop}-->
+</table>
+<!--{else}-->
+<div style="padding:50 0;color:#999999;">{$TS_HL[app][1064]}</div>
+<!--{/if}-->
+</div>
+
+<div class="clear"></div>
+</div>
+
+<div id="recs" class="">
+    <h2>
+        {$strUser[username]}{$TS_HL[app][1066]}
+         &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+            <span class="pl">&nbsp;(
+                <a href="#">{$TS_HL[app][1063]}</a>
+            ) </span>
+    </h2>
+
+<div class="spacetopic">
+<!--{if $arrMyCollect}-->
+<table width="100%">
+<!--{loop $arrMyCollect $key $item}-->
+<tr>
+<td><img src="{SITE_URL}public/images/topic.gif" align="absmiddle"  title="[帖子]" alt="[帖子]" />
+<a href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a>&nbsp;&nbsp;</td>
+<td style="font-size:10px;">{$item[count_comment]}</td>
+<td style="width:100px;text-align:right;color:#999999;font-size:10px;">{php echo date('Y-m-d H:i',$item[addtime])}</td>
+</tr>
+<!--{/loop}-->
+</table>
+<!--{else}-->
+<div style="padding:50 0;color:#999999;">{$TS_HL[app][1064]}</div>
+<!--{/if}-->
+</div>
+
+<div class="clear"></div>
+</div>
+
+
+
+<div class="clear"></div>
+
+</div>
+
+<div class="cright">
+
+<div id="profile">
+
+<div class="infobox">
+<div class="ex1"><span></span></div>
+<div class="bd">
+<img alt="" class="userface" src="{$strUser[bigface]}">
+
+<div class="user-info">
+<div class="pl">UID:{$strUser[userid]} <br> {php echo date('Y-m-d',$strUser[addtime])} {$TS_HL[app][1067]}</div>
+<!--{if $strUser[userid] != $TS_USER[user][userid]}-->
+<div class="user-opt">
+
+<!--{if $strUser[isfollow]}-->
+<div class="user-group" style="display: block;">
+<span class="user-cs">{$TS_HL[app][1068]}</span>
+<span class="user-rs">
+
+<a href="{SITE_URL}index.php?app=user&ac=do&ts=user_nofollow&userid_follow={$strUser[userid]}">{$TS_HL[app][1069]}</a></span>
+
+</div>
+<!--{else}-->
+<a class="a-btn-add mr10 add_contact" href="{SITE_URL}index.php?app=user&ac=do&ts=user_follow&userid_follow={$strUser[userid]}">{$TS_HL[app][1070]}</a>
+<!--{/if}-->
+<a href="{SITE_URL}{tsurl('user','message',array(ts=>message_add,touserid=>$strUser[userid]))}" rel="nofollow" class="a-btn mr5">{$TS_HL[app][1071]}</a>
+<div id="divac"></div>
+</div>
+<!--{/if}-->
+</div>
+
+<div class="sep-line"></div>
+<div class="user-intro">
+
+<div class="j edtext pl" id="edit_intro">
+<span id="intro_display">
+{$TS_HL[app][1072]}<!--{if $strUser[sex]=='0'}-->{$TS_HL[app][1073]}<!--{elseif $strUser[sex]=='1'}-->{$TS_HL[app][1074]}<!--{else}-->{$TS_HL[app][1075]}<!--{/if}--><br /><br />
+<!--{if $strUser[blog]}-->{$TS_HL[app][1076]}{$strUser[blog]}<br /><br /><!--{/if}-->
+<!--{if $strUser[about]}-->{$TS_HL[app][1077]}{$strUser[about]}<br /> <br /><!--{/if}-->
+<!--{if $strUser[signed]}-->{$TS_HL[app][1078]}{$strUser[signed]}<br /><br /><!--{/if}-->
+
+<!--{if $strUser[userid] == $TS_USER[user][userid]}-->[<a href="{SITE_URL}{tsurl('user','set',array(ts=>base))}">{$TS_HL[app][1079]}</a>]<!--{/if}-->
+</span>
+</div>
+
+</div>
+
+</div>
+<div class="ex2"><span></span></div>
+</div>
+
+
+</div>
+<div class="clear"></div>
+
+<div id="friend">
+
+<h2>
+{$strUser[username]}{$TS_HL[app][1080]}
+&nbsp;·&nbsp;·&nbsp;·
+<span class="pl">&nbsp;(
+<a href="{SITE_URL}{tsurl('user','follow',array(userid=>$strUser[userid]))}">{$TS_HL[app][1063]}{$strUser[count_follow]}</a>
+) </span>
+</h2>
+
+<!--{loop $arrFollowUser $key $item}-->
+<dl class="obu"><dt><a class="nbg" href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}"></a></dt>
+<dd><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[username]}</a></dd>
+</dl>
+<!--{/loop}-->
+
+<br clear="all">
+
+<a href="{SITE_URL}{tsurl('user','followed',array(userid=>$strUser[userid]))}">&gt; {$TS_HL[app][1081]}{$strUser[count_followed]}{$TS_HL[app][1082]}</a>
+
+</div>
+
+<div id="group" class="">
+
+<h2>
+{$strUser[username]}{$TS_HL[app][1083]}
+&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+<span class="pl">&nbsp;(
+<a href="">{$TS_HL[app][1063]}</a>
+) </span>
+</h2>
+
+<!--{loop $arrGroup $key $item}-->
+<dl class="ob"><dt><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}"></a></dt>
+<dd><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]})</span>
+</dd></dl>
+<!--{/loop}-->
+
+<div class="clear"></div>
+
+</div>
+
+<p class="pl">{$TS_HL[app][1084]}{$strUser[username]}{$TS_HL[app][1085]} <br><span class="feed">
+<a href="#"> feed: rss 2.0</a></span></p>
+</div>
+
+
+</div>
+</div>
+{template footer}

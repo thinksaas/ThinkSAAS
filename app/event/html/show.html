@@ -1,0 +1,187 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<h1>{$strEvent[title]}</h1>
+<div class="cleft">
+
+<link type="text/css" rel="stylesheet" href="{SITE_URL}app/{$app}/skins/{$skin}/topic_event.css" id="skin" />
+
+<!--活动-->
+<div class="subjectwrap">
+<div id="actchoice">
+
+<!--{if $TS_USER[user][userid] == '' || $isEventUser==''}-->
+<a href="javascript:void('0');" onclick="userDoWish('{$strEvent[eventid]}','1');" class="redbutt  "><span>我感兴趣</span></a><br class="clear"><a href="javascript:void('0');" onclick="userDoWish('{$strEvent[eventid]}','0');" class="redbutt  "><span>我要参加</span></a><br class="clear"><br><br>
+<!--{else}-->
+
+<!--{if $strEventUser[status]=='1'}-->
+<div class="m">我对这个活动感兴趣</div>
+<span class="gact">&gt; <a href="javascript:void('0');" onclick="doEvent('{$strEvent[eventid]}','{$TS_USER[user][userid]}');">我要参加</a></span>
+<!--{elseif $strEventUser[status]=='0'}-->
+<div class="m">我会参加这个活动</div>
+<!--{/if}-->
+<span class="gact">&gt;
+<a class="j a_confirm_link" href="javascript:void('0');" onclick="cancelEvent('{$strEvent[eventid]}','{$TS_USER[user][userid]}');">
+我不去了</a></span>
+
+<!--{/if}-->
+
+</div>
+
+<div class="fil">
+<a href="">
+<img title="点击看大图" src="<!--{if $strEvent[poster]}-->{SITE_URL}{php echo miniimg($strEvent[poster],'event',100,100,$strEvent[path])}<!--{else}-->{SITE_URL}public/images/event_dft.jpg<!--{/if}-->">
+</a>
+<br></div><div style="width:239px;" id="info"><span class="pl">开始时间: </span>{$strEvent[time_start]}<br><span class="pl">结束时间: </span>{$strEvent[time_end]}<br><div class="obmo"><span class="pl">地点: </span>{$strEvent[area][one][areaname]} 
+{$strEvent[area][two][areaname]} 
+{$strEvent[area][three][areaname]}  {$strEvent[address]}
+<br>
+<span class="pl">发起人: </span> <a href="{SITE_URL}{tsurl('user','space',array(userid=>$strEvent[user][userid]))}">{$strEvent[user][username]}</a> 
+<br>
+<!--{if $arrOrganizer}-->
+<span class="pl">组织者: </span>
+<!--{loop $arrOrganizer $key $item}-->
+<a href="#">{$item[username]}</a> &nbsp;
+<!--{/loop}-->
+<br>
+<!--{/if}-->
+<span class="pl">类型: </span>{$strEvent[type][typename]}<br>
+<span>{$strEvent[count_userwish]}人感兴趣 &nbsp;  {$strEvent[count_userdo]}人参加</span><br>
+</div><br clear="all"></div></div>
+
+<!-- <div class="rec-sec">
+<span class="rec">
+<a class="lnk-douban-sharing"  href="javascript:void(0);">推荐</a>
+</span>
+</div> -->
+
+<div class="topic-content clearfix">
+<h2>活动介绍</h2>
+<div class="topic-doc">
+<p>{$strEvent[content]}</p>
+
+<!--签名-->
+<!--{if $strEvent[user][signed] != ''}-->
+<div class="signed">{$strEvent[user][signed]}</div>
+<!--{/if}-->
+
+
+<div style="text-align:right;">
+
+<!--{if $TS_USER[user][userid] == $strEvent[userid] || $TS_USER[user][isadmin]=='1'}-->
+<a href="{SITE_URL}index.php?app=event&ac=edit&ts=base&eventid={$strEvent[eventid]}">修改</a> 
+<!--{/if}-->
+
+<!--{if $TS_USER[user][isadmin]=='1'}-->
+<a href="{SITE_URL}index.php?app=event&ac=do&ts=recommend&&eventid={$strEvent[eventid]}&isrecommend=<!--{if $strEvent[isrecommend]==0}-->1<!--{else}-->0<!--{/if}-->"><!--{if $strEvent[isrecommend]==0}-->推荐<!--{else}-->取消推荐<!--{/if}--></a>
+<a href="{SITE_URL}">删除</a>
+<!--{/if}-->
+</div>
+
+</div>
+</div>
+
+<h2>参加这个活动的成员
+<span class="pl">( <a href="">全部{$strEvent[count_userdo]}人</a> )</span></h2>
+		
+<div class="obss name">
+
+<!--{loop $arrDoUser $key $item}-->
+<a class="nbg" href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}"><img  class="m_sub_img" src="{$item[face]}" alt="{$item[username]}" /></a>
+<!--{/loop}-->
+
+<br clear="all">
+</div>
+<div class="clear"></div>
+
+<h2>你的回应</h2>
+
+<ul class="comment">
+
+<!--{loop $arrEventComment $key $item}-->
+<li class="clearfix">
+    <div class="user-face">
+        <a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" class="pil"></a>
+    </div>
+    <div class="reply-doc">
+            <h4>{php echo date('Y-m-d H:i:s',$item[addtime])}
+                <a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[user][username]}</a>
+            </h4>
+        <p>{$item[content]}</p>
+		
+		<!--签名-->
+		<!--{if $item[user][signed] != ''}-->
+		<div class="signed">{$item[user][signed]}</div>
+		<!--{/if}-->
+	
+	   <!--{if $TS_USER[user][userid] == $strEvent[userid]}-->
+        <div class="group_banned">
+		<span><a href="">回复</a></span>
+            <span><a class="j a_confirm_link" href="javascript:void('0');" onclick="comment_del('{$item[topicid]}','{$item[commentid]}');" rel="nofollow">删除</a>
+            </span>
+        </div>
+	<!--{/if}-->
+	<!--回复评论-->
+	<div></div>
+	
+    </div>
+</li>
+<!--{/loop}-->
+</ul>
+
+<div class="page">{$pageUrl}</div>
+
+<!--{if $TS_USER[user][userid] == ''}-->
+<div style="font-size:14px;padding:40px 0;text-align:center;">请登录后回应本活动^_^</div>
+<!--{else}-->
+<div>
+<form method="POST" action="{SITE_URL}index.php?app=event&ac=do&ts=comment">
+<textarea id="editor_mini" style="width:100%;height:100px;" name="content"></textarea><br>
+<input type="hidden" name="eventid" value="{$strEvent[eventid]}" />
+<input class="submit" type="submit" value="加上去">
+</form>
+</div>
+{/if}
+
+</div>
+
+<div class="cright">
+
+<div class="more_event"><a href="{SITE_URL}{tsurl('event','type',array(typeid=>$strEvent[type][typeid]))}">更多{$strEvent[type][typename]}活动</a></div>
+<p class="pl">
+<!--{if $strEvent[area][one]}-->&gt; <a href="{SITE_URL}{tsurl('location','area',array(areaid=>$strEvent[area][one][areaid]))}">去{$strEvent[area][one][areaname]}</a><br /><!--{/if}-->
+<!--{if $strEvent[area][two]}-->&gt; <a href="{SITE_URL}{tsurl('location','area',array(areaid=>$strEvent[area][two][areaid]))}">去{$strEvent[area][two][areaname]}</a><br /><!--{/if}-->
+<!--{if $strEvent[area][three]}-->&gt; <a href="{SITE_URL}{tsurl('location','area',array(areaid=>$strEvent[area][three][areaid]))}">去{$strEvent[area][three][areaname]}</a><!--{/if}-->
+</p>
+
+
+<h2>对这个活动感兴趣的成员 &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;
+        <span class="pl">( <a href="">全部{$strEvent[count_userwish]}人</a> )</span></h2>
+<div class="obss name">
+<!--{loop $arrWishUser $key $item}-->
+<a class="nbg" href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}" alt="{$item[username]}"></a>
+<!--{/loop}-->
+<br clear="all">
+</div>
+<div class="clear"></div>
+
+<h2>活动支持小组</h2>
+
+<!--{loop $arrGroup $key $item}-->
+<dl class="obu"><dt><a class="nbg" href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}"></a></dt>
+<dd><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a></dd></dl>
+<!--{/loop}-->
+
+<div class="clear"></div>
+
+</div>
+
+
+</div>
+</div>
+<!--加载编辑器-->
+<script src="{SITE_URL}public/js/editor/xheditor/xheditor.js" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/editor/xheditor/loadeditor.js" type="text/javascript"></script>
+{template footer}

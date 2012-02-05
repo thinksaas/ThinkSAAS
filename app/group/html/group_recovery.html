@@ -1,0 +1,51 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<h1>{$strGroup[groupname]}小组的回收站</h1>
+<div class="cleft">
+
+	<div class="box">
+
+	<div class="box_content">
+
+<h2 style="margin-top: 10px;"><a class="rr bn-post"  href="{SITE_URL}{tsurl('group','new_topic',array('groupid'=>$strGroup[groupid]))}"><span>发言</span></a></h2>
+	
+	<div class="tb_list">
+	<table width="100%">
+	<tr><td>话题</td><td>作者</td><td nowrap="nowrap">V/R</td><td align="right">最后回应</td></tr>
+	
+	<!--{loop $arrTopic $key $item}-->
+	<tr>
+	<td><a href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a></td>
+	<td><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[username]}</a></td>
+	<td>{$item[count_view]}/{$item[count_comment]}</td>
+	<td  align="right" style="width:120px;color:#999999;font-size:10px;">{php echo date('m-d H:i',$item[addtime])}</td>
+	</tr>
+	<!--{/loop}-->
+	</table>
+	</div>
+	<div class="page">{$pageUrl}</div>
+	</div>
+	</div>
+
+</div>
+
+
+<div class="cright">
+
+
+<p><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}"><img alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}"></a></p>
+<p class="pl2"><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">回到{$strGroup[groupname]}小组</a></p>
+
+<p></p>
+
+<p class="pl">订阅{$strGroup[groupname]}小组讨论: <br><span class="feed">
+ <a href="{SITE_URL}{tsurl('group','rss',array(groupid=>$strGroup[groupid]))}">feed: rss 2.0</a></span></p>
+
+</div>
+</div>
+</div>
+
+{template footer}

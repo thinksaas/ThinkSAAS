@@ -1,0 +1,44 @@
+{template header}
+
+<!--main-->
+<div class="midder">
+
+<div class="mc">
+<div class="cleft">
+
+{include file="edit_xbar.html"}
+
+<h2>添加友情小组 &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2>
+<p class="pl">请输入小组的网址链接进行添加，例如要添加“豆瓣纠错”小组，输入http://www.douban.com/group/voting/。你最多能添加4个友情小组。</p>
+<div style="display: none;"><input type="hidden" value="svZw" name="ck"></div>
+<input type="text" style="width: 200px;" value="" name="fid0" title="http://" class="j a_search_text greyinput" gtbfieldid="20">
+<br>
+<br>
+<input type="text" style="width: 200px;" value="" name="fid0" title="http://" class="j a_search_text greyinput" gtbfieldid="20">
+<br>
+<br>
+<input type="text" style="width: 200px;" value="" name="fid0" title="http://" class="j a_search_text greyinput" gtbfieldid="20">
+<br>
+<br>
+<input type="text" style="width: 200px;" value="" name="fid0" title="http://" class="j a_search_text greyinput" gtbfieldid="20">
+<br>
+<br>
+
+<input type="submit" value="提交" name="preview">
+<div class="clear"></div>
+
+</div>
+
+<div class="cright">
+
+<p class="pl2">&gt; <a href="{SITE_URL}index.php?app=group&ac=group&groupid{$strGroup.groupid}">回魅族魅友小组</a></p>
+<br>
+<h2>友情小组是什么？ &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2>
+<p class="pl">友情小组是两个小组间的双向友邻关系。如果A小组确认了B小组的邀请，则B也会成为A的友情小组并出现在A的页面上。如果一方删除了友情小组，则双向关系破裂。</p>
+
+</div>
+
+</div>
+
+</div>
+{template footer}

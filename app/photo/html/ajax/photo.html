@@ -1,0 +1,17 @@
+{php include template("ajax/header");}
+<script>function insertEdit(x){callback(x);}</script>
+
+<h2>{$strAlbum[albumname]}  <a href="{SITE_URL}index.php?app=photo&ac=ajax&ts=flash&albumid={$strAlbum[albumid]}">上传照片>></a></h2>
+<div class="photolist">
+<ul>
+<!--{loop $arrPhoto $key $item}-->
+<li>
+<div class="simg">
+<a href="javascript:void(0)" onclick="insertEdit('[photo={$item[photoid]}]');"><img src="{SITE_URL}{php echo miniimg($item[photourl],'photo',100,100,$item[path])}" title="点击插入"/></a></div>
+</li>
+<!--{/loop}-->
+</ul>
+</div>
+<div class="page">{$pageUrl}</div>
+</body>
+</html>

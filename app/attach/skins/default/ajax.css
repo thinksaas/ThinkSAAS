@@ -1,0 +1,100 @@
+/* 
+ *CSS Document  
+ *BY QIUJUN 201-06-29
+ *标准基础样式表
+ *头部header
+ *中部midder
+ *底部footer
+ */
+ 
+/*基本*/ 
+body{ font-size:12px;font-family:Arial;margin:0 auto;color:#434343;background:#FFFFFF;}
+table {border-collapse:collapse;}
+th,caption {font-weight:normal;font-style:normal;text-align:left;}
+caption {font-weight:bold;}
+ol,ul,li{list-style:none;margin:0;padding:0;}
+a img {border:none}
+
+h2 {
+    color: #006600;
+    font: 14px/150% Arial;
+    margin: 0 0 12px;
+}
+
+h1 {
+    color: #494949;
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 1.1;
+    margin: 0;
+    padding: 0 0 15px;
+    word-wrap: break-word;
+}
+
+input,textarea{font-size:12px;}
+
+.inputTitle{padding:5px 1px;width:99%;font-size:14px;}
+.input200{width:200px;font-size:14px;padding:2px;}
+.text200{width:200px;padding:2px;font-size:14px;height:50px;}
+.inputSub{padding:2px 5px;}
+
+.clear {
+    clear: both;
+    font-size: 0;
+    line-height: 0;
+}
+
+/*链接/文字*/
+a {color:#66873E;text-decoration:none;}
+
+/*导航*/
+.tabnav {
+height:35px;
+padding:0px;
+}
+.tabnav ul {
+border-bottom:1px solid #66873E;
+margin:0;
+overflow:hidden;
+padding:0;
+}
+.tabnav ul li {
+border-color:#66873E #66873E -moz-use-text-color;
+border-style:solid solid none;
+border-width:1px 1px medium;
+float:left;
+margin-right:5px;
+padding:5px 10px;
+}
+.tabnav .select {
+background:none repeat scroll 0 0 #66873E;
+}
+.tabnav .select a {
+color:#FFFFFF;
+font-weight:bold;
+}
+
+/*分页*/
+.manu {MARGIN:0;TEXT-ALIGN: left;padding:5px;}
+.manu A {
+	BORDER-RIGHT: #eee 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #eee 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 2px; MARGIN: 2px; BORDER-LEFT: #eee 1px solid; COLOR: #66873E; PADDING-TOP: 2px; BORDER-BOTTOM: #eee 1px solid; TEXT-DECORATION: none
+}
+.manu A:hover {
+	BORDER-RIGHT: #999 1px solid; BORDER-TOP: #999 1px solid; BORDER-LEFT: #999 1px solid; COLOR: #666; BORDER-BOTTOM: #999 1px solid
+}
+.manu A:active {
+	BORDER-RIGHT: #999 1px solid; BORDER-TOP: #999 1px solid; BORDER-LEFT: #999 1px solid; COLOR: #666; BORDER-BOTTOM: #999 1px solid
+}
+.manu .current {
+	BORDER-RIGHT: #66873E 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #66873E 1px solid; PADDING-LEFT: 5px; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; MARGIN: 2px; BORDER-LEFT: #66873E 1px solid; COLOR: #fff; PADDING-TOP: 2px; BORDER-BOTTOM: #66873E 1px solid; BACKGROUND-COLOR: #66873E
+}
+.manu .disabled {
+	BORDER-RIGHT: #eee 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #eee 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 2px; MARGIN: 2px; BORDER-LEFT: #eee 1px solid; COLOR: #ddd; PADDING-TOP: 2px; BORDER-BOTTOM: #eee 1px solid;
+}
+
+/*列表*/
+.photolist{overflow:hidden;}
+.photolist ul{margin:0;padding:0;overflow:hidden;}
+.photolist ul li{float:left;list-style:none;text-align:center;}
+.photolist li .simg{width:100px;height:100px;border:solid #DDDDDD 1px;margin:5px;}

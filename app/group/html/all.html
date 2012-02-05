@@ -1,0 +1,72 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+<div class="cleft">
+
+<!--{if intval($TS_USER[user][userid]) > 0}-->
+
+<div class="top-wp">
+<ul class="tabs">
+<li><a class="current" href="{SITE_URL}{tsurl('group','all')}"><span>全部小组</span></a></li>
+<li><a href="{SITE_URL}">最新帖子</a></li>
+</ul>
+</div>
+
+<div class="clear"></div>
+
+<!--{else}-->
+<h2>{$TS_HL[app][1145]}</h2>
+<!--{/if}-->
+
+<!--{if $arrGroup != ''}-->
+<div class="indent">
+<br />
+<!--{loop $arrGroup $key $item}-->
+<div class="sub-item">
+<div class="pic">
+<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">
+<img data-defer-src="{$item[icon_48]}" src="{$item[icon_48]}" alt="{$item[groupname]}">
+</a>
+<a style="background:#F0F0F0;padding: 0px 7px;" href="javascript:void(0);" onclick="joinGroup('{$item[groupid]}');">+加入</a>
+</div>
+<div class="info">
+<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]})             
+<p>{$item[groupdesc]}</p>
+</div>
+</div>
+<!--{/loop}-->
+</div>
+<!--{/if}-->
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+</div>
+
+<div class="cright">
+
+<!--{if $TS_APP[options][iscreate]==0 || $TS_USER[user][isadmin]==1}-->
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','create')}">{$TS_HL[app][1011]}</a></p>
+<!--{/if}-->
+<h2>热门帖子</h2>
+<div class="line23">
+{loop $arrTopic $key $item}
+<a href="{SITE_URL}{tsurl('group','topic',array('topicid'=>$item[topicid]))}">{$item[title]}</a> ({$item[count_comment]})
+<br />
+{/loop}
+</div>
+
+<div class="clear"></div>
+<h2>新成立小组</h2>
+<div class="line23">
+<!--{if $arrNewGroup}-->
+<!--{loop $arrNewGroup $key $item}-->
+<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
+<!--{/loop}-->
+<!--{/if}-->
+</div>
+
+</div>
+</div>
+</div>
+
+{template footer}

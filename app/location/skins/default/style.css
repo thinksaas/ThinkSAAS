@@ -1,0 +1,73 @@
+/*会员列表*/
+.obu {
+    display: inline;
+    float: left;
+    margin: 0 0 10px;
+    width: 73px;
+}
+.obu dt {
+    height: 50px;
+    line-height: 16px;
+    margin: 0;
+    overflow: hidden;
+    text-align: center;
+}
+.obu dd {
+	height:30px;
+    margin: 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+/*活动列表*/
+.events-list {
+}
+.events-list li {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    float:left;
+	height:130px;
+	width: 295px;
+}
+.events-list .pic {
+    float: left;
+    height: 75px;
+    overflow: hidden;
+    width: 75px;
+}
+.events-list .pic {
+    margin-right: 10px;
+}
+.events-list .info {
+    float: left;
+    width: 205px;
+}
+.events-list .title {
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+.events-list .info a {
+    font-size: 14px;
+}
+.events-list .datetime {
+    margin-bottom: 5px;
+}
+.events-list address {
+    color: #666666;
+    display: block;
+    font-style: normal;
+}
+.events-list .followers {
+    color: #999999;
+}
+
+/**/
+.bd {
+    background: none repeat scroll 0 0 #F5F5F5;
+    border-radius: 4px 4px 4px 4px;
+    color: #333333;
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+}

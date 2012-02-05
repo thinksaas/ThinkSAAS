@@ -1,0 +1,124 @@
+{template header}
+<script>
+$(document).ready(function() {
+
+//选择一级区域
+$('#oneid').change(function(){
+	$("#stwoid").html('<img src="'+siteUrl+'public/images/loading.gif" />');
+	var oneid = $(this).children('option:selected').val();  //弹出select的值
+	
+	if(oneid==0){
+		$("#stwoid").html('');
+		$("#sthreeid").html('');
+	}else{
+		$("#sthreeid").html('');
+		$.ajax({
+			type: "GET",
+			url:  "{SITE_URL}index.php?app=user&ac=area&ts=two&oneid="+oneid,
+			success: function(msg){
+				$("#stwoid").html(msg);
+				
+				//选择二级区域
+				$('#twoid').change(function(){
+					$("#sthreeid").html('<img src="'+siteUrl+'public/images/loading.gif" />');
+					var twoid = $(this).children('option:selected').val();  //弹出select的值
+					
+					if(twoid == 0){
+						$("#sthreeid").html('');
+					}else{
+					
+						//ajax
+						$.ajax({
+							type: "GET",
+							url:  "{SITE_URL}index.php?app=user&ac=area&ts=three&twoid="+twoid,
+							success: function(msg){
+								$('#sthreeid').html(msg);
+							}
+						});
+					
+					}
+
+				});
+				
+			}
+		});
+	
+	}
+	
+});
+
+});
+</script>
+
+<script language="javascript" type="text/javascript" src="{SITE_URL}public/js/date/WdatePicker.js?4.72"></script>
+
+<link type="text/css" rel="stylesheet" href="{SITE_URL}app/{$app}/skins/{$skin}/editor.css" />
+
+<div class="midder">
+<div class="mc">
+<h1>
+发布活动
+</h1>
+
+<form method="POST" action="{SITE_URL}index.php?app=event&ac=do&ts=add" enctype="multipart/form-data">
+<table width="800">
+<tbody>
+<tr><td width="100">标题: </td>
+<td><input style="padding:3px 0;width:400px;" type="text" value="" maxlength="100" size="50" name="title" gtbfieldid="2"></td></tr>
+<tr>
+<td>类型:</td>
+<td>
+<select name="typeid">
+<!--{loop $arrType $key $item}-->
+<option value="{$item[typeid]}">{$item[typename]}</option>
+<!--{/loop}-->
+</select>
+</td>
+</tr>
+<tr>
+<td>开始时间：</td>
+<td>
+<input name="time_start" readonly value="" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'{php echo date('Y-m-d')} 00:00',maxDate:'{php echo date('Y-m-d',time()+604800)} 00:00'})" /> * 7天以内。
+</td>
+</tr>
+<tr>
+<td>结束时间：</td>
+<td>
+<input class="date_input" name="time_end" value="" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'{php echo date('Y-m-d')} 00:00',maxDate:'{php echo date('Y-m-d',time()+2502000)} 00:00'})"  /> * 30天以内。</td>
+</tr>
+<tr><td>地点：</td><td>
+
+<!--{if $areaid != 0}-->
+<select id="oneid" name="oneid">
+<option value="0">请选择</option>
+<!--{loop $arrOne $key $item}-->
+<option value="{$item[areaid]}">{$item[areaname]}</option>
+<!--{/loop}-->
+</select>
+<span id="stwoid"></span>
+<span id="sthreeid"></span>
+<!--{else}-->
+火星
+<!--{/if}-->
+<input style="width:300px;padding:2px;" name="address" />
+
+</td>
+</tr>
+<tr>
+<td valign="top">
+内容：
+</td><td><textarea style="width:100%;height:300px;" id="editor_full" name="content">{$strEvent[content]}</textarea></td></tr>
+
+<tr><td>活动海报：</td><td><input type="file" name="photo" /></td></tr>
+
+<tr><td></td><td>
+<input class="submit" type="submit" value="好了，发布">
+</td></tr></tbody></table>
+</form>
+
+</div>
+</div>
+<!--加载编辑器-->
+<script src="{SITE_URL}public/js/editor/xheditor/xheditor.js" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/editor/xheditor/loadeditor.js" type="text/javascript"></script>
+{template footer}

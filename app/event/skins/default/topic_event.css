@@ -1,0 +1,86 @@
+.subjectwrap {
+    float: left;
+    margin-bottom: 15px;
+    position: relative;
+    width: 100%;
+}
+.subjectwrap {
+    float: none;
+    width: auto;
+	overflow:hidden;
+}
+#actchoice {
+    border-left: 1px dashed #DDDDDD;
+    display: inline;
+    float: right;
+    padding: 0 0 0 5px;
+    width: 100px;
+}
+a.redbutt {
+    background: url("redbutt.gif") no-repeat scroll right top transparent;
+    color: #FF7676;
+    cursor: pointer;
+    display: inline-block;
+    font: 12px sans-serif;
+    height: 24px;
+    margin: 0 5px 0 0;
+    overflow: hidden;
+    padding-right: 7px;
+    text-decoration: none;
+}
+a.redbutt span {
+    background: url("redbutt.gif") no-repeat scroll 0 0 transparent;
+    color: #FF7676;
+    display: block;
+    line-height: 18px;
+    padding: 4px 1px 4px 8px;
+}
+a.redbutt input {
+    background: none repeat scroll 0 50% transparent;
+    border: 0 none;
+    color: #FF7676;
+    cursor: pointer;
+    line-height: 18px;
+    padding: 0;
+}
+a.redbutt:visited {
+    color: #FF7676;
+    text-decoration: none;
+}
+a.redbutt:hover {
+    background: url("redbutt.gif") no-repeat scroll right -24px transparent;
+    color: white;
+}
+a.redbutt:hover span, a.redbutt:hover input {
+    background-position: left -24px;
+    color: white;
+}
+.fil {
+    display: inline;
+    float: left;
+    padding-bottom: 15px;
+    padding-right: 15px;
+}
+.album_photo {
+    display: block;
+    height: 181px;
+    overflow: hidden;
+    width: 181px;
+}
+.album_photo:link {
+    color: #777777;
+    display: block;
+    font-style: italic;
+}
+#info {
+    float: left;
+    max-width: 248px;
+    word-wrap: break-word;
+}
+.obmo {
+    line-height: 180%;
+}
+
+#actchoice .m {
+    margin-bottom: 40px;
+}

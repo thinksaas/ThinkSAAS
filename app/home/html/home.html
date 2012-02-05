@@ -1,0 +1,121 @@
+{template header}
+
+<style>
+.mygroup{}
+.mygroup ul{}
+.mygroup ul li{font-size:14px;padding:5px 0}
+</style>
+
+<div class="midder">
+
+{php doAction('group_my_top')}
+
+
+<div class="mc">
+<div class="cleft">
+
+{template my_menu}
+
+<div class="topic_list">
+<ul>
+<!--{if $arrTopic}-->
+<!--{loop $arrTopic $key $item}-->
+<li>
+<div class="userimg"><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a></div>
+
+<div class="topic_title">
+<div class="title">
+<a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a>
+<!--{if $item[istop]=='1'}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" title="[置顶]" alt="[置顶]" />
+<!--{/if}-->
+<!--{if $item[addtime]>strtotime(date('Y-m-d 00:00:00'))}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/topic_new.gif" align="absmiddle"  title="[新帖]" alt="[新帖]" />
+<!--{/if}--> 
+<!--{if $item[isphoto]=='1'}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/image_s.gif" title="[图片]" alt="[图片]" align="absmiddle" />
+<!--{/if}--> 
+<!--{if $item[isattach] == '1'}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/attach.gif" title="[附件]" alt="[附件]" />
+<!--{/if}-->
+<!--{if $item[isposts] == '1'}-->
+<img src="{SITE_URL}public/images/posts.gif" title="[精华]" alt="[精华]" />
+<!--{/if}-->
+</div>
+
+<div class="topic_info">
+<span style="float:left;">
+<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[group][groupname]}</a>
+</span>
+
+<span style="float:right;">
+{php echo getTime($item[uptime],time())}
+
+<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[user][username]}</a>
+
+<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
+</span>
+</div>
+</div>
+
+<div class="clear"></div>
+</li>	
+<!--{/loop}-->
+<!--{/if}-->
+</ul>
+</div>
+
+<div class="clear"></div>
+
+
+</div>
+
+<div class="cright" id="cright">
+{php doAction('my_right_top')}
+<div>
+<form method="GET" action="index.php">
+<input type="hidden" name="app" value="search" />
+<input type="hidden" name="ac" value="s" />
+<span class="inp">
+<input type="text" autocomplete="off" name="kw" onfocus="if(this.value=='ThinkSAAS') this.value='';" title="" size="22" maxlength="60" value="ThinkSAAS" style="color: rgb(212, 212, 212); width: 206px;"></span>
+<span>
+<input type="submit" class="submit" value="{$TS_HL[app][1013]}" />
+</span>
+</form>
+</div>
+
+<div class="clear"></div>
+<h2>{$TS_HL[app][1027]}<span class="pl">(
+<a href="{SITE_URL}{tsurl('group','my_group')}">{$TS_HL[app][1026]}</a>
+) </span></h2>
+<div class="mygroup">
+<ul>
+<!--{loop $arrMyGroup $key $item}-->
+<li>
+<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_16]}" width="16" align="absmiddle" /></a> <a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)</span>
+</li>
+<!--{/loop}-->	
+</ul>
+</div>
+
+<div class="clear"></div>
+
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','create')}">{$TS_HL[app][1011]}</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','all')}">{$TS_HL[app][1008]}</a></p>
+
+</div>
+</div>
+</div>
+
+<script>
+$(document).ready(function() {
+	$.ajax({
+		type: "GET",
+		url:  "{SITE_URL}index.php?app=group&ac=task&ts=istask",
+		success: function(msg){
+			$('#cright').prepend(msg);
+		}
+	});
+});
+</script>
+{template footer}

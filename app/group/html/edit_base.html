@@ -1,0 +1,59 @@
+{template header}
+<!--main-->
+<div class="midder">
+
+<div class="mc">
+{template edit_xbar}
+
+<div class="cleft">
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=edit_base">
+<table align="center" style="width:100%;clear: both;">
+    <tbody>
+	<tr><td width="100">{$TS_HL[app][1096]}</td>
+    <td><input type="text" value="{$strGroup[groupname]}" maxlength="63" size="31" name="groupname" gtbfieldid="13"><br><br></td></tr>
+    <tr><td>{$TS_HL[app][1097]}</td>
+    <td><textarea style="width:100%;height:250px;" name="groupdesc" id="editor_mini">{$strGroup[groupdesc]}</textarea><br><br></td></tr>
+	
+	<tr><td>{$TS_HL[app][1098]}</td><td><input <!--{if $strGroup[joinway]=='0'}-->checked="select"<!--{/if}--> name="joinway" type="radio" value="0" />{$TS_HL[app][1099]} <input <!--{if $strGroup[joinway]=='1'}-->checked="select"<!--{/if}-->  name="joinway" type="radio" value="1" />{$TS_HL[app][1100]}</td></tr>
+	
+	<!--发帖方式-->
+	<tr><td>发帖方式：</td><td><input <!--{if $strGroup[ispost]=='0'}-->checked="select"<!--{/if}--> type="radio" name="ispost" value="0" />允许会员发帖 <input <!--{if $strGroup[ispost]=='1'}checked="select"<!--{/if}--> type="radio" name="ispost" value="1" />不允许会员发帖 <input <!--{if $strGroup[ispost]=='2'}checked="select"<!--{/if}--> type="radio" name="ispost" value="2" />自由发帖(无需加入小组)</td></tr>
+	
+	
+	<tr><td>{$TS_HL[app][1101]}</td><td><input <!--{if $strGroup[isopen]=='0'}-->checked="select"<!--{/if}--> type="radio" name="isopen" value="0" />{$TS_HL[app][1102]} <input <!--{if $strGroup[isopen]=='1'}checked="select"<!--{/if}--> type="radio" name="isopen" value="1" />{$TS_HL[app][1103]}</td></tr>
+	
+	<tr>
+	<td>{$TS_HL[app][1104]}</td>
+	<td>
+	{$TS_HL[app][1105]}<input name="role_leader" value="{$strGroup[role_leader]}" /><br />
+	{$TS_HL[app][1106]}<input name="role_admin" value="{$strGroup[role_admin]}" /><br />
+	{$TS_HL[app][1107]}<input name="role_user" value="{$strGroup[role_user]}" />
+	</td>
+	</tr>
+	
+    <tr><td></td><td><br>
+	
+	<input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
+	
+     <input class="submit" type="submit" tabinde="8" value="{$TS_HL[app][1108]}" >
+    </td></tr></tbody></table>
+</form>
+
+
+</div>
+
+<div class="cright">
+
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1109]}{$strGroup[groupname]}</a></p>
+
+</div>
+
+</div>
+
+</div>
+<!--加载编辑器-->
+<script src="{SITE_URL}public/js/editor/xheditor/xheditor.js" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/editor/xheditor/ubb.min.js" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/editor/xheditor/loadeditor.js" type="text/javascript"></script>
+{template footer}

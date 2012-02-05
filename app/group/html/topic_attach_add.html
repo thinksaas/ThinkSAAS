@@ -1,0 +1,43 @@
+{template header}
+
+<div class="midder">
+
+<h1>添加附件</h1>
+
+<div class="mc">
+
+<div class="cleft">
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=topic_attach_add" enctype="multipart/form-data">
+<table>
+
+<tr><td><input type="file" name="attach[]"></td></tr>
+<tr><td><input type="file" name="attach[]"></td></tr>
+<tr><td><input type="file" name="attach[]"></td></tr>
+<tr><td><input type="file" name="attach[]"></td></tr>
+<tr><td><input type="file" name="attach[]"></td></tr>
+<tr><td><input type="file" name="attach[]"></td></tr>
+
+
+<tr><td>下载权限：需要消费<input name="score" />积分</td></tr>
+<tr><td>查看权限：<input type="radio" name="isview" value="0"  />开放 <input type="radio" name="isview" value="1"  />需要回复</td></tr>
+
+<tr><td>
+<input type="hidden" name="groupid" value="{$strTopic[groupid]}" />
+<input type="hidden" name="topicid" value="{$strTopic[topicid]}" />
+<input type="submit" value="添加" /></td></tr>
+</table>
+</form>
+
+</div>
+
+<div class="cright"
+<p class="pl2">&gt; <a href="{SITE_URL}{$TS_URL[topic]}{$strTopic[topicid]}">回{$strTopic[title]}话题</a></p>
+<br />
+
+</div>
+
+
+</div>
+</div>
+{template footer}

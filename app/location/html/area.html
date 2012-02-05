@@ -1,0 +1,46 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+
+<div class="cleft">
+<h1>同城{if $arrArea[one]} - <a href="{SITE_URL}{tsurl('location','area',array(areaid=>$arrArea[one][areaid]))}">{$arrArea[one][areaname]}</a>{/if}{if $arrArea[two]} - <a href="{SITE_URL}{tsurl('location','area',array(areaid=>$arrArea[two][areaid]))}">{$arrArea[two][areaname]}</a>{/if}{if $arrArea[three]} - <a href="{SITE_URL}{tsurl('location','area',array(areaid=>$arrArea[three][areaid]))}">{$arrArea[three][areaname]}</a>{/if}</h1>
+
+<h2>同城里的人</h2>
+<div>
+<!--{loop $arrUser $key $item}-->
+<dl class="obu">
+<dt><a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[userid]))}" class="nbg"><img src="{$item[face]}" class="m_sub_img" /></a></dt>
+<dd><a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[userid]))}">{$item[username]}</a></dd>
+</dl>
+<!--{/loop}-->
+</div>
+<div class="clear"></div>
+
+</div>
+
+<div class="cright">
+
+<div style="margin-bottom: 10px;">
+<div class="bd">
+今天 <span class="date">{php echo date('Y')}年{php echo date('m')}月{php echo date('d')}日</span> 
+<span class="week">星期{php echo date('w')}</span>
+</div>
+</div>
+
+<!--{if $referArea}-->
+<h2>{$strArea[areaname]}下的区域</h2>
+<div>
+<!--{loop $referArea $key $item}-->
+<a href="{SITE_URL}{tsurl('location','area',array(areaid=>$item[areaid]))}">{$item[areaname]}</a>
+<!--{/loop}-->
+</div>
+<!--{/if}-->
+
+</div>
+
+</div>
+</div>
+
+{template footer}

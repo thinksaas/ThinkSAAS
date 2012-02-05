@@ -1,0 +1,213 @@
+{template header}
+<!--{if $TS_APP[options][isregister]=='2'}-->
+<!--{else}-->
+<link type="text/css" rel="stylesheet" href="{SITE_URL}app/{$app}/skins/{$skin}/validate.css" id="skin" />
+<script src="{SITE_URL}public/js/validate/jquery.validateid.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	var validator = $("#signupform").validate({
+		onkeyup: false,
+		rules:{
+		<!--{if $TS_APP[options][isregister]=='1'}-->
+			invitecode:{
+				required:true,
+				remote:"{SITE_URL}index.php?app=user&ac=do&ts=isinvitecode"
+			},
+		<!--{/if}-->
+			email: {
+				required: true,
+				email: true,
+				remote: "{SITE_URL}index.php?app=user&ac=do&ts=inemail"
+			},
+			pwd: {
+				required: true,
+				minlength: 5
+			},
+			repwd: {
+				required: true,
+				minlength: 5,
+				equalTo: "#pwd"
+			},
+			username:{
+				required: true,
+				minlength: 2,
+				maxlength: 12,
+				remote:"{SITE_URL}index.php?app=user&ac=do&ts=isusername"
+			}
+		},
+		messages: {
+		<!--{if $TS_APP[options][isregister]=='1'}-->
+			invitecode:{
+				required:"{$TS_HL[app][1020]}",
+				remote:jQuery.format("{$TS_HL[app][1021]}")
+			},
+		<!--{/if}-->
+			email: {
+					required: "{$TS_HL[app][1022]}",
+					email: "{$TS_HL[app][1023]}",
+					remote:jQuery.format("{$TS_HL[app][1024]}")
+			},
+			pwd: {
+				required: "{$TS_HL[app][1025]}",
+				rangelength: jQuery.format("{$TS_HL[app][1026]}")
+			},
+			repwd: {
+				required: "{$TS_HL[app][1027]}",
+				minlength: jQuery.format("{$TS_HL[app][1026]}"),
+				equalTo: "{$TS_HL[app][1028]}"
+			},
+			username:{
+				required:"{$TS_HL[app][1029]}",
+				minlength: jQuery.format("{$TS_HL[app][1030]}"),
+				maxlength: jQuery.format("{$TS_HL[app][1031]}"),
+				remote:jQuery.format("{$TS_HL[app][1032]}")
+			}
+		},
+
+		// the errorPlacement has to take the table layout into account
+		errorPlacement: function(error, element) {
+			if ( element.is(":radio") )
+				error.appendTo( element.parent().next().next() );
+			else if ( element.is(":checkbox") )
+				error.appendTo ( element.next() );
+			else
+				error.appendTo( element.parent().next() );
+		},
+
+		success: function(label) {
+			// set &nbsp; as text for IE
+			label.html("&nbsp;").addClass("checked");
+		}
+	});
+
+	
+//选择一级区域
+$('#oneid').change(function(){
+	$("#stwoid").html('<img src="'+siteUrl+'public/images/loading.gif" />');
+	var oneid = $(this).children('option:selected').val();  //弹出select的值
+	
+	if(oneid==0){
+		$("#stwoid").html('');
+		$("#sthreeid").html('');
+	}else{
+		$("#sthreeid").html('');
+		$.ajax({
+			type: "GET",
+			url:  "{SITE_URL}index.php?app=user&ac=area&ts=two&oneid="+oneid,
+			success: function(msg){
+				$("#stwoid").html(msg);
+				
+				//选择二级区域
+				$('#twoid').change(function(){
+					$("#sthreeid").html('<img src="'+siteUrl+'public/images/loading.gif" />');
+					var twoid = $(this).children('option:selected').val();  //弹出select的值
+					
+					if(twoid == 0){
+						$("#sthreeid").html('');
+					}else{
+					
+						//ajax
+						$.ajax({
+							type: "GET",
+							url:  "{SITE_URL}index.php?app=user&ac=area&ts=three&twoid="+twoid,
+							success: function(msg){
+								$('#sthreeid').html(msg);
+							}
+						});
+					
+					}
+
+				});
+				
+			}
+		});
+	
+	}
+	
+});
+
+});
+</script>
+
+<script language="javascript">
+function newgdcode(obj,url) {
+obj.src = url+ '&nowtime=' + new Date().getTime();
+//后面传递一个随机参数，否则在IE7和火狐下，不刷新图片
+}
+</script>
+
+<!--{/if}-->
+
+<!--main-->
+<div class="midder">
+<div class="mc">
+<h1>{$TS_HL[app][1033]}</h1>
+<!--{if $TS_APP[options][isregister]=='2'}-->
+<p>{$TS_HL[app][1034]}</p>
+<p><a href="{SITE_URL}index.php">{$TS_HL[app][1035]}</a></p>
+<!--{else}-->
+<p></p>
+<form  id="signupform" method="POST" action="{SITE_URL}index.php?app=user&ac=register&ts=do">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="Tabletext">
+
+<!--{if $TS_APP[options][isregister]=='1'}-->
+<tr>
+<td class="label"><label id="invitecode" for="invitecode"><font color="red">{$TS_HL[app][1036]}</font></label></td>
+<td class="field" width="300"><input class="uinput" id="invitecode" name="invitecode" type="text" value="" /></td>
+<td class="status"></td>
+</tr>
+<!--{/if}-->
+
+
+<tr>
+<td class="label"><label id="email" for="email">{$TS_HL[app][1037]}</label></td>
+<td class="field" width="300"><input class="uinput" id="email" name="email" type="text" value="" /></td>
+<td class="status"></td>
+</tr>
+<tr>
+<td class="label"><label>{$TS_HL[app][1038]}</label></td>
+<td class="field"><input class="uinput" type="password" id="pwd" name="pwd"  /></td>
+<td class="status"></td>
+</tr>
+<tr>
+<td class="label"><label>{$TS_HL[app][1039]}</label></td>
+<td class="field"><input class="uinput" type="password" id="repwd" name="repwd"  /></td>
+<td class="status"></td>
+</tr>
+
+<tr>
+<td class="label"><label>{$TS_HL[app][1040]}</label></td>
+<td class="field"><input class="uinput" type="text" id="username" name="username" /></td>
+<td class="status"></td>
+</tr>
+
+<tr><td class="label">{$TS_HL[app][1047]}</td><td class="field"><input name="authcode" />
+ <img src="{SITE_URL}index.php?app=user&ac=checkcode" align="absmiddle" onclick="javascript:newgdcode(this,this.src);" alt="{$TS_HL[app][1048]}" style="cursor:pointer;"/></td>
+<td class="status"></td></tr>
+
+<tr>
+<td class="label"></td>
+<td class="field">
+<input type="hidden" name="fuserid" value="{$fuserid}" />
+<input class="submit" type="submit" value="{$TS_HL[app][1049]}" /> 
+
+<a href="{SITE_URL}{tsurl('user','login')}">{$TS_HL[app][1050]}</a></td>
+<td class="status"></td>
+</tr>
+
+<tr>
+<td class="label"><br /></td>
+<td class="field"><br />{php doAction('user_register_footer')}</td>
+<td class="status"></td>
+</tr>
+
+</table>
+</form>
+<!--{/if}-->
+
+</div>
+</div>
+{template footer}

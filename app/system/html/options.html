@@ -1,0 +1,46 @@
+{template header}
+
+<!--main-->
+<div class="midder">
+{template menu}
+<form method="POST" action="index.php?app=system&ac=do&ts=options">
+<table  cellpadding="0" cellspacing="0">
+
+<tr><td width="100">网站标题：</td><td><input style="width:300px;" name="site_title" value="{$strOption[site_title]}" /></td></tr>
+<tr><td>副标题：</td><td><input style="width:300px;" name="site_subtitle" value="{$strOption[site_subtitle]}" /> (例如：又一个ThinkSAAS社区小组)</td></tr>
+
+<tr><td>关键词：</td><td><input style="width:300px;" name="site_key" value="{$strOption[site_key]}" /> (关键词有助于SEO)</td></tr>
+
+<tr><td>网站说明：</td><td><textarea style="width:300px;height:50px;font-size:12px;" name="site_desc">{$strOption[site_desc]}</textarea> (用简洁的文字描述本站点。)</td></tr>
+
+<tr><td>站点地址（URL）:</td><td><input style="width:300px;" name="site_url" value="{$strOption[site_url]}" />(必须以http://开头，以/结尾)</td></tr>
+<tr><td>电子邮件 :</td><td><input style="width:300px;" name="site_email" value="{$strOption[site_email]}" /></td></tr>
+
+<tr><td>ICP备案号 :</td><td><input style="width:300px;" name="site_icp" value="{$strOption[site_icp]}" /> （京ICP备09050100号）</td></tr>
+
+<tr><td>是否上传头像 :</td><td><input type="radio" <!--{if $strOption[isface]=='0'}-->checked="select"<!--{/if}--> name="isface" value="0" />不需要 <input type="radio" <!--{if $strOption[isface]=='1'}-->checked="select"<!--{/if}--> name="isface" value="1" />需要</td></tr>
+
+<tr><td>Gzip压缩 :</td><td><input type="radio" <!--{if $strOption[isgzip]=='0'}-->checked="select"<!--{/if}--> name="isgzip" value="0" />关闭 <input type="radio" <!--{if $strOption[isgzip]=='1'}-->checked="select"<!--{/if}--> name="isgzip" value="1" />开启</td></tr>
+
+<tr><td>时区:</td><td>
+<select name="timezone">
+<!--{loop $arrTime $key $item}-->
+<option <!--{if $key==$strOption[timezone]}-->selected="selected"<!--{/if}--> value="{$key}">{$item}</option>
+<!--{/loop}-->
+</select>
+</td></tr>
+
+<tr><td>系统语言:</td><td>
+<select name="lang">
+<!--{loop $arrLang $key $item}-->
+<option <!--{if $key==$strOption[lang]}-->selected="selected"<!--{/if}--> value="{$key}">{$item}</option>
+<!--{/loop}-->
+</select>
+</td></tr>
+
+<tr><td></td><td><input type="submit" value="提 交" /></td></tr>
+</table>
+</form>
+</div>
+
+{template footer}
