@@ -98,7 +98,7 @@ function editor2html($str)
 
 //ThinkSAAS Notice
 
-function tsNotice($notice,$button=L::fun_clicktoreturn,$url='javascript:history.back(-1);',$isAutoGo=false){
+function tsNotice($notice,$button='点击返回',$url='javascript:history.back(-1);',$isAutoGo=false){
 	global $app;
 	global $TS_SITE;
 	global $TS_APP;
@@ -108,7 +108,7 @@ function tsNotice($notice,$button=L::fun_clicktoreturn,$url='javascript:history.
 	global $TS_SOFT;
 	global $runTime;
 
-	$title = L::fun_notice;
+	$title = '提示：';
 
 	include pubTemplate('notice');
 
