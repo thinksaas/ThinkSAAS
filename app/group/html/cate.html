@@ -6,9 +6,9 @@
 <div class="cleft">
 <!--{if $groupid!=''}-->
 <div style="clear: both;" class="indent cates">
-<span class="wrap"><h3><a href="{SITE_URL}{tsurl('group','cate')}">{$TS_HL[app][1155]}</a> > <!--{if $strCate[catereferid] != '0'}--><a href="{SITE_URL}{tsurl('group','cate',array(cateid=>$strCate[catereferid]))}">{$strCate[caterefername]}</a><!--{/if}--> &gt; {$title}</h3></span>
+<span class="wrap"><h3><a href="{SITE_URL}{tsurl('group','cate')}">小组分类</a> > <!--{if $strCate[catereferid] != '0'}--><a href="{SITE_URL}{tsurl('group','cate',array(cateid=>$strCate[catereferid]))}">{$strCate[caterefername]}</a><!--{/if}--> &gt; {$title}</h3></span>
 <!--{if $groupcateindex=='0' && $TS_APP[options][iscate]=='1' || $strCate[catereferid] > '0' && $TS_APP[options][iscate]=='2'}-->
-<p><span class="act"><a href="javascript:void('0');" onclick="addgroupcateindex('{$groupid}','{$strCate[cateid]}');">{$TS_HL[app][1156]}{$strGroup[groupname]}{$TS_HL[app][1157]}{$strCate[catename]}</a></span></p>
+<p><span class="act"><a href="javascript:void('0');" onclick="addgroupcateindex('{$groupid}','{$strCate[cateid]}');">添加{$strGroup[groupname]}到{$strCate[catename]}</a></span></p>
 <!--{/if}-->
 <ul>
 <!--{loop $arrCate $key $item}-->
@@ -50,7 +50,7 @@
 <br />
 <!--{loop $arrGroup $key $item}-->
 <div style="margin-bottom:6px;" class="ul"></div>
-<div class="clist2"><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}"><img align="left" alt="{$item[groupname]}" style="margin:0 20px 0 10px;" src="{$item[icon_48]}" /></a><div style="float:right;" class="pl">{$TS_HL[app][1147]}{php echo date('Y-m-d',$item[addtime])} <a href="{SITE_URL}{tsurl('group','group_user',array(groupid=>$item[groupid]))}">{$item[count_user]}{$TS_HL[app][1148]}</a></div><span class="pl2"><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a></span> <br><div class="pl">{php echo getsubstrutf8(t($item[groupdesc]),0,30)}</div></div>
+<div class="clist2"><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}"><img align="left" alt="{$item[groupname]}" style="margin:0 20px 0 10px;" src="{$item[icon_48]}" /></a><div style="float:right;" class="pl">{$TS_HL[app][1147]}{php echo date('Y-m-d',$item[addtime])} <a href="{SITE_URL}{tsurl('group','group_user',array(groupid=>$item[groupid]))}">{$item[count_user]}人</a></div><span class="pl2"><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a></span> <br><div class="pl">{php echo getsubstrutf8(t($item[groupdesc]),0,30)}</div></div>
 <br clear="all">
 <!--{/loop}-->
 </div>
@@ -60,21 +60,19 @@
 
 <div class="cright">
 
-
-<h2>{$TS_HL[app][1013]}</h2>
 <div>
 <form method="GET" action="index.php">
 <input type="hidden" name="app" value="search" />
 <input type="hidden" name="ac" value="s" />
 <span class="inp"><input type="text" autocomplete="off" name="kw" title="" size="22" maxlength="60" value="" style="color: rgb(212, 212, 212); width: 206px;"></span>
 <span>
-<input type="submit" class="submit" value="{$TS_HL[app][1013]}" />
+<input type="submit" class="submit" value="搜索" />
 </span>
 </form>
 </div>
 
 <br>
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group')}">{$TS_HL[app][1052]}</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group')}">返回小组首页</a></p>
 <br>
 
 </div>

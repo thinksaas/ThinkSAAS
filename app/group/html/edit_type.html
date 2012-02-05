@@ -8,10 +8,10 @@ $(".editable_textarea").editable("{SITE_URL}index.php?app=group&ac=do&ts=edit_ty
   type   : 'textarea',
   submitdata: { _method: "put"},
   select : true,
-  submit : '{$TS_HL[app][1116]}',
-  cancel : '{$TS_HL[app][1117]}',
+  submit : '确定',
+  cancel : '取消',
   cssclass : "editable",
-  tooltip   : '{$TS_HL[app][1118]}'
+  tooltip   : '点击进行编辑......'
 });
 
 });
@@ -26,7 +26,7 @@ function deltopictype(typeid){
 			beforeSend: function(){},
 			success: function(result){
 				if(result == '0'){
-					alert('{$TS_HL[app][1119]}');
+					alert('确定删除吗?');
 					window.location.reload(); 	
 				}
 			}
@@ -48,7 +48,7 @@ function deltopictype(typeid){
 <table class="topictype" width="100%">
 <!--{loop $arrGroupType $key $item}-->
 <tr>
-<td class="editable_textarea" id="{$item[typeid]}">{$item[typename]}</td><td><a href="javascript:void('0');" onclick="deltopictype('{$item[typeid]}')">{$TS_HL[app][1113]}</a></td>
+<td class="editable_textarea" id="{$item[typeid]}">{$item[typename]}</td><td><a href="javascript:void('0');" onclick="deltopictype('{$item[typeid]}')">删除</a></td>
 </tr>
 <!--{/loop}-->
 
@@ -58,9 +58,9 @@ function deltopictype(typeid){
 
 <div style="margin-top:30px;">
 <form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=topic_type">
-{$TS_HL[app][1121]}
+添加帖子分类：
 <input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
-<input name="typename" /> <input type="submit" value="{$TS_HL[app][1122]}" />
+<input name="typename" /> <input type="submit" value="提交" />
 </form>
 </div>
 
@@ -70,7 +70,7 @@ function deltopictype(typeid){
 
 <div class="cright">
 
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">{$TS_HL[app][1109]}{$strGroup[groupname]}{$TS_HL[app][1110]}</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">返回{$strGroup[groupname]}</a></p>
 
 </div>
 

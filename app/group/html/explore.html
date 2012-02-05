@@ -1,10 +1,10 @@
 {template header}
 <div class="midder">
 <div class="mc">
-<h1>{$TS_HL[app][1160]}</h1>
+<h1>随便看看</h1>
 <div class="cleft">
 
-<h2>{$TS_HL[app][1161]}</h2>
+<h2>最新活跃会员</h2>
 
 <div class="indent obssin">
 
@@ -22,7 +22,7 @@
 
 <div class="clear"></div>
 
-<h2>{$TS_HL[app][1162]}</h2>
+<h2>社区标签</h2>
 
 <div class="tags">
 <!--{loop $arrTag $key $item}-->
@@ -35,7 +35,7 @@
 
 <div class="clear"></div>
 
-<h2>{$TS_HL[app][1163]}</h2>
+<h2>推荐小组</h2>
 <div class="indent obssin">
 <!--{if $arrRecommendGroup}-->
 <!--{loop $arrRecommendGroup $key $item}-->
@@ -50,12 +50,12 @@
 <!--{/if}-->
 
 <div class="clear"></div>
-<div style="text-align:right;"><a href="{SITE_URL}{tsurl('group','all')}">{$TS_HL[app][1008]}</a></div>
+<div style="text-align:right;"><a href="{SITE_URL}{tsurl('group','all')}">全部小组</a></div>
 
 </div>
 <div class="clear"></div>
 
-<h2>{$TS_HL[app][1164]}</h2>
+<h2>最新回应帖子</h2>
 <div class="topic_list">
 <ul>
 <!--{if $arrTopic}-->
@@ -95,7 +95,6 @@
 
 <div class="cright">
 
-<h2>{$TS_HL[app][1024]}</h2>
 <div>
 <form method="GET" action="{SITE_URL}index.php">
 <input type="hidden" name="app" value="search" />
@@ -109,7 +108,7 @@
 <br />
 <div class="clear"></div>
 
-<h2>{$TS_HL[app][1165]}</h2>
+<h2>最新加入会员</h2>
 
 <div class="indent obssin">
 
@@ -123,7 +122,7 @@
 </div>
 <div class="clear"></div>
 
-<h2>{$TS_HL[app][1166]}</h2>
+<h2>最新成立小组</h2>
 
 <div class="line23">
 <!--{if $arrNewGroup}-->

@@ -6,12 +6,12 @@
 <div class="infobox">
 
 <div class="bd"><img align="left" alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}" class="pil groupicon" valign="top" />
-<p>{$TS_HL[app][1147]}{php echo date('Y-m-d',$strGroup[addtime])}&nbsp; &nbsp; {$TS_HL[app][1186]}<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strLeader[userid]))}">{$strLeader[username]}</a><br></p>
+<p>创建于：{php echo date('Y-m-d',$strGroup[addtime])}&nbsp; &nbsp; 组长：<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strLeader[userid]))}">{$strLeader[username]}</a><br></p>
 {$strGroup[groupdesc]}
 <div class="clearfix" style="margin-top: 10px;">
 
 
-<span class="fright mr5 color-gray"><a rel="nofollow" class="j a_show_login submit" href="javascript:void(0);" onclick="joinGroup('{$strGroup[groupid]}');"><span>{$TS_HL[app][1173]}</span></a></span>
+<span class="fright mr5 color-gray"><a rel="nofollow" class="j a_show_login submit" href="javascript:void(0);" onclick="joinGroup('{$strGroup[groupid]}');"><span>加入</span></a></span>
 
 
 </div>
@@ -20,8 +20,8 @@
 </div>
 
 <div>
-<p>{$TS_HL[app][1189]}</p>
-<p>{$TS_HL[app][1190]}{$strGroup[count_user]}  {$TS_HL[app][1191]}{$strGroup[count_topic]}</p>
+<p>加入方式: 自由加入 浏览权限: 仅成员</p>
+<p>成员：{$strGroup[count_user]}  帖子：{$strGroup[count_topic]}</p>
 </div>
 
 </div>
@@ -29,7 +29,7 @@
 
 <div class="cright">
 
-<p class="pl">{$TS_HL[app][1192]}<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">{$TS_SITE[base][site_url]}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}</a></p>
+<p class="pl">本页永久链接：<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}">{$TS_SITE[base][site_url]}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}</a></p>
 
 </div>
 </div>

@@ -91,16 +91,16 @@
 <input type="hidden" name="app" value="search" />
 <input type="hidden" name="ac" value="s" />
 <span class="inp">
-<input type="text" autocomplete="off" name="kw" onfocus="if(this.value=='ThinkSAAS') this.value='';" title="" size="22" maxlength="60" value="ThinkSAAS" style="color: rgb(212, 212, 212); width: 206px;"></span>
+<input type="text" name="kw" size="22" maxlength="60" style="color: rgb(212, 212, 212); width: 206px;"></span>
 <span>
-<input type="submit" class="submit" value="{$TS_HL[app][1013]}" />
+<input type="submit" class="submit" value="搜索" />
 </span>
 </form>
 </div>
 
 <div class="clear"></div>
-<h2>{$TS_HL[app][1027]}<span class="pl">(
-<a href="{SITE_URL}{tsurl('group','my_group')}">{$TS_HL[app][1026]}</a>
+<h2>我的小组<span class="pl">(
+<a href="{SITE_URL}{tsurl('group','my_group')}">全部</a>
 ) </span></h2>
 <div class="mygroup">
 <ul>
@@ -115,10 +115,10 @@
 <div class="clear"></div>
 
 <!--{if $TS_APP[options][iscreate]==0 || $TS_USER[user][isadmin]==1}-->
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','create')}">{$TS_HL[app][1011]}</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','create')}">创建小组</a></p>
 <!--{/if}-->
 
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','all')}">{$TS_HL[app][1008]}</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','all')}">全部小组</a></p>
 
 
 </div>
