@@ -2,7 +2,7 @@
 defined('IN_TS') or die('Access Denied.');
 //统计代码
 function gobad_html(){
-	$code = fileRead('data.php','plugins','pubs','gobad');
+	$code = fileRead('plugins/pubs/gobad/data.php');
 	
 	$code = stripcslashes($code);
 	

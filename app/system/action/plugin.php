@@ -17,7 +17,7 @@ switch($ts){
 			}
 		}
 		
-		$app_plugins = fileRead('plugins.php','data',$apps);
+		$app_plugins = fileRead('data/'.$apps.'_plugins.php');
 		
 		include template("plugin_list");
 		break;
@@ -30,7 +30,7 @@ switch($ts){
 		$isused =  intval($_GET['isused']);
 		$pname = $_GET['pname'];
 		
-		$app_plugins = fileRead('plugins.php','data',$apps);
+		$app_plugins = fileRead('data/'.$apps.'_plugins.php');
 
 		
 		//0停用1启用

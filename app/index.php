@@ -30,7 +30,7 @@ $TS_APP['system']	= array(
 if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 
 	//加载系统缓存文件
-	$TS_SITE['base'] = fileRead('options.php','data','system');
+	$TS_SITE['base'] = fileRead('data/system_options.php');
 	
 	//语言
 	$hl_c = isset($_COOKIE['ts_lang']) ? $_COOKIE['ts_lang'] : '';
@@ -44,7 +44,7 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	date_default_timezone_set($TS_SITE['base']['timezone']);
 	
 	//加载APP导航
-	$TS_SITE['appnav'] = fileRead('appnav.php','data','system');
+	$TS_SITE['appnav'] = fileRead('data/system_appnav.php');
 
 	
 	define('SITE_URL', $TS_SITE['base']['site_url']);
@@ -65,7 +65,7 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	if($app != 'system'){
 		
 		
-			$TS_APP['options'] = fileRead('options.php','data',$app);
+			$TS_APP['options'] = fileRead('data/'.$app.'_options.php');
 			
 			if($TS_APP['options']['isenable']=='1' && $ac != 'admin') qiMsg($app."应用关闭，请开启后访问！");
 		
@@ -144,7 +144,7 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 
 		//加载公用插件 
 		if(is_file('data/pubs_plugins.php')){
-			$public_plugins = fileRead('plugins.php','data','pubs');
+			$public_plugins = fileRead('data/pubs_plugins.php');
 		
 			if ($public_plugins && is_array($public_plugins)) {
 				foreach($public_plugins as $item) {
@@ -157,7 +157,7 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	
 		//加载APP插件
 		if(is_file('data/'.$app.'_plugins.php')){
-			$active_plugins = fileRead('plugins.php','data',$app);
+			$active_plugins = fileRead('data/'.$app.'_plugins.php');
 			if ($active_plugins && is_array($active_plugins)) {
 				foreach($active_plugins as $item) {
 					if(is_file('plugins/'.$app.'/'.$item.'/'.$item.'.php')) {

@@ -96,6 +96,25 @@ function editor2html($str)
 	unset($db);
 }
 
+//ThinkSAAS Notice
+
+function tsNotice($notice,$button=L::fun_clicktoreturn,$url='javascript:history.back(-1);',$isAutoGo=false){
+	global $app;
+	global $TS_SITE;
+	global $TS_APP;
+	global $site_theme;
+	global $skin;
+	global $TS_USER;
+	global $TS_SOFT;
+	global $runTime;
+
+	$title = L::fun_notice;
+
+	include pubTemplate('notice');
+
+	exit;
+}
+
  
 //系统消息
  
@@ -387,51 +406,27 @@ function getmicrotime(){
 function fileWrite($file,$dir,$data){
 
 	!is_dir($dir)?mkdir($dir,0777):'';
-	
+
 	$dfile = $dir.'/'.$file;
-	
-	if($dfile) unlink($dfile);
-	
+
+	if(is_file($dfile)) unlink($dfile);
+
 	$data = "<?php\ndefined('IN_TS') or die('Access Denied.');\nreturn ".var_export($data,true).";";
-	
+
 	file_put_contents($dfile,$data);
-	
+
 	return true;
-	
+
 }
 
-/*读取文件，过渡期ThinkSAAS1.6，到1.8的时间可以全面进行精简到fileRead($dfile)
- @$file 文件
- @$dir 目录
- @$app 过渡一下app
+/*读取文件
+ @$dfile 文件
 */
-function fileRead($file,$dir,$app,$plugin=''){
-
-	if($plugin!=''){
-		
-		//plugins
-		if(is_file($dir.'/'.$app.'/'.$plugin.'/'.$file)){
-			$data = include $dir.'/'.$app.'/'.$plugin.'/'.$file;
-			return $data;
-		}
-		
-	}else{
-		
-		//app
-		if(is_file($dir.'/'.$app.'_'.$file)){
-			$data = include $dir.'/'.$app.'_'.$file;
-			return $data;
-		}elseif(is_file($dir.'/cache/'.$app.'/'.$file)){
-			$data = include $dir.'/cache/'.$app.'/'.$file;
-			return $data;
-		}
-	
+function fileRead($dfile){
+	if(is_file($dfile)){
+		$data = include $dfile;
+		return $data;
 	}
-
-
-	
-	
-	
 }
 
 //把数组转换为,号分割的字符串

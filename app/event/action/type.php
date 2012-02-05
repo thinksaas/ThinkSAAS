@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
 
 $typeid = $_GET['typeid'];
 //调出活动类型
-$arrEventType = fileRead('types.php','data','event');
+$arrEventType = fileRead('data/event_types.php');
 
 
 if($typeid == 0){

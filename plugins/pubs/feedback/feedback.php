@@ -1,7 +1,7 @@
 <?php 
 //feedback反馈插件 
 function feedback_html(){
-	$code = fileRead('data.php','plugins','pubs','feedback');
+	$code = fileRead('plugins/pubs/feedback/data.php');
 	$code = stripcslashes($code);
 	echo '<div class="feedback-box">
 '.$code.'

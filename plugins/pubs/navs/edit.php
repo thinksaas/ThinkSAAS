@@ -2,7 +2,7 @@
 //插件编辑
 switch($ts){
 	case "set":
-		$arrNav = fileRead('data.php','plugins','pubs','navs');
+		$arrNav = fileRead('plugins/pubs/navs/data.php');
 		
 		include 'edit_set.html';
 		break;
