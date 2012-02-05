@@ -17,8 +17,8 @@
 </h1>
 
 <ul>
-<li><a href="{SITE_URL}{tsurl('group')}">{$TS_HL[app][1060]}</a></li>
-<li><a href="{SITE_URL}{tsurl('photo','album',array(ts=>user,userid=>$strUser[userid]))}">{$TS_HL[app][1061]}</a></li>
+<li><a href="{SITE_URL}{tsurl('group')}">小组</a></li>
+<li><a href="{SITE_URL}{tsurl('photo','album',array(ts=>user,userid=>$strUser[userid]))}">相册</a></li>
 </ul>
 
 </div>
@@ -27,10 +27,10 @@
 
 <div id="recs" class="">
     <h2>
-        {$strUser[username]}{$TS_HL[app][1062]}
+        {$strUser[username]}发布的帖子
          &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
             <span class="pl">&nbsp;(
-                <a href="#">{$TS_HL[app][1063]}</a>
+                <a href="#">全部</a>
             ) </span>
     </h2>
 
@@ -47,7 +47,7 @@
 <!--{/loop}-->
 </table>
 <!--{else}-->
-<div style="padding:50 0;color:#999999;">{$TS_HL[app][1064]}</div>
+<div style="padding:50 0;color:#999999;">这个人很懒，什么也不愿意留下！</div>
 <!--{/if}-->
 </div>
 
@@ -56,10 +56,10 @@
 
 <div id="recs" class="">
     <h2>
-        {$strUser[username]}{$TS_HL[app][1065]}
+        {$strUser[username]}回复的帖子
          &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
             <span class="pl">&nbsp;(
-                <a href="#">{$TS_HL[app][1063]}</a>
+                <a href="#">全部</a>
             ) </span>
     </h2>
 
@@ -76,7 +76,7 @@
 <!--{/loop}-->
 </table>
 <!--{else}-->
-<div style="padding:50 0;color:#999999;">{$TS_HL[app][1064]}</div>
+<div style="padding:50 0;color:#999999;">这个人很懒，什么也不愿意留下！</div>
 <!--{/if}-->
 </div>
 
@@ -85,10 +85,10 @@
 
 <div id="recs" class="">
     <h2>
-        {$strUser[username]}{$TS_HL[app][1066]}
+        {$strUser[username]}收藏的帖子
          &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
             <span class="pl">&nbsp;(
-                <a href="#">{$TS_HL[app][1063]}</a>
+                <a href="#">全部</a>
             ) </span>
     </h2>
 
@@ -105,7 +105,7 @@
 <!--{/loop}-->
 </table>
 <!--{else}-->
-<div style="padding:50 0;color:#999999;">{$TS_HL[app][1064]}</div>
+<div style="padding:50 0;color:#999999;">这个人很懒，什么也不愿意留下！</div>
 <!--{/if}-->
 </div>
 
@@ -128,22 +128,22 @@
 <img alt="" class="userface" src="{$strUser[bigface]}">
 
 <div class="user-info">
-<div class="pl">UID:{$strUser[userid]} <br> {php echo date('Y-m-d',$strUser[addtime])} {$TS_HL[app][1067]}</div>
+<div class="pl">UID:{$strUser[userid]} <br> {php echo date('Y-m-d',$strUser[addtime])} 加入</div>
 <!--{if $strUser[userid] != $TS_USER[user][userid]}-->
 <div class="user-opt">
 
 <!--{if $strUser[isfollow]}-->
 <div class="user-group" style="display: block;">
-<span class="user-cs">{$TS_HL[app][1068]}</span>
+<span class="user-cs">已关注</span>
 <span class="user-rs">
 
-<a href="{SITE_URL}index.php?app=user&ac=do&ts=user_nofollow&userid_follow={$strUser[userid]}">{$TS_HL[app][1069]}</a></span>
+<a href="{SITE_URL}index.php?app=user&ac=do&ts=user_nofollow&userid_follow={$strUser[userid]}">取消关注</a></span>
 
 </div>
 <!--{else}-->
-<a class="a-btn-add mr10 add_contact" href="{SITE_URL}index.php?app=user&ac=do&ts=user_follow&userid_follow={$strUser[userid]}">{$TS_HL[app][1070]}</a>
+<a class="a-btn-add mr10 add_contact" href="{SITE_URL}index.php?app=user&ac=do&ts=user_follow&userid_follow={$strUser[userid]}">跟随此人</a>
 <!--{/if}-->
-<a href="{SITE_URL}{tsurl('user','message',array(ts=>message_add,touserid=>$strUser[userid]))}" rel="nofollow" class="a-btn mr5">{$TS_HL[app][1071]}</a>
+<a href="{SITE_URL}{tsurl('user','message',array(ts=>message_add,touserid=>$strUser[userid]))}" rel="nofollow" class="a-btn mr5">发消息</a>
 <div id="divac"></div>
 </div>
 <!--{/if}-->
@@ -154,12 +154,12 @@
 
 <div class="j edtext pl" id="edit_intro">
 <span id="intro_display">
-{$TS_HL[app][1072]}<!--{if $strUser[sex]=='0'}-->{$TS_HL[app][1073]}<!--{elseif $strUser[sex]=='1'}-->{$TS_HL[app][1074]}<!--{else}-->{$TS_HL[app][1075]}<!--{/if}--><br /><br />
-<!--{if $strUser[blog]}-->{$TS_HL[app][1076]}{$strUser[blog]}<br /><br /><!--{/if}-->
-<!--{if $strUser[about]}-->{$TS_HL[app][1077]}{$strUser[about]}<br /> <br /><!--{/if}-->
-<!--{if $strUser[signed]}-->{$TS_HL[app][1078]}{$strUser[signed]}<br /><br /><!--{/if}-->
+性别：<!--{if $strUser[sex]=='0'}-->保密<!--{elseif $strUser[sex]=='1'}-->男<!--{else}-->女<!--{/if}--><br /><br />
+<!--{if $strUser[blog]}-->博客：{$strUser[blog]}<br /><br /><!--{/if}-->
+<!--{if $strUser[about]}-->关于：{$strUser[about]}<br /> <br /><!--{/if}-->
+<!--{if $strUser[signed]}-->签名：{$strUser[signed]}<br /><br /><!--{/if}-->
 
-<!--{if $strUser[userid] == $TS_USER[user][userid]}-->[<a href="{SITE_URL}{tsurl('user','set',array(ts=>base))}">{$TS_HL[app][1079]}</a>]<!--{/if}-->
+<!--{if $strUser[userid] == $TS_USER[user][userid]}-->[<a href="{SITE_URL}{tsurl('user','set',array(ts=>base))}">修改基本信息</a>]<!--{/if}-->
 </span>
 </div>
 
@@ -176,10 +176,10 @@
 <div id="friend">
 
 <h2>
-{$strUser[username]}{$TS_HL[app][1080]}
+{$strUser[username]}跟随的人
 &nbsp;·&nbsp;·&nbsp;·
 <span class="pl">&nbsp;(
-<a href="{SITE_URL}{tsurl('user','follow',array(userid=>$strUser[userid]))}">{$TS_HL[app][1063]}{$strUser[count_follow]}</a>
+<a href="{SITE_URL}{tsurl('user','follow',array(userid=>$strUser[userid]))}">全部{$strUser[count_follow]}</a>
 ) </span>
 </h2>
 
@@ -191,17 +191,17 @@
 
 <br clear="all">
 
-<a href="{SITE_URL}{tsurl('user','followed',array(userid=>$strUser[userid]))}">&gt; {$TS_HL[app][1081]}{$strUser[count_followed]}{$TS_HL[app][1082]}</a>
+<a href="{SITE_URL}{tsurl('user','followed',array(userid=>$strUser[userid]))}">&gt; 被{$strUser[count_followed]}人跟随</a>
 
 </div>
 
 <div id="group" class="">
 
 <h2>
-{$strUser[username]}{$TS_HL[app][1083]}
+{$strUser[username]}参加的小组
 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
 <span class="pl">&nbsp;(
-<a href="">{$TS_HL[app][1063]}</a>
+<a href="">全部</a>
 ) </span>
 </h2>
 
@@ -215,7 +215,7 @@
 
 </div>
 
-<p class="pl">{$TS_HL[app][1084]}{$strUser[username]}{$TS_HL[app][1085]} <br><span class="feed">
+<p class="pl">订阅{$strUser[username]}的收藏 <br><span class="feed">
 <a href="#"> feed: rss 2.0</a></span></p>
 </div>
 

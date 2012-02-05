@@ -2,14 +2,14 @@
 <!--main-->
 <div class="midder">
 <div class="mc">
-<h1>{$TS_HL[app][1000]}</h1>
-<p>{$TS_HL[app][1001]}</p>
+<h1>用户登录</h1>
+<p>如果您在网吧或者非个人电脑，建议设置Cookie有效期为 即时，以保证账户安全</p>
 
 <div style="float:left;padding: 20px 0 0 100px;">
 <form method="POST" action="{SITE_URL}index.php?app=user&ac=login&ts=do">
 <table>
-<tr><td>{$TS_HL[app][1002]}<br /><input class="uinput" type="text" name="email" /></td></tr>
-<tr><td>{$TS_HL[app][1003]}<br /><input class="uinput" type="password" name="pwd" /></td></tr>
+<tr><td>Email：<br /><input class="uinput" type="text" name="email" /></td></tr>
+<tr><td>密码：<br /><input class="uinput" type="password" name="pwd" /></td></tr>
 
 <!--
 <tr><th>验证码：</th><td><input name="authcode" /> <img src="{SITE_URL}index.php?app=user&ac=checkcode" align="absmiddle" onclick="javascript:newgdcode(this,this.src);" alt="看不清楚，换一张" /></td></tr>
@@ -17,21 +17,21 @@
 
 <tr>
 <td>
-{$TS_HL[app][1004]}<br />
+COOKIE有效期<br />
 <select name="cktime">
-		<option value="31536000">{$TS_HL[app][1005]}</option>
-		<option value="2592000">{$TS_HL[app][1006]}</option>
-		<option value="86400">{$TS_HL[app][1007]}</option>
-		<option value="3600">{$TS_HL[app][1008]}</option>
-		<option value="0">{$TS_HL[app][1009]}</option>
+		<option value="31536000">一年</option>
+		<option value="2592000">一个月</option>
+		<option value="86400">一天</option>
+		<option value="3600">一小时</option>
+		<option value="0">及时</option>
 	</select>
 </td></tr>
 
 <tr><td>
 <input type="hidden" name="jump" value="{$jump}" />
-<input class="submit" type="submit" value="{$TS_HL[app][1010]}" /> 
+<input class="submit" type="submit" value="登录" /> 
 <br />
-<a href="{SITE_URL}{tsurl('user','register')}">{$TS_HL[app][1011]}</a> | <a href="{SITE_URL}{tsurl('user','forgetpwd')}">{$TS_HL[app][1012]}</a></td></tr>
+<a href="{SITE_URL}{tsurl('user','register')}">还没有帐号？</a> | <a href="{SITE_URL}{tsurl('user','forgetpwd')}">忘记密码</a></td></tr>
 </table>
 </form>
 </div>
