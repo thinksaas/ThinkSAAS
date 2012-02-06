@@ -53,7 +53,7 @@ if($ts=='addcomment'){
 				$msg_userid = '0';
 				$msg_touserid = $strTopic['userid'];
 				$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ <br />'
-											.SITE_URL.'index.php?app=group&ac=topic&topicid='.$topicid;
+											.SITE_URL.tsurl('group','topic',array('id'=>$topicid));
 				aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 				
 			}
@@ -816,14 +816,14 @@ switch ($ts) {
 		if($topicid && $strTopic['userid'] != $TS_USER['user']['userid']){
 			$msg_userid = '0';
 			$msg_touserid = $strTopic['userid'];
-			$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ <br />'.SITE_URL.'index.php?app=group&ac=topic&topicid='.$topicid;
+			$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ <br />'.SITE_URL.tsurl('group','topic',array('id'=>$topicid));
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 		}
 		
 		if($referid && $strComment['userid'] != $TS_USER['user']['userid']){
 			$msg_userid = '0';
 			$msg_touserid = $strComment['userid'];
-			$msg_content = '有人评论了你在帖子：《'.$strTopic['title'].'》中的回复，快去看看给个回复吧^_^ <br />'.SITE_URL.'index.php?app=group&ac=topic&topicid='.$topicid;
+			$msg_content = '有人评论了你在帖子：《'.$strTopic['title'].'》中的回复，快去看看给个回复吧^_^ <br />'.SITE_URL.tsurl('group','topic',array('id'=>$topicid));
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 		}
 		
@@ -955,7 +955,7 @@ switch ($ts) {
 				//msg start
 				$msg_userid = '0';
 				$msg_touserid = $strTopic['userid'];
-				$msg_content = '恭喜，你的帖子：《'.$strTopic['title'].'》被评为精华帖啦^_^ <br />'.SITE_URL.'index.php?app=group&ac=topic&topicid='.$topicid;
+				$msg_content = '恭喜，你的帖子：《'.$strTopic['title'].'》被评为精华帖啦^_^ <br />'.SITE_URL.tsurl('group','topic',array('id'=>$topicid));
 				aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 				//msg end
 				
