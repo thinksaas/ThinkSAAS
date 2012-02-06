@@ -33,6 +33,7 @@ function get_user_info($appid, $appkey, $access_token, $access_token_secret, $op
 //接口调用示例：
 $arr = get_user_info($_SESSION["appid"], $_SESSION["appkey"], $_SESSION["token"], $_SESSION["secret"], $_SESSION["openid"]);
 
+
 $title = "QQ帐号登录信息完善";
 
 include 'get_user_info.html';

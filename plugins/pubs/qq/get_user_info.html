@@ -13,7 +13,12 @@
 <table class="utable">
 <tr><th>用户名：</th><td><input class="uinput" name="username" value="<?php echo $arr['nickname'] ?>" /> *必须</td></tr>
 <tr><th>Email：</th><td><input class="uinput" name="email" /> * 必须</td></tr>
-<tr><th>头像：</th><td><img src="<?php echo $arr['figureurl_2'] ?>" /></td></tr>
+<tr><th>头像：</th><td>
+
+<img src="<?php echo $arr['figureurl_2'] ?>" />
+<input type="hidden" name="face" value="<?php echo $arr['figureurl_2'] ?>" />
+
+</td></tr>
 <tr><th></th><td></td></tr>
 <tr><th></th><td><input class="submit" style="width:130px;" type="submit" value="完成，继续浏览" /> 
 <br />

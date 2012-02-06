@@ -2,7 +2,7 @@
 //插件编辑
 switch($ts){
 	case "set":
-		$arrData = fileRead('plugins/pubs/qq/data.php');
+		$arrData = fileRead('data.php','plugins','pubs','qq');
 		
 		include 'edit_set.html';
 		break;

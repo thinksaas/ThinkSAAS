@@ -2,6 +2,7 @@
 //执行登录
 $username = t($_POST['username']);
 $email = trim($_POST['email']);
+$face = $_POST['face'];
 
 if($username=='' || $email==''){
 	qiMsg("用户名和Email都不能为空！");
@@ -38,6 +39,32 @@ if($username=='' || $email==''){
 		
 		//插入用户信息
 		$db->insertArr($arrData,dbprefix.'user_info');
+		
+		//更新用户头像
+		if($face){
+			//1000个图片一个目录
+			$menu2=intval($userid/1000);
+			$menu1=intval($menu2/1000);
+			$menu = $menu1.'/'.$menu2;
+			$photo = $userid.'.jpg';
+			
+			$photos = $menu.'/'.$photo;
+			
+			$dir = 'uploadfile/user/'.$menu;
+			
+			$dfile = $dir.'/'.$photo;
+			
+			createFolders($dir);
+			
+			if(!is_file($dfile)){
+				$img = file_get_contents($face); 
+				file_put_contents($dfile,$img); 
+			};
+			
+			$db->query("update ".dbprefix."user_info set `path`='$menu',`face`='$photos' where `userid`='$userid'");
+			
+		}
+		
 		
 		//默认加入小组
 		$isgroup = $db->once_fetch_assoc("select optionvalue from ".dbprefix."user_options where optionname='isgroup'");
