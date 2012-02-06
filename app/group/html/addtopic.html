@@ -9,7 +9,7 @@
 <!--{if $isGroupUser == '0'}-->
 <div style="font-size:14px;padding-top:50px;text-align:center;">不好意思，你不是本组成员不能发表帖子，请加入后再发帖</div>
 <!--{else}-->
-<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=new_topic" onsubmit="return newTopicFrom(this)">
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=addtopic" onsubmit="return newTopicFrom(this)">
 <table width="95%">
 <tbody><tr><td width="50">标题：</td>
     <td><input style="padding:3px 0;width:400px;" type="text" value="" maxlength="100" size="50" name="title" gtbfieldid="2"></td></tr>	

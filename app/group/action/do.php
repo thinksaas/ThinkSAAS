@@ -78,7 +78,7 @@ if($ts=='addcomment'){
 
 switch ($ts) {
 
-	case "new_topic":
+	case "addtopic":
 	
 		//用户是否登录
 		$userid = intval($TS_USER['user']['userid']);

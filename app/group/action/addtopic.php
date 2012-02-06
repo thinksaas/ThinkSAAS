@@ -41,4 +41,4 @@ $arrGroupType = $db->fetch_all_assoc("select * from ".dbprefix."group_topics_typ
 $title = '发布帖子';
 
 //包含模版
-include template("new_topic");
+include template("addtopic");
