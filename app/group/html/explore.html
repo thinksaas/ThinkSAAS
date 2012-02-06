@@ -41,8 +41,8 @@
 <!--{loop $arrRecommendGroup $key $item}-->
 
 <dl class="ob">
-<dt><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}" width="48" /></a></dt>
-<dd><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]}{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)</span>
+<dt><a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}" width="48" /></a></dt>
+<dd><a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]}{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)</span>
 </dd>
 </dl>
 
@@ -70,7 +70,7 @@
 </div>
 <div class="topic_info">
 <span style="float:left;">
-<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[group][groupname]}</a>
+<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[group][groupname]}</a>
 </span>
 
 <span style="float:right;">
@@ -127,7 +127,7 @@
 <div class="line23">
 <!--{if $arrNewGroup}-->
 <!--{loop $arrNewGroup $key $item}-->
-<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
+<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
 <!--{/loop}-->
 <!--{/if}-->
 </div>

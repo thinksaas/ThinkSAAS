@@ -183,7 +183,7 @@ switch ($ts) {
 			//feed开始
 			$feed_template = '<span class="pl">在 <a href="{group_link}">{group_name}</a> 创建了新话题：<a href="{topic_link}">{topic_title}</a></span><div class="broadsmr">{content}</div><div class="indentrec"><span><a  class="j a_rec_reply" href="{topic_link}">回应</a></span></div>';
 			$feed_data = array(
-				'group_link'	=> SITE_URL.tsurl('group','group',array('groupid'=>$strGroup['groupid'])),
+				'group_link'	=> SITE_URL.tsurl('group','show',array('id'=>$strGroup['groupid'])),
 				'group_name'	=> $strGroup['groupname'],
 				'topic_link'	=> SITE_URL.tsurl('group','topic',array('topicid'=>$topicid)),
 				'topic_title'	=> $title,

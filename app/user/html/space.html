@@ -206,8 +206,8 @@
 </h2>
 
 <!--{loop $arrGroup $key $item}-->
-<dl class="ob"><dt><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}"></a></dt>
-<dd><a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]})</span>
+<dl class="ob"><dt><a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}"></a></dt>
+<dd><a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]})</span>
 </dd></dl>
 <!--{/loop}-->
 

@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
 <channel>
   <title>{$TS_SITE[base][site_title]}: {$strGroup[groupname]}小组的讨论</title>
-  <link>{$TS_SITE[base][site_url]}{tsurl('group','group',array(groupid=>$strGroup[groupid]))}</link>
+  <link>{$TS_SITE[base][site_url]}{tsurl('group','show',array('id'=>$strGroup[groupid]))}</link>
   <description><![CDATA[{$TS_SITE[base][site_title]} {$strGroup[groupname]}小组二日内的最新讨论话题]]></description>
   <language>zh_cn</language>
   <copyright>&amp;amp;copy; {$TS_SOFT[info][year]}, {$TS_SOFT[info][copyright]}.</copyright>

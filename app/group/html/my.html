@@ -59,7 +59,7 @@
 
 <div class="topic_info">
 <span style="float:left;">
-<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[group][groupname]}</a>
+<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[group][groupname]}</a>
 </span>
 
 <span style="float:right;">
@@ -106,7 +106,7 @@
 <ul>
 <!--{loop $arrMyGroup $key $item}-->
 <li>
-<a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_16]}" width="16" align="absmiddle" /></a> <a href="{SITE_URL}{tsurl('group','group',array(groupid=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)</span>
+<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_16]}" width="16" align="absmiddle" /></a> <a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)</span>
 </li>
 <!--{/loop}-->	
 </ul>

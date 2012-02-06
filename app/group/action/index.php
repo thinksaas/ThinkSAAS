@@ -41,7 +41,7 @@ if($TS_USER['user'] == ''){
 	
 	//小组模式的跳转
 	if(intval($TS_APP['options']['ismode'])=='1'){
-		header("Location: ".SITE_URL.tsurl('group','group',array('groupid'=>'1')));
+		header("Location: ".SITE_URL.tsurl('group','show',array('id'=>'1')));
 		exit;
 	}
 	
