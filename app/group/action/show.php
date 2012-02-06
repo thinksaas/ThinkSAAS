@@ -98,6 +98,6 @@ if($strGroup['isaudit']=='1'){
 		$title = $strGroup['groupname'].' - 第'.$page.'页';
 	}
 
-	include template("group");
+	include template("show");
 
 }

@@ -168,24 +168,6 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 		}
 	}
 	
-	//加载语言包，公共语言包和APP语言包
-	if(is_file('public/lang/'.$hl.'.php')){
-		$TS_HL['pub'] = include 'public/lang/'.$hl.'.php';
-	}else{
-		if(is_file('public/lang/zh_cn.php')){
-			$TS_HL['pub'] = include 'public/lang/zh_cn.php';
-		}
-	}
-	
-	if(is_file('app/'.$app.'/lang/'.$hl.'.php')){
-		
-		$TS_HL['app'] = include 'app/'.$app.'/lang/'.$hl.'.php';
-	}else{
-		if(is_file('app/'.$app.'/lang/zh_cn.php')){
-			$TS_HL['app'] = include 'app/'.$app.'/lang/zh_cn.php';
-		}
-	}
-	
 	//开始执行APP action
 	include $app.'/action/'.$ac.'.php';
 	
