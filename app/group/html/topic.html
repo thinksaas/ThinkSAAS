@@ -62,11 +62,11 @@
 <a rel="tag" title="" class="post-tag" href="{SITE_URL}{tsurl('group','topic_tag',array(tagname=>$item[tagname]))}">{$item[tagname]}</a>
 <!--{/loop}-->
 <!--{if $isGroupUser}-->
-<a rel="tag" class="post-tag" href="javascript:void(0);" onclick="showTagFrom()">添加标签</a>
+<a rel="tag" href="javascript:void(0);" onclick="showTagFrom()">+标签</a>
 <!--{/if}-->
 
 <p id="tagFrom" style="display:none">
-<input style="width:250px;padding:3px 2px;" type="text" name="tags" id="tags" /> <button type="submit" class="subab" onclick="savaTag({$topicid})">添加</button>
+<input style="width:250px;padding:3px 2px;" type="text" name="tags" id="tags" /> <button type="submit" class="subab" onclick="savaTag({$topicid})">添加</button> <a href="javascript:void(0);" onclick="showTagFrom()">取消</a>
 </p>
 
 

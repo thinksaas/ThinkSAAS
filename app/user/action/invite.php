@@ -23,7 +23,7 @@ switch($ts){
 		break;
 		
 	//取邀请码
-	case "invite_code":
+	case "code":
 		
 		//计算是否还有邀请码
 		$codeNum = $db->once_num_rows("select * from ".dbprefix."user_invites where isused='0'");
