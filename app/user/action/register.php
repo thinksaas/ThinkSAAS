@@ -24,39 +24,45 @@ switch($ts){
 		
 		$fuserid = intval($_POST['fuserid']);
 		
-		$authcode = strtoupper($_POST['authcode']); //strtoupper将字符转成大写
+		$authcode = strtoupper($_POST['authcode']);
 		
 		//是否开启邀请注册
 		if($TS_APP['options']['isregister']=='1'){
 		
 			$invitecode = trim($_POST['invitecode']);
 			if($invitecode == '') tsNotice("邀请码不能为空！");
-			$codeNum = $db->once_num_rows("select * from ".dbprefix."user_invites where invitecode='$invitecode' and isused='0'");
-			if($codeNum == '0') tsNotice("邀请码无效，请更换邀请码！");
+			$codeNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."user_invites where `invitecode`='$invitecode' and `isused`='0'");
+			if($codeNum['count(*)'] == 0) tsNotice("邀请码无效，请更换邀请码！");
 		
 		}
 
-		$isEmail = $db->once_num_rows("SELECT * FROM ".dbprefix."user WHERE email='$email'");
-		$isusername = $db->once_num_rows("select * from ".dbprefix."user_info where username='$username'");
+		$isEmail = $db->once_fetch_assoc("select count(*) from ".dbprefix."user where `email`='$email'");
 		
+		$isUserName = $db->once_fetch_assoc("select count(*) from ".dbprefix."user_info where `username`='$username'");
 		
-		if(empty($email) || empty($pwd) || empty($repwd) || empty($username)){
+		if($email=='' || $pwd=='' || $repwd=='' || $username==''){
+		
 			tsNotice('所有必选项都不能为空！');
+		
 		}elseif(valid_email($email) == false){
+		
 			tsNotice('Email邮箱输入有误!');
-		}elseif($isEmail != '0'){
+			
+		}elseif($isEmail['count(*)'] > 0){
 			tsNotice('Email已经注册^_^');
 		}elseif($pwd != $repwd){
 			tsNotice('两次输入密码不正确！');
 		}elseif(strlen($username) < 4 || strlen($username) > 20){
 			tsNotice('姓名长度必须在4和20之间!');
-		}elseif($username > 0){
+		}elseif($isUserName['count(*)'] > 0){
 			tsNotice("用户名已经存在，请换个用户名！");
 		}elseif($authcode != $_SESSION['authcode']){
 			tsNotice("验证码输入有误，请重新输入！");
 		}else{
 			
-			$db->query("INSERT INTO ".dbprefix."user (`pwd` , `email`) VALUES ('".md5($pwd)."', '$email');");
+			$salt = md5(rand());
+			
+			$db->query("insert into ".dbprefix."user (`pwd` , `salt`,`email`) values ('".md5($salt.$pwd)."', '$salt' ,'$email');");
 			
 			$userid = $db->insert_id();
 			
@@ -87,8 +93,8 @@ switch($ts){
 					if($groupusernum == '0'){
 						$db->query("insert into ".dbprefix."group_users (`userid`,`groupid`,`addtime`) values('".$userid."','".$item."','".time()."')");
 						//统计更新
-						$count_user = $db->once_num_rows("select * from ".dbprefix."group_users where groupid='".$item."'");
-						$db->query("update ".dbprefix."group set `count_user`='".$count_user."' where groupid='".$item."'");
+						$count_user = $db->once_num_rows("select * from ".dbprefix."group_users where `groupid`='".$item."'");
+						$db->query("update ".dbprefix."group set `count_user`='".$count_user."' where `groupid`='".$item."'");
 					}
 				}
 			}
@@ -118,12 +124,12 @@ switch($ts){
 			
 			//注销邀请码
 			if($TS_APP['options']['isregister']=='1'){
-				$db->query("update ".dbprefix."user_invites set `isused`='1' where invitecode='$invitecode'");
+				$db->query("update ".dbprefix."user_invites set `isused`='1' where `invitecode`='$invitecode'");
 			}
 			
 			//跳转
 			header('Location: '.SITE_URL.'index.php');
 			
 		}
-	break;
+		break;
 }

@@ -3,7 +3,9 @@ MySQL Log Change
 
 ThinkSAAS1.7 sql change
 -------------------------------------------------
-
+ALTER TABLE `ts_user_info`
+  DROP `qqt_oauth_token`,
+  DROP `qqt_oauth_token_secret`;
 
 
 ThinkSAAS1.6 sql change
