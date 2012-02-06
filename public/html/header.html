@@ -59,6 +59,10 @@
 
 | <a href="{SITE_URL}{tsurl('home','theme')}">换肤</a>
 
+{if $TS_USER['user']['isadmin']=='1'}
+|  <a target="_blank" href="{SITE_URL}index.php?app=system">系统管理</a>
+{/if}
+
 </div>
 </div>
 </div>

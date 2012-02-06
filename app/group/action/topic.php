@@ -5,7 +5,7 @@ defined('IN_TS') or die('Access Denied.');
  * 小组话题内容页
  */
 
-$topicid = intval($_GET['topicid']);
+$topicid = intval($_GET['id']);
 
 if($topicid == 0){
 	header("Location: ".SITE_URL);
