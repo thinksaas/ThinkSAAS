@@ -126,8 +126,8 @@
 <!--{if $TS_USER[user][userid] == $strGroup[userid]}-->
 <p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group_user',array(groupid=>$strGroup[groupid]))}">成员管理 ({$strGroup[count_user]})</a></p>
 
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','edit_group',array(groupid=>$strGroup[groupid],ts=>base))}">修改小组设置 </a></p>
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group_recovery',array(groupid=>$strGroup[groupid]))}">回收站 ({$strGroup[recoverynum]})</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">修改小组设置 </a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','recovery',array(groupid=>$strGroup[groupid]))}">回收站 ({$strGroup[recoverynum]})</a></p>
 
 <!--{else}-->
 <p class="pl2"><a href="{SITE_URL}{tsurl('group','group_user',array(groupid=>$strGroup[groupid]))}">浏览所有成员 ({$strGroup[count_user]})</a></p>

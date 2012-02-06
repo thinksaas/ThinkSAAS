@@ -18,7 +18,7 @@ $(".editable_textarea").editable("{SITE_URL}index.php?app=group&ac=do&ts=edit_ty
 
 //删除帖子类型
 function deltopictype(typeid){
-	if(confirm("{$TS_HL[app][1119]}")){
+	if(confirm("确定删除吗？")){
 		$.ajax({
 			type: "POST",
 			url: siteUrl+'index.php?app=group&ac=do&ts=del_type',
@@ -26,7 +26,6 @@ function deltopictype(typeid){
 			beforeSend: function(){},
 			success: function(result){
 				if(result == '0'){
-					alert('确定删除吗?');
 					window.location.reload(); 	
 				}
 			}

@@ -333,9 +333,7 @@ switch ($ts) {
 		
 		$db->updateArr($arrData,dbprefix.'group','where groupid='.$groupid.'');
 		
-		//更新所有帖子中对应小组的名称
-		
-		header("Location: ".SITE_URL.tsurl('group','edit_group',array('groupid'=>$groupid,'ts'=>'base')));
+		tsNotice('基本信息修改成功！');
 		
 		break;
 	
@@ -786,7 +784,7 @@ switch ($ts) {
 		if($typename != '')
 		  $db->query("insert into ".dbprefix."group_topics_type (`groupid`,`typename`) values ('$groupid','$typename')");
 		
-		header("Location: ".SITE_URL.tsurl('group','edit_group',array('groupid'=>$groupid)));
+		header("Location: ".SITE_URL.tsurl('group','edit',array('groupid'=>$groupid,'ts'=>'type')));
 		
 		break;
 			

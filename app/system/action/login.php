@@ -16,19 +16,21 @@ switch($ts){
 		
 		if($email=='' || $pwd=='') qiMsg("所有输入项都不能为空^_^");
 		
-		if(valid_email($email) == false) qiMsg("Email书写不正确^_^");
+		$countAdmin	= $db->once_fetch_assoc("select count(*) from ".dbprefix."user where `email`='$email'");
 		
-		$countAdmin	= $db->once_fetch_assoc("select count(userid) from ".dbprefix."user where email='$email' and pwd='".md5($pwd)."'");
+		if($countAdmin['count(*)'] == 0) qiMsg('用户Email不存在！');
 		
-		if($countAdmin['count(userid)'] == 0) qiMsg("Email或者密码错误！");
+		$strAdmin = $db->once_fetch_assoc("select * from ".dbprefix."user where `email`='$email'");
+			
+		if(md5($strAdmin['salt'].$pwd)!==$strAdmin['pwd']) tsNotice('用户密码错误！');	
 		
-		$strAdmin = $db->once_fetch_assoc("select userid,username,isadmin from ".dbprefix."user_info where email='$email'");
+		$strAdminInfo = $db->once_fetch_assoc("select userid,username,isadmin from ".dbprefix."user_info where email='$email'");
 		
-		if($strAdmin['isadmin'] != 1) qiMsg("我们是香港皇家警察，现在正式逮捕你！");
+		if($strAdminInfo['isadmin'] != 1) qiMsg("你无权登录后台管理！");
 		
-		$_SESSION['tsadmin']	= $strAdmin;
+		$_SESSION['tsadmin']	= $strAdminInfo;
 		
-		header("Location: index.php?app=system");
+		header("Location: ".SITE_URL."index.php?app=system");
 		
 		break;
 		
@@ -36,7 +38,7 @@ switch($ts){
 	case "out":
 		unset($_SESSION['tsadmin']);
 		
-		header("Location: index.php?app=system&ac=login");
+		header("Location: ".SITE_URL."index.php?app=system&ac=login");
 		
 		break;
 }
