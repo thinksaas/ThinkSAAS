@@ -10,12 +10,12 @@
 	<!--{loop $arrTopic $key $item}-->
     <item>
         <title>{$item[title]}{$TS_SITE[base][site_title]}{$strGroup[groupname]}小组)</title>
-        <link>{$TS_SITE[base][site_url]}{tsurl('group','topic',array(topicid=>$item[topicid]))}</link>
+        <link>{$TS_SITE[base][site_url]}{tsurl('group','topic',array('id'=>$item[topicid]))}</link>
         <description><![CDATA[{$item[content]}]]></description>
         <content:encoded><![CDATA[{$item[content]}]]></content:encoded>
         <dc:creator>{$item[username]}</dc:creator>
         <pubDate>{php echo date('Y-m-d H:i:s',$item[addtime])}</pubDate>
-        <guid isPermaLink="true">{$TS_SITE[base][site_url]}{tsurl('group','topic',array(topicid=>$item[topicid]))}</guid>
+        <guid isPermaLink="true">{$TS_SITE[base][site_url]}{tsurl('group','topic',array('id'=>$item[topicid]))}</guid>
    </item>
 	<!--{/loop}-->
     </channel>

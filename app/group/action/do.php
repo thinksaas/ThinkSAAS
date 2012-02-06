@@ -63,7 +63,7 @@ if($ts=='addcomment'){
 			$feed_template = '<span class="pl">评论了帖子：<a href="{link}">{title}</a></span><div class="quote"><span class="inq">{content}</span> <span><a class="j a_saying_reply" href="{link}" rev="unfold">回应</a>
     </span></div>';
 			$feed_data = array(
-				'link'	=> SITE_URL.tsurl('group','topic',array('topicid'=>$topicid)),
+				'link'	=> SITE_URL.tsurl('group','topic',array('id'=>$topicid)),
 				'title'	=> $strTopic['title'],
 				'content'	=> getsubstrutf8(t($content),'0','50'),
 			);
@@ -185,7 +185,7 @@ switch ($ts) {
 			$feed_data = array(
 				'group_link'	=> SITE_URL.tsurl('group','show',array('id'=>$strGroup['groupid'])),
 				'group_name'	=> $strGroup['groupname'],
-				'topic_link'	=> SITE_URL.tsurl('group','topic',array('topicid'=>$topicid)),
+				'topic_link'	=> SITE_URL.tsurl('group','topic',array('id'=>$topicid)),
 				'topic_title'	=> $title,
 				'content'	=> getsubstrutf8(t($content),'0','50'),
 			);
@@ -539,7 +539,7 @@ switch ($ts) {
 		}
 		
 		//跳转回到帖子页
-		header("Location: ".SITE_URL.tsurl('group','topic',array('topicid'=>$strComment['topicid'])));
+		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$strComment['topicid'])));
 		
 		
 		break;

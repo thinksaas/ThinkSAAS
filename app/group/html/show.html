@@ -65,7 +65,7 @@
 <div class="title">
 <!--{if $item[typeid] != 0}--><a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid],typeid=>$item[typeid]))}">[{$item[typename]}]</a><!--{/if}-->
 
-<a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a>
+<a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
 <!--{if $item[istop]=='1'}-->
 <img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" title="[置顶]" alt="[置顶]" /> 
 <!--{/if}-->
@@ -93,7 +93,7 @@
 <span style="float:right;">
 <a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
 
-<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
+<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
 </span>
 </div>
 </div>
