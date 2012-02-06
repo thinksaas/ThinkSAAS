@@ -9,7 +9,7 @@
 <!--{loop $arrTopic $key $item}-->
 <div class="result">
 <div class="pic">
-<a title="{$item[user][username]}" href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}" class="nbg"><img alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
+<a title="{$item[user][username]}" href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}" class="nbg"><img alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
 </div>
 <div class="content">
 <h3><span>[话题] </span>&nbsp;<a  href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a></h3>

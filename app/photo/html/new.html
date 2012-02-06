@@ -20,9 +20,9 @@
 
 <div class="details clearfix">
 <div class="post-by">
-<a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[user][userid]))}"><img height="48" width="48" alt="{$item[user][username]}" title="{$item[user][username]}" src="{$item[user][face]}" class="buddyicon"></a>
+<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}"><img height="48" width="48" alt="{$item[user][username]}" title="{$item[user][username]}" src="{$item[user][face]}" class="buddyicon"></a>
 <div class="info">
-<span class="author"><a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[user][userid]))}">{$item[user][username]}</a>上传</span>
+<span class="author"><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a>上传</span>
 <div class="time">
 {php echo getTime($item[addtime],time())}
 </div>

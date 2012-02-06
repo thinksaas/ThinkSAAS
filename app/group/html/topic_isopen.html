@@ -42,7 +42,7 @@
 <ul>
 <!--{loop $newTopic $key $item}-->
 <li><a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a> &nbsp;
-<span class="pl">(<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}">{$item[user][username]}</a>) </span>
+<span class="pl">(<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a>) </span>
 </li>
 <!--{/loop}-->
 </ul>

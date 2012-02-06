@@ -12,7 +12,7 @@
 <!--{if $arrTopic}-->
 <!--{loop $arrTopic $key $item}-->
 <li>
-<div class="userimg"><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a></div>
+<div class="userimg"><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a></div>
 
 <div class="topic_title">
 <div class="title"><a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a>
@@ -27,7 +27,7 @@
 <span style="float:right;">
 {php echo getTime($item[uptime],time())}
 
-<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[user][username]}</a>
+<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
 
 <!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
 </span>

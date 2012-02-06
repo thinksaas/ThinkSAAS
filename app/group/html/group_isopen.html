@@ -6,7 +6,7 @@
 <div class="infobox">
 
 <div class="bd"><img align="left" alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}" class="pil groupicon" valign="top" />
-<p>创建于：{php echo date('Y-m-d',$strGroup[addtime])}&nbsp; &nbsp; 组长：<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strLeader[userid]))}">{$strLeader[username]}</a><br></p>
+<p>创建于：{php echo date('Y-m-d',$strGroup[addtime])}&nbsp; &nbsp; 组长：<a href="{SITE_URL}{tsurl('user','space',array('id'=>$strLeader[userid]))}">{$strLeader[username]}</a><br></p>
 {$strGroup[groupdesc]}
 <div class="clearfix" style="margin-top: 10px;">
 

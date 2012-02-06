@@ -61,7 +61,7 @@
 </td>
 <td valign="top">
 <span class="wrap">
-<h4>{php echo date('Y-m-d H:i:s',$item[addtime])}: <a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}">{$item[user][username]}</a></h4>
+<h4>{php echo date('Y-m-d H:i:s',$item[addtime])}: <a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a></h4>
 </span>{$item[content]}<br>
 <div class="align-right">
 

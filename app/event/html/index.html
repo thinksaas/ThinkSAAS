@@ -41,7 +41,7 @@
 <div class="pl intro">
 时间：{$arrEvent[0][time_start]} - {$arrEvent[0][time_end]}<br>
 地点：{$arrEvent[0][city][cityname]} {$arrEvent[0][area][areaname]} {$arrEvent[0][address]}<br>
-发起人：<a href="{SITE_URL}{tsurl('user','space',array(userid=>$arrEvent[0][user][userid]))}">{$arrEvent[0][user][username]}</a> <br>
+发起人：<a href="{SITE_URL}{tsurl('user','space',array('id'=>$arrEvent[0][user][userid]))}">{$arrEvent[0][user][username]}</a> <br>
 
 {$arrEvent[0][count_userdo]}人参加 &nbsp; {$arrEvent[0][count_userwish]}人感兴趣<br><br>
 </div></div></div>
@@ -58,7 +58,7 @@
 </div><a href="{SITE_URL}{tsurl('event','show',array(eventid=>$item[eventid]))}">
 <img class="actimgs" src="<!--{if $item[poster]}-->{SITE_URL}{php echo miniimg($item[poster],'event',48,48,$item[path],1)}<!--{else}-->{SITE_URL}public/images/event_dft.jpg<!--{/if}-->" width="48"></a>
 <div class="evtdesc">
-{$item[time_start]} - {$item[time_end]}<br><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}">{$item[user][username]}</a><br>{$item[count_userdo]}人参加 &nbsp; {$item[count_userwish]}人感兴趣<br>
+{$item[time_start]} - {$item[time_end]}<br><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a><br>{$item[count_userdo]}人参加 &nbsp; {$item[count_userwish]}人感兴趣<br>
 </div></li>
 <!--{/if}-->
 <!--{/loop}-->

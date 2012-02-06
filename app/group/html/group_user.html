@@ -8,7 +8,7 @@
 
 <h2>{$strGroup[role_leader]} &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2>
 
-<div class="obss"><dl class="obu"><dt><a class="nbg" href="{SITE_URL}{tsurl('user','space',array(userid=>$strLeader[userid]))}"><img alt="mido" class="m_sub_img" src="{$strLeader[face]}"></a></dt>
+<div class="obss"><dl class="obu"><dt><a class="nbg" href="{SITE_URL}{tsurl('user','space',array('id'=>$strLeader[userid]))}"><img alt="mido" class="m_sub_img" src="{$strLeader[face]}"></a></dt>
 <dd>{$strLeader[username]}<br><span class="pl">(<a href="{SITE_URL}{tsurl('location','area',array(areaid=>$strLeader[area][areaid]))}">{$strLeader[area][areaname]}</a>)</span></dd></dl><br clear="all">
 </div>
 
@@ -17,7 +17,7 @@
 <div class="obss">
 
 <!--{loop $arrAdmin $key $item}-->
-<dl class="obu"><dt><a class="nbg" href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}"><img alt="{$item[username]}" class="imgg" src="{$item[face]}"></a>
+<dl class="obu"><dt><a class="nbg" href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}"><img alt="{$item[username]}" class="imgg" src="{$item[face]}"></a>
 <!--{if $TS_USER[user][userid] == $strLeader[userid]}-->
 <span title="取消管理员" class="gact"><a title="取消{$item[username]}的管理员" class="j a_confirm_link" href="{SITE_URL}index.php?app=group&ac=group_user_set&ts=isadmin&userid={$item[userid]}&groupid={$strGroup[groupid]}&isadmin=0" rel="nofollow">^</a></span>
 <!--{/if}-->
@@ -37,7 +37,7 @@
 <!--{loop $arrGroupUser $key $item}-->
 <dl class="obu">
 <dt>
-<a class="nbg" href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}"><img alt="{$item[username]}" class="imgg" src="{$item[face]}"></a>
+<a class="nbg" href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}"><img alt="{$item[username]}" class="imgg" src="{$item[face]}"></a>
 
 <!--{if $TS_USER[user][userid] == $strLeader[userid]}-->
 <!--{if $item[isadmin] != '1'}-->

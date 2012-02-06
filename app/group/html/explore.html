@@ -10,8 +10,8 @@
 
 <!--{loop $arrHotUser $key $item}-->
 <dl class="ob">
-<dt><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}" width="48" /></a></dt>
-<dd><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[username]}</a>
+<dt><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}" width="48" /></a></dt>
+<dd><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}">{$item[username]}</a>
 </dd>
 </dl>
 <!--{/loop}-->
@@ -61,7 +61,7 @@
 <!--{if $arrTopic}-->
 <!--{loop $arrTopic $key $item}-->
 <li>
-<div class="userimg"><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a></div>
+<div class="userimg"><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a></div>
 
 <div class="topic_title">
 <div class="title">
@@ -76,7 +76,7 @@
 <span style="float:right;">
 {php echo getTime($item[uptime],time())}
 
-<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[user][username]}</a>
+<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
 
 <!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
 </span>
@@ -114,8 +114,8 @@
 
 <!--{loop $arrNewUser $key $item}-->
 <dl class="ob">
-<dt><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}" width="48" /></a></dt>
-<dd><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[username]}</a>
+<dt><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}" width="48" /></a></dt>
+<dd><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}">{$item[username]}</a>
 </dd>
 </dl>
 <!--{/loop}-->

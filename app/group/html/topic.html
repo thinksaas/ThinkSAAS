@@ -18,14 +18,14 @@
 
 <div class="topic-content clearfix">
 <div class="user-face">
-<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strTopic[user][userid]))}"><img title="{$strTopic[user][username]}" alt="{$strTopic[user][username]}" src="{$strTopic[user][face]}" width="48"></a>
+<a href="{SITE_URL}{tsurl('user','space',array('id'=>$strTopic[user][userid]))}"><img title="{$strTopic[user][username]}" alt="{$strTopic[user][username]}" src="{$strTopic[user][face]}" width="48"></a>
 <br />
 {php doAction('topic_face_footer',$strTopic)}
 </div>
 <div class="topic-doc">
 <h3>
 <span class="color-green">{php echo date('Y-m-d H:i:s',$strTopic[addtime])}</span>
-<span class="pl20">来自：<a href="{SITE_URL}{tsurl('user','space',array(userid=>$strTopic[userid]))}">{$strTopic[user][username]}</a></span>
+<span class="pl20">来自：<a href="{SITE_URL}{tsurl('user','space',array('id'=>$strTopic[userid]))}">{$strTopic[user][username]}</a></span>
 </h3>
 <div class="topic-view">{$strTopic[content]}</div>
 
@@ -90,15 +90,15 @@
 <!--{loop $arrTopicComment $key $item}-->
 <li class="clearfix">
 <div class="user-face">
-<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}"></a>
+<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}"></a>
 </div>
 <div class="reply-doc">
 <h4>{php echo date('Y-m-d H:i:s',$item[addtime])}
-	<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}">{$item[user][username]}</a>
+	<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a>
 </h4>
 
 <!--{if $item[referid] !='0'}-->
-<div class="recomment"><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[recomment][user][userid]))}"><img src="{$item[recomment][user][face]}" width="24" align="absmiddle"></a> <strong><a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[recomment][user][userid]))}">{$item[recomment][user][username]}</a></strong>：{$item[recomment][content]}</div>
+<div class="recomment"><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[recomment][user][userid]))}"><img src="{$item[recomment][user][face]}" width="24" align="absmiddle"></a> <strong><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[recomment][user][userid]))}">{$item[recomment][user][username]}</a></strong>：{$item[recomment][content]}</div>
 <!--{/if}-->
 
 <p>
@@ -179,7 +179,7 @@
 <ul>
 <!--{loop $newTopic $key $item}-->
 <li><a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array(topicid=>$item[topicid]))}">{$item[title]}</a> &nbsp;
-<span class="pl">(<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}">{$item[user][username]}</a>) </span>
+<span class="pl">(<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a>) </span>
 </li>
 <!--{/loop}-->
 </ul>

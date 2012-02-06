@@ -12,7 +12,7 @@
 <!--{if $item[photo]}--><img style="float:left;" src="{SITE_URL}{php echo miniimg($item[photo][photourl],'photo',180,140,$item[photo][path])}" /><!--{/if}-->
 
 <h2><a href="{SITE_URL}{tsurl('article','show',array('articleid'=>$item[articleid]))}">{$item[title]}</a></h2>
-<span><a href="{SITE_URL}{tsurl('user','space',array('userid'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {php echo date('Y-m-d H:i:s',$item[addtime])}</span>
+<span><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {php echo date('Y-m-d H:i:s',$item[addtime])}</span>
 <p>{$item[content]}</p>
 
 <div class="clear"></div>

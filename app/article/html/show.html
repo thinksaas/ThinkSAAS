@@ -3,7 +3,7 @@
 <div class="mc">
 <h1>{$strArticle[title]}</h1>
 <div class="cleft" style="width:650px;">
-<div style="text-align:center;color:#999999;padding-bottom: 10px;border-bottom: 1px solid #DDDDDD;"><a href="{SITE_URL}{tsurl('user','space',array('userid'=>$strArticle[user][userid]))}">{$strArticle[user][username]}</a> 发表于 {php echo date('Y-m-d H:i:s',$strArticle[addtime])}</div>
+<div style="text-align:center;color:#999999;padding-bottom: 10px;border-bottom: 1px solid #DDDDDD;"><a href="{SITE_URL}{tsurl('user','space',array('id'=>$strArticle[user][userid]))}">{$strArticle[user][username]}</a> 发表于 {php echo date('Y-m-d H:i:s',$strArticle[addtime])}</div>
 
 <div style="font-size:14px;line-height:25px;">
 {$strArticle[content]}
@@ -32,12 +32,12 @@
 <!--{loop $arrComment $key $item}-->
 <li class="clearfix">
 <div class="user-face">
-<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[user][userid]))}"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}"></a>
+<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}"></a>
 </div>
 <div class="reply-doc" style="width:580px;">
 <h4>
 {php echo date('Y-m-d H:i:s',$item[addtime])} 
-<a href="{SITE_URL}{tsurl('user','space',array(userid=>$item[userid]))}">{$item[user][username]}</a>
+<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
 </h4>
 <p>{$item[content]}</p>
 <!--{if $TS_USER[user][userid] == $strArticle[userid]}-->

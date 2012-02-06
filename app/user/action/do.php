@@ -270,7 +270,7 @@ switch($ts){
 			<span class="pl">关注<a href="{link}">{username}</a></span>';
 			
 			$feed_data = array(
-				'link'	=> SITE_URL.tsurl('user','space',array('userid'=>$userid_follow)),
+				'link'	=> SITE_URL.tsurl('user','space',array('id'=>$userid_follow)),
 				'username'	=> $strUser['username'],
 			);
 			
@@ -285,7 +285,7 @@ switch($ts){
 			
 			
 			
-			header("Location: ".SITE_URL.tsurl('user','space',array('userid'=>$userid_follow)));
+			header("Location: ".SITE_URL.tsurl('user','space',array('id'=>$userid_follow)));
 			
 		}
 		
@@ -318,7 +318,7 @@ switch($ts){
 		
 		$db->query("update ".dbprefix."user_info set `count_follow`='$count_follow_userid',`count_followed`='$count_followed_userid' where userid='$userid_follow'");
 		
-		header("Location: ".SITE_URL.tsurl('user','space',array('userid'=>$userid_follow)));
+		header("Location: ".SITE_URL.tsurl('user','space',array('id'=>$userid_follow)));
 		
 		break;
 }
