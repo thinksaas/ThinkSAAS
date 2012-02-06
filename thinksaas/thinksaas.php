@@ -72,6 +72,6 @@ $TS_SOFT['info'] = array(
 	'url'		=>	'http://www.thinksaas.cn/',
 	'email'	=>	'thinksaas@qq.com',
 	'copyright' =>	'ThinkSAAS',
-	'year'		=>	'2009 - 2011',
+	'year'		=>	'2011 - 2012',
 	'author'	=>	'QiuJun',
 );
