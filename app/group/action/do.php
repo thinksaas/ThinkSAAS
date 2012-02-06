@@ -71,7 +71,7 @@ if($ts=='addcomment'){
 			//feed结束
 			
 			
-			header("Location: ".SITE_URL."index.php?app=group&ac=topic&topicid=".$topicid);
+			header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 		}	
 	}
 }
@@ -192,7 +192,7 @@ switch ($ts) {
 			aac('feed')->addFeed($userid,$feed_template,serialize($feed_data));
 			//feed结束
 			
-			header("Location: ".SITE_URL."index.php?app=group&ac=topic&topicid=".$topicid);
+			header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 			
 		}
 		break;
@@ -335,7 +335,7 @@ switch ($ts) {
 		
 		//更新所有帖子中对应小组的名称
 		
-		header("Location: ".SITE_URL."index.php?app=group&ac=edit_group&groupid=".$groupid."&ts=base");
+		header("Location: ".SITE_URL.tsurl('group','edit_group',array('groupid'=>$groupid,'ts'=>'base')));
 		
 		break;
 	
@@ -429,7 +429,7 @@ switch ($ts) {
 		$count_attach = $db->once_num_rows("select * from ".dbprefix."group_topics_attachs where topicid='".$topicid."'");
 		$db->query("update ".dbprefix."group_topics set `count_attach`='".$count_attach."' where topicid='".$topicid."'");
 		
-		header("Location: ".SITE_URL."index.php?app=group&ac=topic&topicid=".$topicid);
+		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 		
 		break;
 	
@@ -509,7 +509,7 @@ switch ($ts) {
 		//更新
 		$db->query("update ".dbprefix."group set `count_user` = '1' where groupid='".$groupid."'");
 
-		header("Location: ".SITE_URL."index.php?app=group&ac=group&groupid=".$groupid."");
+		header("Location: ".SITE_URL.tsurl('group','show',array('id'=>$groupid)));
 		
 		break;
 		
@@ -631,7 +631,7 @@ switch ($ts) {
 			
 			$db->updateArr($arrData,dbprefix.'group_topics','where topicid='.$topicid.'');
 
-			header("Location: ".SITE_URL."index.php?app=group&ac=topic&topicid=".$topicid);
+			header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 			
 		}else{
 			header("Location: ".SITE_URL);
@@ -786,7 +786,7 @@ switch ($ts) {
 		if($typename != '')
 		  $db->query("insert into ".dbprefix."group_topics_type (`groupid`,`typename`) values ('$groupid','$typename')");
 		
-		header("Location: ".SITE_URL."index.php?app=group&ac=edit_group&ts=type&groupid=".$groupid);
+		header("Location: ".SITE_URL.tsurl('group','edit_group',array('groupid'=>$groupid)));
 		
 		break;
 			
@@ -928,7 +928,7 @@ switch ($ts) {
 		
 		$db->query("update ".dbprefix."group_topics set `groupid`='$groupid' where topicid='$topicid'");
 		
-		header("Location: ".SITE_URL."index.php?app=group&ac=topic&topicid=".$topicid);
+		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 		
 		break;
 		
