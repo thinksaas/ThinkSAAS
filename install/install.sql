@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS `ts_apple`, `ts_apple_comment`, `ts_apple_index`, `ts_apple
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 --
--- 数据库: `thinksaas_svv`
+-- 数据库: `thinksaas`
 --
 
 -- --------------------------------------------------------
@@ -470,14 +470,14 @@ CREATE TABLE IF NOT EXISTS `ts_group` (
   KEY `userid` (`userid`),
   KEY `isshow` (`isshow`),
   KEY `groupname` (`groupname`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='小组' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='小组' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `ts_group`
 --
 
 INSERT INTO `ts_group` (`groupid`, `userid`, `groupname`, `groupname_en`, `groupdesc`, `path`, `groupicon`, `count_topic`, `count_topic_today`, `count_user`, `joinway`, `role_leader`, `role_admin`, `role_user`, `addtime`, `isrecommend`, `isopen`, `isaudit`, `ispost`, `isshow`, `uptime`) VALUES
-(1, 1, '默认小组', '', '默认小组<br />', '', '', 7, 2, 1, 1, '组长', '管理员', '成员', 1321804548, 1, 0, 0, 0, 0, 1322878060);
+(1, 1, '默认小组', '', '默认小组<br />', '', '', 0, 2, 1, 1, '组长', '管理员', '成员', 1321804548, 1, 0, 0, 0, 0, 1322878060);
 
 -- --------------------------------------------------------
 
@@ -901,7 +901,7 @@ CREATE TABLE IF NOT EXISTS `ts_system_options` (
 INSERT INTO `ts_system_options` (`optionid`, `optionname`, `optionvalue`) VALUES
 (1, 'site_title', 'ThinkSAAS'),
 (2, 'site_subtitle', '又一个ThinkSAAS社区'),
-(3, 'site_url', 'http://localhost/thinksaas/git/ThinkSAAS/'),
+(3, 'site_url', 'http://localhost/thinksaas/ThinkSAAS/'),
 (4, 'site_email', 'admin@admin.com'),
 (6, 'site_icp', '京ICP备09050100号'),
 (7, 'isface', '0'),
@@ -1023,6 +1023,7 @@ CREATE TABLE IF NOT EXISTS `ts_tag_user_index` (
 CREATE TABLE IF NOT EXISTS `ts_user` (
   `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `pwd` char(32) NOT NULL DEFAULT '' COMMENT '用户密码',
+  `salt` char(32) NOT NULL DEFAULT '' COMMENT '加点盐',
   `email` char(32) NOT NULL DEFAULT '' COMMENT '用户email',
   `resetpwd` char(32) NOT NULL DEFAULT '' COMMENT '重设密码',
   PRIMARY KEY (`userid`),
@@ -1080,8 +1081,6 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
   `qq_openid` char(32) NOT NULL DEFAULT '',
   `qq_token` char(32) NOT NULL DEFAULT '',
   `qq_secret` char(32) NOT NULL DEFAULT '',
-  `qqt_oauth_token` char(32) NOT NULL DEFAULT '',
-  `qqt_oauth_token_secret` char(32) NOT NULL DEFAULT '',
   `count_score` int(11) NOT NULL DEFAULT '0' COMMENT '统计积分',
   `count_follow` int(11) NOT NULL DEFAULT '0' COMMENT '统计用户跟随的',
   `count_followed` int(11) NOT NULL DEFAULT '0' COMMENT '统计用户被跟随的',

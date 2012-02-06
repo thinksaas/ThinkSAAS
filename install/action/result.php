@@ -57,7 +57,10 @@ if($db){
 	}
 	
 	//存入管理员数据
-	$userid = $db->query("insert into ".$pre."user (`pwd`,`email`) values ('".md5($password)."','".$email."')");
+	$salt = md5(rand());
+	
+	$userid = $db->query("insert into ".$pre."user (`pwd` , `salt`,`email`) values ('".md5($salt.$password)."', '$salt' ,'$email');");
+
 	$db->query("insert into ".$pre."user_info (`userid`,`username`,`email`,`isadmin`,`addtime`,`uptime`) values ('$userid','$username','$email','1','".time()."','".time()."')");
 	
 	//更改网站信息
