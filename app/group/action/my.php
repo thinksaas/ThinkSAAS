@@ -17,7 +17,7 @@ switch($ts){
 		foreach($arrTopics as $key=>$item){
 			$arrTopic[] = $item;
 			$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
-			$arrTopic[$key]['group'] = aac('group')->getSimpleGroup($item['groupid']);
+			$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 		}
 
 		$title = '我的小组发言';
@@ -42,7 +42,7 @@ switch($ts){
 		foreach($arrTopics as $key=>$item){
 			$arrTopic[] = $item;
 			$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
-			$arrTopic[$key]['group'] = aac('group')->getSimpleGroup($item['groupid']);
+			$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 		}
 
 		$title='我最近回应的话题';
@@ -66,7 +66,7 @@ switch($ts){
 		foreach($arrTopics as $key=>$item){
 			$arrTopic[] = $item;
 			$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
-			$arrTopic[$key]['group'] = aac('group')->getSimpleGroup($item['groupid']);
+			$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 		}
 
 		$title = '我收藏的话题';

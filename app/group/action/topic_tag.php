@@ -30,7 +30,7 @@ foreach($arrTagId as $item){
 foreach($arrTopics as $key=>$item){
 	$arrTopic[] = $item;
 	$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
-	$arrTopic[$key]['group'] = $new['group']->getSimpleGroup($item['groupid']);
+	$arrTopic[$key]['group'] = $new['group']->getOneGroup($item['groupid']);
 }
 
 //热门tag

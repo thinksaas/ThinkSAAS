@@ -1,25 +1,12 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
-/*
- *模型：小组
- *class.group.php
- *By QINIAO
- */
- 
+
 class group{
 
-	var $db;
+	public $db;
 
-	function group($dbhandle){
+	public function group($dbhandle){
 		$this->db = $dbhandle;
-	}
-
-	//显示所有小组带分页
-	function getArrGroup($page='1',$prePageNum,$where=''){
-		$start_limit = !empty($page) ? ($page - 1) * $prePageNum : 0;
-		$limit = $prePageNum ? "LIMIT $start_limit, $prePageNum" : '';
-		$groups	= $this->db->fetch_all_assoc("select * from ".dbprefix."group ".$where." ".$limit."");
-		return $groups;
 	}
 	
 	//显示所有小组分类带分页
@@ -60,24 +47,11 @@ class group{
 		return $strGroup;
 	}
 	
-	//或者小组ID和小组名字
-	function getSimpleGroup($groupid){
-		$strGroup = $this->db->once_fetch_assoc("select groupid,groupname,path,groupicon from ".dbprefix."group where groupid=$groupid");
-		if($strGroup['groupicon'] == ''){
-			$strGroup['icon_48'] = SITE_URL.'public/images/group.jpg';
-			$strGroup['icon_16'] = SITE_URL.'public/images/group.jpg';
-		}else{
-			$strGroup['icon_48'] = SITE_URL.miniimg($strGroup['groupicon'],'group',48,48,$strGroup['path'],1);
-			$strGroup['icon_16'] = SITE_URL.miniimg($strGroup['groupicon'],'group',16,16,$strGroup['path'],1);
-		}
-		return $strGroup;
-	}
-	
 	//获取小组分类数 
 	function getCateNum($where=''){
-		$sql = "SELECT * FROM ".dbprefix."group_cates ".$where."";
-		$cateNum = $this->db->once_num_rows($sql);
-		return $cateNum;
+		$sql = "select count(*) from ".dbprefix."group_cates ".$where."";
+		$cateNum = $this->db->once_fetch_assoc($sql);
+		return $cateNum['count(*)'];
 	}
 	
 	/*
@@ -205,16 +179,6 @@ class group{
 		return $groupContentCommentNum;
 	}
 	
-	/*
-	 *获取指定小组的名字
-	 */
-	 
-	function getGroupName($groupid){
-		$groupDate = $this->db->once_fetch_array("select groupname from ".dbprefix."group where groupid=$groupid");
-		$groupName = $groupDate['groupname'];
-		return $groupName;
-	}
-	
 	//获取一条帖子 
 	function getOneTopic($topicid){
 		$isTopic = $this->db->once_num_rows("select * from ".dbprefix."group_topics where topicid='$topicid'");
@@ -242,26 +206,6 @@ class group{
 		//删除成功
 		echo '1';
 		
-	}
-	
-	//匹配内容中的附件 
-	function matchAttach($content){
-		preg_match_all('/\[(attach)=(\d+)\]/is', $content, $attachs);
-		if($attachs[2]){
-			foreach ($attachs[2] as $aitem) {
-				$content = str_replace("[attach={$aitem}]",'附件：', $content);
-			}
-		}
-	}
-	//为内容准备的附件格式
-	function attachForContent($attachid,$userid){
-		$strAttach = acc('attach')->getOneAttach($attachid);
-		$userScore = acc('user')->getUserScore($userid);
-		if($strAttach['score'] > '0' && $userScore< $strAttach['score']) {
-			$result = "下载附件：需要".$strAttach['score']."积分";
-		}else{
-			$result = '下载附件：<a href="'.SITE_URL.'index.php?app=attach&ajax&ts=down&attachid='.$strAttach["attachid"].'">'.$strAttach["attachname"].'</a>';
-		}
 	}
 	
 	//判断是否存在小组

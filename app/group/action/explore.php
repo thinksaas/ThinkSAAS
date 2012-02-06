@@ -18,7 +18,7 @@ $arrNewTopics = $db->fetch_all_assoc("select topicid,userid,groupid,title,count_
 foreach($arrNewTopics as $key=>$item){
 	$arrTopic[] = $item;
 	$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
-	$arrTopic[$key]['group'] = aac('group')->getSimpleGroup($item['groupid']);
+	$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 }
 
 

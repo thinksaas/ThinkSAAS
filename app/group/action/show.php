@@ -75,7 +75,7 @@ if($strGroup['isaudit']=='1'){
 			$arrTopic[] = $item;
 			$arrTopic[$key]['typename'] = $arrTopicType[$item['typeid']]['typename'];
 			$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
-			$arrTopic[$key]['group'] = aac('group')->getSimpleGroup($item['groupid']);
+			$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 			$arrTopic[$key]['photo'] = $new['group']->getOnePhoto($item['topicid']);
 		}
 	}
