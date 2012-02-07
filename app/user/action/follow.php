@@ -6,7 +6,7 @@ defined('IN_TS') or die('Access Denied.');
 
 	$userid = intval($_GET['userid']);
 	
-	$strUser = $new['user']->getUserForApp($userid);
+	$strUser = $new['user']->getOneUser($userid);
 	
 	if($strUser == '') header("Location: ".SITE_URL."index.php");
 	
@@ -15,7 +15,7 @@ defined('IN_TS') or die('Access Denied.');
 	
 	if(is_array($followUsers)){
 		foreach($followUsers as $item){
-			$arrFollowUser[] =  $new['user']->getUserForApp($item['userid_follow']);
+			$arrFollowUser[] =  $new['user']->getOneUser($item['userid_follow']);
 		}
 	}
 

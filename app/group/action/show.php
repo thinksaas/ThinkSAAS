@@ -74,7 +74,7 @@ if($strGroup['isaudit']=='1'){
 		foreach($arrTopics as $key=>$item){
 			$arrTopic[] = $item;
 			$arrTopic[$key]['typename'] = $arrTopicType[$item['typeid']]['typename'];
-			$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+			$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 			$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 			$arrTopic[$key]['photo'] = $new['group']->getOnePhoto($item['topicid']);
 		}
@@ -90,7 +90,7 @@ if($strGroup['isaudit']=='1'){
 	
 	if(is_array($groupUser)){
 		foreach($groupUser as $item){
-			$arrGroupUser[] = aac('user')->getUserForApp($item['userid']);
+			$arrGroupUser[] = aac('user')->getOneUser($item['userid']);
 		}
 	}
 	

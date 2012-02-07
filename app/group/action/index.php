@@ -67,13 +67,12 @@ if($TS_USER['user'] == ''){
 			}
 		}
 		
-		//@bug fixed by anythink
 		$strGroup = implode(',',$arrGroup);
 		if($strGroup){
 			$arrTopics = $db->fetch_all_assoc("select topicid,userid,groupid,title,count_comment,count_view,istop,isphoto,isattach,isposts,addtime,uptime from ".dbprefix."group_topics where groupid in ($strGroup) and isshow='0' order by uptime desc limit 50");
 			foreach($arrTopics as $key=>$item){
 				$arrTopic[] = $item;
-				$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+				$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 				$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 				$arrTopic[$key]['photo'] = $new['group']->getOnePhoto($item['topicid']);
 			}

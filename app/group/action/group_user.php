@@ -15,14 +15,14 @@ $strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid
 //小组组长信息
 $leaderId = $strGroup['userid'];
 
-$strLeader = aac('user')->getUserForApp($leaderId);
+$strLeader = aac('user')->getOneUser($leaderId);
 
 //管理员信息
 $strAdmin = $db->fetch_all_assoc("select userid from ".dbprefix."group_users where groupid='$groupid' and isadmin='1'");
 
 if(is_array($strAdmin)){
 	foreach($strAdmin as $item){
-		$arrAdmin[] = aac('user')->getUserForApp($item['userid']);
+		$arrAdmin[] = aac('user')->getOneUser($item['userid']);
 	}
 }
 
@@ -41,7 +41,7 @@ $groupUser = $db->fetch_all_assoc("select userid,isadmin from ".dbprefix."group_
 
 if(is_array($groupUser)){
 	foreach($groupUser as $key=>$item){
-		$arrGroupUser[] = aac('user')->getUserForApp($item['userid']);
+		$arrGroupUser[] = aac('user')->getOneUser($item['userid']);
 		$arrGroupUser[$key]['isadmin'] = $item['isadmin'];
 	}
 }

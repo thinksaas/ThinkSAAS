@@ -19,7 +19,7 @@ $arrMessages = $db->fetch_all_assoc($sql);
 if(is_array($arrMessages)){
 	foreach($arrMessages as $key=>$item){
 		$arrMessage[] = $item;
-		$arrMessage[$key]['user'] = aac('user')->getUserForApp($item['userid']);
+		$arrMessage[$key]['user'] = aac('user')->getOneUser($item['userid']);
 	}
 	
 	$arrMessage = array_reverse($arrMessage);

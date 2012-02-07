@@ -12,7 +12,7 @@ $arrToUsers = $db->fetch_all_assoc("select userid from ".dbprefix."message where
 if(is_array($arrToUsers)){
 	foreach($arrToUsers as $key=>$item){
 		$arrToUser[] = $item;
-		$arrToUser[$key]['user'] = aac('user')->getUserForApp($item['userid']);
+		$arrToUser[$key]['user'] = aac('user')->getOneUser($item['userid']);
 		$arrToUser[$key]['count'] = $db->once_num_rows("select * from ".dbprefix."message where touserid='$userid' and userid='".$item['userid']."' and isread='0'");
 	}
 }

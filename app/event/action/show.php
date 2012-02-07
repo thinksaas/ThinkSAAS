@@ -28,7 +28,7 @@ if(is_array($arrOrganizers)){
 $arrDoUsers = $db->fetch_all_assoc("select userid from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and status='0' order by addtime");
 if(is_array($arrDoUsers)){
 	foreach($arrDoUsers as $item){
-		$arrDoUser[] = aac('user')->getOneUserByUserid($item['userid']);
+		$arrDoUser[] = aac('user')->getOneUser($item['userid']);
 	}
 }
 
@@ -36,7 +36,7 @@ if(is_array($arrDoUsers)){
 $arrWishUsers = $db->fetch_all_assoc("select userid from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and status='1' order by addtime");
 if(is_array($arrWishUsers)){
 	foreach($arrWishUsers as $item){
-		$arrWishUser[] = aac('user')->getOneUserByUserid($item['userid']);
+		$arrWishUser[] = aac('user')->getOneUser($item['userid']);
 	}
 }
 

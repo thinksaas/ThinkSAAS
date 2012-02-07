@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 $attachid = $_GET['attachid'];
 
 $strAttach = $db->once_fetch_assoc("select * from ".dbprefix."attach where attachid='$attachid'");
-$strAttach['user'] = aac('user')->getSimpleUser($strAttach['userid']);
+$strAttach['user'] = aac('user')->getOneUser($strAttach['userid']);
 
 $userid = $strAttach['userid'];
 //用户的附件 

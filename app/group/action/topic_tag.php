@@ -29,7 +29,7 @@ foreach($arrTagId as $item){
 
 foreach($arrTopics as $key=>$item){
 	$arrTopic[] = $item;
-	$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+	$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 	$arrTopic[$key]['group'] = $new['group']->getOneGroup($item['groupid']);
 }
 

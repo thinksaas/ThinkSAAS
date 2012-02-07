@@ -35,7 +35,7 @@ $prev = $arrPhotoId[$nowkey - 1];
 $next = $arrPhotoId[$nowkey +1];
 
 $userid = $strAlbum['userid'];
-$strUser = aac('user')->getUserForApp($userid);
+$strUser = aac('user')->getOneUser($userid);
 
 //评论列表 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -44,7 +44,7 @@ $lstart = $page*10-10;
 $arrComments = $db->fetch_all_assoc("select * from ".dbprefix."photo_comment where photoid='$photoid' limit $lstart,10");
 foreach($arrComments as $key=>$item){
 	$arrComment[] = $item;
-	$arrComment[$key]['user'] = aac('user')->getUserForApp($item['userid']);
+	$arrComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
 }
 
 $comment_num = $db->once_num_rows("select * from ".dbprefix."photo_comment where photoid='$photoid'");

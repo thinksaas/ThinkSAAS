@@ -14,7 +14,7 @@ $title = $strArea['areaname'];
 //城里的人
 $arrUsers = $db->fetch_all_assoc("select userid from ".dbprefix."user_info where areaid = '$areaid' order by uptime desc limit 16");
 foreach($arrUsers as $item){
-	$arrUser[] = aac('user')->getUserForApp($item['userid']);
+	$arrUser[] = aac('user')->getOneUser($item['userid']);
 }
 
 //城里的活动

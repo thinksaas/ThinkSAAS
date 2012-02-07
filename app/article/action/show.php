@@ -6,7 +6,7 @@ $strArticle = $db->once_fetch_assoc("select * from ".dbprefix."article where art
 
 $strArticle['tags'] = aac('tag')->getObjTagByObjid('article','articleid',$articleid);
 $strArticle['content'] = editor2html($strArticle['content']);
-$strArticle['user']	= aac('user')->getUserForApp($strArticle['userid']);
+$strArticle['user']	= aac('user')->getOneUser($strArticle['userid']);
 $strArticle['cate'] = $new['article']->getOneCate($strArticle['cateid']);
 
 //获取评论
@@ -16,7 +16,7 @@ $lstart = $page*10-10;
 $arrComments = $db->fetch_all_assoc("select * from ".dbprefix."article_comment where `articleid`='$articleid' order by addtime desc limit $lstart,10");
 foreach($arrComments as $key=>$item){
 	$arrComment[] = $item;
-	$arrComment[$key]['user'] = aac('user')->getUserForApp($item['userid']);
+	$arrComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
 }
 $commentNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."article_comment where `articleid`='$articleid'");
 $pageUrl = pagination($commentNum['count(*)'], 10, $page, $url);

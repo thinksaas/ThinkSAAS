@@ -6,7 +6,7 @@ $userid = intval($TS_USER['user']['userid']);
 
 if($userid == '0') header("Location: ".SITE_URL."index.php");
 
-$strUser = $new['user']->getOneUserByUserid($userid);
+$strUser = $new['user']->getOneUser($userid);
 
 $title = '我的首页';
 

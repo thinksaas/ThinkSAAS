@@ -6,7 +6,7 @@ switch($ts){
 	case "user":
 		$userid = intval($_GET['userid']);
 		if($userid == 0) header("Location: ".SITE_URL."index.php");
-		$strUser = aac('user')->getUserForApp($userid);
+		$strUser = aac('user')->getOneUser($userid);
 		
 		$page = isset($_GET['page']) ? $_GET['page'] : '1';
 		
@@ -76,7 +76,7 @@ switch($ts){
 		$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
 		
 		$userid = $strAlbum['userid'];
-		$strUser = aac('user')->getUserForApp($userid);
+		$strUser = aac('user')->getOneUser($userid);
 		
 		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid' order by photoid desc limit $lstart,20");
 		

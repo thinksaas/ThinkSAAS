@@ -42,13 +42,13 @@ switch($ts){
 			}elseif($item['type']=='topic'){
 				$arrTopics[] = aac('group')->getOneTopic($item['id']);
 			}elseif($item['type']=='user'){
-				$arrUser[] = aac('user')->getUserForApp($item['id']);
+				$arrUser[] = aac('user')->getOneUser($item['id']);
 			}
 		}
 	
 		foreach($arrTopics as $key=>$titem){
 			$arrTopic[] = $titem;
-			$arrTopic[$key]['user'] = aac('user')->getUserForApp($titem['userid']);
+			$arrTopic[$key]['user'] = aac('user')->getOneUser($titem['userid']);
 		}
 		
 		$all_num = $db->once_num_rows("select groupid as id,'group' as type from ".dbprefix."group where groupname like '%$kw%' or groupdesc like '%$kw%'  union select topicid as id,'topic' as type from ".dbprefix."group_topics WHERE title like '%$kw%'");
@@ -94,7 +94,7 @@ switch($ts){
 		
 		foreach($arrTopics as $key=>$item){
 			$arrTopic[] = $item;
-			$arrTopic[$key]['user'] = aac('user')->getUserForApp($item['userid']);
+			$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 		}
 		
 		$topic_num = $db->once_num_rows("select * from ".dbprefix."group_topics WHERE title like '%$kw%'");
@@ -115,7 +115,7 @@ switch($ts){
 		$arrUsers = $db->fetch_all_assoc("select userid from ".dbprefix."user_info WHERE username like '%$kw%' order by userid desc limit $lstart,10");
 		
 		foreach($arrUsers as $item){
-			$arrUser[] = aac('user')->getUserForApp($item['userid']);
+			$arrUser[] = aac('user')->getOneUser($item['userid']);
 		}
 		
 		$user_num = $db->once_num_rows("select userid from ".dbprefix."user_info WHERE username like '%$kw%'");

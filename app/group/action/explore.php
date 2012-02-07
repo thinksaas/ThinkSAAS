@@ -17,7 +17,7 @@ $arrNewGroup = $new['group']->getNewGroup(10);
 $arrNewTopics = $db->fetch_all_assoc("select topicid,userid,groupid,title,count_comment,count_view,istop,isphoto,isattach,addtime,uptime from ".dbprefix."group_topics order by uptime desc limit 30");
 foreach($arrNewTopics as $key=>$item){
 	$arrTopic[] = $item;
-	$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+	$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 	$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 }
 

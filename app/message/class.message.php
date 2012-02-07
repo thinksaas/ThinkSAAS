@@ -1,10 +1,5 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-/*
- *模型：message
- *class.message.php
- *By QiuJun
- */
  
 class message{
 

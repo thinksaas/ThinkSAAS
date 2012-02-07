@@ -16,7 +16,7 @@ foreach($arrArticles as $key=>$item){
 	$arrArticle[] = $item;
 	$arrArticle[$key]['photo'] = $new['article']->getOnePhoto($item['content']);
 	$arrArticle[$key]['content'] = getsubstrutf8(t($item['content']),0,200);
-	$arrArticle[$key]['user'] = aac('user')->getUserForApp($item['userid']);
+	$arrArticle[$key]['user'] = aac('user')->getOneUser($item['userid']);
 	$arrArticle[$key]['cate'] = $new['article']->getOneCate($item['cateid']);
 }
 

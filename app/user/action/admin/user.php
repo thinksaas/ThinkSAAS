@@ -19,7 +19,7 @@
 		//用户编辑
 		case "edit":
 			$userid = $_GET['userid'];
-			$strUser = $new['user']->getOneUserByUserid($userid);
+			$strUser = $new['user']->getOneUser($userid);
 			
 			include template("admin/user_edit");
 			break;
@@ -28,7 +28,7 @@
 		case "view":
 			$userid = $_GET['userid'];
 			
-			$strUser = $new['user']->getOneUserByUserid($userid);
+			$strUser = $new['user']->getOneUser($userid);
 			
 			include template("admin/user_view");
 			break;

@@ -150,7 +150,7 @@ class group{
 		
 		if(is_array($arrGroupContentComment)){
 			foreach($arrGroupContentComment as $key=>$item){
-				$arrGroupContentComment[$key]['user'] = aac('user')->getUserForApp($item['userid']);
+				$arrGroupContentComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
 				$arrGroupContentComment[$key]['content'] = editor2html($item['content']);
 				$arrGroupContentComment[$key]['recomment'] = $this->recomment($item['referid']);
 			}
@@ -162,7 +162,7 @@ class group{
 	//Refer二级循环，三级循环暂时免谈
 	function recomment($referid){
 		$strComment = $this->db->once_fetch_assoc("select * from ".dbprefix."group_topics_comments where commentid='$referid'");
-		$strComment['user'] = aac('user')->getUserForApp($strComment['userid']);
+		$strComment['user'] = aac('user')->getOneUser($strComment['userid']);
 		$strComment['content'] = editor2html($strComment['content']);
 		
 		return $strComment;

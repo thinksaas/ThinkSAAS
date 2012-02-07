@@ -41,7 +41,7 @@ if(intval($TS_USER['user']['userid'])>0){
 $arrReviews= $db->fetch_all_assoc("select * from ".dbprefix."apple_review where `appleid`='$appleid' limit 5");
 foreach($arrReviews as $key=>$item){
 	$arrReview[] = $item;
-	$arrReview[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+	$arrReview[$key]['user'] = aac('user')->getOneUser($item['userid']);
 	$arrReview[$key]['content'] = getsubstrutf8($item['content'],0,100);
 }
 //计算点评数 

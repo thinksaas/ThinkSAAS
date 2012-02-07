@@ -4,7 +4,7 @@ $arrPhotos = $db->fetch_all_assoc("select * from ".dbprefix."photo where `isreco
 
 foreach($arrPhotos as $key=>$item){
 	$arrPhoto[] = $item;
-	$arrPhoto[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+	$arrPhoto[$key]['user'] = aac('user')->getOneUser($item['userid']);
 }
 
 $title = '精彩图片';

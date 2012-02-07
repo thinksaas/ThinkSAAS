@@ -16,7 +16,7 @@ switch($ts){
 		$arrTopics = $db->fetch_all_assoc("select topicid,groupid,userid,title,count_comment,addtime,uptime from ".dbprefix."group_topics where userid='".$TS_USER['user']['userid']."' order by addtime desc limit 30");
 		foreach($arrTopics as $key=>$item){
 			$arrTopic[] = $item;
-			$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+			$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 			$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 		}
 
@@ -41,7 +41,7 @@ switch($ts){
 
 		foreach($arrTopics as $key=>$item){
 			$arrTopic[] = $item;
-			$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+			$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 			$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 		}
 
@@ -65,7 +65,7 @@ switch($ts){
 
 		foreach($arrTopics as $key=>$item){
 			$arrTopic[] = $item;
-			$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+			$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 			$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 		}
 

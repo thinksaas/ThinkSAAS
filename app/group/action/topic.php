@@ -41,7 +41,7 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	//帖子标签
 	$strTopic['tags'] = aac('tag')->getObjTagByObjid('topic','topicid',$topicid);
 	$strTopic['content'] = editor2html($strTopic['content']);
-	$strTopic['user']	= aac('user')->getUserForApp($strTopic['userid']);
+	$strTopic['user']	= aac('user')->getOneUser($strTopic['userid']);
 	$strTopic['user']['signed'] = hview($strTopic['user']['signed']);
 	$title = $strTopic['title'];
 	
@@ -63,7 +63,7 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	$arrComment = $db->fetch_all_assoc("select * from ".dbprefix."group_topics_comments where `topicid`='$topicid' order by addtime $sc limit $lstart,15");
 	foreach($arrComment as $key=>$item){
 		$arrTopicComment[] = $item;
-		$arrTopicComment[$key]['user'] = aac('user')->getUserForApp($item['userid']);
+		$arrTopicComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
 		$arrTopicComment[$key]['content'] = editor2html($item['content']);
 		$arrTopicComment[$key]['recomment'] = $new['group']->recomment($item['referid']);
 	}
@@ -89,7 +89,7 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	
 	foreach($newTopics as $key=>$item){
 		$newTopic[] = $item;
-		$newTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+		$newTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 	}
 	
 	($page > 1) ? $titlepage = " - 第".$page."页" : $titlepage='';

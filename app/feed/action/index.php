@@ -27,7 +27,7 @@ foreach($arrFeeds as $key=>$item){
 	}
 	
 	$arrFeed[] = array(
-		'user'	=> aac('user')->getSimpleUser($item['userid']),
+		'user'	=> aac('user')->getOneUser($item['userid']),
 		'content' => strtr($item['template'],$tmpdata),
 		'addtime' => $item['addtime'],
 	);

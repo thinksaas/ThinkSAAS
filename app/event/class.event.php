@@ -57,7 +57,7 @@ class event{
 		if(is_array($arrGroupContentComment)){
 			foreach($arrGroupContentComment as $key=>$item){
 				//$arrGroupContentComment[$key]['user'] = $this->getUserData($item['userid']);
-				$arrGroupContentComment[$key]['user'] = aac('user')->getOneUserByUserid($item['userid']);
+				$arrGroupContentComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
 				$arrGroupContentComment[$key]['content'] = hview($item['content']);
 			}
 		}

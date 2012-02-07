@@ -18,7 +18,7 @@ $pageUrl = pagination($albumNum, 28, $page, $url);
 $arrComments = $db->fetch_all_assoc("select * from ".dbprefix."photo_comment order by addtime desc limit 30");
 foreach($arrComments as $key=>$item){
 	$arrComment[] = $item;
-	$arrComment[$key]['user'] = aac('user')->getUserForApp($item['userid']);;
+	$arrComment[$key]['user'] = aac('user')->getOneUser($item['userid']);;
 }
 
 

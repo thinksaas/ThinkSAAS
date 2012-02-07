@@ -21,7 +21,7 @@ $arrReviews = $db->fetch_all_assoc("select * from ".dbprefix."apple_review order
 foreach($arrReviews as $key=>$item){
 	$arrReview[] = $item;
 	$arrReview[$key]['content'] = getsubstrutf8(t($item['content']),0,130);
-	$arrReview[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+	$arrReview[$key]['user'] = aac('user')->getOneUser($item['userid']);
 	$arrReview[$key]['apple'] = $new['apple']->getApple($item['appleid']);
 }
 

@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 
 $userid = intval($_GET['userid']);
 
-$strUser = $new['user']->getUserForApp($userid);
+$strUser = $new['user']->getOneUser($userid);
 
 if($strUser == '') header("Location: ".SITE_URL."index.php");
 
@@ -12,7 +12,7 @@ $followedUsers = $db->fetch_all_assoc("select userid from ".dbprefix."user_follo
 
 if(is_array($followedUsers)){
 	foreach($followedUsers as $item){
-		$arrFollowedUser[] =  $new['user']->getUserForApp($item['userid']);
+		$arrFollowedUser[] =  $new['user']->getOneUser($item['userid']);
 	}
 }
 

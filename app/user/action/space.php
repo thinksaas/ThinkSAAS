@@ -12,7 +12,7 @@ if($userid == 0){
 
 $new['user']->isUser($userid);
 
-$strUser = $new['user']->getOneUserByUserid($userid);
+$strUser = $new['user']->getOneUser($userid);
 
 //是否跟随
 if($TS_USER['user']['userid'] != '' && $TS_USER['user']['userid'] != $strUser['userid']){
@@ -31,7 +31,7 @@ $followUsers = $db->fetch_all_assoc("select userid_follow from ".dbprefix."user_
 
 if(is_array($followUsers)){
 	foreach($followUsers as $item){
-		$arrFollowUser[] =  $new['user']->getOneUserByUserid($item['userid_follow']);
+		$arrFollowUser[] =  $new['user']->getOneUser($item['userid_follow']);
 	}
 }
 
@@ -60,7 +60,7 @@ if(is_array($arrComments)){
 
 }
 //收藏的帖子 
-$arrMyCollect = $new['user']->getCollectTopic($userid,15);
+$arrMyCollect = '';
 
 $title = $strUser['username'].'的个人空间';
 include template("space");

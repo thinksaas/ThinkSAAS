@@ -9,7 +9,7 @@ $pageUrl = pagination($attachNum, 20, $page, $url);
 
 foreach($arrAttachs as $key=>$item){
 	$arrAttach[] = $item;
-	$arrAttach[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+	$arrAttach[$key]['user'] = aac('user')->getOneUser($item['userid']);
 }
 
 if($page > 0){

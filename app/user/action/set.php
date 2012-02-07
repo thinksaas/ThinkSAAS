@@ -7,7 +7,7 @@ $userid = intval($TS_USER['user']['userid']);
 
 if($userid == '0') header("Location: ".SITE_URL."index.php");
 
-$strUser = $new['user']->getUserForEdit($userid);
+$strUser = $new['user']->getOneUser($userid);
 
 if($userid != $strUser['userid']) header("Location: ".SITE_URL."index.php");
 
