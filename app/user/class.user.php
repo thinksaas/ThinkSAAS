@@ -96,5 +96,10 @@ class user{
 		$strArea = $this->db->once_fetch_assoc("select * from ".dbprefix."area where `areaid`='$areaid'");
 		return $strArea;
 	}
+	
+	//析构函数
+	public function __destruct(){
+		
+	}
 					
 }

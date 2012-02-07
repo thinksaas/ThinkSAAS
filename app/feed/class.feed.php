@@ -15,4 +15,9 @@ class feed{
 		$this->db->query("insert into ".dbprefix."feed (`userid`,`template`,`data`,`addtime`) values ('$userid','$template','$data','".time()."')");
 	}
 	
+	//析构函数
+	public function __destruct(){
+		
+	}
+	
 }

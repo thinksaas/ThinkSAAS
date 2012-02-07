@@ -240,5 +240,9 @@ class group{
 		}
 	}
 	
+	//析构函数
+	public function __destruct(){
+		
+	}
+	
 }
-
