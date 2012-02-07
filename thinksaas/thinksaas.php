@@ -23,6 +23,9 @@ $TS_USER = array(
 //加载基础函数
 require_once 'fun.base.php';
 
+//载入核心模型
+require_once 'Core/tsModel.php';
+
 //开始处理url路由
 reurl();
 
