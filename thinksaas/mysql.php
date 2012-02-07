@@ -3,39 +3,31 @@ defined('IN_TS') or die('Access Denied.');
  
 class MySql {
 
-	var $queryCount = 0;
-	var $conn;
-	var $result;
-	function MySql($TS_DB){
+	public $queryCount = 0;
+	public $conn;
+	public $result;
+	
+	//构造函数
+	//$TS_DB 数据库链接参数
+	function __construct($TS_DB){
 		
 		if (!function_exists('mysql_connect')){
 			qiMsg('服务器PHP不支持MySql数据库');
 		}
 		
-		if(!empty($TS_DB['host']) && !empty($TS_DB['user'])) {
+		if($TS_DB['host'] && $TS_DB['user']) {
 		
-			if (!$this->conn = @mysql_connect($TS_DB['host'], $TS_DB['user'], $TS_DB['pwd'])){
+			if (!$this->conn = mysql_connect($TS_DB['host'], $TS_DB['user'], $TS_DB['pwd'])){
 				qiMsg("连接数据库失败,可能是数据库用户名或密码错误");
 			}
 		
 		}
-
-		if ($this->getMysqlVersion() >'4.1'){
-			mysql_query("SET NAMES 'utf8'");
-		}
 		
-		if(!empty($TS_DB['name'])){
-			mysql_select_db($TS_DB['name'], $this->conn) OR qiMsg("未找到指定数据库");
-		}
+		$this->query("SET NAMES 'utf8'");
 		
-	}
-
-	/*
-	 *关闭数据库
-	 */
-	 
-	function close(){
-		return mysql_close($this->conn);
+		if($TS_DB['name']) mysql_select_db($TS_DB['name'], $this->conn) OR qiMsg("未找到指定数据库");
+		
+		
 	}
 
 	/*
@@ -200,6 +192,10 @@ class MySql {
 	 
 	function getMysqlVersion(){
 		return @mysql_get_server_info();
+	}
+	
+	public function __destruct(){
+		return mysql_close($this->conn);
 	}
 
 }

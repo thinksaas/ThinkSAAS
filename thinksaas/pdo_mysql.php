@@ -29,7 +29,7 @@ class MySql {
 			$this->query_count += 1;
 			if ($this->db->errorCode() != 00000){
 				if($symbols == 0){
-					$this->error($this->db->errorInfo());
+					$this->getError();
 				}else{return "Error";}
 			}else{
 				return $result;
@@ -46,7 +46,7 @@ class MySql {
 		$rs = $this->db->query($s);
 		
 		if ($this->db->errorCode() != 00000){
-			$this->error($this->db->errorInfo());
+			$this->getError();
 		}
 		$this->query_count += 1;
 		
@@ -64,7 +64,7 @@ class MySql {
 			$data = $this->db->query($s);
 			if ($this->db->errorCode() != 00000){
 				if($symbols == 0){
-					$this->error($this->db->errorInfo());
+					$this->getError();
 				}else{return "Error";}
 			}
 			$this->query_count += 1;
@@ -125,7 +125,7 @@ class MySql {
 	/*
 	 *获取mysql错误
 	 */
-	function geterror(){
+	function getError(){
 		$result = $this->db->errorInfo();
 		return $result[2];
 	}
@@ -140,49 +140,6 @@ class MySql {
 	{
 		$Data = $this->once_fetch_assoc("SELECT version( ) AS version");
 		return $Data['version'];
-	}
-	
-	/*报错*/
-	function error($e)
-	{
-	echo'
-	<html>
-		<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>致命错误</title>
-		</head>
-		<body bgcolor="#FFFFFF">
-		<table cellpadding="10" cellspacing="0" border="0" width="100%" align="left" style="font-family: Verdana, Tahoma; color: #666666; font-size: 12px;border:1px solid #F00">
-		  <tr>
-		    <td valign="middle" align="left" bgcolor="#EBEBEB"><br>
-		      <b style="font-size: 14px">致命错误</b> <br>
-		      <br>出现了致命错误。导致网站非正常停止响应，您应该尽快的将本错误告知网站技术支持人员。技术支持QQ:1078700473
-		      <p>
-		      <b style="font-size: 14px">错误代号：'.$e[1].'  </b> </p>
-			  <p>
-		       '.$e[2].'</p>
-		      </td>
-	      </tr>
-	    </table>
-</body>
-		</html>';
-	//$this->log($e);
-	exit();
-	}
-	
-	//记录错误
-	function log($err,$no=0)
-	{
-		$path =  'data/log/db_log.txt';
-		if(!file_exists($path)){
-			$hand =	fopen($path,'w+');  //如果文件不存在则使用创建方式建立文件
-		}else{
-			$hand =	fopen($path,'a');	//如果文件存在则直接进行添加写入
-		}
-		$data = '时间 :['.date("Y/m/d H:i:s").']('.$err[1].') '."\n".'脚本:'.$_SERVER["REQUEST_URI"] ."\n".'描述:'.$err[2].''."\n";
-		@fwrite($hand,$data);
-		@fclose($hand);
-
 	}
 
 }

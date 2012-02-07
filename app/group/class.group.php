@@ -5,7 +5,7 @@ class group{
 
 	public $db;
 
-	public function group($dbhandle){
+	public function __construct($dbhandle){
 		$this->db = $dbhandle;
 	}
 	

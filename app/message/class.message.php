@@ -3,9 +3,9 @@ defined('IN_TS') or die('Access Denied.');
  
 class message{
 
-	var $db;
+	public $db;
 
-	function message($dbhandle){
+	public function __construct($dbhandle){
 		$this->db = $dbhandle;
 	}
 	

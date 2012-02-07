@@ -4,7 +4,7 @@ class feed{
 
 	var $db;
 
-	function feed($dbhandle){
+	public function __construct($dbhandle){
 		$this->db = $dbhandle;
 	}
 	

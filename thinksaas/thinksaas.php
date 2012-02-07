@@ -6,7 +6,10 @@ defined('IN_TS') or die('Access Denied.');
  * @Email:thinksaas@qq.com
  * @site:www.thinksaas.cn
  */
+if (substr(PHP_VERSION, 0, 1) != '5')exit("ThinkSAAS运行环境要求PHP5！");
+
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+
 @set_magic_quotes_runtime(0);
 
 session_start();
