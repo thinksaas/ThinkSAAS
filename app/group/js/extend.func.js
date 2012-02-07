@@ -110,7 +110,7 @@ function topic_del(gid,tid){
 		$.post(url,{groupid:gid,topicid:tid},function(rs){
 					if(rs == 0){
 						succ('删除成功^_^');
-						window.location = siteUrl+'index.php?app=group&ac=group&groupid='+gid;
+						window.location = siteUrl+'index.php?app=group&ac=show&id='+gid;
 					}
 		})
 	});
