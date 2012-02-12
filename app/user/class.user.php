@@ -66,7 +66,8 @@ class user{
 		
 		//地区
 		if($strUser['areaid'] > 0){
-			$strUser['area'] = $this->getOneArea($areaid);
+		
+			$strUser['area'] = $this->getOneArea($strUser['areaid']);
 		}else{
 			$strUser['area'] = array(
 				'areaid'	=> '0',
