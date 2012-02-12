@@ -4,12 +4,6 @@ defined('IN_TS') or die('Access Denied.');
 class MySql {
 
 	public $queryCount = 0;
-	
-	/**
-	 * 执行的SQL语句记录
-	 */
-	public $arrSql;
-	
 	public $conn;
 	public $result;
 	
@@ -41,9 +35,6 @@ class MySql {
 	 */
 	 
 	function query($sql){
-	
-		$this->arrSql[] = $sql;
-	
 		$this->result = mysql_query($sql,$this->conn);
 		$this->queryCount++;
 		if (!$this->result){
@@ -53,17 +44,41 @@ class MySql {
 		}
 	}
 	
-	/**
-	 * 获取数据表结构
-	 *
-	 * @param tbl_name  表名称
+	/*
+	 *mysql_fetch_array
+	 *BY QINIAO
+	 *2010-08-29
+	 *www.thinksaas.cn
 	 */
-	public function getTable($tbl_name)
-	{
-		return $this->fetch_all_assoc("DESCRIBE {$tbl_name}");
+	 
+	function fetch_all_array($sql){
+		$query = $this->query($sql);
+		while($list_item = $this->fetch_array($query)){
+			$all_array[] = $list_item;
+		}
+		return $all_array;
 	}
 
+	/*
+	 *从结果集中取出一行作为关联数组/数字索引数组
+	 */
+	 
+	function fetch_array($query){
+		return mysql_fetch_array($query);
+	}
 
+	function once_fetch_array($sql){
+		$this->result = $this->query($sql);
+		return $this->fetch_array($this->result);
+	}
+
+	/*
+	 *从结果集中取得一行作为数字索引数组
+	 */
+	 
+	function fetch_row($query){
+		return mysql_fetch_row($query);
+	}
 	
 	/*
 	 *fetch_all_assoc
@@ -71,7 +86,7 @@ class MySql {
 	 
 	function fetch_all_assoc($sql,$max=0){
 		$query = $this->query($sql);
-		while($list_item = mysql_fetch_assoc($query)){
+		while($list_item = $this->fetch_assoc($query)){
 		
 			$current_index ++;
 			
@@ -86,19 +101,23 @@ class MySql {
 		return $all_array;
 	}
 	
-	/*
-	 *返回当前插入记录的主键ID
-	 */
-	
-	function insert_id(){
-		return mysql_insert_id($this->conn);
+	function fetch_assoc($query){
+		return mysql_fetch_assoc($query);
 	}
-
 	
 	function once_fetch_assoc($sql){
 		$list 	= $this->query($sql);
-		$list_array = mysql_fetch_assoc($list);
+		$list_array = $this->fetch_assoc($list);
 		return $list_array;
+	}
+	
+
+	/*
+	 *获取行的数目
+	 */
+	 
+	function num_rows($query){
+		return mysql_num_rows($query);
 	}
 	
 	function once_num_rows($sql){
@@ -106,14 +125,20 @@ class MySql {
 		return mysql_num_rows($query);
 	}
 	
-
-	
-	/**
-	 * 格式化带limit的SQL语句
+	/*
+	 *获得结果集中字段的数目
 	 */
-	public function setlimit($sql, $limit)
-	{
-		return $sql. " LIMIT {$limit}";
+	 
+	function num_fields($query){
+		return mysql_num_fields($query);
+	}
+
+	/*
+	 *取得上一步INSERT产生的ID
+	 */
+	
+	function insert_id(){
+		return mysql_insert_id($this->conn);
 	}
 	
 	/*
@@ -169,21 +194,6 @@ class MySql {
 		return @mysql_get_server_info();
 	}
 	
-	/**
-	 * 对特殊字符进行过滤
-	 *
-	 * @param value  值
-	 */
-	public function __val_escape($value) {
-		if(is_null($value))return 'NULL';
-		if(is_bool($value))return $value ? 1 : 0;
-		if(is_int($value))return (int)$value;
-		if(is_float($value))return (float)$value;
-		if(@get_magic_quotes_gpc())$value = stripslashes($value);
-		return '\''.mysql_real_escape_string($value, $this->conn).'\'';
-	}
-	
-	//析构函数
 	public function __destruct(){
 		return mysql_close($this->conn);
 	}
