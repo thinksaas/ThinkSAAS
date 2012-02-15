@@ -240,7 +240,11 @@ switch($ts){
 			
 		}else{
 			
-			$db->query("insert into ".dbprefix."user_follow (`userid`,`userid_follow`,`addtime`) values ('$userid','$userid_follow','".time()."')");
+			$db->create('user_follow',array(
+				'userid'=>$userid,
+				'userid_follow'=>$userid_follow,
+				'addtime'=>time(),
+			));
 			
 			//统计更新跟随和被跟随数
 			//统计自己的

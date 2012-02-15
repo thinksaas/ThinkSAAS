@@ -62,12 +62,19 @@ switch($ts){
 			
 			$salt = md5(rand());
 			
-			$db->query("insert into ".dbprefix."user (`pwd` , `salt`,`email`) values ('".md5($salt.$pwd)."', '$salt' ,'$email');");
-			
-			$userid = $db->insert_id();
+			$userid = $db->create('user',array(
+				'pwd'=>md5($salt.$pwd),
+				'salt'=>$salt,
+				'email'=>$email,
+			));
 			
 			//积分
-			$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','注册','1000','".time()."')");
+			$db->create('user_scores',array(
+				'userid'=>$userid,
+				'scorename'=>'注册',
+				'score'=>1000,
+				'addtime'=>time(),
+			));
 		
 			
 			//插入用户信息
@@ -89,7 +96,13 @@ switch($ts){
 				foreach($arrGroup as $item){
 					$groupusernum = $db->once_num_rows("select * from ".dbprefix."group_users where `userid`='".$userid."' and `groupid`='".$item."'");
 					if($groupusernum == '0'){
-						$db->query("insert into ".dbprefix."group_users (`userid`,`groupid`,`addtime`) values('".$userid."','".$item."','".time()."')");
+						
+						$db->create('group_users',array(
+							'userid'=>$userid,
+							'groupid'=>$item,
+							'addtime'=>time(),
+						));
+						
 						//统计更新
 						$count_user = $db->once_num_rows("select * from ".dbprefix."group_users where `groupid`='".$item."'");
 						$db->query("update ".dbprefix."group set `count_user`='".$count_user."' where `groupid`='".$item."'");

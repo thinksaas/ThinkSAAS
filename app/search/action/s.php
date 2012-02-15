@@ -26,7 +26,6 @@ if(strlen($kw)<2) {
 	exit;
 };
 
-//$db->query("insert into ".dbprefix."search_key (`userid`,`keyword`,`addtime`) values ('$userid','$kw','".time()."')");
 
 switch($ts){
 	case "":

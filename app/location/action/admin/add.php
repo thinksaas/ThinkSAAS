@@ -11,7 +11,10 @@ switch($ts){
 		$areaname = $_POST['areaname'];
 		$zm = $new['location']->getfirstchar($areaname);
 		
-		$db->query("insert into ".dbprefix."area (`areaname`,`zm`) values ('$areaname','$zm')");
+		$db->create('area',array(
+			'areaname'=>$areaname,
+			'zm'=>$zm,
+		));
 		
 		qiMsg("顶级区域添加成功",'返回顶级区域列表',SITE_URL.'index.php?app=location&ac=admin&mg=list&ts=one');
 		break;
@@ -31,7 +34,11 @@ switch($ts){
 		
 		$zm = $new['location']->getfirstchar($areaname);
 		
-		$db->query("insert into ".dbprefix."area (`areaname`,`zm`,`referid`) values ('$areaname','$zm','$referid')");
+		$db->create('area',array(
+			'areaname'=>$areaname,
+			'zm'=>$zm,
+			'referid'=>$referid,
+		));
 		
 		qiMsg("二级区域添加成功",'返回二级区域列表',SITE_URL.'index.php?app=location&ac=admin&mg=list&ts=two&referid='.$referid);
 		break;
@@ -51,7 +58,11 @@ switch($ts){
 		
 		$zm = $new['location']->getfirstchar($areaname);
 		
-		$db->query("insert into ".dbprefix."area (`areaname`,`zm`,`referid`) values ('$areaname','$zm','$referid')");
+		$db->create('area',array(
+			'areaname'=>$areaname,
+			'zm'=>$zm,
+			'referid'=>$referid,
+		));
 		
 		qiMsg("三级区域添加成功",'返回三级区域列表',SITE_URL.'index.php?app=location&ac=admin&mg=list&ts=three&referid='.$referid);
 		break;

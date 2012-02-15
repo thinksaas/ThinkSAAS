@@ -61,7 +61,12 @@ switch($ts){
 		
 		
 		//积分记录
-		$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','登录','10','".time()."')");
+		$db->create('user_scores',array(
+			'userid'=>$userid,
+			'scorename'=>'登录',
+			'score'=>10,
+			'addtime'=>time(),
+		));
 		
 		$strScore = $db->once_fetch_assoc("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
 		

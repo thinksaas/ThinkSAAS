@@ -816,7 +816,11 @@ switch ($ts) {
 		$groupid = intval($_POST['groupid']);
 		$typename = t($_POST['typename']);
 		if($typename != '')
-		  $db->query("insert into ".dbprefix."group_topics_type (`groupid`,`typename`) values ('$groupid','$typename')");
+		  
+		  $db->create('group_topics_type',array(
+			'groupid'=>$groupid,
+			'typename'=>$typename,
+		  ));
 		
 		header("Location: ".SITE_URL.tsurl('group','edit',array('groupid'=>$groupid,'ts'=>'type')));
 		
@@ -830,9 +834,14 @@ switch ($ts) {
 		$referid = $_POST['referid'];
 		$topicid = $_POST['topicid'];
 		$content = trim($_POST['content']);
-		$addtime = time();
-
-		$db->query("insert into ".dbprefix."group_topics_comments (`referid`,`topicid`,`userid`,`content`,`addtime`) values ('$referid','$topicid','$userid','$content','$addtime')");
+		
+		$db->create('group_topics_comments',array(
+			'referid'=>$referid,
+			'topicid'=>$topicid,
+			'userid'=>$userid,
+			'content'=>$content,
+			'addtime'=>time(),
+		));
 		
 		//统计评论数
 		$count_comment = $db->once_num_rows("select * from ".dbprefix."group_topics_comments where topicid='$topicid'");

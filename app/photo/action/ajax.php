@@ -179,12 +179,14 @@ switch($ts){
 		if($albumname == '') qiMsg("相册名称不能为空！");
 		
 		$albumdesc = h($_POST['albumdesc']);
-		$addtime = time();
-		$uptime = time();
 		
-		$db->query("insert into ".dbprefix."photo_album (`userid`,`albumname`,`albumdesc`,`addtime`,`uptime`) values ('$userid','$albumname','$albumdesc','$addtime','$uptime')");
-		
-		$albumid = $db->insert_id();
+		$albumid = $db->create('photo_album',array(
+			'userid'=>$userid,
+			'albumname'=>$albumname,
+			'albumdesc'=>$albumdesc,
+			'addtime'=>time(),
+			'uptime'=>time(),
+		));
 		
 		header("Location: ".SITE_URL."index.php?app=photo&ac=ajax&ts=flash&albumid=".$albumid);
 		break;

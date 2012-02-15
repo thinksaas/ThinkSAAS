@@ -35,7 +35,11 @@ switch($ts){
 		}else{
 			//当数据库中没码的时间生成50个码
 			for($i=1;$i<=50;$i++){
-				$db->query("insert into ".dbprefix."user_invites (`invitecode`,`addtime`) values ('".random(18)."','".time()."')");
+				
+				$db->create('user_invites',array(
+					'invitecode'=>random(18),
+					'addtime'=>time(),
+				));
 
 			}
 			//再次取码
