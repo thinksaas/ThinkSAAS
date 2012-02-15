@@ -40,7 +40,7 @@ class MySql {
 	/*
 	查询数据 返回数组
 	*/
-	function fetch_all_assoc($s)
+	function findAll($s)
 	{
 		$this->db->setAttribute(PDO::ATTR_CASE,PDO::CASE_LOWER); //改写获取方式为小写字段
 		$rs = $this->db->query($s);
@@ -57,7 +57,7 @@ class MySql {
 	/*
 	返回查询结果一条
 	*/
-	function once_fetch_assoc($s,$symbols = 0)
+	function find($s,$symbols = 0)
 	{
 			
 			$this->db->setAttribute(PDO::ATTR_CASE,PDO::CASE_LOWER);
@@ -77,7 +77,7 @@ class MySql {
 	}
 
 	//统计结果集的行数
-	function once_num_rows($sql){
+	function findCount($sql){
 		$rs=$this->db->query($sql);
 		$num = $rs->rowCount();
 		return $num;
@@ -147,7 +147,7 @@ class MySql {
 	
 	function getMysqlVersion()
 	{
-		$Data = $this->once_fetch_assoc("SELECT version( ) AS version");
+		$Data = $this->find("SELECT version( ) AS version");
 		return $Data['version'];
 	}
 
