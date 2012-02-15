@@ -9,7 +9,7 @@ if($TS_USER['user'] == ''){
 	$page = isset($_GET['page']) ? $_GET['page'] : '1';
 	$url = SITE_URL.tsurl('group','all',array('page'=>''));
 	$lstart = $page*20-20;
-	$arrGroups = $db->fetch_all_assoc("select groupid from ".dbprefix."group order by isrecommend desc limit $lstart,20");
+	$arrGroups = $db->findAll("select groupid from ".dbprefix."group order by isrecommend desc limit $lstart,20");
 	foreach($arrGroups as $key=>$item){
 		$arrData[] = $new['group']->getOneGroup($item['groupid']);
 	}
@@ -17,7 +17,7 @@ if($TS_USER['user'] == ''){
 		$arrRecommendGroup[] =  $item;
 		$arrRecommendGroup[$key]['groupdesc'] = getsubstrutf8(t($item['groupdesc']),0,35);
 	}
-	$groupNum = $db->once_fetch_assoc("select count(groupid) from ".dbprefix."group");
+	$groupNum = $db->find("select count(groupid) from ".dbprefix."group");
 	$pageUrl = pagination($groupNum['count(groupid)'], 20, $page, $url);
 
 
@@ -25,7 +25,7 @@ if($TS_USER['user'] == ''){
 	$arrNewGroup = $new['group']->getNewGroup('10');
 	
 	//热门帖子
-	$arrTopic = $db->fetch_all_assoc("select topicid,title,count_comment from ".dbprefix."group_topics order by count_comment desc limit 10");
+	$arrTopic = $db->findAll("select topicid,title,count_comment from ".dbprefix."group_topics order by count_comment desc limit 10");
 	
 	//小组分类
 	$arrCate = $new['group']->getCates();
@@ -46,12 +46,12 @@ if($TS_USER['user'] == ''){
 	}
 	
 	//我的小组
-	$myGroup = $db->fetch_all_assoc("select * from ".dbprefix."group_users where userid='$userid'");
+	$myGroup = $db->findAll("select * from ".dbprefix."group_users where userid='$userid'");
 	
 	if($myGroup != ''){
 	
 		//我加入的小组
-		$myGroups = $db->fetch_all_assoc("select * from ".dbprefix."group_users where userid='$userid' limit 30");
+		$myGroups = $db->findAll("select * from ".dbprefix."group_users where userid='$userid' limit 30");
 		
 		if(is_array($myGroups)){
 			foreach($myGroups as $key=>$item){
@@ -69,7 +69,7 @@ if($TS_USER['user'] == ''){
 		
 		$strGroup = implode(',',$arrGroup);
 		if($strGroup){
-			$arrTopics = $db->fetch_all_assoc("select topicid,userid,groupid,title,count_comment,count_view,istop,isphoto,isattach,isposts,addtime,uptime from ".dbprefix."group_topics where groupid in ($strGroup) and isshow='0' order by uptime desc limit 50");
+			$arrTopics = $db->findAll("select topicid,userid,groupid,title,count_comment,count_view,istop,isphoto,isattach,isposts,addtime,uptime from ".dbprefix."group_topics where groupid in ($strGroup) and isshow='0' order by uptime desc limit 50");
 			foreach($arrTopics as $key=>$item){
 				$arrTopic[] = $item;
 				$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);

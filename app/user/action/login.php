@@ -26,16 +26,16 @@ switch($ts){
 		
 		if($email=='' || $pwd=='') tsNotice('Email和密码都不能为空！');
 		
-		$isEmail = $db->once_fetch_assoc("select count(*) from ".dbprefix."user where `email`='$email'");
+		$isEmail = $db->find("select count(*) from ".dbprefix."user where `email`='$email'");
 		
 		if($isEmail['count(*)'] == 0) tsNotice('Email不存在，你可能还没有注册！');
 		
-		$strUser = $db->once_fetch_assoc("select * from ".dbprefix."user where `email`='$email'");
+		$strUser = $db->find("select * from ".dbprefix."user where `email`='$email'");
 			
 		if(md5($strUser['salt'].$pwd)!==$strUser['pwd']) tsNotice('密码错误！');	
 		
 		//用户信息
-		$userData	= $db->once_fetch_assoc("select  * from ".dbprefix."user_info where `email`='$email'");
+		$userData	= $db->find("select  * from ".dbprefix."user_info where `email`='$email'");
 		
 		//记住登录Cookie
 		 if($cktime != ''){   
@@ -68,7 +68,7 @@ switch($ts){
 			'addtime'=>time(),
 		));
 		
-		$strScore = $db->once_fetch_assoc("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
+		$strScore = $db->find("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
 		
 		//更新登录时间
 		$db->query("update ".dbprefix."user_info set `uptime`='".time()."' , `count_score`='".$strScore['score']."' where userid='$userid'");

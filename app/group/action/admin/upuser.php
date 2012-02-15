@@ -2,10 +2,10 @@
 //将用户全部绑定到群组
 $groupid = $_GET['groupid'];
 
-$arrUser = $db->fetch_all_assoc("select userid from ".dbprefix."user order by userid desc");
+$arrUser = $db->findAll("select userid from ".dbprefix."user order by userid desc");
 
 foreach($arrUser as $item){
-	$groupusernum = $db->once_num_rows("select * from ".dbprefix."group_users where  userid='".$item['userid']."' and groupid='".$groupid."'");
+	$groupusernum = $db->findCount("select * from ".dbprefix."group_users where  userid='".$item['userid']."' and groupid='".$groupid."'");
 	
 	if($groupusernum == '0'){
 		
@@ -19,7 +19,7 @@ foreach($arrUser as $item){
 	
 }
 
-$userNum = $db->once_num_rows("select * from ".dbprefix."group_users where groupid='".$groupid."'");
+$userNum = $db->findCount("select * from ".dbprefix."group_users where groupid='".$groupid."'");
 
 $db->query("update ".dbprefix."group set `count_user`='".$userNum."' where groupid='".$groupid."'");
 

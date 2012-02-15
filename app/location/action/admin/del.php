@@ -1,10 +1,10 @@
 <?php 
 $areaid = $_GET['areaid'];
 
-$strArea = $db->once_fetch_assoc("select * from ".dbprefix."area where areaid='$areaid'");
+$strArea = $db->find("select * from ".dbprefix."area where areaid='$areaid'");
 
 if($strArea['referid'] == '0'){
-	$arrTwo = $db->fetch_all_assoc("select * from ".dbprefix."area where referid='$areaid'");
+	$arrTwo = $db->findAll("select * from ".dbprefix."area where referid='$areaid'");
 	
 	foreach($arrTwo as $item){
 		//删除三级
@@ -21,7 +21,7 @@ if($strArea['referid'] == '0'){
 }elseif($strArea['referid']>0){
 	
 	//这里可以不用指定是二级还是三级，只要循环就可以
-	$arrArea = $db->fetch_all_assoc("select * from ".dbprefix."area where referid='$areaid'");
+	$arrArea = $db->findAll("select * from ".dbprefix."area where referid='$areaid'");
 	
 	foreach($arrArea as $item){
 		//删除三级

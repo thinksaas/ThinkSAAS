@@ -10,9 +10,9 @@ switch($ts){
 		$url = SITE_URL.'index.php?app=article&ac=admin&mg=cate&ts=list&page=';
 		$lstart = $page*10-10;
 
-		$arrCate = $db->fetch_all_assoc("select * from ".dbprefix."article_cate order by cateid desc limit $lstart, 10");
+		$arrCate = $db->findAll("select * from ".dbprefix."article_cate order by cateid desc limit $lstart, 10");
 
-		$cateNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."article_cate");
+		$cateNum = $db->find("select count(*) from ".dbprefix."article_cate");
 
 		$pageUrl = pagination($cateNum['count(*)'], 10, $page, $url);
 		
@@ -41,7 +41,7 @@ switch($ts){
 	case "edit":
 		$cateid = $_GET['cateid'];
 		
-		$strCate = $db->once_fetch_assoc("select * from ".dbprefix."article_cate where `cateid`='$cateid'");
+		$strCate = $db->find("select * from ".dbprefix."article_cate where `cateid`='$cateid'");
 		
 		include template("admin/cate_edit");
 		break;
@@ -51,7 +51,11 @@ switch($ts){
 		$cateid = $_POST['cateid'];
 		$catename = trim($_POST['catename']);
 		
-		$db->query("update ".dbprefix."article_cate set `catename`='$catename' where `cateid`='$cateid'");
+		$db->update('article_cate',array(
+			'catename'=>$catename,
+		),array(
+			'cateid'=>$cateid,
+		));
 		
 		qiMsg("修改成功！");
 		

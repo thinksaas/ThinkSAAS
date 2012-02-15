@@ -10,9 +10,9 @@ switch($ts){
 		
 		$url = SITE_URL.'index.php?app=photo&ac=admin&mg=photo&ts=list&page=';
 		
-		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo order by addtime desc limit $lstart,10");
+		$arrPhoto = $db->findAll("select * from ".dbprefix."photo order by addtime desc limit $lstart,10");
 		
-		$photoNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."photo");
+		$photoNum = $db->find("select count(*) from ".dbprefix."photo");
 		
 		$pageUrl = pagination($photoNum['count(*)'], 10, $page, $url);
 		
@@ -24,7 +24,7 @@ switch($ts){
 	
 		$photoid = intval($_GET['photoid']);
 		
-		$strPhoto = $db->once_fetch_assoc("select isrecommend from ".dbprefix."photo where `photoid`='$photoid'");
+		$strPhoto = $db->find("select isrecommend from ".dbprefix."photo where `photoid`='$photoid'");
 		
 		if($strPhoto['isrecommend']==0){
 			$db->query("update ".dbprefix."photo set `isrecommend`='1' where `photoid`='$photoid'");

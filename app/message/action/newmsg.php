@@ -9,7 +9,7 @@ defined('IN_TS') or die('Access Denied.');
 	if(!$userid) {
 		echo '0';
 	}
-	$newMsgNum = $db->once_num_rows("select * from ".dbprefix."message where touserid='$userid' and isread='0'");
+	$newMsgNum = $db->findCount("select * from ".dbprefix."message where touserid='$userid' and isread='0'");
 	
 	if($newMsgNum == '0'){
 		echo '0';

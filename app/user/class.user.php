@@ -11,7 +11,7 @@ class user{
 	
 	//获取最新会员
 	function getNewUser($num){
-		$arrNewUserId = $this->db->fetch_all_assoc("select userid from ".dbprefix."user_info order by addtime desc limit $num");
+		$arrNewUserId = $this->db->findAll("select userid from ".dbprefix."user_info order by addtime desc limit $num");
 		foreach($arrNewUserId as $item){
 			$arrNewUser[] = $this->getOneUser($item['userid']);
 		}
@@ -20,7 +20,7 @@ class user{
 	
 	//获取活跃会员
 	function getHotUser($num){
-		$arrNewUserId = $this->db->fetch_all_assoc("select userid from ".dbprefix."user_info order by uptime desc limit $num");
+		$arrNewUserId = $this->db->findAll("select userid from ".dbprefix."user_info order by uptime desc limit $num");
 		foreach($arrNewUserId as $item){
 			$arrHotUser[] = $this->getOneUser($item['userid']);
 		}
@@ -30,7 +30,7 @@ class user{
 	function getAllUser($page = 1, $prePageNum){
 		$start_limit = !empty($page) ? ($page - 1) * $prePageNum : 0;
 		$limit = $prePageNum ? "LIMIT $start_limit, $prePageNum" : '';
-		$users	= $this->db->fetch_all_assoc("select * from ".dbprefix."user order by userid desc $limit");
+		$users	= $this->db->findAll("select * from ".dbprefix."user order by userid desc $limit");
 		if($users){
 		foreach($users as $item){
 			$arrUser[]	= $this->getOneUser($item['userid']);	
@@ -44,14 +44,14 @@ class user{
 	function getUserNum($virtue, $setvirtue){
 		$where = 'where '.$virtue.'='.$setvirtue.'';
 		$res = "SELECT * FROM ".dbprefix."user $where";
-		$userNum = $this->db->once_num_rows($res);
+		$userNum = $this->db->findCount($res);
 		return $userNum;
 	}
 	
 	//获取一个用户的信息
 	function getOneUser($userid){
 	
-		$strUser = $this->db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
+		$strUser = $this->db->find("select * from ".dbprefix."user_info where userid='$userid'");
 		
 		//头像
 		if($strUser['face']){
@@ -85,7 +85,7 @@ class user{
 	
 	//用户是否存在
 	public function isUser($userid){
-		$isUser = $this->db->once_fetch_assoc("select count(*) from ".dbprefix."user where `userid`='$userid'");
+		$isUser = $this->db->find("select count(*) from ".dbprefix."user where `userid`='$userid'");
 		if($isUser['count(userid)'] == 0){
 			return false;
 		}else{
@@ -94,7 +94,7 @@ class user{
 	}
 	
 	public function getOneArea($areaid){
-		$strArea = $this->db->once_fetch_assoc("select * from ".dbprefix."area where `areaid`='$areaid'");
+		$strArea = $this->db->find("select * from ".dbprefix."area where `areaid`='$areaid'");
 		return $strArea;
 	}
 	

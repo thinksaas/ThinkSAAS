@@ -3,12 +3,16 @@ defined('IN_TS') or die('Access Denied.');
 switch($ts){
 	case "isaudit":
 		$articleid = $_GET['articleid'];
-		$strArticle = $db->once_fetch_assoc("select * from ".dbprefix."article where `articleid`='$articleid'");
+		$strArticle = $db->find("select * from ".dbprefix."article where `articleid`='$articleid'");
 		
 		if($strArticle['isaudit']==1){
-			$db->query("update ".dbprefix."article set `isaudit`='0' where `articleid`='$articleid'");
+			
+			$db->update('article',array('isaudit'=>0),array('articleid'=>$articleid));
+			
 		}else{
-			$db->query("update ".dbprefix."article set `isaudit`='1' where `articleid`='$articleid'");
+			
+			$db->update('article',array('isaudit'=>1),array('articleid'=>$articleid));
+			
 		}
 		
 		
@@ -31,7 +35,7 @@ switch($ts){
 		
 		$articleid = intval($_GET['articleid']);
 		
-		$strArticle = $db->once_fetch_assoc("select userid from ".dbprefix."article where `articleid`='$articleid'");
+		$strArticle = $db->find("select userid from ".dbprefix."article where `articleid`='$articleid'");
 		
 		if(intval($TS_USER['user']['isadmin'])=='1' || $userid == $strArticle['userid']){
 			$db->query("delete from ".dbprefix."article where `articleid`='$articleid'");

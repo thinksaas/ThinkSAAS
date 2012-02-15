@@ -9,7 +9,7 @@ $topicid = intval($_GET['topicid']);
 switch($ts){
 	case "ajax":
 		
-		$arrCollectUser = $db->fetch_all_assoc("select * from ".dbprefix."group_topics_collects where topicid='$topicid'");
+		$arrCollectUser = $db->findAll("select * from ".dbprefix."group_topics_collects where topicid='$topicid'");
 		
 		if(is_array($arrCollectUser)){
 			foreach($arrCollectUser as $item){

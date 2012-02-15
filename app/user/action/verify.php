@@ -7,7 +7,7 @@ switch($ts){
 
 		if($userid == 0) tsNotice("非法操作！");
 
-		$strUser = $db->once_fetch_assoc("select username,email,isverify,verifycode from ".dbprefix."user_info where userid='$userid'");
+		$strUser = $db->find("select username,email,isverify,verifycode from ".dbprefix."user_info where userid='$userid'");
 
 		if($strUser['verifycode']==''){
 			$verifycode = random(11);
@@ -36,7 +36,7 @@ switch($ts){
 		$email = $_GET['email'];
 		$verifycode = $_GET['verifycode'];
 		
-		$verify = $db->once_fetch_assoc("select count(*) from ".dbprefix."user_info where `email`='$email' and `verifycode`='$verifycode'");
+		$verify = $db->find("select count(*) from ".dbprefix."user_info where `email`='$email' and `verifycode`='$verifycode'");
 		
 		if($verify['count(*)'] > 0){
 			$db->query("update ".dbprefix."user_info set `isverify`='1' where `email`='$email'");

@@ -19,7 +19,7 @@ switch($ts){
 		}
 		
 		//更新缓存
-		$arrOptions = $db->fetch_all_assoc("select optionname,optionvalue from ".dbprefix."mail_options");
+		$arrOptions = $db->findAll("select optionname,optionvalue from ".dbprefix."mail_options");
 		foreach($arrOptions as $item){
 			$arrOption[$item['optionname']] = $item['optionvalue'];
 		}

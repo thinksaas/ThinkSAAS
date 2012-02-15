@@ -22,7 +22,7 @@ switch($ts){
 			exit;
 		}
 		
-		$scoreNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."apple_score where `appleid`='$appleid' and `userid`='$userid'");
+		$scoreNum = $db->find("select count(*) from ".dbprefix."apple_score where `appleid`='$appleid' and `userid`='$userid'");
 		if($scoreNum['count(*)'] > 0){
 			echo '2';exit;
 		}

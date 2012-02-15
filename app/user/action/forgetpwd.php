@@ -17,7 +17,7 @@ switch($ts){
 	
 		$email	= trim($_POST['email']);
 		
-		$emailNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."user where `email`='$email'");
+		$emailNum = $db->find("select count(*) from ".dbprefix."user where `email`='$email'");
 		
 		if($email==''){
 			tsNotice('Email输入不能为空^_^');

@@ -18,7 +18,7 @@ if($userid == 0){
 	exit;
 }
 
-$topicNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topics where `topicid`='$topicid'");
+$topicNum = $db->find("select count(*) from ".dbprefix."group_topics where `topicid`='$topicid'");
 
 if($topicNum['count(*)']==0){
 	header("Location: ".SITE_URL);
@@ -27,9 +27,9 @@ if($topicNum['count(*)']==0){
 
 
 
-$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where `topicid`='".$topicid."'");
+$strTopic = $db->find("select * from ".dbprefix."group_topics where `topicid`='".$topicid."'");
 
-$strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where `groupid`='".$strTopic['groupid']."'");
+$strGroup = $db->find("select * from ".dbprefix."group where `groupid`='".$strTopic['groupid']."'");
 
 
 if($strTopic['userid'] == $userid || $strGroup['userid']==$userid || $TS_USER['user']['isadmin']==1){
@@ -37,7 +37,7 @@ if($strTopic['userid'] == $userid || $strGroup['userid']==$userid || $TS_USER['u
 	$strTopic['content'] = htmlspecialchars($strTopic['content']);
 
 	//帖子类型
-	$arrGroupType = $db->fetch_all_assoc("select * from ".dbprefix."group_topics_type where `groupid`='".$strGroup['groupid']."'");
+	$arrGroupType = $db->findAll("select * from ".dbprefix."group_topics_type where `groupid`='".$strGroup['groupid']."'");
 
 	$title = '编辑帖子';
 

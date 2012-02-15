@@ -8,9 +8,9 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $url = SITE_URL.tsurl('article','cate',array('cateid'=>$cateid,'page'=>''));
 $lstart = $page*10-10;
 
-$arrArticles = $db->fetch_all_assoc("select * from ".dbprefix."article where `cateid`='$cateid' and `isaudit`='0' order by addtime desc limit $lstart, 10");
+$arrArticles = $db->findAll("select * from ".dbprefix."article where `cateid`='$cateid' and `isaudit`='0' order by addtime desc limit $lstart, 10");
 
-$articleNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."article where `cateid`='$cateid'");
+$articleNum = $db->find("select count(*) from ".dbprefix."article where `cateid`='$cateid'");
 
 $pageUrl = pagination($articleNum['count(*)'], 10, $page, $url);
 

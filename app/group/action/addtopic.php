@@ -11,7 +11,7 @@ if($userid == 0){
 $groupid = intval($_GET['groupid']);
 
 //小组数目
-$groupNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group where groupid='$groupid'");
+$groupNum = $db->find("select count(*) from ".dbprefix."group where groupid='$groupid'");
 
 if($groupNum['count(*)'] == 0){
 	header("Location: ".SITE_URL);
@@ -19,9 +19,9 @@ if($groupNum['count(*)'] == 0){
 }
 
 //小组会员
-$isGroupUser = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
+$isGroupUser = $db->find("select count(*) from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
 
-$strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='$groupid'");
+$strGroup = $db->find("select * from ".dbprefix."group where groupid='$groupid'");
 
 //允许小组成员发帖
 if($strGroup['ispost']==0 && $isGroupUser['count(*)'] == 0 && $userid != $strGroup['userid']){
@@ -36,7 +36,7 @@ if($strGroup['ispost'] == 1 && $userid != $strGroup['userid']){
 }
 
 //帖子类型
-$arrGroupType = $db->fetch_all_assoc("select * from ".dbprefix."group_topics_type where groupid='".$strGroup['groupid']."'");
+$arrGroupType = $db->findAll("select * from ".dbprefix."group_topics_type where groupid='".$strGroup['groupid']."'");
 
 $title = '发布帖子';
 

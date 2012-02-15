@@ -10,14 +10,14 @@ class location{
 	
 	//通过连贯性找到三级区域
 	function getAreaForApp($areaid){
-		$strAreaThree = $this->db->once_fetch_assoc("select * from ".dbprefix."area where areaid='$areaid'");
+		$strAreaThree = $this->db->find("select * from ".dbprefix."area where areaid='$areaid'");
 		
 		if($strAreaThree){
 		
 			if($strAreaThree['referid'] > 0){
-				$strAreaTwo = $this->db->once_fetch_assoc("select * from ".dbprefix."area where areaid='".$strAreaThree['referid']."'");
+				$strAreaTwo = $this->db->find("select * from ".dbprefix."area where areaid='".$strAreaThree['referid']."'");
 				if($strAreaTwo['referid']>0){
-					$strAreaOne = $this->db->once_fetch_assoc("select * from ".dbprefix."area where areaid='".$strAreaTwo['referid']."'");
+					$strAreaOne = $this->db->find("select * from ".dbprefix."area where areaid='".$strAreaTwo['referid']."'");
 					$strArea=array(
 						'one'	=> array(
 							'areaid' => $strAreaOne['areaid'],
@@ -68,13 +68,13 @@ class location{
 	
 	//获取区域下的区域
 	function getReferArea($areaid){
-		$arrArea = $this->db->fetch_all_assoc("select * from ".dbprefix."area where referid='$areaid'");
+		$arrArea = $this->db->findAll("select * from ".dbprefix."area where referid='$areaid'");
 		return $arrArea;
 	}
 	
 	//
 	function getOneArea($areaid){
-		$strArea = $this->db->once_fetch_assoc("select * from ".dbprefix."area where areaid='$areaid'");
+		$strArea = $this->db->find("select * from ".dbprefix."area where areaid='$areaid'");
 		if(!$strArea){
 			$strArea = array(
 				'areaid' => '0',
@@ -120,17 +120,17 @@ class location{
 	
 	//按字母查询到区域列表 
 	function getAreaByZm($zm){
-		$arrArea = $this->db->fetch_all_assoc("select * from ".dbprefix."area where `zm`='$zm'");
+		$arrArea = $this->db->findAll("select * from ".dbprefix."area where `zm`='$zm'");
 		return $arrArea;
 	}
 	
 	//获取区域下的所有区域
 	function getAllArea($areaid){
-		$strArea = $this->db->once_fetch_assoc("select referid from ".dbprefix."");
-		$areaCount = $this->db->once_fetch_assoc("select count(areaid) from ".dbprefix."area where areaid='$areaid'");
+		$strArea = $this->db->find("select referid from ".dbprefix."");
+		$areaCount = $this->db->find("select count(areaid) from ".dbprefix."area where areaid='$areaid'");
 		if($areaCount['count(areaid)'] > 0){
 			
-			$arrArea = $this->db->fetch_all_assoc("select areaid from ".dbprefix."area where referid='$areaid'");
+			$arrArea = $this->db->findAll("select areaid from ".dbprefix."area where referid='$areaid'");
 			foreach($arrArea as $item){
 				
 			}

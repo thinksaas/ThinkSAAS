@@ -21,7 +21,7 @@ switch($ts){
 		
 	case "two":
 		$referid = $_GET['referid'];
-		$strArea = $db->once_fetch_assoc("select * from ".dbprefix."area where areaid='$referid'");
+		$strArea = $db->find("select * from ".dbprefix."area where areaid='$referid'");
 		
 		include template("admin/add_two");
 		
@@ -45,7 +45,7 @@ switch($ts){
 		
 	case "three":
 		$referid = $_GET['referid'];
-		$strArea = $db->once_fetch_assoc("select * from ".dbprefix."area where areaid='$referid'");
+		$strArea = $db->find("select * from ".dbprefix."area where areaid='$referid'");
 		
 		include template("admin/add_three");
 		

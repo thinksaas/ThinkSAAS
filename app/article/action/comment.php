@@ -20,7 +20,7 @@ switch($ts){
 				'addtime'=>time(),
 			));
 			
-			$strArticle = $db->once_fetch_assoc("select userid,title from ".dbprefix."article where `articleid`='$articleid'");
+			$strArticle = $db->find("select userid,title from ".dbprefix."article where `articleid`='$articleid'");
 			
 			//发消息
 			//msg start

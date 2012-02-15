@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
 $userid = intval($TS_USER['user']['userid']);
 
 /*
-$strKey = $db->once_fetch_assoc("select * from ".dbprefix."search_key where userid='$userid'");
+$strKey = $db->find("select * from ".dbprefix."search_key where userid='$userid'");
 if($strKey){
 	$nowTime = time();
 	$addtime = $strKey['addtime'];
@@ -33,7 +33,7 @@ switch($ts){
 		$url = "index.php?app=search&ac=s&kw=".$kw."&page=";
 		$lstart = $page*10-10;
 		
-		$arrAlls = $db->fetch_all_assoc("select groupid as id,'group' as type from ".dbprefix."group where groupname like '%$kw%' or groupdesc like '%$kw%'  union select topicid as id,'topic' as type from ".dbprefix."group_topics WHERE title like '%$kw%' union select userid as id,'user' as type from ".dbprefix."user_info where username like '%$kw%' limit $lstart,10");
+		$arrAlls = $db->findAll("select groupid as id,'group' as type from ".dbprefix."group where groupname like '%$kw%' or groupdesc like '%$kw%'  union select topicid as id,'topic' as type from ".dbprefix."group_topics WHERE title like '%$kw%' union select userid as id,'user' as type from ".dbprefix."user_info where username like '%$kw%' limit $lstart,10");
 		
 		foreach($arrAlls as $item){
 			if($item['type']=='group'){
@@ -50,7 +50,7 @@ switch($ts){
 			$arrTopic[$key]['user'] = aac('user')->getOneUser($titem['userid']);
 		}
 		
-		$all_num = $db->once_num_rows("select groupid as id,'group' as type from ".dbprefix."group where groupname like '%$kw%' or groupdesc like '%$kw%'  union select topicid as id,'topic' as type from ".dbprefix."group_topics WHERE title like '%$kw%'");
+		$all_num = $db->findCount("select groupid as id,'group' as type from ".dbprefix."group where groupname like '%$kw%' or groupdesc like '%$kw%'  union select topicid as id,'topic' as type from ".dbprefix."group_topics WHERE title like '%$kw%'");
 		
 		$pageUrl = pagination($all_num, 10, $page, $url);
 		
@@ -66,9 +66,9 @@ switch($ts){
 		$url = "index.php?app=search&ac=s&ts=group&kw=".$kw."&page=";
 		$lstart = $page*10-10;
 		
-		$arrGroups = $db->fetch_all_assoc("select groupid from ".dbprefix."group WHERE groupname like '%$kw%' or groupdesc like '%$kw%' order by groupid desc limit $lstart,10");
+		$arrGroups = $db->findAll("select groupid from ".dbprefix."group WHERE groupname like '%$kw%' or groupdesc like '%$kw%' order by groupid desc limit $lstart,10");
 		
-		$group_num = $db->once_num_rows("select groupid from ".dbprefix."group WHERE groupname like '%$kw%' or groupdesc like '%$kw%'");
+		$group_num = $db->findCount("select groupid from ".dbprefix."group WHERE groupname like '%$kw%' or groupdesc like '%$kw%'");
 		
 		if(is_array($arrGroups)){
 			foreach($arrGroups as $item){
@@ -89,14 +89,14 @@ switch($ts){
 		$url = "index.php?app=search&ac=s&ts=topic&kw=".$kw."&page=";
 		$lstart = $page*10-10;
 	
-		$arrTopics = $db->fetch_all_assoc("select * from ".dbprefix."group_topics WHERE title like '%$kw%' order by topicid desc limit $lstart,10");
+		$arrTopics = $db->findAll("select * from ".dbprefix."group_topics WHERE title like '%$kw%' order by topicid desc limit $lstart,10");
 		
 		foreach($arrTopics as $key=>$item){
 			$arrTopic[] = $item;
 			$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 		}
 		
-		$topic_num = $db->once_num_rows("select * from ".dbprefix."group_topics WHERE title like '%$kw%'");
+		$topic_num = $db->findCount("select * from ".dbprefix."group_topics WHERE title like '%$kw%'");
 		
 		$pageUrl = pagination($topic_num, 10, $page, $url);
 		
@@ -111,13 +111,13 @@ switch($ts){
 		$url = "index.php?app=search&ac=s&ts=user&kw=".$kw."&page=";
 		$lstart = $page*10-10;
 	
-		$arrUsers = $db->fetch_all_assoc("select userid from ".dbprefix."user_info WHERE username like '%$kw%' order by userid desc limit $lstart,10");
+		$arrUsers = $db->findAll("select userid from ".dbprefix."user_info WHERE username like '%$kw%' order by userid desc limit $lstart,10");
 		
 		foreach($arrUsers as $item){
 			$arrUser[] = aac('user')->getOneUser($item['userid']);
 		}
 		
-		$user_num = $db->once_num_rows("select userid from ".dbprefix."user_info WHERE username like '%$kw%'");
+		$user_num = $db->findCount("select userid from ".dbprefix."user_info WHERE username like '%$kw%'");
 		
 		$pageUrl = pagination($user_num, 10, $page, $url);
 		

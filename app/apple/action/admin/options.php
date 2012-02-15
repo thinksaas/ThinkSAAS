@@ -7,13 +7,13 @@ defined('IN_TS') or die('Access Denied.');
 switch($ts){
 	//基本配置
 	case "":
-		$arrOptions = $db->fetch_all_assoc("select * from ".dbprefix."apple_options");
+		$arrOptions = $db->findAll('apple_options');
 		foreach($arrOptions as $item){
 			$strOption[$item['optionname']] = $item['optionvalue'];
 		}
 		
 		//列出模型
-		$arrModel = $db->fetch_all_assoc("select * from ".dbprefix."apple_model");
+		$arrModel = $db->findAll('apple_model');
 		
 		include template("admin/options");
 		
@@ -33,7 +33,7 @@ switch($ts){
 		}
 		
 		//更新缓存
-		$arrOptions = $db->fetch_all_assoc("select optionname,optionvalue from ".dbprefix."apple_options");
+		$arrOptions = $db->findAll('apple_options','optionname,optionvalue');
 		foreach($arrOptions as $item){
 			$arrOption[$item['optionname']] = $item['optionvalue'];
 		}

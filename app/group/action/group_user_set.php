@@ -12,7 +12,7 @@ switch($ts){
 		
 		if($userid == '' && $groupid=='' && $isadmin=='') tsNotice("请不要冒险进入危险境地！");
 		
-		$strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='".$groupid."'");
+		$strGroup = $db->find("select * from ".dbprefix."group where groupid='".$groupid."'");
 		
 		
 		if($TS_USER['user']['userid'] != $strGroup['userid']) tsNotice("机房重地，闲人免进！");
@@ -30,13 +30,13 @@ switch($ts){
 		$isuser = intval($_GET['isuser']);
 		
 		if($userid == '' && $groupid=='' && $isuser=='') tsNotice("请不要冒险进入危险境地！");
-		$strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='".$groupid."'");
+		$strGroup = $db->find("select * from ".dbprefix."group where groupid='".$groupid."'");
 		if($TS_USER['user']['userid'] != $strGroup['userid']) tsNotice("机房重地，闲人免进！");
 		
 		$db->query("DELETE FROM ".dbprefix."group_users WHERE userid = '$userid' AND groupid = '$groupid'");
 		
 		//计算小组会员数
-		$groupUserNum = $db->once_num_rows("select * from ".dbprefix."group_users where groupid='$groupid'");
+		$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where groupid='$groupid'");
 		
 		//更新小组成员统计
 		$db->query("update ".dbprefix."group set `count_user`='$groupUserNum' where groupid='$groupid'");

@@ -6,9 +6,9 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $url = SITE_URL.tsurl('article','cate',array('cateid'=>$cateid,'page'=>''));
 $lstart = $page*10-10;
 
-$arrArticles = $db->fetch_all_assoc("select * from ".dbprefix."article where `isaudit`='0' order by addtime desc limit $lstart, 10");
+$arrArticles = $db->findAll("select * from ".dbprefix."article where `isaudit`='0' order by addtime desc limit $lstart, 10");
 
-$articleNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."article");
+$articleNum = $db->find("select count(*) from ".dbprefix."article");
 
 $pageUrl = pagination($articleNum['count(*)'], 10, $page, $url);
 
@@ -22,7 +22,7 @@ foreach($arrArticles as $key=>$item){
 
 
 //未审核
-$auditNums = $db->once_fetch_assoc("select count(*) from ".dbprefix."article where `isaudit`='1'");
+$auditNums = $db->find("select count(*) from ".dbprefix."article where `isaudit`='1'");
 $auditNum = $auditNums['count(*)'];
 
 

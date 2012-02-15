@@ -17,7 +17,7 @@ $strGroup['groupdesc'] = stripslashes($strGroup['groupdesc']);
 
 if($strGroup == '') header("Location: ".SITE_URL."index.php");
 
-$strGroup['recoverynum'] = $db->once_num_rows("select * from ".dbprefix."group_topics where groupid='$groupid' and isshow='1'");
+$strGroup['recoverynum'] = $db->findCount("select * from ".dbprefix."group_topics where groupid='$groupid' and isshow='1'");
 
 $strGroup['groupdesc'] = editor2html($strGroup['groupdesc']);
 
@@ -26,7 +26,7 @@ $strGroup['groupdesc'] = editor2html($strGroup['groupdesc']);
 $title = $strGroup['groupname'];
 
 //小组帖子分类
-$arrTopicTypes = $db->fetch_all_assoc("select * from ".dbprefix."group_topics_type where groupid='$groupid'");
+$arrTopicTypes = $db->findAll("select * from ".dbprefix."group_topics_type where groupid='$groupid'");
 if(is_array($arrTopicTypes)){
 	foreach($arrTopicTypes as $item){
 		$arrTopicType[$item['typeid']] = $item;
@@ -36,12 +36,12 @@ if(is_array($arrTopicTypes)){
 //组长信息
 $leaderId = $strGroup['userid'];
 
-$strLeader = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$leaderId'");
+$strLeader = $db->find("select * from ".dbprefix."user_info where userid='$leaderId'");
 
 //判断会员是否加入该小组
 $userid = $TS_USER['user']['userid'];
 
-$isGroupUser = $db->once_num_rows("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
+$isGroupUser = $db->findCount("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
 
 
 //小组是否需要审核
@@ -69,7 +69,7 @@ if($strGroup['isaudit']=='1'){
 	
 	$sql = "select topicid,typeid,groupid,userid,title,count_comment,count_view,istop,isphoto,isattach,isposts,addtime,uptime from ".dbprefix."group_topics where groupid='$groupid' ".$andType." and isshow='0' order by istop desc,uptime desc limit $lstart,30";
 	
-	$arrTopics = $db->fetch_all_assoc($sql);
+	$arrTopics = $db->findAll($sql);
 	if( is_array($arrTopics)){
 		foreach($arrTopics as $key=>$item){
 			$arrTopic[] = $item;
@@ -80,13 +80,13 @@ if($strGroup['isaudit']=='1'){
 		}
 	}
 	
-	$topic_num = $db->once_fetch_assoc("select count(topicid) from ".dbprefix."group_topics where groupid='$groupid' ".$andType." and isshow='0'");
+	$topic_num = $db->find("select count(topicid) from ".dbprefix."group_topics where groupid='$groupid' ".$andType." and isshow='0'");
 	
 	$pageUrl = pagination($topic_num['count(topicid)'], 30, $page, $url);
 	
 	
 	//小组会员
-	$groupUser = $db->fetch_all_assoc("select userid from ".dbprefix."group_users where groupid='$groupid' order by addtime DESC limit 8");
+	$groupUser = $db->findAll("select userid from ".dbprefix."group_users where groupid='$groupid' order by addtime DESC limit 8");
 	
 	if(is_array($groupUser)){
 		foreach($groupUser as $item){

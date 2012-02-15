@@ -6,7 +6,7 @@ switch($ts){
 	//列表 
 	case "list":
 	
-		$arrModel = $db->fetch_all_assoc("select * from ".dbprefix."apple_model");
+		$arrModel = $db->findAll('apple_model');
 	
 		include template('admin/model_list');
 		break;
@@ -34,7 +34,7 @@ switch($ts){
 	case "edit":
 		$modelid = intval($_GET['modelid']);
 		
-		$strModel = $db->once_fetch_assoc("select * from ".dbprefix."apple_model where `modelid`='$modelid'");
+		$strModel = $db->find('apple_model',array('modelid'=>$modelid));
 		
 		include template('admin/model_edit');
 		break;
@@ -46,7 +46,12 @@ switch($ts){
 		$modelkey = trim($_POST['modelkey']);
 		$modelname = trim($_POST['modelname']);
 		
-		$db->query("update ".dbprefix."apple_model set `modelkey`='$modelkey',`modelname`='$modelname' where `modelid`='$modelid'");
+		$db->update('apple_model',array(
+			'modelkey'=>$modelkey,
+			'modelname'=>$modelname,
+		),array(
+			'modelid'=>$modelid,
+		));
 		
 		qiMsg("修改成功！");
 		

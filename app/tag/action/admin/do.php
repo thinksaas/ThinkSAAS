@@ -31,14 +31,14 @@ switch ($ts){
 		
 		$tagname = t($strTag['tagname']);
 		
-		$tagNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."tag where `tagname`='$tagname'");
+		$tagNum = $db->find("select count(*) from ".dbprefix."tag where `tagname`='$tagname'");
 		
 		if($tagNum['count(*)']==0){
 			$db->query("update ".dbprefix."tag set `tagname`='$tagname' where `tagid`='$tagid'");
 		}elseif($tagNum['count(*)']==1){
 			
 		}else{
-			$arrTags = $db->fetch_all_assoc("select * from ".dbprefix."tag where `tagname`='$tagname'");
+			$arrTags = $db->findAll("select * from ".dbprefix."tag where `tagname`='$tagname'");
 			foreach($arrTags as $item){
 				$tagids = $item['tagid'];
 				//先更新索引

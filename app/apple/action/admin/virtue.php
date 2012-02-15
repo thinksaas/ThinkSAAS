@@ -6,7 +6,7 @@ switch($ts){
 	case "list":
 		$modelid = intval($_GET['modelid']);
 		
-		$arrVirtue = $db->fetch_all_assoc("select * from ".dbprefix."apple_virtue where `modelid`='$modelid'");
+		$arrVirtue = $db->findAll('apple_virtue','modelid'=$modelid);
 		
 		include template('admin/virtue_list');
 		break;
@@ -36,7 +36,7 @@ switch($ts){
 	case "edit":
 		$virtueid = intval($_GET['virtueid']);
 		
-		$strVirtue = $db->once_fetch_assoc("select * from ".dbprefix."apple_virtue where `virtueid`='$virtueid'");
+		$strVirtue = $db->find('apple_virtue',array('virtueid'=>$virtueid));
 		
 		include template('admin/virtue_edit');
 		
@@ -46,7 +46,11 @@ switch($ts){
 		$virtueid = intval($_POST['virtueid']);
 		$virtuename = trim($_POST['virtuename']);
 		
-		$db->query("update ".dbprefix."apple_virtue set `virtuename`='$virtuename' where `virtueid`='$virtueid'");
+		$db->update('apple_virtue',array(
+			'virtuename'=>$virtuename,
+		),array(
+			'virtueid'=>$virtueid
+		));
 		
 		qiMsg("修改成功！");
 		break;
@@ -55,7 +59,7 @@ switch($ts){
 	case "del":
 		$virtueid = intval($_GET['virtueid']);
 		
-		$indexNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."apple_index where `virtueid`='$virtueid'");
+		$indexNum = $db->find("select count(*) from ".dbprefix."apple_index where `virtueid`='$virtueid'");
 		
 		if($indexNum['count(*)'] > 0){
 			qiMsg("此属性有数据！不允许删除！");

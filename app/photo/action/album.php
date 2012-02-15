@@ -14,9 +14,9 @@ switch($ts){
 		
 		$lstart = $page*6-6;
 		
-		$arrAlbum = $db->fetch_all_assoc("select * from ".dbprefix."photo_album where userid='$userid' order by albumid desc limit $lstart,6");
+		$arrAlbum = $db->findAll("select * from ".dbprefix."photo_album where userid='$userid' order by albumid desc limit $lstart,6");
 		
-		$albumNum = $db->once_num_rows("select * from ".dbprefix."photo_album where userid='$userid'");
+		$albumNum = $db->findCount("select * from ".dbprefix."photo_album where userid='$userid'");
 		
 		$pageUrl = pagination($albumNum, 6, $page, $url);
 		
@@ -66,7 +66,7 @@ switch($ts){
 		
 		$albumid = intval($_GET['albumid']);
 		
-		$isalbum = $db->once_num_rows("select * from ".dbprefix."photo_album where albumid = '$albumid'");
+		$isalbum = $db->findCount("select * from ".dbprefix."photo_album where albumid = '$albumid'");
 		if($albumid == 0) header("Location: ".SITE_URL."index.php");
 		
 		$page = isset($_GET['page']) ? $_GET['page'] : '1';
@@ -75,14 +75,14 @@ switch($ts){
 		
 		$lstart = $page*20-20;
 		
-		$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
+		$strAlbum = $db->find("select * from ".dbprefix."photo_album where albumid='$albumid'");
 		
 		$userid = $strAlbum['userid'];
 		$strUser = aac('user')->getOneUser($userid);
 		
-		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid' order by photoid desc limit $lstart,20");
+		$arrPhoto = $db->findAll("select * from ".dbprefix."photo where albumid='$albumid' order by photoid desc limit $lstart,20");
 		
-		$photoNum = $db->once_num_rows("select * from ".dbprefix."photo where albumid='$albumid'");
+		$photoNum = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
 		
 		$pageUrl = pagination($photoNum, 20, $page, $url);
 		
@@ -103,7 +103,7 @@ switch($ts){
 		
 		$albumid = $_GET['albumid'];
 		
-		$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
+		$strAlbum = $db->find("select * from ".dbprefix."photo_album where albumid='$albumid'");
 		
 		if($strAlbum['userid'] != $userid) qiMsg("非法操作！");
 		
@@ -131,29 +131,29 @@ switch($ts){
 		$albumid = $_GET['albumid'];
 		$addtime = intval($_GET['addtime']);
 		
-		$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
+		$strAlbum = $db->find("select * from ".dbprefix."photo_album where albumid='$albumid'");
 		
 		if($strAlbum['userid'] != $userid) qiMsg("非法操作！");
 		
 		//统计 
-		$count_photo = $db->once_num_rows("select * from ".dbprefix."photo where albumid='$albumid'");
+		$count_photo = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
 		$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
 		
 		//添加相册封面
 		if($strAlbum['albumface'] == ''){
-			$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where albumid='$albumid' and `userid`='$userid' and `addtime`>'$addtime' limit 1");
+			$strPhoto = $db->find("select * from ".dbprefix."photo where albumid='$albumid' and `userid`='$userid' and `addtime`>'$addtime' limit 1");
 			
 			$db->query("update ".dbprefix."photo_album set `path`='".$strPhoto['path']."',`albumface`='".$strPhoto['photourl']."' where `albumid`='$albumid'");
 		}
 		
-		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid' and  userid='$userid' and addtime>'$addtime'");
+		$arrPhoto = $db->findAll("select * from ".dbprefix."photo where albumid='$albumid' and  userid='$userid' and addtime>'$addtime'");
 		
 		
 		
 		//添加动态
 		if($addtime > 0){
 		
-			$num = $db->once_fetch_assoc("select count(*) from ".dbprefix."photo where albumid='$albumid' and  userid='$userid' and addtime>'$addtime'");
+			$num = $db->find("select count(*) from ".dbprefix."photo where albumid='$albumid' and  userid='$userid' and addtime>'$addtime'");
 		
 			//feed开始
 			$feed_template = '<span class="pl">上传了{photonum}张照片到<a  href="{albumlink}" target="_blank">{albumname}</a></span><div class="indentrec clearfix">';
@@ -220,12 +220,12 @@ switch($ts){
 		$userid = intval($TS_USER['user']['userid']);
 		aac('user')->isUser($userid);
 		$albumid = $_GET['albumid'];
-		$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
+		$strAlbum = $db->find("select * from ".dbprefix."photo_album where albumid='$albumid'");
 		
 		if($strAlbum['userid'] != $userid) qiMsg("非法操作！");
 		
 		$db->query("delete from ".dbprefix."photo_album where albumid='$albumid'");
-		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid'");
+		$arrPhoto = $db->findAll("select * from ".dbprefix."photo where albumid='$albumid'");
 		foreach($arrPhoto as $item){
 			unlink('uploadfile/photo/'.$item['photourl']);
 		}

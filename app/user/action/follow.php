@@ -11,7 +11,7 @@ defined('IN_TS') or die('Access Denied.');
 	if($strUser == '') header("Location: ".SITE_URL."index.php");
 	
 	//他跟随的用户
-	$followUsers = $db->fetch_all_assoc("select userid_follow from ".dbprefix."user_follow where userid='$userid'");
+	$followUsers = $db->findAll("select userid_follow from ".dbprefix."user_follow where userid='$userid'");
 	
 	if(is_array($followUsers)){
 		foreach($followUsers as $item){

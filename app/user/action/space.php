@@ -16,7 +16,7 @@ $strUser = $new['user']->getOneUser($userid);
 
 //是否跟随
 if($TS_USER['user']['userid'] != '' && $TS_USER['user']['userid'] != $strUser['userid']){
-	$followNum = $db->once_num_rows("select * from ".dbprefix."user_follow where userid='".$TS_USER['user']['userid']."' and userid_follow='$userid'");
+	$followNum = $db->findCount("select * from ".dbprefix."user_follow where userid='".$TS_USER['user']['userid']."' and userid_follow='$userid'");
 	if($followNum > '0'){
 		$strUser['isfollow'] = true;
 	}else{
@@ -27,7 +27,7 @@ if($TS_USER['user']['userid'] != '' && $TS_USER['user']['userid'] != $strUser['u
 }
 
 //他跟随的用户
-$followUsers = $db->fetch_all_assoc("select userid_follow from ".dbprefix."user_follow where userid='$userid' order by addtime limit 12");
+$followUsers = $db->findAll("select userid_follow from ".dbprefix."user_follow where userid='$userid' order by addtime limit 12");
 
 if(is_array($followUsers)){
 	foreach($followUsers as $item){
@@ -36,7 +36,7 @@ if(is_array($followUsers)){
 }
 
 //加入的小组
-$arrGroups = $db->fetch_all_assoc("select * from ".dbprefix."group_users where userid='$userid' limit 12");
+$arrGroups = $db->findAll("select * from ".dbprefix."group_users where userid='$userid' limit 12");
 
 if(is_array($arrGroups)){
 	foreach($arrGroups as $key=>$item){
@@ -45,13 +45,13 @@ if(is_array($arrGroups)){
 }
 
 //自己的帖子 
-$arrMyTopic = $db->fetch_all_assoc("select * from ".dbprefix."group_topics where userid='$userid' order by addtime desc limit 15");
+$arrMyTopic = $db->findAll("select * from ".dbprefix."group_topics where userid='$userid' order by addtime desc limit 15");
 
 //回复的帖子 
-$arrComments = $db->fetch_all_assoc("select topicid from ".dbprefix."group_topics_comments where userid='$userid' group by topicid order by addtime desc limit 15");
+$arrComments = $db->findAll("select topicid from ".dbprefix."group_topics_comments where userid='$userid' group by topicid order by addtime desc limit 15");
 if(is_array($arrComments)){
 	foreach($arrComments as $item){
-		$oneTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='".$item['topicid']."'");
+		$oneTopic = $db->find("select * from ".dbprefix."group_topics where topicid='".$item['topicid']."'");
 		if($oncTopic['userid'] != $userid){
 			$arrMyComment[] = $oneTopic;
 		}

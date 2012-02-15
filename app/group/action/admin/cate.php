@@ -20,7 +20,7 @@ switch($ts){
 	//分类添加
 	case "add":
 		//调出顶级分类
-		$topCates = $db->fetch_all_assoc("SELECT * FROM ".dbprefix."group_cates WHERE catereferid = '0'");
+		$topCates = $db->findAll("SELECT * FROM ".dbprefix."group_cates WHERE catereferid = '0'");
 
 		include template("admin/cate_add");
 		
@@ -41,7 +41,7 @@ switch($ts){
 		
 		$cateid = intval($_GET['cateid']);
 
-		$groupNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group where `cateid`='$cateid'");
+		$groupNum = $db->find("select count(*) from ".dbprefix."group where `cateid`='$cateid'");
 		
 		if($groupNum['count(*)'] > 0){
 			qiMsg("此分类有小组存在，不允许删除！");
@@ -58,10 +58,10 @@ switch($ts){
 	//分类修改
 	case "edit":
 		$cateid = $_GET['cateid'];
-		$strCate = $db->once_fetch_assoc("select * from ".dbprefix."group_cates where cateid='$cateid'");
+		$strCate = $db->find("select * from ".dbprefix."group_cates where cateid='$cateid'");
 		
 		//调出顶级分类
-		$topCates = $db->fetch_all_assoc("SELECT * FROM ".dbprefix."group_cates WHERE catereferid = '0'");
+		$topCates = $db->findAll("SELECT * FROM ".dbprefix."group_cates WHERE catereferid = '0'");
 
 		include template("admin/cate_edit");
 		
@@ -73,7 +73,12 @@ switch($ts){
 		$catename = $_POST['catename'];
 		$catereferid = $_POST['catereferid'];
 		
-		$db->query("update ".dbprefix."group_cates set `catename`='$catename',`catereferid`='$catereferid' where cateid='$cateid'");
+		$db->update('group_cates',array(
+			'catename'=>$catename,
+			'catereferid'=>$catereferid,
+		),array(
+			'cateid'=>$cateid,
+		));
 		
 		header("Location: ".SITE_URL."index.php?app=group&ac=admin&mg=cate&ts=list");
 		

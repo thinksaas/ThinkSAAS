@@ -108,7 +108,7 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	
 	//判断用户是否上传头像
 	if($TS_SITE['base']['isface']==1 && $TS_USER['user'] != '' && $app != 'system' && $ac != 'admin'){
-		$faceUser = $db->once_fetch_assoc("select face from ".dbprefix."user_info where userid='".intval($TS_USER['user']['userid'])."'");
+		$faceUser = $db->find("select face from ".dbprefix."user_info where userid='".intval($TS_USER['user']['userid'])."'");
 		if($faceUser['face']=='' && $ts != 'face'){
 			header("Location: ".SITE_URL."index.php?app=user&ac=set&ts=face");
 		}
@@ -123,10 +123,10 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	//用户自动登录
 	if($TS_USER['user']=='' && $_COOKIE['ts_email']!='' && $_COOKIE['ts_pwd'] !='' ){
 		
-		$loginUserNum = $db->once_num_rows("select * from ".dbprefix."user where email='".$_COOKIE['ts_email']."' and pwd='".$_COOKIE['ts_pwd']."'");
+		$loginUserNum = $db->findCount("select * from ".dbprefix."user where email='".$_COOKIE['ts_email']."' and pwd='".$_COOKIE['ts_pwd']."'");
 	
 		if($loginUserNum > 0){
-			$loginUserData = $db->once_fetch_assoc("select  userid,username,areaid,path,face,count_score,isadmin,uptime from ".dbprefix."user_info where email='".$_COOKIE['ts_email']."'");
+			$loginUserData = $db->find("select  userid,username,areaid,path,face,count_score,isadmin,uptime from ".dbprefix."user_info where email='".$_COOKIE['ts_email']."'");
 			//用户session信息
 			$_SESSION['tsuser']	= $loginUserData;
 			$TS_USER = array(

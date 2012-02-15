@@ -7,20 +7,20 @@ if($photoid == 0){
 	exit;
 }
 
-$photoNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."photo where `photoid`='$photoid'");
+$photoNum = $db->find("select count(*) from ".dbprefix."photo where `photoid`='$photoid'");
 
 if($photoNum['count(*)']==0){
 	header("Location: ".SITE_URL.tsurl('photo'));
 	exit;
 }
 
-$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
+$strPhoto = $db->find("select * from ".dbprefix."photo where photoid='$photoid'");
 
 $albumid = $strPhoto['albumid'];
 
-$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
+$strAlbum = $db->find("select * from ".dbprefix."photo_album where albumid='$albumid'");
 
-$arrPhotoIds = $db->fetch_all_assoc("select photoid from ".dbprefix."photo where albumid='$albumid' order by photoid desc");
+$arrPhotoIds = $db->findAll("select photoid from ".dbprefix."photo where albumid='$albumid' order by photoid desc");
 
 foreach($arrPhotoIds as $item){
 	$arrPhotoId[] = $item['photoid'];
@@ -41,13 +41,13 @@ $strUser = aac('user')->getOneUser($userid);
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $url = "index.php?app=photo&ac=show&photoid=".$photoid."&page=";
 $lstart = $page*10-10;
-$arrComments = $db->fetch_all_assoc("select * from ".dbprefix."photo_comment where photoid='$photoid' limit $lstart,10");
+$arrComments = $db->findAll("select * from ".dbprefix."photo_comment where photoid='$photoid' limit $lstart,10");
 foreach($arrComments as $key=>$item){
 	$arrComment[] = $item;
 	$arrComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
 }
 
-$comment_num = $db->once_num_rows("select * from ".dbprefix."photo_comment where photoid='$photoid'");
+$comment_num = $db->findCount("select * from ".dbprefix."photo_comment where photoid='$photoid'");
 $pageUrl = pagination($comment_num, 10, $page, $url);
 
 

@@ -8,13 +8,13 @@ $touserid= intval($_GET['userid']);
 
 if($userid == 0 || $touserid == 0) qiMsg("非法操作！");
 
-$msgCount = $db->once_fetch_assoc("select count(messageid) from ".dbprefix."message where (userid='$userid' and touserid='$touserid') or (userid='$touserid' and touserid='$userid') ");
+$msgCount = $db->find("select count(messageid) from ".dbprefix."message where (userid='$userid' and touserid='$touserid') or (userid='$touserid' and touserid='$userid') ");
 
 if($msgCount['count(messageid)'] ==0) qiMsg("非法操作");
 
 $sql = "select * from ".dbprefix."message where (userid='$userid' and touserid='$touserid') or (userid='$touserid' and touserid='$userid') order by addtime desc LIMIT 0 , 10";
 
-$arrMessages = $db->fetch_all_assoc($sql);
+$arrMessages = $db->findAll($sql);
 
 if(is_array($arrMessages)){
 	foreach($arrMessages as $key=>$item){

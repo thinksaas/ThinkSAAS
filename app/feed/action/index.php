@@ -5,9 +5,9 @@ $page = isset($_GET['page']) ? $_GET['page'] : '1';
 $url = SITE_URL.tsurl('feed','index',array('page'=>''));
 $lstart = $page*20-20;
 
-$arrFeeds = $db->fetch_all_assoc("select * from ".dbprefix."feed order by addtime desc limit $lstart,20");
+$arrFeeds = $db->findAll("select * from ".dbprefix."feed order by addtime desc limit $lstart,20");
 
-$feedNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."feed");
+$feedNum = $db->find("select count(*) from ".dbprefix."feed");
 $pageUrl = pagination($feedNum['count(*)'], 20, $page, $url);
 
 if($page > 1){

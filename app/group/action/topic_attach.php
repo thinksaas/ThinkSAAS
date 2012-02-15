@@ -10,12 +10,12 @@ defined('IN_TS') or die('Access Denied.');
 		
 			$topicid =$_GET['topicid'];
 			
-			$arrAttach = $db->fetch_all_assoc("select * from ".dbprefix."group_topics_attachs where topicid='".$topicid."'");
+			$arrAttach = $db->findAll("select * from ".dbprefix."group_topics_attachs where topicid='".$topicid."'");
 			
 			//用户是否评论
 			$userid = $TS_USER['user']['userid'];
 			
-			$userCommentNum = $db->once_num_rows("select * from ".dbprefix."group_topics_comments where userid='$userid' and topicid='$topicid'");
+			$userCommentNum = $db->findCount("select * from ".dbprefix."group_topics_comments where userid='$userid' and topicid='$topicid'");
 			
 		
 			include template("topic_attach_list");
@@ -31,7 +31,7 @@ defined('IN_TS') or die('Access Denied.');
 			
 			if($TS_USER['user'] =='') tsNotice("机房重地，闲人免进^_^");
 			
-			$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='".$topicid."'");
+			$strTopic = $db->find("select * from ".dbprefix."group_topics where topicid='".$topicid."'");
 			
 			if($TS_USER['user']['userid']!=$strTopic['userid']) tsNotice("机房重地，闲人免进^_^");
 			
@@ -47,7 +47,7 @@ defined('IN_TS') or die('Access Denied.');
 		
 		case "topic_attach_down":
 			$attachid = intval($_GET['attachid']);
-			$strAttach = $db->once_fetch_assoc("select * from ".dbprefix."group_topics_attachs where attachid='$attachid'");
+			$strAttach = $db->find("select * from ".dbprefix."group_topics_attachs where attachid='$attachid'");
 			
 			if($strAttach['score'] == '0'){
 				header("Location:".$strAttach['attachurl']);
@@ -56,7 +56,7 @@ defined('IN_TS') or die('Access Denied.');
 			}else{
 				$userid = $TS_USER['user']['userid'];
 				if($userid == '') tsNotice("请登录后再下载！");
-				$strUser = $db->once_fetch_assoc("select count_score from ".dbprefix."user_info where userid='$userid'");
+				$strUser = $db->find("select count_score from ".dbprefix."user_info where userid='$userid'");
 				$count_score = $strUser['count_score'];
 				$count_score = $count_score-$strAttach['score'];
 				$db->query("update ".dbprefix."user_info set `count_score`='$count_score' where userid='$userid'");

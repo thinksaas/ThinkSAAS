@@ -1,8 +1,8 @@
 <?php 
 //更新统计活动分类缓存
-$arrTypess = $db->fetch_all_assoc("select * from ".dbprefix."event_type");
+$arrTypess = $db->findAll("select * from ".dbprefix."event_type");
 foreach($arrTypess as $key=>$item){
-	$event = $db->once_fetch_assoc("select count(eventid) from ".dbprefix."event where typeid='".$item['typeid']."'");
+	$event = $db->find("select count(eventid) from ".dbprefix."event where typeid='".$item['typeid']."'");
 	$arrTypes['list'][] = array(
 		'typeid'	=> $item['typeid'],
 		'typename'	=> $item['typename'],
@@ -10,7 +10,7 @@ foreach($arrTypess as $key=>$item){
 	);
 }
 
-$eventNum = $db->once_fetch_assoc("select count(eventid) from ".dbprefix."event");
+$eventNum = $db->find("select count(eventid) from ".dbprefix."event");
 $arrTypes['count'] = $eventNum['count(eventid)'];
 
 //生成缓存文件

@@ -17,17 +17,17 @@ $strTopic = $new['group']->getOneTopic($topicid);
 	
 //帖子分类
 if($strTopic['typeid'] != '0'){
-	$strTopic['type'] = $db->once_fetch_assoc("select * from ".dbprefix."group_topics_type where typeid='".$strTopic['typeid']."'");
+	$strTopic['type'] = $db->find("select * from ".dbprefix."group_topics_type where typeid='".$strTopic['typeid']."'");
 }
 
 //小组
-$strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='".$strTopic['groupid']."'");
+$strGroup = $db->find("select * from ".dbprefix."group where groupid='".$strTopic['groupid']."'");
 
 //判断会员是否加入该小组
 $groupid = intval($strGroup['groupid']);
 $userid = intval($TS_USER['user']['userid']);
 
-$isGroupUser = $db->once_num_rows("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
+$isGroupUser = $db->findCount("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
 
 //浏览方式
 if($strGroup['isopen']=='1' && $isGroupUser=='0'){
@@ -60,7 +60,7 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	
 	$lstart = $page*15-15;
 	
-	$arrComment = $db->fetch_all_assoc("select * from ".dbprefix."group_topics_comments where `topicid`='$topicid' order by addtime $sc limit $lstart,15");
+	$arrComment = $db->findAll("select * from ".dbprefix."group_topics_comments where `topicid`='$topicid' order by addtime $sc limit $lstart,15");
 	foreach($arrComment as $key=>$item){
 		$arrTopicComment[] = $item;
 		$arrTopicComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
@@ -68,7 +68,7 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 		$arrTopicComment[$key]['recomment'] = $new['group']->recomment($item['referid']);
 	}
 	
-	$commentNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topics_comments where `topicid`='$topicid'");
+	$commentNum = $db->find("select count(*) from ".dbprefix."group_topics_comments where `topicid`='$topicid'");
 	
 	$pageUrl = pagination($commentNum['count(*)'], 15, $page, $url);
 	//评论列表结束
@@ -76,16 +76,16 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	
 	//判断会员是否加入该小组
 	$userid = intval($TS_USER['user']['userid']);
-	$isGroupUser = $db->once_num_rows("select * from ".dbprefix."group_users where userid='$userid' and groupid='".$strTopic['groupid']."'");
+	$isGroupUser = $db->findCount("select * from ".dbprefix."group_users where userid='$userid' and groupid='".$strTopic['groupid']."'");
 
 	
 	$groupid = $strTopic['groupid'];
 	
 	//小组成员
-	$strGroupUser = $db->once_fetch_assoc("select * from ".dbprefix."group_users where userid='$userid' and groupid='".$strTopic['groupid']."'");
+	$strGroupUser = $db->find("select * from ".dbprefix."group_users where userid='$userid' and groupid='".$strTopic['groupid']."'");
 	
 	//最新帖子
-	$newTopics = $db->fetch_all_assoc("select topicid,userid,title from ".dbprefix."group_topics where groupid='$groupid' and isshow='0' order by addtime desc limit 6");
+	$newTopics = $db->findAll("select topicid,userid,title from ".dbprefix."group_topics where groupid='$groupid' and isshow='0' order by addtime desc limit 6");
 	
 	foreach($newTopics as $key=>$item){
 		$newTopic[] = $item;

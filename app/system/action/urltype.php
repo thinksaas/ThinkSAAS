@@ -15,7 +15,7 @@ switch($ts){
 		
 		$db->query("update ".dbprefix."system_options set `optionvalue`='$site_urltype' where optionname='site_urltype'");
 		
-		$arrOptions = $db->fetch_all_assoc("select optionname,optionvalue from ".dbprefix."system_options");
+		$arrOptions = $db->findAll("select optionname,optionvalue from ".dbprefix."system_options");
 		foreach($arrOptions as $item){
 				$arrOption[$item['optionname']] = $item['optionvalue'];
 		}

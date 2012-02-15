@@ -6,7 +6,7 @@ defined('IN_TS') or die('Access Denied.');
 $userid = '0';
 $touserid= $_GET['userid'];
 
-$arrMessages = $db->fetch_all_assoc("select * from ".dbprefix."message where userid='0' and touserid='$touserid' order by addtime desc limit 10");
+$arrMessages = $db->findAll("select * from ".dbprefix."message where userid='0' and touserid='$touserid' order by addtime desc limit 10");
 
 $pattern='/(http:\/\/|https:\/\/|ftp:\/\/)([\w:\/\.\?=&-_]+)/is';
 

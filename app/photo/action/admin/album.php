@@ -9,9 +9,9 @@ switch($ts){
 		
 		$url = SITE_URL.'index.php?app=photo&ac=admin&mg=album&ts=list&page=';
 		
-		$arrAlbum = $db->fetch_all_assoc("select * from ".dbprefix."photo_album order by addtime desc limit $lstart,10");
+		$arrAlbum = $db->findAll("select * from ".dbprefix."photo_album order by addtime desc limit $lstart,10");
 		
-		$albumNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."photo_album");
+		$albumNum = $db->find("select count(*) from ".dbprefix."photo_album");
 		
 		$pageUrl = pagination($albumNum['count(*)'], 10, $page, $url);
 		
@@ -28,9 +28,9 @@ switch($ts){
 		
 		$url = SITE_URL.'index.php?app=photo&ac=admin&mg=album&ts=photo&albumid='.$albumid.'&page=';
 		
-		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid' limit $lstart,10");
+		$arrPhoto = $db->findAll("select * from ".dbprefix."photo where albumid='$albumid' limit $lstart,10");
 		
-		$photo_num = $db->once_fetch_assoc("select count(photoid) from ".dbprefix."photo where albumid='$albumid'");
+		$photo_num = $db->find("select count(photoid) from ".dbprefix."photo where albumid='$albumid'");
 		
 		$pageUrl = pagination($photo_num['count(photoid)'], 10, $page, $url);
 		
@@ -43,7 +43,7 @@ switch($ts){
 		$albumid = $_GET['albumid'];
 		
 		$db->query("delete from ".dbprefix."photo_album where albumid='$albumid'");
-		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid'");
+		$arrPhoto = $db->findAll("select * from ".dbprefix."photo where albumid='$albumid'");
 		foreach($arrPhoto as $item){
 			unlink('uploadfile/photo/'.$item['photourl']);
 		}
@@ -58,14 +58,14 @@ switch($ts){
 	case "del_photo":
 		$photoid = $_GET['photoid'];
 		
-		$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
+		$strPhoto = $db->find("select * from ".dbprefix."photo where photoid='$photoid'");
 		$albumid = $strPhoto['albumid'];
 		
 		$db->query("delete from ".dbprefix."photo where photoid='$photoid'");
 		
 		unlink('uploadfile/photo/'.$strPhoto['photourl']);
 		
-		$count_photo = $db->once_num_rows("select * from ".dbprefix."photo where albumid='$albumid'");
+		$count_photo = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
 		
 		$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
 		
@@ -76,7 +76,7 @@ switch($ts){
 	//设为封面
 	case "face":
 		$photoid = $_GET['photoid'];
-		$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
+		$strPhoto = $db->find("select * from ".dbprefix."photo where photoid='$photoid'");
 		
 		$albumid = $strPhoto['albumid'];
 		$albumface = $strPhoto['photourl'];
@@ -90,11 +90,11 @@ switch($ts){
 	//统计 
 	case "count":
 		
-		$arrAlbum = $db->fetch_all_assoc("select albumid from ".dbprefix."photo_album");
+		$arrAlbum = $db->findAll("select albumid from ".dbprefix."photo_album");
 		
 		foreach($arrAlbum as $item){
 			$albumid = $item['albumid'];
-			$count_photo = $db->once_num_rows("select photoid from ".dbprefix."photo where albumid='$albumid'");
+			$count_photo = $db->findCount("select photoid from ".dbprefix."photo where albumid='$albumid'");
 			$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
 		}
 		
@@ -107,7 +107,7 @@ switch($ts){
 	
 		$albumid = $_GET['albumid'];
 		
-		$strAlbum = $db->once_fetch_assoc("select isrecommend from ".dbprefix."photo_album where `albumid`='$albumid'");
+		$strAlbum = $db->find("select isrecommend from ".dbprefix."photo_album where `albumid`='$albumid'");
 		
 		if($strAlbum['isrecommend']==0){
 			$db->query("update ".dbprefix."photo_album set `isrecommend`='1' where `albumid`='$albumid'");

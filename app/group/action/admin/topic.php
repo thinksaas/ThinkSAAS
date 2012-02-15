@@ -10,7 +10,7 @@ switch($ts){
 	case "list":
 		$groupid = $_GET['groupid'];
 		
-		$strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='$groupid'");
+		$strGroup = $db->find("select * from ".dbprefix."group where groupid='$groupid'");
 		 
 		//获取小组全部内容列表
 		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -30,7 +30,7 @@ switch($ts){
 	//帖子编辑
 	case "edit":
 		$topicid = $_GET['topicid'];
-		$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='$topicid'");
+		$strTopic = $db->find("select * from ".dbprefix."group_topics where topicid='$topicid'");
 
 		include template("admin/topic_edit");
 		
@@ -40,11 +40,13 @@ switch($ts){
 	case "edit_do":
 		$topicid = $_POST['topicid'];
 		
-		$db->update('group_topics','topicid'=$topicid,array(
+		$db->update('group_topics',array(
 			'title' => $_POST['title'],
 			'content' => $_POST['content'],
 			'istop'	=> $_POST['istop'],
 			'isshow' => $_POST['isshow'],
+		),array(
+			'topicid'=>$topicid,
 		));
 		
 		header("Location: ".SITE_URL."index.php?app=group&ac=admin&mg=topic&ts=edit&topicid=".$topicid."");

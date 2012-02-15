@@ -4,7 +4,7 @@ switch($ts){
 	
 	case "about":
 		
-		$strInfo = $db->once_fetch_assoc("select * from ".dbprefix."home_info where `infokey`='about'");
+		$strInfo = $db->find("select * from ".dbprefix."home_info where `infokey`='about'");
 		
 		include template('admin/info_about');
 		break;
@@ -19,7 +19,7 @@ switch($ts){
 		break;
 		
 	case "contact":
-		$strInfo = $db->once_fetch_assoc("select * from ".dbprefix."home_info where `infokey`='contact'");
+		$strInfo = $db->find("select * from ".dbprefix."home_info where `infokey`='contact'");
 		include template('admin/info_contact');
 		break;
 		
@@ -33,7 +33,7 @@ switch($ts){
 		break;
 		
 	case "agreement":
-		$strInfo = $db->once_fetch_assoc("select * from ".dbprefix."home_info where `infokey`='agreement'");
+		$strInfo = $db->find("select * from ".dbprefix."home_info where `infokey`='agreement'");
 		include template('admin/info_agreement');
 		break;
 		
@@ -48,7 +48,7 @@ switch($ts){
 		
 		
 	case "privacy":
-		$strInfo = $db->once_fetch_assoc("select * from ".dbprefix."home_info where `infokey`='privacy'");
+		$strInfo = $db->find("select * from ".dbprefix."home_info where `infokey`='privacy'");
 		include template('admin/info_privacy');
 		break;
 		

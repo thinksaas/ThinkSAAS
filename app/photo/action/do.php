@@ -65,7 +65,7 @@ switch($ts){
 		aac('user')->isUser($userid);
 		
 		$photoid = $_GET['photoid'];
-		$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
+		$strPhoto = $db->find("select * from ".dbprefix."photo where photoid='$photoid'");
 		if($strPhoto['userid']!=$userid) qiMsg("非法操作！");
 		
 		$albumid = $strPhoto['albumid'];
@@ -74,7 +74,7 @@ switch($ts){
 		
 		$db->query("delete from ".dbprefix."photo where photoid='$photoid'");
 		
-		$count_photo = $db->once_num_rows("select * from ".dbprefix."photo where albumid='$albumid'");
+		$count_photo = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
 		
 		$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
 		
@@ -86,12 +86,12 @@ switch($ts){
 	case "up":
 		
 		/*
-		$arrUserId = $db->fetch_all_assoc("select userid,photourl from ".dbprefix."photo group by userid");
+		$arrUserId = $db->findAll("select userid,photourl from ".dbprefix."photo group by userid");
 		foreach($arrUserId as $item){
 			$db->query("insert ".dbprefix."photo_album (`userid`,`albumface`,`albumname`) values ('".$item['userid']."','".$item['photourl']."','默认相册')");
 		}
 		*/
-		$arrAlbumId = $db->fetch_all_assoc("select albumid,userid from ".dbprefix."photo_album");
+		$arrAlbumId = $db->findAll("select albumid,userid from ".dbprefix."photo_album");
 		foreach($arrAlbumId as $item){
 			$db->query("update ".dbprefix."photo set `albumid`='".$item['albumid']."' where userid='".$item['userid']."'");
 		}
@@ -124,7 +124,7 @@ switch($ts){
 		
 		
 		//发送系统消息(通知楼主有人回复他的帖子啦)
-		$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
+		$strPhoto = $db->find("select * from ".dbprefix."photo where photoid='$photoid'");
 		if($strPhoto['userid'] != $userid){
 		
 			$msg_userid = '0';
@@ -151,9 +151,9 @@ switch($ts){
 	
 		$commentid = $_GET['commentid'];
 		
-		$strComment = $db->once_fetch_assoc("select photoid,userid from ".dbprefix."photo_comment where `commentid`='$commentid'");
+		$strComment = $db->find("select photoid,userid from ".dbprefix."photo_comment where `commentid`='$commentid'");
 		
-		$strPhoto = $db->once_fetch_assoc("select userid from ".dbprefix."photo where `photoid`='".$strComment['photoid']."'");
+		$strPhoto = $db->find("select userid from ".dbprefix."photo where `photoid`='".$strComment['photoid']."'");
 		
 		if($userid == $strPhoto['userid'] || $TS_USER['user']['isadmin']=='1'){
 		

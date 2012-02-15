@@ -11,7 +11,7 @@ switch($ts){
 		$title = '注册';
 		
 		//调出省份数据
-		$arrOne = $db->fetch_all_assoc("select * from ".dbprefix."area where referid='0'");
+		$arrOne = $db->findAll("select * from ".dbprefix."area where referid='0'");
 		
 		include template("register");
 		break;
@@ -31,14 +31,14 @@ switch($ts){
 		
 			$invitecode = trim($_POST['invitecode']);
 			if($invitecode == '') tsNotice("邀请码不能为空！");
-			$codeNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."user_invites where `invitecode`='$invitecode' and `isused`='0'");
+			$codeNum = $db->find("select count(*) from ".dbprefix."user_invites where `invitecode`='$invitecode' and `isused`='0'");
 			if($codeNum['count(*)'] == 0) tsNotice("邀请码无效，请更换邀请码！");
 		
 		}
 
-		$isEmail = $db->once_fetch_assoc("select count(*) from ".dbprefix."user where `email`='$email'");
+		$isEmail = $db->find("select count(*) from ".dbprefix."user where `email`='$email'");
 		
-		$isUserName = $db->once_fetch_assoc("select count(*) from ".dbprefix."user_info where `username`='$username'");
+		$isUserName = $db->find("select count(*) from ".dbprefix."user_info where `username`='$username'");
 		
 		if($email=='' || $pwd=='' || $repwd=='' || $username==''){
 		
@@ -90,11 +90,11 @@ switch($ts){
 			));
 			
 			//默认加入小组
-			$isgroup = $db->once_fetch_assoc("select optionvalue from ".dbprefix."user_options where optionname='isgroup'");
+			$isgroup = $db->find("select optionvalue from ".dbprefix."user_options where optionname='isgroup'");
 			if($isgroup['optionvalue'] != ''){
 				$arrGroup = explode(',',$isgroup['optionvalue']);
 				foreach($arrGroup as $item){
-					$groupusernum = $db->once_num_rows("select * from ".dbprefix."group_users where `userid`='".$userid."' and `groupid`='".$item."'");
+					$groupusernum = $db->findCount("select * from ".dbprefix."group_users where `userid`='".$userid."' and `groupid`='".$item."'");
 					if($groupusernum == '0'){
 						
 						$db->create('group_users',array(
@@ -104,14 +104,14 @@ switch($ts){
 						));
 						
 						//统计更新
-						$count_user = $db->once_num_rows("select * from ".dbprefix."group_users where `groupid`='".$item."'");
+						$count_user = $db->findCount("select * from ".dbprefix."group_users where `groupid`='".$item."'");
 						$db->query("update ".dbprefix."group set `count_user`='".$count_user."' where `groupid`='".$item."'");
 					}
 				}
 			}
 			
 			//用户信息
-			$userData = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
+			$userData = $db->find("select * from ".dbprefix."user_info where userid='$userid'");
 			
 			//用户session信息
 			$sessionData = array(

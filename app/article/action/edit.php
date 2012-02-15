@@ -14,7 +14,7 @@ switch($ts){
 		
 		$cateid = intval($_GET['cateid']);
 		
-		$strArticle = $db->once_fetch_assoc("select * from ".dbprefix."article where `articleid`='$articleid'");
+		$strArticle = $db->find("select * from ".dbprefix."article where `articleid`='$articleid'");
 		
 		$arrCate = $new['article']->getArrCate();
 		
@@ -46,7 +46,15 @@ switch($ts){
 			$isattach = '1';
 		}
 		
-		$db->query("update ".dbprefix."article set `cateid`='$cateid',`title`='$title',`content`='$content',`isphoto`='$isphoto',`isattach`='$isattach' where `articleid`='$articleid'");
+		$db->update('article',array(
+			'cateid'=>$cateid,
+			'title'=>$title,
+			'content'=>$content,
+			'isphoto'=>$isphoto,
+			'isattach'=>$isattach,
+		),array(
+			'articleid'=>$articleid,
+		));
 		
 		header("Location: ".SITE_URL.tsurl('article','show',array('articleid'=>$articleid)));
 		

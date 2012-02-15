@@ -5,9 +5,9 @@ if(intval($TS_USER['user']['isadmin']) == 1){
 	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 	$url = SITE_URL.tsurl('article','audit',array('page'=>''));
 	$lstart = $page*10-10;
-	$arrArticle = $db->fetch_all_assoc("select * from ".dbprefix."article where `isaudit`='1' order by addtime desc limit $lstart,10");
+	$arrArticle = $db->findAll("select * from ".dbprefix."article where `isaudit`='1' order by addtime desc limit $lstart,10");
 	
-	$articleNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."article where `isaudit`='1'");
+	$articleNum = $db->find("select count(*) from ".dbprefix."article where `isaudit`='1'");
 	
 	$auditNum = $articleNum['count(*)'];
 

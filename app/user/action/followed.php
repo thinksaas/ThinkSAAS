@@ -8,7 +8,7 @@ $strUser = $new['user']->getOneUser($userid);
 if($strUser == '') header("Location: ".SITE_URL."index.php");
 
 //跟随他的用户
-$followedUsers = $db->fetch_all_assoc("select userid from ".dbprefix."user_follow where userid_follow='$userid' order by addtime");
+$followedUsers = $db->findAll("select userid from ".dbprefix."user_follow where userid_follow='$userid' order by addtime");
 
 if(is_array($followedUsers)){
 	foreach($followedUsers as $item){

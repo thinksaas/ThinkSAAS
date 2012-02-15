@@ -6,7 +6,7 @@
 	switch($ts){
 		//配置
 		case "":
-			$arrOptions = $db->fetch_all_assoc("select * from ".dbprefix."user_options");
+			$arrOptions = $db->findAll("select * from ".dbprefix."user_options");
 			foreach($arrOptions as $item){
 				$strOption[$item['optionname']] = $item['optionvalue'];
 			}
@@ -27,7 +27,7 @@
 			}
 			
 			//更新缓存
-			$arrOptions = $db->fetch_all_assoc("select optionname,optionvalue from ".dbprefix."user_options");
+			$arrOptions = $db->findAll("select optionname,optionvalue from ".dbprefix."user_options");
 			foreach($arrOptions as $item){
 				$arrOption[$item['optionname']] = $item['optionvalue'];
 			}

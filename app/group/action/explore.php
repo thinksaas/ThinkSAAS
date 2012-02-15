@@ -14,7 +14,7 @@ $arrNewGroup = $new['group']->getNewGroup(10);
 
 
 //最新帖子
-$arrNewTopics = $db->fetch_all_assoc("select topicid,userid,groupid,title,count_comment,count_view,istop,isphoto,isattach,addtime,uptime from ".dbprefix."group_topics order by uptime desc limit 30");
+$arrNewTopics = $db->findAll("select topicid,userid,groupid,title,count_comment,count_view,istop,isphoto,isattach,addtime,uptime from ".dbprefix."group_topics order by uptime desc limit 30");
 foreach($arrNewTopics as $key=>$item){
 	$arrTopic[] = $item;
 	$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
@@ -23,10 +23,10 @@ foreach($arrNewTopics as $key=>$item){
 
 
 //最新标签
-$arrTag = $db->fetch_all_assoc("select * from ".dbprefix."tag order by count_topic desc limit 30");
+$arrTag = $db->findAll("select * from ".dbprefix."tag order by count_topic desc limit 30");
 
 //社区精华帖
-$arrPosts = $db->fetch_all_assoc("select topicid,title from ".dbprefix."group_topics where isposts='1' order by uptime desc limit 15");
+$arrPosts = $db->findAll("select topicid,title from ".dbprefix."group_topics where isposts='1' order by uptime desc limit 15");
 
 $title = '随便看看';
 include template("explore");

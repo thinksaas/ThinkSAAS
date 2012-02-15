@@ -6,7 +6,7 @@ $tagname = urldecode(trim($_GET['tagname']));
 
 $tagid = aac('tag')->getTagId(t($tagname));
 
-$strTag = $db->once_fetch_assoc("select * from ".dbprefix."tag where tagid='$tagid'");
+$strTag = $db->find("select * from ".dbprefix."tag where tagid='$tagid'");
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
@@ -14,15 +14,15 @@ $url = SITE_URL.tsurl('group','topic_tag',array('tagid'=>$tagid,'page'=>''));
 
 $lstart = $page*30-30;
 
-$arrTagId = $db->fetch_all_assoc("select * from ".dbprefix."tag_topic_index where tagid='$tagid' limit $lstart,30");
+$arrTagId = $db->findAll("select * from ".dbprefix."tag_topic_index where tagid='$tagid' limit $lstart,30");
 
-$topic_num = $db->once_fetch_assoc("select count(topicid) from ".dbprefix."tag_topic_index where tagid='$tagid'");
+$topic_num = $db->find("select count(topicid) from ".dbprefix."tag_topic_index where tagid='$tagid'");
 
 $pageUrl = pagination($topic_num['count(topicid)'], 30, $page, $url);
 
 foreach($arrTagId as $item){
 
-	$strTopic = $db->once_fetch_assoc("select topicid,userid,groupid,title,count_comment,count_view,isphoto,isattach,addtime,uptime from ".dbprefix."group_topics where topicid = '".$item['topicid']."'");
+	$strTopic = $db->find("select topicid,userid,groupid,title,count_comment,count_view,isphoto,isattach,addtime,uptime from ".dbprefix."group_topics where topicid = '".$item['topicid']."'");
 	$arrTopics[] = $strTopic;
 	
 }
@@ -34,7 +34,7 @@ foreach($arrTopics as $key=>$item){
 }
 
 //热门tag
-$arrTag = $db->fetch_all_assoc("select * from ".dbprefix."tag order by count_topic desc limit 30");
+$arrTag = $db->findAll("select * from ".dbprefix."tag order by count_topic desc limit 30");
 
 $title = $strTag['tagname'].'热门话题列表';
 

@@ -20,7 +20,7 @@ switch($ts){
 			$db->query("UPDATE ".dbprefix."system_options SET optionvalue='$val' where optionname='$key'");
 		}
 		
-		$arrOptions = $db->fetch_all_assoc("select optionname,optionvalue from ".dbprefix."system_options");
+		$arrOptions = $db->findAll("select optionname,optionvalue from ".dbprefix."system_options");
 		foreach($arrOptions as $item){
 				$arrOption[$item['optionname']] = $item['optionvalue'];
 		}

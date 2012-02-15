@@ -2,7 +2,7 @@
 switch($ts){
 	case "":
 		$areaid = $_GET['areaid'];
-		$strArea = $db->once_fetch_assoc("select * from ".dbprefix."area where areaid='$areaid'");
+		$strArea = $db->find("select * from ".dbprefix."area where areaid='$areaid'");
 		include template("admin/edit");
 		break;
 	case "do":

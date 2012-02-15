@@ -11,13 +11,13 @@ $strEvent['content'] = editor2html($strEvent['content']);
 
 //wishdo
 if($TS_USER['user']['userid'] != ''){
-	$isEventUser = $db->once_num_rows("select * from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and userid='".$TS_USER['user']['userid']."'");
-	$strEventUser = $db->once_fetch_assoc("select * from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and userid='".$TS_USER['user']['userid']."'");
+	$isEventUser = $db->findCount("select * from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and userid='".$TS_USER['user']['userid']."'");
+	$strEventUser = $db->find("select * from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and userid='".$TS_USER['user']['userid']."'");
 }
 
 
 //组织者
-$arrOrganizers= $db->fetch_all_assoc("select userid from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and isorganizer='1'");
+$arrOrganizers= $db->findAll("select userid from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and isorganizer='1'");
 if(is_array($arrOrganizers)){
 	foreach($arrOrganizers as $item){
 		$arrOrganizer[] = simpleUser($item['userid']);
@@ -25,7 +25,7 @@ if(is_array($arrOrganizers)){
 }
 
 //参加这个活动的成员
-$arrDoUsers = $db->fetch_all_assoc("select userid from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and status='0' order by addtime");
+$arrDoUsers = $db->findAll("select userid from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and status='0' order by addtime");
 if(is_array($arrDoUsers)){
 	foreach($arrDoUsers as $item){
 		$arrDoUser[] = aac('user')->getOneUser($item['userid']);
@@ -33,7 +33,7 @@ if(is_array($arrDoUsers)){
 }
 
 //对这个活动感兴趣的人
-$arrWishUsers = $db->fetch_all_assoc("select userid from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and status='1' order by addtime");
+$arrWishUsers = $db->findAll("select userid from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and status='1' order by addtime");
 if(is_array($arrWishUsers)){
 	foreach($arrWishUsers as $item){
 		$arrWishUser[] = aac('user')->getOneUser($item['userid']);
@@ -41,7 +41,7 @@ if(is_array($arrWishUsers)){
 }
 
 //哪些小组正在分享这个活动
-$arrGroups = $db->fetch_all_assoc("select groupid from ".dbprefix."event_group_index where eventid='$eventid'");
+$arrGroups = $db->findAll("select groupid from ".dbprefix."event_group_index where eventid='$eventid'");
 if(is_array($arrGroups)){
 	foreach($arrGroups as $item){
 		$arrGroup[] = aac('group')->getOneGroup($item['groupid']);
@@ -76,12 +76,12 @@ include template("show");
 
 function simpleUser($userid){
 	global $db;
-	$userData = $db->once_fetch_assoc("select userid,username from ".dbprefix."user_info where userid='$userid'");
+	$userData = $db->find("select userid,username from ".dbprefix."user_info where userid='$userid'");
 	return $userData;
 }
 function getPhotoById($photoid){
 	global $db;
-	$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."app_photo where photoid='$photoid'");
+	$strPhoto = $db->find("select * from ".dbprefix."app_photo where photoid='$photoid'");
 	
 	return $strPhoto['photourl'];
 }

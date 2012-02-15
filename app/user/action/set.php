@@ -41,7 +41,7 @@ switch($ts){
 		$strArea = aac('location')->getAreaForApp($strUser['areaid']);
 	
 		//调出省份数据
-		$arrOne = $db->fetch_all_assoc("select * from ".dbprefix."area where referid='0'");
+		$arrOne = $db->findAll("select * from ".dbprefix."area where referid='0'");
 		
 		$title = '常居地修改';
 		include template("set_city");

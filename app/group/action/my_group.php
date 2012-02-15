@@ -6,7 +6,7 @@ defined('IN_TS') or die('Access Denied.');
 	 
 	$userid=$TS_USER['user']['userid'];
 
-	$myGroup = $db->fetch_all_assoc("select * from ".dbprefix."group_users where userid='$userid'");
+	$myGroup = $db->findAll("select * from ".dbprefix."group_users where userid='$userid'");
 	
 	
 	//我加入的小组
@@ -16,7 +16,7 @@ defined('IN_TS') or die('Access Denied.');
 		}
 	}
 	
-	$myCreateGroup = $db->fetch_all_assoc("select * from ".dbprefix."group where userid='$userid'");
+	$myCreateGroup = $db->findAll("select * from ".dbprefix."group where userid='$userid'");
 	//我管理的小组
 	if(is_array($myCreateGroup)){
 		foreach($myCreateGroup as $key=>$item){

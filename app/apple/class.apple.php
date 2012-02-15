@@ -10,14 +10,14 @@ class apple{
 	
 	//获取苹果机 
 	function getApple($appleid){
-		$strApple = $this->db->once_fetch_assoc("select * from ".dbprefix."apple where `appleid`='$appleid'");
+		$strApple = $this->db->find("select * from ".dbprefix."apple where `appleid`='$appleid'");
 		return $strApple;
 	}
 	
 	//根据模型属性ID获取模型属性名称 
 	function getVirtueName($virtueid){
 		
-		$strVirtue = $this->db->once_fetch_assoc("select * from ".dbprefix."apple_virtue where `virtueid`='$virtueid'");
+		$strVirtue = $this->db->find("select * from ".dbprefix."apple_virtue where `virtueid`='$virtueid'");
 		
 		return $strVirtue['virtuename'];
 		
@@ -26,7 +26,7 @@ class apple{
 	
 	//是否有苹果机 
 	function isApple($appleid){
-		$appleNum = $this->db->once_fetch_assoc("select count(*) from ".dbprefix."apple where `appleid`='$appleid'");
+		$appleNum = $this->db->find("select count(*) from ".dbprefix."apple where `appleid`='$appleid'");
 		
 		if($appleNum['count(*)'] == 0){
 			header("Location: ".SITE_URL);
@@ -37,7 +37,7 @@ class apple{
 	
 	//是否存在点评
 	function isReview($reviewid){
-		$reviewNum = $this->db->once_fetch_assoc("select count(*) from ".dbprefix."apple_review where `reviewid`='$reviewid'");
+		$reviewNum = $this->db->find("select count(*) from ".dbprefix."apple_review where `reviewid`='$reviewid'");
 		
 		if($reviewNum['count(*)'] == 0){
 			header("Location: ".SITE_URL);

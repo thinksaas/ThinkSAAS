@@ -73,7 +73,7 @@ switch($ts){
 	case "setbase":
 	
 		$userid = $TS_USER['user']['userid'];
-		$strUser = $db->once_fetch_assoc("select username from ".dbprefix."user_info where userid='$userid'");
+		$strUser = $db->find("select username from ".dbprefix."user_info where userid='$userid'");
 		$username = t($_POST['username']);
 
 		if($TS_USER['user'] == '') tsNotice("机房重地，闲人免进！");
@@ -81,17 +81,19 @@ switch($ts){
 		if(strlen($username) < 4 || strlen($username) > 20) tsNotice("用户名长度必须在4到20字符之间!");
 		
 		if($username != $strUser['username']){
-			$isusername = $db->once_num_rows("select * from ".dbprefix."user_info where username='$username'");
+			$isusername = $db->findCount("select * from ".dbprefix."user_info where username='$username'");
 			if($isusername > 0) tsNotice("用户名已经存在，请换个用户名！");
 		}
 
-		$db->update('user_info','userid'=$userid,array(
+		$db->update('user_info',array(
 			'username' => $username,
 			'sex'	=> $_POST['sex'],
 			'signed'		=> h($_POST['signed']),
 			'phone'	=> t($_POST['phone']),
 			'blog'			=> t($_POST['blog']),
 			'about'			=> h($_POST['about']),
+		),array(
+			'userid'=>$userid,
 		));
 
 		tsNotice("基本资料更新成功！");
@@ -130,7 +132,7 @@ switch($ts){
 	case "inemail":
 	
 		$email = $_GET['email'];
-		$emailNum = $db->once_num_rows("select * from ".dbprefix."user where `email`='".$email."'");
+		$emailNum = $db->findCount("select * from ".dbprefix."user where `email`='".$email."'");
 		
 		if($emailNum > '0'):
 			echo 'false';
@@ -143,7 +145,7 @@ switch($ts){
 	//验证用户名是否唯一
 	case "isusername":
 		$username = $_GET['username'];
-		$usernameNum = $db->once_num_rows("select * from ".dbprefix."user_info where `username`='".$username."'");
+		$usernameNum = $db->findCount("select * from ".dbprefix."user_info where `username`='".$username."'");
 		
 		if($usernameNum > '0'):
 			echo 'false';
@@ -157,7 +159,7 @@ switch($ts){
 		
 		$invitecode = trim($_GET['invitecode']);
 		
-		$codeNum = $db->once_num_rows("select * from ".dbprefix."user_invites where invitecode='$invitecode' and isused='0'");
+		$codeNum = $db->findCount("select * from ".dbprefix."user_invites where invitecode='$invitecode' and isused='0'");
 		
 		if($codeNum > 0){
 			echo 'true';
@@ -177,7 +179,7 @@ switch($ts){
 		if($oldpwd == '' || $newpwd=='' || $renewpwd=='') tsNotice("所有项都不能为空！");
 		
 		$userid = $TS_USER['user']['userid'];
-		$strUser = $db->once_fetch_assoc("select pwd from ".dbprefix."user where userid='$userid'");
+		$strUser = $db->find("select pwd from ".dbprefix."user where userid='$userid'");
 		
 		if(md5($oldpwd) != $strUser['pwd']) tsNotice("旧密码输入有误！");
 		
@@ -192,7 +194,7 @@ switch($ts){
 	//选择常住城市
 	case "city":
 		$provinceid = $_GET['provinceid'];
-		//$arrCity = $db->fetch_all_assoc("select * from ".dbprefix."app_location_city where provinceid = '$provinceid' and isshow='0'");
+		//$arrCity = $db->findAll("select * from ".dbprefix."app_location_city where provinceid = '$provinceid' and isshow='0'");
 		$arrCitys = AppCacheRead('location','city.php');
 		
 		$arrCity = $arrCitys[$provinceid];
@@ -203,7 +205,7 @@ switch($ts){
 	//选择区县
 	case "area":
 		$cityid = $_GET['cityid'];
-		//$arrArea = $db->fetch_all_assoc("select * from ".dbprefix."app_location_area where cityid = '$cityid' and isshow='0'");
+		//$arrArea = $db->findAll("select * from ".dbprefix."app_location_area where cityid = '$cityid' and isshow='0'");
 		$arrAreas = AppCacheRead('location','area.php');
 		$arrArea = $arrAreas[$cityid];
 	
@@ -232,7 +234,7 @@ switch($ts){
 		
 		$new['user']->isUser($userid_follow);
 		
-		$followNum = $db->once_num_rows("select * from ".dbprefix."user_follow where userid='$userid' and userid_follow='$userid_follow'");
+		$followNum = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid' and userid_follow='$userid_follow'");
 		
 		if($followNum > '0'){
 			
@@ -248,14 +250,14 @@ switch($ts){
 			
 			//统计更新跟随和被跟随数
 			//统计自己的
-			$count_follow = $db->once_num_rows("select * from ".dbprefix."user_follow where userid='$userid'");
-			$count_followed = $db->once_num_rows("select * from ".dbprefix."user_follow where userid_follow='$userid'");
+			$count_follow = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid'");
+			$count_followed = $db->findCount("select * from ".dbprefix."user_follow where userid_follow='$userid'");
 			
 			$db->query("update ".dbprefix."user_info set `count_follow`='$count_follow',`count_followed`='$count_followed' where userid='$userid'");
 			
 			//统计别人的
-			$count_follow_userid = $db->once_num_rows("select * from ".dbprefix."user_follow where userid='$userid_follow'");
-			$count_followed_userid = $db->once_num_rows("select * from ".dbprefix."user_follow where userid_follow='$userid_follow'");
+			$count_follow_userid = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid_follow'");
+			$count_followed_userid = $db->findCount("select * from ".dbprefix."user_follow where userid_follow='$userid_follow'");
 			
 			$db->query("update ".dbprefix."user_info set `count_follow`='$count_follow_userid',`count_followed`='$count_followed_userid' where userid='$userid_follow'");
 			
@@ -265,7 +267,7 @@ switch($ts){
 			$msg_content = '恭喜，您被人跟随啦！看看他是谁吧<br />'.SITE_URL.'index.php?app=user&ac=space&userid='.$userid;
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 			
-			$strUser = $db->once_fetch_assoc("select userid,username,path,face from ".dbprefix."user_info where `userid`='$userid_follow'");
+			$strUser = $db->find("select userid,username,path,face from ".dbprefix."user_info where `userid`='$userid_follow'");
 			
 			//feed开始
 			$feed_template = '<a href="{link}"><img title="{username}" alt="{username}" src="{face}" class="broadimg"></a>
@@ -309,14 +311,14 @@ switch($ts){
 		
 		//统计更新跟随和被跟随数
 		//统计自己的
-		$count_follow = $db->once_num_rows("select * from ".dbprefix."user_follow where userid='$userid'");
-		$count_followed = $db->once_num_rows("select * from ".dbprefix."user_follow where userid_follow='$userid'");
+		$count_follow = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid'");
+		$count_followed = $db->findCount("select * from ".dbprefix."user_follow where userid_follow='$userid'");
 		
 		$db->query("update ".dbprefix."user_info set `count_follow`='$count_follow',`count_followed`='$count_followed' where userid='$userid'");
 		
 		//统计别人的
-		$count_follow_userid = $db->once_num_rows("select * from ".dbprefix."user_follow where userid='$userid_follow'");
-		$count_followed_userid = $db->once_num_rows("select * from ".dbprefix."user_follow where userid_follow='$userid_follow'");
+		$count_follow_userid = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid_follow'");
+		$count_followed_userid = $db->findCount("select * from ".dbprefix."user_follow where userid_follow='$userid_follow'");
 		
 		$db->query("update ".dbprefix."user_info set `count_follow`='$count_follow_userid',`count_followed`='$count_followed_userid' where userid='$userid_follow'");
 		

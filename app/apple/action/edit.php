@@ -13,11 +13,11 @@ switch($ts){
 			exit;
 		}
 
-		$strApple = $db->once_fetch_assoc("select * from ".dbprefix."apple where `appleid`='$appleid'");
+		$strApple = $db->find("select * from ".dbprefix."apple where `appleid`='$appleid'");
 
 		if($strApple['userid']==$userid || $TS_USER['user']['isadmin']==1){
 
-			$index = $db->fetch_all_assoc("select * from ".dbprefix."apple_index where `appleid`='$appleid'");
+			$index = $db->findAll("select * from ".dbprefix."apple_index where `appleid`='$appleid'");
 			foreach($index as $key=>$item){
 				$strApple['model'][] = array(
 					'virtueid'	=> $item['virtueid'],
@@ -53,7 +53,12 @@ switch($ts){
 		$content = $_POST['content'];
 		
 		//更新内容 
-		$db->query("update ".dbprefix."apple set `title`='$title',`content`='$content' where `appleid`='$appleid'");
+		$db->update('apple',array(
+			'title'=>$title,
+			'content'=>$content,
+		),array(
+			'appleid'=>$appleid,
+		));
 		
 		//处理图片
 		if (!empty($_FILES)) {
@@ -87,7 +92,12 @@ switch($ts){
 				
 				$photo = $path.'/'.$newphotoname;
 				
-				$db->query("update ".dbprefix."apple set `path`='$path',`photo`='$photo' where `appleid`='$appleid'");
+				$db->update('apple',array(
+					'path'=>$path,
+					'photo'=>$photo,
+				),array(
+					'appleid'=>$appleid,
+				));
 				
 			}
 		}
@@ -99,7 +109,12 @@ switch($ts){
 		
 		foreach($virtueid as $key=>$item){
 			
-			$db->query("update ".dbprefix."apple_index set `parameter`='".trim($parameter[$key])."' where `virtueid`='".$item."' and `appleid`='$appleid'");
+			$db->update('apple_index',array(
+				'parameter'=>trim($parameter[$key]),
+			),array(
+				'virtueid'=>$item,
+				'appleid'=>$appleid,
+			));
 			
 		}
 		

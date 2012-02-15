@@ -9,13 +9,13 @@ $userid = $TS_USER['user']['userid'];
 
 if($TS_USER['user']=='') header("Location: ".SITE_URL."index.php");
 
-$strUser = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
+$strUser = $db->find("select * from ".dbprefix."user_info where userid='$userid'");
 
 //邀请好友
 switch($ts){
 	case "":
 		
-		$codeNum = $db->once_num_rows("select * from ".dbprefix."user_invites where isused='0'");
+		$codeNum = $db->findCount("select * from ".dbprefix."user_invites where isused='0'");
 
 		$title = '邀请码';
 		include template("invite");
@@ -26,12 +26,12 @@ switch($ts){
 	case "code":
 		
 		//计算是否还有邀请码
-		$codeNum = $db->once_num_rows("select * from ".dbprefix."user_invites where isused='0'");
+		$codeNum = $db->findCount("select * from ".dbprefix."user_invites where isused='0'");
 		
 		if($codeNum > 0){
 		
 			//取一个码
-			$strCode = $db->once_fetch_assoc("select * from ".dbprefix."user_invites where isused='0' limit 1");
+			$strCode = $db->find("select * from ".dbprefix."user_invites where isused='0' limit 1");
 		}else{
 			//当数据库中没码的时间生成50个码
 			for($i=1;$i<=50;$i++){
@@ -43,7 +43,7 @@ switch($ts){
 
 			}
 			//再次取码
-			$strCode = $db->once_fetch_assoc("select * from ".dbprefix."user_invites where isused='0' limit 1");
+			$strCode = $db->find("select * from ".dbprefix."user_invites where isused='0' limit 1");
 		}
 		
 		$title = '邀请码';

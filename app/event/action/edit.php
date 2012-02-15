@@ -11,10 +11,10 @@
 		//基本信息
 		case "base":
 			//活动类型
-			$arrType = $db->fetch_all_assoc("select * from ".dbprefix."event_type");
+			$arrType = $db->findAll("select * from ".dbprefix."event_type");
 
 			//获取常驻地
-			$strUser = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
+			$strUser = $db->find("select * from ".dbprefix."user_info where userid='$userid'");
 			
 			$title = '编辑活动信息';
 			include template("edit_base");

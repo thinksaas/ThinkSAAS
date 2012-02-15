@@ -44,9 +44,9 @@ defined('IN_TS') or die('Access Denied.');
 			));
 			
 			//更新统计活动分类缓存
-			$arrTypess = $db->fetch_all_assoc("select * from ".dbprefix."event_type");
+			$arrTypess = $db->findAll("select * from ".dbprefix."event_type");
 			foreach($arrTypess as $key=>$item){
-				$event = $db->once_fetch_assoc("select count(eventid) from ".dbprefix."event where typeid='".$item['typeid']."'");
+				$event = $db->find("select count(eventid) from ".dbprefix."event where typeid='".$item['typeid']."'");
 				$arrTypes['list'][] = array(
 					'typeid'	=> $item['typeid'],
 					'typename'	=> $item['typename'],
@@ -54,7 +54,7 @@ defined('IN_TS') or die('Access Denied.');
 				);
 			}
 			
-			$eventNum = $db->once_fetch_assoc("select count(eventid) from ".dbprefix."event");
+			$eventNum = $db->find("select count(eventid) from ".dbprefix."event");
 			$arrTypes['count'] = $eventNum['count(eventid)'];
 			
 			//生成缓存文件
@@ -91,7 +91,12 @@ defined('IN_TS') or die('Access Denied.');
 					
 					$poster = $newdir.'/'.$newphotoname;
 					
-					$db->query("update ".dbprefix."event set `path`='$menu',`poster`='$poster' where eventid='$eventid'");
+					$db->update('event',array(
+						'path'=>$menu,
+						'poster'=>$poster,
+					),array(
+						'eventid'=>$eventid,
+					));
 					
 				}
 			}
@@ -108,7 +113,7 @@ defined('IN_TS') or die('Access Denied.');
 			//0加入1感兴趣
 			$status = intval($_POST['status']);
 			
-			$userNum = $db->once_num_rows("select * from ".dbprefix."event_users where eventid='$eventid' and userid='$userid'");
+			$userNum = $db->findCount('event_users',array('eventid'=>$eventid,'userid'=>$userid));
 			
 			if($userid == ''){
 				echo '0';return false;
@@ -124,14 +129,19 @@ defined('IN_TS') or die('Access Denied.');
 				));
 				
 				//统计一下参加的
-				$userDoNum = $db->once_num_rows("select * from ".dbprefix."event_users where eventid='$eventid' and status='0'");
+				$userDoNum = $db->findCount('event_users',array('eventid'=>$eventid,'status'=>0));
 				//统计感兴趣的
-				$userWishNum = $db->once_num_rows("select * from ".dbprefix."event_users where eventid='$eventid' and status='1'");
+				$userWishNum = $db->findCount('event_users',array('eventid'=>$eventid,'status'=>1));
 				
-				$db->query("update ".dbprefix."event set `count_userdo`='$userDoNum',`count_userwish`='$userWishNum' where eventid='$eventid'");
+				$db->update('event',array(
+					'count_userdo'=>$userDoNum,
+					'count_userwish'=>$userWishNum,
+				),array(
+					'eventid'=>$eventid,
+				));
 				
 				//event
-				$strEvent = $db->once_fetch_assoc("select title,time_start,path,poster,address,count_userdo from ".dbprefix."event where `eventid`='$eventid'");
+				$strEvent = $db->find("select title,time_start,path,poster,address,count_userdo from ".dbprefix."event where `eventid`='$eventid'");
 				
 				//feed开始
 				if($status == 1){
@@ -168,11 +178,16 @@ defined('IN_TS') or die('Access Denied.');
 			
 			$db->query("delete from ".dbprefix."event_users where eventid='$eventid' and userid='$userid'");
 			//统计一下参加的
-			$userDoNum = $db->once_num_rows("select * from ".dbprefix."event_users where eventid='$eventid' and status='0'");
+			$userDoNum = $db->findCount("select * from ".dbprefix."event_users where eventid='$eventid' and status='0'");
 			//统计感兴趣的
-			$userWishNum = $db->once_num_rows("select * from ".dbprefix."event_users where eventid='$eventid' and status='1'");
+			$userWishNum = $db->findCount("select * from ".dbprefix."event_users where eventid='$eventid' and status='1'");
 			
-			$db->query("update ".dbprefix."event set `count_userdo`='$userDoNum',`count_userwish`='$userWishNum' where eventid='$eventid'");
+			$db->update('event',array(
+				'count_userdo'=>$userDoNum,
+				'count_userwish'=>$userWishNum,
+			),array(
+				'eventid'=>$eventid,
+			));
 			
 			echo '1';
 			
@@ -182,14 +197,25 @@ defined('IN_TS') or die('Access Denied.');
 		case "do":
 			$eventid = $_POST['eventid'];
 			$userid	= $_POST['userid'];
-			$db->query("update ".dbprefix."event_users set `status`='0' where eventid='$eventid' and userid='$userid'");
+			
+			$db->update('event_users',array(
+				'status'=>0,
+			),array(
+				'eventid'=>$eventid,
+				'userid'=>$userid,
+			));
 			
 			//统计一下参加的
-			$userDoNum = $db->once_num_rows("select * from ".dbprefix."event_users where eventid='$eventid' and status='0'");
+			$userDoNum = $db->findCount("select * from ".dbprefix."event_users where eventid='$eventid' and status='0'");
 			//统计感兴趣的
-			$userWishNum = $db->once_num_rows("select * from ".dbprefix."event_users where eventid='$eventid' and status='1'");
+			$userWishNum = $db->findCount("select * from ".dbprefix."event_users where eventid='$eventid' and status='1'");
 			
-			$db->query("update ".dbprefix."event set `count_userdo`='$userDoNum',`count_userwish`='$userWishNum' where eventid='$eventid'");
+			$db->update('event',array(
+				'count_userdo'=>$userDoNum,
+				'count_userwish'=>$userWishNum,
+			),array(
+				'eventid'=>$eventid,
+			));
 			
 			echo '1';
 			
@@ -206,13 +232,15 @@ defined('IN_TS') or die('Access Denied.');
 			$address = trim($_POST['address']);
 			$content = trim($_POST['content']);
 			
-			$db->update('event','eventid'=$eventid,array(
+			$db->update('event',array(
 				'typeid' => $typeid,
 				'title'	=> $title,
 				'time_start'	=> $time_start,
 				'time_end'	=> $time_end,
 				'address'	=> $address,
 				'content'	=> $content,
+			),array(
+				'eventid'=>$eventid,
 			));
 			
 			//上传海报图片 
@@ -246,7 +274,12 @@ defined('IN_TS') or die('Access Denied.');
 					
 					$poster = $newdir.'/'.$newphotoname;
 					
-					$db->query("update ".dbprefix."event set `path`='$menu',`poster`='$poster' where eventid='$eventid'");
+					$db->update('event',array(
+						'path'=>$menu,
+						'poster'=>$poster,
+					),array(
+						'eventid'=>$eventid,
+					));
 					
 				}
 			}
@@ -276,7 +309,7 @@ defined('IN_TS') or die('Access Denied.');
 				
 				
 				//发送系统消息(通知活动组织者有人回复他的活动啦)
-				$strEvent = $db->once_fetch_assoc("select * from ".dbprefix."event where eventid='$eventid'");
+				$strEvent = $db->find("select * from ".dbprefix."event where eventid='$eventid'");
 				if($strEvent['userid'] != $TS_USER['user']['userid']){
 
 					$msg_userid = '0';
@@ -297,7 +330,11 @@ defined('IN_TS') or die('Access Denied.');
 			$eventid = intval($_GET['eventid']);
 			$isrecommend = intval($_GET['isrecommend']);
 			
-			$db->query("update ".dbprefix."event set `isrecommend`='$isrecommend' where `eventid`='$eventid'");
+			$db->update('event',array(
+				'isrecommend'=>$isrecommend,
+			),array(
+				'eventid'=>$eventid,
+			));
 			
 			qiMsg("操作成功！");
 			

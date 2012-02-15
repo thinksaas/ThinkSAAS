@@ -5,7 +5,7 @@ $userid = intval($TS_USER['user']['userid']);
 
 if($userid == '0'){
 
-/* $arrZm = $db->fetch_all_assoc("SELECT zm FROM ".dbprefix."area GROUP BY zm");
+/* $arrZm = $db->findAll("SELECT zm FROM ".dbprefix."area GROUP BY zm");
 foreach($arrZm as $key=>$item){
 	$arrArea[$item['zm']] = $new['location']->getAreaByZm($item['zm']);
 	

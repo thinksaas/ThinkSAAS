@@ -5,13 +5,13 @@ $arrEventType = fileRead('data/event_types.php');
 
 
 //推荐活动
-$arrEvents = $db->fetch_all_assoc("select eventid from ".dbprefix."event where `isrecommend`='1' order by addtime desc limit 7");
+$arrEvents = $db->findAll("select eventid from ".dbprefix."event where `isrecommend`='1' order by addtime desc limit 7");
 foreach($arrEvents as $item){
 	$arrEvent[] = $new['event']->getEventByEventid($item['eventid']);
 }
 
 //活动小组
-$arrEventGroup = $db->fetch_all_assoc("select groupid from ".dbprefix."event_group_index group by groupid");
+$arrEventGroup = $db->findAll("select groupid from ".dbprefix."event_group_index group by groupid");
 
 if(is_array($arrEventGroup)){
 	foreach($arrEventGroup as $item){

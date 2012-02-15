@@ -10,13 +10,13 @@ class article{
 	
 	//获取所有分类
 	function getArrCate(){
-		$arrCate = $this->db->fetch_all_assoc("select * from ".dbprefix."article_cate");
+		$arrCate = $this->db->findAll("select * from ".dbprefix."article_cate");
 		return $arrCate;
 	}
 
 	//获取一个分类 
 	function getOneCate($cateid){
-		$strCate = $this->db->once_fetch_assoc("select * from ".dbprefix."article_cate where `cateid`='$cateid'");
+		$strCate = $this->db->find("select * from ".dbprefix."article_cate where `cateid`='$cateid'");
 		return $strCate;
 	}
 	

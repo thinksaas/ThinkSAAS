@@ -81,7 +81,7 @@ switch($ts){
 	case "my":
 		$userid = intval($TS_USER['user']['userid']);
 		
-		$arrAttach = $db->fetch_all_assoc("select * from ".dbprefix."attach where userid='$userid'");
+		$arrAttach = $db->findAll("select * from ".dbprefix."attach where userid='$userid'");
 		
 		include template("ajax_my");
 		break;
@@ -94,7 +94,7 @@ switch($ts){
 		//if(intval($TS_USER['user']['userid']) == 0) qiMsg("请登录后下载此文件！");
 		//积分
 		
-		$strAttach = $db->once_fetch_assoc("select * from ".dbprefix."attach where attachid='$attachid'");
+		$strAttach = $db->find("select * from ".dbprefix."attach where attachid='$attachid'");
 		
 		$menu = substr($strAttach['userid'],0,1);
 

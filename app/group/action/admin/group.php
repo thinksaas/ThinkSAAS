@@ -11,8 +11,8 @@ switch($ts){
 		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 		$url = SITE_URL.'index.php?app=group&ac=admin&mg=group&ts=list&page=';
 		$lstart = $page*10-10;
-		$arrGroup = $db->fetch_all_assoc("select * from ".dbprefix."group order by addtime desc limit $lstart,10");
-		$groupNum = $db->once_num_rows("select * from ".dbprefix."group");
+		$arrGroup = $db->findAll("select * from ".dbprefix."group order by addtime desc limit $lstart,10");
+		$groupNum = $db->findCount("select * from ".dbprefix."group");
 		if(is_array($arrGroup)){
 			foreach($arrGroup as $key=>$item){
 				$arrAllGroup[] = $item;
@@ -33,7 +33,7 @@ switch($ts){
 	//小组添加执行
 	case "add_do":
 		$userid = trim($_POST['userid']);
-		$strUser = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
+		$strUser = $db->find("select * from ".dbprefix."user_info where userid='$userid'");
 		
 		$groupid = $db->create(dbprefix.'group',array(
 			'userid' => $userid,
@@ -46,7 +46,7 @@ switch($ts){
 		
 		
 		//更新group_users索引关系
-		$groupUserNum = $db->once_num_rows("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
+		$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
 		if($groupUserNum > 0){
 		}else{
 		
@@ -57,7 +57,7 @@ switch($ts){
 			));
 			
 			//计算小组会员数
-			$groupUserNum = $db->once_num_rows("select * from ".dbprefix."group_users where groupid='$groupid'");
+			$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where groupid='$groupid'");
 			//更新小组成员统计
 			$db->query("update ".dbprefix."group set `count_user`='$groupUserNum' where groupid='$groupid'");
 		}
@@ -68,7 +68,7 @@ switch($ts){
 	//小组编辑
 	case "edit":
 		$groupid = $_GET['groupid'];
-		$arrGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='$groupid'");
+		$arrGroup = $db->find("select * from ".dbprefix."group where groupid='$groupid'");
 		include template("admin/group_edit");
 		break;
 	
@@ -77,11 +77,13 @@ switch($ts){
 	
 		$groupid = $_POST['groupid'];
 
-		$db->update('group','groupid'=$groupid,array(
+		$db->update('group',array(
 			'groupname'		=> $_POST['groupname'],
 			'groupdesc'		=> $_POST['groupdesc'],
 			'userid'			=> $_POST['userid'],
 			'ispost'	=> $_POST['ispost'],
+		),array(
+			'groupid'=>$groupid,
 		));
 		
 		qiMsg("小组信息修改成功！");
@@ -96,7 +98,7 @@ switch($ts){
 			qiMsg("默认小组不能删除！");
 		}
 		
-		$topicNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topics where `groupid`='$groupid'");
+		$topicNum = $db->find("select count(*) from ".dbprefix."group_topics where `groupid`='$groupid'");
 		
 		if($topicNum['count(*)'] > 0){
 			qiMsg("本小组还有帖子，不允许删除。");
@@ -116,7 +118,7 @@ switch($ts){
 		
 		$db->query("update ".dbprefix."group set `isaudit`='0' where groupid='$groupid'");
 		
-		$strGroup = $db->once_fetch_assoc("select groupid,userid,groupname from ".dbprefix."group where groupid='$groupid'");
+		$strGroup = $db->find("select groupid,userid,groupname from ".dbprefix."group where groupid='$groupid'");
 		
 		//发送系统消息(审核通过)
 		$msg_userid = '0';
@@ -132,7 +134,7 @@ switch($ts){
 	case "isrecommend":
 		$groupid = $_GET['groupid'];
 		
-		$strGroup = $db->once_fetch_assoc("select groupid,userid,groupname,isrecommend from ".dbprefix."group where groupid='$groupid'");
+		$strGroup = $db->find("select groupid,userid,groupname,isrecommend from ".dbprefix."group where groupid='$groupid'");
 		
 		if($strGroup['isrecommend'] == 0){
 			$db->query("update ".dbprefix."group set `isrecommend`='1' where groupid='$groupid'");

@@ -13,7 +13,7 @@ class group{
 	function getArrCate($page='1',$prePageNum,$where=''){
 		$start_limit = !empty($page) ? ($page - 1) * $prePageNum : 0;
 		$limit = $prePageNum ? "LIMIT $start_limit, $prePageNum" : '';
-		$cates	= $this->db->fetch_all_assoc("select * from ".dbprefix."group_cates ".$where." ".$limit."");
+		$cates	= $this->db->findAll("select * from ".dbprefix."group_cates ".$where." ".$limit."");
 		if($cates){
 		foreach($cates as $item){
 			$topCate = $this->getOneCateById($item['catereferid']);
@@ -30,13 +30,13 @@ class group{
 	
 	//获取一条分类的名字BY cateid
 	function getOneCateById($cateid){
-		$strCate = $this->db->once_fetch_assoc("select * from ".dbprefix."group_cates where cateid='$cateid'");
+		$strCate = $this->db->find("select * from ".dbprefix."group_cates where cateid='$cateid'");
 		return $strCate;
 	}
 	
 	//获取一个小组
 	function getOneGroup($groupid){
-		$strGroup = $this->db->once_fetch_assoc("select * from ".dbprefix."group where groupid=$groupid");
+		$strGroup = $this->db->find("select * from ".dbprefix."group where groupid=$groupid");
 		if($strGroup['groupicon'] == ''){
 			$strGroup['icon_48'] = SITE_URL.'public/images/group.jpg';
 			$strGroup['icon_16'] = SITE_URL.'public/images/group.jpg';
@@ -50,7 +50,7 @@ class group{
 	//获取小组分类数 
 	function getCateNum($where=''){
 		$sql = "select count(*) from ".dbprefix."group_cates ".$where."";
-		$cateNum = $this->db->once_fetch_assoc($sql);
+		$cateNum = $this->db->find($sql);
 		return $cateNum['count(*)'];
 	}
 	
@@ -61,13 +61,13 @@ class group{
 	function getGroupContent($page = 1, $prePageNum,$groupid){
 		$start_limit = !empty($page) ? ($page - 1) * $prePageNum : 0;
 		$limit = $prePageNum ? "LIMIT $start_limit, $prePageNum" : '';
-		$arrGroupContent	= $this->db->fetch_all_assoc("select * from ".dbprefix."group_topics where groupid='$groupid' order by addtime desc $limit");
+		$arrGroupContent	= $this->db->findAll("select * from ".dbprefix."group_topics where groupid='$groupid' order by addtime desc $limit");
 		return $arrGroupContent;
 	}
 	
 	//获取推荐的小组
 	function getRecommendGroup($num){
-		$arrRecommendGroups = $this->db->fetch_all_assoc("select groupid from ".dbprefix."group where isrecommend='1' limit $num");
+		$arrRecommendGroups = $this->db->findAll("select groupid from ".dbprefix."group where isrecommend='1' limit $num");
 		
 		$arrRecommendGroup = array();
 		
@@ -81,7 +81,7 @@ class group{
 	
 	//获取最新创建的小组
 	function getNewGroup($num){
-		$arrNewGroups = $this->db->fetch_all_assoc("select groupid from ".dbprefix."group where isshow='0' order by addtime desc limit $num");
+		$arrNewGroups = $this->db->findAll("select groupid from ".dbprefix."group where isshow='0' order by addtime desc limit $num");
 		if(is_array($arrNewGroups)){
 			foreach($arrNewGroups as $item){
 				$arrNewGroup[] = $this->getOneGroup($item['groupid']);
@@ -92,7 +92,7 @@ class group{
 	
 	//获取小组的所有分类 
 	function getCates(){
-		$ArrTopCates = $this->db->fetch_all_assoc("select * from ".dbprefix."group_cates where catereferid='0'");
+		$ArrTopCates = $this->db->findAll("select * from ".dbprefix."group_cates where catereferid='0'");
 		
 		$arrCate = array();
 		
@@ -102,7 +102,7 @@ class group{
 					'cateid'	=> $item['cateid'],
 					'catename'	=> $item['catename'],
 					'count_group'	=> $item['count_group'],
-					'cates'	=> $this->db->fetch_all_assoc("select * from ".dbprefix."group_cates where catereferid='".$item['cateid']."'"),
+					'cates'	=> $this->db->findAll("select * from ".dbprefix."group_cates where catereferid='".$item['cateid']."'"),
 				);
 				
 			}
@@ -126,7 +126,7 @@ class group{
 	function getGroupContentNum($virtue, $setvirtue){
 		$where = 'where '.$virtue.'='.$setvirtue.'';
 		$sql = "SELECT * FROM ".dbprefix."group_topics $where";
-		$groupContentNum = $this->db->once_num_rows($sql);
+		$groupContentNum = $this->db->findCount($sql);
 		return $groupContentNum;
 	}
 	
@@ -135,7 +135,7 @@ class group{
 	 */
 	 
 	function getOneGroupContent($topicid){
-		$strGroupContent = $this->db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid=$topicid");
+		$strGroupContent = $this->db->find("select * from ".dbprefix."group_topics where topicid=$topicid");
 		return $strGroupContent;
 	}
 	
@@ -146,7 +146,7 @@ class group{
 	function getGroupContentComment($page = 1, $prePageNum,$topicid){
 		$start_limit = !empty($page) ? ($page - 1) * $prePageNum : 0;
 		$limit = $prePageNum ? "LIMIT $start_limit, $prePageNum" : '';
-		$arrGroupContentComment	= $this->db->fetch_all_assoc("select * from ".dbprefix."group_topics_comments where topicid='$topicid' order by addtime desc $limit");
+		$arrGroupContentComment	= $this->db->findAll("select * from ".dbprefix."group_topics_comments where topicid='$topicid' order by addtime desc $limit");
 		
 		if(is_array($arrGroupContentComment)){
 			foreach($arrGroupContentComment as $key=>$item){
@@ -161,7 +161,7 @@ class group{
 	
 	//Refer二级循环，三级循环暂时免谈
 	function recomment($referid){
-		$strComment = $this->db->once_fetch_assoc("select * from ".dbprefix."group_topics_comments where commentid='$referid'");
+		$strComment = $this->db->find("select * from ".dbprefix."group_topics_comments where commentid='$referid'");
 		$strComment['user'] = aac('user')->getOneUser($strComment['userid']);
 		$strComment['content'] = editor2html($strComment['content']);
 		
@@ -175,17 +175,17 @@ class group{
 	function getGroupContentCommentNum($virtue, $setvirtue){
 		$where = 'where '.$virtue.'='.$setvirtue.'';
 		$sql = "SELECT * FROM ".dbprefix."group_topics_comments $where";
-		$groupContentCommentNum = $this->db->once_num_rows($sql);
+		$groupContentCommentNum = $this->db->findCount($sql);
 		return $groupContentCommentNum;
 	}
 	
 	//获取一条帖子 
 	function getOneTopic($topicid){
-		$isTopic = $this->db->once_num_rows("select * from ".dbprefix."group_topics where topicid='$topicid'");
+		$isTopic = $this->db->findCount("select * from ".dbprefix."group_topics where topicid='$topicid'");
 		if($isTopic == '0'){
 			header("Location: ".SITE_URL."index.php");
 		}else{
-			$strTopic = $this->db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='$topicid'");
+			$strTopic = $this->db->find("select * from ".dbprefix."group_topics where topicid='$topicid'");
 			return $strTopic;
 		}
 	}
@@ -210,7 +210,7 @@ class group{
 	
 	//判断是否存在小组
 	function isGroup($groupid){
-		$isGroup = $this->db->once_fetch_assoc("select count(groupid) from ".dbprefix."group where groupid='$groupid'");
+		$isGroup = $this->db->find("select count(groupid) from ".dbprefix."group where groupid='$groupid'");
 		if($isGroup['count(groupid)']==0){
 			header("Location: ".SITE_URL);
 			exit;
@@ -219,7 +219,7 @@ class group{
 	
 	//判断是否存在帖子
 	function isTopic($topicid){
-		$isTopic = $this->db->once_fetch_assoc("select count(topicid) from ".dbprefix."group_topics where topicid='$topicid'");
+		$isTopic = $this->db->find("select count(topicid) from ".dbprefix."group_topics where topicid='$topicid'");
 		if($isTopic['count(topicid)']==0){
 			header("Location: ".SITE_URL);
 			exit;
@@ -228,7 +228,7 @@ class group{
 	
 	//获取帖子第一张图片
 	function getOnePhoto($topicid){
-		$strTopic = $this->db->once_fetch_assoc("select content,isphoto from ".dbprefix."group_topics where `topicid`='$topicid'");
+		$strTopic = $this->db->find("select content,isphoto from ".dbprefix."group_topics where `topicid`='$topicid'");
 		if($strTopic['isphoto']=='1'){
 			preg_match_all('/\[(photo)=(\d+)\]/is', $strTopic['content'], $photos);
 			$photoid = $photos[2][0];

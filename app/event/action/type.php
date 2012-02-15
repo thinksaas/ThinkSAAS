@@ -8,7 +8,7 @@ $arrEventType = fileRead('data/event_types.php');
 
 
 if($typeid == 0){
-	$arrEvents = $db->fetch_all_assoc("select eventid from ".dbprefix."event order by addtime desc");
+	$arrEvents = $db->findAll("select eventid from ".dbprefix."event order by addtime desc");
 	if(is_array($arrEvents)){
 		foreach($arrEvents as $item){
 			$arrEvent[] = $new['event']->getEventByEventid($item['eventid']);
@@ -16,9 +16,9 @@ if($typeid == 0){
 	}
 	$title = '所有类型';
 }else{
-	$strType = $db->once_fetch_assoc("select * from ".dbprefix."event_type where typeid='$typeid'");
+	$strType = $db->find("select * from ".dbprefix."event_type where typeid='$typeid'");
 	//调出类型下面的活动 
-	$arrEvents = $db->fetch_all_assoc("select eventid from ".dbprefix."event where typeid='$typeid' order by addtime desc");
+	$arrEvents = $db->findAll("select eventid from ".dbprefix."event where typeid='$typeid' order by addtime desc");
 	if(is_array($arrEvents)){
 		foreach($arrEvents as $item){
 			$arrEvent[] = $new['event']->getEventByEventid($item['eventid']);

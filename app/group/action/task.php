@@ -15,14 +15,14 @@ switch($ts){
 		if($userid == 0) header("Location: ".SITE_URL);
 
 		//是否Email验证
-		$strUser = $db->once_fetch_assoc("select face,isverify from ".dbprefix."user_info where userid='$userid'");
+		$strUser = $db->find("select face,isverify from ".dbprefix."user_info where userid='$userid'");
 
 		//今天是否发布帖子
 		$starttime = strtotime(date('Y-m-d',time()));
-		$strTopic = $db->once_fetch_assoc("select count(*) as ct from ".dbprefix."group_topics where userid='$userid' and `addtime`> '$starttime'");
+		$strTopic = $db->find("select count(*) as ct from ".dbprefix."group_topics where userid='$userid' and `addtime`> '$starttime'");
 
 		//今天是否有回帖子
-		$strReply = $db->once_fetch_assoc("select count(*) as cr from ".dbprefix."group_topics_comments where userid='$userid' and `addtime`> '$starttime'");
+		$strReply = $db->find("select count(*) as cr from ".dbprefix."group_topics_comments where userid='$userid' and `addtime`> '$starttime'");
 
 		$title = '社区任务';
 
@@ -37,14 +37,14 @@ switch($ts){
 	
 		}else{
 			//是否Email验证
-			$strUser = $db->once_fetch_assoc("select face,isverify from ".dbprefix."user_info where userid='$userid'");
+			$strUser = $db->find("select face,isverify from ".dbprefix."user_info where userid='$userid'");
 
 			//今天是否发布帖子
 			$starttime = strtotime(date('Y-m-d',time()));
-			$strTopic = $db->once_fetch_assoc("select count(*) as ct from ".dbprefix."group_topics where userid='$userid' and `addtime`> '$starttime'");
+			$strTopic = $db->find("select count(*) as ct from ".dbprefix."group_topics where userid='$userid' and `addtime`> '$starttime'");
 
 			//今天是否有回帖子
-			$strReply = $db->once_fetch_assoc("select count(*) as cr from ".dbprefix."group_topics_comments where userid='$userid' and `addtime`> '$starttime'");
+			$strReply = $db->find("select count(*) as cr from ".dbprefix."group_topics_comments where userid='$userid' and `addtime`> '$starttime'");
 			
 			if($strUser['face']=='' || $strUser['isverify']==0 || $strTopic['ct'] == 0 || $strReply['cr']==0){
 				echo '<div style=" overflow: hidden;padding: 5px 0;">

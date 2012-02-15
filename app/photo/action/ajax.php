@@ -148,7 +148,7 @@ switch($ts){
 	
 	//相册
 	case "album":
-		$arrAlbum = $db->fetch_all_assoc("select * from ".dbprefix."photo_album where userid='$userid'");
+		$arrAlbum = $db->findAll("select * from ".dbprefix."photo_album where userid='$userid'");
 		
 		include template("ajax/album");
 		
@@ -157,13 +157,13 @@ switch($ts){
 	case "photo":
 		
 		$albumid = intval($_GET['albumid']);
-		$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
+		$strAlbum = $db->find("select * from ".dbprefix."photo_album where albumid='$albumid'");
 		
 		$page = isset($_GET['page']) ? $_GET['page'] : '1';
 		$url = SITE_URL."index.php?app=photo&ac=ajax&ts=photo&albumid=".$albumid."&page=";
 		$lstart = $page*6-6;
-		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid' order by photoid desc limit $lstart ,6");
-		$photoNum = $db->once_num_rows("select * from ".dbprefix."photo where albumid='$albumid'");
+		$arrPhoto = $db->findAll("select * from ".dbprefix."photo where albumid='$albumid' order by photoid desc limit $lstart ,6");
+		$photoNum = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
 		
 		$pageUrl = pagination($photoNum, 6, $page, $url);
 		
@@ -196,21 +196,21 @@ switch($ts){
 		$albumid = $_GET['albumid'];
 		$addtime = $_GET['addtime'];
 		
-		$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
+		$strAlbum = $db->find("select * from ".dbprefix."photo_album where albumid='$albumid'");
 		
 		if($strAlbum['userid'] != $userid) qiMsg("非法操作！");
 		
 		//统计 
-		$count_photo = $db->once_num_rows("select * from ".dbprefix."photo where albumid='$albumid'");
+		$count_photo = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
 		$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
 		
 		//添加相册封面
 		if($strAlbum['albumface'] == ''){
-			$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where albumid='$albumid' and userid='$userid' and addtime>'$addtime'");
+			$strPhoto = $db->find("select * from ".dbprefix."photo where albumid='$albumid' and userid='$userid' and addtime>'$addtime'");
 			$db->query("update ".dbprefix."photo_album set `albumface`='".$strPhoto['photourl']."' where albumid='$albumid'");
 		}
 		
-		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid' and  userid='$userid' and addtime>'$addtime'");
+		$arrPhoto = $db->findAll("select * from ".dbprefix."photo where albumid='$albumid' and  userid='$userid' and addtime>'$addtime'");
 		
 		include template("ajax/info");
 		break;

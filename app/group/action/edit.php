@@ -51,14 +51,14 @@
 			
 			$arrCate = array();
 			
-			$groupcateindexnum = $db->once_num_rows("select * from ".dbprefix."group_cates_index where groupid='$groupid'");
+			$groupcateindexnum = $db->findCount("select * from ".dbprefix."group_cates_index where groupid='$groupid'");
 			
 			if($groupcateindexnum > 0){
-				$arrGroupCateIndex = $db->fetch_all_assoc("select * from ".dbprefix."group_cates_index where groupid='$groupid'");
+				$arrGroupCateIndex = $db->findAll("select * from ".dbprefix."group_cates_index where groupid='$groupid'");
 				
 				
 				foreach($arrGroupCateIndex as $key=>$item){
-					$strCate = $db->once_fetch_assoc("select * from ".dbprefix."group_cates where cateid='".$item['cateid']."'");
+					$strCate = $db->find("select * from ".dbprefix."group_cates where cateid='".$item['cateid']."'");
 					$arrCate[] = $strCate;
 				}
 			}
@@ -71,7 +71,7 @@
 		//帖子分类
 		case "type":
 			//调出类型
-			$arrGroupType = $db->fetch_all_assoc("select * from ".dbprefix."group_topics_type where groupid='".$strGroup['groupid']."'");
+			$arrGroupType = $db->findAll("select * from ".dbprefix."group_topics_type where groupid='".$strGroup['groupid']."'");
 			
 			$title = '编辑帖子分类';
 			include template("edit_type");

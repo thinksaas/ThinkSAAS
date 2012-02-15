@@ -10,10 +10,10 @@ class event{
 	
 	//通过topicid获取活动基本信息
 	function getEventByEventid($eventid){
-		$strEvent = $this->db->once_fetch_assoc("select * from ".dbprefix."event where eventid='$eventid'");
+		$strEvent = $this->db->find("select * from ".dbprefix."event where eventid='$eventid'");
 		
 		//用户 
-		$strEvent['user'] = $this->db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='".$strEvent['userid']."'");
+		$strEvent['user'] = $this->db->find("select * from ".dbprefix."user_info where userid='".$strEvent['userid']."'");
 		
 		//时间
 		$weekarray=array("周日","周一","周二","周三","周四","周五","周六");  
@@ -26,20 +26,20 @@ class event{
 		$strEvent['area'] = aac('location')->getAreaForApp($strEvent['areaid']);
 		
 		//活动类型
-		$strEvent['type'] = $this->db->once_fetch_assoc("select * from ".dbprefix."event_type where typeid='".$strEvent['typeid']."'");
+		$strEvent['type'] = $this->db->find("select * from ".dbprefix."event_type where typeid='".$strEvent['typeid']."'");
 		
 		return $strEvent;
 	}
 	
 	//
 	function getSimpleEvent($eventid){
-		$strEvent = $this->db->once_fetch_assoc("select * from ".dbprefix."event where eventid='$eventid'");
+		$strEvent = $this->db->find("select * from ".dbprefix."event where eventid='$eventid'");
 		
 		//地点
 		$strEvent['area'] = aac('location')->getAreaForApp($strEvent['areaid']);
 		
 		//用户 
-		$strEvent['user'] = $this->db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='".$strEvent['userid']."'");
+		$strEvent['user'] = $this->db->find("select * from ".dbprefix."user_info where userid='".$strEvent['userid']."'");
 		
 		return $strEvent;
 	}
@@ -52,7 +52,7 @@ class event{
 	function getEventComment($page = 1, $prePageNum,$eventid){
 		$start_limit = !empty($page) ? ($page - 1) * $prePageNum : 0;
 		$limit = $prePageNum ? "LIMIT $start_limit, $prePageNum" : '';
-		$arrGroupContentComment	= $this->db->fetch_all_assoc("select * from ".dbprefix."event_comment where eventid='$eventid' order by addtime desc $limit");
+		$arrGroupContentComment	= $this->db->findAll("select * from ".dbprefix."event_comment where eventid='$eventid' order by addtime desc $limit");
 		
 		if(is_array($arrGroupContentComment)){
 			foreach($arrGroupContentComment as $key=>$item){
@@ -72,13 +72,13 @@ class event{
 	function getEventCommentNum($virtue, $setvirtue){
 		$where = 'where '.$virtue.'='.$setvirtue.'';
 		$res = "SELECT * FROM ".dbprefix."event_comment $where";
-		$groupContentCommentNum = $this->db->once_num_rows($res);
+		$groupContentCommentNum = $this->db->findCount($res);
 		return $groupContentCommentNum;
 	}
 	
 	//获取活动小组
 	function getGroup($groupid){
-		$strGroup = $this->db->once_fetch_assoc("select * from ".dbprefix."app_group where groupid='$groupid'");
+		$strGroup = $this->db->find("select * from ".dbprefix."app_group where groupid='$groupid'");
 		if($strGroup['groupicon'] == ''){
 			$strGroup['groupicon'] = 'uploadfile/group/default/default.gif';
 		}

@@ -6,11 +6,11 @@ defined('IN_TS') or die('Access Denied.');
 $groupid = intval($_GET['groupid']);
 
 //判断是否存在这个群组
-$isGroup = $db->once_num_rows("select * from ".dbprefix."group where groupid='$groupid'");
+$isGroup = $db->findCount("select * from ".dbprefix."group where groupid='$groupid'");
 
 if($isGroup == '0') tsNotice("你是坏蛋吗？不是请返回！");
 
-$strGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='$groupid'");
+$strGroup = $db->find("select * from ".dbprefix."group where groupid='$groupid'");
 
 //小组组长信息
 $leaderId = $strGroup['userid'];
@@ -18,7 +18,7 @@ $leaderId = $strGroup['userid'];
 $strLeader = aac('user')->getOneUser($leaderId);
 
 //管理员信息
-$strAdmin = $db->fetch_all_assoc("select userid from ".dbprefix."group_users where groupid='$groupid' and isadmin='1'");
+$strAdmin = $db->findAll("select userid from ".dbprefix."group_users where groupid='$groupid' and isadmin='1'");
 
 if(is_array($strAdmin)){
 	foreach($strAdmin as $item){
@@ -35,9 +35,9 @@ $url = SITE_URL.tsurl('group','group_user',array('groupid'=>$groupid,'page'=>'')
 
 $lstart = $page*40-40;
 
-$groupUserNum = $db->once_num_rows("select userid from ".dbprefix."group_users where groupid='$groupid'");
+$groupUserNum = $db->findCount("select userid from ".dbprefix."group_users where groupid='$groupid'");
 
-$groupUser = $db->fetch_all_assoc("select userid,isadmin from ".dbprefix."group_users where groupid='$groupid' order by userid desc limit $lstart,40");
+$groupUser = $db->findAll("select userid,isadmin from ".dbprefix."group_users where groupid='$groupid' order by userid desc limit $lstart,40");
 
 if(is_array($groupUser)){
 	foreach($groupUser as $key=>$item){
