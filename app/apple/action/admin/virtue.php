@@ -24,7 +24,10 @@ switch($ts){
 		
 		$virtuename = trim($_POST['virtuename']);
 		
-		$db->once_fetch_assoc("insert into ".dbprefix."apple_virtue (`modelid`,`virtuename`) values ('$modelid','$virtuename')");
+		$db->create('apple_virtue',array(
+			'modelid'=>$modelid,
+			'virtuename'=>$virtuename,
+		));
 		
 		header("Location: ".SITE_URL.'index.php?app=apple&ac=admin&mg=virtue&ts=list&modelid='.$modelid);
 		break;

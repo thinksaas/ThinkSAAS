@@ -29,8 +29,9 @@ defined('IN_TS') or die('Access Denied.');
 			if($userid == '0' || $title=='' || $time_end <=$time_start || $address=='' || $content==''){
 				qiMsg("活动信息不符合要求！");
 			}
+
 			
-			$eventData = array(
+			$eventid = $db->create(dbprefix.'event',array(
 				'userid'	=> $userid,
 				'title'	=> $title,
 				'typeid' => $typeid,
@@ -40,9 +41,7 @@ defined('IN_TS') or die('Access Denied.');
 				'address'	=> $address,
 				'content' => $content,
 				'addtime'	=> time(),
-			);
-			
-			$eventid = $db->insertArr($eventData,dbprefix.'event');
+			));
 			
 			//更新统计活动分类缓存
 			$arrTypess = $db->fetch_all_assoc("select * from ".dbprefix."event_type");
@@ -116,7 +115,14 @@ defined('IN_TS') or die('Access Denied.');
 			}elseif($userNum > '0'){
 				echo '1';
 			}else{
-				$db->query("insert into ".dbprefix."event_users (`eventid`,`userid`,`status`,`addtime`) values ('$eventid','$userid','$status','".time()."')");
+				
+				$db->create('event_users',array(
+					'eventid'=>$eventid,
+					'userid'=>$userid,
+					'status'=>$status,
+					'addtime'=>time(),
+				));
+				
 				//统计一下参加的
 				$userDoNum = $db->once_num_rows("select * from ".dbprefix."event_users where eventid='$eventid' and status='0'");
 				//统计感兴趣的
@@ -200,16 +206,14 @@ defined('IN_TS') or die('Access Denied.');
 			$address = trim($_POST['address']);
 			$content = trim($_POST['content']);
 			
-			$eventData = array(
+			$db->update('event','eventid'=$eventid,array(
 				'typeid' => $typeid,
 				'title'	=> $title,
 				'time_start'	=> $time_start,
 				'time_end'	=> $time_end,
 				'address'	=> $address,
 				'content'	=> $content,
-			);
-			
-			$db->updateArr($eventData,dbprefix."event","where eventid='$eventid'");
+			));
 			
 			//上传海报图片 
 			if (!empty($_FILES)) {
@@ -268,7 +272,7 @@ defined('IN_TS') or die('Access Denied.');
 					'addtime'		=> time()
 				);
 				
-				$commentid = $db->insertArr($arrData,dbprefix.'event_comment');
+				$commentid = $db->create($arrData,dbprefix.'event_comment');
 				
 				
 				//发送系统消息(通知活动组织者有人回复他的活动啦)

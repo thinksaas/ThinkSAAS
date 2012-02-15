@@ -11,13 +11,11 @@ switch($ts){
 		
 		$albumid = intval($_GET['albumid']);
 		
-		$arrData = array(
+		$photoid = $db->create(dbprefix.'photo',array(
 			'userid'	=> $userid,
 			'albumid'	=> $albumid,
 			'addtime'	=> time(),
-		);
-		
-		$photoid = $db->insertArr($arrData,dbprefix.'photo');
+		));
 		
 		if (!empty($_FILES)) {
 		
@@ -117,14 +115,12 @@ switch($ts){
 		//标签
 		doAction('add_comment','',$content,'');
 		
-		$arrData	= array(
+		$commentid = $db->create(dbprefix.'photo_comment',array(
 			'photoid'			=> $photoid,
 			'userid'			=> $userid,
 			'content'	=> $content,
 			'addtime'		=> time(),
-		);
-		
-		$commentid = $db->insertArr($arrData,dbprefix.'photo_comment');
+		));
 		
 		
 		//发送系统消息(通知楼主有人回复他的帖子啦)

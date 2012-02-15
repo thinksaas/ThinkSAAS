@@ -22,7 +22,10 @@ switch($ts){
 		$modelkey = trim($_POST['modelkey']);
 		$modelname = trim($_POST['modelname']);
 		
-		$db->query("insert into ".dbprefix."apple_model (`modelkey`,`modelname`) values('$modelkey','$modelname') ");
+		$db->create('apple_model',array(
+			'modelkey'=>$modelkey,
+			'modelname'=>$modelname,
+		));
 		
 		header("Location: ".SITE_URL.'index.php?app=apple&ac=admin&mg=model&ts=list');
 		break;

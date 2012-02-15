@@ -82,16 +82,14 @@ switch($ts){
 					move_uploaded_file($_FILES['photo']['tmp_name'][$key], mb_convert_encoding($dest,"gb2312","UTF-8"));
 					chmod($dest, 0755);
 					
-					$arrData = array(
+					$attachid = $db->create(dbprefix.'photo',array(
 						'userid'	=> $userid,
 						'photoname'	=> $photoname,
 						'phototype'	=> $phototype,
 						'photourl'		=> $dest,
 						'photosize'		=> $photosize,
 						'addtime'	=> time(),
-					);
-					
-					$attachid = $db->insertArr($arrData,dbprefix.'photo');
+					));
 					
 				}
 				
@@ -132,7 +130,7 @@ switch($ts){
 			
 			$photourl = $newdir.'/'.$newphotoname;
 			
-			$arrData = array(
+			$photoid = $db->create(dbprefix.'photo',array(
 				'userid'	=> $userid,
 				'albumid'	=> $albumid,
 				'photoname'	=> $photoname,
@@ -140,9 +138,7 @@ switch($ts){
 				'photourl'		=> $photourl,
 				'photosize'		=> $photosize,
 				'addtime'	=> time(),
-			);
-			
-			$photoid = $db->insertArr($arrData,dbprefix.'photo');
+			));
 			
 			echo $photoid;
 		

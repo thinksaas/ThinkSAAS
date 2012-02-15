@@ -13,9 +13,12 @@ switch($ts){
 			$content = trim($_POST['content']);
 			if($content == '') qiMsg("内容不能为空！");
 			
-			$addtime = time();
-			
-			$db->query("insert into ".dbprefix."article_comment (`articleid`,`userid`,`content`,`addtime`) values ('$articleid','$userid','$content','$addtime')");
+			$db->create('article_comment',array(
+				'articleid'=>$articleid,
+				'userid'=>$userid,
+				'content'=>$content,
+				'addtime'=>time(),
+			));
 			
 			$strArticle = $db->once_fetch_assoc("select userid,title from ".dbprefix."article where `articleid`='$articleid'");
 			

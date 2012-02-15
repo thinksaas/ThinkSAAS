@@ -39,14 +39,13 @@ switch($ts){
 	//帖子编辑执行 
 	case "edit_do":
 		$topicid = $_POST['topicid'];
-		$arrData = array(
+		
+		$db->update('group_topics','topicid'=$topicid,array(
 			'title' => $_POST['title'],
 			'content' => $_POST['content'],
 			'istop'	=> $_POST['istop'],
 			'isshow' => $_POST['isshow'],
-		);
-		
-		$db->updateArr($arrData,dbprefix.'group_topics','where topicid='.$topicid.'');
+		));
 		
 		header("Location: ".SITE_URL."index.php?app=group&ac=admin&mg=topic&ts=edit&topicid=".$topicid."");
 		break;

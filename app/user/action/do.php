@@ -75,15 +75,6 @@ switch($ts){
 		$userid = $TS_USER['user']['userid'];
 		$strUser = $db->once_fetch_assoc("select username from ".dbprefix."user_info where userid='$userid'");
 		$username = t($_POST['username']);
-		
-		$arrData = array(
-			'username' => $username,
-			'sex'	=> $_POST['sex'],
-			'signed'		=> h($_POST['signed']),
-			'phone'	=> t($_POST['phone']),
-			'blog'			=> t($_POST['blog']),
-			'about'			=> h($_POST['about']),
-		);
 
 		if($TS_USER['user'] == '') tsNotice("机房重地，闲人免进！");
 		if($username == '') tsNotice("不管做什么都需要有一个名号吧^_^");
@@ -94,7 +85,14 @@ switch($ts){
 			if($isusername > 0) tsNotice("用户名已经存在，请换个用户名！");
 		}
 
-		$db->updateArr($arrData,dbprefix."user_info","where userid='$userid'");
+		$db->update('user_info','userid'=$userid,array(
+			'username' => $username,
+			'sex'	=> $_POST['sex'],
+			'signed'		=> h($_POST['signed']),
+			'phone'	=> t($_POST['phone']),
+			'blog'			=> t($_POST['blog']),
+			'about'			=> h($_POST['about']),
+		));
 
 		tsNotice("基本资料更新成功！");
 

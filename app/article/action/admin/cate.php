@@ -30,7 +30,9 @@ switch($ts){
 	
 		$catename = trim($_POST['catename']);
 		
-		$db->query("insert into ".dbprefix."article_cate (`catename`) values ('$catename')");
+		$db->create('article_cate',array(
+			'catename'=>$catename,
+		));
 		
 		header("Location: ".SITE_URL.'index.php?app=article&ac=admin&mg=cate&ts=list');
 	

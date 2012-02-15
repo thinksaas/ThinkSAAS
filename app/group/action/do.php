@@ -21,14 +21,13 @@ if($ts=='addcomment'){
 		if($content==''){
 			tsNotice('没有任何内容是不允许你通过滴^_^');
 		}else{
-			$arrData	= array(
+			
+			$commentid = $db->create(dbprefix.'group_topics_comments',array(
 				'topicid'			=> $topicid,
 				'userid'			=> $userid,
 				'content'	=> $content,
 				'addtime'		=> time(),
-			);
-			
-			$commentid = $db->insertArr($arrData,dbprefix.'group_topics_comments');
+			));
 			
 			//统计评论数
 			$count_comment = $db->once_num_rows("select * from ".dbprefix."group_topics_comments where topicid='$topicid'");
@@ -39,7 +38,12 @@ if($ts=='addcomment'){
 			$db->query("update ".dbprefix."group_topics set uptime='$uptime',count_comment='$count_comment' where topicid='$topicid'");
 			
 			//积分记录
-			$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','回帖','20','".time()."')");
+			$db->create('user_scores',array(
+				'userid'=>$userid,
+				'scorename'=>'回帖',
+				'score'=>20,
+				'addtime'=>time(),
+			));
 			
 			$strScore = $db->once_fetch_assoc("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
 			
@@ -145,7 +149,7 @@ switch ($ts) {
 				$arrData['isattach'] = '1';
 			}
 			
-			$topicid = $db->insertArr($arrData,dbprefix.'group_topics');
+			$topicid = $db->create(dbprefix.'group_topics',$arrData);
 			
 			$strGroup = $db->once_fetch_assoc("select groupid,groupname from ".dbprefix."group where `groupid`='$groupid'");
 			
@@ -173,7 +177,13 @@ switch ($ts) {
 			
 			//积分记录
 			$userid = $TS_USER['user']['userid'];
-			$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','发帖','50','".time()."')");
+			
+			$db->create('user_scores',array(
+				'userid'=>$userid,
+				'scorename'=>'发帖',
+				'score'=>50,
+				'addtime'=>tiem(),
+			));
 			
 			$strScore = $db->once_fetch_assoc("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
 			
@@ -211,8 +221,12 @@ switch ($ts) {
 		}elseif($groupUserNum > 0){
 			echo '1';return false;
 		}else{
-		
-			$db->query("INSERT INTO ".dbprefix."group_users (`userid`,`groupid`,`addtime`) VALUES ('".$userid."','".$groupid."','".time()."')");
+			
+			$db->create('group_users',array(
+				'userid'=>$userid,
+				'groupid'=>$groupid,
+				'addtime'=>time(),
+			));
 			
 			//计算小组会员数
 			$groupUserNum = $db->once_num_rows("select * from ".dbprefix."group_users where groupid='$groupid'");
@@ -317,8 +331,10 @@ switch ($ts) {
 	case "edit_base":
 	
 		if($_POST['groupname']=='' || $_POST['groupdesc']=='') tsNotice("小组名称和介绍都不能为空！");
-	
-		$arrData = array(
+		
+		$groupid = intval($_POST['groupid']);
+		
+		$db->update('group','groupid'=$groupid,array(
 			'groupname'	=> h($_POST['groupname']),
 			'groupdesc'	=> trim($_POST['groupdesc']),
 			'joinway'		=> intval($_POST['joinway']),
@@ -327,11 +343,7 @@ switch ($ts) {
 			'role_leader'	=> t($_POST['role_leader']),
 			'role_admin'	=> t($_POST['role_admin']),
 			'role_user'	=> t($_POST['role_user']),
-		);
-		
-		$groupid = intval($_POST['groupid']);
-		
-		$db->updateArr($arrData,dbprefix.'group','where groupid='.$groupid.'');
+		));
 		
 		tsNotice('基本信息修改成功！');
 		
@@ -345,7 +357,12 @@ switch ($ts) {
 		$uptime = time();
 		
 		if($cateid > 0){
-			$db->query("INSERT INTO ".dbprefix."group_cates_index (`groupid`,`cateid`) VALUES ('$groupid','$cateid')");
+			
+			$db->create('group_cates_index',array(
+				'groupid'=>$groupid,
+				'cateid'=>$cateid,
+			));
+			
 			//更新分类下小组数
 			$groupnum = $db->once_num_rows("select * from ".dbprefix."group_cates_index where cateid='$cateid'");
 			
@@ -403,7 +420,7 @@ switch ($ts) {
 					move_uploaded_file($_FILES['attach']['tmp_name'][$key], mb_convert_encoding($dest,"gb2312","UTF-8"));
 					chmod($dest, 0755);
 					
-					$arrData = array(
+					$attachid = $db->create(dbprefix.'group_topics_attachs',array(
 						'userid'	=> $TS_USER['user']['userid'],
 						'groupid'		=> $groupid,
 						'topicid'		=> $topicid,
@@ -414,9 +431,7 @@ switch ($ts) {
 						'score'		=> $score,
 						'isview'		=> $isview,
 						'addtime'	=> time(),
-					);
-					
-					$attachid = $db->insertArr($arrData,dbprefix.'group_topics_attachs');
+					));
 					
 				}
 				
@@ -466,20 +481,23 @@ switch ($ts) {
 		
 		if($isGroup['count(groupid)'] > 0) tsNotice("小组名称已经存在，请更换其他小组名称！");
 		
-		$arrData = array(
+		$groupid = $db->create(dbprefix.'group',array(
 			'userid'			=> $userid,
 			'groupname'	=> $groupname,
 			'groupdesc'		=> $_POST['groupdesc'],
 			'isaudit'	=> $isaudit,
 			'addtime'		=> time(),
-		);
-		
-		$groupid = $db->insertArr($arrData,dbprefix.'group');
+		));
 		$uptime = time();
 		
 		//绑定小组分类开始
 		if($cateid > 0){
-			$db->query("INSERT INTO ".dbprefix."group_cates_index (`groupid`,`cateid`) VALUES ('$groupid','$cateid')");
+			
+			$db->create('group_cates_index',array(
+				'groupid'=>$groupid,
+				'cateid'=>$cateid,
+			));
+			
 			//更新分类下小组数
 			$groupnum = $db->once_num_rows("select * from ".dbprefix."group_cates_index where cateid='$cateid'");
 			
@@ -502,7 +520,12 @@ switch ($ts) {
 		//绑定小组分类结束
 		
 		//绑定成员
-		$db->query("insert into ".dbprefix."group_users (`userid`,`groupid`,`addtime`) values ('".$userid."','".$groupid."','".time()."')");
+		
+		$db->create('group_user',array(
+			'userid'=>$userid,
+			'groupid'=>$groupid,
+			'addtime'=>time(),
+		));
 		
 		//更新
 		$db->query("update ".dbprefix."group set `count_user` = '1' where groupid='".$groupid."'");
@@ -627,7 +650,7 @@ switch ($ts) {
 				$arrData['isattach'] = '0';
 			}
 			
-			$db->updateArr($arrData,dbprefix.'group_topics','where topicid='.$topicid.'');
+			$db->update('group_topics','topicid'=$topicid,$arrData);
 
 			header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 			
@@ -657,7 +680,13 @@ switch ($ts) {
 		}elseif($collectNum > 0){
 			echo 2;
 		}else{
-			$db->query("insert into ".dbprefix."group_topics_collects (`userid`,`topicid`,`addtime`) values ('".$userid."','".$topicid."','".time()."')");
+			
+			$db->create('group_topics_collects',array(
+				'userid'=>$userid,
+				'topicid'=>$topicid,
+				'addtime'=>time(),
+			));
+			
 			echo 3;
 		}
 		
@@ -734,7 +763,6 @@ switch ($ts) {
 		if($topicid == 0) tsNotice("非法操作！");
 		
 		$tagname = t($_POST['tagname']);
-		$uptime	= time();
 		
 		if($tagname != ''){
 		
@@ -743,12 +771,18 @@ switch ($ts) {
 			$tagcount = $db->once_num_rows("select * from ".dbprefix."tag where tagname='".$tagname."'");
 			
 			if($tagcount == '0'){
-				$db->query("INSERT INTO ".dbprefix."tag (`tagname`,`uptime`) VALUES ('".$tagname."','".$uptime."')");
-				$tagid = $db->insert_id();
+				
+				$tagid = $db->create('tag',array(
+					'tagname'=>$tagname,
+					'uptime'=>time(),
+				));
 				
 				$tagIndexCount = $db->once_num_rows("select * from ".dbprefix."tag_topic_index where topicid='".$topicid."' and tagid='".$tagid."'");
 				if($tagIndexCount == '0'){
 					$db->query("INSERT INTO ".dbprefix."tag_topic_index (`topicid`,`tagid`) VALUES ('".$topicid."','".$tagid."')");
+					
+					$db->create();
+					
 				}
 				
 				$tagIdCount = $db->once_num_rows("select * from ".dbprefix."tag_topic_index where tagid='".$tagid."'");

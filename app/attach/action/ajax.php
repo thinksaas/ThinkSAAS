@@ -53,16 +53,14 @@ switch($ts){
 					
 					$attachurl = $date.'/'.$userid.'/'.$newname;
 					
-					$arrData = array(
+					$attachid = $db->create(dbprefix.'attach',array(
 						'userid'	=> $userid,
 						'attachname'	=> $attachname,
 						'attachtype'	=> $attachtype,
 						'attachurl'		=> $attachurl,
 						'attachsize'		=> $attachsize,
 						'addtime'	=> time(),
-					);
-					
-					$attachid = $db->insertArr($arrData,dbprefix.'attach');
+					));
 					
 				}
 				

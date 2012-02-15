@@ -68,9 +68,10 @@ switch($ts){
 			
 			//积分
 			$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','注册','1000','".time()."')");
+		
 			
-			//用户信息
-			$arrData = array(
+			//插入用户信息
+			$db->create(dbprefix.'user_info',array(
 				'userid'			=> $userid,
 				'fuserid'	=> $fuserid,
 				'username' 	=> $username,
@@ -79,10 +80,7 @@ switch($ts){
 				'count_score'	=> '1000',
 				'addtime'	=> time(),
 				'uptime'	=> time(),
-			);
-			
-			//插入用户信息
-			$db->insertArr($arrData,dbprefix.'user_info');
+			));
 			
 			//默认加入小组
 			$isgroup = $db->once_fetch_assoc("select optionvalue from ".dbprefix."user_options where optionname='isgroup'");

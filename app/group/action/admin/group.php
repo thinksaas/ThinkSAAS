@@ -34,21 +34,28 @@ switch($ts){
 	case "add_do":
 		$userid = trim($_POST['userid']);
 		$strUser = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
-		$arrData = array(
+		
+		$groupid = $db->create(dbprefix.'group',array(
 			'userid' => $userid,
 			'groupname'	=> trim($_POST['groupname']),
 			'groupdesc'	=> trim($_POST['groupdesc']),
 			'isrecommend'	=> trim($_POST['isrecommend']),
 			'addtime'	=> time(),
 			'ispost'	=> $_POST['ispost'],
-		);
-		$groupid = $db->insertArr($arrData,dbprefix.'group');
+		));
+		
+		
 		//更新group_users索引关系
 		$groupUserNum = $db->once_num_rows("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
 		if($groupUserNum > 0){
 		}else{
-			//插入小组成员索引
-			$db->query("insert into ".dbprefix."group_users (`userid`,`groupid`) values ('".$userid."','".$groupid."')");
+		
+			//插入小组成员索引	
+			$db->create('group_users',array(
+				'userid'=>$userid,
+				'groupid'=>$groupid,
+			));
+			
 			//计算小组会员数
 			$groupUserNum = $db->once_num_rows("select * from ".dbprefix."group_users where groupid='$groupid'");
 			//更新小组成员统计
@@ -67,15 +74,18 @@ switch($ts){
 	
 	//小组编辑执行
 	case "edit_do":
+	
 		$groupid = $_POST['groupid'];
-		$arrData = array(
+
+		$db->update('group','groupid'=$groupid,array(
 			'groupname'		=> $_POST['groupname'],
 			'groupdesc'		=> $_POST['groupdesc'],
 			'userid'			=> $_POST['userid'],
 			'ispost'	=> $_POST['ispost'],
-		);
-		$db->updateArr($arrData,dbprefix.'group','where groupid='.$groupid.'');
+		));
+		
 		qiMsg("小组信息修改成功！");
+		
 		break;
 	
 	//小组删除

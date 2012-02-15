@@ -27,11 +27,12 @@ switch($ts){
 		break;
 		
 	case "add_do":
-		$arrData = array(
+
+		$cateid = $db->create(dbprefix.'group_cates',array(
 			'catename'	=> trim($_POST['catename']),
 			'catereferid'	=> trim($_POST['catereferid']),
-		);
-		$cateid = $db->insertArr($arrData,dbprefix.'group_cates');
+		));
+		
 		header("Location: ".SITE_URL."index.php?app=group&ac=admin&mg=cate&ts=list");
 		break;
 	

@@ -27,7 +27,12 @@ switch($ts){
 			echo '2';exit;
 		}
 		
-		$db->query("insert into ".dbprefix."apple_score (`appleid`,`userid`,`score`) values ('$appleid','$userid','$score')");
+		
+		$db->create('apple_score',array(
+			'appleid'=>$appleid,
+			'userid'=>$userid,
+			'score'=>$score,
+		));
 		
 		echo '3';exit;
 		

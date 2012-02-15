@@ -8,7 +8,13 @@ foreach($arrUser as $item){
 	$groupusernum = $db->once_num_rows("select * from ".dbprefix."group_users where  userid='".$item['userid']."' and groupid='".$groupid."'");
 	
 	if($groupusernum == '0'){
-		$db->query("insert into ".dbprefix."group_users (`userid`,`groupid`,`addtime`) values ('".$item['userid']."','".$groupid."','".time()."')");
+		
+		$db->create('group_users',array(
+			'userid'=>$item['userid'],
+			'groupid'=>$item['groupid'],
+			'addtime'=>time(),
+		));
+		
 	}
 	
 }
