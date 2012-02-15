@@ -27,7 +27,6 @@ class MySql {
 		
 		if($TS_DB['name']) mysql_select_db($TS_DB['name'], $this->conn) OR qiMsg("未找到指定数据库");
 		
-		
 	}
 
 	/*
@@ -38,47 +37,12 @@ class MySql {
 		$this->result = mysql_query($sql,$this->conn);
 		$this->queryCount++;
 		if (!$this->result){
-			qiMsg("SQL语句执行错误：$sql <br />".$this->geterror());
+			qiMsg("SQL语句执行错误：$sql <br />".mysql_error());
 		}else{
 			return $this->result;
 		}
 	}
-	
-	/*
-	 *mysql_fetch_array
-	 *BY QINIAO
-	 *2010-08-29
-	 *www.thinksaas.cn
-	 */
-	 
-	function fetch_all_array($sql){
-		$query = $this->query($sql);
-		while($list_item = $this->fetch_array($query)){
-			$all_array[] = $list_item;
-		}
-		return $all_array;
-	}
 
-	/*
-	 *从结果集中取出一行作为关联数组/数字索引数组
-	 */
-	 
-	function fetch_array($query){
-		return mysql_fetch_array($query);
-	}
-
-	function once_fetch_array($sql){
-		$this->result = $this->query($sql);
-		return $this->fetch_array($this->result);
-	}
-
-	/*
-	 *从结果集中取得一行作为数字索引数组
-	 */
-	 
-	function fetch_row($query){
-		return mysql_fetch_row($query);
-	}
 	
 	/*
 	 *fetch_all_assoc
@@ -86,7 +50,7 @@ class MySql {
 	 
 	function fetch_all_assoc($sql,$max=0){
 		$query = $this->query($sql);
-		while($list_item = $this->fetch_assoc($query)){
+		while($list_item = mysql_fetch_assoc($query)){
 		
 			$current_index ++;
 			
@@ -100,24 +64,12 @@ class MySql {
 		
 		return $all_array;
 	}
-	
-	function fetch_assoc($query){
-		return mysql_fetch_assoc($query);
-	}
+
 	
 	function once_fetch_assoc($sql){
 		$list 	= $this->query($sql);
-		$list_array = $this->fetch_assoc($list);
+		$list_array = mysql_fetch_assoc($list);
 		return $list_array;
-	}
-	
-
-	/*
-	 *获取行的数目
-	 */
-	 
-	function num_rows($query){
-		return mysql_num_rows($query);
 	}
 	
 	function once_num_rows($sql){
@@ -141,42 +93,46 @@ class MySql {
 		return mysql_insert_id($this->conn);
 	}
 	
-	/*
-	 *数组添加
+	/**
+	 * 在数据表中新增一行数据，并返回id
+	 * @param table 要插入的数据表
+	 * @param row 数组形式，数组的键是数据表中的字段名，键对应的值是需要新增的数据。
 	 */
-	 
-	function insertArr($arrData,$table,$where=''){
+	public function create($table,$row){
+	
 		$Item = array();
-		foreach($arrData as $key=>$data){
-			$Item[] = "$key='$data'";
+		
+		foreach($row as $key=>$value){
+			$Item[] = "$key='$value'";
 		}
+		
 		$intStr = implode(',',$Item);
-		$sql = "insert into $table  SET $intStr $where";
-		//echo $sql;
-		$this->query("insert into $table  SET $intStr $where");
+		
+		$this->query("insert into ".dbprefix."$table  SET $intStr");
+		
 		return mysql_insert_id($this->conn);
 	}
 	
 	/*
-	 *数组更新(Update)
+	 * $table 数据表
+	 * $where 查找条件 
+	 * $row 数组数据
 	 */
-
-	function updateArr($arrData,$table,$where=''){
+	function update($table,$where,$row){
+	
 		$Item = array();
-		foreach($arrData as $key => $date)
-		{
+		
+		foreach($arrData as $key => $date){
+		
 			$Item[] = "$key='$date'";
+			
 		}
+		
 		$upStr = implode(',',$Item);
-		$this->query("UPDATE $table  SET  $upStr $where");
+		
+		$this->query("update ".dbprefix."$table set $upStr where $where");
+		
 		return true;
-	}
-	 
-	/*
-	 *获取mysql错误
-	 */
-	function geterror(){
-		return mysql_error();
 	}
 
 	/*
@@ -185,13 +141,6 @@ class MySql {
 	 
 	function affected_rows(){
 		return mysql_affected_rows();
-	}
-	/*
-	 *获取数据库版本信息
-	 */
-	 
-	function getMysqlVersion(){
-		return @mysql_get_server_info();
 	}
 	
 	public function __destruct(){

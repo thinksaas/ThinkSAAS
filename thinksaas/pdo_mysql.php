@@ -91,35 +91,44 @@ class MySql {
 		return	$this->db->lastInsertId();
 	}
 	
-	/*
-	 *数组添加
+	/**
+	 * 在数据表中新增一行数据，并返回id
+	 * @param table 要插入的数据表
+	 * @param row 数组形式，数组的键是数据表中的字段名，键对应的值是需要新增的数据。
 	 */
-	 
-	function insertArr($arrData,$table,$where=''){
+	function create($table,$row){
 		$Item = array();
-		foreach($arrData as $key=>$data){
-			$Item[] = "$key='$data'";
+		foreach($row as $key=>$value){
+			$Item[] = "$key='$value'";
 		}
 		$intStr = implode(',',$Item);
-		$sql = "insert into $table  SET $intStr $where";
+		$sql = "insert into $table  SET $intStr";
 		//echo $sql;
-		$this->db->query("insert into $table  SET $intStr $where");
+		$this->db->query("insert into $table  SET $intStr");
 		return $this->insert_id();
 	}
 	
 	/*
-	 *数组更新(Update)
+	 * $table 数据表
+	 * $where 查找条件 
+	 * $row 数组数据
 	 */
-
-	function updateArr($arrData,$table,$where=''){
+	function update($table,$where,$row){
+	
 		$Item = array();
-		foreach($arrData as $key => $date)
-		{
-			$Item[] = "$key='$date'";
+		
+		foreach($row as $key => $value){
+		
+			$Item[] = "$key='$value'";
+		
 		}
+		
 		$upStr = implode(',',$Item);
+		
 		$this->query("UPDATE $table  SET  $upStr $where");
+		
 		return true;
+		
 	}
 	 
 	/*
