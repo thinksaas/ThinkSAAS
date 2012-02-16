@@ -1,0 +1,31 @@
+{template header}
+<div class="midder">
+<div class="mc">
+<h1>修改文章</h1>
+
+<form method="POST" action="{SITE_URL}index.php?app=article&ac=edit&ts=do">
+<table>
+<tr><th>选择分类：</th><td>
+
+<select name="cateid">
+<!--{loop $arrCate $key $item}-->
+<option <!--{if $item[cateid]==$strArticle[cateid]}-->selected="select"<!--{/if}--> value="{$item[cateid]}">{$item[catename]}</option>
+<!--{/loop}-->
+</select>
+
+</td></tr>
+<tr><th>标题：</th><td><input style="padding:3px 0;width:400px;" name="title" value="{$strArticle[title]}" /></td></tr>
+<tr><th>内容：</th><td><textarea style="width:600px;height:300px;" id="editor_full" name="content">{$strArticle[content]}</textarea></td></tr>
+
+<tr><th></th><td>
+<input type="hidden" name="articleid" value="{$articleid}" />
+<input class="submit" type="submit" value="修改文章" /></td></tr>
+</table>
+</form>
+
+</div>
+</div>
+<!--加载编辑器-->
+<script src="{SITE_URL}public/js/editor/xheditor/xheditor.js" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/editor/xheditor/loadeditor.js" type="text/javascript"></script>
+{template footer}

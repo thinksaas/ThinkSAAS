@@ -1,0 +1,11 @@
+<h2>主题管理</h2>
+<div class="tabnav">
+<ul>
+<li <!--{if $mg=='options'}-->class="select"<!--{/if}-->><a href="{SITE_URL}index.php?app=article&ac=admin&mg=options">主题配置</a></li>
+
+<li <!--{if $mg=='cate' && $ts=='list'}-->class="select"<!--{/if}-->><a href="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=list">主题列表</a></li>
+
+<li <!--{if $mg=='cate' && $st=='add'}-->class="select"<!--{/if}-->><a href="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=add">新建主题</a></li>
+
+</ul>
+</div>

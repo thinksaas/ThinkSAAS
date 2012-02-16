@@ -1,0 +1,34 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+<h1>生产苹果机</h1>
+
+<form method="POST" action="{SITE_URL}index.php?app=apple&ac=create&ts=do" enctype="multipart/form-data">
+<table>
+
+<tr><td width="100">标题：</td><td><input name="title" style="width:300px;" /></td></tr>
+
+<!--{loop $strModel $key $item}-->
+<tr><td>{$item[virtuename]}：</td><td><input type="hidden" name="virtueid[]" value="{$item[virtueid]}" /><input name="parameter[]" style="width:300px;" /></td></tr>
+<!--{/loop}-->
+
+<tr><td>介绍：</td><td><textarea style="width:600px;height:300px;" id="editor_full" name="content"></textarea></td></tr>
+<tr><td>图片：</td><td><input type="file" name="photo" /></td></tr>
+
+
+<tr><td></td><td>
+<input type="hidden" name="modelid" value="{$modelid}" />
+<input class="submit" type="submit" value="添加" /></td></tr>
+
+</table>
+</form>
+
+
+</div>
+</div>
+<!--加载编辑器-->
+<script src="{SITE_URL}public/js/editor/xheditor/xheditor.js" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/editor/xheditor/loadeditor.js" type="text/javascript"></script>
+{template footer}

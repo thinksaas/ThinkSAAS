@@ -1,0 +1,36 @@
+{template header}
+
+<!--main-->
+<div class="midder">
+
+<div class="mc">
+{template edit_xbar}
+<div class="cleft">
+
+<div style="clear: both;" class="indent">
+
+<!--{if $arrCate == ''}-->
+<p class="pl2">小组目前还没有分类。你可以根据小组内容决定小组属于哪个类别。你能选择最多两个。</p><br>
+<!--{else}-->
+<p class="wrap"><h3>你现在小组所在的类别是：</h3></p>
+<ul>
+<!--{loop $arrCate $key $item}-->
+<li>{$item[catename]} <a href="javascript:void('0');" onclick="cancelCate('{$item[cateid]}','{$strGroup[groupid]}')">删除</a></li>
+<!--{/loop}-->
+</ul>
+<!--{/if}-->
+<p> &gt; <a href="{SITE_URL}{tsurl('group','cate',array(groupid=>$strGroup[groupid]))}">增加一个新类别</a></p><br></div>
+
+
+</div>
+
+<div class="cright">
+
+<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','show',array('id'=>$strGroup[groupid]))}">返回{$strGroup[groupname]}</a></p>
+
+</div>
+
+</div>
+
+</div>
+{template footer}

@@ -1,0 +1,19 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div><a href="{SITE_URL}index.php?app=apple&ac=admin&mg=virtue&ts=add&modelid={$modelid}">添加属性</a></div>
+
+<table>
+<tr class="old"><td width="100">ID</td><td>属性名称</td><td>操作</td></tr>
+<!--{loop $arrVirtue $key $item}-->
+<tr><td>{$item[virtueid]}</td><td>{$item[virtuename]}</td><td><a href="{SITE_URL}index.php?app=apple&ac=admin&mg=virtue&ts=edit&virtueid={$item[virtueid]}">修改</a> <a href="{SITE_URL}index.php?app=apple&ac=admin&mg=virtue&ts=del&virtueid={$item[virtueid]}">删除</a></td></tr>
+<!--{/loop}-->
+</table>
+
+</div>
+
+{php include template("admin/footer");}

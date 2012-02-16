@@ -1,0 +1,73 @@
+{template header}
+<script language="javascript" type="text/javascript" src="{SITE_URL}public/js/date/WdatePicker.js?4.72"></script>
+<link type="text/css" rel="stylesheet" href="{SITE_URL}app/{$app}/skins/{$skin}/editor.css" />
+
+<div class="midder">
+<div class="mc">
+<h1>编辑活动：{$strEvent[title]}</h1>
+<div class="tabnav">
+<ul>
+<li class="select"><a href="{SITE_URL}index.php?app=event&ac=edit&ts=base&eventid={$strEvent[eventid]}">修改信息</a></li>
+</ul>
+</div>
+
+<div class="cleft">
+<form method="POST" action="{SITE_URL}index.php?app=event&ac=do&ts=edit" enctype="multipart/form-data">
+<table width="800">
+<tbody><tr><td width="100">标题: </td>
+<td><input style="padding:3px 0;width:400px;" type="text" value="{$strEvent[title]}" maxlength="100" size="50" name="title" gtbfieldid="2"></td></tr>
+<tr>
+<td>类型:</td>
+<td>
+<select name="typeid">
+<!--{loop $arrType $key $item}-->
+<option <!--{if $item[typeid]==$strEvent[typeid]}-->selected="select"<!--{/if}--> value="{$item[typeid]}">{$item[typename]}</option>
+<!--{/loop}-->
+</select>
+</td>
+</tr>
+
+<tr>
+<td valign="top">开始时间：</td>
+<td>
+<input name="time_start" value="{$strEvent[time_start]}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'{php echo date('Y-m-d')} 00:00',maxDate:'{php echo date('Y-m-d',time()+604800)} 00:00'})" />
+</td>
+</tr>
+
+<tr>
+<td>结束时间：</td>
+<td><input name="time_end" value="{$strEvent[time_end]}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'{php echo date('Y-m-d')} 00:00',maxDate:'{php echo date('Y-m-d',time()+2502000)} 00:00'})"  /></td>
+</tr>
+
+<tr><td>地点：</td><td>
+
+{$strEvent[area][one][areaname]} 
+{$strEvent[area][two][areaname]} 
+{$strEvent[area][three][areaname]}
+
+<input style="width:300px;padding:3px;" name="address" value="{$strEvent[address]}" />
+</td>
+</tr>
+<tr>
+<td valign="top">
+内容：
+</td><td><textarea style="width:100%;height:300px;" id="editor_mini" cols="55" rows="20" name="content">{$strEvent[content]}</textarea></td></tr>
+
+<tr><td>活动海报：</td><td><input type="file" name="photo" /> (不修改请留空)</td></tr>
+
+<tr><td></td><td>
+
+<input type="hidden" name="eventid" value="{$strEvent[eventid]}" />
+<input class="submit" type="submit" value="好了，提交修改"> 
+<a href="{SITE_URL}{tsurl('event','show',array(eventid=>$strEvent[eventid]))}">返回</a>
+</td></tr></tbody></table>
+</form>
+</div>
+
+
+</div>
+</div>
+<!--加载编辑器-->
+<script src="{SITE_URL}public/js/editor/xheditor/xheditor.js" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/editor/xheditor/loadeditor.js" type="text/javascript"></script>
+{template footer}

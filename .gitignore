@@ -1,0 +1,5 @@
+*.svn*
+.htaccess
+cache/*
+uploadfile/*
+data/config.inc.php

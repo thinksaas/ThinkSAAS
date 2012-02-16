@@ -1,0 +1,1 @@
+<?phpdefined('IN_TS') or die('Access Denied.');//插件信息return array('name' => '广告插件','version' => '1.0','desc' => '广告插件','url' => 'http://www.thinksaas.cn','email' => 'qiniao@vip.qq.com','author' => '邱君','author_url' => 'http://www.thinksaas.cn','isedit'	=> '1',);

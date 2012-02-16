@@ -1,0 +1,62 @@
+/**框架CSS**/
+
+/*基本*/ 
+body{ font-size:12px;font-family:Arial;margin:0 auto;color:#434343;}
+table {border-collapse:collapse;}
+th,caption {font-weight:normal;font-style:normal;text-align:left;}
+caption {font-weight:bold;}
+ol,ul,li{list-style:none;margin:0;padding:0;}
+a img {border:none}
+
+/*链接/文字*/
+a {color:#66873E;text-decoration:none;}
+.Abutton{background:#66873E;color:#FFF;padding:2px 5px;}
+
+/*头部*/
+.header{background:#D6E9A0;width:100%;overflow:hidden;}
+.header .head{width:960px;height:60px;margin:0 auto;overflow:hidden;}
+
+.header .head .logo{float:left;margin:10px 0 0 0;color:#FFFFFF;}
+
+.header .head .menu{float:right;margin:20px 0 0 0;}
+
+/*中部*/
+.midder{width:960px;margin:0 auto;overflow:hidden;}
+
+.midder .midd{margin:30px 0 30px 100px;}
+.midder .midd h2{padding:0;margin:0}
+.midder .midd form{padding:0 5px;margin:0px;}
+
+/*底部*/
+.footer{background:#F0F0F0;padding:10px 0;text-align:center;}
+.footer a{color:#555555;}
+
+.uinput{width:150px;}
+
+
+/*导航*/
+.tabMenu {
+height:35px;
+padding:0px;
+}
+.tabMenu ul {
+border-bottom:1px solid #66873E;
+margin:0;
+overflow:hidden;
+padding:0;
+}
+.tabMenu ul li {
+border-color:#66873E #66873E -moz-use-text-color;
+border-style:solid solid none;
+border-width:1px 1px medium;
+float:left;
+margin-right:5px;
+padding:5px 10px;
+}
+.tabMenu .select {
+background:none repeat scroll 0 0 #66873E;
+}
+.tabMenu .select a {
+color:#FFFFFF;
+font-weight:bold;
+}

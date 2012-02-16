@@ -1,0 +1,17 @@
+<div class="clear"></div>
+<div class="tabnav">
+<ul>
+<li <!--{if $ac=='index'}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('photo')}">推荐相册</a></li>
+
+<!--{if $ac=='album' && $ts=='user'}-->
+<li class="select"><a href="{SITE_URL}{tsurl('photo','album',array(ts=>user,userid=>$userid))}">{$title}</a></li>
+<!--{/if}-->
+
+<!--{if $ts!='user' && intval($TS_USER[user][userid]) > '0'}-->
+<li><a href="{SITE_URL}{tsurl('photo','album',array(ts=>user,userid=>$TS_USER[user][userid]))}">我的相册</a></li>
+<!--{/if}-->
+
+<li <!--{if $ac=='album' && $ts=='create'}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl('photo','album',array(ts=>create))}">+创建新相册</a></li>
+</ul>
+</div>
+<div class="clear"></div>

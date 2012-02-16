@@ -1,0 +1,15 @@
+{php include template("ajax/header");}
+<script>function insertEdit(x){callback(x);}</script>
+<h2>{$strAlbum[albumname]}</h2>
+<div class="photolist">
+<ul>
+<!--{loop $arrPhoto $key $item}-->
+<li>
+<div class="simg"><img src="{SITE_URL}{php echo miniimg($item[photourl],'photo',100,100,$item[path])}" /></div>
+<a href="javascript:void('0');" onclick="insertEdit('[photo={$item[photoid]}]');">[插入]</a>
+</li>
+<!--{/loop}-->
+</ul>
+</div>
+</body>
+</html>

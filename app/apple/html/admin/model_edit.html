@@ -1,0 +1,20 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<form method="POST" action="{SITE_URL}index.php?app=apple&ac=admin&mg=model&ts=edit_do">
+<table>
+<tr><td width="100">模型key：</td><td><input name="modelkey" value="{$strModel[modelkey]}" /></td></tr>
+<tr><td>模型名称：</td><td><input name="modelname" value="{$strModel[modelname]}" /></td></tr>
+<tr><td></td><td>
+<input type="hidden" name="modelid" value="{$strModel[modelid]}" />
+<input type="submit" value="修改" /></td></tr>
+</table>
+</form>
+
+</div>
+
+{php include template("admin/footer");}
