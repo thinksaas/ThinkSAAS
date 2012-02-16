@@ -129,9 +129,15 @@ defined('IN_TS') or die('Access Denied.');
 				));
 				
 				//统计一下参加的
-				$userDoNum = $db->findCount('event_users',array('eventid'=>$eventid,'status'=>0));
+				$userDoNum = $db->findCount('event_users',array(
+					'eventid'=>$eventid,
+					'status'=>0
+				));
 				//统计感兴趣的
-				$userWishNum = $db->findCount('event_users',array('eventid'=>$eventid,'status'=>1));
+				$userWishNum = $db->findCount('event_users',array(
+					'eventid'=>$eventid,
+					'status'=>1
+				));
 				
 				$db->update('event',array(
 					'count_userdo'=>$userDoNum,
@@ -178,9 +184,15 @@ defined('IN_TS') or die('Access Denied.');
 			
 			$db->query("delete from ".dbprefix."event_users where eventid='$eventid' and userid='$userid'");
 			//统计一下参加的
-			$userDoNum = $db->findCount("select * from ".dbprefix."event_users where eventid='$eventid' and status='0'");
+			$userDoNum = $db->findCount('event_users',array(
+				'eventid'=>$eventid,
+				'status'=>0,
+			));
 			//统计感兴趣的
-			$userWishNum = $db->findCount("select * from ".dbprefix."event_users where eventid='$eventid' and status='1'");
+			$userWishNum = $db->findCount('event_users',array(
+				'eventid'=>$eventid,
+				'status'=>1,
+			));
 			
 			$db->update('event',array(
 				'count_userdo'=>$userDoNum,
@@ -206,9 +218,15 @@ defined('IN_TS') or die('Access Denied.');
 			));
 			
 			//统计一下参加的
-			$userDoNum = $db->findCount("select * from ".dbprefix."event_users where eventid='$eventid' and status='0'");
+			$userDoNum = $db->findCount('event_users',array(
+				'eventid'=>$eventid,
+				'status'=>0,
+			));
 			//统计感兴趣的
-			$userWishNum = $db->findCount("select * from ".dbprefix."event_users where eventid='$eventid' and status='1'");
+			$userWishNum = $db->findCount('event_users',array(
+				'eventid'=>$eventid,
+				'status'=>1,
+			));
 			
 			$db->update('event',array(
 				'count_userdo'=>$userDoNum,

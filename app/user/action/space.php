@@ -16,7 +16,13 @@ $strUser = $new['user']->getOneUser($userid);
 
 //是否跟随
 if($TS_USER['user']['userid'] != '' && $TS_USER['user']['userid'] != $strUser['userid']){
-	$followNum = $db->findCount("select * from ".dbprefix."user_follow where userid='".$TS_USER['user']['userid']."' and userid_follow='$userid'");
+
+	$followNum = $db->findCount('user_follow',array(
+		'userid'=>$TS_USER['user']['userid'],
+		'userid_follow'=>$userid,
+	));
+	
+	
 	if($followNum > '0'){
 		$strUser['isfollow'] = true;
 	}else{

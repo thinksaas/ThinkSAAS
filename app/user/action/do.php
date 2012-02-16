@@ -86,7 +86,11 @@ switch($ts){
 		if(strlen($username) < 4 || strlen($username) > 20) tsNotice("用户名长度必须在4到20字符之间!");
 		
 		if($username != $strUser['username']){
-			$isusername = $db->findCount("select * from ".dbprefix."user_info where username='$username'");
+			
+			$isusername = $db->findCount('user_info',array(
+				'username'=>$username,
+			));
+			
 			if($isusername > 0) tsNotice("用户名已经存在，请换个用户名！");
 		}
 
@@ -141,7 +145,10 @@ switch($ts){
 	case "inemail":
 	
 		$email = $_GET['email'];
-		$emailNum = $db->findCount("select * from ".dbprefix."user where `email`='".$email."'");
+
+		$emailNum = $db->findCount('user',array(
+			'email'=>$email,
+		));
 		
 		if($emailNum > '0'):
 			echo 'false';
@@ -154,7 +161,10 @@ switch($ts){
 	//验证用户名是否唯一
 	case "isusername":
 		$username = $_GET['username'];
-		$usernameNum = $db->findCount("select * from ".dbprefix."user_info where `username`='".$username."'");
+
+		$usernameNum = $db->findCount('user_info',array(
+			'username'=>$username,
+		));
 		
 		if($usernameNum > '0'):
 			echo 'false';
@@ -168,7 +178,10 @@ switch($ts){
 		
 		$invitecode = trim($_GET['invitecode']);
 		
-		$codeNum = $db->findCount("select * from ".dbprefix."user_invites where invitecode='$invitecode' and isused='0'");
+		$codeNum = $db->findCount('user_invites',array(
+			'invitecode'=>$invitecode,
+			'isused'=>0,
+		));
 		
 		if($codeNum > 0){
 			echo 'true';
@@ -247,7 +260,10 @@ switch($ts){
 		
 		$new['user']->isUser($userid_follow);
 		
-		$followNum = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid' and userid_follow='$userid_follow'");
+		$followNum = $db->findCount('user_follow',array(
+			'userid'=>$userid,
+			'userid_follow'=>$userid_follow,
+		));
 		
 		if($followNum > '0'){
 			
@@ -263,8 +279,13 @@ switch($ts){
 			
 			//统计更新跟随和被跟随数
 			//统计自己的
-			$count_follow = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid'");
-			$count_followed = $db->findCount("select * from ".dbprefix."user_follow where userid_follow='$userid'");
+			$count_follow = $db->findCount('user_follow',array(
+				'userid'=>$userid,
+			));
+
+			$count_followed = $db->findCount('user_follow',array(
+				'userid_follow'=>$userid,
+			));
 			
 			$db->update('user_info',array(
 				'count_follow'=>$count_follow,
@@ -274,8 +295,13 @@ switch($ts){
 			));
 			
 			//统计别人的
-			$count_follow_userid = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid_follow'");
-			$count_followed_userid = $db->findCount("select * from ".dbprefix."user_follow where userid_follow='$userid_follow'");
+			$count_follow_userid = $db->findCount('user_follow',array(
+				'userid'=>$userid_follow,
+			));
+			
+			$count_followed_userid = $db->findCount('user_follow',array(
+				'userid_follow'=>$userid_follow,
+			));
 			
 			$db->update('user_info',array(
 				'count_follow'=>$count_follow_userid,
@@ -334,8 +360,13 @@ switch($ts){
 		
 		//统计更新跟随和被跟随数
 		//统计自己的
-		$count_follow = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid'");
-		$count_followed = $db->findCount("select * from ".dbprefix."user_follow where userid_follow='$userid'");
+		$count_follow = $db->findCount('user_follow',array(
+			'userid'=>$userid,
+		));
+
+		$count_followed = $db->findCount('user_follow',array(
+			'userid_follow'=>$userid,
+		));
 
 		$db->update('user_info',array(
 			'count_follow'=>$count_follow,
@@ -345,8 +376,13 @@ switch($ts){
 		));
 		
 		//统计别人的
-		$count_follow_userid = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid_follow'");
-		$count_followed_userid = $db->findCount("select * from ".dbprefix."user_follow where userid_follow='$userid_follow'");
+		$count_follow_userid = $db->findCount('user_follow',array(
+			'userid'=>$userid_follow,
+		));
+		
+		$count_followed_userid = $db->findCount('user_follow',array(
+			'userid_follow'=>$userid_follow,
+		));
 
 		$db->update('user_info',array(
 			'count_follow'=>$count_follow_userid,

@@ -22,7 +22,7 @@ if($ts=='addcomment'){
 			tsNotice('没有任何内容是不允许你通过滴^_^');
 		}else{
 			
-			$commentid = $db->create(dbprefix.'group_topics_comments',array(
+			$commentid = $db->create('group_topics_comments',array(
 				'topicid'			=> $topicid,
 				'userid'			=> $userid,
 				'content'	=> $content,
@@ -30,7 +30,9 @@ if($ts=='addcomment'){
 			));
 			
 			//统计评论数
-			$count_comment = $db->findCount("select * from ".dbprefix."group_topics_comments where topicid='$topicid'");
+			$count_comment = $db->findCount('group_topics_comments',array(
+				'topicid'=>$topicid,
+			));
 			
 			//更新帖子最后回应时间和评论数
 			$uptime = time();
@@ -164,7 +166,10 @@ switch ($ts) {
 			
 			//统计帖子类型 
 			if($typeid != '0'){
-				$topicTypeNum = $db->findCount("select * from ".dbprefix."group_topics where typeid='$typeid'");
+
+				$topicTypeNum = $db->findCount('group_topics',array(
+					'typeid'=>$typeid,
+				));
 
 				$db->update('group_topics_type',array(
 					'count_topic'=>$topicTypeNum,
@@ -177,13 +182,15 @@ switch ($ts) {
 			aac('tag')->addTag('topic','topicid',$topicid,$tag);
 			
 			//统计小组下帖子数并更新
-			$count_topic = $db->findCount("select * from ".dbprefix."group_topics where groupid='$groupid'");
+			$count_topic = $db->findCount('group_topics',array(
+				'groupid'=>$groupid,
+			));
 			
 			//统计今天发布帖子数
 			$today_start = strtotime(date('Y-m-d 00:00:00'));
 			$today_end = strtotime(date('Y-m-d 23:59:59'));
-			
-			$count_topic_today = $db->findCount("select * from ".dbprefix."group_topics where groupid='$groupid' and addtime > '$today_start'");
+		
+			$count_topic_today = $db->findCount('group_topics',"`groupid`='$groupid' and `addtime` > '$today_start'");
 			
 			$db->update('group',array(
 				'count_topic'=>$count_topic,
@@ -238,8 +245,11 @@ switch ($ts) {
 		$userid = intval($TS_USER['user']['userid']);
 		
 		$groupid = intval($_POST['groupid']);
-		
-		$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
+
+		$groupUserNum = $db->findCount('group_users',array(
+			'userid'=>$userid,
+			'groupid'=>$groupid,
+		));
 		
 		if($userid == '0'){
 			echo '0';return false;
@@ -254,7 +264,9 @@ switch ($ts) {
 			));
 			
 			//计算小组会员数
-			$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where groupid='$groupid'");
+			$groupUserNum = $db->findCount('group_users',array(
+				'groupid'=>$groupid,
+			));
 			//更新小组成员统计
 			$db->update('group',array(
 				'count_user'=>$groupUserNum,
@@ -284,7 +296,9 @@ switch ($ts) {
 			$db->query("DELETE FROM ".dbprefix."group_users WHERE userid='$userid' and groupid='$groupid'");
 			
 			//计算小组会员数
-			$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where groupid='$groupid'");
+			$groupUserNum = $db->findCount('group_users',array(
+				'groupid'=>$groupid,
+			));
 			
 			//更新小组统计
 			$db->update('group',array(
@@ -404,7 +418,9 @@ switch ($ts) {
 			));
 			
 			//更新分类下小组数
-			$groupnum = $db->findCount("select * from ".dbprefix."group_cates_index where cateid='$cateid'");
+			$groupnum = $db->findCount('group_cates',array(
+				'cateid'=>$cateid,
+			));
 			
 			$db->update('group_cates',array(
 				'count_group'=>$groupnum,
@@ -469,7 +485,7 @@ switch ($ts) {
 					move_uploaded_file($_FILES['attach']['tmp_name'][$key], mb_convert_encoding($dest,"gb2312","UTF-8"));
 					chmod($dest, 0755);
 					
-					$attachid = $db->create(dbprefix.'group_topics_attachs',array(
+					$attachid = $db->create('group_topics_attachs',array(
 						'userid'	=> $TS_USER['user']['userid'],
 						'groupid'		=> $groupid,
 						'topicid'		=> $topicid,
@@ -488,7 +504,9 @@ switch ($ts) {
 		}		
 		
 		//统计附件并更新
-		$count_attach = $db->findCount("select * from ".dbprefix."group_topics_attachs where topicid='".$topicid."'");
+		$count_attach = $db->findCount('group_topics_attachs',array(
+			'topicid'=>$topicid,
+		));
 
 		$db->update('group_topics',array(
 			'count_attach'=>$count_attach,
@@ -553,7 +571,9 @@ switch ($ts) {
 			));
 			
 			//更新分类下小组数
-			$groupnum = $db->findCount("select * from ".dbprefix."group_cates_index where cateid='$cateid'");
+			$groupnum = $db->findCount('group_cates_index',array(
+				'cateid'=>$cateid,
+			));
 			
 			$db->update('group_cates',array(
 				'count_group'=>$groupnum,
@@ -747,7 +767,12 @@ switch ($ts) {
 		
 		$strTopic = $db->find("select * from ".dbprefix."group_topics where topicid='".$topicid."'");
 		
-		$collectNum = $db->findCount("select * from ".dbprefix."group_topics_collects where userid='$userid' and topicid='$topicid'");
+		$collectNum = $db->findCount('group_topics_collects',array(
+			'userid'=>$userid,
+			'topicid'=>$topicid,
+		));
+		
+		
 		
 		if($userid == '0'){
 			echo 0;
@@ -856,7 +881,9 @@ switch ($ts) {
 		
 			if(strlen($tagname) > '32') tsNotice("TAG长度大于32个字节（不能超过16个汉字）");
 			
-			$tagcount = $db->findCount("select * from ".dbprefix."tag where tagname='".$tagname."'");
+			$tagcount = $db->findCount('tag',array(
+				'tagname'=>$tagname,
+			));
 			
 			if($tagcount == '0'){
 				
@@ -865,7 +892,12 @@ switch ($ts) {
 					'uptime'=>time(),
 				));
 				
-				$tagIndexCount = $db->findCount("select * from ".dbprefix."tag_topic_index where topicid='".$topicid."' and tagid='".$tagid."'");
+				$tagIndexCount = $db->findCount('tag_topic_index',array(
+					'topicid'=>$topicid,
+					'tagid'=>$tagid,
+				));
+				
+				
 				if($tagIndexCount == '0'){
 					$db->query("INSERT INTO ".dbprefix."tag_topic_index (`topicid`,`tagid`) VALUES ('".$topicid."','".$tagid."')");
 					
@@ -873,7 +905,9 @@ switch ($ts) {
 					
 				}
 				
-				$tagIdCount = $db->findCount("select * from ".dbprefix."tag_topic_index where tagid='".$tagid."'");
+				$tagIdCount = $db->findCount('tag_topic_index',array(
+					'tagid'=>$tagid,
+				));
 
 				$db->update('tag',array(
 					'count_topic'=>$tagIdCount,
@@ -887,7 +921,12 @@ switch ($ts) {
 				
 				$tagData = $db->find("select * from ".dbprefix."tag where tagname='".$tagname."'");
 				
-				$tagIndexCount = $db->findCount("select * from ".dbprefix."tag_topic_index where topicid='".$topicid."' and tagid='".$tagData['tagid']."'");
+				$tagIndexCount = $db->findCount('tag_topic_index',array(
+					'topicid'=>$topicid,
+					'tagid'=>$tagData['tagid'],
+				));
+				
+				
 				if($tagIndexCount == '0'){
 					$db->query("INSERT INTO ".dbprefix."tag_topic_index (`topicid`,`tagid`) VALUES ('".$topicid."','".$tagData['tagid']."')");
 				}
@@ -941,7 +980,9 @@ switch ($ts) {
 		));
 		
 		//统计评论数
-		$count_comment = $db->findCount("select * from ".dbprefix."group_topics_comments where topicid='$topicid'");
+		$count_comment = $db->findCount('group_topics_comments',array(
+			'topicid'=>$topicid,
+		));
 		
 		//更新帖子最后回应时间和评论数
 		$db->update('group_topics',array(
@@ -1012,7 +1053,9 @@ switch ($ts) {
 		if($cateid > 0){
 			
 			//更新分类下小组数
-			$groupnum = $db->findCount("select * from ".dbprefix."group_cates_index where cateid='$cateid'");
+			$groupnum = $db->findCount('group_cates_index',array(
+				'cateid'=>$cateid,
+			));
 			
 			$db->update('group_cates',array(
 				'count_group'=>$groupnum,

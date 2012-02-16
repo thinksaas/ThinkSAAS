@@ -14,10 +14,13 @@ $strUser = $db->find("select * from ".dbprefix."user_info where userid='$userid'
 //邀请好友
 switch($ts){
 	case "":
-		
-		$codeNum = $db->findCount("select * from ".dbprefix."user_invites where isused='0'");
+
+		$codeNum = $db->findCount('user_invites',array(
+			'isused'=>0,
+		));
 
 		$title = '邀请码';
+		
 		include template("invite");
 		
 		break;
@@ -26,7 +29,9 @@ switch($ts){
 	case "code":
 		
 		//计算是否还有邀请码
-		$codeNum = $db->findCount("select * from ".dbprefix."user_invites where isused='0'");
+		$codeNum = $db->findCount('user_invites',array(
+			'isused'=>0,
+		));
 		
 		if($codeNum > 0){
 		

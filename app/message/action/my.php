@@ -13,12 +13,21 @@ if(is_array($arrToUsers)){
 	foreach($arrToUsers as $key=>$item){
 		$arrToUser[] = $item;
 		$arrToUser[$key]['user'] = aac('user')->getOneUser($item['userid']);
-		$arrToUser[$key]['count'] = $db->findCount("select * from ".dbprefix."message where touserid='$userid' and userid='".$item['userid']."' and isread='0'");
+
+		$arrToUser[$key]['count'] = $db->findCount('message',array(
+			'touserid'=>$userid,
+			'userid'=>$item['userid'],
+			'isread'=>0,
+		));
 	}
 }
 
 //统计系统消息
-$systemNum = $db->findCount("select * from ".dbprefix."message where userid='0' and touserid='$userid' and isread='0'");
+$systemNum = $db->findCount('message',array(
+	'userid'=>0,
+	'touserid'=>$userid,
+	'isread'=>0,
+));
 
 $title = '我的消息盒子';
 

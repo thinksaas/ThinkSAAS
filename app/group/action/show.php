@@ -17,7 +17,10 @@ $strGroup['groupdesc'] = stripslashes($strGroup['groupdesc']);
 
 if($strGroup == '') header("Location: ".SITE_URL."index.php");
 
-$strGroup['recoverynum'] = $db->findCount("select * from ".dbprefix."group_topics where groupid='$groupid' and isshow='1'");
+$strGroup['recoverynum'] = $db->findCount('group_topics',array(
+	'groupid'=>$groupid,
+	'isshow'=>1,
+));
 
 $strGroup['groupdesc'] = editor2html($strGroup['groupdesc']);
 
@@ -41,7 +44,10 @@ $strLeader = $db->find("select * from ".dbprefix."user_info where userid='$leade
 //判断会员是否加入该小组
 $userid = $TS_USER['user']['userid'];
 
-$isGroupUser = $db->findCount("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
+$isGroupUser = $db->findCount('group_users',array(
+	'userid'=>$userid,
+	'groupid'=>$groupid,
+));
 
 
 //小组是否需要审核

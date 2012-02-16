@@ -94,7 +94,12 @@ switch($ts){
 			if($isgroup['optionvalue'] != ''){
 				$arrGroup = explode(',',$isgroup['optionvalue']);
 				foreach($arrGroup as $item){
-					$groupusernum = $db->findCount("select * from ".dbprefix."group_users where `userid`='".$userid."' and `groupid`='".$item."'");
+				
+					$groupusernum = $db->findCount('group_users',array(
+						'userid'=>$userid,
+						'groupid'=>$item,
+					));
+					
 					if($groupusernum == '0'){
 						
 						$db->create('group_users',array(
@@ -104,7 +109,9 @@ switch($ts){
 						));
 						
 						//统计更新
-						$count_user = $db->findCount("select * from ".dbprefix."group_users where `groupid`='".$item."'");
+						$count_user = $db->findCount('group_users',array(
+							'groupid'=>$item,
+						));
 
 						$db->update('group',array(
 							'count_user'=>$count_user,

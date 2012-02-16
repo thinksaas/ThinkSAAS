@@ -82,7 +82,9 @@ switch($ts){
 		
 		$db->query("delete from ".dbprefix."photo where photoid='$photoid'");
 		
-		$count_photo = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
+		$count_photo = $db->findCount('photo',array(
+			'albumid'=>$albumid,
+		));
 		
 		$db->update('photo_album',array(
 			'count_photo'=>$count_photo,

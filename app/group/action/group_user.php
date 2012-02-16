@@ -6,7 +6,9 @@ defined('IN_TS') or die('Access Denied.');
 $groupid = intval($_GET['groupid']);
 
 //判断是否存在这个群组
-$isGroup = $db->findCount("select * from ".dbprefix."group where groupid='$groupid'");
+$isGroup = $db->findCount('group',array(
+	'groupid'=>$groupid,
+));
 
 if($isGroup == '0') tsNotice("你是坏蛋吗？不是请返回！");
 
@@ -35,7 +37,9 @@ $url = SITE_URL.tsurl('group','group_user',array('groupid'=>$groupid,'page'=>'')
 
 $lstart = $page*40-40;
 
-$groupUserNum = $db->findCount("select userid from ".dbprefix."group_users where groupid='$groupid'");
+$groupUserNum = $db->findCount('group_users',array(
+	'groupid'=>$groupid,
+));
 
 $groupUser = $db->findAll("select userid,isadmin from ".dbprefix."group_users where groupid='$groupid' order by userid desc limit $lstart,40");
 

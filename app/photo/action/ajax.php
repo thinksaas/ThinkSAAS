@@ -163,7 +163,10 @@ switch($ts){
 		$url = SITE_URL."index.php?app=photo&ac=ajax&ts=photo&albumid=".$albumid."&page=";
 		$lstart = $page*6-6;
 		$arrPhoto = $db->findAll("select * from ".dbprefix."photo where albumid='$albumid' order by photoid desc limit $lstart ,6");
-		$photoNum = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
+		
+		$photoNum = $db->findCount('photo',array(
+			'albumid'=>$albumid,
+		));
 		
 		$pageUrl = pagination($photoNum, 6, $page, $url);
 		
@@ -201,7 +204,9 @@ switch($ts){
 		if($strAlbum['userid'] != $userid) qiMsg("非法操作！");
 		
 		//统计 
-		$count_photo = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
+		$count_photo = $db->findCount('photo',array(
+			'albumid'=>$albumid,
+		));
 
 		$db->update('photo_album',array(
 			'count_photo'=>$count_photo,

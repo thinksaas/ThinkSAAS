@@ -21,7 +21,10 @@ $lstart = $page*30-30;
 
 $arrTopic = $db->findAll("select * from ".dbprefix."group_topics where groupid='$groupid' and isshow='1' order by addtime desc  limit $lstart,30");
 
-$topicNum = $db->findCount("select * from ".dbprefix."group_topics where groupid='$groupid' and isshow='1' ");
+$topicNum = $db->findCount('group_topics',array(
+	'groupid'=>$groupid,
+	'isshow'=>1,
+));
 
 $pageUrl = pagination($topicNum, 30, $page, $url);
 

@@ -35,11 +35,21 @@
 		
 		$arrCate = $db->findAll("select * from ".dbprefix."group_cates where catereferid = '$cateid'");
 		
-		$groupcatenum = $db->findCount("select * from ".dbprefix."group_cates_index where cateid='$cateid'");
+		$groupcatenum = $db->findCount('group_cates_index',array(
+			'cateid'=>$cateid,
+		));
 		
 		if($groupid != ''){
-			$groupnum = $db->findCount("select * from ".dbprefix."group where groupid='$groupid'");
-			$groupcateindex = $db->findCount("select * from ".dbprefix."group_cates_index where groupid='$groupid' and cateid='$cateid'");
+
+			$groupnum = $db->findCount('group',array(
+				'groupid'=>$groupid,
+			));
+			
+			$groupcateindex = $db->findCount('group_cates_index',array(
+				'groupid'=>$groupid,
+				'cateid'=>$cateid,
+			));
+			
 			//判断存在这个小组并且小组分类索引中没有这个小组和分类的索引存在
 			if($groupnum > '0' && $groupcateindex=='0'){
 				$strGroup = $db->find("select * from ".dbprefix."group where groupid='$groupid'");

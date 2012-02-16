@@ -11,7 +11,12 @@ $strEvent['content'] = editor2html($strEvent['content']);
 
 //wishdo
 if($TS_USER['user']['userid'] != ''){
-	$isEventUser = $db->findCount("select * from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and userid='".$TS_USER['user']['userid']."'");
+
+	$isEventUser = $db->findCount('event_users',array(
+		'eventid'=>$strEvent['eventid'],
+		'userid'=>$TS_USER['user']['userid'],
+	));
+	
 	$strEventUser = $db->find("select * from ".dbprefix."event_users where eventid='".$strEvent['eventid']."' and userid='".$TS_USER['user']['userid']."'");
 }
 

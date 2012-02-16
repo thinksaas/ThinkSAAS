@@ -16,7 +16,9 @@ switch($ts){
 		
 		$arrAlbum = $db->findAll("select * from ".dbprefix."photo_album where userid='$userid' order by albumid desc limit $lstart,6");
 		
-		$albumNum = $db->findCount("select * from ".dbprefix."photo_album where userid='$userid'");
+		$albumNum = $db->findCount('photo_album',array(
+			'userid'=>$userid,
+		));
 		
 		$pageUrl = pagination($albumNum, 6, $page, $url);
 		
@@ -66,7 +68,10 @@ switch($ts){
 		
 		$albumid = intval($_GET['albumid']);
 		
-		$isalbum = $db->findCount("select * from ".dbprefix."photo_album where albumid = '$albumid'");
+		$isalbum = $db->findCount('photo_album',array(
+			'albumid'=>$albumid,
+		));
+		
 		if($albumid == 0) header("Location: ".SITE_URL."index.php");
 		
 		$page = isset($_GET['page']) ? $_GET['page'] : '1';
@@ -82,7 +87,9 @@ switch($ts){
 		
 		$arrPhoto = $db->findAll("select * from ".dbprefix."photo where albumid='$albumid' order by photoid desc limit $lstart,20");
 		
-		$photoNum = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
+		$photoNum = $db->findCount('photo',array(
+			'albumid'=>$albumid,
+		));
 		
 		$pageUrl = pagination($photoNum, 20, $page, $url);
 		
@@ -147,7 +154,9 @@ switch($ts){
 		if($strAlbum['userid'] != $userid) qiMsg("非法操作！");
 		
 		//统计 
-		$count_photo = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
+		$count_photo = $db->findCount('photo',array(
+			'albumid'=>$albumid,
+		));
 
 		$db->update('photo_album',array(
 			'count_photo'=>$count_photo,

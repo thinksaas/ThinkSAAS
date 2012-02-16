@@ -10,7 +10,7 @@ $sLimit = $page*10-10;
 
 $arrTags = $db->findAll("select * from ".dbprefix."tag order by uptime desc limit $sLimit,10");
 
-$tagNum = $db->findCount("select * from ".dbprefix."tag");
+$tagNum = $db->findCount('tag');
 
 $pageUrl = pagination($tagNum, 10, $page, $url);
 

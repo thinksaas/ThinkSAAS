@@ -123,7 +123,10 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	//用户自动登录
 	if($TS_USER['user']=='' && $_COOKIE['ts_email']!='' && $_COOKIE['ts_pwd'] !='' ){
 		
-		$loginUserNum = $db->findCount("select * from ".dbprefix."user where email='".$_COOKIE['ts_email']."' and pwd='".$_COOKIE['ts_pwd']."'");
+		$loginUserNum = $db->findCount('user',array(
+			'email'=>$_COOKIE['ts_email'],
+			'pwd'=>$_COOKIE['ts_pwd'],
+		));
 	
 		if($loginUserNum > 0){
 			$loginUserData = $db->find("select  userid,username,areaid,path,face,count_score,isadmin,uptime from ".dbprefix."user_info where email='".$_COOKIE['ts_email']."'");

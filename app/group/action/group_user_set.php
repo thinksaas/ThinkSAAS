@@ -41,7 +41,9 @@ switch($ts){
 		$db->query("DELETE FROM ".dbprefix."group_users WHERE userid = '$userid' AND groupid = '$groupid'");
 		
 		//计算小组会员数
-		$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where groupid='$groupid'");
+		$groupUserNum = $db->findCount('group_users',array(
+			'groupid'=>$groupid,
+		));
 		
 		//更新小组成员统计
 

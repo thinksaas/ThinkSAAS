@@ -51,7 +51,9 @@
 			
 			$arrCate = array();
 			
-			$groupcateindexnum = $db->findCount("select * from ".dbprefix."group_cates_index where groupid='$groupid'");
+			$groupcateindexnum = $db->findCount('group_cates_index',array(
+				'groupid'=>$groupid,
+			));
 			
 			if($groupcateindexnum > 0){
 				$arrGroupCateIndex = $db->findAll("select * from ".dbprefix."group_cates_index where groupid='$groupid'");

@@ -12,7 +12,9 @@ switch($ts){
 		$url = SITE_URL.'index.php?app=group&ac=admin&mg=group&ts=list&page=';
 		$lstart = $page*10-10;
 		$arrGroup = $db->findAll("select * from ".dbprefix."group order by addtime desc limit $lstart,10");
-		$groupNum = $db->findCount("select * from ".dbprefix."group");
+		
+		$groupNum = $db->findCount('group');
+		
 		if(is_array($arrGroup)){
 			foreach($arrGroup as $key=>$item){
 				$arrAllGroup[] = $item;
@@ -46,7 +48,12 @@ switch($ts){
 		
 		
 		//更新group_users索引关系
-		$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
+
+		$groupUserNum = $db->findCount('group_users',array(
+			'userid'=>$userid,
+			'groupid'=>$groupid,
+		));
+		
 		if($groupUserNum > 0){
 		}else{
 		
@@ -57,7 +64,9 @@ switch($ts){
 			));
 			
 			//计算小组会员数
-			$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where groupid='$groupid'");
+			$groupUserNum = $db->findCount('group_users',array(
+				'groupid'=>$groupid,
+			));
 			//更新小组成员统计
 			$db->update('group',array(
 				'count_user'=>$groupUserNum,

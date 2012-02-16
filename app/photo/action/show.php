@@ -47,7 +47,10 @@ foreach($arrComments as $key=>$item){
 	$arrComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
 }
 
-$comment_num = $db->findCount("select * from ".dbprefix."photo_comment where photoid='$photoid'");
+$comment_num = $db->findCount('photo_comment',array(
+	'photoid'=>$photoid,
+));
+
 $pageUrl = pagination($comment_num, 10, $page, $url);
 
 

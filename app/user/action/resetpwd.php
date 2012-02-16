@@ -11,7 +11,10 @@ switch($ts){
 		$email = trim($_GET['mail']);
 		$resetpwd = trim($_GET['set']);
 		
-		$userNum = $db->findCount("select * from ".dbprefix."user where email='$email' and resetpwd='$resetpwd'");
+		$userNum = $db->findCount('user',array(
+			'email'=>$email,
+			'resetpwd'=>$resetpwd,
+		));
 		
 		if(empty($email) || empty($resetpwd)){
 			tsNotice("迷路了吗？");
@@ -36,8 +39,11 @@ switch($ts){
 		$repwd	= trim($_POST['repwd']);
 		
 		$resetpwd = trim($_POST['resetpwd']);
-		
-		$userNum = $db->findCount("select * from ".dbprefix."user where email='$email' and resetpwd='$resetpwd'");
+
+		$userNum = $db->findCount('user',array(
+			'email'=>$email,
+			'resetpwd'=>$resetpwd,
+		));
 		
 		if(empty($email) || empty($pwd) || empty($repwd) || empty($resetpwd)){
 			tsNotice("迷路了吗？");

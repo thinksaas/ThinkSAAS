@@ -27,7 +27,10 @@ $strGroup = $db->find("select * from ".dbprefix."group where groupid='".$strTopi
 $groupid = intval($strGroup['groupid']);
 $userid = intval($TS_USER['user']['userid']);
 
-$isGroupUser = $db->findCount("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
+$isGroupUser = $db->findCount('group_users',array(
+	'userid'=>$userid,
+	'groupid'=>$groupid,
+));
 
 //浏览方式
 if($strGroup['isopen']=='1' && $isGroupUser=='0'){
@@ -76,7 +79,11 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	
 	//判断会员是否加入该小组
 	$userid = intval($TS_USER['user']['userid']);
-	$isGroupUser = $db->findCount("select * from ".dbprefix."group_users where userid='$userid' and groupid='".$strTopic['groupid']."'");
+
+	$isGroupUser = $db->findCount('group_users',array(
+		'userid'=>$userid,
+		'groupid'=>$strTopic['groupid'],
+	));
 
 	
 	$groupid = $strTopic['groupid'];

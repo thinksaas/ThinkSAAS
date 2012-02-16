@@ -8,11 +8,11 @@ $lstart = $page*28-28;
 
 $arrAlbum = $db->findAll("select * from ".dbprefix."photo_album where `isrecommend`='1' order by albumid desc limit $lstart,28");
 
-$albumNum = $db->findCount("select * from ".dbprefix."photo_album  where `isrecommend`='1'");
+$albumNum = $db->findCount('photo_album',array(
+	'isrecommend'=>1,
+));
 
 $pageUrl = pagination($albumNum, 28, $page, $url);
-
-
 
 //获取最新的评论
 $arrComments = $db->findAll("select * from ".dbprefix."photo_comment order by addtime desc limit 30");

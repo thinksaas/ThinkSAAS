@@ -5,7 +5,11 @@ $groupid = $_GET['groupid'];
 $arrUser = $db->findAll("select userid from ".dbprefix."user order by userid desc");
 
 foreach($arrUser as $item){
-	$groupusernum = $db->findCount("select * from ".dbprefix."group_users where  userid='".$item['userid']."' and groupid='".$groupid."'");
+
+	$groupusernum = $db->findCount('group_users',array(
+		'userid'=>$item['userid'],
+		'groupid'=>$groupid,
+	));
 	
 	if($groupusernum == '0'){
 		
@@ -19,7 +23,9 @@ foreach($arrUser as $item){
 	
 }
 
-$userNum = $db->findCount("select * from ".dbprefix."group_users where groupid='".$groupid."'");
+$userNum = $db->findCount('group_users',array(
+	'groupid'=>$groupid,
+));
 
 $db->update('group',array(
 	'count_user'=>$userNum,

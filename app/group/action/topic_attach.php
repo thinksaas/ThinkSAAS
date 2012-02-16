@@ -15,7 +15,10 @@ defined('IN_TS') or die('Access Denied.');
 			//用户是否评论
 			$userid = $TS_USER['user']['userid'];
 			
-			$userCommentNum = $db->findCount("select * from ".dbprefix."group_topics_comments where userid='$userid' and topicid='$topicid'");
+			$userCommentNum = $db->findCount('group_topics_comments',array(
+				'userid'=>$userid,
+				'topicid'=>$topicid,
+			));
 			
 		
 			include template("topic_attach_list");

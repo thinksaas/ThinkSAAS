@@ -65,7 +65,9 @@ switch($ts){
 		
 		unlink('uploadfile/photo/'.$strPhoto['photourl']);
 		
-		$count_photo = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
+		$count_photo = $db->findCount('photo',array(
+			'albumid'=>$albumid,
+		));
 		
 		$db->update('photo_album',array(
 				'count_photo'=>$count_photo,
@@ -102,7 +104,10 @@ switch($ts){
 		
 		foreach($arrAlbum as $item){
 			$albumid = $item['albumid'];
-			$count_photo = $db->findCount("select photoid from ".dbprefix."photo where albumid='$albumid'");
+
+			$count_photo = $db->findCount('photo',array(
+				'albumid'=>$albumid,
+			));
 
 			$db->update('photo_album',array(
 				'count_photo'=>$count_photo,
