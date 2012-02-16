@@ -29,7 +29,13 @@ switch($ts){
 		);
 
 		foreach ($arrData as $key => $val){
-			$db->query("UPDATE ".dbprefix."apple_options SET optionvalue='$val' where optionname='$key'");
+			
+			$db->update('apple_options',array(
+				'optionvalue'=>$val,
+			),array(
+				'optionname'=>$key,
+			));
+			
 		}
 		
 		//更新缓存

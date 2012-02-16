@@ -22,7 +22,13 @@ if(is_array($arrMessages)){
 
 
 //isread设为已读
-$db->query("update ".dbprefix."message set `isread`='1' where userid='0' and touserid='$touserid' and `isread`='0'");
+$db->update('message',array(
+	'isread'=>1,
+),array(
+	'userid'=>0,
+	'touserid'=>$touserid,
+	'isread'=>0,
+));
 
 $title = '系统消息盒子';
 

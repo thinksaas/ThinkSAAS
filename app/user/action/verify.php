@@ -11,7 +11,13 @@ switch($ts){
 
 		if($strUser['verifycode']==''){
 			$verifycode = random(11);
-			$db->query("update ".dbprefix."user_info set `verifycode`='$verifycode' where `userid`='$userid'");
+
+			$db->update('user_info',array(
+				'verifycode'=>$verifycode,
+			),array(
+				'userid'=>$userid,
+			));
+			
 		}else{
 			$verifycode = $strUser['verifycode'];
 		}
@@ -39,7 +45,13 @@ switch($ts){
 		$verify = $db->find("select count(*) from ".dbprefix."user_info where `email`='$email' and `verifycode`='$verifycode'");
 		
 		if($verify['count(*)'] > 0){
-			$db->query("update ".dbprefix."user_info set `isverify`='1' where `email`='$email'");
+
+			$db->update('user_info',array(
+				'isverify'=>1,
+			),array(
+				'email'=>$email,
+			));
+			
 			tsNotice("Email验证成功！点击返回首页！",'点击回首页！',SITE_URL);
 		}else{
 			tsNotice("Email验证失败！");

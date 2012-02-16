@@ -59,7 +59,13 @@ defined('IN_TS') or die('Access Denied.');
 				$strUser = $db->find("select count_score from ".dbprefix."user_info where userid='$userid'");
 				$count_score = $strUser['count_score'];
 				$count_score = $count_score-$strAttach['score'];
-				$db->query("update ".dbprefix."user_info set `count_score`='$count_score' where userid='$userid'");
+
+				$db->update('user_info',array(
+					'count_score'=>$count_score,
+				),array(
+					'userid'=>$userid,
+				));
+				
 				header("Location:".$strAttach['attachurl']);
 			}
 			

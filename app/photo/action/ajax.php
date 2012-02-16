@@ -202,12 +202,23 @@ switch($ts){
 		
 		//统计 
 		$count_photo = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
-		$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
+
+		$db->update('photo_album',array(
+			'count_photo'=>$count_photo,
+		),array(
+			'albumid'=>$albumid,
+		));
 		
 		//添加相册封面
 		if($strAlbum['albumface'] == ''){
 			$strPhoto = $db->find("select * from ".dbprefix."photo where albumid='$albumid' and userid='$userid' and addtime>'$addtime'");
-			$db->query("update ".dbprefix."photo_album set `albumface`='".$strPhoto['photourl']."' where albumid='$albumid'");
+
+			$db->update('photo_album',array(
+				'albumface'=>$strPhoto['photourl'],
+			),array(
+				'albumid'=>$albumid,
+			));
+			
 		}
 		
 		$arrPhoto = $db->findAll("select * from ".dbprefix."photo where albumid='$albumid' and  userid='$userid' and addtime>'$addtime'");

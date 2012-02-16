@@ -12,7 +12,12 @@ switch($ts){
 	case "about_do":
 		
 		$infocontent = $_POST['infocontent'];
-		$db->query("update ".dbprefix."home_info set `infocontent`='$infocontent' where `infokey`='about'");
+
+		$db->update('home_info',array(
+			'infocontent'=>$infocontent,
+		),array(
+			'infokey'=>'about',
+		));
 		
 		qiMsg("修改成功！");
 		
@@ -26,7 +31,12 @@ switch($ts){
 	case "contact_do":
 		
 		$infocontent = $_POST['infocontent'];
-		$db->query("update ".dbprefix."home_info set `infocontent`='$infocontent' where `infokey`='contact'");
+
+		$db->update('home_info',array(
+			'infocontent'=>$infocontent,
+		),array(
+			'infokey'=>'contact',
+		));
 		
 		qiMsg("修改成功！");
 		
@@ -40,7 +50,12 @@ switch($ts){
 	case "agreement_do":
 		
 		$infocontent = $_POST['infocontent'];
-		$db->query("update ".dbprefix."home_info set `infocontent`='$infocontent' where `infokey`='agreement'");
+
+		$db->update('home_info',array(
+			'infocontent'=>$infocontent,
+		),array(
+			'infokey'=>'agreement',
+		));
 		
 		qiMsg("修改成功！");
 		
@@ -55,7 +70,12 @@ switch($ts){
 	case "privacy_do":
 		
 		$infocontent = $_POST['infocontent'];
-		$db->query("update ".dbprefix."home_info set `infocontent`='$infocontent' where `infokey`='privacy'");
+
+		$db->update('home_info',array(
+			'infocontent'=>$infocontent,
+		),array(
+			'infokey'=>'privacy',
+		));
 		
 		qiMsg("修改成功！");
 		

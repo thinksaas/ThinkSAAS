@@ -59,4 +59,8 @@ if($TS_USER['user']['userid'] == $userid){
 
 include template("photo_show");
 
-$db->query("update ".dbprefix."photo set `count_view`=count_view+1 where photoid='$photoid'");
+$db->update('photo',array(
+	'count_view'=>'count_view+1',
+),array(
+	'photoid'=>$photoid,
+));

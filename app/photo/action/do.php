@@ -45,7 +45,15 @@ switch($ts){
 			$photourl = $newdir.'/'.$newphotoname;
 			
 			//继续更新
-			$db->query("update ".dbprefix."photo set `photoname`='$photoname',`phototype`='$phototype',`path`='$menu',`photourl`='$photourl',`photosize`='$photosize' where `photoid`='$photoid'");
+			$db->update('photo',array(
+				'photoname'=>$photoname,
+				'phototype'=>$phototype,
+				'path'=>$menu,
+				'photourl'=>$photourl,
+				'photosize'=>$photosize,
+			),array(
+				'photoid'=>$photoid,
+			));
 			
 			echo $photoid;
 		
@@ -76,7 +84,11 @@ switch($ts){
 		
 		$count_photo = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
 		
-		$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
+		$db->update('photo_album',array(
+			'count_photo'=>$count_photo,
+		),array(
+			'albumid'=>$albumid,
+		));
 		
 		qiMsg("照片删除成功！",'点击返回','index.php?app=photo&ac=album&ts=photo&albumid='.$albumid);
 		
@@ -93,7 +105,13 @@ switch($ts){
 		*/
 		$arrAlbumId = $db->findAll("select albumid,userid from ".dbprefix."photo_album");
 		foreach($arrAlbumId as $item){
-			$db->query("update ".dbprefix."photo set `albumid`='".$item['albumid']."' where userid='".$item['userid']."'");
+
+			$db->update('photo',array(
+				'albumid'=>$item['albumid'],
+			),array(
+				'userid'=>$item['userid'],
+			));
+			
 		}
 		
 		break;

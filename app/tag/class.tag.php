@@ -29,7 +29,14 @@ class tag{
 							$this->db->query("INSERT INTO ".dbprefix."tag_".$objname."_index (`".$idname."`,`tagid`) VALUES ('".$objid."','".$tagid."')");
 						}
 						$tagIdCount = $this->db->findCount("select * from ".dbprefix."tag_".$objname."_index where tagid='".$tagid."'");
-						$this->db->query("update ".dbprefix."tag set `count_".$objname."`='".$tagIdCount."',`uptime`='".$uptime."' where tagid='".$tagid."'");
+
+						$this->db->update('tag',array(
+							'count_'.$objname=>$tagIdCount,
+							'uptime'=>time(),
+						),array(
+							'tagid'=>$tagid,
+						));
+						
 					}else{
 						$tagData = $this->db->find("select * from ".dbprefix."tag where tagname='".$tagname."'");
 						
@@ -38,7 +45,14 @@ class tag{
 							$this->db->query("INSERT INTO ".dbprefix."tag_".$objname."_index (`".$idname."`,`tagid`) VALUES ('".$objid."','".$tagData['tagid']."')");
 						}
 						$tagIdCount = $this->db->findCount("select * from ".dbprefix."tag_".$objname."_index where tagid='".$tagData['tagid']."'");
-						$this->db->query("update ".dbprefix."tag set `count_".$objname."`='".$tagIdCount."',`uptime`='".$uptime."' where tagid='".$tagData['tagid']."'");
+
+						$this->db->update('tag',array(
+							'count_'.$objname=>$tagIdCount,
+							'uptime'=>time(),
+						),array(
+							'tagid'=>$tagData['tagid'],
+						));
+						
 					}
 					
 				}

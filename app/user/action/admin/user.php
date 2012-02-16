@@ -37,7 +37,13 @@
 		case "isenable":
 			$userid = $_GET['userid'];
 			$isenable = $_GET['isenable'];
-			$db->query("update ".dbprefix."user_info set `isenable`='$isenable' where userid='$userid'");
+
+			$db->update('user_info',array(
+				'isenable'=>$isenable,
+			),array(
+				'userid'=>$userid,
+			));
+			
 			header("Location: ".SITE_URL."index.php?app=user&ac=admin&mg=user&ts=list");
 			break;
 	}

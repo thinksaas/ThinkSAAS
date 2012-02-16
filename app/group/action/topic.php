@@ -96,7 +96,11 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	
 	$title = $title.$titlepage.' - '.$strGroup['groupname'];
 	include template('topic');
-	
-	$db->query("update ".dbprefix."group_topics set `count_view`=count_view+1 where topicid='".$topicid."'");
+
+	$db->update('group_topics',array(
+		'count_view'=>'count_view+1',
+	),array(
+		'topicid'=>$topicid,
+	));
 	
 }

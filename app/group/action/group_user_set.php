@@ -17,7 +17,12 @@ switch($ts){
 		
 		if($TS_USER['user']['userid'] != $strGroup['userid']) tsNotice("机房重地，闲人免进！");
 		
-		$db->query("update ".dbprefix."group_users set `isadmin`='".$isadmin."' where userid='".$userid."' and groupid='".$groupid."'");
+		$db->update('group_users',array(
+			'isadmin'=>$isadmin,
+		),array(
+			'userid'=>$userid,
+			'groupid'=>$groupid,
+		));
 
 		header("Location: ".SITE_URL."index.php?app=group&ac=group_user&groupid=".$groupid."");
 		
@@ -39,7 +44,12 @@ switch($ts){
 		$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where groupid='$groupid'");
 		
 		//更新小组成员统计
-		$db->query("update ".dbprefix."group set `count_user`='$groupUserNum' where groupid='$groupid'");
+
+		$db->update('group',array(
+			'count_user'=>$groupUserNum,
+		),array(
+			'groupid'=>$groupid,
+		));
 		
 		header("Location: ".SITE_URL."index.php?app=group&ac=group_user&groupid=".$groupid."");
 		

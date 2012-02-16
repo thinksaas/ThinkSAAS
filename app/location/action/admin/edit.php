@@ -9,7 +9,13 @@ switch($ts){
 		$areaid = $_POST['areaid'];
 		$areaname = $_POST['areaname'];
 		$zm = $new['location']->getfirstchar($areaname);
-		$db->query("update ".dbprefix."area set `areaname`='$areaname',`zm`='$zm' where `areaid`='$areaid'");
+
+		$db->update('area',array(
+			'areaname'=>$areaname,
+			'zm'=>$zm,
+		),array(
+			'areaid'=>$areaid,
+		));
 		
 		qiMsg("区域名称修改成功！");
 		

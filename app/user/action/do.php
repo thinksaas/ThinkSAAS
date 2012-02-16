@@ -53,7 +53,12 @@ switch($ts){
 			$face = $newdir.'/'.$newphotoname;
 
 			//更新小组头像
-			$db->query("update ".dbprefix."user_info set `path`='$menu',`face`='$face' where userid='$userid'");
+			$db->update('user_info',array(
+				'path'=>$menu,
+				'face'=>$face,
+			),array(
+				'userid'=>$userid,
+			));
 			
 			//清除缓存头像 
 			$cache_24 = md10($face).'_24_24.'.$extension;
@@ -120,7 +125,11 @@ switch($ts){
 			$areaid = 0;
 		}
 
-		$db->query("update ".dbprefix."user_info set `areaid`='$areaid' where userid='$userid'");
+		$db->update('user_info',array(
+			'areaid'=>$areaid,
+		),array(
+			'userid'=>$userid,
+		));
 		
 		$_SESSION['tsuser']['areaid'] = $areaid;
 
@@ -185,7 +194,11 @@ switch($ts){
 		
 		if($newpwd != $renewpwd) tsNotice("两次输入新密码密码不一样！");
 		
-		$db->query("update ".dbprefix."user set `pwd`='".md5($newpwd)."' where userid='$userid'");
+		$db->update('user',array(
+			'pwd'=>md5($newpwd),
+		),array(
+			'userid'=>$userid,
+		));
 		
 		tsNotice("密码修改成功！");
 		
@@ -253,13 +266,23 @@ switch($ts){
 			$count_follow = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid'");
 			$count_followed = $db->findCount("select * from ".dbprefix."user_follow where userid_follow='$userid'");
 			
-			$db->query("update ".dbprefix."user_info set `count_follow`='$count_follow',`count_followed`='$count_followed' where userid='$userid'");
+			$db->update('user_info',array(
+				'count_follow'=>$count_follow,
+				'count_followed'=>$count_followed,
+			),array(
+				'userid'=>$userid,
+			));
 			
 			//统计别人的
 			$count_follow_userid = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid_follow'");
 			$count_followed_userid = $db->findCount("select * from ".dbprefix."user_follow where userid_follow='$userid_follow'");
 			
-			$db->query("update ".dbprefix."user_info set `count_follow`='$count_follow_userid',`count_followed`='$count_followed_userid' where userid='$userid_follow'");
+			$db->update('user_info',array(
+				'count_follow'=>$count_follow_userid,
+				'count_followed'=>$count_followed_userid,
+			),array(
+				'userid_follow'=>$userid_follow,
+			));
 			
 			//发送系统消息
 			$msg_userid = '0';
@@ -313,14 +336,24 @@ switch($ts){
 		//统计自己的
 		$count_follow = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid'");
 		$count_followed = $db->findCount("select * from ".dbprefix."user_follow where userid_follow='$userid'");
-		
-		$db->query("update ".dbprefix."user_info set `count_follow`='$count_follow',`count_followed`='$count_followed' where userid='$userid'");
+
+		$db->update('user_info',array(
+			'count_follow'=>$count_follow,
+			'count_followed'=>$count_followed,
+		),array(
+			'userid'=>$userid,
+		));
 		
 		//统计别人的
 		$count_follow_userid = $db->findCount("select * from ".dbprefix."user_follow where userid='$userid_follow'");
 		$count_followed_userid = $db->findCount("select * from ".dbprefix."user_follow where userid_follow='$userid_follow'");
-		
-		$db->query("update ".dbprefix."user_info set `count_follow`='$count_follow_userid',`count_followed`='$count_followed_userid' where userid='$userid_follow'");
+
+		$db->update('user_info',array(
+			'count_follow'=>$count_follow_userid,
+			'count_followed'=>$count_followed_userid,
+		),array(
+			'userid'=>$userid_follow,
+		));
 		
 		header("Location: ".SITE_URL.tsurl('user','space',array('id'=>$userid_follow)));
 		

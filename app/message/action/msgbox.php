@@ -26,7 +26,13 @@ if(is_array($arrMessages)){
 }
 
 //isread设为已读
-$db->query("update ".dbprefix."message set `isread`='1' where userid='$touserid' and touserid='$userid' and `isread`='0'");
+$db->update('message',array(
+	'isread'=>1,
+),array(
+	'userid'=>$touserid,
+	'touserid'=>$userid,
+	'isread'=>0,
+));
 
 $title = '消息盒子';
 

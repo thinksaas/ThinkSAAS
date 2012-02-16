@@ -105,7 +105,13 @@ switch($ts){
 						
 						//统计更新
 						$count_user = $db->findCount("select * from ".dbprefix."group_users where `groupid`='".$item."'");
-						$db->query("update ".dbprefix."group set `count_user`='".$count_user."' where `groupid`='".$item."'");
+
+						$db->update('group',array(
+							'count_user'=>$count_user,
+						),array(
+							'groupid'=>$item,
+						));
+						
 					}
 				}
 			}
@@ -135,7 +141,13 @@ switch($ts){
 			
 			//注销邀请码
 			if($TS_APP['options']['isregister']=='1'){
-				$db->query("update ".dbprefix."user_invites set `isused`='1' where `invitecode`='$invitecode'");
+
+				$db->update('user_invites',array(
+					'isused'=>1,
+				),array(
+					'invitecode'=>$invitecode,
+				));
+				
 			}
 			
 			//跳转

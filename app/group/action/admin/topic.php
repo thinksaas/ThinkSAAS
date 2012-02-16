@@ -56,7 +56,13 @@ switch($ts){
 	case "isshow":
 		$topicid = $_POST['topicid'];
 		$isshow	= $_POST['isshow'];
-		$db->query("update ".dbprefix."group_topics set isshow='$isshow' where topicid = '$topicid'");
+		
+		$db->update('group_topics',array(
+			'isshow'=>$isshow,
+		),array(
+			'topicid'=>$topicid,
+		));
+		
 		echo '0';
 		break;
 		

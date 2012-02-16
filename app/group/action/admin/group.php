@@ -59,7 +59,12 @@ switch($ts){
 			//计算小组会员数
 			$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where groupid='$groupid'");
 			//更新小组成员统计
-			$db->query("update ".dbprefix."group set `count_user`='$groupUserNum' where groupid='$groupid'");
+			$db->update('group',array(
+				'count_user'=>$groupUserNum,
+			),array(
+				'groupid'=>$groupid,
+			));
+			
 		}
 		//回到小组管理首页
 		header("Location: ".SITE_URL."index.php?app=group&ac=admin&mg=group&ts=list");
@@ -116,7 +121,11 @@ switch($ts){
 	case "isaudit":
 		$groupid = $_GET['groupid'];
 		
-		$db->query("update ".dbprefix."group set `isaudit`='0' where groupid='$groupid'");
+		$db->update('group',array(
+			'isaudit'=>0,
+		),array(
+			'groupid'=>$groupid,
+		));
 		
 		$strGroup = $db->find("select groupid,userid,groupname from ".dbprefix."group where groupid='$groupid'");
 		
@@ -137,7 +146,12 @@ switch($ts){
 		$strGroup = $db->find("select groupid,userid,groupname,isrecommend from ".dbprefix."group where groupid='$groupid'");
 		
 		if($strGroup['isrecommend'] == 0){
-			$db->query("update ".dbprefix."group set `isrecommend`='1' where groupid='$groupid'");
+			
+			$db->update('group',array(
+				'isrecommend'=>1,
+			),array(
+				'groupid'=>$groupid,
+			));
 			
 			//发送系统消息(审核通过)
 			$msg_userid = '0';
@@ -147,7 +161,11 @@ switch($ts){
 			
 		}else{
 			
-			$db->query("update ".dbprefix."group set `isrecommend`='0' where groupid='$groupid'");
+			$db->update('group',array(
+				'isrecommend'=>0,
+			),array(
+				'groupid'=>$groupid,
+			));
 			
 		}
 		

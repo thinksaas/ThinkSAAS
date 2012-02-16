@@ -21,6 +21,11 @@ foreach($arrUser as $item){
 
 $userNum = $db->findCount("select * from ".dbprefix."group_users where groupid='".$groupid."'");
 
-$db->query("update ".dbprefix."group set `count_user`='".$userNum."' where groupid='".$groupid."'");
+$db->update('group',array(
+	'count_user'=>$userNum,
+),array(
+	'groupid'=>$groupid,
+));
+
 
 qiMsg("会员投送成功！");

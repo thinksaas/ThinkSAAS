@@ -133,7 +133,12 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 				'user'		=> $_SESSION['tsuser'],
 			);
 			//更新登录时间
-			$db->query("update ".dbprefix."user_info set `uptime`='".time()."' where userid='".$loginUserData['userid']."'");	
+			$db->update('user_info',array(
+				'uptime'=>time(),
+			),array(
+				'userid'=>$loginUserData['userid'],
+			));
+			
 		}
 	}
 	

@@ -6,7 +6,11 @@ switch ($ts){
 		$tagid = $_GET['tagid'];
 		$isenable = $_GET['isenable'];
 		
-		$db->query("update ".dbprefix."tag set `isenable`='$isenable' where tagid = '$tagid'");
+		$db->update('tag',array(
+			'isenable'=>$isenable,
+		),array(
+			'tagid'=>$tagid,
+		));
 		
 		qiMsg("设置成功！");
 		
@@ -34,7 +38,13 @@ switch ($ts){
 		$tagNum = $db->find("select count(*) from ".dbprefix."tag where `tagname`='$tagname'");
 		
 		if($tagNum['count(*)']==0){
-			$db->query("update ".dbprefix."tag set `tagname`='$tagname' where `tagid`='$tagid'");
+
+			$db->update('tag',array(
+				'tagname'=>$tagname,
+			),array(
+				'tagid'=>$tagid,
+			));
+			
 		}elseif($tagNum['count(*)']==1){
 			
 		}else{
@@ -50,7 +60,11 @@ switch ($ts){
 				$db->query("delete from ".dbprefix."tag where `tagid`='$tagids'");
 				
 				//最后更新tag
-				$db->query("update ".dbprefix."tag set `tagname`='$tagname' where `tagid`='$tagid'");
+				$db->update('tag',array(
+					'tagname'=>$tagname,
+				),array(
+					'tagid'=>$tagid,
+				));
 			}
 		}
 		

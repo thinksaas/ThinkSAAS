@@ -27,9 +27,20 @@ switch($ts){
 		$strPhoto = $db->find("select isrecommend from ".dbprefix."photo where `photoid`='$photoid'");
 		
 		if($strPhoto['isrecommend']==0){
-			$db->query("update ".dbprefix."photo set `isrecommend`='1' where `photoid`='$photoid'");
+
+			$db->update('photo',array(
+				'isrecommend'=>1,
+			),array(
+				'photoid'=>$photoid,
+			));
+			
 		}else{
-			$db->query("update ".dbprefix."photo set `isrecommend`='0' where `photoid`='$photoid'");
+
+			$db->update('photo',array(
+				'isrecommend'=>0,
+			),array(
+				'photoid'=>$photoid,
+			));
 		}
 	
 		qiMsg("操作成功！");

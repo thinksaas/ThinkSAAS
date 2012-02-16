@@ -71,7 +71,13 @@ switch($ts){
 		$strScore = $db->find("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
 		
 		//更新登录时间
-		$db->query("update ".dbprefix."user_info set `uptime`='".time()."' , `count_score`='".$strScore['score']."' where userid='$userid'");
+		$db->update('user_info',array(
+			'uptime'=>time(),
+			'count_score'=>$strScore['score'],
+		),array(
+			'userid'=>$userid,
+		));
+		
 
 		//跳转
 		if($jump != ''){

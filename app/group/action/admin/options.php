@@ -43,8 +43,17 @@ switch($ts){
 		);
 	
 		foreach ($arrData as $key => $val){
+		
 			if($val!=''){
-				$db->query("UPDATE ".dbprefix."group_options SET optionvalue='$val' where optionname='$key'");
+				
+				$db->update('group_options',array(
+					'optionvalue'=>$val,
+				),array(
+				
+					'optionname'=>$key,
+				
+				));
+				
 			}
 			
 		}

@@ -28,7 +28,11 @@ switch($ts){
 			//随机MD5加密
 			$resetpwd = md5(rand());
 		
-			$db->query("update ".dbprefix."user set resetpwd='$resetpwd' where email='$email'");
+			$db->update('user',array(
+				'resetpwd'=>$resetpwd,
+			),array(
+				'email'=>$email,
+			));
 			
 			//发送邮件
 			$subject = $TS_SITE['base']['site_title'].'会员密码找回';

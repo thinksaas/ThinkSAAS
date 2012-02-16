@@ -44,7 +44,12 @@ switch($ts){
 		}elseif($userNum == '0'){
 			tsNotice("好像地球不适合你哦^_^");
 		}else{
-			$db->query("update ".dbprefix."user set pwd='".md5($pwd)."' where email='$email'");
+
+			$db->update('user',array(
+				'pwd'=>md5($pwd),
+			),array(
+				'email'=>$email,
+			));
 			
 			tsNotice("密码修改成功^_^","点击登陆","index.php?app=user&ac=login");
 		}

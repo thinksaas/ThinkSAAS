@@ -13,7 +13,11 @@ switch($ts){
 	
 		$site_urltype = $_POST['site_urltype'];
 		
-		$db->query("update ".dbprefix."system_options set `optionvalue`='$site_urltype' where optionname='site_urltype'");
+		$db->update('system_options',array(
+			'optionvalue'=>$site_urltype,
+		),array(
+			'optionname'=>'site_urltype',
+		));
 		
 		$arrOptions = $db->findAll("select optionname,optionvalue from ".dbprefix."system_options");
 		foreach($arrOptions as $item){

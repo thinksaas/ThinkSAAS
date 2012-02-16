@@ -67,7 +67,11 @@ switch($ts){
 		
 		$count_photo = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
 		
-		$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
+		$db->update('photo_album',array(
+				'count_photo'=>$count_photo,
+			),array(
+				'albumid'=>$albumid,
+			));
 		
 		qiMsg("图片删除成功!");
 		
@@ -81,7 +85,11 @@ switch($ts){
 		$albumid = $strPhoto['albumid'];
 		$albumface = $strPhoto['photourl'];
 		
-		$db->query("update ".dbprefix."photo_album set `albumface`='$albumface' where albumid='$albumid'");
+		$db->update('photo_album',array(
+			'albumface'=>$albumface,
+		),array(
+			'albumid'=>$albumid,
+		));
 		
 		qiMsg("封面设置成功！");
 		
@@ -95,7 +103,12 @@ switch($ts){
 		foreach($arrAlbum as $item){
 			$albumid = $item['albumid'];
 			$count_photo = $db->findCount("select photoid from ".dbprefix."photo where albumid='$albumid'");
-			$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
+
+			$db->update('photo_album',array(
+				'count_photo'=>$count_photo,
+			),array(
+				'albumid'=>$albumid,
+			));
 		}
 		
 		qiMsg("统计完成！");
@@ -110,9 +123,21 @@ switch($ts){
 		$strAlbum = $db->find("select isrecommend from ".dbprefix."photo_album where `albumid`='$albumid'");
 		
 		if($strAlbum['isrecommend']==0){
-			$db->query("update ".dbprefix."photo_album set `isrecommend`='1' where `albumid`='$albumid'");
+			
+			$db->update('photo_album',array(
+				'isrecommend'=>1,
+			),array(
+				'albumid'=>$albumid,
+			));
+			
 		}else{
-			$db->query("update ".dbprefix."photo_album set `isrecommend`='0' where `albumid`='$albumid'");
+
+			$db->update('photo_album',array(
+				'isrecommend'=>0,
+			),array(
+				'albumid'=>$albumid,
+			));
+			
 		}
 	
 		qiMsg("操作成功！");

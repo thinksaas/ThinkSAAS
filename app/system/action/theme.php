@@ -12,7 +12,12 @@ switch($ts){
 	
 		$site_theme = $_POST['site_theme'];
 		
-		$db->query("update ".dbprefix."system_options set `optionvalue`='$site_theme' where optionname='site_theme'");
+		$db->update('system_options',array(
+			'optionvalue'=>$site_theme,
+		),array(
+			'optionname'=>'site_theme',
+		));
+		
 		
 		$arrOptions = $db->findAll("select optionname,optionvalue from ".dbprefix."system_options");
 		foreach($arrOptions as $item){

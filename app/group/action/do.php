@@ -35,7 +35,12 @@ if($ts=='addcomment'){
 			//更新帖子最后回应时间和评论数
 			$uptime = time();
 			
-			$db->query("update ".dbprefix."group_topics set uptime='$uptime',count_comment='$count_comment' where topicid='$topicid'");
+			$db->update('group_topics',array(
+				'uptime'=>$uptime,
+				'count_comment'=>$count_comment,
+			),array(
+				'topicid'=>$topicid,
+			));
 			
 			//积分记录
 			$db->create('user_scores',array(
@@ -48,7 +53,11 @@ if($ts=='addcomment'){
 			$strScore = $db->find("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
 			
 			//更新积分
-			$db->query("update ".dbprefix."user_info set `count_score`='".$strScore['score']."' where userid='$userid'");
+			$db->update('user_info',array(
+				'count_score'=>$strScore['score'],
+			),array(
+				'userid'=>$userid,
+			));
 			
 			//发送系统消息(通知楼主有人回复他的帖子啦)
 			$strTopic = $db->find("select * from ".dbprefix."group_topics where topicid='$topicid'");
@@ -156,7 +165,13 @@ switch ($ts) {
 			//统计帖子类型 
 			if($typeid != '0'){
 				$topicTypeNum = $db->findCount("select * from ".dbprefix."group_topics where typeid='$typeid'");
-				$db->query("update ".dbprefix."group_topics_type set `count_topic`='$topicTypeNum' where typeid='$typeid'");
+
+				$db->update('group_topics_type',array(
+					'count_topic'=>$topicTypeNum,
+				),array(
+					'typeid'=>$typeid,
+				));
+				
 			}
 			//处理标签
 			aac('tag')->addTag('topic','topicid',$topicid,$tag);
@@ -170,9 +185,13 @@ switch ($ts) {
 			
 			$count_topic_today = $db->findCount("select * from ".dbprefix."group_topics where groupid='$groupid' and addtime > '$today_start'");
 			
-			
-			$db->query("update ".dbprefix."group set count_topic='$count_topic',count_topic_today='$count_topic_today',uptime='$uptime' where groupid='$groupid'");
-			
+			$db->update('group',array(
+				'count_topic'=>$count_topic,
+				'count_topic_today'=>$count_topic_today,
+				'uptime'=>time(),
+			),array(
+				'groupid'=>$groupid,
+			));
 			
 			
 			//积分记录
@@ -188,7 +207,13 @@ switch ($ts) {
 			$strScore = $db->find("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
 			
 			//更新积分
-			$db->query("update ".dbprefix."user_info set `count_score`='".$strScore['score']."' where userid='$userid'");
+			$db->update('user_info',array(
+				'count_score'=>$strScore['score'],
+			),array(
+				'userid'=>$userid,
+			));
+			
+			
 			
 			//feed开始
 			$feed_template = '<span class="pl">在 <a href="{group_link}">{group_name}</a> 创建了新话题：<a href="{topic_link}">{topic_title}</a></span><div class="broadsmr">{content}</div><div class="indentrec"><span><a  class="j a_rec_reply" href="{topic_link}">回应</a></span></div>';
@@ -231,7 +256,11 @@ switch ($ts) {
 			//计算小组会员数
 			$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where groupid='$groupid'");
 			//更新小组成员统计
-			$db->query("update ".dbprefix."group set `count_user`='$groupUserNum' where groupid='$groupid'");
+			$db->update('group',array(
+				'count_user'=>$groupUserNum,
+			),array(
+				'groupid'=>$groupid,
+			));
 
 			echo '2';return false;
 		
@@ -258,7 +287,11 @@ switch ($ts) {
 			$groupUserNum = $db->findCount("select * from ".dbprefix."group_users where groupid='$groupid'");
 			
 			//更新小组统计
-			$db->query("update ".dbprefix."group set `count_user`='$groupUserNum' where groupid='$groupid'");
+			$db->update('group',array(
+				'count_user'=>$groupUserNum,
+			),array(
+				'groupid'=>$groupid,
+			));
 			
 			echo '1';return false;
 		}
@@ -319,7 +352,12 @@ switch ($ts) {
 			$groupicon = $newdir.'/'.$newphotoname;
 			
 			//更新小组头像
-			$db->query("update ".dbprefix."group set `path`='$menu',`groupicon`='$groupicon' where groupid='$groupid'");
+			$db->update('group',array(
+				'path'=>$menu,
+				'groupicon'=>$groupicon,
+			),array(
+				'groupid'=>$groupid,
+			));
 
 			tsNotice("小组图标修改成功！");
 			
@@ -368,8 +406,12 @@ switch ($ts) {
 			//更新分类下小组数
 			$groupnum = $db->findCount("select * from ".dbprefix."group_cates_index where cateid='$cateid'");
 			
-			$db->query("update ".dbprefix."group_cates set `count_group`='$groupnum',`uptime`='$uptime' where cateid='$cateid'");
-			
+			$db->update('group_cates',array(
+				'count_group'=>$groupnum,
+				'uptime'=>$uptime,
+			),array(
+				'cateid'=>$cateid,
+			));
 			
 			//判断是否有顶级分类
 			$strCate = $db->find("select catereferid from ".dbprefix."group_cates where cateid='$cateid'");
@@ -381,7 +423,12 @@ switch ($ts) {
 				
 				$total = $grouptotal['total'];
 				
-				$db->query("update ".dbprefix."group_cates set `count_group`='$total',`uptime`='$uptime' where cateid='$catereferid'");
+				$db->update('group_cates',array(
+					'count_group'=>$total,
+					'uptime'=>$uptime,
+				),array(
+					'cateid'=>$catereferid,
+				));
 			}
 
 			
@@ -442,7 +489,12 @@ switch ($ts) {
 		
 		//统计附件并更新
 		$count_attach = $db->findCount("select * from ".dbprefix."group_topics_attachs where topicid='".$topicid."'");
-		$db->query("update ".dbprefix."group_topics set `count_attach`='".$count_attach."' where topicid='".$topicid."'");
+
+		$db->update('group_topics',array(
+			'count_attach'=>$count_attach,
+		),array(
+			'topicid'=>$topicid,
+		));
 		
 		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 		
@@ -503,8 +555,12 @@ switch ($ts) {
 			//更新分类下小组数
 			$groupnum = $db->findCount("select * from ".dbprefix."group_cates_index where cateid='$cateid'");
 			
-			$db->query("update ".dbprefix."group_cates set `count_group`='$groupnum',`uptime`='$uptime' where cateid='$cateid'");
-			
+			$db->update('group_cates',array(
+				'count_group'=>$groupnum,
+				'uptime'=>$uptime,
+			),array(
+				'cateid'=>$cateid,
+			));
 			
 			//判断是否有顶级分类
 			$strCate = $db->find("select catereferid from ".dbprefix."group_cates where cateid='$cateid'");
@@ -515,8 +571,13 @@ switch ($ts) {
 				$grouptotal = $db->find("select sum(`count_group`) as `total` from ".dbprefix."group_cates where catereferid='$catereferid'");
 				
 				$total = $grouptotal['total'];
-				
-				$db->query("update ".dbprefix."group_cates set `count_group`='$total',`uptime`='$uptime' where cateid='$catereferid'");
+
+				$db->update('group_cates',array(
+					'count_group'=>$total,
+					'uptime'=>$uptime,
+				),array(
+					'cateid'=>$catereferid,
+				));
 			}
 		}
 		//绑定小组分类结束
@@ -530,7 +591,11 @@ switch ($ts) {
 		));
 		
 		//更新
-		$db->query("update ".dbprefix."group set `count_user` = '1' where groupid='".$groupid."'");
+		$db->update('group',array(
+			'count_user'=>1,
+		),array(
+			'groupid'=>$groupid,
+		));
 
 		header("Location: ".SITE_URL.tsurl('group','show',array('id'=>$groupid)));
 		
@@ -558,7 +623,12 @@ switch ($ts) {
 			
 			$db->query("DELETE FROM ".dbprefix."group_topics_comments WHERE commentid = '".$commentid."'");
 			//统计
-			$db->query("update ".dbprefix."group_topics set count_comment=count_comment-1 where topicid='".$strComment['topicid']."'");
+			$db->update('group_topics',array(
+				'count_comment'=>'count_comment-1',
+			),array(
+				'topicid'=>$strComment['topicid'],
+			));
+			
 		}
 		
 		//跳转回到帖子页
@@ -593,7 +663,11 @@ switch ($ts) {
 			$db->query("DELETE FROM ".dbprefix."tag_topic_index WHERE topicid = '".$topicid."'");
 			
 			//统计 
-			$db->query("update ".dbprefix."group set count_topic=count_topic-1 where groupid='".$groupid."'");
+			$db->update('group',array(
+				'count_topic'=>'count_topic-1',
+			),array(
+				'groupid'=>$groupid,
+			));
 			
 			echo '0';
 			
@@ -715,7 +789,13 @@ switch ($ts) {
 		$strGroup = $db->find("select userid from ".dbprefix."group where groupid='".$strTopic['groupid']."'");
 		
 		if($userid!=$strGroup['userid'] || $TS_USER['user']['isadmin']==1){
-			$db->query("update ".dbprefix."group_topics set istop='$istop' where topicid='$topicid'");
+
+			$db->update('group_topics',array(
+				'istop'=>$istop,
+			),array(
+				'topicid'=>$topicid,
+			));
+			
 			tsNotice("帖子置顶成功！");
 		}else{
 			tsNotice("非法操作！");
@@ -742,7 +822,13 @@ switch ($ts) {
 		$isshow == 0 ? $isshow = 1 : $isshow = 0;
 		
 		if($userid == $strGroup['userid'] || $TS_USER['user']['isadmin']==1){
-			$db->query("update ".dbprefix."group_topics set isshow='$isshow' where topicid='$topicid'");
+
+			$db->update('group_topics',array(
+				'isshow'=>$isshow,
+			),array(
+				'topicid'=>$topicid,
+			));
+			
 			tsNotice("操作成功！");
 		}else{
 			tsNotice("非法操作！");
@@ -788,8 +874,14 @@ switch ($ts) {
 				}
 				
 				$tagIdCount = $db->findCount("select * from ".dbprefix."tag_topic_index where tagid='".$tagid."'");
+
+				$db->update('tag',array(
+					'count_topic'=>$tagIdCount,
+					'uptime'=>time(),
+				),array(
+					'tagid'=>$tagid,
+				));
 				
-				$db->query("update ".dbprefix."tag set `count_topic`='".$tagIdCount."',`uptime`='".$uptime."' where tagid='".$tagid."'");
 				
 			}else{
 				
@@ -799,10 +891,13 @@ switch ($ts) {
 				if($tagIndexCount == '0'){
 					$db->query("INSERT INTO ".dbprefix."tag_topic_index (`topicid`,`tagid`) VALUES ('".$topicid."','".$tagData['tagid']."')");
 				}
-				
-				$tagIdCount = $db->findCount("select * from ".dbprefix."tag_topic_index where tagid='".$tagData['tagid']."'");
-				
-				$db->query("update ".dbprefix."tag set `count_topic`='".$tagIdCount."',`uptime`='".$uptime."' where tagid='".$tagData['tagid']."'");
+
+				$db->update('tag',array(
+					'count_topic'=>$tagIdCount,
+					'uptime'=>time(),
+				),array(
+					'tagid'=>$tagData['tagid'],
+				));
 				
 			}
 			
@@ -849,9 +944,12 @@ switch ($ts) {
 		$count_comment = $db->findCount("select * from ".dbprefix."group_topics_comments where topicid='$topicid'");
 		
 		//更新帖子最后回应时间和评论数
-		$uptime = time();
-		
-		$db->query("update ".dbprefix."group_topics set uptime='$uptime',count_comment='$count_comment' where topicid='$topicid'");
+		$db->update('group_topics',array(
+			'uptime'=>time(),
+			'count_comment'=>$count_comment,
+		),array(
+			'topicid'=>$topicid,
+		));
 		
 		$strTopic = $db->find("select * from ".dbprefix."group_topics where topicid='$topicid'");
 		$strComment = $db->find("select * from ".dbprefix."group_topics_comments where commentid='$referid'");
@@ -881,7 +979,13 @@ switch ($ts) {
 		if(empty($typename)){
 			echo '帖子类型不能为空，请点击继续编辑';
 		}else{
-			$db->query("update ".dbprefix."group_topics_type set `typename`='$typename' where typeid='$typeid'");
+
+			$db->update('group_topics_type',array(
+				'typename'=>$typename,
+			),array(
+				'typeid'=>$typeid,
+			));
+			
 			echo $typename;
 		}
 		break;
@@ -889,7 +993,13 @@ switch ($ts) {
 	case "del_type":
 		$typeid = $_POST['typeid'];
 		$db->query("delete from ".dbprefix."group_topics_type where typeid='$typeid'");
-		$db->query("update ".dbprefix."group_topics set typeid='0' where typeid='$typeid'");
+
+		$db->update('group_topics',array(
+			'typeid'=>0,
+		),array(
+			'typeid'=>$typeid,
+		));
+		
 		echo '0';
 		break;
 		
@@ -904,8 +1014,12 @@ switch ($ts) {
 			//更新分类下小组数
 			$groupnum = $db->findCount("select * from ".dbprefix."group_cates_index where cateid='$cateid'");
 			
-			$db->query("update ".dbprefix."group_cates set `count_group`='$groupnum',`uptime`='$uptime' where cateid='$cateid'");
-			
+			$db->update('group_cates',array(
+				'count_group'=>$groupnum,
+				'uptime'=>$uptime,
+			),array(
+				'cateid'=>$cateid,
+			));
 			
 			//判断是否有顶级分类
 			$strCate = $db->find("select catereferid from ".dbprefix."group_cates where cateid='$cateid'");
@@ -917,7 +1031,12 @@ switch ($ts) {
 				
 				$total = $grouptotal['total'];
 				
-				$db->query("update ".dbprefix."group_cates set `count_group`='$total',`uptime`='$uptime' where cateid='$catereferid'");
+				$db->update('group_cates',array(
+					'count_group'=>$total,
+					'uptime'=>$uptime,
+				),array(
+					'cateid'=>$catereferid,
+				));
 			}
 		}
 		
@@ -932,7 +1051,13 @@ switch ($ts) {
 			$topicid = $item['topicid'];
 			preg_match_all('/\[(photo)=(\d+)\]/is', $content, $photo);
 			if($photo[2]){
-				$db->query("update ".dbprefix."group_topics set `isphoto`='1' where topicid='$topicid'");
+
+				$db->update('group_topics',array(
+					'isphoto'=>1,
+				),array(
+					'topicid'=>$topicid,
+				));
+				
 				echo '==OK==';
 			}
 		}
@@ -968,8 +1093,12 @@ switch ($ts) {
 	case "topic_move":
 		$groupid = $_POST['groupid'];
 		$topicid = $_POST['topicid'];
-		
-		$db->query("update ".dbprefix."group_topics set `groupid`='$groupid' where topicid='$topicid'");
+
+		$db->update('group_topics',array(
+			'groupid'=>$groupid,
+		),array(
+			'topicid'=>$topicid,
+		));
 		
 		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
 		
@@ -993,7 +1122,12 @@ switch ($ts) {
 		
 		if($userid == $strGroup['userid'] || intval($TS_USER['user']['isadmin']) == 1){
 			if($strTopic['isposts']==0){
-				$db->query("update ".dbprefix."group_topics set `isposts`='1' where `topicid`='$topicid'");
+				
+				$db->update('group_topics',array(
+					'isposts'=>1,
+				),array(
+					'topicid'=>$topicid,
+				));
 				
 				//msg start
 				$msg_userid = '0';
@@ -1003,7 +1137,13 @@ switch ($ts) {
 				//msg end
 				
 			}else{
-				$db->query("update ".dbprefix."group_topics set `isposts`='0' where `topicid`='$topicid'");
+
+				$db->update('group_topics',array(
+					'isposts'=>0,
+				),array(
+					'topicid'=>$topicid,
+				));
+				
 			}
 			
 			tsNotice("操作成功！");

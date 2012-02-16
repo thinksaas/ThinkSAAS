@@ -93,7 +93,13 @@ switch($ts){
 		}
 		
 		include template("album_photo");
-		$db->query("update ".dbprefix."photo_album set `count_view`=count_view+1 where albumid='$albumid'");
+
+		$db->update('photo_album',array(
+			'count_view'=>'count_view+1',
+		),array(
+			'albumid'=>$albumid,
+		));
+		
 		break;
 		
 	//修改相册
@@ -117,7 +123,12 @@ switch($ts){
 		
 		$albumdesc = h($_POST['albumdesc']);
 		
-		$db->query("update ".dbprefix."photo_album set `albumname`='$albumname',`albumdesc`='$albumdesc' where `albumid`='$albumid'");
+		$db->update('photo_album',array(
+			'albumname'=>$albumname,
+			'albumdesc'=>$albumdesc,
+		),array(
+			'albumid'=>$albumid,
+		));
 		
 		header("Location: ".SITE_URL."index.php?app=photo&ac=album&ts=photo&albumid=".$albumid);
 		
@@ -137,13 +148,24 @@ switch($ts){
 		
 		//统计 
 		$count_photo = $db->findCount("select * from ".dbprefix."photo where albumid='$albumid'");
-		$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
+
+		$db->update('photo_album',array(
+			'count_photo'=>$count_photo,
+		),array(
+			'albumid'=>$albumid,
+		));
 		
 		//添加相册封面
 		if($strAlbum['albumface'] == ''){
 			$strPhoto = $db->find("select * from ".dbprefix."photo where albumid='$albumid' and `userid`='$userid' and `addtime`>'$addtime' limit 1");
+
+			$db->update('photo_album',array(
+				'path'=>$strPhoto['path'],
+				'albumface'=>$strPhoto['photourl'],
+			),array(
+				'albumid'=>$albumid,
+			));
 			
-			$db->query("update ".dbprefix."photo_album set `path`='".$strPhoto['path']."',`albumface`='".$strPhoto['photourl']."' where `albumid`='$albumid'");
 		}
 		
 		$arrPhoto = $db->findAll("select * from ".dbprefix."photo where albumid='$albumid' and  userid='$userid' and addtime>'$addtime'");
@@ -202,13 +224,25 @@ switch($ts){
 		foreach($arrPhotoDesc as $key=>$item){
 			if($item){
 				$photoid = $arrPhotoId[$key];
-				$db->query("update ".dbprefix."photo set `photodesc`='".$item."' where photoid='$photoid'");
+
+				$db->update('photo',array(
+					'photodesc'=>$item,
+				),array(
+					'photoid'=>$photoid,
+				));
+				
 			}
 		}
 	
 		//更新相册封面
 		if($albumface){
-			$db->query("update ".dbprefix."photo_album set `albumface`='$albumface' where `albumid`='$albumid'");
+
+			$db->update('photo_album',array(
+				'albumface'=>$albumface,
+			),array(
+				'albumid'=>$albumid,
+			));
+			
 		}
 		
 		header("Location: ".SITE_URL.tsurl('photo','album',array('ts'=>'photo','albumid'=>$albumid)));
