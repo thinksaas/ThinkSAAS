@@ -21,8 +21,9 @@ $TS_USER = array(
 );
 
 //加载基础函数
-require_once 'fun.base.php';
+include 'tsFuncitons.php';
 
+include 'tsApps.php';
 //开始处理url路由
 reurl();
 

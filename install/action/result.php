@@ -59,16 +59,27 @@ if($db){
 	//存入管理员数据
 	$salt = md5(rand());
 	
-	$userid = $db->query("insert into ".$pre."user (`pwd` , `salt`,`email`) values ('".md5($salt.$password)."', '$salt' ,'$email');");
-
-	$db->query("insert into ".$pre."user_info (`userid`,`username`,`email`,`isadmin`,`addtime`,`uptime`) values ('$userid','$username','$email','1','".time()."','".time()."')");
+	$userid = $db->create('user',array(
+		'pwd'=>md5($salt.$password),
+		'salt'=>$salt,
+		'email'=>$email,
+	));
+	
+	$db->create('user_info',array(
+		'userid'=>$userid,
+		'username'=>$username,
+		'email'=>$email,
+		'isadmin'=>1,
+		'addtime'=>time(),
+		'uptime'=>time(),
+	));
 	
 	//更改网站信息
 	$db->query("update ".$pre."system_options set `optionvalue`='$site_title' where `optionname`='site_title'");
 	$db->query("update ".$pre."system_options set `optionvalue`='$site_subtitle' where `optionname`='site_subtitle'");
 	$db->query("update ".$pre."system_options set `optionvalue`='$site_url' where `optionname`='site_url'");
 	
-	$arrOptions = $db->fetch_all_assoc("select * from ".$pre."system_options");
+	$arrOptions = $db->findAll("select * from ".$pre."system_options");
 	foreach($arrOptions as $item){
 		$arrOption[$item['optionname']] = $item['optionvalue'];
 	}

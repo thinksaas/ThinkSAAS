@@ -9,8 +9,8 @@ if($username=='' || $email==''){
 }elseif(valid_email($email) == false){
 	qiMsg("Email书写不正确！");
 }else{
-	$isemail = $db->once_num_rows("select * from ".dbprefix."user where email='$email'");
-	$isusername = $db->once_num_rows("select * from ".dbprefix."user_info where username='$username'");
+	$isemail = $db->findCount("select * from ".dbprefix."user where email='$email'");
+	$isusername = $db->findCount("select * from ".dbprefix."user_info where username='$username'");
 	if($isemail > 0){
 		
 		//如果Email存在就跳转到验证密码页面
@@ -21,11 +21,16 @@ if($username=='' || $email==''){
 	}else{
 	
 		$pwd = random(5,0);
-		$db->query("insert into ".dbprefix."user (`pwd`,`email`) values ('".md5($pwd)."','$email') ");
-		$userid = $db->insert_id();
+		$salt = md5(rand());
 		
-		//用户信息
-		$arrData = array(
+		$userid = $db->create('user',array(
+			'pwd'=>md5($salt.$pwd),
+			'salt'=>$salt,
+			'email'=>$email,
+		));
+		
+		//插入用户信息
+		$db->create('user_info',array(
 			'userid'			=> $userid,
 			'username' 	=> $username,
 			'email'		=> $email,
@@ -35,10 +40,7 @@ if($username=='' || $email==''){
 			'qq_secret'	=> $_SESSION['secret'],
 			'addtime'	=> time(),
 			'uptime'	=> time(),
-		);
-		
-		//插入用户信息
-		$db->insertArr($arrData,dbprefix.'user_info');
+		));
 		
 		//更新用户头像
 		if($face){
@@ -67,23 +69,29 @@ if($username=='' || $email==''){
 		
 		
 		//默认加入小组
-		$isgroup = $db->once_fetch_assoc("select optionvalue from ".dbprefix."user_options where optionname='isgroup'");
+		$isgroup = $db->find("select optionvalue from ".dbprefix."user_options where optionname='isgroup'");
 		
 		if($isgroup['optionvalue'] != ''){
 			$arrGroup = explode(',',$isgroup['optionvalue']);
 			foreach($arrGroup as $item){
-				$groupusernum = $db->once_num_rows("select * from ".dbprefix."group_users where `userid`='".$userid."' and `groupid`='".$item."'");
+				$groupusernum = $db->findCount("select * from ".dbprefix."group_users where `userid`='".$userid."' and `groupid`='".$item."'");
 				if($groupusernum == '0'){
-					$db->query("insert into ".dbprefix."group_users (`userid`,`groupid`,`addtime`) values('".$userid."','".$item."','".time()."')");
+					
+					$db->create('group_users',array(
+						'userid'=>$userid,
+						'groupid'=>$item,
+						'addtime'=>time(),
+					));
+					
 					//统计更新
-					$count_user = $db->once_num_rows("select * from ".dbprefix."group_users where groupid='".$item."'");
+					$count_user = $db->findCount("select * from ".dbprefix."group_users where groupid='".$item."'");
 					$db->query("update ".dbprefix."group set `count_user`='".$count_user."' where groupid='".$item."'");
 				}
 			}
 		}
 		
 		//获取用户信息
-		$userData = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
+		$userData = $db->find("select * from ".dbprefix."user_info where userid='$userid'");
 		
 		//发送系统消息(恭喜注册成功)
 		$msg_userid = '0';

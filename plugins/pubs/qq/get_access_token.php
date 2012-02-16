@@ -109,10 +109,10 @@ $_SESSION["token"]   = $result["oauth_token"];
 $_SESSION["secret"]  = $result["oauth_token_secret"]; 
 $_SESSION["openid"]  = $result["openid"];
 
-$isopenid = $db->once_num_rows("select * from ".dbprefix."user_info where `qq_openid`='".$_SESSION['openid']."'");
+$isopenid = $db->findCount("select * from ".dbprefix."user_info where `qq_openid`='".$_SESSION['openid']."'");
 
 if($isopenid > 0){
-	$userData = $db->once_fetch_assoc("select * from ".dbprefix."user_info where `qq_openid`='".$_SESSION['openid']."'");
+	$userData = $db->find("select * from ".dbprefix."user_info where `qq_openid`='".$_SESSION['openid']."'");
 	$_SESSION['tsuser']	= $userData;
 	header("Location: ".SITE_URL."index.php");
 }else{

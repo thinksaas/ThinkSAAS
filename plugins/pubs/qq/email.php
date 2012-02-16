@@ -3,7 +3,7 @@
 switch($ts){
 	case "":
 		$email = $_GET['email'];
-		$isemail = $db->once_num_rows("select * from ".dbprefix."user where email='$email'");
+		$isemail = $db->findCount("select * from ".dbprefix."user where email='$email'");
 		if($isemail > 0){
 		
 			$title = "绑定QQ帐号";
@@ -17,7 +17,7 @@ switch($ts){
 	case "do":
 		$email = trim($_POST['email']);
 		$pwd = trim($_POST['pwd']);
-		$strUser = $db->once_fetch_assoc("select * from ".dbprefix."user where email='$email'");
+		$strUser = $db->find("select * from ".dbprefix."user where email='$email'");
 		
 		if($pwd == ''){
 			qiMsg("密码不能为空！");
@@ -27,7 +27,7 @@ switch($ts){
 		
 			$db->query("update ".dbprefix."user_info set `qq_openid`='".$_SESSION['openid']."',`qq_token`='".$_SESSION['token']."',`qq_secret`='".$_SESSION['secret']."' where email='$email'");
 		
-			$userData = $db->once_fetch_assoc("select * from ".dbprefix."user_info where email='$email'");
+			$userData = $db->find("select * from ".dbprefix."user_info where email='$email'");
 			
 			//发送系统消息(恭喜注册成功)
 			$userid = $userData['userid'];
