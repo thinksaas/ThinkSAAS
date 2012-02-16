@@ -12,13 +12,13 @@ define('IN_TS',true);
 define('THINKROOT', dirname(__FILE__));
 define('THINKAPP', THINKROOT.'/app');
 define('THINKDATA',THINKROOT.'/data');
-define('THINKSAAS', THINKROOT.'/thinksaas');
+define('THINKSAAS', THINKROOT.'/ThinkSAAS');
 define('THINKINSTALL',THINKROOT.'/install');
 define('THINKPLUGIN',THINKROOT.'/plugins');
 
 //装载ThinkSAAS核心
 
-include 'thinksaas/thinksaas.php';
+include THINKROOT.'/ThinkSAAS.php';
 
 //除去加载内核运行时间统计开始
  

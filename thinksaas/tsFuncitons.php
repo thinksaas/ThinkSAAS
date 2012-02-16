@@ -7,6 +7,22 @@ defined('IN_TS') or die('Access Denied.');
  * @Email:thinksaas@qq.com
  * @TIME:2010-12-18
  */
+ 
+/**
+ * spError 框架定义的系统级错误提示
+ * 
+ * @param msg    出错信息
+ * @param output    是否输出
+ * @param stop    是否停止程序
+ */
+function spError($msg, $output = TRUE, $stop = TRUE){
+	if($GLOBALS['G_SP']['sp_error_throw_exception'])throw new Exception($msg);
+	if(TRUE != SP_DEBUG){error_log($msg);if(TRUE == $stop)exit;}
+	$traces = debug_backtrace();
+	$bufferabove = ob_get_clean();
+	require_once($GLOBALS['G_SP']['sp_notice_php']);
+	if(TRUE == $stop)exit;
+}
 
 //AutoAppClass
 function aac($appname){
