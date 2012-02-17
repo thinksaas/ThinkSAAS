@@ -11,19 +11,19 @@ switch($ts){
 		$email = trim($_GET['mail']);
 		$resetpwd = trim($_GET['set']);
 		
-		$userNum = $db->once_num_rows("select * from ".dbprefix."user where email='$email' and resetpwd='$resetpwd'");
+		$userNum = $new['user']->findCount('user',array(
+			'email'=>$email,
+			'resetpwd'=>$resetpwd,
+		));
 		
-		if(empty($email) || empty($resetpwd)){
-			tsNotice("迷路了吗？");
-		}elseif(valid_email($email) == false){
-			tsNotice("火星来的吗？");
-		}elseif($userNum == '0'){
-			tsNotice("好像地球不适合你哦^_^");
+		if($email=='' || $resetpwd==''){
+			tsNotice("你应该去火星生活啦！");
+		}elseif($userNum == 0){
+			tsNotice("你应该去火星生活啦！");
 		}else{
 
 			include template("resetpwd");
 
-			
 		}
 		
 		break;
@@ -37,16 +37,25 @@ switch($ts){
 		
 		$resetpwd = trim($_POST['resetpwd']);
 		
-		$userNum = $db->once_num_rows("select * from ".dbprefix."user where email='$email' and resetpwd='$resetpwd'");
+		$userNum = $new['user']->findCount('user',array(
+			'email'=>$email,
+			'resetpwd'=>$resetpwd,
+		));
 		
-		if(empty($email) || empty($pwd) || empty($repwd) || empty($resetpwd)){
-			tsNotice("迷路了吗？");
+		if($email=='' || $pwd=='' || $repwd=='' || $resetpwd==''){
+			tsNotice("所有输入项都不能为空！");
 		}elseif($userNum == '0'){
-			tsNotice("好像地球不适合你哦^_^");
+			tsNotice("你应该去火星生活啦！");
 		}else{
-			$db->query("update ".dbprefix."user set pwd='".md5($pwd)."' where email='$email'");
+		
+			$new['user']->update('user',array(
+				'pwd'=>md5($salt.$pwd),
+				'salt'=>$salt,
+			),array(
+				'email'=>$email,
+			));
 			
-			tsNotice("密码修改成功^_^","点击登陆","index.php?app=user&ac=login");
+			tsNotice("密码修改成功^_^","点击登陆",SITE_URL.tsurl('user','login'));
 		}
 	
 		
