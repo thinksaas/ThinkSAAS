@@ -172,47 +172,37 @@ switch($ts){
 	//修改用户密码 
 	case "setpwd":
 		
+		$userid = intval($TS_USER['user']['userid']);
+		
+		if($userid == 0) tsNotice('你应该出发去火星报到啦。');
+		
 		$oldpwd = trim($_POST['oldpwd']);
 		$newpwd = trim($_POST['newpwd']);
 		$renewpwd = trim($_POST['renewpwd']);
 		
 		if($oldpwd == '' || $newpwd=='' || $renewpwd=='') tsNotice("所有项都不能为空！");
 		
-		$userid = $TS_USER['user']['userid'];
-		$strUser = $db->once_fetch_assoc("select pwd from ".dbprefix."user where userid='$userid'");
+		$strUser = $new['user']->find('user',array(
+			'userid'=>$userid,
+		));
 		
-		if(md5($oldpwd) != $strUser['pwd']) tsNotice("旧密码输入有误！");
+		if(md5($strUser['salt'].$oldpwd) != $strUser['pwd']) tsNotice("旧密码输入有误！");
 		
-		if($newpwd != $renewpwd) tsNotice("两次输入新密码密码不一样！");
+		if($newpwd != $renewpwd) tsNotice('两次输入新密码密码不一样！');
 		
-		$db->query("update ".dbprefix."user set `pwd`='".md5($newpwd)."' where userid='$userid'");
+		//更新密码
+		$salt = md5(rand());
+		
+		$new['user']->update('user',array(
+			'pwd'=>md5($salt.$newpwd),
+			'salt'=>$salt,
+		),array(
+			'userid'=>$userid,
+		));
 		
 		tsNotice("密码修改成功！");
 		
 		break;
-	
-	//选择常住城市
-	case "city":
-		$provinceid = $_GET['provinceid'];
-		//$arrCity = $db->fetch_all_assoc("select * from ".dbprefix."app_location_city where provinceid = '$provinceid' and isshow='0'");
-		$arrCitys = AppCacheRead('location','city.php');
-		
-		$arrCity = $arrCitys[$provinceid];
-		
-		include template("city");
-		
-		break;
-	//选择区县
-	case "area":
-		$cityid = $_GET['cityid'];
-		//$arrArea = $db->fetch_all_assoc("select * from ".dbprefix."app_location_area where cityid = '$cityid' and isshow='0'");
-		$arrAreas = AppCacheRead('location','area.php');
-		$arrArea = $arrAreas[$cityid];
-	
-		include template("area");
-	
-		break;
-
 	
 	//用户跟随
 	case "user_follow":
