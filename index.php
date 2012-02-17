@@ -18,7 +18,7 @@ define('THINKPLUGIN',THINKROOT.'/plugins');
 
 //装载ThinkSAAS核心
 
-include 'thinksaas/thinksaas.php';
+include 'ThinkSAAS/ThinkSAAS.php';
 
 //除去加载内核运行时间统计开始
  
