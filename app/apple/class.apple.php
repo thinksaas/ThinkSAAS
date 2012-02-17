@@ -1,6 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-class apple{
+class apple extends tsApp{
 
 	var $db;
 

@@ -1,6 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-class feed{
+class feed extends tsApp{
 
 	var $db;
 

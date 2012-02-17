@@ -1,7 +1,7 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 
-class photo{
+class photo extends tsApp{
 
 	var $db;
 

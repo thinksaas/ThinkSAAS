@@ -1,7 +1,7 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-class system{
+class system extends tsApp{
 
 	var $db;
 

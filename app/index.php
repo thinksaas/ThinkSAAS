@@ -76,16 +76,14 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	include_once 'app/'.$app.'/config.php';
 
 	//连接数据库
-	if($TS_DB['sql']=='0'){
-		include_once 'thinksaas/mysql.php';
-	}elseif($TS_DB['sql']=='1'){
-		include_once 'thinksaas/pdo_mysql.php';
-	}
-	
+	include_once 'thinksaas/'.$TS_DB['sql'].'.php';
 	$db = new MySql($TS_DB);
 	
 	//加载APP数据库操作类并建立对象
+	include_once 'thinksaas/tsApp.php';
+	
 	include_once 'app/'.$app.'/class.'.$app.'.php';
+	
 	$new[$app] = new $app($db);
 
 	//控制前台ADMIN访问权限
@@ -123,7 +121,10 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	//用户自动登录
 	if($TS_USER['user']=='' && $_COOKIE['ts_email']!='' && $_COOKIE['ts_pwd'] !='' ){
 		
-		$loginUserNum = $db->once_num_rows("select * from ".dbprefix."user where email='".$_COOKIE['ts_email']."' and pwd='".$_COOKIE['ts_pwd']."'");
+		$loginUserNum = $new[$app]->findCount('user',array(
+			'email'=>$_COOKIE['ts_email'],
+			'pwd'=>$_COOKIE['ts_pwd'],
+		));
 	
 		if($loginUserNum > 0){
 			$loginUserData = $db->once_fetch_assoc("select  userid,username,areaid,path,face,count_score,isadmin,uptime from ".dbprefix."user_info where email='".$_COOKIE['ts_email']."'");

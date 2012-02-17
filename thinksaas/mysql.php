@@ -29,6 +29,20 @@ class MySql {
 		
 		
 	}
+	
+	/**
+	 * 对特殊字符进行过滤
+	 *
+	 * @param value  值
+	 */
+	public function escape($value) {
+		if(is_null($value))return 'NULL';
+		if(is_bool($value))return $value ? 1 : 0;
+		if(is_int($value))return (int)$value;
+		if(is_float($value))return (float)$value;
+		if(@get_magic_quotes_gpc())$value = stripslashes($value);
+		return '\''.mysql_real_escape_string($value, $this->conn).'\'';
+	}
 
 	/*
 	 *发送查询语句

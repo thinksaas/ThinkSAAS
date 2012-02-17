@@ -6,7 +6,7 @@ defined('IN_TS') or die('Access Denied.');
  *By QINIAO
  */
  
-class mail{
+class mail extends tsApp{
 
 	var $db;
 

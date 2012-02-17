@@ -1,6 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-class event{
+class event extends tsApp{
 
 	var $db;
 

@@ -1,6 +1,6 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
-class search{
+class search extends tsApp{
 
 	var $db;
 

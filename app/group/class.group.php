@@ -1,7 +1,7 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 
-class group{
+class group extends tsApp{
 
 	public $db;
 

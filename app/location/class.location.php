@@ -1,6 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-class location{
+class location extends tsApp{
 
 	var $db;
 
