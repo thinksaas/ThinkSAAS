@@ -10,10 +10,13 @@
 
 
 =========ThinkSAAS安装说明=========
+
 把ThinkSAAS系统放入你的网站，直接访问网站会自动进入安装界面，根据提示进行安装。
 
 =========ThinkSAAS用户协议=========
+
 用户条款
+
 1、ThinkSAAS遵从GPL通用开源许可协议
 
 2、ThinkSAAS免费开源
@@ -24,8 +27,7 @@
 
 5、你可以拿ThinkSAAS建设你的商业运营网站
 
-6、你可以基于ThinkSAAS开发第三方发行版，但必须在发行版本底部注明：
-Based on ThinkSAAS
+6、你可以基于ThinkSAAS开发第三方发行版，但必须在发行版本底部注明：Based on ThinkSAAS
 
 7、ThinkSAAS第三方发行版可以自主选择自己的版本许可协议（比如商业版，开源版，共享版等）
 
@@ -40,4 +42,5 @@ Based on ThinkSAAS
 http://www.thinksaas.cn
 
 Email:thinksaas@qq.com
+
 QQ:1078700473
