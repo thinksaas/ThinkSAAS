@@ -43,6 +43,14 @@ class MySql {
 		if(@get_magic_quotes_gpc())$value = stripslashes($value);
 		return '\''.mysql_real_escape_string($value, $this->conn).'\'';
 	}
+	
+	/**
+	 * 格式化带limit的SQL语句
+	 */
+	public function setlimit($sql, $limit)
+	{
+		return $sql. " LIMIT {$limit}";
+	}
 
 	/*
 	 *发送查询语句
@@ -52,46 +60,10 @@ class MySql {
 		$this->result = mysql_query($sql,$this->conn);
 		$this->queryCount++;
 		if (!$this->result){
-			qiMsg("SQL语句执行错误：$sql <br />".$this->geterror());
+			qiMsg("SQL语句执行错误：$sql <br />".mysql_error());
 		}else{
 			return $this->result;
 		}
-	}
-	
-	/*
-	 *mysql_fetch_array
-	 *BY QINIAO
-	 *2010-08-29
-	 *www.thinksaas.cn
-	 */
-	 
-	function fetch_all_array($sql){
-		$query = $this->query($sql);
-		while($list_item = $this->fetch_array($query)){
-			$all_array[] = $list_item;
-		}
-		return $all_array;
-	}
-
-	/*
-	 *从结果集中取出一行作为关联数组/数字索引数组
-	 */
-	 
-	function fetch_array($query){
-		return mysql_fetch_array($query);
-	}
-
-	function once_fetch_array($sql){
-		$this->result = $this->query($sql);
-		return $this->fetch_array($this->result);
-	}
-
-	/*
-	 *从结果集中取得一行作为数字索引数组
-	 */
-	 
-	function fetch_row($query){
-		return mysql_fetch_row($query);
 	}
 	
 	/*
@@ -100,7 +72,7 @@ class MySql {
 	 
 	function fetch_all_assoc($sql,$max=0){
 		$query = $this->query($sql);
-		while($list_item = $this->fetch_assoc($query)){
+		while($list_item = mysql_fetch_assoc($query)){
 		
 			$current_index ++;
 			
@@ -115,13 +87,9 @@ class MySql {
 		return $all_array;
 	}
 	
-	function fetch_assoc($query){
-		return mysql_fetch_assoc($query);
-	}
-	
 	function once_fetch_assoc($sql){
 		$list 	= $this->query($sql);
-		$list_array = $this->fetch_assoc($list);
+		$list_array = mysql_fetch_assoc($list);
 		return $list_array;
 	}
 	
@@ -129,10 +97,6 @@ class MySql {
 	/*
 	 *获取行的数目
 	 */
-	 
-	function num_rows($query){
-		return mysql_num_rows($query);
-	}
 	
 	function once_num_rows($sql){
 		$query=$this->query($sql);
