@@ -10,7 +10,7 @@ if($TS_USER['user'] == ''){
 	$url = SITE_URL.tsurl('group','all',array('page'=>''));
 	$lstart = $page*20-20;
 	
-	$arrGroups = $new['group']->findAll('group',null,'isrecommend','groupid',$lstart.',20');
+	$arrGroups = $new['group']->findAll('group',null,'isrecommend desc','groupid',$lstart.',20');
 	
 	foreach($arrGroups as $key=>$item){
 		$arrData[] = $new['group']->getOneGroup($item['groupid']);
@@ -29,7 +29,7 @@ if($TS_USER['user'] == ''){
 	$arrNewGroup = $new['group']->getNewGroup('10');
 	
 	//热门帖子
-	$arrTopic = $new['group']->findAll('group_topics',null,'count_comment','topicid,title,count_comment',10);
+	$arrTopic = $new['group']->findAll('group_topics',null,'count_comment desc','topicid,title,count_comment',10);
 	
 	//小组分类
 	$arrCate = $new['group']->getCates();

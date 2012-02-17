@@ -19,18 +19,23 @@
 <!--{/if}-->
 <link rel="shortcut icon" href="{SITE_URL}public/images/favicon.png" />
 <style>
+<!--{if is_file('theme/'.$site_theme.'/base.css')}-->
 @import url({SITE_URL}theme/{$site_theme}/base.css);
+<!--{/if}-->
+<!--{if is_file('app/'.$app.'/skins/'.$skin.'/style.css')}-->
 @import url({SITE_URL}app/{$app}/skins/{$skin}/style.css);
+<!--{/if}-->
 </style>
 <script>var siteUrl = '{SITE_URL}';</script>
 <script src="{SITE_URL}public/js/jquery.js" type="text/javascript"></script>
 <script src="{SITE_URL}public/js/dialog/jquery.artDialog.js?skin=blue" type="text/javascript"></script>
 <script src="{SITE_URL}public/js/dialog/artDialog.iframeTools.js" type="text/javascript"></script>
+<!--{if is_file('app/'.$app.'/js/extend.func.js')}-->
 <script src="{SITE_URL}app/{$app}/js/extend.func.js" type="text/javascript"></script>
-
+<!--{/if}-->
 {php doAction('pub_header_top')}
 </head>
-<body {php doAction('pub_body')}>
+<body>
 <!--header-->
 <div class="header">
 <div class="hc">
