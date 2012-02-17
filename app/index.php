@@ -94,21 +94,25 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	
 	//控制后台访问权限
 	if($TS_USER['admin']['isadmin'] != 1 && $app=='system' && $ac != 'login'){
-		header("Location: ".SITE_URL."index.php?app=system&ac=login");
+		header("Location: ".SITE_URL.tsurl('system','login'));
 		exit;
 	}
 	
 	//控制插件设置权限
 	if($TS_USER['admin']['isadmin'] != 1 && $in == 'edit'){
-		header("Location: ".SITE_URL."index.php?app=system&ac=login");
+		header("Location: ".SITE_URL.tsurl('system','login'));
 		exit;
 	}
 	
 	//判断用户是否上传头像
 	if($TS_SITE['base']['isface']==1 && $TS_USER['user'] != '' && $app != 'system' && $ac != 'admin'){
-		$faceUser = $db->once_fetch_assoc("select face from ".dbprefix."user_info where userid='".intval($TS_USER['user']['userid'])."'");
+		
+		$faceUser = $new[$app]->find('user_info',array(
+			'userid'=>intval($TS_USER['user']['userid']),
+		));
+		
 		if($faceUser['face']=='' && $ts != 'face'){
-			header("Location: ".SITE_URL."index.php?app=user&ac=set&ts=face");
+			header("Location: ".SITE_URL.tsurl('user','set',array('ts'=>'face')));
 		}
 	}
 	
@@ -127,14 +131,24 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 		));
 	
 		if($loginUserNum > 0){
-			$loginUserData = $db->once_fetch_assoc("select  userid,username,areaid,path,face,count_score,isadmin,uptime from ".dbprefix."user_info where email='".$_COOKIE['ts_email']."'");
+			
+			$loginUserData = $new[$app]->find('user_info',array(
+				'email'=>$_COOKIE['ts_email'],
+			),'userid,username,areaid,path,face,count_score,isadmin,uptime');
+			
 			//用户session信息
 			$_SESSION['tsuser']	= $loginUserData;
 			$TS_USER = array(
 				'user'		=> $_SESSION['tsuser'],
 			);
+			
 			//更新登录时间
-			$db->query("update ".dbprefix."user_info set `uptime`='".time()."' where userid='".$loginUserData['userid']."'");	
+			$new[$app]->update('user_info',array(
+				'uptime'=>time(),
+			),array(
+				'userid'=>$loginUserData['userid'],
+			));
+			
 		}
 	}
 	
