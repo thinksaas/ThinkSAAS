@@ -2,6 +2,7 @@
 defined('IN_TS') or die('Access Denied.');
 
 $host = trim($_POST['host']);
+$port = trim($_POST['port']);
 $user = trim($_POST['user']);
 $pwd = trim($_POST['pwd']);
 $name = trim($_POST['name']);
@@ -10,6 +11,7 @@ $select_sql = trim($_POST['sql']);
 
 $arrdb = array(
 	'host'	=> $host,
+	'port'	=> $port,
 	'user'	=> $user,
 	'pwd'	=> $pwd,
 	'name'	=> $name,
@@ -86,6 +88,7 @@ if($db){
 					."	\n"
 					."	\$TS_DB['sql']='".$select_sql."';\n"
 					."	\$TS_DB['host']='".$host."';\n"
+					."	\$TS_DB['port']='".$port."';\n"
 					."	\$TS_DB['user']='".$user."';\n"
 					."	\$TS_DB['pwd']='".$pwd."';\n"
 					."	\$TS_DB['name']='".$name."';\n"

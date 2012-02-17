@@ -32,20 +32,11 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	//加载系统缓存文件
 	$TS_SITE['base'] = fileRead('data/system_options.php');
 	
-	//语言
-	$hl_c = isset($_COOKIE['ts_lang']) ? $_COOKIE['ts_lang'] : '';
-	if($hl_c){
-		$hl = $hl_c;
-	}else{
-		$hl = $TS_SITE['base']['lang'];
-	}
-	
 	//设置时区
 	date_default_timezone_set($TS_SITE['base']['timezone']);
 	
 	//加载APP导航
 	$TS_SITE['appnav'] = fileRead('data/system_appnav.php');
-
 	
 	define('SITE_URL', $TS_SITE['base']['site_url']);
 	
@@ -64,10 +55,9 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	//加载APP配置缓存文件
 	if($app != 'system'){
 		
+		$TS_APP['options'] = fileRead('data/'.$app.'_options.php');
 		
-			$TS_APP['options'] = fileRead('data/'.$app.'_options.php');
-			
-			if($TS_APP['options']['isenable']=='1' && $ac != 'admin') qiMsg($app."应用关闭，请开启后访问！");
+		if($TS_APP['options']['isenable']=='1' && $ac != 'admin') qiMsg($app."应用关闭，请开启后访问！");
 		
 	}
 	
@@ -76,7 +66,7 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	include_once 'app/'.$app.'/config.php';
 
 	//连接数据库
-	include_once 'thinksaas/'.$TS_DB['sql'].'.php';
+	include_once 'thinksaas/sql/'.$TS_DB['sql'].'.php';
 	$db = new MySql($TS_DB);
 	
 	//加载APP数据库操作类并建立对象
@@ -151,7 +141,6 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 			
 		}
 	}
-	
 	
 	$tsHooks = array();
 	

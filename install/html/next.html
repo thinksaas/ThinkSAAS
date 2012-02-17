@@ -159,6 +159,13 @@ p, li, dd, dt {
 			<td><input type="text" value="localhost" size="25" id="dbhost" name="host"></td>
 			<td>通常情况下，应填写 <code>localhost</code>，若测试连接失败，请联系主机提供商咨询。</td>
 		</tr>
+		
+		<tr>
+			<th scope="row"><label for="dbport">端口</label></th>
+			<td><input type="text" value="3306" size="25" id="dbport" name="port"></td>
+			<td>默认3306</td>
+		</tr>
+		
 		<tr>
 			<th scope="row"><label for="prefix">表名前缀</label></th>
 			<td><input type="text" size="25" value="ts_" id="prefix" name="pre"></td>
@@ -224,10 +231,9 @@ p, li, dd, dt {
 		<tr>
 			<th scope="row"><label for="sql">选择连接方式：</label></th>
 			<td><select name="sql">
-			<option value="0">MySQL</option>
-			<option value="1">PDO_MySQL</option>
+			<option value="mysql">MySQL</option>
 			</select></td>
-			<td>选择pdo_mysql需要php支持pdo_mysql扩展</td>
+			<td><!-- 选择pdo_mysql需要php支持pdo_mysql扩展 --></td>
 		</tr>
 		
 	</tbody>

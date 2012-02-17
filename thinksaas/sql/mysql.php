@@ -17,7 +17,7 @@ class MySql {
 		
 		if($TS_DB['host'] && $TS_DB['user']) {
 		
-			if (!$this->conn = mysql_connect($TS_DB['host'], $TS_DB['user'], $TS_DB['pwd'])){
+			if (!$this->conn = mysql_connect($TS_DB['host'].':'.$TS_DB['port'], $TS_DB['user'], $TS_DB['pwd'])){
 				qiMsg("连接数据库失败,可能是数据库用户名或密码错误");
 			}
 		
