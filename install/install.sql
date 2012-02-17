@@ -907,7 +907,7 @@ INSERT INTO `ts_system_options` (`optionid`, `optionname`, `optionvalue`) VALUES
 (7, 'isface', '0'),
 (8, 'site_key', 'thinksaas'),
 (9, 'site_desc', '又一个ThinkSAAS社区'),
-(10, 'site_theme', 'miliao'),
+(10, 'site_theme', 'black'),
 (11, 'site_urltype', '1'),
 (12, 'isgzip', '0'),
 (13, 'timezone', 'Asia/Hong_Kong'),
