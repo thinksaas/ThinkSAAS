@@ -36,7 +36,7 @@ if($email == '' || $password=='' || $username=='') qiMsg("用户信息不能为�
 
 if(valid_email($email)==false) qiMsg("Email输入有误！");
 
-include 'thinksaas/mysql.php';
+include 'thinksaas/sql/mysql.php';
 
 $db = new MySql($arrdb);
 

@@ -201,7 +201,7 @@ function pagination($count,$perlogs,$page,$url,$suffix=''){
 //验证Email
 
 function valid_email($email){
-	if(filter_data($email,FILTER_VALIDATE_EMAIL)){
+	if(preg_match('/^[A-Za-z0-9]+([._\-\+]*[A-Za-z0-9]+)*@([A-Za-z0-9-]+\.)+[A-Za-z0-9]+$/', $email)){
 		return true;
 	}else{
 		return false;
@@ -279,10 +279,10 @@ function cleanJs($text){
 	//过滤on事件lang js
 	while ( preg_match ( '/(<[^><]+)(lang|onfinish|onmouse|onexit|onerror|onclick|onkey|onload|onchange|onfocus|onblur)[^><]+/i', $text, $mat ) ){
 		$text = str_replace ( $mat [0], $mat [1], $text );
-		}
+	}
 	while ( preg_match ( '/(<[^><]+)(window\.|javascript:|js:|about:|file:|document\.|vbs:|cookie)([^><]*)/i', $text, $mat ) ){
 		$text = str_replace ( $mat [0], $mat [1] . $mat [3], $text );
-		}
+	}
 	return $text;
 }
 
