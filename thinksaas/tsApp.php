@@ -12,16 +12,45 @@ class tsApp{
 	
 	/**
 	 * 在数据表中新增一行数据
-	 * @param table 数据表
+	 *
 	 * @param row 数组形式，数组的键是数据表中的字段名，键对应的值是需要新增的数据。
 	 */
 	public function create($table,$row)
 	{
+		if(!is_array($row))return FALSE;
+		
+		if(empty($row))return FALSE;
+		foreach($row as $key => $value){
+			$cols[] = $key;
+			$vals[] = $this->escape($value);
+		}
+		$col = join(',', $cols);
+		$val = join(',', $vals);
 
+		$sql = "INSERT INTO ".dbprefix."{$table} ({$col}) VALUES ({$val})";
+		if( FALSE != $this->db->query($sql) ){ // 获取当前新增的ID
+			if( $newinserid = $this->db->insert_id() ){
+				return $newinserid;
+			}
+		}
+		return FALSE;
 	}
 	
-	public function replace(){
-		
+	/**
+	 * 替换数据，根据条件替换存在的记录，如记录不存在，则将条件与替换数据相加并新增一条记录。
+	 * @param table 数据表
+	 * @param conditions    数组形式，查找条件，请注意，仅能使用数组作为该条件！
+	 * @param row    数组形式，修改的数据
+	 */
+	public function replace($table,$conditions, $row)
+	{
+		if( $this->find($conditions) ){
+			return $this->update($table,$conditions, $row);
+		}else{
+			if( !is_array($conditions) )tsMsg('replace方法的条件务必是数组形式！');
+			
+			return $this->create($table,$rows);
+		}
 	}
 	
 	/**
@@ -55,8 +84,26 @@ class tsApp{
 		return $this->db->query($sql);
 	}
 	
-	public function delete(){
-		
+	/**
+	 * 按条件删除记录
+	 * @param table
+	 * @param conditions 数组形式，查找条件，此参数的格式用法与find/findAll的查找条件参数是相同的。
+	 */
+	public function delete($table,$conditions)
+	{
+		$where = "";
+		if(is_array($conditions)){
+			$join = array();
+			foreach( $conditions as $key => $condition ){
+				$condition = $this->escape($condition);
+				$join[] = "{$key} = {$condition}";
+			}
+			$where = "WHERE ( ".join(" AND ",$join). ")";
+		}else{
+			if(null != $conditions)$where = "WHERE ( ".$conditions. ")";
+		}
+		$sql = "DELETE FROM ".dbprefix."{$table} {$where}";
+		return $this->db->query($sql);
 	}
 	
 	/**
