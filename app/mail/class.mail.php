@@ -10,13 +10,13 @@ class mail{
 
 	var $db;
 
-	function mail($dbhandle){
+	public function __construct($dbhandle){
 		$this->db = $dbhandle;
 	}
 	
 	//发送邮件
 	function postMail($sendmail,$subject,$content){
-		$options = fileRead('options.php','data','mail');
+		$options = fileRead('data/mail_options.php');
 		date_default_timezone_set('Asia/Shanghai');
 		require_once THINKSAAS.'/PHPMailer/class.phpmailer.php';
 		$mail = new PHPMailer();
@@ -47,13 +47,19 @@ class mail{
 			$mail->AddReplyTo($replymail,$replyname);
 			$mail->Subject    = $subject;
 			$mail->AltBody    = "要查看邮件，请使用HTML兼容的电子邮件阅读器!"; 
-			$mail->MsgHTML(eregi_replace("[\]",'',$content));
+			//$mail->MsgHTML(eregi_replace("[\]",'',$content));
+			$mail->MsgHTML(strtr($content,'[\]',''));
 			$mail->AddAddress($sendmail, $sendname);
 			$mail->Send();
 			
 			return '1';
 			
 		}
+	}
+	
+	//析构函数
+	public function __destruct(){
+		
 	}
 
 }
