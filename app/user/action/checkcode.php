@@ -3,6 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 /**
  * 图片验证码生成
  */
+
 $randCode = '';
 $chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPRSTUVWXYZ23456789';
 for ( $i = 0; $i < 4; $i++ )
