@@ -9,7 +9,7 @@ return array (
   'isface' => '0',
   'site_key' => 'thinksaas',
   'site_desc' => '又一个ThinkSAAS社区',
-  'site_theme' => 'miliao',
+  'site_theme' => 'black',
   'site_urltype' => '1',
   'isgzip' => '0',
   'timezone' => 'Asia/Hong_Kong',
