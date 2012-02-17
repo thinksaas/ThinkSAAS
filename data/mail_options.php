@@ -6,6 +6,6 @@ return array (
   'isenable' => '0',
   'mailhost' => 'smtp.qq.com',
   'mailport' => '25',
-  'mailuser' => 'postmaster@thinksaas.cn',
-  'mailpwd' => '1231qa2342ws',
+  'mailuser' => '',
+  'mailpwd' => '',
 );
