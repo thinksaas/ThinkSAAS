@@ -9,6 +9,15 @@ ALTER TABLE `ts_user_info`
  
 ALTER TABLE `ts_user` ADD `salt` CHAR( 32 ) NOT NULL DEFAULT '' COMMENT '加点盐' AFTER `pwd` ;
 
+ALTER TABLE `ts_user_options` DROP `optionid` ;
+
+ALTER TABLE `ts_system_options` DROP `optionid` ;
+
+DELETE FROM `ts_user_options` WHERE `optionname` = 'isregister';
+
+DELETE FROM `ts_system_options` WHERE `optionname` = 'lang';
+
+INSERT INTO`ts_system_options` (`optionname`, `optionvalue`) VALUES ('isinvite', '0');
 
 ThinkSAAS1.6 sql change
 -------------------------------------------------

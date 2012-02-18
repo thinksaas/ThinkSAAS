@@ -13,5 +13,5 @@ return array (
   'site_urltype' => '1',
   'isgzip' => '0',
   'timezone' => 'Asia/Hong_Kong',
-  'lang' => 'zh_cn',
+  'isinvite' => '0',
 );

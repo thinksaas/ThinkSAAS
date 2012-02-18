@@ -10,7 +10,7 @@ $(document).ready(function() {
 	var validator = $("#signupform").validate({
 		onkeyup: false,
 		rules:{
-		<!--{if $TS_APP[options][isregister]=='1'}-->
+		<!--{if $TS_SITE['base']['isinvite']=='1'}-->
 			invitecode:{
 				required:true,
 				remote:"{SITE_URL}index.php?app=user&ac=do&ts=isinvitecode"
@@ -38,7 +38,7 @@ $(document).ready(function() {
 			}
 		},
 		messages: {
-		<!--{if $TS_APP[options][isregister]=='1'}-->
+		<!--{if $TS_SITE['base']['isinvite']=='1'}-->
 			invitecode:{
 				required:"请输入邀请码",
 				remote:jQuery.format("邀请码无效，请寻找新的邀请码！")
@@ -82,52 +82,6 @@ $(document).ready(function() {
 		}
 	});
 
-	
-//选择一级区域
-$('#oneid').change(function(){
-	$("#stwoid").html('<img src="'+siteUrl+'public/images/loading.gif" />');
-	var oneid = $(this).children('option:selected').val();  //弹出select的值
-	
-	if(oneid==0){
-		$("#stwoid").html('');
-		$("#sthreeid").html('');
-	}else{
-		$("#sthreeid").html('');
-		$.ajax({
-			type: "GET",
-			url:  "{SITE_URL}index.php?app=user&ac=area&ts=two&oneid="+oneid,
-			success: function(msg){
-				$("#stwoid").html(msg);
-				
-				//选择二级区域
-				$('#twoid').change(function(){
-					$("#sthreeid").html('<img src="'+siteUrl+'public/images/loading.gif" />');
-					var twoid = $(this).children('option:selected').val();  //弹出select的值
-					
-					if(twoid == 0){
-						$("#sthreeid").html('');
-					}else{
-					
-						//ajax
-						$.ajax({
-							type: "GET",
-							url:  "{SITE_URL}index.php?app=user&ac=area&ts=three&twoid="+twoid,
-							success: function(msg){
-								$('#sthreeid').html(msg);
-							}
-						});
-					
-					}
-
-				});
-				
-			}
-		});
-	
-	}
-	
-});
-
 });
 </script>
 
@@ -153,9 +107,10 @@ obj.src = url+ '&nowtime=' + new Date().getTime();
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0"  class="Tabletext">
 
-<!--{if $TS_APP[options][isregister]=='1'}-->
+<!--{if $TS_SITE['base']['isinvite']=='1'}-->
 <tr>
-<td class="label"><label id="invitecode" for="invitecode"><font color="red">邀请码</font></label></td>
+<td class="label"><label id="invitecode" for="invitecode">
+<font color="red">邀请码：</font></label></td>
 <td class="field" width="300"><input class="uinput" id="invitecode" name="invitecode" type="text" value="" /></td>
 <td class="status"></td>
 </tr>

@@ -470,14 +470,12 @@ CREATE TABLE IF NOT EXISTS `ts_group` (
   KEY `userid` (`userid`),
   KEY `isshow` (`isshow`),
   KEY `groupname` (`groupname`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='小组' AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组' AUTO_INCREMENT=1 ;
 
 --
 -- 转存表中的数据 `ts_group`
 --
 
-INSERT INTO `ts_group` (`groupid`, `userid`, `groupname`, `groupname_en`, `groupdesc`, `path`, `groupicon`, `count_topic`, `count_topic_today`, `count_user`, `joinway`, `role_leader`, `role_admin`, `role_user`, `addtime`, `isrecommend`, `isopen`, `isaudit`, `ispost`, `isshow`, `uptime`) VALUES
-(1, 1, '默认小组', '', '默认小组<br />', '', '', 0, 2, 1, 1, '组长', '管理员', '成员', 1321804548, 1, 0, 0, 0, 0, 1322878060);
 
 -- --------------------------------------------------------
 
@@ -592,12 +590,14 @@ CREATE TABLE IF NOT EXISTS `ts_group_topics` (
   KEY `title` (`title`),
   KEY `groupid_2` (`groupid`,`isshow`),
   KEY `typeid` (`typeid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组话题' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='小组话题' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `ts_group_topics`
 --
 
+INSERT INTO `ts_group_topics` (`topicid`, `typeid`, `groupid`, `userid`, `title`, `content`, `count_comment`, `count_view`, `count_attach`, `istop`, `isshow`, `iscomment`, `isphoto`, `isattach`, `isnotice`, `isposts`, `addtime`, `uptime`) VALUES
+(1, 0, 1, 1, 'fsfsd', 'fsffsd<br />', 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1329490342, 1329490345);
 
 -- --------------------------------------------------------
 
@@ -683,8 +683,6 @@ CREATE TABLE IF NOT EXISTS `ts_group_users` (
 -- 转存表中的数据 `ts_group_users`
 --
 
-INSERT INTO `ts_group_users` (`userid`, `groupid`, `isadmin`, `addtime`) VALUES
-(1, 1, 0, 1321804548);
 
 -- --------------------------------------------------------
 
@@ -753,12 +751,16 @@ CREATE TABLE IF NOT EXISTS `ts_message` (
   PRIMARY KEY (`messageid`),
   KEY `touserid` (`touserid`,`isread`),
   KEY `userid` (`userid`,`touserid`,`isread`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='短消息表' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='短消息表' AUTO_INCREMENT=4 ;
 
 --
 -- 转存表中的数据 `ts_message`
 --
 
+INSERT INTO `ts_message` (`messageid`, `userid`, `touserid`, `content`, `isread`, `addtime`) VALUES
+(1, 0, 2, '亲爱的 thinksaas ：<br />您成功加入了 ThinkSAAS<br />在遵守本站的规定的同时，享受您的愉快之旅吧!', 1, 1329483501),
+(2, 0, 3, '亲爱的 tsadmin ：<br />您成功加入了 ThinkSAAS<br />在遵守本站的规定的同时，享受您的愉快之旅吧!', 1, 1329570055),
+(3, 0, 2, '亲爱的 thinksaas ：<br />您成功加入了 ThinkSAAS<br />在遵守本站的规定的同时，享受您的愉快之旅吧!', 1, 1329570669);
 
 -- --------------------------------------------------------
 
@@ -887,31 +889,29 @@ CREATE TABLE IF NOT EXISTS `ts_search_key` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_system_options` (
-  `optionid` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项ID',
   `optionname` char(32) NOT NULL DEFAULT '' COMMENT '选项名字',
   `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  PRIMARY KEY (`optionid`),
   UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='系统管理配置' AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统管理配置';
 
 --
 -- 转存表中的数据 `ts_system_options`
 --
 
-INSERT INTO `ts_system_options` (`optionid`, `optionname`, `optionvalue`) VALUES
-(1, 'site_title', 'ThinkSAAS'),
-(2, 'site_subtitle', '又一个ThinkSAAS社区'),
-(3, 'site_url', 'http://localhost/thinksaas/ThinkSAAS/'),
-(4, 'site_email', 'admin@admin.com'),
-(6, 'site_icp', '京ICP备09050100号'),
-(7, 'isface', '0'),
-(8, 'site_key', 'thinksaas'),
-(9, 'site_desc', '又一个ThinkSAAS社区'),
-(10, 'site_theme', 'black'),
-(11, 'site_urltype', '1'),
-(12, 'isgzip', '0'),
-(13, 'timezone', 'Asia/Hong_Kong'),
-(14, 'lang', 'zh_cn');
+INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
+('site_title', 'ThinkSAAS'),
+('site_subtitle', '又一个ThinkSAAS社区'),
+('site_url', 'http://localhost/thinksaas/git/ThinkSAAS/'),
+('site_email', 'admin@admin.com'),
+('site_icp', '京ICP备09050100号'),
+('isface', '0'),
+('site_key', 'thinksaas'),
+('site_desc', '又一个ThinkSAAS社区'),
+('site_theme', 'black'),
+('site_urltype', '1'),
+('isgzip', '0'),
+('timezone', 'Asia/Hong_Kong'),
+('isinvite', '0');
 
 -- --------------------------------------------------------
 
@@ -1115,12 +1115,63 @@ CREATE TABLE IF NOT EXISTS `ts_user_invites` (
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
   PRIMARY KEY (`inviteid`),
   KEY `isused` (`isused`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户邀请码' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户邀请码' AUTO_INCREMENT=51 ;
 
 --
 -- 转存表中的数据 `ts_user_invites`
 --
 
+INSERT INTO `ts_user_invites` (`inviteid`, `invitecode`, `isused`, `addtime`) VALUES
+(1, 'c9JiDwCiJJDvJyxXsw', 0, 1329570629),
+(2, '3Uii75pFpSzUQ00mfc', 0, 1329570629),
+(3, '6BaACtC1DcbDCpA6q2', 0, 1329570629),
+(4, 'IqOXxB6NCK6i0ohcQQ', 0, 1329570629),
+(5, 'A363RMDs74jz2JMYe2', 0, 1329570629),
+(6, 'Qr4ztlFuBlMLBgBoSo', 0, 1329570629),
+(7, 'slth30He7UvFZed0zS', 0, 1329570629),
+(8, 'TGVGvKteC0KekXVtKK', 0, 1329570629),
+(9, '3yChyP3NPwT0LyTniW', 0, 1329570629),
+(10, '7d57L9bf7HKFd9ol77', 0, 1329570629),
+(11, 'UIXgPLiGwXzGZk7WPl', 0, 1329570629),
+(12, 'mJSJsQJXcDnIQq164i', 0, 1329570629),
+(13, 'MQdJMMXnX1jOmI5qni', 0, 1329570629),
+(14, '3ge770R0Fw3fXw10FF', 0, 1329570629),
+(15, 'IJfZZmgFxiT1F1zXLR', 0, 1329570629),
+(16, 'KzHKCrhSmUjmOak8Mr', 0, 1329570629),
+(17, 'di4119B18Jgc1CNTN6', 0, 1329570629),
+(18, 'S4ciNsSVcFcc9L4L6p', 0, 1329570629),
+(19, '0a5C7VXJwl7t7P2yw5', 0, 1329570629),
+(20, 'G1CX5MMHZ5MQvXh5oc', 0, 1329570629),
+(21, 'iWiKDEMtkdBhCztMz3', 0, 1329570629),
+(22, 'tXxsiI00a88LRrLl8s', 0, 1329570629),
+(23, 'Eq07gD0ZRrE3HhGYZ7', 0, 1329570629),
+(24, 'NVquzNY5NzN8ynYnyo', 0, 1329570629),
+(25, '84c2O25IGioI221Se2', 0, 1329570629),
+(26, 'O8UU444Nm6LN1Q1o4O', 0, 1329570629),
+(27, '67GbbbIlLLXS9r7lHb', 0, 1329570629),
+(28, '2f1m2nfS9GtbnK227b', 0, 1329570629),
+(29, '4qShfU8KQzmu4bBOBz', 0, 1329570629),
+(30, 'NOZsbq5OGNq56N6o06', 0, 1329570629),
+(31, 'DHd925eeK5z0tKD5T0', 0, 1329570629),
+(32, 'tD769yTFruc5QACdaA', 0, 1329570629),
+(33, 'ZXYYVMslcm43I3QrR4', 0, 1329570629),
+(34, 'UT77d5S7NVmIuNuI5i', 0, 1329570629),
+(35, 'pwZ42L2l23GCZ8xu4w', 0, 1329570629),
+(36, 'Pa7JWR7w52F7imwisp', 0, 1329570629),
+(37, 'f5CmT55FeDsRYA7cRd', 0, 1329570629),
+(38, 'qK3UgdTqYydoPuyOyx', 0, 1329570629),
+(39, '5bp8BIywpIv8kKoDTD', 0, 1329570629),
+(40, 'qaq7i7Sq61I1cZo7cA', 0, 1329570629),
+(41, 'l2H3u0tt2Ii2MLGI2p', 0, 1329570629),
+(42, 'K1KKk5dqSF251GSmM1', 0, 1329570629),
+(43, '77Qus1Ufsw7K1xeE6F', 0, 1329570629),
+(44, '4hR33KN3kN00BHk7lh', 0, 1329570629),
+(45, '8p0WEYOmgolsoY2KP2', 0, 1329570629),
+(46, 'nnofTNsNdftujv3hho', 0, 1329570629),
+(47, 'Lm18kD067K19x018nN', 0, 1329570629),
+(48, 'y7oUhgUuRCgdu1d1Dc', 0, 1329570629),
+(49, 'TiB7OGDycg9G19oTPu', 0, 1329570629),
+(50, 'Q46Hr2JnwKHN554Nw2', 0, 1329570629);
 
 -- --------------------------------------------------------
 
@@ -1129,26 +1180,23 @@ CREATE TABLE IF NOT EXISTS `ts_user_invites` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_user_options` (
-  `optionid` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项ID',
   `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
   `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  PRIMARY KEY (`optionid`),
   UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='配置' AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
 
 --
 -- 转存表中的数据 `ts_user_options`
 --
 
-INSERT INTO `ts_user_options` (`optionid`, `optionname`, `optionvalue`) VALUES
-(1, 'appname', '用户'),
-(2, 'appdesc', '用户中心'),
-(3, 'isenable', '0'),
-(4, 'isregister', '0'),
-(5, 'isvalidate', '0'),
-(6, 'isrewrite', '0'),
-(7, 'isauthcode', '0'),
-(8, 'isgroup', '');
+INSERT INTO `ts_user_options` (`optionname`, `optionvalue`) VALUES
+('appname', '用户'),
+('appdesc', '用户中心'),
+('isenable', '0'),
+('isvalidate', '0'),
+('isrewrite', '0'),
+('isauthcode', '0'),
+('isgroup', '');
 
 -- --------------------------------------------------------
 

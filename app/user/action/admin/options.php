@@ -18,7 +18,6 @@
 				'appname' => trim($_POST['appname']),
 				'appdesc' => trim($_POST['appdesc']),
 				'isenable' => trim($_POST['isenable']),
-				'isregister' => trim($_POST['isregister']),
 				'isvalidate' => trim($_POST['isvalidate']),
 				'isgroup'	=> trim($_POST['isgroup']),
 			);

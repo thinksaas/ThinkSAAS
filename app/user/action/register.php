@@ -10,9 +10,6 @@ switch($ts){
 	
 		$title = '注册';
 		
-		//调出省份数据
-		$arrOne = $db->fetch_all_assoc("select * from ".dbprefix."area where referid='0'");
-		
 		include template("register");
 		break;
 
@@ -27,18 +24,27 @@ switch($ts){
 		$authcode = strtoupper($_POST['authcode']);
 		
 		//是否开启邀请注册
-		if($TS_APP['options']['isregister']=='1'){
+		if($TS_SITE['base']['isinvite']=='1'){
 		
 			$invitecode = trim($_POST['invitecode']);
 			if($invitecode == '') tsNotice("邀请码不能为空！");
-			$codeNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."user_invites where `invitecode`='$invitecode' and `isused`='0'");
-			if($codeNum['count(*)'] == 0) tsNotice("邀请码无效，请更换邀请码！");
+
+			$codeNum = $new['user']->findCount('user_invites',array(
+				'invitecode'=>$invitecode,
+				'isused'=>0,
+			));
+			
+			if($codeNum == 0) tsNotice("邀请码已经被使用，请更换其他邀请码！");
 		
 		}
 
-		$isEmail = $db->once_fetch_assoc("select count(*) from ".dbprefix."user where `email`='$email'");
+		$isEmail = $new['user']->findCount('user',array(
+			'email'=>$email,
+		));
 		
-		$isUserName = $db->once_fetch_assoc("select count(*) from ".dbprefix."user_info where `username`='$username'");
+		$isUserName = $new['user']->findCount('user_info',array(
+			'username'=>$username,
+		));
 		
 		if($email=='' || $pwd=='' || $repwd=='' || $username==''){
 		
@@ -48,13 +54,13 @@ switch($ts){
 		
 			tsNotice('Email邮箱输入有误!');
 			
-		}elseif($isEmail['count(*)'] > 0){
+		}elseif($isEmail > 0){
 			tsNotice('Email已经注册^_^');
 		}elseif($pwd != $repwd){
 			tsNotice('两次输入密码不正确！');
 		}elseif(strlen($username) < 4 || strlen($username) > 20){
 			tsNotice('姓名长度必须在4和20之间!');
-		}elseif($isUserName['count(*)'] > 0){
+		}elseif($isUserName > 0){
 			tsNotice("用户名已经存在，请换个用户名！");
 		}elseif($authcode != $_SESSION['authcode']){
 			tsNotice("验证码输入有误，请重新输入！");

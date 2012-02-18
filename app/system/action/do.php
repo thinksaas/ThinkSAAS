@@ -2,6 +2,7 @@
 defined('IN_TS') or die('Access Denied.');
 switch($ts){
 	case "options":
+	
 		$arrData = array(
 			'site_title' => trim($_POST['site_title']),
 			'site_subtitle' => trim($_POST['site_subtitle']),
@@ -10,17 +11,23 @@ switch($ts){
 			'site_url' => trim($_POST['site_url']),
 			'site_email' => trim($_POST['site_email']),
 			'site_icp' => trim($_POST['site_icp']),
-			'isface'	=> $_POST['isface'],
-			'isgzip'	=> $_POST['isgzip'],
+			'isface'	=> intval($_POST['isface']),
+			'isinvite'=> intval($_POST['isinvite']),
+			'isgzip'	=> intval($_POST['isgzip']),
 			'timezone'	=> $_POST['timezone'],
-			'lang'	=> $_POST['lang'],
 		);
 	
 		foreach ($arrData as $key => $val){
-			$db->query("UPDATE ".dbprefix."system_options SET optionvalue='$val' where optionname='$key'");
+
+			$new['system']->update('system_options',array(
+				'optionname'=>$key,
+			),array(
+				'optionvalue'=>$val,
+			));
+			
 		}
 		
-		$arrOptions = $db->fetch_all_assoc("select optionname,optionvalue from ".dbprefix."system_options");
+		$arrOptions = $new['system']->findAll('system_options',null,null,'optionname,optionvalue');
 		foreach($arrOptions as $item){
 				$arrOption[$item['optionname']] = $item['optionvalue'];
 		}
