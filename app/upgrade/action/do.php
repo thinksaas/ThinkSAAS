@@ -1,16 +1,38 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-//1.5-1203到1.5-1210升级
+//1.6到1.7升级
 
+//1.7
 
-if($db->once_num_rows("DESCRIBE ".dbprefix."photo_album isrecommend")== '0'){
-	$db->query("ALTER TABLE `".dbprefix."photo_album` ADD `isrecommend` TINYINT( 1 ) NOT NULL DEFAULT '0' COMMENT '是否推荐' AFTER `count_view`;");
-	$db->query("ALTER TABLE `ts_photo_album` ADD INDEX ( `isrecommend` );");
+if($db->once_num_rows("DESCRIBE ".dbprefix."user_info qqt_oauth_token") > 0){
+	$db->query("ALTER TABLE `".dbprefix."user_info`
+  DROP `qqt_oauth_token`,
+  DROP `qqt_oauth_token_secret`;");
 }
 
-$db->query("ALTER TABLE `".dbprefix."feed` CHANGE `template` `template` VARCHAR( 1024 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '动态模板'");
+if($db->once_num_rows("DESCRIBE ".dbprefix."user salt")== 0){
+	$db->query("ALTER TABLE `".dbprefix."user` ADD `salt` CHAR( 32 ) NOT NULL DEFAULT '' COMMENT '加点盐' AFTER `pwd` ;");
+}
 
-$db->query("ALTER TABLE `".dbprefix."feed` CHANGE `data` `data` VARCHAR( 1024 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '动态数据'");
+if($db->once_num_rows("DESCRIBE ".dbprefix."user_options optionid") > 0){
+	$db->query("ALTER TABLE `".dbprefix."user_options` DROP `optionid` ;");
+}
+
+if($db->once_num_rows("DESCRIBE ".dbprefix."system_options optionid") > 0){
+	$db->query("ALTER TABLE `".dbprefix."system_options` DROP `optionid` ;");
+}
+
+if($db->once_num_rows("select * from ".dbprefix."system_options where `optionname`='isinvite'") == 0){
+	$db->query("INSERT INTO`".dbprefix."system_options` (`optionname`, `optionvalue`) VALUES ('isinvite', '0');");
+}
+
+if($db->once_num_rows("select * from ".dbprefix."user_options where `optionname`='isregister'") > 0){
+	$db->query("DELETE FROM `".dbprefix."user_options` WHERE `optionname` = 'isregister';");
+}
+
+if($db->once_num_rows("select * from ".dbprefix."system_options where `optionname`='lang'") > 0){
+	$db->query("DELETE FROM `".dbprefix."system_options` WHERE `optionname` = 'lang';");
+}
 
 //////////////////////////////////此处向下不用修改////////////////////////////////////
 
@@ -29,4 +51,4 @@ unlink('data/up.php');
 delDirFile('cache/template');
 
 //升级完成后跳转到首页
-header("Location: ".SITE_URL.'index.php');
+header("Location: ".SITE_URL);
