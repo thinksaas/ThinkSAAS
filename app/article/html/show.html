@@ -3,7 +3,7 @@
 <div class="mc">
 <h1>{$strArticle[title]}</h1>
 <div class="cleft" style="width:650px;">
-<div style="text-align:center;color:#999999;padding-bottom: 10px;border-bottom: 1px solid #DDDDDD;"><a href="{SITE_URL}{tsurl('user','space',array('id'=>$strArticle[user][userid]))}">{$strArticle[user][username]}</a> 发表于 {php echo date('Y-m-d H:i:s',$strArticle[addtime])}</div>
+<div style="text-align:center;color:#999999;padding-bottom: 10px;border-bottom: 1px solid #DDDDDD;"><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$strArticle[user][userid]))}">{$strArticle[user][username]}</a> 发表于 {php echo date('Y-m-d H:i:s',$strArticle[addtime])}</div>
 
 <div style="font-size:14px;line-height:25px;">
 {$strArticle[content]}
@@ -32,12 +32,12 @@
 <!--{loop $arrComment $key $item}-->
 <li class="clearfix">
 <div class="user-face">
-<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}"></a>
+<a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}"></a>
 </div>
 <div class="reply-doc" style="width:580px;">
 <h4>
 {php echo date('Y-m-d H:i:s',$item[addtime])} 
-<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+<a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
 </h4>
 <p>{$item[content]}</p>
 <!--{if $TS_USER[user][userid] == $strArticle[userid]}-->
@@ -60,7 +60,7 @@
 <h2>你的回复</h2>
 <div>
 <!--{if intval($TS_USER[user][userid])==0}-->
-<div style="border:solid 1px #DDDDDD; text-align:center;padding:20px 0"><a href="{SITE_URL}{tsurl('user','login')}">登录</a> | <a href="{SITE_URL}{tsurl('user','register')}">注册</a></div>
+<div style="border:solid 1px #DDDDDD; text-align:center;padding:20px 0"><a href="{SITE_URL}{tsUrl('user','login')}">登录</a> | <a href="{SITE_URL}{tsUrl('user','register')}">注册</a></div>
 <!--{else}-->
 <form method="POST" action="{SITE_URL}index.php?app=article&ac=comment&ts=do" onSubmit="return submitonce(this)" id="formMini">
 <textarea style="width:100%;height:100px;" id="editor_mini" name="content"></textarea><br>
@@ -76,7 +76,7 @@
 
 <div class="cright" style="width:250px;">
 
-<p style="font-size:14px;"><a href="{SITE_URL}{tsurl('article','cate',array(cateid=>$strArticle[cate][cateid]))}">返回{$strArticle[cate][catename]}</a></p>
+<p style="font-size:14px;"><a href="{SITE_URL}{tsUrl('article','cate',array(cateid=>$strArticle[cate][cateid]))}">返回{$strArticle[cate][catename]}</a></p>
 
 <p class="pl2">
 <a style="background:#336699;color:#FFFFFF;padding:5px 20px;font-size:14px;" href="{SITE_URL}index.php?app=article&ac=add&cateid={$strArticle[cate][cateid]}">

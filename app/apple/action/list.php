@@ -2,7 +2,7 @@
 defined('IN_TS') or die('Access Denied.');
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-$url = SITE_URL.tsurl('apple','list',array('page'=>''));
+$url = SITE_URL.tsUrl('apple','list',array('page'=>''));
 $lstart = $page*20-20;
 
 $arrApples = $db->fetch_all_assoc("select * from ".dbprefix."apple order by addtime desc limit $lstart,20");

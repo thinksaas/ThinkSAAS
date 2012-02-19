@@ -6,7 +6,7 @@ switch($ts){
 		$userid = intval($TS_USER['user']['userid']);
 		
 		if($userid == 0){
-			header("Location: ".SITE_URL.tsurl('user','login'));
+			header("Location: ".SITE_URL.tsUrl('user','login'));
 		}else{
 			
 			$articleid = $_POST['articleid'];
@@ -27,7 +27,7 @@ switch($ts){
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 			//msg end
 			
-			header("Location: ".SITE_URL.tsurl('article','show',array('articleid'=>$articleid)));
+			header("Location: ".SITE_URL.tsUrl('article','show',array('articleid'=>$articleid)));
 			
 		}
 		

@@ -5,7 +5,7 @@ $strCate = $new['article']->getOneCate($cateid);
 
 //列表 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-$url = SITE_URL.tsurl('article','cate',array('cateid'=>$cateid,'page'=>''));
+$url = SITE_URL.tsUrl('article','cate',array('cateid'=>$cateid,'page'=>''));
 $lstart = $page*10-10;
 
 $arrArticles = $db->fetch_all_assoc("select * from ".dbprefix."article where `cateid`='$cateid' and `isaudit`='0' order by addtime desc limit $lstart, 10");

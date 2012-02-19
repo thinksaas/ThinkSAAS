@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 $userid = intval($TS_USER['user']['userid']);
 
 if($userid == 0){
-	header("Location: ".SITE_URL.tsurl('user','login'));
+	header("Location: ".SITE_URL.tsUrl('user','login'));
 	exit;
 }
 
@@ -48,7 +48,7 @@ switch($ts){
 		
 		$db->query("update ".dbprefix."article set `cateid`='$cateid',`title`='$title',`content`='$content',`isphoto`='$isphoto',`isattach`='$isattach' where `articleid`='$articleid'");
 		
-		header("Location: ".SITE_URL.tsurl('article','show',array('articleid'=>$articleid)));
+		header("Location: ".SITE_URL.tsUrl('article','show',array('articleid'=>$articleid)));
 		
 		break;
 }

@@ -127,7 +127,7 @@
 <ul class="ul_subject_menu bicelink color_gray pt6 clearfix">
 <li>
 <img src="http://img3.douban.com/pics/add-review.gif">&nbsp;
-<a rel="nofollow" href="{SITE_URL}{tsurl('apple','review',array('ts'=>'add','appleid'=>$strApple[appleid]))}">写点评</a>
+<a rel="nofollow" href="{SITE_URL}{tsUrl('apple','review',array('ts'=>'add','appleid'=>$strApple[appleid]))}">写点评</a>
 </li>
 </ul>
 </div>
@@ -154,7 +154,7 @@
 <div class="clear"></div>
 <h2 class="clearfix">
 点评&nbsp;&nbsp;· · · · · ·&nbsp;<span class="pl">(<a href="#">共<span property="v:count">{$reviewNumCount}</span>条</a>)</span>
-<a rel="nofollow" href="{SITE_URL}{tsurl('apple','review',array('ts'=>'add','appleid'=>$strApple[appleid]))}" class="redbutt rr j a_show_login"><span>我要写点评</span></a>
+<a rel="nofollow" href="{SITE_URL}{tsUrl('apple','review',array('ts'=>'add','appleid'=>$strApple[appleid]))}" class="redbutt rr j a_show_login"><span>我要写点评</span></a>
 
 </h2>
 
@@ -164,7 +164,7 @@
 <!--{loop $arrReview $key $item}-->
 <div class="ctsh">
 <ul style="clear:both" class="tlst clearfix">
-<li class="nlst"><h3><a style="float:left" href="{SITE_URL}{tsurl('apple','review',array('reviewid'=>$item[reviewid]))}" title="{$item[title]}">{$item[title]}</a></h3></li>
+<li class="nlst"><h3><a style="float:left" href="{SITE_URL}{tsUrl('apple','review',array('reviewid'=>$item[reviewid]))}" title="{$item[title]}">{$item[title]}</a></h3></li>
 <li style="clear:both;" class="ilst">
 <a title="{$item[user][username]}" href="#"><img alt="{$item[user][username]}" src="{$item[user][face]}" class="pil"></a>
 </li>

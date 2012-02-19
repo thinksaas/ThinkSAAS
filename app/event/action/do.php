@@ -61,43 +61,21 @@ defined('IN_TS') or die('Access Denied.');
 			//生成缓存文件
 			fileWrite('event_types.php','data',$arrTypes);
 			
-			//上传海报图片 
-			if (!empty($_FILES)) {
+			//上传
+			$arrUpload = tsUpload($_FILES['photo'],$eventid,'event',array('jpg','gif','png'));
 			
-				$uptypes = array('jpg','gif','png');
-				
-				//1000个文件一个目录 
-				$menu2=intval($eventid/1000);
-				$menu1=intval($menu2/1000);
-				$menu = $menu1.'/'.$menu2;
-				
-				$newdir = $menu;
-				$dest_dir='uploadfile/event/'.$newdir;
+			if($arrUpload){
 
-				createFolders($dest_dir);
-				
-				$photoname = $_FILES["photo"]['name'];
-				
-				$arrType = explode('.',$photoname);
-				$phototype = $arrType[1];
-				
-				if (in_array($phototype,$uptypes)) {
-					//上传图片
-					$fileInfo=pathinfo($photoname);
-					$extension=$fileInfo['extension'];
-					$newphotoname = $eventid.'.'.$extension;
-					$dest=$dest_dir.'/'.$newphotoname;
-					move_uploaded_file($_FILES['photo']['tmp_name'], mb_convert_encoding($dest,"gb2312","UTF-8"));
-					chmod($dest, 0777); 
-					
-					$poster = $newdir.'/'.$newphotoname;
-					
-					$db->query("update ".dbprefix."event set `path`='$menu',`poster`='$poster' where eventid='$eventid'");
-					
-				}
+				$new['event']->update('event',array(
+					'eventid'=>$eventid,
+				),array(
+					'path'=>$arrUpload['path'],
+					'poster'=>$arrUpload['url'],
+				));
+
 			}
 			
-			header("Location: ".SITE_URL."index.php?app=event&ac=show&eventid=".$eventid);
+			header("Location: ".SITE_URL.tsUrl('event','show',array('eventid'=>$eventid)));
 			
 			break;
 	
@@ -135,7 +113,7 @@ defined('IN_TS') or die('Access Denied.');
 				}
 				
 				$feed_data = array(
-					'link'	=> SITE_URL.tsurl('event','show',array('eventid'=>$eventid)),
+					'link'	=> SITE_URL.tsUrl('event','show',array('eventid'=>$eventid)),
 					'title'	=> $strEvent['title'],
 					'content'	=> '开始时间：'.$strEvent['time_start'].' / 地点：'.$strEvent['address'].' / 参加人数：'.$strEvent['count_userdo'],
 				);

@@ -8,7 +8,7 @@
 <div class="clist">
 <ul>
 <!--{loop $arrArticle $key $item}-->
-<li><a target="_blank" href="{SITE_URL}{tsurl('article','show',array('articleid'=>$item[articleid]))}">{$item[title]}</a>
+<li><a target="_blank" href="{SITE_URL}{tsUrl('article','show',array('articleid'=>$item[articleid]))}">{$item[title]}</a>
 </li>
 <!--{/loop}-->
 </ul>
@@ -24,13 +24,13 @@
 <div class="cate">
 <ul>
 <!--{loop $arrCate $key $item}-->
-<li><a href="{SITE_URL}{tsurl('article','cate',array('cateid'=>$item[cateid]))}">{$item[catename]}</a></li>
+<li><a href="{SITE_URL}{tsUrl('article','cate',array('cateid'=>$item[cateid]))}">{$item[catename]}</a></li>
 <!--{/loop}-->
 </ul>
 </div>
 
 <!--{if intval($TS_USER[user][isadmin]) == 1}-->
-<p><a href="{SITE_URL}{tsurl('article','audit')}">待审核文章({$auditNum})</a></p>
+<p><a href="{SITE_URL}{tsUrl('article','audit')}">待审核文章({$auditNum})</a></p>
 <!--{/if}-->
 
 </div>

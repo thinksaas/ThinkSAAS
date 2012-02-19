@@ -20,7 +20,7 @@ switch($ts){
 		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 		//msg end
 		
-		header("Location: ".SITE_URL.tsurl('article','show',array('articleid'=>$articleid)));
+		header("Location: ".SITE_URL.tsUrl('article','show',array('articleid'=>$articleid)));
 		
 		break;
 		
@@ -37,7 +37,7 @@ switch($ts){
 			$db->query("delete from ".dbprefix."article where `articleid`='$articleid'");
 			$db->query("delete from ".dbprefix."article_comment where `articleid`='$articleid'");
 			
-			header("Location: ".SITE_URL.tsurl('article'));
+			header("Location: ".SITE_URL.tsUrl('article'));
 			
 		}else{
 			qiMsg("非法操作！");

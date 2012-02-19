@@ -66,7 +66,7 @@
     
     <span class="mn" content="{php echo date('Y-m-d H:i:s',$strReview[addtime])}" property="v:dtreviewed">{php echo date('Y-m-d H:i:s',$strReview[addtime])}</span>
     <span class="pl2">　　来自: <a href="#"><span property="v:reviewer">{$strReview[user][username]}</span></a>
-    <br><a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$strApple[appleid]))}"><span property="v:itemreviewed">《{$strApple[title]}》</span></a>的评论
+    <br><a href="{SITE_URL}{tsUrl('apple','show',array('appleid'=>$strApple[appleid]))}"><span property="v:itemreviewed">《{$strApple[title]}》</span></a>的评论
     <!-- <span title="力荐">&nbsp;&nbsp;<img vspace="0" alt="5 star rating" src="http://img3.douban.com/pics/st.gif" class="rating"><img vspace="0" alt="5 star rating" src="http://img3.douban.com/pics/st.gif" class="rating"><img vspace="0" alt="5 star rating" src="http://img3.douban.com/pics/st.gif" class="rating"><img vspace="0" alt="5 star rating" src="http://img3.douban.com/pics/st.gif" class="rating"><img vspace="0" alt="5 star rating" src="http://img3.douban.com/pics/st.gif" class="rating"></span> -->
     <span property="v:rating">5 分</span>
     </span><br><br>
@@ -101,10 +101,10 @@
 <div class="cright">
 <div class="copyright indent">本评论版权属于作者{$strReview[user][username]}，并受法律保护。除非评论正文中另有声明，没有作者本人的书面许可任何人不得转载或使用整体或任何部分的内容。</div>
 
-<h2>《<a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$strApple[appleid]))}">{$strApple[title]}</a>》</h2>
+<h2>《<a href="{SITE_URL}{tsUrl('apple','show',array('appleid'=>$strApple[appleid]))}">{$strApple[title]}</a>》</h2>
 <div class="indent">
 <div>
-<a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$strApple[appleid]))}">
+<a href="{SITE_URL}{tsUrl('apple','show',array('appleid'=>$strApple[appleid]))}">
 
 <img src="<!--{if $strApple[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($strApple[photo],'apple',150,'150',$strApple[path])}<!--{/if}-->" title="{$strApple[title]}" alt="{$strApple[title]}" class="fil"></a>
 <br clear="all">

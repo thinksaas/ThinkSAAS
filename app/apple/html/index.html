@@ -126,9 +126,9 @@ h3 {
 
 <!--{loop $arrApple $key $item}-->
 <li class="clearfix">
-<div class="img"><a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$item[appleid]))}"><img src="<!--{if $item[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($item[photo],'apple',80,'',$item[path])}<!--{/if}-->" /></a></div>
+<div class="img"><a href="{SITE_URL}{tsUrl('apple','show',array('appleid'=>$item[appleid]))}"><img src="<!--{if $item[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($item[photo],'apple',80,'',$item[path])}<!--{/if}-->" /></a></div>
 <div class="intro">
-<h3><a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$item[appleid]))}">{$item[title]}</a></h3>
+<h3><a href="{SITE_URL}{tsUrl('apple','show',array('appleid'=>$item[appleid]))}">{$item[title]}</a></h3>
 
 <!--{loop $item[model] $mkey $mitem}-->
 <span class="pl">{$mitem[virtuename]} ：</span> {$mitem[parameter]}<br>
@@ -139,7 +139,7 @@ h3 {
 <!--{/loop}-->
 </ul>
 <div class="clear"></div>
-<div style="float:right">&gt; <a href="{SITE_URL}{tsurl('apple','list')}">更多书籍</a></div>
+<div style="float:right">&gt; <a href="{SITE_URL}{tsUrl('apple','list')}">更多书籍</a></div>
 </div>
 
 <div class="movie_review clearfix">
@@ -148,18 +148,18 @@ h3 {
 
 <!--{loop $arrReview $key $item}-->
 <ul style="clear:both" class="tlst clearfix">
-<li class="nlst"><h3><a style="float:left" href="{SITE_URL}{tsurl('apple','review',array('reviewid'=>$item[reviewid]))}" title="{$item[title]}">{$item[title]}</a></h3></li>
+<li class="nlst"><h3><a style="float:left" href="{SITE_URL}{tsUrl('apple','review',array('reviewid'=>$item[reviewid]))}" title="{$item[title]}">{$item[title]}</a></h3></li>
 <li style="clear:both;" class="ilst">
 <a title="{$item[apple][title]}" href=""><img alt="{$item[apple][title]}" class="fil" src="http://img3.douban.com/spic/s7006205.jpg"></a>
 </li>
-<li class="clst"><span class="pl ll obss"><span class="starb"> <a href="">{$item[user][username]}</a> &nbsp;评论: <a href="{SITE_URL}{tsurl('apple','show',array('appleid'=>$item[appleid]))}">{$item[apple][title]}</a>
+<li class="clst"><span class="pl ll obss"><span class="starb"> <a href="">{$item[user][username]}</a> &nbsp;评论: <a href="{SITE_URL}{tsUrl('apple','show',array('appleid'=>$item[appleid]))}">{$item[apple][title]}</a>
 </span><span title="很差" class="stars1 stars"></span></span><br><br><div>{$item[content]}<a href="#" class="pl">(0回应)</a></div>
 </li>
 </ul>
 <div class="clear"></div>
 <!--{/loop}-->
 
-<div style="float:right">&gt; <a href="{SITE_URL}{tsurl('apple','review',array('ts'=>'list'))}">更多点评</a></div>
+<div style="float:right">&gt; <a href="{SITE_URL}{tsUrl('apple','review',array('ts'=>'list'))}">更多点评</a></div>
 </div>
 </div>
 

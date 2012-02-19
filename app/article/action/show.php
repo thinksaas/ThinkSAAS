@@ -11,7 +11,7 @@ $strArticle['cate'] = $new['article']->getOneCate($strArticle['cateid']);
 
 //获取评论
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-$url = SITE_URL.tsurl('article','show',array('articleid'=>$articleid,'page'=>''));
+$url = SITE_URL.tsUrl('article','show',array('articleid'=>$articleid,'page'=>''));
 $lstart = $page*10-10;
 $arrComments = $db->fetch_all_assoc("select * from ".dbprefix."article_comment where `articleid`='$articleid' order by addtime desc limit $lstart,10");
 foreach($arrComments as $key=>$item){

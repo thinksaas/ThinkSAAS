@@ -9,10 +9,10 @@
 <ul>
 <!--{loop $arrArticle $key $item}-->
 <li>
-<!--{if $item[photo]}--><a href="{SITE_URL}{tsurl('article','show',array('articleid'=>$item[articleid]))}"><img style="float:left;" src="{SITE_URL}{php echo miniimg($item[photo][photourl],'photo',180,140,$item[photo][path])}" /></a><!--{/if}-->
+<!--{if $item[photo]}--><a href="{SITE_URL}{tsUrl('article','show',array('articleid'=>$item[articleid]))}"><img style="float:left;" src="{SITE_URL}{php echo miniimg($item[photo][photourl],'photo',180,140,$item[photo][path])}" /></a><!--{/if}-->
 
-<h2><a href="{SITE_URL}{tsurl('article','show',array('articleid'=>$item[articleid]))}">{$item[title]}</a></h2>
-<span><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {php echo date('Y-m-d H:i:s',$item[addtime])}</span>
+<h2><a href="{SITE_URL}{tsUrl('article','show',array('articleid'=>$item[articleid]))}">{$item[title]}</a></h2>
+<span><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {php echo date('Y-m-d H:i:s',$item[addtime])}</span>
 
 <p>{$item[content]}</p>
 <div class="clear"></div>
@@ -37,13 +37,13 @@
 <div class="cate">
 <ul>
 <!--{loop $arrCate $key $item}-->
-<li><a href="{SITE_URL}{tsurl('article','cate',array('cateid'=>$item[cateid]))}">{$item[catename]}</a></li>
+<li><a href="{SITE_URL}{tsUrl('article','cate',array('cateid'=>$item[cateid]))}">{$item[catename]}</a></li>
 <!--{/loop}-->
 </ul>
 </div>
 
 <!--{if intval($TS_USER[user][isadmin]) == 1}-->
-<p><a href="{SITE_URL}{tsurl('article','audit')}">待审核文章({$auditNum})</a></p>
+<p><a href="{SITE_URL}{tsUrl('article','audit')}">待审核文章({$auditNum})</a></p>
 <!--{/if}-->
 
 </div>
