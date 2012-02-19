@@ -1,0 +1,17 @@
+ThinkSAAS Development documents
+version 1.7
+
+一、tsFunction基础函数
+
+1、aac
+2、tsUrl
+
+二、tsApp类函数
+
+1、create
+2、replace
+3、update
+4、delete
+5、find
+6、findAll
+7、findCount
