@@ -60,11 +60,11 @@ $(document).ready(function() {
 <div class="cleft">
 
 <!--{if intval($TS_USER[user][userid])=='0'}-->
-<div style="font-size:14px;line-height:25px;padding-top:50px;text-align:center;">请登陆后再申请创建小组哦<br /><a href="{SITE_URL}{tsurl('user','login')}">点击登陆</a></div>
+<div style="font-size:14px;line-height:25px;padding-top:50px;text-align:center;">请登陆后再申请创建小组哦<br /><a href="{SITE_URL}{tsUrl('user','login')}">点击登陆</a></div>
 
 <!--{elseif $TS_APP[options][iscreate] == '1' && intval($TS_USER[user][isadmin])=='0'}-->
 
-<div style="font-size:14px;line-height:25px;padding-top:50px;text-align:center;">暂停申请创建小组，稍后开放<br /><a href="{SITE_URL}{tsurl('group')}">返回我的小组</a></div>
+<div style="font-size:14px;line-height:25px;padding-top:50px;text-align:center;">暂停申请创建小组，稍后开放<br /><a href="{SITE_URL}{tsUrl('group')}">返回我的小组</a></div>
 
 <!--{else}-->
 

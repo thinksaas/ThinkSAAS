@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
 $userid = intval($TS_USER['user']['userid']);
 
 if($userid == 0){
-	header("Location: ".SITE_URL.tsurl('user','login'));
+	header("Location: ".SITE_URL.tsUrl('user','login'));
 	exit;
 }
 

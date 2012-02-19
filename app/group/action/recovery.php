@@ -15,7 +15,7 @@ $title = $strGroup['groupname'];
  
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
-$url = SITE_URL.tsurl('group','recovery',array('groupid'=>$groupid,'page'=>''));
+$url = SITE_URL.tsUrl('group','recovery',array('groupid'=>$groupid,'page'=>''));
 
 $lstart = $page*30-30;
 

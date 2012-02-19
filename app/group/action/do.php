@@ -8,7 +8,7 @@ if($ts=='addcomment'){
 		//用户是否登录
 		$userid = intval($TS_USER['user']['userid']);
 		if($userid == 0){
-			header("Location: ".SITE_URL.tsurl('user','login'));
+			header("Location: ".SITE_URL.tsUrl('user','login'));
 			exit;
 		}
 		
@@ -53,7 +53,7 @@ if($ts=='addcomment'){
 				$msg_userid = '0';
 				$msg_touserid = $strTopic['userid'];
 				$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ <br />'
-											.SITE_URL.tsurl('group','topic',array('id'=>$topicid));
+											.SITE_URL.tsUrl('group','topic',array('id'=>$topicid));
 				aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 				
 			}
@@ -63,7 +63,7 @@ if($ts=='addcomment'){
 			$feed_template = '<span class="pl">评论了帖子：<a href="{link}">{title}</a></span><div class="quote"><span class="inq">{content}</span> <span><a class="j a_saying_reply" href="{link}" rev="unfold">回应</a>
     </span></div>';
 			$feed_data = array(
-				'link'	=> SITE_URL.tsurl('group','topic',array('id'=>$topicid)),
+				'link'	=> SITE_URL.tsUrl('group','topic',array('id'=>$topicid)),
 				'title'	=> $strTopic['title'],
 				'content'	=> getsubstrutf8(t($content),'0','50'),
 			);
@@ -71,7 +71,7 @@ if($ts=='addcomment'){
 			//feed结束
 			
 			
-			header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
+			header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$topicid)));
 		}	
 	}
 }
@@ -84,7 +84,7 @@ switch ($ts) {
 		$userid = intval($TS_USER['user']['userid']);
 		
 		if($userid == 0){
-			header("Location: ".SITE_URL.tsurl('user','login'));
+			header("Location: ".SITE_URL.tsUrl('user','login'));
 			exit;
 		}
 	
@@ -183,16 +183,16 @@ switch ($ts) {
 			//feed开始
 			$feed_template = '<span class="pl">在 <a href="{group_link}">{group_name}</a> 创建了新话题：<a href="{topic_link}">{topic_title}</a></span><div class="broadsmr">{content}</div><div class="indentrec"><span><a  class="j a_rec_reply" href="{topic_link}">回应</a></span></div>';
 			$feed_data = array(
-				'group_link'	=> SITE_URL.tsurl('group','show',array('id'=>$strGroup['groupid'])),
+				'group_link'	=> SITE_URL.tsUrl('group','show',array('id'=>$strGroup['groupid'])),
 				'group_name'	=> $strGroup['groupname'],
-				'topic_link'	=> SITE_URL.tsurl('group','topic',array('id'=>$topicid)),
+				'topic_link'	=> SITE_URL.tsUrl('group','topic',array('id'=>$topicid)),
 				'topic_title'	=> $title,
 				'content'	=> getsubstrutf8(t($content),'0','50'),
 			);
 			aac('feed')->addFeed($userid,$feed_template,serialize($feed_data));
 			//feed结束
 			
-			header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
+			header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$topicid)));
 			
 		}
 		break;
@@ -391,7 +391,7 @@ switch ($ts) {
 		$count_attach = $db->once_num_rows("select * from ".dbprefix."group_topics_attachs where topicid='".$topicid."'");
 		$db->query("update ".dbprefix."group_topics set `count_attach`='".$count_attach."' where topicid='".$topicid."'");
 		
-		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
+		header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$topicid)));
 		
 		break;
 	
@@ -401,7 +401,7 @@ switch ($ts) {
 		//用户是否登录
 		$userid = intval($TS_USER['user']['userid']);
 		if($userid == 0){
-			header("Location: ".SITE_URL.tsurl('user','login'));
+			header("Location: ".SITE_URL.tsUrl('user','login'));
 			exit;
 		}
 		
@@ -471,7 +471,7 @@ switch ($ts) {
 		//更新
 		$db->query("update ".dbprefix."group set `count_user` = '1' where groupid='".$groupid."'");
 
-		header("Location: ".SITE_URL.tsurl('group','show',array('id'=>$groupid)));
+		header("Location: ".SITE_URL.tsUrl('group','show',array('id'=>$groupid)));
 		
 		break;
 		
@@ -481,7 +481,7 @@ switch ($ts) {
 		//用户是否登录
 		$userid = intval($TS_USER['user']['userid']);
 		if($userid == 0){
-			header("Location: ".SITE_URL.tsurl('user','login'));
+			header("Location: ".SITE_URL.tsUrl('user','login'));
 			exit;
 		}
 		
@@ -501,7 +501,7 @@ switch ($ts) {
 		}
 		
 		//跳转回到帖子页
-		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$strComment['topicid'])));
+		header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$strComment['topicid'])));
 		
 		
 		break;
@@ -593,7 +593,7 @@ switch ($ts) {
 			
 			$db->updateArr($arrData,dbprefix.'group_topics','where topicid='.$topicid.'');
 
-			header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
+			header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$topicid)));
 			
 		}else{
 			header("Location: ".SITE_URL);
@@ -633,7 +633,7 @@ switch ($ts) {
 		//用户是否登录
 		$userid = intval($TS_USER['user']['userid']);
 		if($userid == 0){
-			header("Location: ".SITE_URL.tsurl('user','login'));
+			header("Location: ".SITE_URL.tsUrl('user','login'));
 			exit;
 		}
 		
@@ -660,7 +660,7 @@ switch ($ts) {
 		//用户是否登录
 		$userid = intval($TS_USER['user']['userid']);
 		if($userid == 0){
-			header("Location: ".SITE_URL.tsurl('user','login'));
+			header("Location: ".SITE_URL.tsUrl('user','login'));
 			exit;
 		}
 		
@@ -748,7 +748,7 @@ switch ($ts) {
 		if($typename != '')
 		  $db->query("insert into ".dbprefix."group_topics_type (`groupid`,`typename`) values ('$groupid','$typename')");
 		
-		header("Location: ".SITE_URL.tsurl('group','edit',array('groupid'=>$groupid,'ts'=>'type')));
+		header("Location: ".SITE_URL.tsUrl('group','edit',array('groupid'=>$groupid,'ts'=>'type')));
 		
 		break;
 			
@@ -778,14 +778,14 @@ switch ($ts) {
 		if($topicid && $strTopic['userid'] != $TS_USER['user']['userid']){
 			$msg_userid = '0';
 			$msg_touserid = $strTopic['userid'];
-			$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ <br />'.SITE_URL.tsurl('group','topic',array('id'=>$topicid));
+			$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ <br />'.SITE_URL.tsUrl('group','topic',array('id'=>$topicid));
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 		}
 		
 		if($referid && $strComment['userid'] != $TS_USER['user']['userid']){
 			$msg_userid = '0';
 			$msg_touserid = $strComment['userid'];
-			$msg_content = '有人评论了你在帖子：《'.$strTopic['title'].'》中的回复，快去看看给个回复吧^_^ <br />'.SITE_URL.tsurl('group','topic',array('id'=>$topicid));
+			$msg_content = '有人评论了你在帖子：《'.$strTopic['title'].'》中的回复，快去看看给个回复吧^_^ <br />'.SITE_URL.tsUrl('group','topic',array('id'=>$topicid));
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 		}
 		
@@ -890,7 +890,7 @@ switch ($ts) {
 		
 		$db->query("update ".dbprefix."group_topics set `groupid`='$groupid' where topicid='$topicid'");
 		
-		header("Location: ".SITE_URL.tsurl('group','topic',array('id'=>$topicid)));
+		header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$topicid)));
 		
 		break;
 		
@@ -899,7 +899,7 @@ switch ($ts) {
 		//用户是否登录
 		$userid = intval($TS_USER['user']['userid']);
 		if($userid == 0){
-			header("Location: ".SITE_URL.tsurl('user','login'));
+			header("Location: ".SITE_URL.tsUrl('user','login'));
 			exit;
 		}
 		$topicid = intval($_GET['topicid']);
@@ -917,7 +917,7 @@ switch ($ts) {
 				//msg start
 				$msg_userid = '0';
 				$msg_touserid = $strTopic['userid'];
-				$msg_content = '恭喜，你的帖子：《'.$strTopic['title'].'》被评为精华帖啦^_^ <br />'.SITE_URL.tsurl('group','topic',array('id'=>$topicid));
+				$msg_content = '恭喜，你的帖子：《'.$strTopic['title'].'》被评为精华帖啦^_^ <br />'.SITE_URL.tsUrl('group','topic',array('id'=>$topicid));
 				aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 				//msg end
 				

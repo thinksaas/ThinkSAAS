@@ -7,7 +7,7 @@ if($TS_USER['user'] == ''){
 
 	//所有小组
 	$page = isset($_GET['page']) ? $_GET['page'] : '1';
-	$url = SITE_URL.tsurl('group','all',array('page'=>''));
+	$url = SITE_URL.tsUrl('group','all',array('page'=>''));
 	$lstart = $page*20-20;
 	
 	$arrGroups = $new['group']->findAll('group',null,'isrecommend desc','groupid',$lstart.',20');
@@ -46,7 +46,7 @@ if($TS_USER['user'] == ''){
 	
 	//小组模式的跳转
 	if(intval($TS_APP['options']['ismode'])=='1'){
-		header("Location: ".SITE_URL.tsurl('group','show',array('id'=>'1')));
+		header("Location: ".SITE_URL.tsUrl('group','show',array('id'=>'1')));
 		exit;
 	}
 	

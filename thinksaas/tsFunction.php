@@ -687,7 +687,7 @@ function ob_gzip($content) {
  * (3)group-topic-topicid-1.html   //rewrite模式1
  * (4)group/topic/topicid-1   //rewrite模式2
  */
-function tsurl($app,$ac='',$params=array()){
+function tsUrl($app,$ac='',$params=array()){
 	
 	if(is_file('data/system_options.php')){
 		$options = include 'data/system_options.php';
@@ -813,8 +813,17 @@ function delDirFile($dir){
 	}
 }
 
-//上传 
+/*
+ * ThinkSAAS专用上传函数 
+ * $file 要上传的文件 如$_FILES['photo']
+ * $projectid 上传针对的项目id  如$userid
+ * $dir 上传到目录  如 user
+ * $uptypes 上传类型，数组 array('jpg','png','gif')
+ *
+ * 返回数组：array('name'=>'','path'=>'','url'=>'','path'=>'','size'=>'')
+ */
 function tsUpload($files,$projectid,$dir,$uptypes){
+
 	if (!empty($files)) {
 		
 		$menu2=intval($projectid/1000);

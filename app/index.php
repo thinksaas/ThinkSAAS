@@ -84,13 +84,13 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	
 	//控制后台访问权限
 	if($TS_USER['admin']['isadmin'] != 1 && $app=='system' && $ac != 'login'){
-		header("Location: ".SITE_URL.tsurl('system','login'));
+		header("Location: ".SITE_URL.tsUrl('system','login'));
 		exit;
 	}
 	
 	//控制插件设置权限
 	if($TS_USER['admin']['isadmin'] != 1 && $in == 'edit'){
-		header("Location: ".SITE_URL.tsurl('system','login'));
+		header("Location: ".SITE_URL.tsUrl('system','login'));
 		exit;
 	}
 	
@@ -102,7 +102,7 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 		));
 		
 		if($faceUser['face']=='' && $ts != 'face'){
-			header("Location: ".SITE_URL.tsurl('user','set',array('ts'=>'face')));
+			header("Location: ".SITE_URL.tsUrl('user','set',array('ts'=>'face')));
 		}
 	}
 	

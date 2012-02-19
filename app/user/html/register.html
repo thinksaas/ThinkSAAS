@@ -103,7 +103,7 @@ obj.src = url+ '&nowtime=' + new Date().getTime();
 <p><a href="{SITE_URL}">[返回首页]</a></p>
 <!--{else}-->
 <p></p>
-<form  id="signupform" method="POST" action="{SITE_URL}{tsurl('user','register',array('ts'=>'do'))}">
+<form  id="signupform" method="POST" action="{SITE_URL}{tsUrl('user','register',array('ts'=>'do'))}">
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0"  class="Tabletext">
 
@@ -149,7 +149,7 @@ obj.src = url+ '&nowtime=' + new Date().getTime();
 <input type="hidden" name="fuserid" value="{$fuserid}" />
 <input class="submit" type="submit" value="注册" /> 
 
-<a href="{SITE_URL}{tsurl('user','login')}">登录</a></td>
+<a href="{SITE_URL}{tsUrl('user','login')}">登录</a></td>
 <td class="status"></td>
 </tr>
 

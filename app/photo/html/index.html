@@ -11,9 +11,9 @@
 
 <!--{loop $arrAlbum $key $item}-->
         <div class="box albumlst">
-        <a href="{SITE_URL}{tsurl('photo','album',array(ts=>photo,albumid=>$item[albumid]))}" class="album_photo"><img src="<!--{if $item[albumface] == ''}-->{SITE_URL}app/{$app}/skins/{$skin}/photo_album.png<!--{else}-->{SITE_URL}{php echo miniimg($item[albumface],'photo',170,170,$item[path],'1')}<!--{/if}-->"></a>
+        <a href="{SITE_URL}{tsUrl('photo','album',array(ts=>photo,albumid=>$item[albumid]))}" class="album_photo"><img src="<!--{if $item[albumface] == ''}-->{SITE_URL}app/{$app}/skins/{$skin}/photo_album.png<!--{else}-->{SITE_URL}{php echo miniimg($item[albumface],'photo',170,170,$item[path],'1')}<!--{/if}-->"></a>
         <div class="albumlst_r">
-            <div><a href="{SITE_URL}{tsurl('photo','albumid',array(ts=>photo,albumid=>$item[albumid]))}">{$item[albumname]}</a></div>
+            <div><a href="{SITE_URL}{tsUrl('photo','albumid',array(ts=>photo,albumid=>$item[albumid]))}">{$item[albumname]}</a></div>
         <div class="albumlst_descri">{$item[albumdesc]}</div>
 
         <span class="pl">
@@ -41,10 +41,10 @@
 <!--{loop $arrComment $key $item}-->
 <li class="mbtl">
 <!--{if $item[user][userid] !=$arrComment[$key-1][user][userid]}-->
-<a href="{SITE_URL}tsurl('user','space',array('id'=>$item[user][userid]))"><img src="{$item[user][face]}"></a>
+<a href="{SITE_URL}tsUrl('user','space',array('id'=>$item[user][userid]))"><img src="{$item[user][face]}"></a>
 <!--{/if}-->
 </li>
-<li class="mbtrdot"><a href="{SITE_URL}{tsurl('photo','show',array('photoid'=>$item[photoid]))}">$item[user][username] : {$item[content]}</a><span class="pl">  {php echo getTime($item[addtime],time())}</span>
+<li class="mbtrdot"><a href="{SITE_URL}{tsUrl('photo','show',array('photoid'=>$item[photoid]))}">$item[user][username] : {$item[content]}</a><span class="pl">  {php echo getTime($item[addtime],time())}</span>
 <div class="clear"></div>
 </li>
 <!--{/loop}-->

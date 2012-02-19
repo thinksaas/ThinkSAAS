@@ -30,7 +30,7 @@ if(is_array($strAdmin)){
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
-$url = SITE_URL.tsurl('group','group_user',array('groupid'=>$groupid,'page'=>''));
+$url = SITE_URL.tsUrl('group','group_user',array('groupid'=>$groupid,'page'=>''));
 
 
 $lstart = $page*40-40;

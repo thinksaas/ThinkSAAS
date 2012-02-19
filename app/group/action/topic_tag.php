@@ -10,7 +10,7 @@ $strTag = $db->once_fetch_assoc("select * from ".dbprefix."tag where tagid='$tag
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
-$url = SITE_URL.tsurl('group','topic_tag',array('tagid'=>$tagid,'page'=>''));
+$url = SITE_URL.tsUrl('group','topic_tag',array('tagid'=>$tagid,'page'=>''));
 
 $lstart = $page*30-30;
 

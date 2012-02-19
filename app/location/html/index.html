@@ -60,7 +60,7 @@
             <dl class="cf hasallcity"><dt>{$key}：</dt>
 		<dd>
 		{loop $item $akey $aitem}
-		<a href="{SITE_URL}{tsurl('location','area',array(areaid=>$aitem[areaid]))}" class="isonline ">{$aitem[areaname]}</a>
+		<a href="{SITE_URL}{tsUrl('location','area',array(areaid=>$aitem[areaid]))}" class="isonline ">{$aitem[areaname]}</a>
 		{/loop}
 		</dd>
 		</dl>

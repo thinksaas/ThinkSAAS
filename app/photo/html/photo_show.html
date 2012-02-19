@@ -8,25 +8,25 @@
 <div class="cleft">
 
 <div style="padding:3px;border-bottom:1px solid #ddd;margin:5px 0 10px 0;text-align:center;overflow: hidden;" class="pl">
-    <span class="rr">&gt; <a href="{SITE_URL}{tsurl('photo','album',array(ts=>photo,albumid=>$strAlbum[albumid]))}">返回相册</a></span>
+    <span class="rr">&gt; <a href="{SITE_URL}{tsUrl('photo','album',array(ts=>photo,albumid=>$strAlbum[albumid]))}">返回相册</a></span>
     <span class="ll">第{$nowPage}张 / 共{$conutPage}张</span>
  
 <!--{if $nowPage >1}-->
 <link href="#" rel="prev">
-<a id="pre_photo" title="用方向键←可以向前翻页" href="{SITE_URL}{tsurl('photo','show',array(photoid=>$prev))}">上一张</a>
+<a id="pre_photo" title="用方向键←可以向前翻页" href="{SITE_URL}{tsUrl('photo','show',array(photoid=>$prev))}">上一张</a>
 <!--{if $nowPage < $conutPage}-->
 /
 <!--{/if}-->
 <!--{/if}-->
 <!--{if $nowPage < $conutPage}-->
 <link href="#" rel="next">
-<a id="next_photo" title="用方向键→可以向后翻页" name="next_photo" href="{SITE_URL}{tsurl('photo','show',array(photoid=>$next))}">下一张</a>
+<a id="next_photo" title="用方向键→可以向后翻页" name="next_photo" href="{SITE_URL}{tsUrl('photo','show',array(photoid=>$next))}">下一张</a>
 <!--{/if}-->
 </div>
 
 <div style="text-align:center">
     <!--{if $nowPage < $conutPage}-->
-	<a title="点击查看下一张" href="{SITE_URL}{tsurl('photo','show',array(photoid=>$next))}" class="mainphoto">
+	<a title="点击查看下一张" href="{SITE_URL}{tsUrl('photo','show',array(photoid=>$next))}" class="mainphoto">
         <img src="{SITE_URL}{php echo miniimg($strPhoto[photourl],'photo',600,600,$strPhoto[path])}">
    </a>
    <!--{/if}-->
@@ -61,7 +61,7 @@
 </td>
 <td valign="top">
 <span class="wrap">
-<h4>{php echo date('Y-m-d H:i:s',$item[addtime])}: <a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a></h4>
+<h4>{php echo date('Y-m-d H:i:s',$item[addtime])}: <a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a></h4>
 </span>{$item[content]}<br>
 <div class="align-right">
 

@@ -166,13 +166,13 @@ switch($ts){
 			
 			$feed_data = array(
 				'photonum' => $num['count(*)'],
-				'albumlink'	=> SITE_URL.tsurl('photo','album',array('ts'=>'photo','albumid'=>$strAlbum['albumid'])),
+				'albumlink'	=> SITE_URL.tsUrl('photo','album',array('ts'=>'photo','albumid'=>$strAlbum['albumid'])),
 				'albumname'	=> $strAlbum['albumname'],
 			);
 			
 			foreach($arrPhoto as $key=>$item){
 				if($key < 4){
-					$feed_data['photolink'.$key] = SITE_URL.tsurl('photo','show',array('photoid'=>$item['photoid']));
+					$feed_data['photolink'.$key] = SITE_URL.tsUrl('photo','show',array('photoid'=>$item['photoid']));
 					$feed_data['photo'.$key] = SITE_URL.miniimg($item['photourl'],'photo',100,100,$item['path']);
 				}
 			}
@@ -209,7 +209,7 @@ switch($ts){
 			$db->query("update ".dbprefix."photo_album set `albumface`='$albumface' where `albumid`='$albumid'");
 		}
 		
-		header("Location: ".SITE_URL.tsurl('photo','album',array('ts'=>'photo','albumid'=>$albumid)));
+		header("Location: ".SITE_URL.tsUrl('photo','album',array('ts'=>'photo','albumid'=>$albumid)));
 		
 		break;
 	

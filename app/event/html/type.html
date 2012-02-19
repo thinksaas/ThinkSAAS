@@ -8,13 +8,13 @@
 <div class="block_menu">
 <em class="ft"></em><b class="ft"></b>
 <ul>
-<li class="clearfix" id="event_home"><a href="{SITE_URL}{tsurl('event')}"><span>活动首页</span></a></li>
+<li class="clearfix" id="event_home"><a href="{SITE_URL}{tsUrl('event')}"><span>活动首页</span></a></li>
 
 <div class="line"></div>
 
-<li class="clearfix <!--{if $typeid==0}-->on<!--{/if}-->"><a href="{SITE_URL}{tsurl('event','type',array(typeid=>0))}"><span>所有类型($arrEventType[count])</span></a></li>
+<li class="clearfix <!--{if $typeid==0}-->on<!--{/if}-->"><a href="{SITE_URL}{tsUrl('event','type',array(typeid=>0))}"><span>所有类型($arrEventType[count])</span></a></li>
 <!--{loop $arrEventType[list] $key $item}-->
-<li class="clearfix <!--{if $typeid==$item[typeid]}-->on<!--{/if}-->"><a href="{SITE_URL}{tsurl('event','type',array(typeid=>$item[typeid]))}"><span>{$item[typename]}({$item[count_event]})</span></a></li>
+<li class="clearfix <!--{if $typeid==$item[typeid]}-->on<!--{/if}-->"><a href="{SITE_URL}{tsUrl('event','type',array(typeid=>$item[typeid]))}"><span>{$item[typename]}({$item[count_event]})</span></a></li>
 <!--{/loop}-->
 </ul>
 <em class="fb"></em><b class="fb"></b>
@@ -28,11 +28,11 @@
 <div class="nof clearfix"><div class="evtlstimg">
 <a href="" class="phs_link">
 <img src="<!--{if $item[poster]}-->{SITE_URL}{php echo miniimg($item[poster],'event',100,100,$item[path],1)}<!--{else}-->{SITE_URL}public/images/event_dft.jpg<!--{/if}-->"></a>
-</div><h2><a href="{SITE_URL}{tsurl('event','show',array('eventid'=>$item[eventid]))}">{$item[title]}</a> <span class="pl2">[{$item[type][typename]}]</span></h2>
+</div><h2><a href="{SITE_URL}{tsUrl('event','show',array('eventid'=>$item[eventid]))}">{$item[title]}</a> <span class="pl2">[{$item[type][typename]}]</span></h2>
 <div class="pl intro">
 时间：{$item[time_start]} - {$item[time_end]}<br>
 地点：{$item[city][cityname]} {$item[area][areaname]} {$item[address]}<br>
-发起人：<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 
+发起人：<a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 
 <br>
 {$item[count_userdo]}人参加 &nbsp; {$item[count_userwish]}人感兴趣<br><br>
 </div></div>

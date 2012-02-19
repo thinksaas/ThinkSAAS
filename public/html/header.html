@@ -44,31 +44,31 @@
 <ul>
 <li><a href="{SITE_URL}index.php">首页</a></li>
 {php doAction('pub_header_nav')}
-<li><a href="{SITE_URL}{tsurl('group','explore')}">随便看看</a></li>
+<li><a href="{SITE_URL}{tsUrl('group','explore')}">随便看看</a></li>
 </ul>
 </div>
 
 <div class="right">
 <!--{if $TS_USER[user] == ''}-->
-<a href="{SITE_URL}{tsurl('user','register')}"><img class="fimg" src="{SITE_URL}public/images/user_normal.jpg" width="24" align="absmiddle" /></a> 欢迎您
+<a href="{SITE_URL}{tsUrl('user','register')}"><img class="fimg" src="{SITE_URL}public/images/user_normal.jpg" width="24" align="absmiddle" /></a> 欢迎您
 <br />
-<a href="{SITE_URL}{tsurl('user','login')}">登录</a> | <a href="{SITE_URL}{tsurl('user','register')}">注册</a>
+<a href="{SITE_URL}{tsUrl('user','login')}">登录</a> | <a href="{SITE_URL}{tsUrl('user','register')}">注册</a>
 <!--{else}-->
-<a href="{SITE_URL}{tsurl('user','space',array('id'=>$TS_USER[user][userid]))}">
+<a href="{SITE_URL}{tsUrl('user','space',array('id'=>$TS_USER[user][userid]))}">
 <img class="fimg" src="<!--{if $TS_USER[user][face]==""}-->{SITE_URL}public/images/user_normal.jpg<!--{else}-->{SITE_URL}{php echo miniimg($TS_USER[user][face],'user','24','24',$TS_USER[user][path],'1')}<!--{/if}-->" width="24" align="absmiddle" /> 
 </a>
-<a href="{SITE_URL}{tsurl('user','space',array('id'=>$TS_USER[user][userid]))}">{$TS_USER[user][username]}</a>   |  <span id="newmsg"><a href="{SITE_URL}{tsurl('message','my')}">消息盒子</a></span> <img src="{SITE_URL}public/images/score.gif" /> {$TS_USER[user][count_score]}
+<a href="{SITE_URL}{tsUrl('user','space',array('id'=>$TS_USER[user][userid]))}">{$TS_USER[user][username]}</a>   |  <span id="newmsg"><a href="{SITE_URL}{tsUrl('message','my')}">消息盒子</a></span> <img src="{SITE_URL}public/images/score.gif" /> {$TS_USER[user][count_score]}
 <br />
-<a href="{SITE_URL}{tsurl('user','set',array(ts=>base))}">设置</a>
+<a href="{SITE_URL}{tsUrl('user','set',array(ts=>base))}">设置</a>
 
 <!--{if $TS_SITE['base']['isinvite']=='1'}-->
- | <a href="{SITE_URL}{tsurl('user','invite')}">邀请码</a>  
+ | <a href="{SITE_URL}{tsUrl('user','invite')}">邀请码</a>  
 <!--{/if}-->
  
- | <a href="{SITE_URL}{tsurl('user','login',array(ts=>out))}">退出</a>
+ | <a href="{SITE_URL}{tsUrl('user','login',array(ts=>out))}">退出</a>
 <!--{/if}-->
 
-| <a href="{SITE_URL}{tsurl('home','theme')}">换肤</a>
+| <a href="{SITE_URL}{tsUrl('home','theme')}">换肤</a>
 
 {if $TS_USER['user']['isadmin']=='1'}
 |  <a target="_blank" href="{SITE_URL}index.php?app=system">系统管理</a>
@@ -84,7 +84,7 @@
 <div class="appnav">
 <ul>
 <!--{loop $TS_SITE[appnav] $key $item}-->
-<li <!--{if $app==$key}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsurl($key)}">{$item}</a></li>
+<li <!--{if $app==$key}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsUrl($key)}">{$item}</a></li>
 <!--{/loop}-->
 
 </ul>

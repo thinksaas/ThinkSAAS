@@ -22,4 +22,4 @@ include template("index"); */
 	
 }
 
-header("Location: ".SITE_URL.tsurl('location','area',array('areaid'=>$areaid)));
+header("Location: ".SITE_URL.tsUrl('location','area',array('areaid'=>$areaid)));

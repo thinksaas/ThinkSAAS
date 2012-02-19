@@ -16,13 +16,13 @@ if($strKey){
 $kw=urldecode(t($_GET['kw']));
 
 if($kw==''){
-	header("Location: ".SITE_URL.tsurl('search'));
+	header("Location: ".SITE_URL.tsUrl('search'));
 	exit;
 }
 
 
 if(strlen($kw)<2) {
-	header("Location: ".SITE_URL.tsurl('search'));
+	header("Location: ".SITE_URL.tsUrl('search'));
 	exit;
 };
 

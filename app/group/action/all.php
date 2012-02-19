@@ -2,7 +2,7 @@
 defined('IN_TS') or die('Access Denied.');
 //所有小组
 $page = isset($_GET['page']) ? $_GET['page'] : '1';
-$url = SITE_URL.tsurl('group','all',array('page'=>''));
+$url = SITE_URL.tsUrl('group','all',array('page'=>''));
 $lstart = $page*20-20;
 $arrGroups = $db->fetch_all_assoc("select groupid from ".dbprefix."group order by isrecommend desc limit $lstart,20");
 foreach($arrGroups as $key=>$item){

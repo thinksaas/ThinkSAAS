@@ -11,8 +11,8 @@
 
 <!--{loop $arrMyAdminGroup $key $item}-->
 <dl class="ob">
-<dt><a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}" width="48" /></a></dt>
-<dd><a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]})</span>
+<dt><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}" width="48" /></a></dt>
+<dd><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]})</span>
 </dd>
 </dl>
 <!--{/loop}-->
@@ -26,8 +26,8 @@
 
 <!--{loop $arrMyGroup $key $item}-->
 <dl class="ob">
-<dt><a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}" width="48" /></a></dt>
-<dd><a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]})</span>
+<dt><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_48]}" width="48" /></a></dt>
+<dd><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]})</span>
 </dd>
 </dl>
 <!--{/loop}-->
@@ -38,9 +38,9 @@
 
 <div class="cright">
 <div class="clear"></div>
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','cate')}">浏览小组分类</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','cate')}">浏览小组分类</a></p>
 <!--{if $TS_APP[options][iscreate]==0 || $TS_USER[user][isadmin]==1}-->
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','create')}">申请创建小组</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','create')}">申请创建小组</a></p>
 <!--{/if}-->
 <br />
 

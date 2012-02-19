@@ -14,7 +14,7 @@
 
 <div class="top-wp">
 <ul class="tabs">
-<li><a href="{SITE_URL}{tsurl('group','all')}">全部小组</a></li>
+<li><a href="{SITE_URL}{tsUrl('group','all')}">全部小组</a></li>
 <li><a class="current" href="{SITE_URL}"><span>最新帖子</span></a></li>
 </ul>
 </div>
@@ -30,7 +30,7 @@
 <li>
 <div class="userimg">
 <!--{if $item[user][userid] !=$arrTopic[$key-1][user][userid]}-->
-<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a>
+<a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a>
 <!--{else}-->
 &nbsp;
 <!--{/if}-->
@@ -38,7 +38,7 @@
 
 <div class="topic_title">
 <div class="title">
-<a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
+<a title="{$item[title]}" href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
 <!--{if $item[istop]=='1'}-->
 <img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" title="[置顶]" alt="[置顶]" />
 <!--{/if}-->
@@ -58,15 +58,15 @@
 
 <div class="topic_info">
 <span style="float:left;">
-<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[group][groupname]}</a>
+<a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[group][groupname]}</a>
 </span>
 
 <span style="float:right;">
 {php echo getTime($item[uptime],time())}
 
-<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+<a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
 
-<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
+<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
 </span>
 </div>
 </div>
@@ -99,13 +99,13 @@
 
 <div class="clear"></div>
 <h2>我的小组<span class="pl">(
-<a href="{SITE_URL}{tsurl('group','my_group')}">全部</a>
+<a href="{SITE_URL}{tsUrl('group','my_group')}">全部</a>
 ) </span></h2>
 <div class="mygroup">
 <ul>
 <!--{loop $arrMyGroup $key $item}-->
 <li>
-<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_16]}" width="16" align="absmiddle" /></a> <a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)</span>
+<a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_16]}" width="16" align="absmiddle" /></a> <a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)</span>
 </li>
 <!--{/loop}-->	
 </ul>
@@ -114,10 +114,10 @@
 <div class="clear"></div>
 
 <!--{if $TS_APP[options][iscreate]==0 || $TS_USER[user][isadmin]==1}-->
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','create')}">创建小组</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','create')}">创建小组</a></p>
 <!--{/if}-->
 
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','all')}">全部小组</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','all')}">全部小组</a></p>
 
 
 </div>

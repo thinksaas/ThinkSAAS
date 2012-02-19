@@ -46,7 +46,7 @@ switch($ts){
 		//用户是否登录
 		$userid = intval($TS_USER['user']['userid']);
 		if($userid == 0){
-			header("Location: ".SITE_URL.tsurl('user','login'));
+			header("Location: ".SITE_URL.tsUrl('user','login'));
 			exit;
 		}
 		
@@ -78,7 +78,7 @@ switch($ts){
 		//用户是否登录
 		$userid = intval($TS_USER['user']['userid']);
 		if($userid == 0){
-			header("Location: ".SITE_URL.tsurl('user','login'));
+			header("Location: ".SITE_URL.tsUrl('user','login'));
 			exit;
 		}
 		
@@ -119,7 +119,7 @@ switch($ts){
 		//用户是否登录
 		$userid = intval($TS_USER['user']['userid']);
 		if($userid == 0){
-			header("Location: ".SITE_URL.tsurl('user','login'));
+			header("Location: ".SITE_URL.tsUrl('user','login'));
 			exit;
 		}
 	

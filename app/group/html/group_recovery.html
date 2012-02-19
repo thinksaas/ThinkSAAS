@@ -10,7 +10,7 @@
 
 	<div class="box_content">
 
-<h2 style="margin-top: 10px;"><a class="rr bn-post"  href="{SITE_URL}{tsurl('group','addtopic',array('groupid'=>$strGroup[groupid]))}"><span>发言</span></a></h2>
+<h2 style="margin-top: 10px;"><a class="rr bn-post"  href="{SITE_URL}{tsUrl('group','addtopic',array('groupid'=>$strGroup[groupid]))}"><span>发言</span></a></h2>
 	
 	<div class="tb_list">
 	<table width="100%">
@@ -18,8 +18,8 @@
 	
 	<!--{loop $arrTopic $key $item}-->
 	<tr>
-	<td><a href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a></td>
-	<td><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}">{$item[username]}</a></td>
+	<td><a href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a></td>
+	<td><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[username]}</a></td>
 	<td>{$item[count_view]}/{$item[count_comment]}</td>
 	<td  align="right" style="width:120px;color:#999999;font-size:10px;">{php echo date('m-d H:i',$item[addtime])}</td>
 	</tr>
@@ -36,13 +36,13 @@
 <div class="cright">
 
 
-<p><a href="{SITE_URL}{tsurl('group','show',array('id'=>$strGroup[groupid]))}"><img alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}"></a></p>
-<p class="pl2"><a href="{SITE_URL}{tsurl('group','show',array('id'=>$strGroup[groupid]))}">回到{$strGroup[groupname]}小组</a></p>
+<p><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup[groupid]))}"><img alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}"></a></p>
+<p class="pl2"><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">回到{$strGroup[groupname]}小组</a></p>
 
 <p></p>
 
 <p class="pl">订阅{$strGroup[groupname]}小组讨论: <br><span class="feed">
- <a href="{SITE_URL}{tsurl('group','rss',array(groupid=>$strGroup[groupid]))}">feed: rss 2.0</a></span></p>
+ <a href="{SITE_URL}{tsUrl('group','rss',array(groupid=>$strGroup[groupid]))}">feed: rss 2.0</a></span></p>
 
 </div>
 </div>

@@ -8,7 +8,7 @@
 
 <div class="bd">
 <img align="left" alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}" class="pil mr5 groupicon" valign="top" />
-<div>创建于{php echo date('Y-m-d',$strGroup[addtime])}&nbsp; &nbsp; {$strGroup[role_leader]}：<a href="{SITE_URL}{tsurl('user','space',array('id'=>$strLeader[userid]))}">{$strLeader[username]}</a><br></div>
+<div>创建于{php echo date('Y-m-d',$strGroup[addtime])}&nbsp; &nbsp; {$strGroup[role_leader]}：<a href="{SITE_URL}{tsUrl('user','space',array('id'=>$strLeader[userid]))}">{$strLeader[username]}</a><br></div>
 {$strGroup[groupdesc]}
 <div class="clearfix" style="margin-top: 10px;">
 
@@ -34,14 +34,14 @@
 <div class="box_content">
 
 <h2 style="margin-top: 10px;" class="fabu">
-<a class="submit" href="{SITE_URL}{tsurl('group','addtopic',array('groupid'=>$strGroup[groupid]))}">发布帖子</a></h2>
+<a class="submit" href="{SITE_URL}{tsUrl('group','addtopic',array('groupid'=>$strGroup[groupid]))}">发布帖子</a></h2>
 
 <!--帖子分类-->
 <div class="topictype">
 <ul>
-<li <!--{if $typeid=="0"}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','show',array('id'=>$strGroup[groupid]))}"><span>全部</span></a></li>
+<li <!--{if $typeid=="0"}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup[groupid]))}"><span>全部</span></a></li>
 <!--{loop $arrTopicType $key $item}-->
-<li <!--{if $typeid==$item[typeid]}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsurl('group','show',array('id'=>$strGroup[groupid],typeid=>$item[typeid]))}"><span>{$item[typename]}</span></a></li>
+<li <!--{if $typeid==$item[typeid]}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup[groupid],typeid=>$item[typeid]))}"><span>{$item[typename]}</span></a></li>
 <!--{/loop}-->
 </ul>
 </div>
@@ -55,7 +55,7 @@
 <li>
 <div class="userimg">
 <!--{if $item[user][userid] !=$arrTopic[$key-1][user][userid]}-->
-<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32" /></a>
+<a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32" /></a>
 <!--{else}-->
 &nbsp;
 <!--{/if}-->
@@ -63,9 +63,9 @@
 
 <div class="topic_title">
 <div class="title">
-<!--{if $item[typeid] != 0}--><a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid],typeid=>$item[typeid]))}">[{$item[typename]}]</a><!--{/if}-->
+<!--{if $item[typeid] != 0}--><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid],typeid=>$item[typeid]))}">[{$item[typename]}]</a><!--{/if}-->
 
-<a title="{$item[title]}" href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
+<a title="{$item[title]}" href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
 <!--{if $item[istop]=='1'}-->
 <img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" title="[置顶]" alt="[置顶]" /> 
 <!--{/if}-->
@@ -91,9 +91,9 @@
 </span>
 
 <span style="float:right;">
-<a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+<a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
 
-<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsurl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
+<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
 </span>
 </div>
 </div>
@@ -118,24 +118,24 @@
 
 <!--{loop $arrGroupUser $key $item}-->
 <dl class="obu">
-<dt><a class="nbg" ><a href="{SITE_URL}{tsurl('user','space',array('id'=>$item[userid]))}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}" /></a></dt>
-<dd>{$item[username]}<br><span class="pl">(<a href="{SITE_URL}{tsurl('location','area',array(areaid=>$item[area][areaid]))}">{$item[area][areaname]}</a>)</span></dd></dl>
+<dt><a class="nbg" ><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[userid]))}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}" /></a></dt>
+<dd>{$item[username]}<br><span class="pl">(<a href="{SITE_URL}{tsUrl('location','area',array(areaid=>$item[area][areaid]))}">{$item[area][areaname]}</a>)</span></dd></dl>
 <!--{/loop}-->
 <br clear="all">
 
 <!--{if $TS_USER[user][userid] == $strGroup[userid]}-->
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','group_user',array(groupid=>$strGroup[groupid]))}">成员管理 ({$strGroup[count_user]})</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','group_user',array(groupid=>$strGroup[groupid]))}">成员管理 ({$strGroup[count_user]})</a></p>
 
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">修改小组设置 </a></p>
-<p class="pl2">&gt; <a href="{SITE_URL}{tsurl('group','recovery',array(groupid=>$strGroup[groupid]))}">回收站 ({$strGroup[recoverynum]})</a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">修改小组设置 </a></p>
+<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','recovery',array(groupid=>$strGroup[groupid]))}">回收站 ({$strGroup[recoverynum]})</a></p>
 
 <!--{else}-->
-<p class="pl2"><a href="{SITE_URL}{tsurl('group','group_user',array(groupid=>$strGroup[groupid]))}">浏览所有成员 ({$strGroup[count_user]})</a></p>
+<p class="pl2"><a href="{SITE_URL}{tsUrl('group','group_user',array(groupid=>$strGroup[groupid]))}">浏览所有成员 ({$strGroup[count_user]})</a></p>
 <!--{/if}-->
 <div class="clear"></div>
 </div>
 
-<p class="pl"><span class="feed"><a href="{SITE_URL}{tsurl('group','rss',array(groupid=>$strGroup[groupid]))}">feed: rss 2.0</a></span></p>
+<p class="pl"><span class="feed"><a href="{SITE_URL}{tsUrl('group','rss',array(groupid=>$strGroup[groupid]))}">feed: rss 2.0</a></span></p>
 
 <div class="clear"></div>
 {php doAction('group_group_right_footer',$strTopic)}

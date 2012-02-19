@@ -16,14 +16,14 @@
 <table class="ttable">
 <tr><th>真实的我</th></td><td><p>通过验证Email真实性完成身份认证，发放头像真实性标识，加送500积分</p><p class="pr">
 <!--{if $strUser[isverify]==0}-->
-<a class="submit" href="{SITE_URL}{tsurl('user','verify',array(ts=>post))}">开始认证</a>
+<a class="submit" href="{SITE_URL}{tsUrl('user','verify',array(ts=>post))}">开始认证</a>
 <!--{else}-->
 已完成
 <!--{/if}-->
 </p></td></tr>
 <tr><th>有头有脸</th></td><td><p>偶是谁，偶们都是响当当的人物，偶们就要有头有脸</p><p class="pr">
 <!--{if $strUser[face]==''}-->
-<a class="submit" href="{SITE_URL}{tsurl('user','set',array(ts=>face))}">上传头像</a>
+<a class="submit" href="{SITE_URL}{tsUrl('user','set',array(ts=>face))}">上传头像</a>
 <!--{else}-->
 已完成
 <!--{/if}-->

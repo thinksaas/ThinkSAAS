@@ -9,11 +9,11 @@
 <div>
 <b>创新社区新体验，内容互动性强，交流更方便</b><br><em>简单</em><em>快捷</em><em>方便</em><em>建设本地化，垂直型社区</em>
 </div>
-<a class="submit" href="{SITE_URL}{tsurl('user','register')}">加入我们</a>
+<a class="submit" href="{SITE_URL}{tsUrl('user','register')}">加入我们</a>
 </div>
 
 <div class="login">
-<form action="{SITE_URL}{tsurl('user','login',array('ts'=>'do'))}" method="post" name="lzform" id="lzform">
+<form action="{SITE_URL}{tsUrl('user','login',array('ts'=>'do'))}" method="post" name="lzform" id="lzform">
 <fieldset>
 <legend>登录</legend>
 <div class="item">
@@ -43,19 +43,19 @@
 <div class="mc">
 <div class="cleft">
 
-<h2>推荐小组<span class="pl">&nbsp;(<a href="{SITE_URL}{tsurl('group','all')}">全部</a>) </span></h2>
+<h2>推荐小组<span class="pl">&nbsp;(<a href="{SITE_URL}{tsUrl('group','all')}">全部</a>) </span></h2>
 
 <div style="overflow:hidden;">
 <!--{if $arrRecommendGroup}-->
 <!--{loop $arrRecommendGroup $key $item}-->
 <div class="sub-item">
 <div class="pic">
-<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">
+<a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}">
 <img src="{$item[icon_48]}" alt="{$item[groupname]}">
 </a>
 </div>
 <div class="info">
-<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}/<font color="orange">{$item[count_topic]}</font>)             
+<a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}/<font color="orange">{$item[count_topic]}</font>)             
 <p>{$item[groupdesc]}</p>
 </div>
 </div>
@@ -85,7 +85,7 @@
 <div class="line23">
 <!--{if $arrNewGroup}-->
 <!--{loop $arrNewGroup $key $item}-->
-<a href="{SITE_URL}{tsurl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
+<a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)<br>
 <!--{/loop}-->
 <!--{/if}-->
 </div>

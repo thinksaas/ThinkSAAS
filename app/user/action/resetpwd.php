@@ -55,7 +55,7 @@ switch($ts){
 				'email'=>$email,
 			));
 			
-			tsNotice("密码修改成功^_^","点击登陆",SITE_URL.tsurl('user','login'));
+			tsNotice("密码修改成功^_^","点击登陆",SITE_URL.tsUrl('user','login'));
 		}
 	
 		

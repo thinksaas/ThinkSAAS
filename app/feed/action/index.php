@@ -2,7 +2,7 @@
 defined('IN_TS') or die('Access Denied.');
 
 $page = isset($_GET['page']) ? $_GET['page'] : '1';
-$url = SITE_URL.tsurl('feed','index',array('page'=>''));
+$url = SITE_URL.tsUrl('feed','index',array('page'=>''));
 $lstart = $page*20-20;
 
 $arrFeeds = $db->fetch_all_assoc("select * from ".dbprefix."feed order by addtime desc limit $lstart,20");

@@ -31,7 +31,7 @@ class template {
 	function parse($template) {
 	
 		//BY QIUJUN 2011-10-22 增加tsurl路由模板标签
-		$template = preg_replace("/\{tsurl(.*?)\}/s", "{php echo tsurl\\1}", $template);
+		$template = preg_replace("/\{tsUrl(.*?)\}/s", "{php echo tsurl\\1}", $template);
 	
 		$template = preg_replace("/\<\!\-\-\{(.+?)\}\-\-\>/s", "{\\1}", $template);//去除html注释符号<!---->
 		$template = preg_replace("/\{($this->var_regexp)\}/", "<?php echo \\1;?>", $template);//替换带{}的变量
