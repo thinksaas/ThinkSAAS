@@ -19,39 +19,25 @@ switch($ts){
 		
 		$photoid = $db->insertArr($arrData,dbprefix.'photo');
 		
-		if (!empty($_FILES)) {
+		//上传
+		$arrUpload = tsUpload($_FILES['Filedata'],$photoid,'photo',array('jpg','gif','png'));
 		
-			//存储方式
-			//1000个文件一个目录 
-			$menu2=intval($photoid/1000);
-			$menu1=intval($menu2/1000);
-			$menu = $menu1.'/'.$menu2;
-			$newdir = $menu;
-			
-			$dest_dir='uploadfile/photo/'.$newdir;
-			createFolders($dest_dir);
-			
-			$photoname = $_FILES["Filedata"]['name'];
-			$phototype = $_FILES['Filedata']['type'];
-			$photosize = $_FILES['Filedata']['size'];
-			
-			$fileInfo=pathinfo($photoname);
-			$extension=$fileInfo['extension'];
+		if($arrUpload){
 
-			$newphotoname = $photoid.'.'.$extension;
-				
-			$dest=$dest_dir.'/'.$newphotoname;
-			move_uploaded_file($_FILES['Filedata']['tmp_name'], mb_convert_encoding($dest,"gb2312","UTF-8"));
-			chmod($dest, 0755);
+			$new['photo']->update('photo',array(
+				'photoid'=>$photoid,
+			),array(
+				'photoname'=>$arrUpload['name'],
+				'phototype'=>$arrUpload['type'],
+				'path'=>$arrUpload['path'],
+				'photourl'=>$arrUpload['url'],
+				'photosize'=>$arrUpload['size'],
+			));
 			
-			$photourl = $newdir.'/'.$newphotoname;
-			
-			//继续更新
-			$db->query("update ".dbprefix."photo set `photoname`='$photoname',`phototype`='$phototype',`path`='$menu',`photourl`='$photourl',`photosize`='$photosize' where `photoid`='$photoid'");
-			
-			echo $photoid;
-		
 		}
+		
+		echo $photoid;
+		
 		break;
 		
 	//删除照片
@@ -81,22 +67,6 @@ switch($ts){
 		$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
 		
 		qiMsg("照片删除成功！",'点击返回','index.php?app=photo&ac=album&ts=photo&albumid='.$albumid);
-		
-		break;
-	
-	//升级 
-	case "up":
-		
-		/*
-		$arrUserId = $db->fetch_all_assoc("select userid,photourl from ".dbprefix."photo group by userid");
-		foreach($arrUserId as $item){
-			$db->query("insert ".dbprefix."photo_album (`userid`,`albumface`,`albumname`) values ('".$item['userid']."','".$item['photourl']."','默认相册')");
-		}
-		*/
-		$arrAlbumId = $db->fetch_all_assoc("select albumid,userid from ".dbprefix."photo_album");
-		foreach($arrAlbumId as $item){
-			$db->query("update ".dbprefix."photo set `albumid`='".$item['albumid']."' where userid='".$item['userid']."'");
-		}
 		
 		break;
 	

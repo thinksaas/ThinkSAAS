@@ -257,58 +257,22 @@ switch ($ts) {
 		
 		$groupid = intval($_POST['groupid']);
 		
-		//处理目录存储方式
-		$menu = substr($groupid,0,1);
+		//上传
+		$arrUpload = tsUpload($_FILES['picfile'],$groupid,'group',array('jpg','gif','png'));
 		
-		$uptypes = array( 
-			'image/jpg',
-			'image/jpeg',
-			'image/png',
-			'image/pjpeg',
-			'image/gif',
-			'image/x-png',
-		);
+		if($arrUpload){
 
-		if(isset($_FILES['picfile'])){
-		
-			$f=$_FILES['picfile'];
+			$new['group']->update('group',array(
+				'groupid'=>$groupid,
+			),array(
+				'path'=>$arrUpload['path'],
+				'groupicon'=>$arrUpload['url'],
+			));
 			
-			if(empty($f['name'])){
-			
-				tsNotice("头像不能为空！");
-				
-			}elseif ($f['name']){
-				if (!in_array($_FILES['picfile']['type'],$uptypes)) {
-					tsNotice('你上传的头像图片类型不正确，系统仅支持 jpg,gif,png 格式的图片!');
-				}
-			} 
-			
-			//存储方式
-			//1000个文件一个目录 
-			$menu2=intval($groupid/1000);
-			$menu1=intval($menu2/1000);
-			$menu = $menu1.'/'.$menu2;
-			
-			$newdir = $menu;
-			$dest_dir='uploadfile/group/'.$newdir;
-			createFolders($dest_dir);
-			
-			//原图
-			$fileInfo=pathinfo($f['name']);
-			$extension=$fileInfo['extension'];
-			$newphotoname = $groupid.'.'.$extension;
-			$dest=$dest_dir.'/'.$newphotoname;
-
-			move_uploaded_file($f['tmp_name'],mb_convert_encoding($dest,"gb2312","UTF-8"));
-			chmod($dest, 0755);
-
-			$groupicon = $newdir.'/'.$newphotoname;
-			
-			//更新小组头像
-			$db->query("update ".dbprefix."group set `path`='$menu',`groupicon`='$groupicon' where groupid='$groupid'");
-
 			tsNotice("小组图标修改成功！");
 			
+		}else{
+			tsNotice("上传出问题啦！");
 		}
 		
 		break;

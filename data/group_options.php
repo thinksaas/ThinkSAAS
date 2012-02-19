@@ -5,7 +5,7 @@ return array (
   'appdesc' => 'ThinkSAAS小组',
   'isenable' => '0',
   'iscreate' => '0',
-  'isaudit' => '1',
+  'isaudit' => '0',
   'iscate' => '1',
   'ismode' => '0',
 );

@@ -812,3 +812,45 @@ function delDirFile($dir){
 		unlink($dir.'/'.$item);
 	}
 }
+
+//上传 
+function tsUpload($files,$projectid,$dir,$uptypes){
+	if (!empty($files)) {
+		
+		$menu2=intval($projectid/1000);
+		
+		$menu1=intval($menu2/1000);
+		
+		$path = $menu1.'/'.$menu2;
+		
+		$dest_dir='uploadfile/'.$dir.'/'.$path;
+		
+		createFolders($dest_dir);
+		
+		$arrType = explode('.',$files['name']);
+		
+		$type = array_pop($arrType);
+		
+		if (in_array($type,$uptypes)) {
+			
+			$name = $projectid.'.'.$type;
+			
+			$dest=$dest_dir.'/'.$name;
+			
+			move_uploaded_file($files['tmp_name'],mb_convert_encoding($dest,"gb2312","UTF-8"));
+			
+			chmod($dest, 0755);
+			
+			return array(
+				'name'=>$name,
+				'path'=>$path,
+				'url'=>$path.'/'.$name,
+				'type'=>$type,
+				'size'=>$files['size'],
+			);
+			
+		}else{
+			return false;
+		}
+	}
+}

@@ -5,67 +5,25 @@ switch($ts){
 	
 	case "setface":
 		$userid = intval($TS_USER['user']['userid']);
+		
 		if($userid == '0') tsNotice("非法操作！");
 
-		$uptypes = array( 
-			'image/jpg',
-			'image/jpeg',
-			'image/png',
-			'image/pjpeg',
-			'image/gif',
-			'image/x-png',
-		);
+		//上传
+		$arrUpload = tsUpload($_FILES['picfile'],$userid,'user',array('jpg','gif','png'));
+		
+		if($arrUpload){
 
-		if(isset($_FILES['picfile'])){
-
-			$f=$_FILES['picfile'];
-
-			if($f['name']==''){
-				tsNotice("上传图片不能为空！");
-			}elseif ($f['name']){
-				if (!in_array($_FILES['picfile']['type'],$uptypes)) {
-					tsNotice("仅支持 jpg,gif,png 格式的图片！");
-				}
-			}
+			$new['user']->update('user_info',array(
+				'userid'=>$userid,
+			),array(
+				'path'=>$arrUpload['path'],
+				'face'=>$arrUpload['url'],
+			));
 			
-			//存储方式
-			//1000个文件一个目录 
-			$menu2=intval($userid/1000);
-			$menu1=intval($menu2/1000);
-			$menu = $menu1.'/'.$menu2;
-			$newdir = $menu;
+			tsNotice("头像修改成功！");
 			
-			$dest_dir='uploadfile/user/'.$newdir;
-			createFolders($dest_dir);
-			
-
-			//原图
-			$fileInfo=pathinfo($f['name']);
-			$extension=$fileInfo['extension'];
-			
-			$newphotoname = $userid.'.'.$extension;
-				
-			$dest=$dest_dir.'/'.$newphotoname;
-
-			move_uploaded_file($f['tmp_name'],mb_convert_encoding($dest,"gb2312","UTF-8"));
-			mkdir($dest, 0777);
-
-			$face = $newdir.'/'.$newphotoname;
-
-			//更新小组头像
-			$db->query("update ".dbprefix."user_info set `path`='$menu',`face`='$face' where userid='$userid'");
-			
-			//清除缓存头像 
-			$cache_24 = md10($face).'_24_24.'.$extension;
-			$cache_32 = md10($face).'_32_32.'.$extension;
-			$cache_48 = md10($face).'_48_48.'.$extension;
-			
-			unlink('cache/user/'.$menu.'/24/'.$cache_24);
-			unlink('cache/user/'.$menu.'/32/'.$cache_32);
-			unlink('cache/user/'.$menu.'/48/'.$cache_48);
-
-			tsNotice("头像修改成功！请返回ctrl+f5强制刷新下！");
-
+		}else{
+			tsNotice("上传出问题啦！");
 		}
 
 		break;
