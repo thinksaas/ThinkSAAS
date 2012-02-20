@@ -467,6 +467,9 @@ switch ($ts) {
 		
 		if($topicid == '' || $title=='' || $content=='') tsNotice("都不能为空的哦!");
 		
+		//编辑帖子标签
+		doAction('group_topic_edit',$title,$content);
+		
 		$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='".$topicid."'");
 		
 		$strGroup = $db->once_fetch_assoc("select userid from ".dbprefix."group where groupid='".$strTopic['groupid']."'");

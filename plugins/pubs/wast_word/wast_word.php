@@ -25,5 +25,9 @@ function wast_word($title='',$content='',$tag=''){
 
 //小组发帖过滤
 addAction('group_topic_add','wast_word');
+
+//小组编辑帖子过滤
+addAction('group_topic_edit','wast_word');
+
 //小组评论过滤
 addAction('group_comment_add','wast_word');
