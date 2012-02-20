@@ -1,12 +1,13 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
+//用户是否登录
+$userid = aac('user')->isLogin();
+
 switch($ts){
 	
+	//设置头像
 	case "setface":
-		$userid = intval($TS_USER['user']['userid']);
-		
-		if($userid == '0') tsNotice("非法操作！");
 
 		//上传
 		$arrUpload = tsUpload($_FILES['picfile'],$userid,'user',array('jpg','gif','png'));
@@ -27,10 +28,10 @@ switch($ts){
 		}
 
 		break;
-
-	case "setbase":
 	
-		$userid = $TS_USER['user']['userid'];
+	//基本信息设置
+	case "setbase":
+
 		$strUser = $db->once_fetch_assoc("select username from ".dbprefix."user_info where userid='$userid'");
 		$username = t($_POST['username']);
 
@@ -58,12 +59,9 @@ switch($ts){
 		tsNotice("基本资料更新成功！");
 
 		break;
+		
 	//修改常居地
 	case "setcity":
-
-		$userid = intval($TS_USER['user']['userid']);
-	
-		if($userid==0) header("Location: ".SITE_URL."index.php");
 		
 		$oneid = intval($_POST['oneid']);
 		$twoid = intval($_POST['twoid']);
@@ -84,47 +82,6 @@ switch($ts){
 		$_SESSION['tsuser']['areaid'] = $areaid;
 
 		tsNotice("常居地更新成功！");
-		
-		break;
-		
-	//验证Email是否唯一
-	case "inemail":
-	
-		$email = $_GET['email'];
-		$emailNum = $db->once_num_rows("select * from ".dbprefix."user where `email`='".$email."'");
-		
-		if($emailNum > '0'):
-			echo 'false';
-		else:
-			echo 'true';
-		endif;
-		
-		break;
-	
-	//验证用户名是否唯一
-	case "isusername":
-		$username = $_GET['username'];
-		$usernameNum = $db->once_num_rows("select * from ".dbprefix."user_info where `username`='".$username."'");
-		
-		if($usernameNum > '0'):
-			echo 'false';
-		else:
-			echo 'true';
-		endif;
-		break;
-		
-	//验证邀请码是否使用
-	case "isinvitecode":
-		
-		$invitecode = trim($_GET['invitecode']);
-		
-		$codeNum = $db->once_num_rows("select * from ".dbprefix."user_invites where invitecode='$invitecode' and isused='0'");
-		
-		if($codeNum > 0){
-			echo 'true';
-		}else{
-			echo 'false';
-		}
 		
 		break;
 		
@@ -165,15 +122,7 @@ switch($ts){
 	
 	//用户跟随
 	case "user_follow":
-		
-		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		if($userid == 0){
-			header("Location: ".SITE_URL.tsUrl('user','login'));
-			exit;
-		}
-		
-		
+	
 		$userid_follow = intval($_GET['userid_follow']);
 
 		if($userid_follow==0){
@@ -242,13 +191,6 @@ switch($ts){
 	
 	//用户取消跟随 
 	case "user_nofollow":
-		
-		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		if($userid == 0){
-			header("Location: ".SITE_URL.tsUrl('user','login'));
-			exit;
-		}
 		
 		$userid_follow = $_GET['userid_follow'];
 		

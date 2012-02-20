@@ -1,92 +1,83 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
+//用户是否登录
+$userid = aac('user')->isLogin();
+
 //发表评论 
 if($ts=='addcomment'){
-	if (IS_POST) {
+
+	$topicid	= intval($_POST['topicid']);
+	$content	= trim($_POST['content']);
+	
+	//添加评论标签
+	doAction('group_comment_add','',$content,'');
+	
+	if($content==''){
+	
+		tsNotice('没有任何内容是不允许你通过滴^_^');
 		
-		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		if($userid == 0){
-			header("Location: ".SITE_URL.tsUrl('user','login'));
-			exit;
+	}else{
+	
+		$arrData	= array(
+			'topicid'			=> $topicid,
+			'userid'			=> $userid,
+			'content'	=> $content,
+			'addtime'		=> time(),
+		);
+		
+		$commentid = $db->insertArr($arrData,dbprefix.'group_topics_comments');
+		
+		//统计评论数
+		$count_comment = $db->once_num_rows("select * from ".dbprefix."group_topics_comments where topicid='$topicid'");
+		
+		//更新帖子最后回应时间和评论数
+		$uptime = time();
+		
+		$db->query("update ".dbprefix."group_topics set uptime='$uptime',count_comment='$count_comment' where topicid='$topicid'");
+		
+		//积分记录
+		$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','回帖','20','".time()."')");
+		
+		$strScore = $db->once_fetch_assoc("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
+		
+		//更新积分
+		$db->query("update ".dbprefix."user_info set `count_score`='".$strScore['score']."' where userid='$userid'");
+		
+		//发送系统消息(通知楼主有人回复他的帖子啦)
+		$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='$topicid'");
+		if($strTopic['userid'] != $TS_USER['user']['userid']){
+		
+			$msg_userid = '0';
+			$msg_touserid = $strTopic['userid'];
+			$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ <br />'
+										.SITE_URL.tsUrl('group','topic',array('id'=>$topicid));
+			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+			
 		}
 		
-		$topicid	= intval($_POST['topicid']);
-		$content	= trim($_POST['content']);
 		
-		//添加评论标签
-		doAction('group_comment_add','',$content,'');
+		//feed开始
+		$feed_template = '<span class="pl">评论了帖子：<a href="{link}">{title}</a></span><div class="quote"><span class="inq">{content}</span> <span><a class="j a_saying_reply" href="{link}" rev="unfold">回应</a>
+</span></div>';
+		$feed_data = array(
+			'link'	=> SITE_URL.tsUrl('group','topic',array('id'=>$topicid)),
+			'title'	=> $strTopic['title'],
+			'content'	=> getsubstrutf8(t($content),'0','50'),
+		);
+		aac('feed')->addFeed($userid,$feed_template,serialize($feed_data));
+		//feed结束
 		
-		if($content==''){
-			tsNotice('没有任何内容是不允许你通过滴^_^');
-		}else{
-			$arrData	= array(
-				'topicid'			=> $topicid,
-				'userid'			=> $userid,
-				'content'	=> $content,
-				'addtime'		=> time(),
-			);
-			
-			$commentid = $db->insertArr($arrData,dbprefix.'group_topics_comments');
-			
-			//统计评论数
-			$count_comment = $db->once_num_rows("select * from ".dbprefix."group_topics_comments where topicid='$topicid'");
-			
-			//更新帖子最后回应时间和评论数
-			$uptime = time();
-			
-			$db->query("update ".dbprefix."group_topics set uptime='$uptime',count_comment='$count_comment' where topicid='$topicid'");
-			
-			//积分记录
-			$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','回帖','20','".time()."')");
-			
-			$strScore = $db->once_fetch_assoc("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
-			
-			//更新积分
-			$db->query("update ".dbprefix."user_info set `count_score`='".$strScore['score']."' where userid='$userid'");
-			
-			//发送系统消息(通知楼主有人回复他的帖子啦)
-			$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='$topicid'");
-			if($strTopic['userid'] != $TS_USER['user']['userid']){
-			
-				$msg_userid = '0';
-				$msg_touserid = $strTopic['userid'];
-				$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ <br />'
-											.SITE_URL.tsUrl('group','topic',array('id'=>$topicid));
-				aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
-				
-			}
-			
-			
-			//feed开始
-			$feed_template = '<span class="pl">评论了帖子：<a href="{link}">{title}</a></span><div class="quote"><span class="inq">{content}</span> <span><a class="j a_saying_reply" href="{link}" rev="unfold">回应</a>
-    </span></div>';
-			$feed_data = array(
-				'link'	=> SITE_URL.tsUrl('group','topic',array('id'=>$topicid)),
-				'title'	=> $strTopic['title'],
-				'content'	=> getsubstrutf8(t($content),'0','50'),
-			);
-			aac('feed')->addFeed($userid,$feed_template,serialize($feed_data));
-			//feed结束
-			
-			
-			header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$topicid)));
-		}	
-	}
+		
+		header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$topicid)));
+	}	
+
 }
 
 switch ($ts) {
-
-	case "addtopic":
 	
-		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		
-		if($userid == 0){
-			header("Location: ".SITE_URL.tsUrl('user','login'));
-			exit;
-		}
+	//添加话题（帖子）
+	case "addtopic":
 	
 		$groupid	= intval($_POST['groupid']);
 		
@@ -200,8 +191,6 @@ switch ($ts) {
 	//加入该小组
 	case "joingroup":
 		
-		$userid = intval($TS_USER['user']['userid']);
-		
 		$groupid = intval($_POST['groupid']);
 		
 		$groupUserNum = $db->once_num_rows("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
@@ -227,8 +216,6 @@ switch ($ts) {
 	
 	//退出该小组
 	case "exitgroup":
-		
-		$userid = intval($TS_USER['user']['userid']);
 		
 		$groupid = intval($_POST['groupid']);
 		
@@ -336,74 +323,8 @@ switch ($ts) {
 
 		break;
 	
-	//添加话题附件
-	case "topic_attach_add":
-		
-		if($_FILES['attach']['name'][0] == '') tsNotice("上传文件不能为空！");
-		
-		$groupid = $_POST['groupid'];
-		$topicid = $_POST['topicid'];
-		
-		//处理目录存储方式
-		$menu = substr($topicid,0,1);
-		
-		$date = date('Ymd');
-		
-		$dest_dir='uploadfile/group/topic/'.$menu.'/'.$date.'/'.$topicid;
-		createFolders($dest_dir);
-	
-		$score = intval($_POST['score']);
-		$isview = $_POST['isview'];
-		
-		if(isset($_FILES['attach'])){
-			$arrFileName = $_FILES['attach']['name'];
-			foreach($arrFileName as $key=>$item){
-				if($item != ''){
-					$attachname = $item;
-					$attachtype = $_FILES['attach']['type'][$key];
-					$attachsize = $_FILES['attach']['size'][$key];
-					
-					$dest=$dest_dir.'/'.$item;
-					move_uploaded_file($_FILES['attach']['tmp_name'][$key], mb_convert_encoding($dest,"gb2312","UTF-8"));
-					chmod($dest, 0755);
-					
-					$arrData = array(
-						'userid'	=> $TS_USER['user']['userid'],
-						'groupid'		=> $groupid,
-						'topicid'		=> $topicid,
-						'attachname'	=> $attachname,
-						'attachtype'	=> $attachtype,
-						'attachurl'		=> $dest,
-						'attachsize'		=> $attachsize,
-						'score'		=> $score,
-						'isview'		=> $isview,
-						'addtime'	=> time(),
-					);
-					
-					$attachid = $db->insertArr($arrData,dbprefix.'group_topics_attachs');
-					
-				}
-				
-			}
-		}		
-		
-		//统计附件并更新
-		$count_attach = $db->once_num_rows("select * from ".dbprefix."group_topics_attachs where topicid='".$topicid."'");
-		$db->query("update ".dbprefix."group_topics set `count_attach`='".$count_attach."' where topicid='".$topicid."'");
-		
-		header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$topicid)));
-		
-		break;
-	
 	//创建小组
 	case "group_add":
-		
-		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		if($userid == 0){
-			header("Location: ".SITE_URL.tsUrl('user','login'));
-			exit;
-		}
 		
 		$oneid = intval($_POST['oneid']);
 		$twoid = intval($_POST['twoid']);
@@ -478,13 +399,6 @@ switch ($ts) {
 	//删除评论回帖
 	case "comment_del":
 		
-		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		if($userid == 0){
-			header("Location: ".SITE_URL.tsUrl('user','login'));
-			exit;
-		}
-		
 		$commentid = intval($_GET['commentid']);
 		
 		$strComment = $db->once_fetch_assoc("select topicid from ".dbprefix."group_topics_comments where `commentid`='$commentid'");
@@ -508,9 +422,6 @@ switch ($ts) {
 		
 	//删除帖子
 	case "topic_del":
-	
-		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
 		
 		$groupid = $_POST['groupid'];
 		$topicid = $_POST['topicid'];
@@ -546,13 +457,6 @@ switch ($ts) {
 		
 	//编辑帖子 
 	case "topic_eidt":
-	
-		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		if($userid == 0){
-			header("Location: ".SITE_URL);
-			exit;
-		}
 		
 		$topicid = $_POST['topicid'];
 		$title = htmlspecialchars(trim($_POST['title']));
@@ -608,8 +512,6 @@ switch ($ts) {
 	//收藏帖子
 	case "topic_collect":
 		
-		$userid = intval($TS_USER['user']['userid']);
-		
 		$topicid = $_POST['topicid'];
 		
 		$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='".$topicid."'");
@@ -631,13 +533,6 @@ switch ($ts) {
 		
 	//置顶帖子
 	case "topic_istop":
-	
-		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		if($userid == 0){
-			header("Location: ".SITE_URL.tsUrl('user','login'));
-			exit;
-		}
 		
 		$topicid = intval($_GET['topicid']);
 		
@@ -659,12 +554,6 @@ switch ($ts) {
 		
 	//隐藏显示帖子
 	case "topic_isshow":
-		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		if($userid == 0){
-			header("Location: ".SITE_URL.tsUrl('user','login'));
-			exit;
-		}
 		
 		$topicid =intval($_GET['topicid']);
 		
@@ -756,8 +645,6 @@ switch ($ts) {
 			
 	//回复评论
 	case "recomment":
-	
-		$userid = intval($TS_USER['user']['userid']);
 		
 		$referid = $_POST['referid'];
 		$topicid = $_POST['topicid'];
@@ -844,20 +731,6 @@ switch ($ts) {
 		
 		echo '0';
 		break;
-			
-	//计算帖子中是否有图片
-	case "isphoto":
-		$arrTopic = $db->fetch_all_assoc("select * from ".dbprefix."group_topics");
-		foreach($arrTopic as $item){
-			$content = $item['content'];
-			$topicid = $item['topicid'];
-			preg_match_all('/\[(photo)=(\d+)\]/is', $content, $photo);
-			if($photo[2]){
-				$db->query("update ".dbprefix."group_topics set `isphoto`='1' where topicid='$topicid'");
-				echo '==OK==';
-			}
-		}
-		break;
 	
 	case 'parseurl':
 		function formPost($url,$post_data){
@@ -898,12 +771,7 @@ switch ($ts) {
 		
 	//置顶帖子 
 	case "isposts":
-		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		if($userid == 0){
-			header("Location: ".SITE_URL.tsUrl('user','login'));
-			exit;
-		}
+
 		$topicid = intval($_GET['topicid']);
 		
 		if($userid == 0 || $topicid == 0) tsNotice("非法操作"); 

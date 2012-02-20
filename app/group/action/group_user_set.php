@@ -1,6 +1,8 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
-//小组用户设置
+
+//用户是否登录
+$userid = aac('user')->isLogin();
 
 switch($ts){
 	//设置为管理员和取消为管理员

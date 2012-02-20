@@ -1,5 +1,8 @@
 <?php 
-//社区任务
+defined('IN_TS') or die('Access Denied.');
+
+//用户是否登录
+$userid = aac('user')->isLogin();
 
 switch($ts){
 	case "":

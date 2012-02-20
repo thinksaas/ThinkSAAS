@@ -1,19 +1,12 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-/* 
- * 小组话题编辑
- */
+
+//用户是否登录
+$userid = aac('user')->isLogin();
 
 $topicid = intval($_GET['topicid']);
 
 if($topicid == 0){
-	header("Location: ".SITE_URL);
-	exit;
-}
-
-$userid = intval($TS_USER['user']['userid']);
-
-if($userid == 0){
 	header("Location: ".SITE_URL);
 	exit;
 }

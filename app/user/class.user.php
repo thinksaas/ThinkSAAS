@@ -25,32 +25,13 @@ class user extends tsApp{
 		}
 		return $arrHotUser;
 	}
-	 
-	function getAllUser($page = 1, $prePageNum){
-		$start_limit = !empty($page) ? ($page - 1) * $prePageNum : 0;
-		$limit = $prePageNum ? "LIMIT $start_limit, $prePageNum" : '';
-		$users	= $this->db->fetch_all_assoc("select * from ".dbprefix."user order by userid desc $limit");
-		if($users){
-		foreach($users as $item){
-			$arrUser[]	= $this->getOneUser($item['userid']);	
-		}}
-		
-		return $arrUser;
-	}
-	
-	//
-	 
-	function getUserNum($virtue, $setvirtue){
-		$where = 'where '.$virtue.'='.$setvirtue.'';
-		$res = "SELECT * FROM ".dbprefix."user $where";
-		$userNum = $this->db->once_num_rows($res);
-		return $userNum;
-	}
 	
 	//获取一个用户的信息
 	function getOneUser($userid){
 	
-		$strUser = $this->db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
+		$strUser = $this->find('user_info',array(
+			'userid'=>$userid,
+		));
 		
 		//头像
 		if($strUser['face']){
@@ -84,7 +65,9 @@ class user extends tsApp{
 	
 	//用户是否存在
 	public function isUser($userid){
-		$isUser = $this->db->once_fetch_assoc("select count(*) from ".dbprefix."user where `userid`='$userid'");
+		
+		$isUser = $this->findCount('user',array('userid'=>$userid));
+		
 		if($isUser['count(userid)'] == 0){
 			return false;
 		}else{
@@ -92,9 +75,26 @@ class user extends tsApp{
 		}
 	}
 	
+	//是否登录 
+	public function isLogin(){
+		$userid = intval($TS_USER['user']['userid']);
+		if($userid>0){
+			if($this->isUser($userid)){
+				return $userid;
+			}else{
+				header("Location: ".SITE_URL.tsUrl('user','login',array('ts'=>'out')));
+				exit;
+			}
+		}else{
+			header("Location: ".SITE_URL.tsUrl('user','login',array('ts'=>'out')));
+		}
+	}
+	
 	public function getOneArea($areaid){
-		$strArea = $this->db->once_fetch_assoc("select * from ".dbprefix."area where `areaid`='$areaid'");
+	
+		$strArea = $this->find('area',array('areaid'=>$areaid));
 		return $strArea;
+	
 	}
 	
 	//析构函数

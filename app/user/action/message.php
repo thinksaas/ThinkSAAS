@@ -1,13 +1,13 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
  
-if($TS_USER['user']['userid'] == '') header("Location: ".SITE_URL."index.php");
+//用户是否登录
+$userid = aac('user')->isLogin();
 
 switch($ts){
 	//发送消息页面
 	case "message_add":
 		
-		$userid = intval($TS_USER['user']['userid']);
 		$touserid = intval($_GET['touserid']);
 		
 		if($userid == $touserid || !$touserid) tsNotice("Sorry！自己不能给自己发送消息的！& 对方为空!");

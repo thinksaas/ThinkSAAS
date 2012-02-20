@@ -1,11 +1,8 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-//我的消息盒子
-
-if($TS_USER['user']['userid']=='') header("Location: ".SITE_URL."index.php");
-
-$userid = $TS_USER['user']['userid'];
+//用户是否登录
+$userid = aac('user')->isLogin();
 
 $arrToUsers = $db->fetch_all_assoc("select userid from ".dbprefix."message where userid > '0' and touserid='$userid' group by userid");
 

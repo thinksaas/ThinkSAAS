@@ -1,13 +1,8 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-/* 
- * 邀请
- */
 
-
-$userid = $TS_USER['user']['userid'];
-
-if($TS_USER['user']=='') header("Location: ".SITE_URL."index.php");
+//用户是否登录
+$userid = aac('user')->isLogin();
 
 $strUser = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
 

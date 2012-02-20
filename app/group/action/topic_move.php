@@ -1,7 +1,11 @@
 <?php 
-//移动帖子到其他小组
-$userid = intval($TS_USER['user']['userid']);
+defined('IN_TS') or die('Access Denied.');
+
+//用户是否登录
+$userid = aac('user')->isLogin();
+
 $topicid = intval($_GET['topicid']);
+
 $groupid = intval($_GET['groupid']);
 
 if($groupid == 0 || $topicid == 0) tsNotice("非法操作！");
@@ -33,4 +37,3 @@ if($userid == $strTopic['userid'] || $strUser['isadmin']=='1' || $userid==$strGr
 }else{
 	tsNotice("非法操作2！");
 }
-

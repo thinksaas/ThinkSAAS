@@ -1,7 +1,8 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-//小组回收站
+//用户是否登录
+$userid = aac('user')->isLogin();
 
 $groupid = intval($_GET['groupid']);
 

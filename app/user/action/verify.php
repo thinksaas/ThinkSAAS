@@ -1,11 +1,10 @@
 <?php 
-//用户验证
+//用户是否登录
+$userid = aac('user')->isLogin();
+
 switch($ts){
 	//发送验证
 	case "post":
-		$userid = intval($TS_USER['user']['userid']);
-
-		if($userid == 0) tsNotice("非法操作！");
 
 		$strUser = $db->once_fetch_assoc("select username,email,isverify,verifycode from ".dbprefix."user_info where userid='$userid'");
 

@@ -1,11 +1,8 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-//设置用户信息
-
-$userid = intval($TS_USER['user']['userid']);
-
-if($userid == '0') header("Location: ".SITE_URL."index.php");
+//用户是否登录
+$userid = aac('user')->isLogin();
 
 $strUser = $new['user']->getOneUser($userid);
 
@@ -56,17 +53,5 @@ switch($ts){
 		$title = '个人标签修改';
 		include template("set_tag");
 		break;
-	//
-	case "weibo":
-	
-		$o = new WeiboOAuth( WB_AKEY , WB_SKEY , $_SESSION['keys']['oauth_token'] , $_SESSION['keys']['oauth_token_secret']  );
-		$last_key = $o->getAccessToken(  $_REQUEST['oauth_verifier'] ) ;
 
-		$_SESSION['last_key'] = $last_key;
-		
-		$title = "微博同步";
-		
-		include template("set_weibo");
-		
-		break;
 }

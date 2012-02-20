@@ -7,13 +7,21 @@
 	
 		//用户列表
 		case "list":
+		
 			$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+			
+			$lstart = $page*20-20;
+			
 			$url = 'index.php?app=user&ac=admin&mg=user&ts=list&page=';
-			$arrAllUser	= $new['user']->getAllUser($page,10);
-			$userNum = $new['user']->getUserNum('userid','userid');
-			$pageUrl = pagination($userNum, 10, $page, $url);
+			
+			$arrAllUser	= $new['user']->findAll('user',null,'userid desc',null,$lstart.',20');
+			
+			$userNum = $new['user']->findCount('user');
+			
+			$pageUrl = pagination($userNum, 20, $page, $url);
 
 			include template("admin/user_list");
+			
 			break;
 		
 		//用户编辑

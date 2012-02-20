@@ -1,12 +1,8 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-$userid = intval($TS_USER['user']['userid']);
-
-if($userid == 0){
-	header("Location: ".SITE_URL.tsUrl('user','login'));
-	exit;
-}
+//用户是否登录
+$userid = aac('user')->isLogin();
 
 $groupid = intval($_GET['groupid']);
 

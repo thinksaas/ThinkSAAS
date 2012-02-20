@@ -13,13 +13,13 @@ $(document).ready(function() {
 		<!--{if $TS_SITE['base']['isinvite']=='1'}-->
 			invitecode:{
 				required:true,
-				remote:"{SITE_URL}index.php?app=user&ac=do&ts=isinvitecode"
+				remote:"{SITE_URL}index.php?app=user&ac=check&ts=isinvitecode"
 			},
 		<!--{/if}-->
 			email: {
 				required: true,
 				email: true,
-				remote: "{SITE_URL}index.php?app=user&ac=do&ts=inemail"
+				remote: "{SITE_URL}index.php?app=user&ac=check&ts=inemail"
 			},
 			pwd: {
 				required: true,
@@ -34,7 +34,7 @@ $(document).ready(function() {
 				required: true,
 				minlength: 2,
 				maxlength: 12,
-				remote:"{SITE_URL}index.php?app=user&ac=do&ts=isusername"
+				remote:"{SITE_URL}index.php?app=user&ac=check&ts=isusername"
 			}
 		},
 		messages: {
