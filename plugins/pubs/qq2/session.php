@@ -2,21 +2,16 @@
 /**
  * PHP SDK for QQ登录 OpenAPI
  *
- * @version 1.3
+ * @version 1.2
  * @author connect@qq.com
  * @copyright © 2011, Tencent Corporation. All rights reserved.
  */
 
 /**
- * @brief 本文件用来设置session配置
- *        以解决“不同子域名下共享session”以及“同一个主域名不同服务器之间共享session”的问题。
- *        使用前请对下文的“修改点”按照说明进行修改
+ * @brief 设置session配置 
  */
 
-
 /**
- * 修改点1：使用前，请创建数据库表。下面是在MySQL中创建tbl_session表的示例
- *
  * CREATE TABLE `tbl_session` (
  *     `session_id` varchar(255) binary NOT NULL default '',
  *     `session_expires` int(10) unsigned NOT NULL default '0',
@@ -25,28 +20,22 @@
  *    ) ENGINE=MyISAM;
  */
 
-
-/**
- * @brief 实现自定义session的打开，关闭，读取，写入，销毁，垃圾回收等过程。
- *
- * 修改点2：请对下列需要指定的变量值进行指定
- */
 class Session 
 {
-    //mysql的主机地址，需要第三方指定ip地址 
-    const db_host = "dbhost"; 
+    //mysql的主机地址
+    const db_host = "127.0.0.1"; //需要第三方指定ip地址 
 
-    //数据库用户名，需要第三方指定自己的用户名
-    const db_user = "dbuser";   
+    //数据库用户名
+    const db_user = "redfox";   //需要第三方指定自己的用户名
 
-    //数据库密码，需要第三方指定自己的库据库密码
-    const db_pwd = "dbpwd"; 
+    //数据库密码
+    const db_pwd = "redfox@401"; //需要第三方指定自己的库据库密码
 
-    //数据库，需要第三方指定数据库
-    const db_name = "dbname";      
+    //数据库
+    const db_name = "test";      //需要第三方指定数据库
 
-    //数据库表，需要第三方指定数据表
-    const db_table = "dbtable"; 
+    //数据库表
+    const db_table = "tbl_session"; //需要第三方指定数据表
 
     //mysql-handle
     private $db_handle;
@@ -103,7 +92,7 @@ class Session
             WHERE session_id = '$sessID'", $this->db_handle);
 
         // if yes,
-        if(mysql_num_rows($res)) 
+        if(@mysql_num_rows($res)) 
         {
             // ...update session-data
             @mysql_query("UPDATE ".self::db_table." 
@@ -159,36 +148,32 @@ class Session
 }
 
 /**
- * @brief 指定session有效的域名
- *
- * 修改点3：使用前，请将下面的.domain.com修改为网站的主域名（例如： .qq.com）,请注意前面个有一个'.'
+ * 指定session有效的域名
+ * ini_set("session.cookie_domain", ".domain.com");
+ * .domain.com是站点的主域名,请注意前面个有一个'.'
  */
-//define("MAIN_DOMAIN", ".domain.com");   
-
-
+define("MAIN_DOMAIN", ".oauth.com");   //设置主域名
 
 /**
- * @brief 不同子域名下共享session信息
- *
- * 修改点4：使用前，请将下面的false修改为true
- * COOKIE_DOMAIN = false 表示：禁止该功能（默认禁止）
- * COOKIE_DOMAIN = true  表示：启用该功能（开启前提：需要定义MAIN_DOMAIN常量）
+ * 不同子域名下共享session信息
+ * COOKIE_DOMAIN = false 禁止该功能
+ * COOKIE_DOMAIN = true  启用该功能
+ * 默认禁止
+ * 开启前提需要定义MAIN_DOMAIN常量
  */
-define("COOKIE_DOMAIN", false); 
+define("COOKIE_DOMAIN", true); 
 if (defined("COOKIE_DOMAIN") && COOKIE_DOMAIN)
 {
     if (defined("MAIN_DOMAIN"))
         @ini_set("session.cookie_domain", MAIN_DOMAIN);
 }
 
-
-
 /**
- * @brief 同一个主域名，不同服务器之间共享session信息
- *
- * 修改点5：使用前，请将下面的false修改为true
- * COOKIE_DOMAIN = false 表示：禁止该功能（默认禁止）
- * COOKIE_DOMAIN = true  表示：启用该功能（开启前提：需要建立mysql数据表）
+ * 同一个主域名，不同服务器之间共享session信息
+ * USER_SESSION = false 禁用该功能
+ * USER_SESSION = true  启用该功能
+ * 默认禁止
+ * 开启前提需要建立mysql数据表
  */
 define("USER_SESSION", false);
 if (defined("USER_SESSION") && USER_SESSION)
@@ -205,5 +190,7 @@ if (defined("USER_SESSION") && USER_SESSION)
         array(&$session, "gc"));
 }
 
-@session_start();
+//@session_id("demo");
+//session_save_path("/tmp");
+//session_start();
 ?>

@@ -30,7 +30,7 @@ body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;}
 
 <div class="logo">
 <a href="http://www.thinksaas.cn/" target="_blank">
-<img src="app/{$app}/skins/{$skin}/logo_login.gif" alt="ThinkSAAS社区管理" />
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/logo_login.gif" alt="ThinkSAAS社区管理" />
 <br />
 www.thinksaas.cn
 </a>
@@ -39,14 +39,14 @@ www.thinksaas.cn
 <div class="info">
 <h1>登录管理后台</h1>
 <div>
-<form method="post" action="index.php?app=system&ac=login&ts=do">
+<form method="post" action="{SITE_URL}index.php?app=system&ac=login&ts=do">
 
 <p>管理员Email<br />
 <input style="width:200px;" name="email" /></p>
 <p>密码<br /><input style="width:200px;" type="password" name="pwd" /></p>
 
 <input type="hidden" name="cktime" value="2592000">
-<input class="submit" type="submit" value="登录后台" /> <a href="index.php">返回首页</a>
+<input class="submit" type="submit" value="登录后台" /> <a href="{SITE_URL}">返回首页</a>
 
 </form>
 </div>

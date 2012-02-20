@@ -14,31 +14,32 @@ if($username=='' || $email==''){
 	if($isemail > 0){
 		
 		//如果Email存在就跳转到验证密码页面
-		header("Location: ".SITE_URL."index.php?app=pubs&ac=plugin&plugin=qq&in=email&email=".$email);
+		header("Location: ".SITE_URL."index.php?app=pubs&ac=plugin&plugin=qq2&in=email&email=".$email);
 		
 	}elseif($isusername > 0){
 		qiMsg("用户名已经存在，请换个用户名！");
 	}else{
-	
-		$pwd = random(5,0);
-		$db->query("insert into ".dbprefix."user (`pwd`,`email`) values ('".md5($pwd)."','$email') ");
-		$userid = $db->insert_id();
 		
-		//用户信息
-		$arrData = array(
+		$salt = md5(rand());
+		
+		$pwd = random(5,0);
+		
+		$userid = $new['pubs']->create('user',array(
+			'pwd'=>md5($salt.$pwd),
+			'salt'=>$salt,
+			'email'=>$email,
+		));
+		
+		//插入用户信息
+		$new['pubs']->create('user_info',array(
 			'userid'			=> $userid,
 			'username' 	=> $username,
 			'email'		=> $email,
 			'ip'			=> getIp(),
 			'qq_openid' => $_SESSION['openid'],
-			'qq_token'	=> $_SESSION['token'],
-			'qq_secret'	=> $_SESSION['secret'],
 			'addtime'	=> time(),
 			'uptime'	=> time(),
-		);
-		
-		//插入用户信息
-		$db->insertArr($arrData,dbprefix.'user_info');
+		));
 		
 		//更新用户头像
 		if($face){
@@ -83,7 +84,9 @@ if($username=='' || $email==''){
 		}
 		
 		//获取用户信息
-		$userData = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
+		$userData = $new['pubs']->find('user_info',array(
+		'userid'=>$userid,
+	),'userid,username,areaid,path,face,count_score,isadmin,uptime');
 		
 		//发送系统消息(恭喜注册成功)
 		$msg_userid = '0';
@@ -94,7 +97,7 @@ if($username=='' || $email==''){
 		
 		$_SESSION['tsuser']	= $userData;
 	
-		header("Location: ".SITE_URL."index.php");
+		header("Location: ".SITE_URL);
 	}
 	
 }

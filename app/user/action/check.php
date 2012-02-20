@@ -6,7 +6,10 @@ switch($ts){
 	case "inemail":
 	
 		$email = $_GET['email'];
-		$emailNum = $db->once_num_rows("select * from ".dbprefix."user where `email`='".$email."'");
+	
+		$emailNum = $new['user']->findCount('user',array(
+			'email'=>$email,
+		));
 		
 		if($emailNum > '0'):
 			echo 'false';

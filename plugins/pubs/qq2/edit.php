@@ -2,7 +2,7 @@
 //插件编辑
 switch($ts){
 	case "set":
-		$arrData = fileRead('plugins/pubs/qq/data.php');
+		$arrData = fileRead('plugins/pubs/qq2/data.php');
 		
 		include 'edit_set.html';
 		break;
@@ -18,7 +18,7 @@ switch($ts){
 			'siteurl'	=> $siteurl,
 		);
 		
-		fileWrite('data.php','plugins/pubs/qq',$arrData);
+		fileWrite('data.php','plugins/pubs/qq2',$arrData);
 		
 		qiMsg("修改成功！");
 		break;

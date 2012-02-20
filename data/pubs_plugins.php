@@ -6,4 +6,5 @@ return array (
   5 => 'counter',
   7 => 'feedback',
   8 => 'wast_word',
+  9 => 'qq2',
 );

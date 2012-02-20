@@ -40,7 +40,7 @@ switch($ts){
 			
 			$_SESSION['tsuser']	= $userData;
 		
-			header("Location: ".SITE_URL."index.php");
+			header("Location: ".SITE_URL);
 			
 		}
 		
