@@ -7,7 +7,7 @@
 <!--{loop $arrPhoto $key $item}-->
 <li>
 <div class="simg">
-<a href="javascript:void(0)" onclick="insertEdit('[photo={$item[photoid]}]');"><img src="{SITE_URL}{php echo miniimg($item[photourl],'photo',100,100,$item[path])}" title="点击插入"/></a></div>
+<a href="javascript:void(0)" onclick="insertEdit('[photo={$item[photoid]}]');"><img src="{SITE_URL}{php echo tsXimg($item[photourl],'photo',100,100,$item[path])}" title="点击插入"/></a></div>
 </li>
 <!--{/loop}-->
 </ul>

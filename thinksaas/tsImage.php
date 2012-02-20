@@ -1,6 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-class tsImg{
+class tsImage{
 	//图片类型
 	var $type;
 	//实际宽度
@@ -19,9 +19,9 @@ class tsImg{
 	var $dstimg;
 	//临时创建的图象
 	var $im;
-
-	function tsImg($img, $wid, $hei,$c,$dstpath){
-		
+	
+	//构造函数
+	public function __construct($img, $wid, $hei,$c,$dstpath){
 		$this->srcimg = $img;
 		$this->resize_width = $wid;
 		$this->resize_height = $hei;

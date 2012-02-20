@@ -27,7 +27,7 @@
 <!--{loop $arrEvent $key $item}-->
 <div class="nof clearfix"><div class="evtlstimg">
 <a href="" class="phs_link">
-<img src="<!--{if $item[poster]}-->{SITE_URL}{php echo miniimg($item[poster],'event',100,100,$item[path],1)}<!--{else}-->{SITE_URL}public/images/event_dft.jpg<!--{/if}-->"></a>
+<img src="<!--{if $item[poster]}-->{SITE_URL}{php echo tsXimg($item[poster],'event',100,100,$item[path],1)}<!--{else}-->{SITE_URL}public/images/event_dft.jpg<!--{/if}-->"></a>
 </div><h2><a href="{SITE_URL}{tsUrl('event','show',array('eventid'=>$item[eventid]))}">{$item[title]}</a> <span class="pl2">[{$item[type][typename]}]</span></h2>
 <div class="pl intro">
 时间：{$item[time_start]} - {$item[time_end]}<br>

@@ -32,7 +32,7 @@
 
 <div class="fil">
 <a href="">
-<img title="点击看大图" src="<!--{if $strEvent[poster]}-->{SITE_URL}{php echo miniimg($strEvent[poster],'event',100,100,$strEvent[path])}<!--{else}-->{SITE_URL}public/images/event_dft.jpg<!--{/if}-->">
+<img title="点击看大图" src="<!--{if $strEvent[poster]}-->{SITE_URL}{php echo tsXimg($strEvent[poster],'event',100,100,$strEvent[path])}<!--{else}-->{SITE_URL}public/images/event_dft.jpg<!--{/if}-->">
 </a>
 <br></div><div style="width:239px;" id="info"><span class="pl">开始时间: </span>{$strEvent[time_start]}<br><span class="pl">结束时间: </span>{$strEvent[time_end]}<br><div class="obmo"><span class="pl">地点: </span>{$strEvent[area][one][areaname]} 
 {$strEvent[area][two][areaname]} 

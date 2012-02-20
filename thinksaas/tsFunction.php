@@ -35,7 +35,7 @@ function editor2html($str)
 	foreach ($photos[2] as $item) {
 		$strPhoto = aac('photo')->getPhotoForApp($item);
 		$str = str_replace("[photo={$item}]",'<a href="'.SITE_URL.'uploadfile/photo/'.$strPhoto['photourl'].'" target="_blank">
-							<img class="thumbnail" src="'.SITE_URL.miniimg($strPhoto['photourl'],'photo','500','500',$strPhoto['path']).'" title="'.$strTopic['title'].$item.'" /></a>', $str);
+							<img class="thumbnail" src="'.SITE_URL.tsXimg($strPhoto['photourl'],'photo','500','500',$strPhoto['path']).'" title="'.$strTopic['title'].$item.'" /></a>', $str);
 	}
 
 	//匹配附件
@@ -630,15 +630,16 @@ function md10($str=''){
 	return substr(md5($str),10,10);
 }
 
-/*BY QIUJUN
- * # 缩略图 (图片SRC, 宽度, 高度)
+/*
+ * ThinkSAAS专用图片截图函数
  * $file：数据库里的图片url
  * $app：app名称
  * $w：缩略图片宽度
  * $h：缩略图片高度
  * $c:1裁切,0不裁切
  */
-function miniimg($file, $app , $w, $h,$path='',$c='0'){
+function tsXimg($file, $app , $w, $h,$path='',$c='0'){
+
 	if(!$file) { return;}
 	
 	$info = explode('.',$file);
@@ -659,8 +660,8 @@ function miniimg($file, $app , $w, $h,$path='',$c='0'){
 		if($arrImg[0] <= $w){
 			copy($dest,$cpath);
 		}else{
-			require_once 'thinksaas/class.image.php';
-			$resizeimage = new tsImg("$dest", $w, $h, $c,"$cpath");
+			require_once 'thinksaas/tsImage.php';
+			$resizeimage = new tsImage("$dest", $w, $h, $c,"$cpath");
 		}
 	}
 	return $cpath;

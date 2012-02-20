@@ -106,7 +106,7 @@
 <div>
 <a href="{SITE_URL}{tsUrl('apple','show',array('appleid'=>$strApple[appleid]))}">
 
-<img src="<!--{if $strApple[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($strApple[photo],'apple',150,'150',$strApple[path])}<!--{/if}-->" title="{$strApple[title]}" alt="{$strApple[title]}" class="fil"></a>
+<img src="<!--{if $strApple[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo tsXimg($strApple[photo],'apple',150,'150',$strApple[path])}<!--{/if}-->" title="{$strApple[title]}" alt="{$strApple[title]}" class="fil"></a>
 <br clear="all">
 <!--{loop $strApple[model] $key $item}-->
 <span class="pl">{$item[virtuename]}：</span> {$item[parameter]}<br>

@@ -13,7 +13,7 @@
 	
 <div class="head-box">
 <a style="width:200px;" target="_blank" href="{SITE_URL}{tsUrl('photo','show',array(photoid=>$item[photoid]))}" class="large-box">
-<img width="200px" src="{SITE_URL}{php echo miniimg($item[photourl],'photo',200,'',$item[path])}" class="cover" />
+<img width="200px" src="{SITE_URL}{php echo tsXimg($item[photourl],'photo',200,'',$item[path])}" class="cover" />
 <span style="visibility: hidden; opacity: 0;" class="album-photo-number " title="{$item[photodesc]}">{$item[photodesc]}</span>
 </a>
 </div>

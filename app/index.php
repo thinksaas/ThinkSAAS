@@ -7,8 +7,6 @@
  */
 defined('IN_TS') or die('Access Denied.');
 
-define('IS_POST', (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'));
-
 //判断升级
 if(is_file('data/up.php')) $app = 'upgrade';
 
@@ -78,7 +76,7 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 
 	//控制前台ADMIN访问权限
 	if($ac == 'admin' && $TS_USER['admin']['isadmin']!=1 && $app != 'system'){
-		header("Location: ".SITE_URL."index.php");
+		header("Location: ".SITE_URL);
 		exit;
 	}
 	

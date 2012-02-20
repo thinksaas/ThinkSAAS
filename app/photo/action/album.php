@@ -173,7 +173,7 @@ switch($ts){
 			foreach($arrPhoto as $key=>$item){
 				if($key < 4){
 					$feed_data['photolink'.$key] = SITE_URL.tsUrl('photo','show',array('photoid'=>$item['photoid']));
-					$feed_data['photo'.$key] = SITE_URL.miniimg($item['photourl'],'photo',100,100,$item['path']);
+					$feed_data['photo'.$key] = SITE_URL.tsXimg($item['photourl'],'photo',100,100,$item['path']);
 				}
 			}
 			

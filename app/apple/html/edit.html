@@ -17,7 +17,7 @@
 <tr><td>介绍：</td><td><textarea id="editor_full" style="width:600px;height:200px;" name="content">{$strApple[content]}</textarea></td></tr>
 <tr><td>图片：</td><td>
 
-<img src="<!--{if $strApple[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($strApple[photo],'apple',150,150,$strApple[path])}<!--{/if}-->">
+<img src="<!--{if $strApple[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo tsXimg($strApple[photo],'apple',150,150,$strApple[path])}<!--{/if}-->">
 <br />
 <input type="file" name="photo" /></td></tr>
 

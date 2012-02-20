@@ -119,7 +119,7 @@ defined('IN_TS') or die('Access Denied.');
 				);
 				
 				if($strEvent['poster'] != ''){
-					$feed_data['photo']	= SITE_URL.miniimg($strEvent['poster'],'event',85,85,$strEvent['path']);
+					$feed_data['photo']	= SITE_URL.tsXimg($strEvent['poster'],'event',85,85,$strEvent['path']);
 				}else{
 					$feed_data['photo']	= SITE_URL.'public/images/event_dft.jpg';
 				}

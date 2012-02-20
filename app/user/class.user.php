@@ -35,9 +35,9 @@ class user extends tsApp{
 		
 		//头像
 		if($strUser['face']){
-			$strUser['face_120'] = SITE_URL.miniimg($strUser['face'],'user',120,120,$strUser['path']);
-			$strUser['face_32'] = SITE_URL.miniimg($strUser['face'],'user',32,32,$strUser['path'],1);
-			$strUser['face'] = SITE_URL.miniimg($strUser['face'],'user',48,48,$strUser['path'],1);
+			$strUser['face_120'] = SITE_URL.tsXimg($strUser['face'],'user',120,120,$strUser['path']);
+			$strUser['face_32'] = SITE_URL.tsXimg($strUser['face'],'user',32,32,$strUser['path'],1);
+			$strUser['face'] = SITE_URL.tsXimg($strUser['face'],'user',48,48,$strUser['path'],1);
 		}else{
 			$strUser['face_120'] = SITE_URL.'public/images/user_large.jpg';
 			$strUser['face_32'] = SITE_URL.'public/images/user_normal.jpg';
@@ -77,7 +77,9 @@ class user extends tsApp{
 	
 	//是否登录 
 	public function isLogin(){
-		$userid = intval($TS_USER['user']['userid']);
+	
+		$userid = intval($_SESSION['tsuser']['userid']);
+		
 		if($userid>0){
 			if($this->isUser($userid)){
 				return $userid;

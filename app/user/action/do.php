@@ -173,7 +173,7 @@ switch($ts){
 			);
 			
 			if($strUser['face']!=''){
-				$feed_data['face'] = SITE_URL.miniimg($strUser['face'],'user',48,48,$strUser['path']);
+				$feed_data['face'] = SITE_URL.tsXimg($strUser['face'],'user',48,48,$strUser['path']);
 			}else{
 				$feed_data['face'] = SITE_URL.'public/images/user_normal.jpg';
 			}

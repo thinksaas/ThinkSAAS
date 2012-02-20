@@ -76,7 +76,7 @@
 
 <!--{loop $arrApple $key $item}-->
 <li class="clearfix">
-<div class="img"><a href="{SITE_URL}{tsUrl('apple','show',array('appleid'=>$item[appleid]))}"><img src="<!--{if $item[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo miniimg($item[photo],'apple',80,'',$item[path])}<!--{/if}-->" /></a></div>
+<div class="img"><a href="{SITE_URL}{tsUrl('apple','show',array('appleid'=>$item[appleid]))}"><img src="<!--{if $item[photo] == ''}-->{SITE_URL}public/images/event_dft.jpg<!--{else}-->{SITE_URL}{php echo tsXimg($item[photo],'apple',80,'',$item[path])}<!--{/if}-->" /></a></div>
 <div class="intro">
 <h3><a href="{SITE_URL}{tsUrl('apple','show',array('appleid'=>$item[appleid]))}">{$item[title]}</a></h3>
 

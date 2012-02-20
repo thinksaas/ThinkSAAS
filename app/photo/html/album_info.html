@@ -11,7 +11,7 @@
 <!--{loop $arrPhoto $key $item}-->
 <div class="photo-item">
 <div class="cover">
-<a href=""><img src="{SITE_URL}{php echo miniimg($item[photourl],'photo',100,100,$item[path])}"></a>
+<a href=""><img src="{SITE_URL}{php echo tsXimg($item[photourl],'photo',100,100,$item[path])}"></a>
 <div class="choose-cover">
 <input type="hidden" name="photoid[]" value="{$item[photoid]}" />
 <input type="radio" <!--{if $strAlbum[albumface]==$item[photourl]}-->checked="checked"<!--{/if}--> value="{$item[photourl]}" name="albumface"><label>设置为封面</label>
