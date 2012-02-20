@@ -68,13 +68,16 @@ switch($ts){
 	//小组编辑执行
 	case "edit_do":
 		$groupid = $_POST['groupid'];
-		$arrData = array(
+		
+		$new['group']->update('group',array(
+			'groupid'=>$groupid,
+		),array(
 			'groupname'		=> $_POST['groupname'],
 			'groupdesc'		=> $_POST['groupdesc'],
 			'userid'			=> $_POST['userid'],
 			'ispost'	=> $_POST['ispost'],
-		);
-		$db->updateArr($arrData,dbprefix.'group','where groupid='.$groupid.'');
+		));
+		
 		qiMsg("小组信息修改成功！");
 		break;
 	

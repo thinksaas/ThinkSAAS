@@ -15,3 +15,7 @@ version 1.7
 5、find
 6、findAll
 7、findCount
+
+例如：
+
+$new['user']->findCount('user');

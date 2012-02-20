@@ -27,18 +27,16 @@ require_once 'tsFunction.php';
 reurl();
 
 //处理过滤
-if (!get_magic_quotes_gpc()) {     
-	Add_S($_POST);
-	Add_S($_GET);
-}
+Add_S($_POST);
+Add_S($_GET);
 
 function Add_S(&$array){
 	if (is_array($array)) {        
 		foreach ($array as $key => $value) {             
 			if (!is_array($value)) {                 
-				$array[$key] = addslashes($value);             
+				$array[$key] = filter_var(trim($value), FILTER_SANITIZE_MAGIC_QUOTES);
 			} else {                 
-				Add_S($array[$key]);             
+				Add_S($array[$key]);
 			}        
 		}
 	} 
@@ -62,9 +60,6 @@ $api	= isset($_GET['api']) ? $_GET['api'] : 'index';
 $plugin = isset($_GET['plugin']) ? $_GET['plugin'] : '';
 //plugin专用
 $in = isset($_GET['in']) ? $_GET['in'] : '';
-
-//语言包专用
-$hl = isset($_GET['hl']) ? $_GET['hl'] : 'zh_cn';
 
 header('Content-Type: text/html; charset=UTF-8');
 

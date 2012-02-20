@@ -281,8 +281,12 @@ switch ($ts) {
 	case "edit_base":
 	
 		if($_POST['groupname']=='' || $_POST['groupdesc']=='') tsNotice("小组名称和介绍都不能为空！");
-	
-		$arrData = array(
+		
+		$groupid = intval($_POST['groupid']);
+		
+		$new['group']->update('group',array(
+			'groupid'=>$groupid,
+		),array(
 			'groupname'	=> h($_POST['groupname']),
 			'groupdesc'	=> trim($_POST['groupdesc']),
 			'joinway'		=> intval($_POST['joinway']),
@@ -291,11 +295,7 @@ switch ($ts) {
 			'role_leader'	=> t($_POST['role_leader']),
 			'role_admin'	=> t($_POST['role_admin']),
 			'role_user'	=> t($_POST['role_user']),
-		);
-		
-		$groupid = intval($_POST['groupid']);
-		
-		$db->updateArr($arrData,dbprefix.'group','where groupid='.$groupid.'');
+		));
 		
 		tsNotice('基本信息修改成功！');
 		
@@ -590,8 +590,10 @@ switch ($ts) {
 			}else{
 				$arrData['isattach'] = '0';
 			}
-			
-			$db->updateArr($arrData,dbprefix.'group_topics','where topicid='.$topicid.'');
+
+			$new['group']->update('group_topics',array(
+				'topicid'=>$topicid,
+			),$arrData);
 
 			header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$topicid)));
 			
