@@ -3,8 +3,9 @@ version 1.7
 
 一、tsFunction基础函数
 
-1、aac
-2、tsUrl
+1、aac()
+2、tsUrl()
+3、tsUpload()
 
 二、tsApp类函数
 
