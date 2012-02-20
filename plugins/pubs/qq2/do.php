@@ -37,6 +37,7 @@ if($username=='' || $email==''){
 			'email'		=> $email,
 			'ip'			=> getIp(),
 			'qq_openid' => $_SESSION['openid'],
+			'qq_access_token'=>$_SESSION['access_token'],
 			'addtime'	=> time(),
 			'uptime'	=> time(),
 		));

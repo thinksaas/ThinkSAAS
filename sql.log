@@ -19,6 +19,12 @@ DELETE FROM `ts_system_options` WHERE `optionname` = 'lang';
 
 INSERT INTO`ts_system_options` (`optionname`, `optionvalue`) VALUES ('isinvite', '0');
 
+ALTER TABLE `ts_user_info`
+  DROP `qq_token`,
+  DROP `qq_secret`;
+  
+ALTER TABLE `ts_user_info` ADD `qq_access_token` CHAR( 32 ) NOT NULL DEFAULT '' COMMENT 'access_token' AFTER `qq_openid`;
+
 ThinkSAAS1.6 sql change
 -------------------------------------------------
 

@@ -158,7 +158,7 @@ switch($ts){
 			//发送系统消息
 			$msg_userid = '0';
 			$msg_touserid = $userid_follow;
-			$msg_content = '恭喜，您被人跟随啦！看看他是谁吧<br />'.SITE_URL.tsurl('user','space',array('id'=>$userid));
+			$msg_content = '恭喜，您被人跟随啦！看看他是谁吧<br />'.SITE_URL.tsUrl('user','space',array('id'=>$userid));
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 			
 			$strUser = $db->once_fetch_assoc("select userid,username,path,face from ".dbprefix."user_info where `userid`='$userid_follow'");

@@ -10,6 +10,16 @@ if($db->once_num_rows("DESCRIBE ".dbprefix."user_info qqt_oauth_token") > 0){
   DROP `qqt_oauth_token_secret`;");
 }
 
+if($db->once_num_rows("DESCRIBE ".dbprefix."user_info qq_token") > 0){
+	$db->query("ALTER TABLE `".dbprefix."user_info`
+  DROP `qq_token`,
+  DROP `qq_secret`;");
+}
+
+if($db->once_num_rows("DESCRIBE ".dbprefix."user_info qq_access_token") == 0){
+	$db->query("ALTER TABLE `".dbprefix."user_info` ADD `qq_access_token` CHAR( 32 ) NOT NULL DEFAULT '' COMMENT 'access_token' AFTER `qq_openid` ");
+}
+
 if($db->once_num_rows("DESCRIBE ".dbprefix."user salt")== 0){
 	$db->query("ALTER TABLE `".dbprefix."user` ADD `salt` CHAR( 32 ) NOT NULL DEFAULT '' COMMENT '加点盐' AFTER `pwd` ;");
 }
