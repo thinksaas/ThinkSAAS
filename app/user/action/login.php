@@ -14,7 +14,8 @@ switch($ts){
 	
 	//执行登录
 	case "do":
-		if($TS_USER['user'] != '') header("Location: ".SITE_URL."index.php");
+	
+		if($TS_USER['user'] != '') header("Location: ".SITE_URL);
 		
 		$jump = trim($_POST['jump']);
 		
@@ -26,16 +27,22 @@ switch($ts){
 		
 		if($email=='' || $pwd=='') tsNotice('Email和密码都不能为空！');
 		
-		$isEmail = $db->once_fetch_assoc("select count(*) from ".dbprefix."user where `email`='$email'");
+		$isEmail = $new['user']->findCount('user',array(
+			'email'=>$email,
+		));
 		
-		if($isEmail['count(*)'] == 0) tsNotice('Email不存在，你可能还没有注册！');
+		if($isEmail == 0) tsNotice('Email不存在，你可能还没有注册！');
 		
-		$strUser = $db->once_fetch_assoc("select * from ".dbprefix."user where `email`='$email'");
+		$strUser = $new['user']->find('user',array(
+			'email'=>$email,
+		));
 			
 		if(md5($strUser['salt'].$pwd)!==$strUser['pwd']) tsNotice('密码错误！');	
 		
 		//用户信息
-		$userData	= $db->once_fetch_assoc("select  * from ".dbprefix."user_info where `email`='$email'");
+		$userData = $new['user']->find('user_info',array(
+			'email'=>$email,
+		));
 		
 		//记住登录Cookie
 		 if($cktime != ''){   
@@ -59,14 +66,25 @@ switch($ts){
 		//用户userid
 		$userid = $userData['userid'];
 		
-		
 		//积分记录
-		$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','登录','10','".time()."')");
+		$new['user']->create('user_scores',array(
+			'userid'=>$userid,
+			'scorename'=>'登录',
+			'score'=>'10',
+			'addtime'=>time(),
+		));
 		
-		$strScore = $db->once_fetch_assoc("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
+		$strScore = $new['user']->find('user_scores',array(
+			'userid'=>$userid,
+		),'sum(score) score');
 		
 		//更新登录时间
-		$db->query("update ".dbprefix."user_info set `uptime`='".time()."' , `count_score`='".$strScore['score']."' where userid='$userid'");
+		$new['user']->update('user_info',array(
+			'userid'=>$userid,
+		),array(
+			'uptime'=>time(),
+			'count_score'=>$strScore['score'],
+		));
 
 		//跳转
 		if($jump != ''){
