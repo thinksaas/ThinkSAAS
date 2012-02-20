@@ -134,7 +134,6 @@ EOT;
 <style type="text/css">
 <!--
 body {
-background-color:#D6E9A0;
 font-family: Arial;
 font-size: 12px;
 line-height:150%;
@@ -760,20 +759,15 @@ function reurl(){
 			
 			$params = explode('/', $params);
 			
-			foreach( $params as $p => $v )
-			{
-				switch($p)
-				{
+			foreach( $params as $p => $v ){
+				switch($p){
 					case 0:$_GET['app']=$v;break;
 					case 1:$_GET['ac']=$v;break;
 					default:
 						$kv = explode('-', $v);
-						if(count($kv)>1)
-						{
+						if(count($kv)>1){
 							$_GET[$kv[0]] = $kv[1];
-						}
-						else
-						{
+						}else{
 							$_GET['params'.$p] = $kv[0];
 						}
 						break;

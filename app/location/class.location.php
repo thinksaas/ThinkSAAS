@@ -2,10 +2,9 @@
 defined('IN_TS') or die('Access Denied.');
 class location extends tsApp{
 
-	var $db;
-
-	function location($dbhandle){
-		$this->db = $dbhandle;
+	//构造函数
+	public function __construct($db){
+		parent::__construct($db);
 	}
 	
 	//通过连贯性找到三级区域

@@ -2,10 +2,9 @@
 defined('IN_TS') or die('Access Denied.');
 class article extends tsApp{
 
-	var $db;
-	
-	function article($dbhandle){
-		$this->db = $dbhandle;
+	//构造函数
+	public function __construct($db){
+		parent::__construct($db);
 	}
 	
 	//获取所有分类

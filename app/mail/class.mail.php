@@ -1,17 +1,11 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
-/*
- *模型：邮件
- *class.mail.php
- *By QINIAO
- */
  
 class mail extends tsApp{
 
-	var $db;
-
-	public function __construct($dbhandle){
-		$this->db = $dbhandle;
+	//构造函数
+	public function __construct($db){
+		parent::__construct($db);
 	}
 	
 	//发送邮件

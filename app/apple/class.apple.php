@@ -2,10 +2,9 @@
 defined('IN_TS') or die('Access Denied.');
 class apple extends tsApp{
 
-	var $db;
-
-	function apple($dbhandle){
-		$this->db = $dbhandle;
+	//构造函数
+	public function __construct($db){
+		parent::__construct($db);
 	}
 	
 	//获取苹果机 

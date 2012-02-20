@@ -2,10 +2,9 @@
 defined('IN_TS') or die('Access Denied.');
 class event extends tsApp{
 
-	var $db;
-
-	function event($dbhandle){
-		$this->db = $dbhandle;
+	//构造函数
+	public function __construct($db){
+		parent::__construct($db);
 	}
 	
 	//通过topicid获取活动基本信息

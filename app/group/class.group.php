@@ -2,11 +2,10 @@
 defined('IN_TS') or die('Access Denied.');
 
 class group extends tsApp{
-
-	public $db;
-
-	public function __construct($dbhandle){
-		$this->db = $dbhandle;
+	
+	//构造函数
+	public function __construct($db){
+		parent::__construct($db);
 	}
 	
 	//显示所有小组分类带分页
