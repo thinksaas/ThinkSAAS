@@ -27,14 +27,16 @@ require_once 'tsFunction.php';
 reurl();
 
 //处理过滤
-Add_S($_POST);
-Add_S($_GET);
+if (!get_magic_quotes_gpc()) {     
+	Add_S($_POST);
+	Add_S($_GET);
+}
 
 function Add_S(&$array){
 	if (is_array($array)) {        
 		foreach ($array as $key => $value) {             
 			if (!is_array($value)) {                 
-				$array[$key] = filter_var(trim($value), FILTER_SANITIZE_MAGIC_QUOTES);
+				$array[$key] = addslashes($value);
 			} else {                 
 				Add_S($array[$key]);
 			}        
