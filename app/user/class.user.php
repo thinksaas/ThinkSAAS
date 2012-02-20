@@ -89,6 +89,7 @@ class user extends tsApp{
 			}
 		}else{
 			header("Location: ".SITE_URL.tsUrl('user','login',array('ts'=>'out')));
+			exit;
 		}
 	}
 	
