@@ -1,4 +1,5 @@
 <?php
+defined('IN_TS') or die('Access Denied.');
 require_once("config.php");
 require_once("utils.php");
 

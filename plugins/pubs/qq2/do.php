@@ -1,4 +1,5 @@
 <?php 
+defined('IN_TS') or die('Access Denied.');
 //执行登录
 $username = t($_POST['username']);
 $email = trim($_POST['email']);
@@ -94,7 +95,7 @@ if($username=='' || $email==''){
 		$msg_touserid = $userid;
 		$msg_content = '亲爱的 '.$username.' ：<br />您成功加入了 '
 									.$TS_SITE['base']['site_title'].'<br />在遵守本站的规定的同时，享受您的愉快之旅吧!<br />你除了能用QQ登录外，还可以用Email登录本站<br />登录Email：'.$email.'<br />登录密码：'.$pwd;
-		aac('message',$db)->sendmsg($msg_userid,$msg_touserid,$msg_content);
+		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 		
 		$_SESSION['tsuser']	= $userData;
 	
