@@ -3,3 +3,4 @@
 cache/*
 uploadfile/*
 data/config.inc.php
+data/system_options.php
