@@ -902,7 +902,7 @@ INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
 ('site_key', 'thinksaas'),
 ('site_desc', '又一个ThinkSAAS社区'),
 ('site_theme', 'black'),
-('site_urltype', '4'),
+('site_urltype', '1'),
 ('isgzip', '0'),
 ('timezone', 'Asia/Hong_Kong'),
 ('isinvite', '0');
