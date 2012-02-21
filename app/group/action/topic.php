@@ -7,12 +7,6 @@ defined('IN_TS') or die('Access Denied.');
 
 $topicid = intval($_GET['id']);
 
-if($topicid == 0){
-	header("Location: ".SITE_URL);
-}
-
-$new['group']->isTopic($topicid);
-
 $strTopic = $new['group']->getOneTopic($topicid);
 	
 //帖子分类

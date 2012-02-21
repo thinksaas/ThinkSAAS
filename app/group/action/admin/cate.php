@@ -10,7 +10,9 @@ switch($ts){
 		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 		$url = 'index.php?app=group&ac=admin&mg=cate&ts=list&page=';
 		$arrCates	= $new['group']->getArrCate($page,10);
-		$cateNum = $new['group']->getCateNum();
+		
+		$cateNum = $new['group']->findCount('group_cates');
+		
 		$pageUrl = pagination($cateNum, 10, $page, $url);
 
 		include template("admin/cate_list");

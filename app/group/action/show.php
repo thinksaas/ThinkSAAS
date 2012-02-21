@@ -5,10 +5,6 @@ defined('IN_TS') or die('Access Denied.');
 
 $groupid = intval($_GET['id']);
 
-if($groupid == '0') header("Location: ".SITE_URL."index.php");
-
-$new['group']->isGroup($groupid);
-
 $typeid = intval($_GET['typeid']);
 
 //小组信息

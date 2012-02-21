@@ -29,28 +29,38 @@ class group extends tsApp{
 	
 	//获取一条分类的名字BY cateid
 	function getOneCateById($cateid){
-		$strCate = $this->db->once_fetch_assoc("select * from ".dbprefix."group_cates where cateid='$cateid'");
+
+		$strCate = $this->find('group_cates',array(
+			'cateid'=>$cateid,
+		));
+		
 		return $strCate;
 	}
 	
 	//获取一个小组
 	function getOneGroup($groupid){
-		$strGroup = $this->db->once_fetch_assoc("select * from ".dbprefix."group where groupid=$groupid");
-		if($strGroup['groupicon'] == ''){
-			$strGroup['icon_48'] = SITE_URL.'public/images/group.jpg';
-			$strGroup['icon_16'] = SITE_URL.'public/images/group.jpg';
-		}else{
-			$strGroup['icon_48'] = SITE_URL.tsXimg($strGroup['groupicon'],'group',48,48,$strGroup['path'],1);
-			$strGroup['icon_16'] = SITE_URL.tsXimg($strGroup['groupicon'],'group',16,16,$strGroup['path'],1);
-		}
-		return $strGroup;
-	}
 	
-	//获取小组分类数 
-	function getCateNum($where=''){
-		$sql = "select count(*) from ".dbprefix."group_cates ".$where."";
-		$cateNum = $this->db->once_fetch_assoc($sql);
-		return $cateNum['count(*)'];
+		if($this->isGroup($groupid)){
+			
+			$strGroup=$this->find('group',array(
+				'groupid'=>$groupid,
+			));
+			
+			if($strGroup['groupicon'] == ''){
+				$strGroup['icon_48'] = SITE_URL.'public/images/group.jpg';
+				$strGroup['icon_16'] = SITE_URL.'public/images/group.jpg';
+			}else{
+				$strGroup['icon_48'] = SITE_URL.tsXimg($strGroup['groupicon'],'group',48,48,$strGroup['path'],1);
+				$strGroup['icon_16'] = SITE_URL.tsXimg($strGroup['groupicon'],'group',16,16,$strGroup['path'],1);
+			}
+			
+		}else{
+			
+			header("Location: ".SITE_URL);
+			exit;
+			
+		}
+
 	}
 	
 	/*
@@ -111,12 +121,6 @@ class group extends tsApp{
 		
 	}
 	
-	//我的小组（加入的和管理的）
-	function getMyGroup(){
-		
-	}
-	
-	
 	
 	/*
 	 *获取小组全部内容数
@@ -166,41 +170,65 @@ class group extends tsApp{
 		
 		return $strComment;
 	}
+
 	
-	/*
-	 *获取内容评论列表数
-	 */
-	
-	function getGroupContentCommentNum($virtue, $setvirtue){
-		$where = 'where '.$virtue.'='.$setvirtue.'';
-		$sql = "SELECT * FROM ".dbprefix."group_topics_comments $where";
-		$groupContentCommentNum = $this->db->once_num_rows($sql);
-		return $groupContentCommentNum;
+	//是否存在帖子 
+	public function isTopic($topicid){
+		
+		$isTopic = $this->findCount('group_topics',array(
+			'topicid'=>$topicid,
+		));
+		
+		if($isTopic > 0){
+		
+			return true;
+		
+		}else{
+			
+			return false;
+			
+		}
+		
 	}
 	
 	//获取一条帖子 
-	function getOneTopic($topicid){
-		$isTopic = $this->db->once_num_rows("select * from ".dbprefix."group_topics where topicid='$topicid'");
-		if($isTopic == '0'){
-			header("Location: ".SITE_URL."index.php");
-		}else{
-			$strTopic = $this->db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='$topicid'");
+	public function getOneTopic($topicid){
+		
+		if($this->isTopic($topicid)){
+		
+			$strTopic = $this->find('group_topics',array(
+				'topicid'=>$topicid,
+			));
+			
 			return $strTopic;
+			
+		}else{
+			
+			header("Location: ".SITE_URL);
+			
+			exit;
+			
 		}
+		
 	}
 	
 	//删除帖子
 	function deltopic($topicid){
 		//删除帖子
-		$this->db->query("delete from ".dbprefix."group_topics where topicid='$topicid'");
+		
+		$this->delete('group_topics',array('topicid'=>$topicid));
+		
 		//删除帖子收藏 
-		$this->db->query("delete from ".dbprefix."group_topics_collects where topicid='$topicid'");
+		
+		$this->delete('group_topics_collects',array('topicid'=>$topicid));
+		
 		//删除帖子评论
-		$this->db->query("delete from ".dbprefix."group_topics_comments where topicid='$topicid'");
-		//删除帖子digg
-		$this->db->query("delete from ".dbprefix."group_topics_plugin_digg where topicid='$topicid'");
+		
+		$this->delete('group_topics_comments',array('topicid'=>$topicid));
+		
 		//删除帖子tag索引 
-		$this->db->query("delete from ".dbprefix."tag_topic_index where topicid='$topicid'");
+		
+		$this->delete('tag_topic_index',array('topicid'=>$topicid));
 		
 		//删除成功
 		echo '1';
@@ -209,25 +237,24 @@ class group extends tsApp{
 	
 	//判断是否存在小组
 	function isGroup($groupid){
-		$isGroup = $this->db->once_fetch_assoc("select count(groupid) from ".dbprefix."group where groupid='$groupid'");
-		if($isGroup['count(groupid)']==0){
-			header("Location: ".SITE_URL);
-			exit;
+		
+		$isGroup = $this->findCount('group',array(
+			'groupid'=>$groupid,
+		));
+		
+		if($isGroup > 0){
+			return true;
+		}else{
+			return false;
 		}
 	}
 	
-	//判断是否存在帖子
-	function isTopic($topicid){
-		$isTopic = $this->db->once_fetch_assoc("select count(topicid) from ".dbprefix."group_topics where topicid='$topicid'");
-		if($isTopic['count(topicid)']==0){
-			header("Location: ".SITE_URL);
-			exit;
-		}
-	}
 	
 	//获取帖子第一张图片
 	function getOnePhoto($topicid){
-		$strTopic = $this->db->once_fetch_assoc("select content,isphoto from ".dbprefix."group_topics where `topicid`='$topicid'");
+	
+		$strTopic = $this->getOneTopic($topicid);
+		
 		if($strTopic['isphoto']=='1'){
 			preg_match_all('/\[(photo)=(\d+)\]/is', $strTopic['content'], $photos);
 			$photoid = $photos[2][0];
