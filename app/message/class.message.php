@@ -9,24 +9,22 @@ class message extends tsApp{
 	}
 	
 	//发送消息
-	function sendmsg($useridd,$touseridd,$contentt){
+	public function sendmsg($userid,$touserid,$content){
 	
-		$userid = intval($useridd);
+		$userid = intval($userid);
 		
-		$touserid = intval($touseridd);
+		$touserid = intval($touserid);
 		
-		$content = addslashes(trim($contentt));
+		$content = addslashes(trim($content));
 		
-		if($touserid||$contect){
+		if($touserid && $content){
 		
-			$arrData = array(
+			$messageid = $this->create('message',array(
 				'userid'		=> $userid,
 				'touserid'		=> $touserid,
 				'content'		=> $content,
 				'addtime'			=> time(),
-			);
-			
-			$messageid = $this->db->insertArr($arrData,dbprefix.'message');
+			));
 			
 		}
 	}
