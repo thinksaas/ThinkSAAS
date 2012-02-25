@@ -54,6 +54,8 @@ class group extends tsApp{
 				$strGroup['icon_16'] = SITE_URL.tsXimg($strGroup['groupicon'],'group',16,16,$strGroup['path'],1);
 			}
 			
+			return $strGroup;
+			
 		}else{
 			
 			header("Location: ".SITE_URL);

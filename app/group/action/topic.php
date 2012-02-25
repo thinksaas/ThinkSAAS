@@ -89,8 +89,14 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	($page > 1) ? $titlepage = " - 第".$page."页" : $titlepage='';
 	
 	$title = $title.$titlepage.' - '.$strGroup['groupname'];
+	
 	include template('topic');
 	
-	$db->query("update ".dbprefix."group_topics set `count_view`=count_view+1 where topicid='".$topicid."'");
+	//增加浏览次数
+	$new['group']->update('group_topics',array(
+		'topicid'=>$topicid,
+	),array(
+		'count_view'=>'count_view+1',
+	));
 	
 }

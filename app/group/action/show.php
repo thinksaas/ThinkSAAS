@@ -9,6 +9,8 @@ $typeid = intval($_GET['typeid']);
 
 //小组信息
 $strGroup = $new['group']->getOneGroup($groupid);
+
+
 $strGroup['groupdesc'] = stripslashes($strGroup['groupdesc']);
 
 if($strGroup == '') header("Location: ".SITE_URL."index.php");
