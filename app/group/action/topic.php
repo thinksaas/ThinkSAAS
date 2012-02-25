@@ -91,7 +91,7 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 		$newTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 	}
 	
-	($page > 1) ? $titlepage = " - 第".$page."页" : $titlepage='';
+	($page > 1) ? $titlepage = "_第".$page."页" : $titlepage='';
 	
 	$title = $title.$titlepage.'_'.$strGroup['groupname'];
 	

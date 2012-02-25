@@ -53,7 +53,9 @@
 </div>
 </div>
 
+{if $TS_USER['user']}
 <div><a class="share" href="javascript:void('0');" onclick="topic_collect('{$strTopic[topicid]}');">收藏</a></div>
+{/if}
 <div class="clear"></div>
 
 {php doAction('topic_footer',$strTopic)}
@@ -107,11 +109,11 @@
 </h4>
 
 <!--{if $item[referid] !='0'}-->
-<div class="recomment"><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}"><img src="{$item[recomment][user][face]}" width="24" align="absmiddle"></a> <strong><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}">{$item[recomment][user][username]}</a></strong>：{$item[recomment][content]}</div>
+<div class="recomment"><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}"><img src="{$item[recomment][user][face]}" width="24" align="absmiddle"></a> <strong><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}">{$item[recomment][user][username]}</a></strong>：{php echo nl2br($item[recomment][content])}</div>
 <!--{/if}-->
 
 <p>
-{$item[content]}
+{php echo nl2br($item[content])}
 </p>
 
 <!--签名-->

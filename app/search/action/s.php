@@ -3,17 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 //搜索结果
 $userid = intval($TS_USER['user']['userid']);
 
-/*
-$strKey = $db->once_fetch_assoc("select * from ".dbprefix."search_key where userid='$userid'");
-if($strKey){
-	$nowTime = time();
-	$addtime = $strKey['addtime'];
-	$forTime = $nowTime - $addtime;
-	if($forTime < 30000) qiMsg("请等待30秒后再搜索！",'点击返回','index.php?app=search');
-}
-*/
-
-$kw=urldecode(t($_GET['kw']));
+$kw=urldecode($_GET['kw']);
 
 if($kw==''){
 	header("Location: ".SITE_URL.tsUrl('search'));
@@ -25,8 +15,6 @@ if(strlen($kw)<2) {
 	header("Location: ".SITE_URL.tsUrl('search'));
 	exit;
 };
-
-//$db->query("insert into ".dbprefix."search_key (`userid`,`keyword`,`addtime`) values ('$userid','$kw','".time()."')");
 
 switch($ts){
 	case "":
