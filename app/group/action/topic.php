@@ -31,6 +31,11 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	
 }else{
 	
+	//上一篇帖子
+	$upTopic = $new['group']->find('group_topics','topicid<'.$topicid,'topicid,title');
+	
+	//下一篇帖子
+	$downTopic = $new['group']->find('group_topics','topicid>'.$topicid,'topicid,title');
 	
 	//帖子标签
 	$strTopic['tags'] = aac('tag')->getObjTagByObjid('topic','topicid',$topicid);

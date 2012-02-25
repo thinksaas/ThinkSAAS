@@ -74,6 +74,13 @@
 
 <!--{/if}-->
 
+<div class="clear"></div>
+<div>
+{if $upTopic}上一篇：<a href="{SITE_URL}{tsUrl('group','topic',array('id'=>$upTopic['topicid']))}">{$upTopic['title']}</a>{/if}
+
+{if $downTopic}下一篇：<a href="{SITE_URL}{tsUrl('group','topic',array('id'=>$downTopic['topicid']))}">{$downTopic['title']}</a>{/if}
+</div>
+
 <!--{if $page == '1'}-->
 <div style="text-align:right;">
 <!--{if $sc=='desc'}-->
