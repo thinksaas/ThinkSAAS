@@ -93,7 +93,7 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	
 	($page > 1) ? $titlepage = " - 第".$page."页" : $titlepage='';
 	
-	$title = $title.$titlepage.' - '.$strGroup['groupname'];
+	$title = $title.$titlepage.'_'.$strGroup['groupname'];
 	
 	include template('topic');
 	

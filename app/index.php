@@ -175,6 +175,6 @@ if(is_file('app/'.$app.'/action/'.$ac.'.php')){
 	
 	
 }else{
-	header("HTTP/1.1 404 Not Found");
+	header("Location: http://www.thinksaas.cn/");
 	exit;
 }
