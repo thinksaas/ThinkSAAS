@@ -10,6 +10,8 @@
 <div class="midder">
 <div class="mc">
 
+<!-- <div style="padding:5px;">当前页面：<a href="{SITE_URL}">首页</a> - <a href="{SITE_URL}{tsUrl('group')}">小组</a> - <a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['groupname']}</a> - <a href="{SITE_URL}{tsUrl('group','topic',array('id'=>$strTopic['topicid']))}">{$strTopic['title']}</a></div> -->
+
 <h1><!--{if $strTopic[typeid] !='0'}--><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}<a href="{SITE_URL}{tsUrl('group','topic',array('id'=>$strTopic[topicid]))}">{$strTopic[title]}</a></h1>
 
 <div class="cleft">
