@@ -60,7 +60,14 @@ if(is_array($arrComments)){
 
 }
 //收藏的帖子 
-$arrMyCollect = '';
+$arrCollect = $db->fetch_all_assoc("select * from ".dbprefix."group_topics_collects where userid='".$userid."' order by addtime desc limit 10");
+			
+if(is_array($arrCollect)){
+	foreach($arrCollect as $item){
+		$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid = '".$item['topicid']."'");
+		$arrMyCollect[] = $strTopic;
+	}
+}
 
 $title = $strUser['username'].'的个人空间';
 include template("space");
