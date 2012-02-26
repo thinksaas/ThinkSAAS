@@ -782,16 +782,16 @@ function reurl(){
 function iswriteable($file){
 	if(is_dir($file)){
 		$dir=$file;
-		if($fp = @fopen("$dir/test.txt", 'w')) {
-			@fclose($fp);
-			@unlink("$dir/test.txt");
+		if($fp = fopen("$dir/test.txt", 'w')) {
+			fclose($fp);
+			unlink("$dir/test.txt");
 			$writeable = 1;
 		} else {
 			$writeable = 0;
 		}
 	}else{
-		if($fp = @fopen($file, 'a+')) {
-			@fclose($fp);
+		if($fp = fopen($file, 'a+')) {
+			fclose($fp);
 			$writeable = 1;
 		}else {
 			$writeable = 0;
