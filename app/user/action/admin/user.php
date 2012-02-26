@@ -14,9 +14,9 @@
 			
 			$url = 'index.php?app=user&ac=admin&mg=user&ts=list&page=';
 			
-			$arrAllUser	= $new['user']->findAll('user',null,'userid desc',null,$lstart.',20');
+			$arrAllUser	= $new['user']->findAll('user_info',null,'userid desc',null,$lstart.',20');
 			
-			$userNum = $new['user']->findCount('user');
+			$userNum = $new['user']->findCount('user_info');
 			
 			$pageUrl = pagination($userNum, 20, $page, $url);
 
