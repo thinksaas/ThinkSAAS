@@ -4,11 +4,11 @@ switch($ts){
 	//插件列表
 	case "list":
 	
-		$arrApps = dirList('plugins');
+		$arrApps = tsScanDir('plugins');
 	
 		$apps = $_GET['apps'];
 	
-		$arrPlugins = dirList('plugins/'.$apps);
+		$arrPlugins = tsScanDir('plugins/'.$apps);
 	
 		foreach($arrPlugins as $key=>$item){
 			if(is_file('plugins/'.$apps.'/'.$item.'/about.php')){

@@ -352,27 +352,6 @@ function getsubstrutf8($string, $start = 0,$sublen,$append=true){
 	}
 }
 
-//读取目录列表函数dirs,files
-function dirList($dir, $bool = "dirs"){
-
-   $truedir = $dir; //注意：确定路劲是否带有'/'
-   
-   $dir = scandir($dir);
-   if($bool == "files"){
-		$direct = 'is_dir';
-   }elseif($bool == "dirs"){
-		$direct = 'is_file';
-   }
-   
-   foreach($dir as $k => $v){
-		if(($direct($truedir.'/'.$dir[$k])) || $dir[$k] == '.' || $dir[$k] == '..'  || $dir[$k] == '.svn'){
-			unset($dir[$k]);
-		}
-   }
-   $dir = array_values($dir);
-   return $dir;
-}
-
 //计算时间
 function getmicrotime(){ 
 	list($usec, $sec) = explode(" ",microtime()); 
@@ -857,4 +836,33 @@ function tsUpload($files,$projectid,$dir,$uptypes){
 			return false;
 		}
 	}
+}
+
+//扫描目录
+function tsScanDir($dir,$isDir=null){
+
+	if($isDir == null){
+		$dirs = array_filter(glob($dir.'/'.'*'), 'is_dir');
+	}else{
+		$dirs = array_filter(glob($dir.'/'.'*'), 'is_file');
+	}
+	
+	foreach($dirs as $key=>$item){
+		$arrDirs[] = array_pop(explode('/',$item));
+	}
+	
+	return $arrDirs;
+	
+}
+
+//删除目录下所有文件
+function rmrf($dir) {
+    foreach (glob($dir) as $file) {
+        if (is_dir($file)) { 
+            rmrf("$file/*");
+            rmdir($file);
+        } else {
+            unlink($file);
+        }
+    }
 }

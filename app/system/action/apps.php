@@ -7,7 +7,7 @@ defined('IN_TS') or die('Access Denied.');
 switch($ts){
 	//app列表
 	case "list":
-		$applists	= dirList(THINKAPP);
+		$applists	= tsScanDir('app');
 		foreach($applists as $key=>$item){
 			if(is_file('app/'.$item.'/about.php')){
 				$arrApps[$key]['name'] = $item;

@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 
 switch($ts){
 	case "":
-		$arrTheme	= dirList('theme');
+		$arrTheme	= tsScanDir('theme');
 		$title = '系统主题';
 		include template("theme");
 		break;

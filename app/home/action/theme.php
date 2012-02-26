@@ -7,7 +7,7 @@ switch($ts){
 	
 		$title = '更换主题';
 
-		$arrTheme	= dirList('theme');
+		$arrTheme	= tsScanDir('theme');
 
 		include template("theme");
 		
