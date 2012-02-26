@@ -101,7 +101,7 @@ if($strGroup['isopen']=='1' && $isGroupUser=='0'){
 	$new['group']->update('group_topics',array(
 		'topicid'=>$topicid,
 	),array(
-		'count_view'=>'count_view+1',
+		'count_view'=>$strTopic['count_view']+1,
 	));
 	
 }
