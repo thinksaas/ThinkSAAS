@@ -1,0 +1,1 @@
+<?php //生成sitemap$arrUrl = SITE_URL."\n";$arrGroup = $new['home']->findAll('group');foreach($arrGroup as $key=>$item){	$arrUrl .= SITE_URL.tsUrl('group','show',array('id'=>$item['groupid']))."\n";}fileWrite('sitemap.txt',null,$arrUrl,0);

@@ -1,0 +1,10 @@
+
+<div class="tabnav">
+<ul>
+<li <!--{if $ac=='user'}-->class="select"<!--{/if}-->><a href="{SITE_URL}index.php">最新话题</a></li>
+<li <!--{if $ac=='my' && $ts=='topic'}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsUrl('group','my',array('ts'=>'topic'))}">我发起的话题</a></li>
+<li <!--{if $ac=='my' && $ts=='reply'}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsUrl('group','my',array('ts'=>'reply'))}">我回复的话题</a></li>
+<li <!--{if $ac=='my' && $ts=='collect'}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsUrl('group','my',array('ts'=>'collect'))}">我收藏的话题</a></li>
+</ul>
+</div>
+<div class="clear"></div>

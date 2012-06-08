@@ -1,0 +1,15 @@
+    <style>
+	.love_this{float:right; margin:0 8px;}
+	.love_this .fav-userlist{position:absolute; margin-top:10px;width:210px;left:45%;padding:0 0 20px 10px;background:#fff;border:1px solid #999;-moz-box-shadow:0 0 4px rgba(0,0,0,.2);-webkit-box-shadow:0 0 4px rgba(0,0,0,.2);box-shadow:0 0 4px rgba(0,0,0,.2);zoom:1}.fav-userlist .bd{width:97%}.fav-userlist ul{margin-top:-2px}.fav-userlist li{margin-top:2px}.fav-userlist .pic{margin-right:8px;*display:inline;zoom:1}.fav-userlist .pic img{vertical-align:middle}.fav-userlist .hd{position:relative;text-align:right;padding:5px 10px;line-height:1.2;zoom:1}.fav-userlist .arrow{position:absolute;width:12px;height:7px;overflow:hidden;left:175px;top:-6px;background:url({SITE_URL}plugins/{$app}/loveTopic/bg_popup_arr.png) no-repeat 0 0}
+	.btn-fav{display:inline-block;*display:inline;zoom:1;padding:0 8px 0 8px;vertical-align:middle;*vertical-align:baseline;height:19px;line-height:19px;line-height:21px\9;overflow:hidden;border:1px solid #edceba;margin-left:4px;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px}a.btn-fav:link,a.btn-fav:visited{border-color:#f2ece7;background-color:#fff6ee;color:#99776b}a.btn-fav:hover,a.btn-fav:active{border-color:#edceba;background-color:#fff0e2;color:#99776b}
+	</style>
+	<div class="love_this"><div class="sns-bar-fav">
+                
+
+                <a class="fav-cancel btn-fav" id="love" href="javascript:;" onclick="topic_collect($topicid,$data[count_love]);">$data[count_love]人喜欢</a>
+        
+
+
+
+            </div>     <div id="fav-userlist"  class="fav-userlist arrow-bottom" style="margin-left: -29px;display:none;"><div class="hd"><a href="javascript:;" class="del" onclick="hide_list()">x</a></div><div class="bd" style="height: 220px; overflow-x: auto; overflow-y: auto; "><ul id="love_list"></ul></div><i class="arrow"></i></div>    </div>   
+           

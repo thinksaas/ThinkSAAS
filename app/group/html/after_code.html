@@ -1,0 +1,29 @@
+{php include pubTemplate('header');}
+
+<!--main-->
+<div class="midder">
+<div class="mc">
+<h1>贴代码：《{$strTopic['title']}》</h1>
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=after&ts=ado"  enctype="multipart/form-data">
+<table width="100%">
+<tbody>
+<tr>
+<td valign="top">
+代码*
+</td><td><textarea style="width:600px;height:150px;font-size:14px;" id="editor_full" name="content"></textarea></td></tr>
+
+<tr><td width="50">标题：</td>
+<td><input style="padding:3px 0;width:210px;" type="text" name="title" /> (可选)</td></tr>	
+
+<tr><td></td><td>
+<input type="hidden" name="topicid" value="{$strTopic['topicid']}" />
+<input class="submit" type="submit" value="贴代码" /> <a href="{SITE_URL}{tsUrl('group','topic',array('id'=>$strTopic['topicid']))}">返回</a>
+</td></tr></tbody>
+</table>
+</form>
+
+</div>
+
+</div>
+{template footer}

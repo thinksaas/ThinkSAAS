@@ -1,0 +1,27 @@
+{template header}
+
+<!--main-->
+<div class="midder">
+
+<div class="mc">
+{template edit_xbar}
+<div class="cleft">
+
+<h2>选择小组分类</h2>
+
+<form method="post" action="{SITE_URL}index.php?app=group&ac=cate&ts=do">
+<select name="cateid">
+<option value="0">无分类</option>
+{loop $arrCate $key $item}
+<option <!--{if $item['cateid']==$strGroup['cateid']}-->selected="select"<!--{/if}--> value="{$item['cateid']}">{$item['catename']}</option>
+{/loop}
+</select>
+
+<input type="hidden" name="groupid" value="{$strGroup['groupid']}" />
+<input class="submit" type="submit" value="修改" />
+</form>
+
+</div>
+
+</div>
+{template footer}

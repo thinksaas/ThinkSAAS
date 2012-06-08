@@ -1,0 +1,35 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+<h1>{php echo L::public_theme}</h1>
+<div>
+<form method="POST" action="{SITE_URL}{tsUrl('home','theme',array('ts'=>'do'))}">
+<ul>
+<!--{loop $arrTheme $key $item}-->
+<li class="fl" style="padding:5px;">
+<img src="{SITE_URL}theme/{$item}/preview.gif">
+<br />
+<input type="radio"  onchange="change(this)"<!--{if $site_theme==$item}-->checked="select"<!--{/if}--> name="site_theme" value="{$item}"/> {$item}
+</li>
+<!--{/loop}-->
+</ul>
+
+<div class="clear"></div>
+<input class="submit" type="submit" value="更换" />
+</form>
+
+</div>
+
+
+</div>
+</div>
+<script>
+function change(o){
+if($(o).attr('checked')===true){
+var thems=$(o).val();
+$('#thems').attr('href','{SITE_URL}theme/'+thems+'/base.css')	
+}	
+}
+</script>
+{template footer}

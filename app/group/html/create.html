@@ -1,0 +1,56 @@
+{php include pubTemplate('header');}
+
+<!--main-->
+<div class="midder">
+<div class="mc">
+<h1>申请创建小组</h1>
+<div class="cleft">
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=create&ts=do"  enctype="multipart/form-data">
+<table width="100%">
+<tbody>
+<tr><td valign="top">名称*</td>
+<td><input type="text" style="width:500px;" name="groupname"><br><br></td></tr>
+
+<tr><td valign="top">介绍*</td>
+<td><textarea style="width:500px;height:150px;font-size:14px;" name="groupdesc"></textarea><br><br></td></tr>
+
+<tr>
+<td>图标：</td>
+<td><input type="file" name="picfile"> 仅支持jpg，gif，png格式图片</td>
+</tr>
+
+<tr>
+<td>分类：</td>
+<td>
+<select name="cateid">
+{loop $arrCate $key $item}
+<option <!--{if $item['cateid']==$strGroup['cateid']}-->selected="select"<!--{/if}--> value="{$item['cateid']}">{$item['catename']}</option>
+{/loop}
+<option value="0">无分类</option>
+</select>
+</td>
+</tr>
+
+<tr><td></td><td>
+<br><br>
+<input type="checkbox" name="grp_agreement" value="1" />我已认真阅读并同意<a href="">《社区指导原则》</a>和<a href="">《免责声明》</a>
+<br><br>
+</td>
+</tr>
+
+<tr><td></td><td>
+<input class="submit" type="submit" value="创建小组" />
+</td></tr></tbody>
+</table>
+</form>
+</div>
+
+<div class="cright">
+
+</div>
+
+</div>
+
+</div>
+{template footer}

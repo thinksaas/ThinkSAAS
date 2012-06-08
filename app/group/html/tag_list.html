@@ -1,0 +1,31 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+
+{template menu}
+
+<style>
+.tags{}
+.tags ul{}
+.tags ul li{float:left;width:200px;}
+</style>
+
+<div class="tags">
+<ul>
+<!--{loop $arrTag $key $item}-->
+<li><a class="post-tag" href="{SITE_URL}{tsUrl('group','tag',array('name'=>urlencode($item[tagname])))}">{$item[tagname]}</a>×{$item[count_topic]}</li>
+<!--{/loop}-->
+</ul>
+</div>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+
+
+</div>
+</div>
+
+
+{template footer}

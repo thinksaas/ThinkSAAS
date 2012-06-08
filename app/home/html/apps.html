@@ -1,0 +1,29 @@
+{template header}
+
+<style>
+.apps{}
+.apps ul{}
+.apps ul li{float:left;width:200px;border:solid 1px #CCCCCC;margin:10px;padding:5px;height:60px;}
+</style>
+
+<div class="midder">
+<div class="mc">
+<h1>APP应用</h2>
+<div class="apps">
+<ul>
+
+{loop $arrApp $key $item}
+<li>
+<strong>{$item['about']['name']}</strong>({$item['name']})
+<br />
+{$item['about']['desc']}
+</li>
+{/loop}
+
+</ul>
+</div>
+
+</div>
+</div>
+
+{template footer}

@@ -1,0 +1,36 @@
+{template header}
+
+<!--main-->
+<div class="midder">
+
+<div class="mc">
+{template edit_xbar}
+<div class="cleft">
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=groupicon" enctype="multipart/form-data" >
+<table style="clear: both;">
+<tbody>
+<tr>
+<td valign="top">
+     <img align="left" alt="{$strGroup[groupname]}" title="{$strGroup[groupname]}" valign="middle" src="{SITE_URL}{if $strGroup[groupicon]}{php echo tsXimg($strGroup[groupicon],'group','48','48',$strGroup[path])}{else}public/images/group.jpg{/if}" class="pil"></td>
+     <td><div class="m">从你的电脑上选择图像文件：(仅支持jpg，gif，png格式图片)</div><br>
+      <input type="file" name="picfile">
+	  
+<input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
+<input type="submit" value="上传照片" />
+	  
+    </td>
+</tr></tbody></table>
+</form>
+</div>
+
+<div class="cright">
+
+<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回{$strGroup[groupname]}</a></p>
+
+</div>
+
+</div>
+
+</div>
+{template footer}

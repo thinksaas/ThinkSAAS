@@ -1,0 +1,177 @@
+{template header}
+
+<script type='text/javascript' src='{SITE_URL}public/js/jquery-ui.min.js'></script>
+<script type="text/javascript" src="{SITE_URL}public/js/idrag.js"></script>
+<script>
+var orderurl="{SITE_URL}{tsUrl('group','user',array('id'=>$strUser['userid']))}";
+</script>
+
+<style>
+.mygroup{}
+.mygroup ul{}
+.mygroup ul li{font-size:14px;padding:5px 0}
+</style>
+
+<div class="midder">
+
+
+<div class="mc">
+
+{template menu}
+
+<div class="cleft">
+
+<div id="append">
+<div class="topic_list">
+<ul> 
+
+<!--{loop $arrTopic $key $item}-->
+   
+<li>
+<div class="userimg">
+<!--{if $item[user][userid] !=$arrTopic[$key-1][user][userid]}-->
+<a href="{SITE_URL}{tsUrl('group','user',array('id'=>$item[user][userid]))}"><img src="{$item[user][face_32]}" width="32"></a>
+<!--{else}-->
+&nbsp;
+<!--{/if}-->
+</div>
+
+<div class="topic_title">
+<div class="title">
+<a title="{$item[title]}" href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item[topicid]))}"  style="color:{php echo color({$item[color]})}">{$item[title]}</a>
+<!--{if $item[istop]=='1'}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" title="[置顶]" alt="[置顶]" />
+<!--{/if}-->
+<!--{if $item[addtime]>strtotime(date('Y-m-d 00:00:00'))}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/topic_new.gif" align="absmiddle"  title="[新帖]" alt="[新帖]" />
+<!--{/if}--> 
+<!--{if $item['photo']}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/image_s.gif" title="[图片]" alt="[图片]" align="absmiddle" />
+<!--{/if}--> 
+<!--{if $item['attach']}-->
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/attach.gif" align="absmiddle" title="[附件]" alt="[附件]" />
+<!--{/if}--> 
+<!--{if $item['music']}-->
+<img src="{SITE_URL}public/images/music.gif" align="absmiddle" title="[音乐]" alt="[音乐]" />
+<!--{/if}--> 
+<!--{if $item['video']}-->
+<img src="{SITE_URL}public/images/video.gif" align="absmiddle" title="[视频]" alt="[视频]" />
+<!--{/if}-->
+<!--{if $item[isposts] == '1'}-->
+<img src="{SITE_URL}public/images/posts.gif" align="absmiddle" title="[精华]" alt="[精华]" />
+<!--{/if}-->
+<!--{if $item['thread_type']=='music'}-->
+<img src="{SITE_URL}public/images/music.gif" align="absmiddle"  title="[音乐]" alt="[音乐]" />
+<!--{/if}-->
+<!--{if $item['thread_type']=='vote'}-->
+<img src="{SITE_URL}public/images/vote.gif" align="absmiddle"  title="[投票]" alt="[投票]" />
+<!--{/if}-->
+</div>
+
+<div class="topic_info">
+<span style="float:left;">
+<a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[group][groupname]}</a>
+</span>
+
+<span style="float:right;">
+{php echo getTime($item[uptime],time())}
+
+<a href="{SITE_URL}{tsUrl('group','user',array('id'=>$item[userid]))}" rel="face" uid="$item[userid]">{$item[user][username]}</a>
+
+<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
+</span>
+</div>
+</div>
+<div class="clear"></div>
+</li>
+<!--{/loop}-->
+</ul>
+</div>
+<div style="text-align:center; margin:10px;display:none;" id="loading_ajax"><span class="loading"></span>{php echo L::user_loading}...</div>
+<div class="clear"></div>
+
+</div>
+</div>
+
+<div class="cright" id="cright">
+
+<a style="float:left;" href="{SITE_URL}{tsUrl('user','space',array('id'=>$strUser['userid']))}"><img src="{$strUser['face_120']}" title="{$strUser['username']}的空间" alt="{$strUser['username']}的空间" /></a>
+
+<div style="float:left;margin-left:10px;line-height:25px;">
+<a href="{SITE_URL}{tsUrl('user','space',array('id'=>$strUser['userid']))}"  rel="face" uid="$strUser[userid]">{$strUser['username']}</a>
+<br />
+{php echo L::user_role}：<a href="{SITE_URL}{tsUrl('user','role')}">{$strUser['rolename']}</a>
+<br />
+{php echo L::user_score}：{$strUser['count_score']}
+<br />
+{if $strUser['isverify']==1}
+<img src="{SITE_URL}public/images/rz1.gif" alt="认证用户" title="认证用户" align="absmiddle" /> 认证用户
+{else}
+<img src="{SITE_URL}public/images/rz2.gif" alt="未认证用户" title="未认证用户" align="absmiddle" /> <a href="{SITE_URL}{tsUrl('user','verify')}">未认证用户</a>
+{/if}
+</div>
+<style type="text/css">
+
+</style>
+<div class="clear"></div>
+<h2>{$strUser['username']}{php echo L::user_sgroup}<span>({$myGroupNum})</span><span style="float:right;" id="loader"></span></h2>
+<div class="mygroup">
+<div id="loader"></div>
+<ul id="module_list">
+<input id="orderlist" type="hidden" value="$oldordr"/>
+<!--{loop $arrMyGroup $key $item}-->
+  <div class="modules" title="$item['groupid']">
+<li style="position: relative;" class="m_title">
+
+<a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[icon_16]}" width="16" align="absmiddle" /></a> <a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]}<!--{if $item[uptime]>strtotime(date('Y-m-d 00:00:00'))}-->/<font color="orange">{$item[count_topic_today]}</font><!--{else}--><!--{/if}-->)</span>
+
+<!--{if $item['userid']==$TS_USER['user']['userid']}-->
+<a style=" position: absolute;right: 0;font-size:12px;color:#666666;" href="{SITE_URL}{tsUrl('group','edit',array('ts'=>'base','groupid'=>$item['groupid']))}">{php echo L::user_edit}</a>
+<!--{/if}-->
+</div>
+</li>
+<!--{/loop}-->	
+</ul>
+</div>
+
+<div class="clear"></div>
+
+<!--{if $TS_APP[options][iscreate]==0 || $TS_USER[user][isadmin]==1}-->
+<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','create')}">{php echo L::user_creategroup}</a></p>
+<!--{/if}-->
+
+{php doAction('group_my_right_footer',null,'300')}
+</div>
+</div>
+</div>
+
+<script>
+isAjax=0;
+page=2;
+window.onscroll = function(){
+var a=document.body.scrollHeight;
+var b=document.documentElement.clientHeight;
+var c=document.documentElement.scrollTop + document.body.scrollTop;
+
+if((c+b>=a)&&isAjax==0){
+
+  isAjax=1;
+  if(page>9){
+  $('#loading_ajax').hide();alert('太多啦吧，200个帖子够你看的啦');
+ }else{
+  getMore();
+ }
+} else {
+  return false
+ }
+} 
+function getMore(){
+	$('#loading_ajax').show();
+	$.post("{SITE_URL}{tsUrl('group','user',array('id'=>$strUser['userid']))}",{page:page},function(res){
+	$('#append').append(res);
+					
+	})
+	}
+
+</script>
+{template footer}

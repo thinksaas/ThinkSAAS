@@ -1,0 +1,19 @@
+<div style="position: relative;">
+<div class="top-wp">
+<ul class="tabs">
+<li><a {if $ac=='topic' && $ts=='list'}class="current"{/if} href="{SITE_URL}{tsUrl('group','topic',array('ts'=>'list'))}"><span>{php echo L::menu_topic}</span></a></li>
+
+<!--{if $TS_USER['user']['userid']}-->
+<li><a <!--{if $ac=='user' && $strUser['userid']==$TS_USER['user']['userid']}-->class="current"<!--{/if}--> href="{SITE_URL}{tsUrl('group','user',array('id'=>$TS_USER['user']['userid']))}">{php echo L::menu_my}</a></li>
+<!--{/if}-->
+<li><a {if $ac=='index'}class="current"{/if} href="{SITE_URL}{tsUrl('group')}">{php echo L::menu_group}</a></li>
+<li><a {if $ac=='photo'}class="current"{/if} href="{SITE_URL}{tsUrl('group','photo')}"><span>{php echo L::menu_photo}</span></a></li>
+<li><a {if $ac=='tag'}class="current"{/if} href="{SITE_URL}{tsUrl('group','tag',array('ts'=>'list'))}"><span>{php echo L::menu_tag}</span></a></li>
+
+<li style="float:right;"><a style="margin-right:0px;background:#336699;color:#FFFFFF;" href="{SITE_URL}{tsUrl('group','add',array('ts'=>'speed'))}">{php echo L::menu_fastpost}</a></li>
+
+</ul>
+</div>
+
+</div>
+<div class="clear"></div>

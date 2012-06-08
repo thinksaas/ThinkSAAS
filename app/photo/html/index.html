@@ -1,0 +1,47 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+<div class="cleft">
+
+{template menu}
+
+<div id="container" class="wr">
+
+
+<!--{loop $arrPhoto $key $item}-->
+    <div class="box photo_wrap">
+        <a title="{$item[photodesc]}" class="photolst_photo" href="{SITE_URL}{tsUrl('photo','show',array(photoid=>$item[photoid]))}">
+        <img src="{SITE_URL}{php echo tsXimg($item[photourl],'photo',170,'',$item[path])}">
+        </a><br>
+        <div class="pl">{$item[photodesc]}</div>
+        <div style="color:#999">
+                    &nbsp;{$item[count_view]}浏览
+        </div>
+    </div>
+	
+	<!--{if is_int(($key+1)/3)}-->
+	<div class="clear"></div>
+	<!--{/if}-->
+	
+<!--{/loop}-->
+
+
+<div class="clear"></div>
+ </div>
+ 
+ <div class="page">{$pageUrl}</div>
+
+</div>
+
+<div class="cright">
+
+<input /> <input  class="submit" type="submit" value="搜索" />
+
+</div>
+
+</div>
+</div>
+
+{template footer}

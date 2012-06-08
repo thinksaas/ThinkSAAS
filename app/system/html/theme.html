@@ -1,0 +1,25 @@
+{template header}
+
+<div class="midder">
+{template menu}
+
+<div class="theme">
+<form method="POST" action="index.php?app=system&ac=theme&ts=do">
+<ul>
+<!--{loop $arrTheme $key $item}-->
+<li>
+<img src="theme/{$item}/preview.gif">
+<br />
+<input type="radio" <!--{if $TS_SITE[base][site_theme]==$item}-->checked="select"<!--{/if}--> name="site_theme" value="{$item}" /> {$item}
+</li>
+<!--{/loop}-->
+</ul>
+
+<div class="clear"></div>
+<input type="submit" value="更改主题" />
+</form>
+
+</div>
+
+</div>
+{template footer}

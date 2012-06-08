@@ -1,0 +1,13 @@
+<h1>更改{$strGroup[groupname]}设置</h1>
+<div class="tabnav">
+<ul>
+<li <!--{if $ts=="base"}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'base'))}">基本信息</a></li>
+
+<li <!--{if $ts=="icon"}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'icon'))}">小组图标</a></li>
+
+<li <!--{if $ts=="type"}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'type'))}">帖子分类</a></li>
+
+<li <!--{if $ts=="cate"}-->class="select"<!--{/if}-->><a href="{SITE_URL}{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'cate'))}">小组分类</a></li>
+
+</ul>
+</div>

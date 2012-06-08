@@ -1,0 +1,71 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<h1>{$strUser['username']} </h1>
+<div class="cleft">
+
+{template menu}
+
+<div class="clear"></div>
+
+{if intval($TS_USER['user']['userid']) >0 && intval($TS_USER['user']['userid']) != $strUser['userid']}
+<div class="guest">
+<img src="{SITE_URL}public/images/user_normal.jpg" />
+<form method="post" action="{SITE_URL}index.php?app=user&ac=guestbook&ts=do">
+<textarea style="width:100%;" name="content"></textarea>
+<br />
+<input type="hidden" name="touserid" value="{$strUser['userid']}" />
+<input class="submit" type="submit" value="添加留言" />
+</form>
+</div>
+{/if}
+<div class="clear"></div>
+
+<!--回复-->
+<div id="reguest" style="display:none;">
+<form method="post" action="{SITE_URL}index.php?app=user&ac=guestbook&ts=redo">
+<textarea style="width:100%" name="content"></textarea>
+<br />
+<input id="touserid" type="hidden" name="touserid" value="0" />
+<input id="reid" type="hidden" name="reid" value="0" />
+<input class="submit" type="submit" value="回复" />
+</form>
+</div>
+
+<div class="glist">
+<ul>
+
+{loop $arrGuestList $key $item}
+<li>
+<a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}" rel="face" uid="{$item['user']['userid']}"><img src="{$item['user']['face']}" /></a>
+<div style="width:520px;">
+<p><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}"  rel="face" uid="{$item['user']['userid']}">{$item['user']['username']}</a> {$item['addtime']}</p>
+{php echo nl2br(htmlspecialchars($item['content']))}
+<p style="text-align:right">
+{if intval($TS_USER['user']['userid'] == $strUser['userid'])}
+<a href="#reguest" onclick="reguest('{$item['userid']}','{$item['id']}')">回复</a> <a href="{SITE_URL}index.php?app=user&ac=guestbook&ts=del&id={$item['id']}" onclick="return confirm('确定删除?')">删除</a>
+{/if}
+</p>
+<!--回复留言-->
+
+</div>
+</li>
+{/loop}
+</ul>
+</div>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+
+
+</div>
+
+<div class="cright">
+{template userinfo}
+</div>
+
+</div>
+</div>
+{template footer}

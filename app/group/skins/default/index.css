@@ -1,0 +1,263 @@
+/*index*/
+.anony-nav {
+	overflow: hidden;
+	background: #E9EEF2;
+	height: 200px;
+}
+.anony-nav .reg {
+    color: #666666;
+    float: left;
+    font-size: 14px;
+    
+    line-height: 1.6;
+    width: 646px;
+}
+.anony-nav .reg strong {
+    float: left;
+    font-size: 24px;
+    height: 80px;
+    padding-top: 46px;
+    text-align: center;
+    width: 200px;
+}
+.anony-nav .reg div {
+    padding: 45px 0 18px;
+}
+.anony-nav .reg b {
+    font-size: 16px;
+    font-weight: 400;
+    margin-right: 5px;
+}
+a.lnk-reg:link, a.lnk-reg:visited, a.lnk-reg:hover, a.lnk-reg:active {
+    background: url("ui_nav_logo_4.png") no-repeat scroll -120px -48px transparent;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 12px;
+    height: 27px;
+    line-height: 28px;
+    text-align: left;
+    width: 130px;
+}
+.anony-nav .reg em {
+    color: #666666;
+    font-size: 12px;
+    font-style: normal;
+}
+
+.anony-nav .reg strong {
+    float: left;
+    font-size: 24px;
+    height: 80px;
+    padding-top: 55px;
+    text-align: center;
+    width: 200px;
+}
+.anony-nav .reg .lnk-reg strong {
+    color: #FFFFFF;
+    float: none;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0 10px 0 16px;
+    padding: 0;
+}
+.anony-nav .login {
+ 
+    float: right;
+    font-size: 14px;
+    
+    width: 300px;
+}
+.anony-nav .login form {
+    padding: 23px 0 0 20px;
+    position: relative;
+}
+.anony-nav legend {
+    display: none;
+}
+.anony-nav fieldset {
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+	margin-bottom: 15px;
+}
+fieldset legend {
+    color: #666666;
+    padding: 0 5px;
+}
+.anony-nav .login .item {
+    margin-bottom: 10px;
+}
+.anony-nav .item label {
+    float: left;
+    width: 4em;
+}
+label {
+    font-family: Tahoma;
+    vertical-align: middle;
+}
+.anony-nav .item input {
+    padding: 3px 2px;
+    width: 200px;
+}
+.anony-nav .login .item a {
+    font-size: 12px;
+}
+.anony-nav .login .item1 {
+    color: #666666;
+    float: left;
+    font-size: 12px;
+    margin: 0 2px 10px 0;
+}
+.anony-nav .login .item1 label {
+    display: inline-block;
+    margin-left: 4.5em;
+    margin-top: 4px;
+}
+.anony-nav .bn-submit {
+    background: url("ui_nav_logo_4.png") no-repeat scroll -23px -48px transparent;
+    border: medium none;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 14px;
+    height: 28px;
+    line-height: 28px;
+    padding-bottom: 3px;
+    width: 80px;
+}
+
+/*活动*/
+.events-list li {
+	float: left;
+	height:140px;
+}
+.events-list .pic {
+    float: left;
+    height: 75px;
+    overflow: hidden;
+    width: 75px;
+}
+.events-list .pic {
+    margin-right: 10px;
+}
+.events-list .info {
+    float: left;
+    width: 205px;
+}
+.events-list .title {
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+.events-list .info a {
+    font-size: 14px;
+}
+.events-list .datetime {
+    margin-bottom: 5px;
+}
+.events-list address {
+    color: #666666;
+    display: block;
+    font-style: normal;
+}
+.events-list .followers {
+    color: #999999;
+}
+
+
+#db-sidesrh {
+    width: 100%;
+}
+#db-sidesrh {
+    float: left;
+    margin-bottom: 20px;
+}
+
+.aside .mod {
+    margin: 0 0 40px;
+}
+#db-sidesrh form {
+    float: right;
+    width: 100%;
+}
+#db-sidesrh input {
+    float: left;
+}
+#db-sidesrh input {
+    border: 1px solid #C3C3C3;
+    height: 24px;
+    line-height: 24px;
+}
+#db-sidesrh .inp input {
+    padding: 0 2px;
+    vertical-align: baseline;
+    width: 246px;
+}
+.hide {
+    display: none;
+}
+input, button, textarea, select, optgroup, option {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+}
+.submenu {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #B6C9C1 #B6C9C1 #B6C9C1 -moz-use-text-color;
+    border-style: solid solid solid none;
+    border-width: 1px 1px 1px medium;
+    float: left;
+    height: 21px;
+    margin: 0 2px 0 -5px;
+    padding: 2px 0 1px;
+    position: relative;
+    width: 45px;
+}
+#db-sidesrh .submenu, #db-sidesrh .submenu .selected, #db-sidesrh .submenu .menu {
+    border-color: #C3C3C3;
+}
+.submenu .selected {
+    border-left: 1px solid #B6C9C1;
+    cursor: pointer;
+    padding: 0 0 0 5px;
+}
+.submenu .selected span {
+    background: url("ui_ns_sbg4.png") no-repeat scroll -240px -124px transparent;
+    height: 5px;
+    overflow: hidden;
+    position: absolute;
+    right: 4px;
+    top: 10px;
+    width: 7px;
+}
+#db-sidesrh .submenu .selected span {
+    background-image: url("ui_ns_sbg3.png");
+    background-position: -450px -124px;
+}
+.submenu .menu {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #B6C9C1;
+    position: absolute;
+    right: -1px;
+    top: 24px;
+    width: 85px;
+}
+#db-sidesrh .submenu .menu {
+    width: 60px;
+}
+#db-sidesrh .bn-srh {
+    background: url("ui_ns_sbg3.png") no-repeat scroll -360px -100px transparent;
+    border: medium none;
+    cursor: pointer;
+    height: 26px;
+    letter-spacing: 3px;
+    margin: 0 0 0 2px;
+    padding-bottom: 2px;
+    padding-left: 1px;
+    width: 50px;
+	line-height:24px;
+}

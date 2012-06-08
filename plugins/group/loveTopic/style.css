@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+
+.clearfix:after{clear:both;content:".";display:block;margin:0;padding:0;font-size:0;height:0;line-height:0;overflow:hidden}
+.clearfix{*zoom:1}
+.card_layer{border-radius:4px 4px 4px 4px;color:#666;position:absolute;z-index:9999;top:-158px;left:-22px;_width:330px;}
+.card_layer dl, dt, dd, ul, ol, li, pre,p{padding:0;margin:0 }
+.card_layer .bg{/*background: url("layer_bg.png") repeat scroll 0 0 transparent;*/border-radius: 4px 4px 4px 4px;padding:4px;}
+.card_layer .card_content{background: none repeat scroll 0 0 #fff;border: 1px solid #C6C6C6;border-radius: 3px 3px 3px 3px;position: relative;box-shadow:0 0 3px rgba(0, 0, 0, 0.3);border:#666 solid 1px;width:370px;}
+.card_name{color:#5d5d5d}
+.card_name .userdata{width:250px}
+.card_name .userdata li{float:left;text-align:left;margin-right:10px}
+.card_name .name{padding: 15px 15px 10px}
+.card_name .name .picborder_r{border:#ccc solid 1px;padding:1px;height:50px;width:50px}
+.card_name .name dd{margin:-4px 0 0 10px;line-height:20px;border:0}
+.card_name .name dd p {width: 250px;word-wrap: break-word;text-align:left}
+.card_name .info{line-height: 18px;margin: 0 15px 8px;width: 320px}
+.card_name .info a{margin-right:10px}
+.card_name .name dt, .card_name .name dd, .card_name .info dt, .card_name .info dd {display: inline;float: left}
+.card_name .links{line-height:30px;background-color:#eee;padding:3px 10px;text-align:left;}
+.card_name .links span{float:right}
+.card_layer .arrow, .card_layer .arrow_hui {background: url("layer_arrow.png") no-repeat scroll 0 0 transparent;display: block;overflow: hidden;position: absolute}
+.card_layer .arrow_hui {background: url("layer_arrow_hui.png") no-repeat scroll 0 0 transparent}
+.card_layer .arrow_r, .card_layer .arrow_l {background-position: -11px -24px;height: 16px;right: -1px;top: 20px;width: 11px}
+.card_layer .arrow_l {background-position: 0 -24px;left: -1px;right: auto}
+.card_layer .arrow_t, .card_layer .arrow_b {background-position: 0 -1px;height: 11px;left: 30px;top: -1px;width: 16px}
+.card_layer .arrow_b {background-position: 0 -11px;bottom: -1px;top: auto}

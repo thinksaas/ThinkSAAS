@@ -1,0 +1,12 @@
+
+<div class="top-wp">
+<ul class="tabs">
+<li><a <!--{if $ac=='space'}class="current brT5"{/if}--> href="{SITE_URL}{tsUrl('user','space',array('id'=>$strUser['userid']))}">首页</a></li>
+<li><a <!--{if $ac=='feed'}class="current brT5"{/if}--> href="{SITE_URL}{tsUrl('user','feed',array('id'=>$strUser['userid']))}">动态</a></li>
+<li><a <!--{if $ac=='topic'}class="current brT5"{/if}--> href="{SITE_URL}{tsUrl('user','topic',array('id'=>$strUser['userid']))}">帖子</a></li>
+<li><a <!--{if $ac=='group'}class="current brT5"{/if}--> href="{SITE_URL}{tsUrl('user','group',array('id'=>$strUser['userid']))}">小组</a></li>
+<li><a <!--{if $ac=='collect'}class="current brT5"{/if}--> href="{SITE_URL}{tsUrl('user','collect',array('id'=>$strUser['userid']))}">喜欢</a></li>
+<li><a <!--{if $ac=='comment'}class="current brT5"{/if}--> href="{SITE_URL}{tsUrl('user','comment',array('id'=>$strUser['userid']))}">评论</a></li>
+<li><a <!--{if $ac=='guestbook'}class="current brT5"{/if}--> href="{SITE_URL}{tsUrl('user','guestbook',array('id'=>$strUser['userid']))}">留言</a></li>
+</ul>
+</div>

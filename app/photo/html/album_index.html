@@ -1,0 +1,44 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+<div class="cleft">
+
+{template menu}
+
+<div id="container" class="wr">
+
+<!--{loop $arrAlbum $key $item}-->
+        <div class="box albumlst">
+        <a href="{SITE_URL}{tsUrl('photo','album',array(ts=>photo,albumid=>$item[albumid]))}" class="album_photo"><img src="<!--{if $item[albumface] == ''}-->{SITE_URL}app/{$app}/skins/{$skin}/photo_album.png<!--{else}-->{SITE_URL}{php echo tsXimg($item[albumface],'photo',170,'',$item[path])}<!--{/if}-->"></a>
+        <div class="albumlst_r">
+            <div><a href="{SITE_URL}{tsUrl('photo','album',array(ts=>photo,albumid=>$item[albumid]))}">{$item[albumname]}</a></div>
+        <div class="albumlst_descri">{$item[albumdesc]}</div>
+
+        <span class="pl">
+        {$item[count_photo]}张照片&nbsp;
+           {php echo date('Y-m-d',$item[addtime])}创建<br>
+        </span>
+
+        </div>
+        <br>
+        </div>
+	<!--{if $key%2}--><div class="clear"></div><!--{/if}-->
+<!--{/loop}-->
+<div class="clear"></div>
+ </div>
+ 
+ <div class="page">{$pageUrl}</div>
+
+</div>
+
+<div class="cright">
+
+
+</div>
+
+</div>
+</div>
+
+{template footer}
