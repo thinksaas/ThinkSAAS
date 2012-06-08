@@ -1,6 +1,0 @@
-RewriteEngine On
-RewriteBase /thinksaas2/
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /thinksaas2/index.php [L]
