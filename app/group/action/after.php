@@ -1,7 +1,4 @@
 <?php 
-/**
- * 补贴
- */
 defined('IN_TS') or die('Access Denied.');
 
 //用户是否登录
@@ -15,7 +12,7 @@ switch($ts){
 		$topicid = intval($_GET['topicid']);
 		
 		if($new['group']->isTopic($topicid)){
-			$strTopic = $new['group']->find('group_topics',array('topicid'=>$topicid),'userid,topicid,title');
+			$strTopic = $new['group']->find('group_topic',array('topicid'=>$topicid),'userid,topicid,title');
 			
 			if($strTopic['userid'] == $userid || $TS_USER['user']['isadmin']==1){
 			
@@ -32,15 +29,21 @@ switch($ts){
 		
 	//执行补贴
 	case "ado":
+	
+		if($_POST['token'] != $_SESSION['token']) {
+			tsNotice('非法操作！');
+		}
 		
 		$topicid = intval($_POST['topicid']);
-		$content = trim($_POST['content']);
-		$title = trim($_POST['title']);
+		$content = tsClean($_POST['content']);
+		$title = tsClean($_POST['title']);
 		
-		//添加补贴标签
-		doAction('group_topic_after_add', $title, $content);
+		//过滤内容开始
+		aac('system')->antiWord($title);
+		aac('system')->antiWord($content);
+		//过滤内容结束
 		
-		$afterid = $new['group']->create('group_topics_add',array(
+		$afterid = $new['group']->create('group_topic_add',array(
 		
 			'topicid'=>$topicid,
 			'userid'=>$userid,
@@ -55,7 +58,7 @@ switch($ts){
 		$arrUpload = tsUpload($_FILES['picfile'],$afterid,'after',array('jpg','gif','png'));
 		if($arrUpload){
 
-			$new['group']->update('group_topics_add',array(
+			$new['group']->update('group_topic_add',array(
 				'id'=>$afterid,
 			),array(
 				'path'=>$arrUpload['path'],
@@ -68,7 +71,7 @@ switch($ts){
 		$attUpload = tsUpload($_FILES['attfile'],$afterid,'after',array('zip','rar','doc','txt','pdf','ppt','docx','xls','xlsx'));
 		if($attUpload){
 
-			$new['group']->update('group_topics_add',array(
+			$new['group']->update('group_topic_add',array(
 				'id'=>$afterid,
 			),array(
 				'path'=>$attUpload['path'],
@@ -78,7 +81,7 @@ switch($ts){
 		}
 		//上传附件结束
 		
-		header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$topicid)));
+		header("Location: ".tsUrl('group','topic',array('id'=>$topicid)));
 		
 		break;
 	
@@ -86,10 +89,10 @@ switch($ts){
 	case "edit":
 	
 		$aid = intval($_GET['aid']);
-		$strAfter = $new['group']->find('group_topics_add',array(
+		$strAfter = $new['group']->find('group_topic_add',array(
 			'id'=>$aid,
 		));
-		$strAfter['content'] = BBCode2Html($strAfter['content']);
+		$strAfter['content'] = $strAfter['content'];
 		
 		if($strAfter['userid'] == $userid || $TS_USER['user']['isadmin']==1){
 		
@@ -103,21 +106,27 @@ switch($ts){
 	//编辑执行
 	case "edo":
 	
+		if($_POST['token'] != $_SESSION['token']) {
+			tsNotice('非法操作！');
+		}
+	
 		$afterid = intval($_POST['afterid']);
 		
-		$strAfter = $new['group']->find('group_topics_add',array(
+		$strAfter = $new['group']->find('group_topic_add',array(
 			'id'=>$afterid,
 		));
 		
 		if($strAfter['userid'] == $userid || $TS_USER['user']['isadmin']==1){
 		
-			$content = trim($_POST['content']);
-			$title = trim($_POST['title']);
+			$content = tsClean($_POST['content']);
+			$title = tsClean($_POST['title']);
 			
-			//编辑补贴标签
-			doAction('group_topic_after_edit', $title, $content);
+			//过滤内容开始
+			aac('system')->antiWord($title);
+			aac('system')->antiWord($content);
+			//过滤内容结束
 			
-			$new['group']->update('group_topics_add',array(
+			$new['group']->update('group_topic_add',array(
 				'id'=>$afterid,
 			),array(
 				'title'=>$title,
@@ -129,7 +138,7 @@ switch($ts){
 			$arrUpload = tsUpload($_FILES['picfile'],$afterid,'after',array('jpg','gif','png'));
 			if($arrUpload){
 
-				$new['group']->update('group_topics_add',array(
+				$new['group']->update('group_topic_add',array(
 					'id'=>$afterid,
 				),array(
 					'path'=>$arrUpload['path'],
@@ -148,7 +157,7 @@ switch($ts){
 			$attUpload = tsUpload($_FILES['attfile'],$afterid,'after',array('zip','rar','doc','txt','pdf','ppt','docx','xls','xlsx'));
 			if($attUpload){
 
-				$new['group']->update('group_topics_add',array(
+				$new['group']->update('group_topic_add',array(
 					'id'=>$afterid,
 				),array(
 					'path'=>$attUpload['path'],
@@ -164,14 +173,9 @@ switch($ts){
 			}
 			//上传附件结束
 			
-			header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$strAfter['topicid'])));
+			header("Location: ".tsUrl('group','topic',array('id'=>$strAfter['topicid'])));
 		
 		}
-		
-		break;
-		
-	//贴代码
-	case "code":
 		
 		break;
 	
@@ -179,7 +183,7 @@ switch($ts){
 	case "delete":
 		
 		$id = intval($_GET['aid']);
-		$strAfter = $new['group']->find('group_topics_add',array(
+		$strAfter = $new['group']->find('group_topic_add',array(
 			'id'=>$id,
 		));
 		
@@ -187,25 +191,25 @@ switch($ts){
 			$new['group']->delAfter($id);
 		}
 		
-		header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$strAfter['topicid'])));
+		header("Location: ".tsUrl('group','topic',array('id'=>$strAfter['topicid'])));
 		
 		break;
 		
 	//上移
 	case "up":
-		$id = intval($_GET['aid']);
-		$strAfter = $new['group']->find('group_topics_add',array(
+		$id = intval($_GET['afterid']);
+		$strAfter = $new['group']->find('group_topic_add',array(
 			'id'=>$id,
 		));
 		
 		//重新排序
 		if($strAfter['orderid']==0){
-			$arrAfters = $this->findAll('group_topics_add',array(
+			$arrAfters = $new['group']->findAll('group_topic_add',array(
 				'topicid'=>$strAfter['topicid'],
 			));
 			
 			foreach($arrAfters as $key=>$item){
-				$new['group']->update('group_topics_add',array(
+				$new['group']->update('group_topic_add',array(
 					'id'=>$item['id'],
 				),array(
 					'orderid'=>$key,
@@ -215,24 +219,25 @@ switch($ts){
 		}
 		
 		
+		header('Location: '.tsUrl('group','topic',array('id'=>$strAfter['topicid'])));
 		
 		break;
 	
 	//下移
 	case "down":
-		$id = intval($_GET['id']);
-		$strAfter = $new['group']->find('group_topics_add',array(
+		$id = intval($_GET['afterid']);
+		$strAfter = $new['group']->find('group_topic_add',array(
 			'id'=>$id,
 		));
 		
 		//重新排序
 		if($strAfter['orderid']==0){
-			$arrAfters = $this->findAll('group_topics_add',array(
+			$arrAfters = $new['group']->findAll('group_topic_add',array(
 				'topicid'=>$strAfter['topicid'],
 			));
 			
 			foreach($arrAfters as $key=>$item){
-				$new['group']->update('group_topics_add',array(
+				$new['group']->update('group_topic_add',array(
 					'id'=>$item['id'],
 				),array(
 					'orderid'=>$key,
@@ -240,6 +245,8 @@ switch($ts){
 			}
 			
 		}
+		
+		header('Location: '.tsUrl('group','topic',array('id'=>$strAfter['topicid'])));
 		
 		break;
 }

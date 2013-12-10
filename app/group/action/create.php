@@ -11,14 +11,24 @@ switch($ts){
 	case "":
 	
 		//先判断加入多少个小组啦 
-		$userGroupNum = $new['group']->findCount('group_users',array('userid'=>$userid));
+		$userGroupNum = $new['group']->findCount('group_user',array(
+			'userid'=>$userid
+		));
 		
-		if($userGroupNum >= $TS_APP['options']['joinnum']) tsNotice('你加入的小组总数已经到达'.$TS_APP['options']['joinnum'].'个，不能再创建小组！');
+		if($userGroupNum >= $TS_APP['options']['joinnum'] && $TS_USER['user']['isadmin']==0){
+		
+			tsNotice('你加入的小组总数已经到达'.$TS_APP['options']['joinnum'].'个，不能再创建小组！');
+		
+		}
 		
 		if($TS_APP['options']['iscreate'] == 0 || $TS_USER['user']['isadmin']==1){
 		
 			//小组分类
-			$arrCate = $new['group']->findAll('group_cates');
+			$arrCate = $new['group']->findAll('group_cate',array(
+			
+				'referid'=>0,
+			
+			));
 		
 			$title = '创建小组';
 
@@ -29,40 +39,53 @@ switch($ts){
 			tsNotice('系统不允许会员创建小组！');
 		
 		}
-	
-
-	
 		break;
-	
 	
 	//执行创建小组
 	case "do":
 	
 		if($TS_APP['options']['iscreate'] == 0 || $TS_USER['user']['isadmin']==1){
 	
-			if($_POST['grp_agreement'] != 1) tsNotice('不同意社区指导原则是不允许创建小组的！');
+			if(intval($_POST['grp_agreement']) != 1){
+				tsNotice('不同意社区指导原则是不允许创建小组的！');
+			}
 			
-			if($_POST['groupname']=='' || $_POST['groupdesc']=='') tsNotice('小组名称和介绍不能为空！');
+			$groupname = t($_POST['groupname']);
+			$groupdesc = tsClean($_POST['groupdesc']);
+			
+			if($groupname=='' || $groupdesc=='') {
+				tsNotice('小组名称和介绍不能为空！');
+			}
+			
+			//过滤内容开始
+			aac('system')->antiWord($groupname);
+			aac('system')->antiWord($groupdesc);
+			//过滤内容结束
 			
 			//配置文件是否需要审核
 			$isaudit = intval($TS_APP['options']['isaudit']);
+			if($TS_USER['user']['isadmin']==1){
+				$isaudit = 0;
+			}
 			
-			$groupname = trim($_POST['groupname']);
+			$isGroup = $new['group']->findCount('group',array(
+				'groupname'=>$groupname,
+			));
 			
-			$isGroup = $db->once_fetch_assoc("select count(groupid) from ".dbprefix."group where groupname='$groupname'");
-			
-			if($isGroup['count(groupid)'] > 0) tsNotice("小组名称已经存在，请更换其他小组名称！");
-			
-			$arrData = array(
-				'userid'			=> $userid,
+			if($isGroup > 0) {
+				tsNotice("小组名称已经存在，请更换其他小组名称！");
+			}
+
+			$groupid = $new['group']->create('group',array(
+				'userid'	=> $userid,
 				'cateid'=>intval($_POST['cateid']),
+				'cateid2'=>intval($_POST['cateid2']),
+				'cateid3'=>intval($_POST['cateid3']),
 				'groupname'	=> $groupname,
-				'groupdesc'		=> trim($_POST['groupdesc']),
+				'groupdesc'	=> $groupdesc,
 				'isaudit'	=> $isaudit,
-				'addtime'		=> time(),
-			);
-			
-			$groupid = $db->insertArr($arrData,dbprefix.'group');
+				'addtime'	=> time(),
+			));
 
 			//上传
 			$arrUpload = tsUpload($_FILES['picfile'],$groupid,'group',array('jpg','gif','png'));
@@ -73,15 +96,33 @@ switch($ts){
 					'groupid'=>$groupid,
 				),array(
 					'path'=>$arrUpload['path'],
-					'groupicon'=>$arrUpload['url'],
+					'photo'=>$arrUpload['url'],
 				));
 			}
 			
 			//绑定成员
-			$db->query("insert into ".dbprefix."group_users (`userid`,`groupid`,`addtime`) values ('".$userid."','".$groupid."','".time()."')");
+			$new['group']->create('group_user',array(
+				'userid'=>$userid,
+				'groupid'=>$groupid,
+				'addtime'=>time(),
+			));
 			
 			//更新
-			$db->query("update ".dbprefix."group set `count_user` = '1' where groupid='".$groupid."'");
+			$count_group = $new['group']->findCount('group_user',array(
+				'userid'=>$userid,
+			));
+			$new['group']->update('user_info',array(
+				'userid'=>$userid,
+			),array(
+				'count_group'=>$count_group,
+			));
+			
+			//更新小组人数
+			$new['group']->update('group',array(
+				'groupid'=>$groupid,
+			),array(
+				'count_user'=>1,
+			));
 			
 			//更新分类统计
 			$cateid = intval($_POST['cateid']);
@@ -90,7 +131,7 @@ switch($ts){
 					'cateid'=>$cateid,
 				));
 				
-				$new['group']->update('group_cates',array(
+				$new['group']->update('group_cate',array(
 					'cateid'=>$cateid,
 				),array(
 					'count_group'=>$count_group,
@@ -98,7 +139,7 @@ switch($ts){
 		
 			}
 
-			header("Location: ".SITE_URL.tsUrl('group','show',array('id'=>$groupid)));
+			header("Location: ".tsUrl('group','show',array('id'=>$groupid)));
 		}
 		break;
 	

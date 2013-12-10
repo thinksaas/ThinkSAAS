@@ -1,115 +1,124 @@
 <?php
-defined('IN_TS') or die('Access Denied.');
-
+defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 class tsTemplate {
 	var $var_regexp = "\@?\\\$[a-zA-Z_][\\\$\w]*(?:\[[\w\-\.\"\'\[\]\$]+\])*";
 	var $vtag_regexp = "\<\?php echo (\@?\\\$[a-zA-Z_][\\\$\w]*(?:\[[\w\-\.\"\'\[\]\$]+\])*)\;\?\>";
 	var $const_regexp = "\{([\w]+)\}";
-
+	
 	/**
-	 *  ¶ÁÄ£°åÒ³½øĞĞÌæ»»ºóĞ´Èëµ½cacheÒ³Àï
+	 * è¯»æ¨¡æ¿é¡µè¿›è¡Œæ›¿æ¢åå†™å…¥åˆ°cacheé¡µé‡Œ
 	 *
-	 * @param string $tplfile £ºÄ£°åÔ´ÎÄ¼şµØÖ·
-	 * @param string $objfile £ºÄ£°åcacheÎÄ¼şµØÖ·
+	 * @param string $tplfile
+	 *        	ï¼šæ¨¡æ¿æºæ–‡ä»¶åœ°å€
+	 * @param string $objfile
+	 *        	ï¼šæ¨¡æ¿cacheæ–‡ä»¶åœ°å€
 	 * @return string
 	 */
 	function complie($tplfile, $objfile) {
-
-		$template = file_get_contents($tplfile);
-		$template = $this->parse($template);
-		makedir(dirname($objfile));
-		isWriteFile($objfile, $template, $mod = 'w', TRUE);
-
+		$template = "<?php defined('IN_TS') or die('Access Denied.'); ?>";
+		$template .= file_get_contents ( $tplfile );
+		$template = $this->parse ( $template );
+		makedir ( dirname ( $objfile ) );
+		isWriteFile ( $objfile, $template, $mod = 'w', TRUE );
 	}
-
+	
 	/**
-	 *  ½âÎöÄ£°å±êÇ©
+	 * è§£ææ¨¡æ¿æ ‡ç­¾
 	 *
-	 * @param string $template £ºÄ£°åÔ´ÎÄ¼şÄÚÈİ
+	 * @param string $template
+	 *        	ï¼šæ¨¡æ¿æºæ–‡ä»¶å†…å®¹
 	 * @return string
 	 */
 	function parse($template) {
-	
-		//BY QIUJUN 2011-10-22 Ôö¼ÓtsurlÂ·ÓÉÄ£°å±êÇ©
-		$template = preg_replace("/\{tsUrl(.*?)\}/s", "{php echo tsurl\\1}", $template);
-	
-		$template = preg_replace("/\<\!\-\-\{(.+?)\}\-\-\>/s", "{\\1}", $template);//È¥³ıhtml×¢ÊÍ·ûºÅ<!---->
-		$template = preg_replace("/\{($this->var_regexp)\}/", "<?php echo \\1;?>", $template);//Ìæ»»´ø{}µÄ±äÁ¿
-		$template = preg_replace("/\{($this->const_regexp)\}/", "<?php echo \\1;?>", $template);//Ìæ»»´ø{}µÄ³£Á¿
-		$template = preg_replace("/(?<!\<\?php echo |\\\\)$this->var_regexp/", "<?php echo \\0;?>", $template);//Ìæ»»ÖØ¸´µÄ<?php echo
-		$template = preg_replace("/\{php (.*?)\}/ies", "\$this->stripvTag('<?php \\1?>')", $template);//Ìæ»»php±êÇ©
-		$template = preg_replace("/\{for (.*?)\}/ies", "\$this->stripvTag('<?php for(\\1) {?>')", $template);//Ìæ»»for±êÇ©
 		
-		$template = preg_replace("/\{elseif\s+(.+?)\}/ies", "\$this->stripvTag('<?php } elseif (\\1) { ?>')", $template);//Ìæ»»elseif±êÇ©
-		for($i=0; $i<3; $i++) {
-			$template = preg_replace("/\{loop\s+$this->vtag_regexp\s+$this->vtag_regexp\s+$this->vtag_regexp\}(.+?)\{\/loop\}/ies", "\$this->loopSection('\\1', '\\2', '\\3', '\\4')", $template);
-			$template = preg_replace("/\{loop\s+$this->vtag_regexp\s+$this->vtag_regexp\}(.+?)\{\/loop\}/ies", "\$this->loopSection('\\1', '', '\\2', '\\3')", $template);
+		// æ¸…é™¤æ¨¡æ¿ä¸­æ¢è¡Œ
+		// $template = preg_replace('/[\n\r\t]/', '', $template);
+		
+		// BY QIUJUN 2011-10-22 å¢åŠ tsurlè·¯ç”±æ¨¡æ¿æ ‡ç­¾
+		$template = preg_replace ( "/\{tsUrl(.*?)\}/s", "{php echo tsurl\\1}", $template );
+		
+		$template = preg_replace ( "/\<\!\-\-\{(.+?)\}\-\-\>/s", "{\\1}", $template ); // å»é™¤htmlæ³¨é‡Šç¬¦å·<!---->
+		$template = preg_replace ( "/\{($this->var_regexp)\}/", "<?php echo \\1;?>", $template ); // æ›¿æ¢å¸¦{}çš„å˜é‡
+		$template = preg_replace ( "/\{($this->const_regexp)\}/", "<?php echo \\1;?>", $template ); // æ›¿æ¢å¸¦{}çš„å¸¸é‡
+		$template = preg_replace ( "/(?<!\<\?php echo |\\\\)$this->var_regexp/", "<?php echo \\0;?>", $template ); // æ›¿æ¢é‡å¤çš„<?php echo
+		$template = preg_replace ( "/\{php (.*?)\}/ies", "\$this->stripvTag('<?php \\1?>')", $template ); // æ›¿æ¢phpæ ‡ç­¾
+		$template = preg_replace ( "/\{for (.*?)\}/ies", "\$this->stripvTag('<?php for(\\1) {?>')", $template ); // æ›¿æ¢foræ ‡ç­¾
+		
+		$template = preg_replace ( "/\{elseif\s+(.+?)\}/ies", "\$this->stripvTag('<?php } elseif (\\1) { ?>')", $template ); // æ›¿æ¢elseifæ ‡ç­¾
+		for($i = 0; $i < 3; $i ++) {
+			$template = preg_replace ( "/\{loop\s+$this->vtag_regexp\s+$this->vtag_regexp\s+$this->vtag_regexp\}(.+?)\{\/loop\}/ies", "\$this->loopSection('\\1', '\\2', '\\3', '\\4')", $template );
+			$template = preg_replace ( "/\{loop\s+$this->vtag_regexp\s+$this->vtag_regexp\}(.+?)\{\/loop\}/ies", "\$this->loopSection('\\1', '', '\\2', '\\3')", $template );
 		}
-		$template = preg_replace("/\{if\s+(.+?)\}/ies", "\$this->stripvTag('<?php if(\\1) { ?>')", $template);//Ìæ»»if±êÇ©
-		$template = preg_replace("/\{include\s+(.*?)\}/is", "<?php include \\1; ?>", $template);//Ìæ»»include±êÇ©
+		$template = preg_replace ( "/\{if\s+(.+?)\}/ies", "\$this->stripvTag('<?php if(\\1) { ?>')", $template ); // æ›¿æ¢ifæ ‡ç­¾
+		$template = preg_replace ( "/\{include\s+(.*?)\}/is", "<?php include \\1; ?>", $template ); // æ›¿æ¢includeæ ‡ç­¾
 		
-		$template = preg_replace("/\{template\s+(\w+?)\}/is", "<?php include template('\\1'); ?>", $template);//Ìæ»»template±êÇ©
-		$template = preg_replace("/\{block (.*?)\}/ies", "\$this->stripBlock('\\1')", $template);//Ìæ»»block±êÇ©
-		$template = preg_replace("/\{else\}/is", "<?php } else { ?>", $template);//Ìæ»»else±êÇ©
-		$template = preg_replace("/\{\/if\}/is", "<?php } ?>", $template);//Ìæ»»/if±êÇ©
-		$template = preg_replace("/\{\/for\}/is", "<?php } ?>", $template);//Ìæ»»/for±êÇ©
-		$template = preg_replace("/$this->const_regexp/", "<?php echo \\1;?>", $template);//note {else} Ò²·ûºÏ³£Á¿¸ñÊ½£¬´Ë´¦Òª×¢ÒâÏÈºóË³??
-		$template = preg_replace("/(\\\$[a-zA-Z_]\w+\[)([a-zA-Z_]\w+)\]/i", "\\1'\\2']", $template);//½«¶şÎ¬Êı×éÌæ»»³É´øµ¥ÒıºÅµÄ±ê×¼Ä£Ê½
+		$template = preg_replace ( "/\{template\s+(\w+?)\}/is", "<?php include template('\\1'); ?>", $template ); // æ›¿æ¢templateæ ‡ç­¾
+		$template = preg_replace ( "/\{block (.*?)\}/ies", "\$this->stripBlock('\\1')", $template ); // æ›¿æ¢blockæ ‡ç­¾
+		$template = preg_replace ( "/\{else\}/is", "<?php } else { ?>", $template ); // æ›¿æ¢elseæ ‡ç­¾
+		$template = preg_replace ( "/\{\/if\}/is", "<?php } ?>", $template ); // æ›¿æ¢/ifæ ‡ç­¾
+		$template = preg_replace ( "/\{\/for\}/is", "<?php } ?>", $template ); // æ›¿æ¢/foræ ‡ç­¾
+		$template = preg_replace ( "/$this->const_regexp/", "<?php echo \\1;?>", $template ); // note {else} ä¹Ÿç¬¦åˆå¸¸é‡æ ¼å¼ï¼Œæ­¤å¤„è¦æ³¨æ„å…ˆåé¡º??
+		$template = preg_replace ( "/(\\\$[a-zA-Z_]\w+\[)([a-zA-Z_]\w+)\]/i", "\\1'\\2']", $template ); // å°†äºŒç»´æ•°ç»„æ›¿æ¢æˆå¸¦å•å¼•å·çš„æ ‡å‡†æ¨¡å¼
 		/* $template = "<?php if(!defined('IN_TS')) exit('Access Denied');?>\r\n$template"; */
 		$template = "$template";
-
+		
 		return $template;
 	}
-
+	
 	/**
-	 * ÕıÔò±í´ïÊ½Æ¥ÅäÌæ»»
+	 * æ­£åˆ™è¡¨è¾¾å¼åŒ¹é…æ›¿æ¢
 	 *
-	 * @param string $s £º
+	 * @param string $s
+	 *        	ï¼š
 	 * @return string
 	 */
 	function stripvTag($s) {
-		return preg_replace("/$this->vtag_regexp/is", "\\1", str_replace("\\\"", '"', $s));
+		return preg_replace ( "/$this->vtag_regexp/is", "\\1", str_replace ( "\\\"", '"', $s ) );
 	}
-
 	function stripTagQuotes($expr) {
-		$expr = preg_replace("/\<\?php echo (\\\$.+?);\?\>/s", "{\\1}", $expr);
-		$expr = str_replace("\\\"", "\"", preg_replace("/\[\'([a-zA-Z0-9_\-\.\x7f-\xff]+)\'\]/s", "[\\1]", $expr));
+		$expr = preg_replace ( "/\<\?php echo (\\\$.+?);\?\>/s", "{\\1}", $expr );
+		$expr = str_replace ( "\\\"", "\"", preg_replace ( "/\[\'([a-zA-Z0-9_\-\.\x7f-\xff]+)\'\]/s", "[\\1]", $expr ) );
 		return $expr;
 	}
-	
-	function stripv($vv){
-		$vv = str_replace('<?php','',$vv);
-		$vv = str_replace('echo','',$vv);
-		$vv = str_replace(';','',$vv);
-		$vv = str_replace('?>','',$vv);
+	function stripv($vv) {
+		$vv = str_replace ( '<?php', '', $vv );
+		$vv = str_replace ( 'echo', '', $vv );
+		$vv = str_replace ( ';', '', $vv );
+		$vv = str_replace ( '?>', '', $vv );
 		return $vv;
 	}
 	
 	/**
-	 * ½«Ä£°åÖĞµÄ¿éÌæ»»³ÉBLOCKº¯Êı
+	 * å°†æ¨¡æ¿ä¸­çš„å—æ›¿æ¢æˆBLOCKå‡½æ•°
 	 *
-	 * @param string $blockname £º
-	 * @param string $parameter £º
+	 * @param string $blockname
+	 *        	ï¼š
+	 * @param string $parameter
+	 *        	ï¼š
 	 * @return string
 	 */
 	function stripBlock($parameter) {
-		return $this->stripTagQuotes("<?php Mooblock(\"$parameter\"); ?>");
+		return $this->stripTagQuotes ( "<?php Mooblock(\"$parameter\"); ?>" );
 	}
-
+	
 	/**
-	 * Ìæ»»Ä£°åÖĞµÄLOOPÑ­»·
+	 * æ›¿æ¢æ¨¡æ¿ä¸­çš„LOOPå¾ªç¯
 	 *
-	 * @param string $arr £º
-	 * @param string $k £º
-	 * @param string $v £º
-	 * @param string $statement £º
+	 * @param string $arr
+	 *        	ï¼š
+	 * @param string $k
+	 *        	ï¼š
+	 * @param string $v
+	 *        	ï¼š
+	 * @param string $statement
+	 *        	ï¼š
 	 * @return string
 	 */
 	function loopSection($arr, $k, $v, $statement) {
-		$arr = $this->stripvTag($arr);
-		$k = $this->stripvTag($k);
-		$v = $this->stripvTag($v);
-		$statement = str_replace("\\\"", '"', $statement);
+		$arr = $this->stripvTag ( $arr );
+		$k = $this->stripvTag ( $k );
+		$v = $this->stripvTag ( $v );
+		$statement = str_replace ( "\\\"", '"', $statement );
 		return $k ? "<?php foreach((array)$arr as $k=>$v) {?>$statement<?php }?>" : "<?php foreach((array)$arr as $v) {?>$statement<?php } ?>";
 	}
 }

@@ -1,8 +1,13 @@
 <?php 
+defined('IN_TS') or die('Access Denied.');
 //插件编辑
 switch($ts){
 	case "set":
-		$arrNav = fileRead('plugins/pubs/navs/data.php');
+		$arrNav = fileRead('data/plugins_pubs_navs.php');
+		
+		if($arrNav==''){
+			$arrNav = $tsMySqlCache->get('plugins_pubs_navs');
+		}
 		
 		include 'edit_set.html';
 		break;
@@ -23,8 +28,9 @@ switch($ts){
 			
 		}
 		
-		fileWrite('data.php','plugins/pubs/navs',$arrNav);
+		fileWrite('plugins_pubs_navs.php','data',$arrNav);
+		$tsMySqlCache->set('plugins_pubs_navs',$arrNav);
 		
-		qiMsg("修改成功！");
+		header('Location: '.SITE_URL.'index.php?app=pubs&ac=plugin&plugin=navs&in=edit&ts=set');
 		break;
 }

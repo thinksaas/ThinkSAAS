@@ -1,0 +1,155 @@
+{template header}
+<div class="midder">
+	<div class="mc">
+
+
+		<div class="cleft">
+
+			<div class="bbox">
+
+				<div class="bd">
+					<a href="{tsUrl('article')}" title="文章">文章</a> → <a
+						href="{tsUrl('article','cate',array('id'=>$strArticle['cate']['cateid']))}">{$strArticle['cate']['catename']}</a>
+					→ {php echo htmlspecialchars($strArticle[title])}
+				</div>
+
+				<h1>{php echo htmlspecialchars($strArticle[title])}</h1>
+				<div class="bc">
+					{if $strArticle['tags']}
+					<div class="tags">
+						{loop $strArticle[tags] $key $item} <a
+							href="{tsUrl('article','tag',array('id'=>$item['tagname']))}">{$item[tagname]}</a>
+						{/loop}
+					</div>
+					<div class="clear"></div>
+					{/if}
+
+					<div class="tar c9">
+						<a
+							href="{tsUrl('user','space',array('id'=>$strArticle[user][userid]))}">{$strArticle[user][username]}</a>
+						发表于 {$strArticle[addtime]}
+					</div>
+
+					<div class="fs14 lh30">{$strArticle[content]}</div>
+
+					<div class="tar">
+						<a class="btn" href="javascript:void('0');"
+							onclick="recommend('{$strArticle['articleid']}');">{$strArticle['count_recommend']}推荐</a>
+						<a class="btn" href="">{$strArticle['count_comment']}评论</a>
+					</div>
+
+					{if $TS_USER[user][isadmin]==1}
+					<div class="tar pd100">
+						<a
+							href="{SITE_URL}index.php?app=article&ac=edit&articleid={$strArticle[articleid]}">修改</a>
+						<a
+							href="{SITE_URL}index.php?app=article&ac=delete&articleid={$strArticle[articleid]}">删除</a>
+					</div>
+					{/if}
+
+				</div>
+			</div>
+
+
+			<div class="bbox">
+				<h2>你的回应</h2>
+				<div class="bc">
+					<ul class="comment">
+						{loop $arrComment $key $item}
+						<li class="clearfix">
+							<div class="user-face">
+								<a
+									href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img
+									title="{$item[user][username]}" alt="{$item[user][username]}"
+									src="{$item[user][face]}"></a>
+							</div>
+							<div class="reply-doc">
+								<h4>
+									{php echo date('Y-m-d H:i:s',$item[addtime])} <a
+										href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+								</h4>
+								<p>{$item[content]}</p>
+								{if $TS_USER[user][userid] == $strArticle[userid] ||
+								$TS_USER['user']['isadmin']==1}
+								<div class="group_banned">
+									<span><a class="j a_confirm_link"
+										href="{SITE_URL}index.php?app=article&ac=comment&ts=delete&commentid={$item['commentid']}"
+										rel="nofollow">删除</a> </span>
+								</div>
+								{/if}
+							</div>
+						</li> {/loop}
+					</ul>
+
+					<div class="page">{$pageUrl}</div>
+
+
+					<div>
+						{if intval($TS_USER[user][userid])==0}
+						<div class="pd20 tac">
+							<a href="{tsUrl('user','login')}">登录</a> | <a
+								href="{tsUrl('user','register')}">注册</a>
+						</div>
+						{else}
+						<form method="POST"
+							action="{SITE_URL}index.php?app=article&ac=comment&ts=do"
+							onSubmit="return submitonce(this)" id="formMini">
+							<textarea style="width: 100%;" type="text" id="tseditor"
+								name="content"></textarea>
+							<p>
+								<input type="hidden" name="articleid"
+									value="{$strArticle[articleid]}" /> <input type="hidden"
+									name="token" value="{$_SESSION['token']}" />
+
+								<button class="btn btn-success" type="submit">回复</button>
+							</p>
+						</form>
+						{/if}
+					</div>
+
+
+				</div>
+			</div>
+
+
+		</div>
+
+
+		<div class="cright">
+
+			<div class="bbox">
+				<h2>一周热门</h2>
+				<div class="bc commlist">
+					<ul>
+						{loop $arrHot7 $key $item}
+						<li><a
+							href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></li>
+						{/loop}
+					</ul>
+				</div>
+
+			</div>
+
+			<div class="bbox">
+				<h2>一月热门</h2>
+
+				<div class="bc commlist">
+					<ul>
+						{loop $arrHot30 $key $item}
+						<li><a
+							href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></li>
+						{/loop}
+					</ul>
+				</div>
+
+			</div>
+
+			<!--广告位-->
+			{php doAction('gobad','300')}
+		</div>
+
+
+
+	</div>
+</div>
+{php doAction('tseditor','mini')} {template footer}

@@ -25,6 +25,7 @@ switch($ts){
 		}
 		
 		fileWrite('mail_options.php','data',$arrOption);
+		$tsMySqlCache->set('mail_options',$arrOption);
 		
 		qiMsg("邮件配置更新成功，并重置了缓存文件^_^");
 		

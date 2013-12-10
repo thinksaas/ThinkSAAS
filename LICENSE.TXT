@@ -1,0 +1,47 @@
+﻿【用户条款】
+
+本协议适用ThinkSAAS发布的所有程序版本和代码。
+ThinkSAAS官方指：ThinkSAAS社区，奇鸟软件（北京）有限公司和ThinkSAAS社区系统开发者邱君。
+ThinkSAAS禁止用户在使用中触犯中国法律范围内的任何法律条文。
+ThinkSAAS、奇鸟软件（北京）有限公司及其创始人邱君拥有对ThinkSAAS的所有权，任何个人，公司和组织不得以任何形式和目的侵犯ThinkSAAS的版权和著作权
+ThinkSAAS官方拥有对ThinkSAAS社区软件绝对的版权和著作权。
+ThinkSAAS商业授权全面免费，公司和个人可以用ThinkSAAS搭建任何商业应用和网站，不用再支付任何商业授权费用。
+ThinkSAAS不会监控用户网站信息，但有权通过邮件或者其他联系方式获悉用户使用情况，有权拿用户网站用作案例展示。
+在未经ThinkSAAS官方书面允许的情况下，除【自身运营】外，任何个人、公司和组织不能单方面发布和出售以ThinkSAAS为基础开发的任何互联网软件或者产品，否则将视为侵权行为，将依照中华人民共和国法律追究其法律责任。
+ThinkSAAS官方拥有对此协议的修改和不断完善。
+【自身运营】解释：即用户在使用ThinkSAAS中，不通过出售任何以ThinkSAAS为基础开发的产品，仅用作自身学习和自身商业运营的网站。
+
+[ Terms ]
+
+This Agreement applies to all ThinkSAAS release version and code.
+ThinkSAAS official means : ThinkSAAS community , Odd Bird Software ( Beijing ) Co., Ltd. and ThinkSAAS Community Systems founder Qiu Jun
+ThinkSAAS prohibit users violate any provision of law within the scope of Chinese law in use .
+ThinkSAAS, odd birds Software ( Beijing ) Co., Ltd. and its founder Qiu Jun ThinkSAAS of ownership of any individuals, companies and organizations in any form and purpose of copyright and copyright infringement ThinkSAAS
+ThinkSAAS official has the absolute right ThinkSAAS community software copyrights and copyright .
+ThinkSAAS full commercial license free , companies and individuals can use ThinkSAAS build any business application and website , do not pay any business license fees .
+In ThinkSAAS official without written permission, except for [ their ] operations , any individuals, companies and organizations can not unilaterally publish and sell ThinkSAAS any internet -based software development or product , otherwise it will be deemed to invade
+Right conduct , will pursue its legal responsibilities in accordance with the laws of the PRC .
+ThinkSAAS official has to change this agreement and continue to improve .
+[ Operators ] to explain itself : that users use ThinkSAAS , and not through the sale of any ThinkSAAS -based products developed solely for their own learning and their own commercial operations site.
+
+[利用規約]
+
+本契約は、すべてのThinkSAASリリースバージョンとコードに適用されます。
+
+ThinkSAAS公式の意味： ThinkSAASコミュニティを、奇数バードソフトウェア（北京）有限公司とThinkSAASコミュニティシステムの創設者チウ6月
+
+ThinkSAAS 、ユーザーが使用中の中国の法律の範囲内で、法律の規定に違反し禁止しています。
+
+ThinkSAAS 、奇鳥のソフトウェア（北京）有限公司とその創設者、著作権及び著作権侵害のあらゆる形態と目的の任意の個人、企業や組織の所有権の秋6月ThinkSAAS ThinkSAAS
+
+ThinkSAAS関係者は絶対的な権利ThinkSAASコミュニティ·ソフトウェアの著作権と著作権を持っています。
+
+ThinkSAAS完全な商用ライセンスを無料で、企業や個人がどのようなビジネスのライセンス料を払っていない、あらゆるビジネス·アプリケーションとウェブサイトを構築するThinkSAASを使用することができます。
+
+書面による許可なしにThinkSAASの公式では、 [自分]の操作を除いて、いかなる個人、企業や組織が一方的にそれ以外の場合は、侵入したものとみなされます、任意のインターネットベースのソフトウェア開発や製品を公開し、 ThinkSAASを販売することはできません
+
+右の行為は、中国の法律に従って法的責任を追求していきます。
+
+ThinkSAAS関係者は、本契約を変更し、改善し続ける必要があります。
+
+[演算子]自体を説明するために：ユーザーが独自の学習と独自の商業活動のサイトのためだけに開発された任意のThinkSAASベースの製品の販売を通じてThinkSAASを使用していないこと。

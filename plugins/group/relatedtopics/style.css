@@ -1,0 +1,4 @@
+.retopic{background:#F8F8F8;border:solid 1px #F0F0F0;padding:10px;overflow:hidden;}
+.retopic h3{margin:0;font-weight:bold;}
+.retopic ul{}
+.retopic ul li{float:left;margin-right:20px;padding:5px 0;width:45%;overflow:hidden;}

@@ -1,3 +1,7 @@
+.invitecode{width:600px;margin:0 auto;}
+.invitecode ul{}
+.invitecode ul li{float:left;width:300px;font-size:14px;padding:10px 0;}
+
 /**框架CSS**/
 
 .uinput{width:200px;padding: 3px 0 3px 0;font-size: 14px;}
@@ -33,7 +37,7 @@
     display: inline;
     float: left;
     margin: 0 0 10px;
-    width: 76px;
+    width: 70px;
 }
 .obu dt {
     height: 50px;
@@ -269,7 +273,7 @@ fieldset, img {
     float: left;
     margin: 0 0 10px;
     text-align: center;
-    width: 76px;
+    width: 70px;
 }
 .ob dt {
     height: 50px;
@@ -306,49 +310,6 @@ fieldset, img {
 .spacetopic table{}
 .spacetopic tr td{border-bottom:dashed 1px #DDDDDD;padding:5px 0;}
 
-/*切换条*/
-.top-wp {
-    border-bottom: 1px solid #CEE1EE;
-	margin-bottom:10px;
-}
-.top-wp:after {
-    clear: both;
-    content: ".";
-    display: block;
-    height: 0;
-    visibility: hidden;
-}
-.tabs {
-    height: 33px;
-    overflow: hidden;
-    width: 100%;
-	clear: both;
-    margin-bottom: -1px;
-}
-.tabs li {
-    float: left;
-}
-.tabs li a {
-    background-color: #CEE1EE;
-    border-color: #CEE1EE #CEE1EE #CEE1EE;
-    border-style: solid;
-    border-width: 1px;
-    float: left;
-    font-size: 12px;
-    height: 26px;
-    line-height: 26px;
-    margin-top: 5px;
-    padding: 0 10px;
-    text-align: center;
-	margin-right:10px;
-}
-.tabs li .current {
-	background:#FFFFFF;
-	border-bottom:solid 1px #FFFFFF;
-}
-.tabs li .current span {
-
-}
 
 
 /*动态*/
@@ -423,12 +384,13 @@ fieldset, img {
 .guest img{float:left;}
 .guest form{margin-left:10px;float:left;width:480px;}
 
-.glist{margin-top:20px;}
+.glist{}
 .glist ul{}
 .glist ul li{border-bottom: 1px solid #DDDDDD;overflow: hidden;padding: 10px 0;}
 .glist li img{float:left;}
 .glist li div{float:left;margin-left:10px;}
-.glist li div p{margin:0;padding:0;}
+.glist li div p{margin:0;padding:0;color:#999}
+.glist li div .content{line-height:23px;}
 
 /*小组列表*/
 .sub-item{
@@ -471,3 +433,24 @@ fieldset, img {
 /*帖子列表*/
 .topic{}
 .topic li{line-height:30px;}
+
+
+/*排行榜页面*/
+.top10{}
+.top10 dl{overflow: hidden;}
+.top10 dl dd{float:left;margin-bottom:15px;margin-left: 0;width:33%;}
+.top10 dl dd h3{background:none repeat scroll 0 0 #F5F5F5;border:1px solid #EEEEEE;margin:0 8px;padding:5px;font-size:12px;position:relative;font-weight: bold;}
+
+.top10 dl dd h3 span{float:right;color:#999999;font-weight:400;position:absolute;right:10px;}
+
+.top10 dl dd ul{border-top:1px solid #F5F5F5;margin:0 8px;background:#FFFFFF;}
+.top10 dl dd ul li{border-color:#EEEEEE;border-style:solid;border-width:0 1px 1px;margin-bottom:0;padding:7px;clear:both;line-height:20px;word-wrap:break-word;overflow:hidden;}
+
+.top10 .avatar {float:left;margin-right:10px;}
+.top10 .avatar img {height:36px;width:36px;}
+.avatar img {margin:1px;padding:7px;}
+
+.top10 li em {color:#999999;float:right;margin-left:8px;}
+
+.top10 li span {float:left;font-size:10px;height:14px;line-height:14px;margin:4px 8px 0 0;text-align:center;width:16px;}
+.top10 li p{height:48px;margin:0;padding:0;}

@@ -1,0 +1,35 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+
+<div class="bbox">
+
+{template album_menu}
+
+<form method="post" action="{SITE_URL}index.php?app=group&ac=album&ts=adddo">
+<table class="commtable">
+<tr><th>专辑名称：</th><td><input style="width:300px;" name="albumname" /></td></tr>
+<tr><th valign="top">专辑介绍：</th><td><textarea style="width:300px;height:100px;" name="albumdesc"></textarea></td></tr>
+<tr><th>选择小组</th><td><select name="groupid">
+
+<option value="0">不加入小组</option>
+{loop $arrGroup $key $item}
+<option value="{$item['groupid']}">{$item['groupname']}</option>
+{/loop}
+</select></td></tr>
+
+<tr><th></th><td>
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input class="btn btn-success" type="submit" value="创建专辑" /></td></tr>
+
+</table>
+</form>
+
+</div>
+
+
+</div>
+</div>
+{template footer}

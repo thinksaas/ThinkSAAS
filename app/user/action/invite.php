@@ -4,13 +4,24 @@ defined('IN_TS') or die('Access Denied.');
 //用户是否登录
 $userid = aac('user')->isLogin();
 
-$strUser = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
+$strUser = $new['user']->find('user_info',array(
+	'userid'=>$userid,
+));
 
 //邀请好友
 switch($ts){
 	case "":
 		
-		$codeNum = $db->once_num_rows("select * from ".dbprefix."user_invites where isused='0'");
+		//计算是否还有邀请码
+		$codeNum = $new['user']->findCount('user_invites',array(
+			'userid'=>$userid,
+			'isused'=>0,
+		));
+		
+		$arrCode = $new['user']->findAll('user_invites',array(
+			'userid'=>$userid,
+			'isused'=>0,
+		));
 
 		$title = '邀请码';
 		include template("invite");
@@ -21,24 +32,22 @@ switch($ts){
 	case "code":
 		
 		//计算是否还有邀请码
-		$codeNum = $db->once_num_rows("select * from ".dbprefix."user_invites where isused='0'");
+		$codeNum = $new['user']->findCount('user_invites',array(
+			'userid'=>$userid,
+			'isused'=>0,
+		));
 		
-		if($codeNum > 0){
+		if($codeNum == 0){
 		
-			//取一个码
-			$strCode = $db->once_fetch_assoc("select * from ".dbprefix."user_invites where isused='0' limit 1");
-		}else{
-			//当数据库中没码的时间生成50个码
-			for($i=1;$i<=50;$i++){
-				$db->query("insert into ".dbprefix."user_invites (`invitecode`,`addtime`) values ('".random(18)."','".time()."')");
+			//当数据库中没码的时间生成10个码
+			for($i=1;$i<=10;$i++){
+				$db->query("insert into ".dbprefix."user_invites (`userid`,`invitecode`,`addtime`) values ('$userid','".random(18).$userid."','".time()."')");
 
 			}
-			//再次取码
-			$strCode = $db->once_fetch_assoc("select * from ".dbprefix."user_invites where isused='0' limit 1");
+
 		}
 		
-		$title = '邀请码';
-		include template("invite_code");
+		header('Location: '.tsUrl('user','invite'));
 		
 		break;
 }

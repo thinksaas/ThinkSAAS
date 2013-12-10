@@ -1,0 +1,142 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+
+<div class="cleft bbox">
+
+<h1>[专辑] {php echo htmlspecialchars($strAlbum['albumname'])}</h1>
+<div class="bc">
+<div class="topic_list">
+<ul> 
+
+{loop $arrTopic $key $item}
+   
+<li>
+<div class="userimg">
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img src="{$item[user][face]}" width="32" height="32" alt="{$item[user]['username']}" /></a>
+</div>
+
+<div class="topic_title">
+<div class="title">
+
+
+{if $item['appkey'] != 'group' && $item['appkey']!=''}
+<a target="_blank" style="color:#999999;font-size: 12px;margin-right: 5px;" class="titles-type" href="{SITE_URL}{php echo tsUrl($item['appkey'])}">[{$item['appname']}]</a>
+<a title="{$item[title]}" href="{SITE_URL}{php echo tsUrl($item['appkey'],$item['appaction'],array('id'=>$item['appid']))}">{$item[title]}</a>
+{else}
+<a title="{$item[title]}" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
+{/if}
+
+{if $item[istop]=='1'}
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" title="[置顶]" alt="[置顶]" />
+{/if}
+{if $item[addtime]>strtotime(date('Y-m-d 00:00:00'))}
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/topic_new.gif" align="absmiddle"  title="[新帖]" alt="[新帖]" />
+{/if} 
+{if $item['photo']}
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/image_s.gif" title="[图片]" alt="[图片]" align="absmiddle" />
+{/if} 
+{if $item['attach']}
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/attach.gif" align="absmiddle" title="[附件]" alt="[附件]" />
+{/if} 
+{if $item['music']}
+<img src="{SITE_URL}public/images/music.gif" align="absmiddle" title="[音乐]" alt="[音乐]" />
+{/if} 
+{if $item['video']}
+<img src="{SITE_URL}public/images/video.gif" align="absmiddle" title="[视频]" alt="[视频]" />
+{/if}
+{if $item[isposts] == '1'}
+<img src="{SITE_URL}public/images/posts.gif" align="absmiddle" title="[精华]" alt="[精华]" />
+{/if}
+{if $item['thread_type']=='music'}
+<img src="{SITE_URL}public/images/music.gif" align="absmiddle"  title="[音乐]" alt="[音乐]" />
+{/if}
+{if $item['thread_type']=='vote'}
+<img src="{SITE_URL}public/images/vote.gif" align="absmiddle"  title="[投票]" alt="[投票]" />
+{/if}
+
+{if $item['postby']==1}
+<a href="{tsUrl('home','phone')}"><img align="absmiddle" alt="通过Iphone手机端发布" title="通过Iphone手机端发布" src="{SITE_URL}public/images/ios.jpg" />
+</a>
+{/if}
+
+</div>
+
+<div class="topic_info">
+<span style="float:left;">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[group][groupname]}</a>
+</span>
+
+<span style="float:right;">
+{php echo getTime($item[uptime],time())}
+
+<a href="{tsUrl('user','space',array('id'=>$item[userid]))}" rel="face" uid="$item[userid]">{$item[user][username]}</a>
+
+{if $item[count_comment]>0}<a class="rank" style="color:#FFFFFF;" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a>{/if}
+</span>
+</div>
+</div>
+<div class="clear"></div>
+</li>
+{/loop}
+</ul>
+</div>
+
+
+<div class="page">{$pageUrl}</div>
+
+</div>
+</div>
+
+<div class="cright">
+
+<div class="facebox bbox">
+<div class="bc">
+<div class="face">
+<a href="{tsUrl('user','space',array('id'=>$strAlbum['user']['userid']))}" rel="face" uid="$strAlbum['user'][userid]"><img title="{$strAlbum['user'][username]}" alt="{$strAlbum['user'][username]}" src="{$strAlbum['user'][face]}" width="48"></a>
+</div>
+
+<div class="info">
+<h3><a href="{tsUrl('user','space',array('id'=>$strAlbum['user']['userid']))}">{$strAlbum['user'][username]}</a></h3>
+<div>
+
+{if $strAlbum['user']['userid']==$TS_USER['user']['userid']}
+<a class="btn btn-mini" href="{tsUrl('user','space',array('id'=>$strAlbum['user']['userid']))}">我的空间</a>
+{else}
+<a class="btn btn-mini"  href="javascript:void('0')" onclick="follow('{$strAlbum['user']['userid']}','{$_SESSION['token']}');">关注</a>
+{/if}
+
+</div>
+</div>
+
+<div class="clear"></div>
+
+<ul class="other">
+
+<li class="br"><span class="fs14">{$strAlbum['count_topic']}</span><br />帖子</li>
+
+</ul>
+
+<div class="clear"></div>
+
+<div class="fmore">
+
+专辑介绍:<br />
+{$strAlbum['albumdesc']}
+
+</div>
+</div>
+
+</div>
+
+<div class="clear"></div>
+<!--广告位-->
+{php doAction('gobad','300')}
+
+</div>
+
+</div>
+</div>
+{template footer}

@@ -4,9 +4,9 @@ defined('IN_TS') or die('Access Denied.');
 * 发送盒子
 */
 
-$userid= $_GET['userid'];
+$userid= intval($_GET['userid']);
 
-$strTouser = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
+$strTouser = aac('user')->getOneUser($userid);
 
 $title = '发送盒子';
 

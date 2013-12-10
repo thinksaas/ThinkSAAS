@@ -1,0 +1,49 @@
+{template header}
+<div class="midder">
+<div class="mc">
+
+<div class="bbox">
+<h1>修改文章</h1>
+<div class="bc">
+<form method="POST" action="{SITE_URL}index.php?app=article&ac=edit&ts=do"  enctype="multipart/form-data">
+<table class="commtable">
+
+{if $arrCate}
+<tr><th>选择分类：</th><td>
+<select name="cateid">
+{loop $arrCate $key $item}
+<option {if $item[cateid]==$strArticle[cateid]}selected="select"{/if} value="{$item[cateid]}">{$item[catename]}</option>
+{/loop}
+</select>
+</td></tr>
+{/if}
+
+<tr><th>标题：</th><td><input style="padding:3px 0;width:600px;" name="title" value="{$strArticle[title]}" /></td></tr>
+<tr><th valign="top">内容：</th><td><textarea id="tseditor" name="content">{$strArticle[content]}</textarea></td></tr>
+
+<tr><th>标签：</th><td><input style="padding:3px 0;width:300px;" name="tag" value="{$strArticle['tag']}" /> (多个标签请用英文,号分开)</td></tr>
+
+<tr><th>封面图片：</th><td>
+
+{if $strArticle['photo']}
+<img src="{php echo tsXimg($strArticle['photo'],'article',180,'140',$strArticle['path'],1)}?v={php echo rand();}" />
+<br />
+{/if}
+
+<input  type="file" name="picfile" /> (仅支持jpg,gif,png)</td></tr>
+
+<tr><th></th><td>
+<input type="hidden" name="articleid" value="{$articleid}" />
+<button class="btn btn-success" type="submit">修改文章</button>  
+
+<a href="{tsUrl('article','show',array('id'=>$strArticle['articleid']))}">返回</a>
+</td></tr>
+</table>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+{php doAction('tseditor')}
+{template footer}

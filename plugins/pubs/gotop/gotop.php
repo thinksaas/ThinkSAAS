@@ -1,4 +1,5 @@
 <?php 
+defined('IN_TS') or die('Access Denied.');
 //回到顶部插件 
 
 function gotop_html(){

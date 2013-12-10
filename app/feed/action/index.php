@@ -1,14 +1,14 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-$page = isset($_GET['page']) ? $_GET['page'] : '1';
-$url = SITE_URL.tsUrl('feed','index',array('page'=>''));
+$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+$url = tsurl('feed','index',array('page'=>''));
 $lstart = $page*20-20;
 
-$arrFeeds = $db->fetch_all_assoc("select * from ".dbprefix."feed order by addtime desc limit $lstart,20");
+$arrFeeds = $new['feed']->findAll('feed',null,'addtime desc',null,$lstart.',20');
 
-$feedNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."feed");
-$pageUrl = pagination($feedNum['count(*)'], 20, $page, $url);
+$feedNum = $new['feed']->findCount("feed");
+$pageUrl = pagination($feedNum, 20, $page, $url);
 
 if($page > 1){
 	$title = '社区动态 - 第'.$page.'页';
@@ -17,22 +17,19 @@ if($page > 1){
 }
 
 foreach($arrFeeds as $key=>$item){
-
-	$data = unserialize(stripslashes($item['data']));
+	$data = json_decode($item['data'],true);
 	
 	if(is_array($data)){
 		foreach($data as $key=>$itemTmp){
 			$tmpkey = '{'.$key.'}';
-			$tmpdata[$tmpkey] = $itemTmp;
+			$tmpdata[$tmpkey] = urldecode($itemTmp);
 		}
 	}
-	
 	$arrFeed[] = array(
 		'user'	=> aac('user')->getOneUser($item['userid']),
 		'content' => strtr($item['template'],$tmpdata),
 		'addtime' => $item['addtime'],
 	);
-	
 }
 
 include template('index');

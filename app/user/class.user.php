@@ -10,7 +10,7 @@ class user extends tsApp{
 	
 	//获取最新会员
 	function getNewUser($num){
-		$arrNewUserId = $this->db->fetch_all_assoc("select userid from ".dbprefix."user_info order by addtime desc limit $num");
+		$arrNewUserId = $this->findAll('user_info',null,'addtime desc','userid',$num);
 		foreach($arrNewUserId as $item){
 			$arrNewUser[] = $this->getOneUser($item['userid']);
 		}
@@ -19,7 +19,7 @@ class user extends tsApp{
 	
 	//获取活跃会员
 	function getHotUser($num){
-		$arrNewUserId = $this->db->fetch_all_assoc("select userid from ".dbprefix."user_info order by uptime desc limit $num");
+		$arrNewUserId = $this->findAll('user_info',null,'uptime desc','userid',$num);
 		foreach($arrNewUserId as $item){
 			$arrHotUser[] = $this->getOneUser($item['userid']);
 		}
@@ -51,27 +51,18 @@ class user extends tsApp{
 				'userid'=>$userid,
 			));
 			
-			if($strUser['face']){
-				//上传的头像
-				$strUser['face_120'] = SITE_URL.tsXimg($strUser['face'],'user',120,120,$strUser['path']);
-				$strUser['face_32'] = SITE_URL.tsXimg($strUser['face'],'user',32,32,$strUser['path'],1);
-				$strUser['face'] = SITE_URL.tsXimg($strUser['face'],'user',48,48,$strUser['path'],1);
-			}else{
-				//没有头像
-				$strUser['face_120'] = SITE_URL.'public/images/user_large.jpg';
-				$strUser['face_32'] = SITE_URL.'public/images/user_normal.jpg';
-				$strUser['face']	= SITE_URL.'public/images/user_normal.jpg';
-			}
+			if($strUser){
 			
-			//地区
-			if($strUser['areaid'] > 0){
-			
-				$strUser['area'] = $this->getOneArea($strUser['areaid']);
+				if($strUser['face'] && $strUser['path']){
+					$strUser['face'] = tsXimg($strUser['face'],'user',48,48,$strUser['path'],1);
+				}elseif($strUser['face'] && $strUser['path']==''){
+					$strUser['face']	= SITE_URL.'public/images/'.$strUser['face'];
+				}else{
+					//没有头像
+					$strUser['face']	= SITE_URL.'public/images/user_normal.jpg';
+				}
 			}else{
-				$strUser['area'] = array(
-					'areaid'	=> '0',
-					'areaname' => '火星',
-				);
+				$strUser = '';
 			}
 			
 			return $strUser;
@@ -99,11 +90,11 @@ class user extends tsApp{
 			if($this->isUser($userid)){
 				return $userid;
 			}else{
-				header("Location: ".SITE_URL.tsUrl('user','login',array('ts'=>'out')));
+				header("Location: ".tsUrl('user','login',array('ts'=>'out')));
 				exit;
 			}
 		}else{
-			header("Location: ".SITE_URL.tsUrl('user','login',array('ts'=>'out')));
+			header("Location: ".tsUrl('user','login',array('ts'=>'out')));
 			exit;
 		}
 	}
@@ -117,12 +108,168 @@ class user extends tsApp{
 	
 	//根据用户积分获取用户角色
 	public function getRole($score){
+		global $tsMySqlCache;
 		$arrRole = fileRead('data/user_role.php');
+		
+		if($arrRole==''){
+			$arrRole = $tsMySqlCache->get('user_role');
+		}
+		
 		foreach($arrRole as $key=>$item){
 			if($score > $item['score_start'] && $score <= $item['score_end'] || $score > $item['score_start'] && $item['score_end']==0 || $score >=0 && $score <= $item['score_end']){
 				return $item['rolename'];
 			}
 		}
+	}
+	
+	/*
+	 * 增加积分
+	 * $userid 用户ID
+	 * $scorename 积分名字 
+	 * $score 积分
+	 */
+	public function addScore($userid,$scorename,$score){
+		if($userid && $scorename && $score){
+			//添加积分记录
+			$this->create('user_score_log',array(
+				'userid'=>$userid,
+				'scorename'=>$scorename,
+				'score'=>$score,
+				'status'=>0,
+				'addtime'=>time(),
+			));
+			//计算总积分
+			$strUser = $this->find('user_info',array(
+				'userid'=>$userid,
+			));
+			$this->update('user_info',array(
+				'userid'=>$userid,
+			),array(
+				'count_score'=>$strUser['count_score']+$score,
+			));
+		}
+	}
+	
+	/*
+	 * 减去积分
+	 */
+	public function delScore($userid,$scorename,$score){
+		if($userid && $scorename && $score){
+			//添加积分记录
+			$this->create('user_score_log',array(
+				'userid'=>$userid,
+				'scorename'=>$scorename,
+				'score'=>$score,
+				'status'=>1,
+				'addtime'=>time(),
+			));
+			//计算总积分
+			$strUser = $this->find('user_info',array(
+				'userid'=>$userid,
+			));
+			$this->update('user_info',array(
+				'userid'=>$userid,
+			),array(
+				'count_score'=>$strUser['count_score']-$score,
+			));
+		}
+	}
+	
+	//处理积分
+	function doScore($app,$ac,$ts){
+		$userid = intval($_SESSION['tsuser']['userid']);
+		$strScore = $this->find('user_score',array(
+			'app'=>$app,
+			'action'=>$ac,
+			'ts'=>$ts,
+		));
+		
+		if($strScore && $userid){
+			if($strScore['status']=='0'){
+				$this->addScore($userid,$strScore['scorename'],$strScore['score']);
+			}
+			
+			if($strScore['status']=='1'){
+				$this->delScore($userid,$strScore['scorename'],$strScore['score']);
+			}
+			
+		}
+		
+	}
+	
+	//清空用户的一切数据
+	function toEmpty($userid){
+	
+		$strUser = $this->find('user_info',array(
+			'userid'=>$userid,
+		));
+		
+		//是否存在Email
+		$isEmail = $this->findCount('anti_email',array(
+			'email'=>$strUser['email'],
+		));
+		if($isEmail==0){
+			$this->create('anti_email',array(
+				'email'=>$strUser['email'],
+				'addtime'=>date('Y-m-d H:i:s'),
+			));
+		}
+		
+		//article
+		$this->delete('article',array('userid'=>$userid));
+		$this->delete('article_comment',array('userid'=>$userid));
+		$this->delete('article_recommend',array('userid'=>$userid));
+		
+		//attach
+		$this->delete('attach',array('userid'=>$userid));
+		$this->delete('attach_album',array('userid'=>$userid));
+		
+		//user
+		$this->delete('user',array('userid'=>$userid));
+		$this->delete('user_info',array('userid'=>$userid));
+		$this->delete('user_follow',array('userid'=>$userid));
+		$this->delete('user_follow',array('userid_follow'=>$userid));
+		$this->delete('user_gb',array('userid'=>$userid));
+		$this->delete('user_gb',array('touserid'=>$userid));
+		$this->delete('user_open',array('userid'=>$userid));
+		$this->delete('user_scores',array('userid'=>$userid));
+		$this->delete('user_score_log',array('userid'=>$userid));
+		
+		//group
+		$this->delete('group',array('userid'=>$userid,));
+		$this->delete('group_album',array('userid'=>$userid,));
+		$this->delete('group_topic',array('userid'=>$userid));
+		$this->delete('group_user',array('userid'=>$userid));
+		$this->delete('group_topic_comment',array('userid'=>$userid));
+		$this->delete('group_topic_collect',array('userid'=>$userid));
+		
+		//feed
+		$this->delete('feed',array('userid'=>$userid));
+		
+		//message
+		$this->delete('message',array('userid'=>$userid));
+		$this->delete('message',array('touserid'=>$userid));
+		
+		//photo
+		$this->delete('photo',array('userid'=>$userid));
+		$this->delete('photo_album',array('userid'=>$userid));
+		$this->delete('photo_comment',array('userid'=>$userid));
+		
+		//tag
+		$this->delete('tag_user_index',array('userid'=>$userid));
+		
+		//weibo
+		$this->delete('weibo',array('userid'=>$userid));
+		$this->delete('weibo_comment',array('userid'=>$userid));
+		
+	}
+	
+	//销毁前台session退出登陆
+	function logout(){
+		unset($_SESSION['tsuser']);
+		session_destroy();
+		setcookie("ts_email", '', time()+3600,'/');   
+		setcookie("ts_uptime", '', time()+3600,'/');
 	}
 	
 	//析构函数

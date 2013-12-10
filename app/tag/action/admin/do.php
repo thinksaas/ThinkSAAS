@@ -4,8 +4,8 @@ switch ($ts){
 	
 	//禁用-启用
 	case "isenable":
-		$tagid = $_GET['tagid'];
-		$isenable = $_GET['isenable'];
+		$tagid = intval($_GET['tagid']);
+		$isenable = intval($_GET['isenable']);
 		
 		$db->query("update ".dbprefix."tag set `isenable`='$isenable' where tagid = '$tagid'");
 		
@@ -15,11 +15,16 @@ switch ($ts){
 		
 	//删除
 	case "del":
-		$tagid = $_GET['tagid'];
-		$db->query("delete from ".dbprefix."tag where tagid='$tagid'");
-		$db->query("delete from ".dbprefix."tag_group_index where tagid='$tagid'");
-		$db->query("delete from ".dbprefix."tag_topic_index where tagid='$tagid'");
-		$db->query("delete from ".dbprefix."tag_user_index where tagid='$tagid'");
+		$tagid = intval($_GET['tagid']);
+		
+		$new['tag']->delete('tag',array('tagid'=>$tagid));
+		$new['tag']->delete('tag_article_index',array('tagid'=>$tagid));
+		$new['tag']->delete('tag_bang_index',array('tagid'=>$tagid));
+		$new['tag']->delete('tag_group_index',array('tagid'=>$tagid));
+		$new['tag']->delete('tag_photo_index',array('tagid'=>$tagid));
+		$new['tag']->delete('tag_study_index',array('tagid'=>$tagid));
+		$new['tag']->delete('tag_topic_index',array('tagid'=>$tagid));
+		$new['tag']->delete('tag_user_index',array('tagid'=>$tagid));
 		
 		qiMsg("删除成功！");
 		

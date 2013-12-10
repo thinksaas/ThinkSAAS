@@ -5,17 +5,22 @@
 
 <div class="mc">
 
-{template set_menu}
+<div class="bbox mh400">
 
-<h2>Email验证</h2>
+{template set_menu}
+<div class="bc">
 {if intval($strUser['isverify'])==0 && intval($TS_SITE['base']['isverify'])==1}
-<p class="notice">提示：你必须通过Email验证才可以正常使用本社区</p>
+<div class="alert">提示：你必须通过Email验证才可以正常使用本社区</div>
 {/if}
 {if $strUser['isverify']==1}
 您已经通过Email验证！
 {else}
-<input type="email" disabled value="{$strUser['email']}" /> <a class="submit" href="{SITE_URL}{tsUrl('user','verify',array(ts=>post))}">开始认证</a>  <a href="{SITE_URL}{tsUrl('user','set',array('ts'=>'email'))}">Email不对吗？去更换帐号</a>
+Email：<input type="email" disabled value="{$strUser['email']}" /> <a class="btn" href="{tsUrl('user','verify',array('ts'=>'post','token'=>$_SESSION['token']))}">开始认证</a>  <a href="{tsUrl('user','set',array('ts'=>'email'))}">Email不对吗？去更换帐号</a>
 {/if}
+</div>
+
+</div>
+
 
 </div>
 </div>

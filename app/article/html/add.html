@@ -1,0 +1,45 @@
+{template header}
+<div class="midder">
+<div class="mc">
+
+<div class="bbox">
+
+{template menu}
+
+<div class="bc">
+<form method="POST" action="{SITE_URL}index.php?app=article&ac=add&ts=do"  enctype="multipart/form-data">
+<table class="commtable">
+
+<tr><th>标题：</th><td><input style="padding:3px 0;width:600px;" name="title" /></td></tr>
+
+{if $arrCate}
+<tr>
+<th>分类：</th>
+<td>
+
+<select id="cateid" name="cateid">
+<option value="0">请选择分类</option>
+{loop $arrCate $key $item}
+<option value="{$item['cateid']}">{$item['catename']}</option>
+{/loop}
+</select>
+
+</td>
+</tr>
+{/if}
+
+<tr><th valign="top">内容：</th><td><textarea class="editors" style="width:600px;" id="tseditor" name="content"></textarea></td></tr>
+<tr><th>标签：</th><td><input style="padding:3px 0;width:300px;" name="tag" /> (多个标签请用英文,号分开)</td></tr>
+<tr><th>封面图片：</th><td><input  type="file" name="picfile" /> (仅支持jpg,gif,png)</td></tr>
+<tr><th></th><td>
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<button class="btn btn-success" type="submit">发布文章</button></td></tr>
+</table>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+{php doAction('tseditor')}
+{template footer}

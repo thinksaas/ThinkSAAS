@@ -1,47 +1,44 @@
 {template header}
-<!--main-->
 <div class="midder">
 
 <div class="mc">
+
+<div class="bbox">
+
 {template edit_xbar}
 
-<div class="cleft">
-
 <form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=edit_base">
-<table align="center" style="width:100%;clear: both;">
-    <tbody>
-	<tr><td valign="top" width="100">名称：</td>
+<table class="commtable" style="width:100%;">
+    
+	<tr><th width="100">名称：</th>
     <td><input type="text" style="width:500px;" value="{$strGroup[groupname]}" name="groupname"><br><br></td></tr>
-    <tr><td valign="top">介绍：</td>
-    <td><textarea style="width:500px;height:150px;font-size:14px;" name="groupdesc" id="editor_mini">{$strGroup[groupdesc]}</textarea><br><br></td></tr>
+    <tr><th>介绍：</th>
+    <td><textarea id="tseditor" style="width:500px;height:200px;" name="groupdesc">{$strGroup[groupdesc]}</textarea><br><br></td></tr>
 	
-	<tr><td>加入方式：</td><td><input <!--{if $strGroup[joinway]=='0'}-->checked="select"<!--{/if}--> name="joinway" type="radio" value="0" />自由加入(开放小组) <input <!--{if $strGroup[joinway]=='1'}-->checked="select"<!--{/if}-->  name="joinway" type="radio" value="1" />禁止加入(私密小组)</td></tr>
+	<tr><th>加入方式：</th><td><input {if $strGroup[joinway]=='0'}checked="select"{/if} name="joinway" type="radio" value="0" />自由加入(开放小组) <input {if $strGroup[joinway]=='1'}checked="select"{/if}  name="joinway" type="radio" value="1" />禁止加入(私密小组)</td></tr>
 	
-	<!--发帖方式-->
-	<tr><td>发帖方式：</td><td><input <!--{if $strGroup[ispost]=='0'}-->checked="select"<!--{/if}--> type="radio" name="ispost" value="0" />允许会员发帖 <input <!--{if $strGroup[ispost]=='1'}checked="select"<!--{/if}--> type="radio" name="ispost" value="1" />不允许会员发帖</td></tr>
-	
-	
-	<tr><td>浏览权限：</td><td><input <!--{if $strGroup[isopen]=='0'}-->checked="select"<!--{/if}--> type="radio" name="isopen" value="0" />完全开放 <input <!--{if $strGroup[isopen]=='1'}checked="select"<!--{/if}--> type="radio" name="isopen" value="1" />仅组员</td></tr>
+
+	<tr><th>发帖方式：</th><td><input {if $strGroup[ispost]=='0'}checked="select"{/if} type="radio" name="ispost" value="0" />允许会员发帖 <input {if $strGroup[ispost]=='1'}checked="select"{/if} type="radio" name="ispost" value="1" />不允许会员发帖</td></tr>
 	
 	
-    <tr><td></td><td><br>
+	<tr><th>浏览权限：</th><td><input {if $strGroup[isopen]=='0'}checked="select"{/if} type="radio" name="isopen" value="0" />完全开放 <input {if $strGroup[isopen]=='1'}checked="select"{/if} type="radio" name="isopen" value="1" />仅组员</td></tr>
+	
+	<tr><th>发帖审核：</th><td><input {if $strGroup['ispostaudit']=='1'}checked="select"{/if} type="radio" name="ispostaudit" value="1" />审核 <input {if $strGroup['ispostaudit']=='0'}checked="select"{/if} type="radio" name="ispostaudit" value="0" />不审核</td></tr>
+	
+	
+    <tr><th></th><td><br>
 	
 	<input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
 	
-     <input class="submit" type="submit" tabinde="8" value="更新小组设置" >
-    </td></tr></tbody></table>
+	 <button class="btn btn-success" type="submit">更新设置</button>  <a href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回</a>
+	 
+    </td></tr></table>
 </form>
 
-
-</div>
-
-<div class="cright">
-
-<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回{$strGroup[groupname]}</a></p>
-
 </div>
 
 </div>
 
 </div>
+{php doAction('tseditor','mini')}
 {template footer}

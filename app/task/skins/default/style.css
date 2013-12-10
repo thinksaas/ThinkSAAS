@@ -1,0 +1,10 @@
+.task_list{width:500px;margin:0 auto;}
+.task_list h1{font: 24px '微软雅黑','YaHei',Arial,Helvetica,sans-serif;padding:20px 0;background:#FFFFFF;font-weight:normal;}
+
+.task_list ul{}
+
+.task_list ul li{border:solid 1px #DDDDDD;overflow:hidden;padding:20px;margin-bottom:10px;background:#FFFFFF;}
+
+.task_list ul li h2{float:left;font: 16px '微软雅黑','YaHei',Arial,Helvetica,sans-serif;background:#FFFFFF;font-weight:normal;padding:0;margin:0;}
+.task_list ul li a{float:right;}
+.task_list ul li span{float:right;height:30px;line-height:30px;background:#EAEAEA;padding:0 10px;color:#999999;}

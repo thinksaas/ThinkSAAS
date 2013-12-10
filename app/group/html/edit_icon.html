@@ -1,32 +1,28 @@
 {template header}
 
-<!--main-->
 <div class="midder">
 
 <div class="mc">
-{template edit_xbar}
-<div class="cleft">
 
-<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=groupicon" enctype="multipart/form-data" >
-<table style="clear: both;">
-<tbody>
+<div class="bbox mh400">
+
+{template edit_xbar}
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=photo" enctype="multipart/form-data" >
+<table width="100%" class="commtable">
+<tr><th>小组图标：</th><td>
+     <img alt="{$strGroup[groupname]}" title="{$strGroup[groupname]}" valign="middle" src="{if $strGroup[photo]}{php echo tsXimg($strGroup[photo],'group','48','48',$strGroup[path])}{else}{SITE_URL}public/images/group.jpg{/if}" class="pil"></td></tr>
 <tr>
-<td valign="top">
-     <img align="left" alt="{$strGroup[groupname]}" title="{$strGroup[groupname]}" valign="middle" src="{SITE_URL}{if $strGroup[groupicon]}{php echo tsXimg($strGroup[groupicon],'group','48','48',$strGroup[path])}{else}public/images/group.jpg{/if}" class="pil"></td>
-     <td><div class="m">从你的电脑上选择图像文件：(仅支持jpg，gif，png格式图片)</div><br>
+<th>选择图片：</th>
+     <td>
       <input type="file" name="picfile">
-	  
 <input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
 <input type="submit" value="上传照片" />
 	  
     </td>
-</tr></tbody></table>
+</tr>
+</table>
 </form>
-</div>
-
-<div class="cright">
-
-<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回{$strGroup[groupname]}</a></p>
 
 </div>
 

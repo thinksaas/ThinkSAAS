@@ -6,5 +6,7 @@ $f_cache =  iswriteable('cache');
 $f_data = iswriteable('data');
 $f_plugins =  iswriteable('plugins');
 $f_uploadfile =  iswriteable('uploadfile');
+$f_logs =  iswriteable('logs');
+$f_upgrade =  iswriteable('upgrade');
 
 include 'install/html/index.html';

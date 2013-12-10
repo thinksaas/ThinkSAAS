@@ -1,0 +1,27 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+<div class="bbox mh400">
+
+{template menu}
+
+<div class="system">
+<ul>
+{loop $arrMessage $key $item}
+<li>
+<span style="color:#42b475;">{$item[user][username]} {php echo date('H:i:s',$item[addtime])}</span>
+<br />
+{$item[content]}
+</li>
+{/loop}
+</ul>
+</div>
+
+</div>
+
+</div>
+</div>
+
+{template footer}

@@ -2,13 +2,13 @@
 
 <div class="midder">
 {template menu}
-<div style="padding:0 0 20px 0;">ThinkSAAS只提供对数据库的优化，数据库备份和恢复建议用phpMyAdmin或者Navicat for MySQL管理</div>
-<div class="clear"></div>
-<table>
-<tr class="old"><td>数据库表</td><td>操作</td></tr>
 
-{loop $arrTable $key $item}
-<tr><td>{$item}</td><td><a href="{SITE_URL}index.php?app=system&ac=sql&ts=optimize&table={$item}">优化</a></td></tr>
+<div class="mb10"> <a class="btn mr10" href="{SITE_URL}index.php?app=system&ac=sql&ts=export">点击备份数据库</a>  <a class="btn mr10" href="{SITE_URL}index.php?app=system&ac=sql&ts=optimize">点击优化数据库</a></div>
+
+<table>
+<tr class="old"><td>数据库备份文件</td><td>操作</td></tr>
+{loop $arrSqlFile $key $item}
+<tr><td>{$item}</td><td><a href="{SITE_URL}index.php?app=system&ac=sql&ts=import&sql={$item}">恢复(导入)</a>   |  <a href="{SITE_URL}index.php?app=system&ac=sql&ts=delete&sql={$item}">删除(谨慎)</a></td></tr>
 {/loop}
 </table>
 

@@ -1,13 +1,26 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
-$attachid = $_GET['attachid'];
 
-$strAttach = $db->once_fetch_assoc("select * from ".dbprefix."attach where attachid='$attachid'");
+$attachid = intval($_GET['id']);
+
+$strAttach = $new['attach']->find('attach',array(
+
+	'attachid'=>$attachid,
+
+));
+
+$strAttach['album'] = $new['attach']->find('attach_album',array(
+	'albumid'=>$strAttach['albumid'],
+));
+
 $strAttach['user'] = aac('user')->getOneUser($strAttach['userid']);
 
-$userid = $strAttach['userid'];
-//用户的附件 
-$userAttach = $db->fetch_all_assoc("select * from ".dbprefix."attach where userid='$userid'");
+$userAttach = $new['attach']->findAll('attach',array(
+
+	'userid'=>$strAttach['userid'],
+
+));
 
 $title = $strAttach['attachname'];
+
 include template("show");

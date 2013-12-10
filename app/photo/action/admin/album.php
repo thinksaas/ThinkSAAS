@@ -9,18 +9,20 @@ switch($ts){
 		
 		$url = SITE_URL.'index.php?app=photo&ac=admin&mg=album&ts=list&page=';
 		
-		$arrAlbum = $db->fetch_all_assoc("select * from ".dbprefix."photo_album order by addtime desc limit $lstart,10");
+		$arrAlbum = $new['photo']->findAll('photo_album',null,'albumid desc',null,$lstart.',10');
 		
-		$albumNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."photo_album");
 		
-		$pageUrl = pagination($albumNum['count(*)'], 10, $page, $url);
+		$albumNum = $new['photo']->findCount('photo_album');
+		
+		
+		$pageUrl = pagination($albumNum, 10, $page, $url);
 		
 		include template("admin/album_list");
 		break;
 	
 	//图片 
 	case "photo":
-		$albumid = $_GET['albumid'];
+		$albumid = intval($_GET['albumid']);
 		
 		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 		
@@ -40,7 +42,7 @@ switch($ts){
 		
 	//删除相册
 	case "del_album":
-		$albumid = $_GET['albumid'];
+		$albumid = intval($_GET['albumid']);
 		
 		$db->query("delete from ".dbprefix."photo_album where albumid='$albumid'");
 		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid'");
@@ -56,7 +58,7 @@ switch($ts){
 		
 	//删除照片
 	case "del_photo":
-		$photoid = $_GET['photoid'];
+		$photoid = intval($_GET['photoid']);
 		
 		$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
 		$albumid = $strPhoto['albumid'];
@@ -75,7 +77,7 @@ switch($ts){
 		
 	//设为封面
 	case "face":
-		$photoid = $_GET['photoid'];
+		$photoid = intval($_GET['photoid']);
 		$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
 		
 		$albumid = $strPhoto['albumid'];
@@ -105,7 +107,7 @@ switch($ts){
 	//推荐相册 
 	case "isrecommend":
 	
-		$albumid = $_GET['albumid'];
+		$albumid = intval($_GET['albumid']);
 		
 		$strAlbum = $db->once_fetch_assoc("select isrecommend from ".dbprefix."photo_album where `albumid`='$albumid'");
 		
@@ -116,6 +118,48 @@ switch($ts){
 		}
 	
 		qiMsg("操作成功！");
+	
+		break;
+		
+	//删除没有图片的相册
+	case "nophoto":
+	
+		$arrAlbum = $new['photo']->findAll('photo_album',"`count_photo`=0");
+		foreach($arrAlbum as $key=>$item){
+		
+			$isPhoto = $new['photo']->findCount('photo',array(
+				'albumid'=>$item['albumid'],
+			));
+			
+			if($isPhoto == 0){
+			
+				$new['photo']->delete('photo_album',array(
+				
+					'albumid'=>$item['albumid'],
+				
+				));
+			
+			}else{
+			
+				$count_photo = $new['photo']->findCount('photo',array(
+				
+					'albumid'=>$item['albumid'],
+				
+				));
+				
+				$new['photo']->update('photo_album',array(
+					'albumid'=>$item['albumid'],
+				),array(
+				
+					'count_photo'=>$count_photo,
+				
+				));
+			
+			}
+		
+		}
+		
+		qiMsg('操作成功！');
 	
 		break;
 	

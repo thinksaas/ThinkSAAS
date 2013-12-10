@@ -21,14 +21,12 @@ switch($ts){
 		$joinnum = intval($_POST['joinnum']);
 	
 		if($joinnum == 0) qiMsg('加入小组数不能为0！');
-		
-		if($joinnum > 100) qiMsg('加入小组数不能大于100个！');
 	
 		$arrData = array(
-			'appname' => trim($_POST['appname']),
-			'appdesc' => trim($_POST['appdesc']),
-			'iscreate' => trim($_POST['iscreate']),
-			'isaudit' => trim($_POST['isaudit']),
+			'appname' => t($_POST['appname']),
+			'appdesc' => t($_POST['appdesc']),
+			'iscreate' => t($_POST['iscreate']),
+			'isaudit' => t($_POST['isaudit']),
 			'needcredit' => trim($_POST['needcredit']),
 			'joinnum' => $joinnum,
 			
@@ -49,6 +47,7 @@ switch($ts){
 		}
 		
 		fileWrite('group_options.php','data',$arrOption);
+		$tsMySqlCache->set('group_options',$arrOption);
 		
 		qiMsg("小组配置修改成功！");
 		

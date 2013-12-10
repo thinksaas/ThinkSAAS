@@ -1,0 +1,46 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+{template menu}
+
+<div><a href="{tsUrl('group','cate')}">分类</a> >> <a href="{tsUrl('group','cate',array('ts'=>'2','cateid'=>$oneCate['cateid']))}">{$oneCate['catename']}</a> >> <a href="{tsUrl('group','cate',array('ts'=>'3','cateid'=>$strCate['cateid']))}">$strCate['catename']</a></div>
+
+
+<div class="catelist">
+<ul>
+{loop $arrCate $key $item}
+<li><a href="{tsUrl('group','cate',array('ts'=>'group','cateid'=>$item['cateid']))}">{$item['catename']}</a>({$item['count_group']})</li>
+{/loop}
+</ul>
+</div>
+
+<div class="clear"></div>
+
+<div id="group_content">
+{loop $arrGroup $key $item}
+<div class="sub-item">
+<div class="pic">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">
+{if $item['photo']}
+<img src="{php echo tsXimg($item['photo'],'group','48','48',$item['path'],'1')}" alt="{$item[groupname]}" width="48" height="48" />
+{else}
+<img src="{SITE_URL}public/images/group.jpg" alt="{$item[groupname]}" width="48" height="48" />
+{/if}
+</a>
+</div>
+<div class="info">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a>  <font color="#999999">{$item[count_user]}人加入</font>             
+<p>{php echo cututf8($item[groupdesc],0,50)}</p>
+</div>
+</div>
+{/loop}
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+</div>
+
+</div>
+</div>
+{template footer}

@@ -1,0 +1,28 @@
+{template header}
+
+<div class="midder">
+<div>
+
+
+<div class="commform">
+<form method="post" action="{tsUrl('mobile','login',array('ts'=>'do'))}">
+<h3>Email：<h3>
+<p class="inputw"><input class="inputt" type="email" name="email" /></p>
+<h3>密码：<h3>
+<p class="inputw"><input class="inputt" type="password" name="pwd" /></p>
+
+<p>
+<input type="hidden" name="cktime" value="2592000" />
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input type="submit" value="马上登陆"></p>
+
+<p><a class="btn" href="{tsUrl('mobile','register')}">我要注册</a></p>
+
+</form>
+</div>
+
+
+</div>
+</div>
+
+{template footer}

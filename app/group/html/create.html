@@ -1,56 +1,105 @@
-{php include pubTemplate('header');}
+{template header}
+<script>
+$(document).ready(function() {
 
-<!--main-->
+//选择一级区域
+$('#cateid').change(function(){
+	$("#select2").html('<img src="'+siteUrl+'public/images/loading.gif" />');
+	var cateid = $(this).children('option:selected').val();  //弹出select的值
+	
+	if(cateid==0){
+		$("#select2").html('');
+		$("#select3").html('');
+	}else{
+		$("#select3").html('');
+		$.ajax({
+			type: "GET",
+			url:  "{SITE_URL}index.php?app=group&ac=cate&ts=two&cateid="+cateid,
+			success: function(msg){
+				$("#select2").html(msg);
+				
+				//选择二级区域
+				$('#cateid2').change(function(){
+					$("#select3").html('<img src="'+siteUrl+'public/images/loading.gif" />');
+					var cateid2 = $(this).children('option:selected').val();  //弹出select的值
+					
+					if(cateid2 == 0){
+						$("#select3").html('');
+					}else{
+					
+						//ajax
+						$.ajax({
+							type: "GET",
+							url:  "{SITE_URL}index.php?app=group&ac=cate&ts=three&cateid2="+cateid2,
+							success: function(msg){
+								$('#select3').html(msg);
+							}
+						});
+					
+					}
+
+				});
+				
+			}
+		});
+	
+	}
+	
+});
+
+});
+</script>
+
 <div class="midder">
 <div class="mc">
+<div class="bbox">
 <h1>申请创建小组</h1>
-<div class="cleft">
-
 <form method="POST" action="{SITE_URL}index.php?app=group&ac=create&ts=do"  enctype="multipart/form-data">
-<table width="100%">
-<tbody>
-<tr><td valign="top">名称*</td>
+<table width="100%" class="commtable">
+<tr><th>名称*</th>
 <td><input type="text" style="width:500px;" name="groupname"><br><br></td></tr>
 
-<tr><td valign="top">介绍*</td>
-<td><textarea style="width:500px;height:150px;font-size:14px;" name="groupdesc"></textarea><br><br></td></tr>
+<tr><th>介绍*</th>
+<td><textarea  id="tseditor" style="width:500px;height:200px;" name="groupdesc"></textarea><br><br></td></tr>
 
 <tr>
-<td>图标：</td>
+<th>图标：</th>
 <td><input type="file" name="picfile"> 仅支持jpg，gif，png格式图片</td>
 </tr>
 
 <tr>
-<td>分类：</td>
+<th>分类：</th>
 <td>
-<select name="cateid">
+
+<select id="cateid" name="cateid">
+<option value="0">请选择分类</option>
 {loop $arrCate $key $item}
-<option <!--{if $item['cateid']==$strGroup['cateid']}-->selected="select"<!--{/if}--> value="{$item['cateid']}">{$item['catename']}</option>
+<option value="{$item['cateid']}">{$item['catename']}</option>
 {/loop}
-<option value="0">无分类</option>
 </select>
+
+<span id="select2"></span>
+<span id="select3"></span>
+
+
 </td>
 </tr>
 
-<tr><td></td><td>
+<tr><th></th><td>
 <br><br>
-<input type="checkbox" name="grp_agreement" value="1" />我已认真阅读并同意<a href="">《社区指导原则》</a>和<a href="">《免责声明》</a>
+<input type="checkbox" name="grp_agreement" value="1" checked />我已认真阅读并同意<a href="">《社区指导原则》</a>和<a href="">《免责声明》</a>
 <br><br>
 </td>
 </tr>
 
-<tr><td></td><td>
-<input class="submit" type="submit" value="创建小组" />
-</td></tr></tbody>
+<tr><th></th><td>
+<button class="btn btn-success" type="submit">创建小组</button>
+</td></tr>
 </table>
 </form>
 </div>
-
-<div class="cright">
-
 </div>
 
 </div>
-
-</div>
+{php doAction('tseditor','mini')}
 {template footer}

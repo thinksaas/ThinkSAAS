@@ -1,0 +1,26 @@
+{template header}
+
+<div class="midder">
+<div>
+
+
+<div class="userdata">
+
+<div class="face"><img src="{$strUser['face']}" /></div>
+<div class="username">{$strUser['username']}</div>
+<div class="usermenu">
+<ul>
+<li><a href="{tsUrl('mobile','user',array('ts'=>'group'))}">我的小组</a></li>
+<li><a href="{tsUrl('mobile','user',array('ts'=>'topic'))}">我的帖子</a></li>
+</ul>
+</div>
+
+<div class="logout"><a href="{tsUrl('mobile','login',array('ts'=>'out'))}">退出登录</a><div>
+
+</div>
+
+
+</div>
+</div>
+
+{template footer}

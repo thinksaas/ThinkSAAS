@@ -1,0 +1,30 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+<div class="bbox mh400">
+
+<div class="tabnav">
+<ul>
+{loop $arrInfo $k $v}
+<li {if $keys==$v['infokey']}class="select"{/if}><a href="{tsUrl('home','info',array('key'=>$v['infokey']))}">{$v['title']}</a></li>
+{/loop}
+</ul>
+</div>
+<div class="clear"></div>
+
+<div class="inforight">
+<h1>{$strInfo['title']}</h1>
+<div class="infocontent">
+{$strInfo[content]}
+</div>
+</div>
+
+</div>
+
+
+</div>
+</div>
+
+{template footer}

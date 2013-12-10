@@ -3,15 +3,15 @@ defined('IN_TS') or die('Access Denied.');
 
 include 'userinfo.php';
 
-$page = isset($_GET['page']) ? $_GET['page'] : '1';
-$url = SITE_URL.tsUrl('user','topic',array('id'=>$strUser['userid'],'page'=>''));
+$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+$url = tsUrl('user','topic',array('id'=>$strUser['userid'],'page'=>''));
 $lstart = $page*30-30;
 
-$arrTopic = $new['user']->findAll('group_topics',array(
+$arrTopic = $new['user']->findAll('group_topic',array(
 	'userid'=>$strUser['userid'],
 ),'addtime desc',null,$lstart.',30');
 
-$topicNum = $new['user']->findCount('group_topics',array(
+$topicNum = $new['user']->findCount('group_topic',array(
 	'userid'=>$strUser['userid'],
 ));
 $pageUrl = pagination($topicNum, 30, $page, $url);

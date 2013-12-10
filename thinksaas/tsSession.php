@@ -13,9 +13,9 @@ class tsSession {
       * @return bool 
       */ 
      public static function open() { 
-          
-         if (self::$_sess_db = mysql_connect('localhost', 'root', '123456')) { 
-             return mysql_select_db('thinksaas2', self::$_sess_db); 
+         global $TS_DB;
+         if (self::$_sess_db = mysql_connect($TS_DB['host'].':'.$TS_DB['port'], $TS_DB['user'], $TS_DB['pwd'])) { 
+             return mysql_select_db($TS_DB['name'], self::$_sess_db); 
          } 
          return false; 
      } 
@@ -35,7 +35,7 @@ class tsSession {
       */ 
      public static function read($id) { 
          $id = mysql_real_escape_string($id); 
-         $sql = sprintf("SELECT `session_data` FROM `ts_session` WHERE `session` = '%s'", $id); 
+         $sql = sprintf("SELECT `session_data` FROM `".dbprefix."session` WHERE `session` = '%s'", $id); 
          if ($result = mysql_query($sql, self::$_sess_db)) { 
              if (mysql_num_rows($result)) { 
                  $record = mysql_fetch_assoc($result); 
@@ -51,22 +51,27 @@ class tsSession {
       * @param string data of the session 
       */ 
      public static function write($id, $data) { 
-         $sql = sprintf("REPLACE INTO `ts_session` VALUES('%s', '%s', '%s', '%s')", 
+		$userid = intval($_SESSION['tsuser']['userid']);
+         $sql = sprintf("REPLACE INTO `".dbprefix."session` VALUES('%s', '%s', '%s', '%s', '%s', '%s')", 
                         mysql_real_escape_string($id), 
+                        mysql_real_escape_string($userid), 
                         mysql_real_escape_string(time()), 
                         mysql_real_escape_string(getIp()), 
-                        mysql_real_escape_string($data) 
+                        mysql_real_escape_string($data) ,
+                        time()
                         ); 
+		 
          return mysql_query($sql, self::$_sess_db); 
      } 
   
      /** 
-      * Destoroy the session 
+      * Destroy the session 
       * @param int session id 
       * @return bool 
       */ 
      public static function destroy($id) { 
-         $sql = sprintf("DELETE FROM `ts_session` WHERE `session` = '%s'", $id); 
+         $sql = sprintf("DELETE FROM `".dbprefix."session` WHERE `session` = '%s'", $id); 
+		 
          return mysql_query($sql, self::$_sess_db); 
      } 
   
@@ -81,7 +86,7 @@ class tsSession {
       *        (session.gc_probability/session.gc_divisor) 
       */ 
      public static function gc($max) { 
-         $sql = sprintf("DELETE FROM `ts_session` WHERE `session_expires`  < '%s'", 
+         $sql = sprintf("DELETE FROM `".dbprefix."session` WHERE `session_expires`  < '%s'", 
                         mysql_real_escape_string(time() - $max)); 
          return mysql_query($sql, self::$_sess_db); 
      } 

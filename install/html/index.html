@@ -64,7 +64,7 @@ p, li, dd, dt {
 
 <p>大多数的互联网主机服务提供商都向您提供了数据库的信息。若您不知道这些信息，您需要先询问好，再进行安装。若您已准备好 …</p>
 
-<?php if($f_cache==0 || $f_data==0 || $f_plugins==0 || $f_uploadfile==0){ ?>
+<?php if($f_cache==0 || $f_data==0 || $f_plugins==0 || $f_uploadfile==0 || $f_logs==0 || $f_upgrade==0){ ?>
 
 <p>检测到以下目录不可写</p>
 <p>
@@ -72,6 +72,8 @@ p, li, dd, dt {
 <?php if($f_data==0){ ?>data<?php } ?><br />
 <?php if($f_plugins==0){ ?>plugins<?php } ?><br />
 <?php if($f_uploadfile==0){ ?>uploadfile<?php } ?><br />
+<?php if($f_uploadfile==0){ ?>logs<?php } ?><br />
+<?php if($f_uploadfile==0){ ?>upgrade<?php } ?><br />
 </p>
 
 <p>请将不可写的目录设置为可写(777)权限。</p>

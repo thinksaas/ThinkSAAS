@@ -1,0 +1,18 @@
+{php include template("admin/header");}
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table  cellpadding="0" cellspacing="0">
+<tr class="old"><td>专辑ID</td><td>名字</td><td>介绍</td><td>话题数</td><td>操作</td></tr>
+
+{loop $arrAlbum $key $item}
+<tr><td>{$item['albumid']}</td><td>{$item['albumname']}</td><td>{$item['albumdesc']}</td><td>{$item['count_topic']}</td><td><a onclick="return  confirm('确定删除？')" href="{SITE_URL}index.php?app=group&ac=admin&mg=album&ts=delete&albumid={$item['albumid']}">删除</a></td></tr>
+{/loop}
+</table>
+
+</div>
+{php include template("admin/footer");}

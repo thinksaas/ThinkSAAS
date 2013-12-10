@@ -1,0 +1,29 @@
+{php include template("admin/header");}
+
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table>
+<tr class="old">
+<td width="100">messageid</td><td>userid</td><td>touserid</td><td>content</td><td>addtime</td> <td>操作</td>
+</tr>
+
+{loop $arrMsg $key $item}
+<tr><td>{$item['messageid']}</td><td>{$item['userid']}</td><td>{$item['touserid']}</td><td>{$item['content']}</td>
+<td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+
+<td>
+
+<a onclick="return  confirm('确定删除吗？')" href="{SITE_URL}index.php?app=message&ac=admin&mg=msg&ts=delete&page={$page}&messageid={$item['messageid']}">删除</a>
+</td></tr>
+{/loop}
+
+</table>
+
+</div>
+
+{php include template("admin/footer");}

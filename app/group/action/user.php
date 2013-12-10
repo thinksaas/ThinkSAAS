@@ -1,87 +1,165 @@
-<?php 
+<?php
 defined('IN_TS') or die('Access Denied.');
+//小组成员
 
 switch($ts){
 	
+	//小组成员首页
 	case "":
 	
-		$userid = intval($_GET['id']);
+		$groupid = intval($_GET['id']);
+
+		//判断是否存在这个群组
+		$strGroup = $new['group']->getOneGroup($groupid);
+		if($strGroup == '') {
+			header("HTTP/1.1 404 Not Found");
+			header("Status: 404 Not Found");
+			$title = '404';
+			include pubTemplate("404");
+			exit;
+		}
+
+		//小组组长信息
+		$leaderId = $strGroup['userid'];
+
+		$strLeader = aac('user')->getOneUser($leaderId);
+
+		//管理员信息
 		
-		if($userid == '0') header("Location: ".SITE_URL."index.php");
-		
-		$strUser = aac('user')->getOneUser($userid);
-		
-		$strUser['rolename'] = aac('user')->getRole($strUser['count_score']);
-		
-		//我的小组
-		$myGroup = $new['group']->findAll('group_users',array(
-			'userid'=>$userid,
+		$strAdmin = $new['group']->findAll('group_user',array(
+			'groupid'=>$strGroup['groupid'],
+			'isadmin'=>'1',
+			'isfounder'=>'0',
 		));
 		
-		//我加入的小组数
-		$myGroupNum = $new['group']->findCount('group_users',array(
-			'userid'=>$userid,
+
+		if(is_array($strAdmin)){
+			foreach($strAdmin as $key=>$item){
+				$arrAdmin[] = aac('user')->getOneUser($item['userid']);
+				$arrAdmin[$key]['isadmin'] = $item['isadmin'];
+			}
+		}
+
+		//小组会员分页
+
+		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+		$url = tsUrl('group','user',array('id'=>$groupid,'page'=>''));
+
+
+		$lstart = $page*40-40;
+
+		//普通用户
+		$groupUserNum = $new['group']->findCount('group_user',array(
+			
+			'groupid'=>$groupid,
+			'isadmin'=>0,
+			'isfounder'=>0,
+		
 		));
 		
-		if($myGroup != ''){
-		
-			//我加入的小组
-			$myGroups = $new['group']->findAll('group_users',array(
-				'userid'=>$userid,
-			),'orderid','groupid,orderid');
-			
-			if(is_array($myGroups)){
-				foreach($myGroups as $key=>$item){
-					$arrMyGroup[] = $new['group']->getOneGroup($item['groupid'],$item['orderid']);
-					$order.=$item['groupid'].',';
-				}
-				$oldordr=substr($order,0,-1);//老排序
+		$groupUser = $new['group']->findAll('group_user',array(
+			'groupid'=>$strGroup['groupid'],
+			'isadmin'=>'0',
+			'isfounder'=>'0',
+		),'userid desc',null,$lstart.',40');
+		//print_r($groupUser);
+
+		if(is_array($groupUser)){
+			foreach($groupUser as $key=>$item){
+				$arrGroupUser[] = aac('user')->getOneUser($item['userid']);
+				$arrGroupUser[$key]['isadmin'] = $item['isadmin'];
 			}
-			
-			//我加入的所有小组的话题
-			if(is_array($myGroup)){
-				foreach($myGroup as $item){
-					$arrGroup[] = $item['groupid'];
-				}
-			}
-			
-			$strGroup = implode(',',$arrGroup);
-			if($strGroup){
-				$page = isset($_POST['page']) ? intval($_POST['page']) : 1;
-	            $lstart = $page*20-20;
-				$arrTopics = $db->fetch_all_assoc("select * from ".dbprefix."group_topics where groupid in ($strGroup) and isshow='0' order by uptime desc limit $lstart ,20");
-				foreach($arrTopics as $key=>$item){
-					$arrTopic[] = $item;
-					$arrTopic[$key]['title'] = htmlspecialchars($item['title']);
-					$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
-					$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
-				}
-			}
-		
 		}
-		
-		$title = $strUser['username'];
-		$pageKey = $strUser['username'].',小组';
-		$pageDesc = $strUser['username'].'的小组，'.$strUser['username'].'关注的小组，'.$strUser['username'].'加入的小组，'.$strUser['username'].'的小组发帖';
-		if($_POST && !isset($_POST['page'])){
-			$neworder=explode(',',$_POST['id']);
-			
-			for($i=0;$i<count($neworder);$i++){
-			$new['group']->update('group_users',array(
-					'userid'=>$userid,'groupid'=>$neworder[$i]
-				),array(
-					'orderid'=>$i,
-				));
-			
-			 }
-			}else{
-				if( isset($_POST['page'])){
-					   include template("user_append");
-					}else{
-						include template("user");
-						}
-		    
+
+		$pageUrl = pagination($groupUserNum, 40, $page, $url,$TS_URL['suffix']);
+
+		if($page > '1'){
+			$titlepage = " - 第".$page."页";
+		}else{
+			$titlepage='';
 		}
+
+		$title = $strGroup['groupname'].'成员'.$titlepage;
+
+		include template("user");
+		
 		break;
+		
+	//设为管理员 
+	case "manager":
+	
+		if($_POST['token'] != $_SESSION['token']) {
+			echo '0';exit;//非法操作
+		}
+		
+		$nuserid = intval($TS_USER['user']['userid']);
+		
+		if($nuserid==0){
+			echo '0';exit;//非法操作
+		}
+		
+		$groupid = intval($_POST['groupid']);
+		$userid= intval($_POST['userid']);
+		
+		$strGroup = $new['group']->find('group',array(
+			'groupid'=>$groupid,
+		));
+		
+		if($strGroup['groupid'] == $groupid){
+		
+			$strGroupUser = $new['group']->find('group_user',array(
+				'userid'=>$userid,
+				'groupid'=>$groupid,
+			));
+			
+			if($strGroup['userid'] != $userid && $strGroup['userid']==$nuserid){
+			
+			
+				if($strGroupUser['isadmin']==1){
+				
+					$new['group']->update('group_user',array(
+						'userid'=>$userid,
+						'groupid'=>$groupid,
+					),array(
+					
+						'isadmin'=>0,
+					
+					));
+				
+				}elseif($strGroupUser['isadmin']==0){
+				
+					$new['group']->update('group_user',array(
+						'userid'=>$userid,
+						'groupid'=>$groupid,
+					),array(
+					
+						'isadmin'=>1,
+					
+					));
+				
+				}
+				
+				echo '1';exit;
+			
+			
+			}else{
+			
+				echo '0';exit;
+			
+			}
+			
+			
+			
+		
+		}else{
+			
+			echo '0';exit;
+		
+		}
+	
+		break;
+	
+	//删除成员
 	
 }

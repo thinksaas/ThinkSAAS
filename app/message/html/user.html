@@ -1,0 +1,35 @@
+{template header}
+<div class="midder">
+<div class="mc">
+<div class="bbox mh400">
+
+{template menu}
+
+
+<div class="usermsg">
+<ul>
+{loop $arrMessage $key $item}
+<li {if $item[userid] == $TS_USER[user][userid]}class="mysend"{/if}>
+{if $item[userid]==$TS_USER[user][userid]}<span style="color:#006efe;">{$item[user][username]} {php echo date('Y-m-d H:i:s',$item[addtime])}</span>{else}<span style="color:#42b475;">{$item[user][username]} {php echo date('Y-m-d H:i:s',$item[addtime])}</span>{/if}
+<br />
+{$item[content]}
+</li>
+{/loop}
+</ul>
+</div>
+
+<div class="sendbox">
+<p>和<span style="color:#0066cc;">{$strTouser[username]}</span>进行及时消息通话中</p>
+<p><textarea id="boxcontent"></textarea> </p>
+<p>
+<span id="sendbutton" style="display:block;"><a class="btn" href="javascript:void('0');" onclick="window.parent.sendmsg('{$TS_USER[user][userid]}','{$strTouser[userid]}');">发送</a></span>
+<span id="loading" style="display:none;">消息送达中<img src="{SITE_URL}app/{$app}/skins/{$skin}/loading.gif" alt="Loading..." /></span>
+</p>
+</div>
+
+
+</div>
+</div>
+</div>
+
+{template footer}

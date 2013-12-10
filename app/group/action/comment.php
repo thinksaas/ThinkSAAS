@@ -1,137 +1,91 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
-
 //用户是否登录
 $userid = aac('user')->isLogin();
-
 switch($ts){
-
 	//添加评论
 	case "do":
-	
-		$topicid	= intval($_POST['topicid']);
-		$content	= trim($_POST['content']);
+		if($_POST['token'] != $_SESSION['token']) {
+			tsNotice('非法操作！');
+		}
 		
-        
-		//添加评论标签
-		doAction('group_comment_add','',$content,'');
+		$authcode = strtolower($_POST['authcode']);
+		
+		if($authcode != $_SESSION['verify']){
+			tsNotice("验证码输入有误，请重新输入！");
+		}
+		
+		$topicid	= intval($_POST['topicid']);
+		$content	= tsClean($_POST['content']);
+		
+		
+		
+		//过滤内容开始
+		if($TS_USER['user']['isadmin']==0){
+			aac('system')->antiWord($content);
+		}
+		//过滤内容结束
 		
 		if($content==''){
-		
 			tsNotice('没有任何内容是不允许你通过滴^_^');
-			
 		}else{
-		
-			$arrData	= array(
-				'topicid'			=> $topicid,
-				'userid'			=> $userid,
+			$commentid = $new['group']->create('group_topic_comment',array(
+				'topicid'	=> $topicid,
+				'userid'	=> $userid,
 				'content'	=> $content,
-				'addtime'		=> time(),
-			);
-			
-			$commentid = $db->insertArr($arrData,dbprefix.'group_topics_comments');
-			//计算该ID的页数
-			$page_count = $db->once_num_rows("select * from ".dbprefix."group_topics_comments where topicid='$topicid' and commentid<'$commentid' ");
-			$page=ceil(($page_count+1)/15);
-			
-			if (preg_match_all('/@/', $content, $at))
-			{
-				preg_match_all("/@(.+?)([\s|:]|$)/is", $content, $matches);
-
-				$unames = $matches[1];
-
-				$ns = "'" . implode("','", $unames) . "'";
-
-				$csql = "username IN($ns)";
-
-				if ($unames)
-				{
-					$query = $db->fetch_all_assoc("select userid,username from " . dbprefix . "user_info where $csql");
-
-					foreach($query as $v){
-					
-					$content = str_replace('@' . $v['username'] . '', '[@' . $v['username'] . ':' . $v['userid'] . ']', $content);
-					$msg_content = '我在帖子中提到了你<br />去看看：' . SITE_URL . tsUrl('group', 'topic', array('id' => $topicid,'page'=>$page."#l_".$commentid));
-					aac('message')->sendmsg($TS_USER['user']['userid'], $v['userid'], $msg_content);
-					
-				     }
-				
-				
-				$new['group']->update('group_topics_comments', array('commentid' => $commentid,
-						), array('content' => $content,
-
-						));
-			} 
-		
-			}
-			//上传图片开始
-			$arrUpload = tsUpload($_FILES['picfile'],$commentid,'comment',array('jpg','gif','png','jpeg'));
-			if($arrUpload){
-
-				$new['group']->update('group_topics_comments',array(
-					'commentid'=>$commentid,
-				),array(
-					'path'=>$arrUpload['path'],
-					'photo'=>$arrUpload['url'],
-				));
-			}
-			//上传图片结束
-			
-			//上传附件开始
-			$attUpload = tsUpload($_FILES['attfile'],$commentid,'comment',array('zip','rar','doc','txt','pdf','ppt','docx','xls','xlsx'));
-			if($attUpload){
-
-				$new['group']->update('group_topics_comments',array(
-					'commentid'=>$commentid,
-				),array(
-					'path'=>$attUpload['path'],
-					'attach'=>$attUpload['url'],
-					'attachname'=>$attUpload['name'],
-				));
-			}
-			//上传附件结束
+				'addtime'=> time(),
+			));
 			
 			//统计评论数
-			$count_comment = $db->once_num_rows("select * from ".dbprefix."group_topics_comments where topicid='$topicid'");
+			$count_comment = $new['group']->findCount('group_topic_comment',array(
+				'topicid'=>$topicid,
+			));
 			
-			//更新帖子最后回应时间和评论数
-			$uptime = time();
+			//更新帖子最后回应时间和评论数			
+			$new['group']->update('group_topic',array(
+				'topicid'=>$topicid,
+			),array(
+				'count_comment'=>$count_comment,
+				'uptime'=>time(),
+			));
 			
-			$db->query("update ".dbprefix."group_topics set uptime='$uptime',count_comment='$count_comment' where topicid='$topicid'");
+			//对积分进行处理
+			aac('user')->doScore($app,$ac,$ts);
 			
-			//积分记录
-			$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','回帖','20','".time()."')");
+			//发送系统消息(通知楼主有人回复他的帖子啦)			
+			$strTopic = $new['group']->find('group_topic',array(
+				'topicid'=>$topicid,
+			));
 			
-			$strScore = $db->once_fetch_assoc("select sum(score) score from ".dbprefix."user_scores where userid='".$userid."'");
-			
-			//更新积分
-			$db->query("update ".dbprefix."user_info set `count_score`='".$strScore['score']."' where userid='$userid'");
-			
-			//发送系统消息(通知楼主有人回复他的帖子啦)
-			$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid='$topicid'");
 			if($strTopic['userid'] != $TS_USER['user']['userid']){
 			
 				$msg_userid = '0';
 				$msg_touserid = $strTopic['userid'];
 				$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ <br />'
-											.SITE_URL.tsUrl('group','topic',array('id'=>$topicid));
+											.tsUrl('group','topic',array('id'=>$topicid));
 				aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 				
 			}
 			
-			
 			//feed开始
-			$feed_template = '<span class="pl">评论了帖子：<a href="{link}">{title}</a></span><div class="quote"><span class="inq">{content}</span> <span><a class="j a_saying_reply" href="{link}" rev="unfold">回应</a>
-	</span></div>';
+			$feed_template = '<span class="pl">评论了帖子：<a href="{link}">{title}</a></span><div class="quote"><span class="inq">{content}</span> <span><a class="j a_saying_reply" href="{link}" rev="unfold">回应</a></span></div>';
 			$feed_data = array(
-				'link'	=> SITE_URL.tsUrl('group','topic',array('id'=>$topicid)),
+				'link'	=> tsurl('group','topic',array('id'=>$topicid)),
 				'title'	=> $strTopic['title'],
-				'content'	=>getsubstrutf8($content,0,100),
+				'content'	=> cututf8(t($content),'0','50'),
 			);
 			aac('feed')->add($userid,$feed_template,$feed_data);
 			//feed结束
 			
-			header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$topicid)));
+			//QQ分享
+			$arrShare = array(
+				'content'=>t($content).'[ThinkSAAS社区]'.tsUrl('group','topic',array('id'=>$topicid)),
+			);
+			doAction('qq_share',$arrShare);
+			//微博分享
+			doAction('weibo_share',t($content).'[ThinkSAAS社区]'.tsUrl('group','topic',array('id'=>$topicid)));
+			
+			header("Location: ".tsUrl('group','topic',array('id'=>$topicid)));
 		}	
 	
 		break;
@@ -141,11 +95,11 @@ switch($ts){
 		
 		$commentid = intval($_GET['commentid']);
 		
-		$strComment = $new['group']->find('group_topics_comments',array(
+		$strComment = $new['group']->find('group_topic_comment',array(
 			'commentid'=>$commentid,
 		));
 		
-		$strTopic = $new['group']->find('group_topics',array(
+		$strTopic = $new['group']->find('group_topic',array(
 			'topicid'=>$strComment['topicid'],
 		));
 		
@@ -153,17 +107,31 @@ switch($ts){
 			'groupid'=>$strTopic['groupid'],
 		));
 		
-		if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['user']['isadmin']==1){
+		if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['user']['isadmin']==1 || $strComment['userid']==$userid){
 			
 			$new['group']->delComment($commentid);
 			
-			//统计
-			$db->query("update ".dbprefix."group_topics set count_comment=count_comment-1 where topicid='".$strComment['topicid']."'");
+			//统计评论数
+			$count_comment = $new['group']->findCount('group_topic_comment',array(
+				'topicid'=>$strTopic['topicid'],
+			));
+			
+			//更新帖子最后回应时间和评论数			
+			$new['group']->update('group_topic',array(
+				'topicid'=>$strTopic['topicid'],
+			),array(
+				'count_comment'=>$count_comment,
+			));
+			
+			// 扣除用户相应的积分，删除评论扣2分
+			aac('user')->delScore($strComment['userid'],'删除帖子评论',2);
+			
+			
+			
 		}
 		
 		//跳转回到帖子页
-		header("Location: ".SITE_URL.tsUrl('group','topic',array('id'=>$strComment['topicid'])));
+		header("Location: ".tsUrl('group','topic',array('id'=>$strComment['topicid'])));
 		
 		break;
-
 }

@@ -5,7 +5,7 @@
 <div class="mc">
 <h1>移动帖子：{$strTopic[title]}</h1>
 <div class="cleft">
-<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=topic_move">
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=topicmove&ts=do">
 <p>选择小组：
 <select name="groupid">
 <!--{loop $arrGroup $key $item}-->
@@ -15,7 +15,10 @@
 </p>
 <p>
 <input type="hidden" name="topicid" value="{$topicid}" />
-<input class="submit" type="submit" value="移动" /></p>
+
+<button class="btn btn-success" type="submit">移动</button>
+
+</p>
 </form>
 </div>
 

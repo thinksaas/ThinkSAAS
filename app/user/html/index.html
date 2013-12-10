@@ -1,28 +1,4 @@
 {template header}
-
-<style>
-/*排行榜页面*/
-.top10{}
-.top10 dl{overflow: hidden;}
-.top10 dl dd{float:left;margin-bottom:15px;margin-left: 0;width:33%;}
-.top10 dl dd h3{background:none repeat scroll 0 0 #F5F5F5;border:1px solid #EEEEEE;margin:0 8px;padding:5px;font-size:12px;position:relative;font-weight: bold;}
-
-.top10 dl dd h3 span{float:right;color:#999999;font-weight:400;position:absolute;right:10px;}
-
-.top10 dl dd ul{border-top:1px solid #F5F5F5;margin:0 8px;}
-.top10 dl dd ul li{border-color:#EEEEEE;border-style:solid;border-width:0 1px 1px;margin-bottom:0;padding:7px;clear:both;line-height:20px;word-wrap:break-word;overflow:hidden;}
-
-.top10 .avatar {float:left;margin-right:10px;}
-.top10 .avatar img {height:36px;width:36px;}
-.avatar img {margin:1px;padding:7px;}
-
-.top10 li em {color:#999999;float:right;margin-left:8px;}
-
-.top10 li span {float:left;font-size:10px;height:14px;line-height:14px;margin:4px 8px 0 0;text-align:center;width:16px;}
-.top10 li p{height:48px;margin:0;padding:0;}
-
-</style>
-
 <!--main-->
 <div class="midder">
 
@@ -35,10 +11,10 @@
 <ul>
 {loop $arrScoreUser $key $item}
 {if $key<='2'}
-<li><div class="avatar"><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" /></a></div>
-<p><em>{$item['count_score']}</em><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p></li>
+<li><div class="avatar"><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" /></a></div>
+<p><em>{$item['count_score']}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p></li>
 {elseif $key >= '3'}
-<li><span>{php echo $key+1}</span><em>{$item['count_score']}</em><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></li>
+<li><span>{php echo $key+1}</span><em>{$item['count_score']}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></li>
 {/if}
 {/loop}
 </ul>
@@ -49,10 +25,10 @@
 <ul>
 {loop $arrFollowUser $key $item}
 {if $key<='2'}
-<li><div class="avatar"><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" /></a></div>
-<p><em>{$item['count_followed']}</em><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p></li>
+<li><div class="avatar"><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" /></a></div>
+<p><em>{$item['count_followed']}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p></li>
 {elseif $key >= '3'}
-<li><span>{php echo $key+1}</span><em>{$item['count_followed']}</em><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></li>
+<li><span>{php echo $key+1}</span><em>{$item['count_followed']}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></li>
 {/if}
 {/loop}
 </ul>
@@ -63,24 +39,24 @@
 <ul>
 {loop $arrHotUser $key $item}
 {if $key<='2'}
-<li><div class="avatar"><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" /></a></div>
-<p><em>{php echo getTime($item[uptime],time())}</em><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p></li>
+<li><div class="avatar"><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" /></a></div>
+<p><em>{php echo getTime($item[uptime],time())}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p></li>
 {elseif $key >= '3'}
-<li><span>{php echo $key+1}</span><em>{php echo getTime($item[uptime],time())}</em><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></li>
+<li><span>{php echo $key+1}</span><em>{php echo getTime($item[uptime],time())}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></li>
 {/if}
 {/loop}
 </ul>
 </dd>
 
 <dd>
-<h3>最新用户<span>时间</span></h3>
+<h3>新用户<span>时间</span></h3>
 <ul>
 {loop $arrNewUser $key $item}
 {if $key<='2'}
-<li><div class="avatar"><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" /></a></div>
-<p><em>{php echo getTime($item[addtime],time())}</em><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p></li>
+<li><div class="avatar"><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" /></a></div>
+<p><em>{php echo getTime($item[addtime],time())}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p></li>
 {elseif $key >= '3'}
-<li><span>{php echo $key+1}</span><em>{php echo getTime($item[addtime],time())}</em><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></li>
+<li><span>{php echo $key+1}</span><em>{php echo getTime($item[addtime],time())}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></li>
 {/if}
 {/loop}
 </ul>

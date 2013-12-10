@@ -14,60 +14,87 @@ $strGroup = $new['group']->find('group',array(
 $strGroup['groupname'] = stripslashes($strGroup['groupname']);
 $strGroup['groupdesc'] = stripslashes($strGroup['groupdesc']);
 
-if($userid != $strGroup['userid']) header("Location: ".SITE_URL);
+if($strGroup['userid']==$userid || $TS_USER['user']['isadmin']==1){
 
-switch($ts){
-	
-	//编辑小组基本信息
-	case "base":
-		
-		$title = '编辑小组基本信息';
-		include template("edit_base");
-		
-		break;
-	
-	//编辑小组头像
-	case "icon":
 
-		$title = '修改小组头像';
-		include template("edit_icon");
+	switch($ts){
 		
-		break;
-	
-	//修改访问权限
-	case "privacy":
+		//编辑小组基本信息
+		case "base":
+			
+			$title = '编辑小组基本信息';
+			include template("edit_base");
+			
+			break;
+		
+		//编辑小组头像
+		case "icon":
 
-		$title = '编辑小组权限';
-		include template("edit_privacy");
+			$title = '修改小组头像';
+			include template("edit_icon");
+			
+			break;
 		
-		break;
-	
-	//友情小组
-	case "friends":
+		//修改访问权限
+		case "privacy":
 
-		$title = '编辑友情小组';
-		include template("edit_friends");
+			$title = '编辑小组权限';
+			include template("edit_privacy");
+			
+			break;
 		
-		break;
+		//友情小组
+		case "friends":
+
+			$title = '编辑友情小组';
+			include template("edit_friends");
+			
+			break;
+			
+		//帖子分类
+		case "type":
+			//调出类型
+			$arrGroupType = $new['group']->findAll('group_topic_type',array(
+				'groupid'=>$strGroup['groupid'],
+			));
+			
+			$title = '编辑帖子分类';
+			include template("edit_type");
+			
+			break;
+			
+		//小组分类
+		case "cate":
+			
+			$arrCate = $new['group']->findAll('group_cate',array(
+			
+				'referid'=>0,
+			
+			));
+			
+			//一级分类
+			$strCate = $new['group']->find('group_cate',array(
+				'cateid'=>$strGroup['cateid'],
+			));
+			//二级分类
+			$strCate2 = $new['group']->find('group_cate',array(
+				'cateid'=>$strGroup['cateid2'],
+			));
+			//三级分类
+			$strCate3 = $new['group']->find('group_cate',array(
+				'cateid'=>$strGroup['cateid3'],
+			));
+			
+			$title = '编辑小组分类';
+			include template("edit_cate");
+			
+			break;
 		
-	//帖子分类
-	case "type":
-		//调出类型
-		$arrGroupType = $db->fetch_all_assoc("select * from ".dbprefix."group_topics_type where groupid='".$strGroup['groupid']."'");
-		
-		$title = '编辑帖子分类';
-		include template("edit_type");
-		
-		break;
-		
-	//小组分类
-	case "cate":
-		
-		$arrCate = $new['group']->findAll('group_cates');
-		
-		$title = '编辑小组分类';
-		include template("edit_cate");
-		
-		break;
-	
+	}
+
+
+}else{
+
+	tsNotice('非法操作！');
+
 }

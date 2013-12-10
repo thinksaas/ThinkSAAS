@@ -6,5 +6,6 @@ class search extends tsApp{
 	public function __construct($db){
 		parent::__construct($db);
 	}
+	
 
 }

@@ -6,7 +6,7 @@ switch($ts){
 	
 		$arrApps = tsScanDir('plugins');
 	
-		$apps = $_GET['apps'];
+		$apps = tsFilter($_GET['apps']);
 	
 		$arrPlugins = tsScanDir('plugins/'.$apps);
 	
@@ -18,6 +18,9 @@ switch($ts){
 		}
 		
 		$app_plugins = fileRead('data/'.$apps.'_plugins.php');
+		if($app_plugins==''){
+			$app_plugins = $tsMySqlCache->get($apps.'_plugins');
+		}
 		
 		include template("plugin_list");
 		break;
@@ -25,12 +28,15 @@ switch($ts){
 	//插件停启用
 	case "do":
 	
-		$apps = $_GET['apps'];
+		$apps = tsFilter($_GET['apps']);
 		
 		$isused =  intval($_GET['isused']);
-		$pname = $_GET['pname'];
+		$pname = tsFilter($_GET['pname']);
 		
 		$app_plugins = fileRead('data/'.$apps.'_plugins.php');
+		if($app_plugins==''){
+			$app_plugins = $tsMySqlCache->get($apps.'_plugins');
+		}
 
 		
 		//0停用1启用
@@ -40,6 +46,7 @@ switch($ts){
 			unset($app_plugins[$pkey]);
 
 			fileWrite($apps.'_plugins.php','data',$app_plugins);
+			$tsMySqlCache->set($apps.'_plugins',$app_plugins);
 			
 			qiMsg("插件停用成功！");
 			
@@ -53,12 +60,14 @@ switch($ts){
 				 if($ret=='1')
 				 {
 					fileWrite($apps.'_plugins.php','data',$app_plugins);
+					$tsMySqlCache->set($apps.'_plugins',$app_plugins);
 					$msg='插件启用成功！';
 				 }else{
 					 $msg=$ret;
 					 }
 				}else{
 					fileWrite($apps.'_plugins.php','data',$app_plugins);
+					$tsMySqlCache->set($apps.'_plugins',$app_plugins);
 					$msg='插件启用成功！';
 				}
 			
@@ -68,30 +77,12 @@ switch($ts){
 		break;
 		
 	//删除插件
-	case "del":
+	case "delete":
+		$apps = $_GET['apps'];
 		$pname = $_GET['pname'];
-		if(file_exists('plugins/'.$apps.'/'.$pname.'/uninstall.sql')){
-				$sql=file_get_contents('plugins/'.$apps.'/'.$pname.'/uninstall.sql');
-				$sql=str_replace('ts_',''.dbprefix.'',$sql);
-				$ret=$db->query($sql);
-				 if(mysql_fetch_array($ret))
-				 {
-					delDir('plugins/'.$apps.'/'.$pname);
-					$msg='插件卸载成功！';
-				 }else{
-					 $msg=$ret;
-					 }
-				}else{
-					delDir('plugins/'.$apps.'/'.$pname);
-					$msg='插件删除成功！';
-				}
 		
-		qiMsg($msg);
-		break;
+		delDir('plugins/'.$apps.'/'.$pname);
 		
-		
-	//插件编辑
-	case "edit":
-		
+		qiMsg('删除成功！');
 		break;
 }

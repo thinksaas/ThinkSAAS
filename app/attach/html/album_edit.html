@@ -1,0 +1,26 @@
+{template header}
+<div class="midder">
+<div class="mc">
+
+<div class="bbox mh400">
+
+{template menu}
+<h1>修改资料库</h1>
+<div style="margin:30px 0 0 200px;">
+<form method="post" action="{tsUrl('attach','album',array('ts'=>'editdo'))}">
+<table>
+<tr><td>资料库名称：</td><td><input style="width:300px;" name="title" value="{$strAlbum['title']}" /></td></tr>
+<tr><td valign="top">资料库介绍：</td><td><textarea style="width:300px;height:100px;" name="content">{$strAlbum['content']}</textarea></td></tr>
+<tr><td></td><td>
+<input type="hidden" name="albumid" value="{$strAlbum['albumid']}" />
+<input class="btn btn-success" type="submit" value="修改" />
+</td></tr>
+</table>
+</form>
+</div>
+
+</div>
+</div>
+</div>
+
+{template footer}

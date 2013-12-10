@@ -11,6 +11,7 @@ switch($ts){
 		rmrf('cache/template');
 		rmrf('cache/user');
 		rmrf('cache/group');
+		rmrf('cache/lang');
 		qiMsg('缓存清除完毕！');
 		break;
 		
@@ -31,4 +32,11 @@ switch($ts){
 		rmrf('cache/user');
 		qiMsg('缓存清除完毕！');
 		break;
+		
+	//删除语言包
+	case "dellang":
+		rmrf('cache/lang');
+		qiMsg('缓存清除完毕！');
+		break;
+		
 }

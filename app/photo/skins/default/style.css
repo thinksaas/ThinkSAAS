@@ -7,10 +7,10 @@
 
 .albumlst {
   float: left;
-    line-height: 1.65em;
-    margin: 9px 0 10px;
-    padding: 0 0 10px;
-    width: 49%;
+    margin: 7px;
+    width: 170px;
+	border:solid 1px #CCCCCC;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
 
 .album_photo {
@@ -19,9 +19,7 @@ overflow: hidden;
 width: 181px;
 }
 
-.album_photo img{
-background:;
-    padding: 4px 7px 7px 4px;}
+.album_photo img{}
 
 .album_photo:link {
     color: #777777;
@@ -36,10 +34,8 @@ background:;
 
 .albumlst_r {
   color: #777777;
-    float: left;
     overflow: hidden;
     padding-top: 4px;
-    width: 240px;
     word-wrap: break-word;
 }
 
@@ -84,9 +80,11 @@ float: left;
 .photo_wrap {
     display: inline;
     float: left;
-    margin: 10px 13px 25px;
+    margin: 10px 7px;
     overflow: hidden;
     width: 170px;
+	border:solid 1px #CCCCCC;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 	
 }
 .photolst_photo {

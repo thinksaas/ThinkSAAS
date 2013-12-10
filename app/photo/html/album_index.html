@@ -3,17 +3,16 @@
 <div class="midder">
 <div class="mc">
 
-<div class="cleft">
-
+<div class="bbox mh400">
 {template menu}
 
 <div id="container" class="wr">
 
-<!--{loop $arrAlbum $key $item}-->
+{loop $arrAlbum $key $item}
         <div class="box albumlst">
-        <a href="{SITE_URL}{tsUrl('photo','album',array(ts=>photo,albumid=>$item[albumid]))}" class="album_photo"><img src="<!--{if $item[albumface] == ''}-->{SITE_URL}app/{$app}/skins/{$skin}/photo_album.png<!--{else}-->{SITE_URL}{php echo tsXimg($item[albumface],'photo',170,'',$item[path])}<!--{/if}-->"></a>
+        <a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}" class="album_photo"><img src="{if $item[albumface] == ''}{SITE_URL}app/{$app}/skins/{$skin}/photo_album.png{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" width="170" alt="{$item['albumname']}" /></a>
         <div class="albumlst_r">
-            <div><a href="{SITE_URL}{tsUrl('photo','album',array(ts=>photo,albumid=>$item[albumid]))}">{$item[albumname]}</a></div>
+            <div><a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}">{$item[albumname]}</a></div>
         <div class="albumlst_descri">{$item[albumdesc]}</div>
 
         <span class="pl">
@@ -22,22 +21,18 @@
         </span>
 
         </div>
-        <br>
         </div>
-	<!--{if $key%2}--><div class="clear"></div><!--{/if}-->
-<!--{/loop}-->
-<div class="clear"></div>
+	{if is_int(($key+1)/5)}
+	<div class="clear"></div>
+	{/if}
+{/loop}
+
  </div>
- 
+ <div class="clear"></div>
  <div class="page">{$pageUrl}</div>
 
-</div>
-
-<div class="cright">
-
-
-</div>
-
+ </div>
+ 
 </div>
 </div>
 

@@ -9,48 +9,29 @@
 <!--main-->
 <div class="midder">
 <div class="mc">
+<div class="bbox mh400">
 {template set_menu}
-
 {if $TS_SITE['base']['isface']=='1' && $strUser['face'] == SITE_URL.'public/images/user_normal.jpg'}
-<p class="notice">提示：你需要上传头像才可以正常使用网站！</p>
+<div class="alert">提示：你需要上传头像才可以正常使用网站！</div>
 {/if}
 
-<h2>当前头像</h2>
-<div>
-<img alt="{$TS_USER[uname]}" src="{$strUser[face]}" width="60" />
+
+<table width="100%" class="commtable">
+<tr><th>当前头像</th><td><img alt="{$TS_USER[uname]}" src="{$strUser[face]}?v={php echo rand();}" width="60" /></td></tr>
+
+<tr><th>选择本地头像</th><td><form method="post" action="{SITE_URL}index.php?app=user&ac=set&ts=facedo"  enctype="multipart/form-data">
+<input type="file" name="picfile" /><input class="btn" type="submit" value="上传头像" />
+</form></td></tr>
+
+
+<tr><th></th><td><a class="btn" href="{tsUrl('user','set',array('ts'=>'flash'))}">使用Flash上传并裁切头像</a></td></tr>
+
+</table>
+
+
+
 </div>
 
-<h2>选择本地头像</h2>
-
-<div>
-<form method="POST" action="{SITE_URL}index.php?app=user&ac=do&ts=setface" enctype="multipart/form-data" >
-
-<div class="m">从你的电脑上选择图像文件：(仅支持jpg，gif，png格式的图片)</div><br>
-
-<input type="file" name="picfile" />
-<input class="submit" type="submit" value="上传照片" />
-
-<br>
-<br>
-
-</form>
-</div>
-
-<h2>选择系统预置头像</h2>
-<div>
-<form method="post" action="{SITE_URL}index.php?app=user&ac=do&ts=face">
-<ul class="dface">
-{loop $arrFace $key $item}
-<li>
-<img src="{SITE_URL}uploadfile/user/face/{$item}" width="60" />
-<br />
-<input type="radio" name="face" value="{$item}" />
-</li>
-{/loop}
-</ul>
-<input class="submit" type="submit" value="使用头像" />
-</form>
-</div>
 
 </div>
 </div>

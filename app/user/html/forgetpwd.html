@@ -2,14 +2,21 @@
 <!--main-->
 <div class="midder">
 <div class="mc">
-<h1>找回密码</h1>
+<div class="bbox mh400">
+
+<h1>忘记密码</h1>
+
 <form method="POST" action="{SITE_URL}index.php?app=user&ac=forgetpwd&ts=do">
-<table>
-<tr><td>输入你的Email：</td><td><input class="uinput" type="text" name="email" /></td></tr>
-<tr><td></td><td>
-<input type="submit" class="submit" value="提交" /> <a href="{SITE_URL}index.php">返回首页</a><td></tr>
+<table class="commtable">
+<tr><th>Email：</th><td><input class="uinput" type="text" name="email" /></td></tr>
+<tr><th></th><td>
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<button class="btn btn-success" type="submit">提交</button>
+<a href="{SITE_URL}">返回</a></td></tr>
 </table>
 </form>
+</div>
+
 </div>
 </div>
 

@@ -1,0 +1,93 @@
+{template header}
+<div class="midder">
+
+<div class="mc">
+
+<div class="cleft">
+<div class="bbox">
+
+<div class="bd"><a href="{tsUrl('redeem')}" title="积分兑换">积分兑换</a> → <a href="{tsUrl('redeem','goods',array('id'=>$strGoods['goodsid']))}">{$strGoods['title']}</a></div>
+
+<h1>{$strGoods['title']}</h1>
+<div class="bc">
+<div class="goodsheader">
+<div class="photo"><img src="{php echo tsXimg($strGoods['photo'],'redeem','300','',$strGoods['path'])}" alt="{$strGoods['title']}" /></div>
+<div class="info">
+
+<p>兑换数量：{$strGoods['nums']}</p>
+<p>所需积分：{$strGoods['scores']} 积分</p>
+{if $strGoods['return']}
+<p>返还积分：{$strGoods['return']} 积分</p>
+{/if}
+<p><a class="btn btn-success" href="javascript:void('0');" onclick="doRedeem('{$strGoods['goodsid']}')">立刻兑换</a></p>
+
+<p><a class="btn" href="javascript:void('0');" onclick="#">购买{$strGoods['scores']}积分=￥{php echo $strGoods['scores']/50}</a></p>
+
+</div>
+</div>
+
+<div class="goodscontent">
+{$strGoods['content']}
+</div>
+
+{if $TS_USER['user']['isadmin']=='1'}
+<div class="tar"><a href="{tsUrl('redeem','edit',array('goodsid'=>$strGoods['goodsid']))}">修改</a></div>
+{/if}
+
+</div>
+</div>
+
+
+<div class="bbox">
+<h2>谁在兑换</h2>
+<div class="bc">
+
+<div class="facelist">
+<ul>
+{loop $arrUser $key $item}
+<li style="height:auto;">
+<a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" width="48" height="48" title="{$item['username']}" alt="{$item['username']}"  /></a>
+<p><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p>
+{if $strGoods['return']}
+<p>{if $item['isreturn']}<font color="red">[已返还]</font>{else}
+{if $TS_USER['user']['isadmin']==1}
+<a href="javascript:void('0');" onclick="returnscore('{$strGoods['goodsid']}','{$item['userid']}')">[未返还]</a>
+{else}
+[未返还]
+{/if}
+{/if}</p>
+{/if}
+</li>
+{/loop}
+</ul>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+<div class="cright">
+
+<div class="bbox">
+<h2>积分兑换帮助</h2>
+
+<div class="bc commlist">
+<ul>
+<li><a href="{tsUrl('redeem','help')}#1">什么是积分，如何获取积分？</a></li>
+<li><a href="{tsUrl('redeem','help')}#2">积分政策须知</a></li>
+<li><a href="{tsUrl('redeem','help')}#3">积分兑换注意事项</a></li>
+<li><a href="{tsUrl('redeem','help')}#4">为什么没有收到兑换的奖品</a></li>
+</ul>
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+{template footer}

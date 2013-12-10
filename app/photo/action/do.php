@@ -11,13 +11,11 @@ switch($ts){
 		
 		$albumid = intval($_GET['albumid']);
 		
-		$arrData = array(
+		$photoid = $new['photo']->create('photo',array(
 			'userid'	=> $userid,
 			'albumid'	=> $albumid,
-			'addtime'	=> time(),
-		);
-		
-		$photoid = $db->insertArr($arrData,dbprefix.'photo');
+			'addtime'	=> date('Y-m-d H:i:s'),
+		));
 		
 		//上传
 		$arrUpload = tsUpload($_FILES['Filedata'],$photoid,'photo',array('jpg','gif','png'));
@@ -27,11 +25,11 @@ switch($ts){
 			$new['photo']->update('photo',array(
 				'photoid'=>$photoid,
 			),array(
-				'photoname'=>$arrUpload['name'],
-				'phototype'=>$arrUpload['type'],
-				'path'=>$arrUpload['path'],
-				'photourl'=>$arrUpload['url'],
-				'photosize'=>$arrUpload['size'],
+				'photoname'=>tsClean($arrUpload['name']),
+				'phototype'=>tsClean($arrUpload['type']),
+				'path'=>tsClean($arrUpload['path']),
+				'photourl'=>tsClean($arrUpload['url']),
+				'photosize'=>tsClean($arrUpload['size']),
 			));
 			
 		}
@@ -44,72 +42,69 @@ switch($ts){
 	case "photo_del":
 	
 		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		if($userid == 0){
-			header("Location: ".SITE_URL.tsUrl('user','login'));
-			exit;
+		$userid = aac('user')->isLogin();
+		
+		$photoid = intval($_GET['photoid']);
+		
+		$strPhoto = $new['photo']->find('photo',array(
+			'photoid'=>$photoid,
+		));
+		
+		if($strPhoto['userid']==$userid || $TS_USER['user']['isadmin']==1) {
+		
+		
+			$albumid = $strPhoto['albumid'];
+			
+			unlink('uploadfile/photo/'.$strPhoto['photourl']);
+			
+			$new['photo']->delete('photo',array(
+				'photoid'=>$photoid,
+			));
+			
+			$count_photo = $new['photo']->findCount('photo',array(
+				'albumid'=>$albumid,
+			));
+			
+			$new['photo']->update('photo_album',array(
+			
+				'albumid'=>$albumid,
+			
+			),array(
+			
+				'count_photo'=>$count_photo,
+			
+			));
+
+			tsNotice('照片删除成功！','点击返回',tsUrl('photo','album',array('id'=>$albumid)));
+		
+		
 		}
-		
-		aac('user')->isUser($userid);
-		
-		$photoid = $_GET['photoid'];
-		$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
-		if($strPhoto['userid']!=$userid) qiMsg("非法操作！");
-		
-		$albumid = $strPhoto['albumid'];
-		
-		unlink('uploadfile/photo/'.$strPhoto['photourl']);
-		
-		$db->query("delete from ".dbprefix."photo where photoid='$photoid'");
-		
-		$count_photo = $db->once_num_rows("select * from ".dbprefix."photo where albumid='$albumid'");
-		
-		$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
-		
-		qiMsg("照片删除成功！",'点击返回','index.php?app=photo&ac=album&ts=photo&albumid='.$albumid);
 		
 		break;
 	
 	//添加评论
 	case "comment_do":
-		$photoid	= intval($_POST['photoid']);
-		$content	= h($_POST['content']);
-		
+	
 		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		if($userid == 0){
-			header("Location: ".SITE_URL.tsUrl('user','login'));
-			exit;
+		$userid = aac('user')->isLogin();
+	
+		$photoid	= intval($_POST['photoid']);
+		$content	= tsClean($_POST['content']);
+		
+		if($TS_USER['user']['isadmin']==0){
+			//过滤内容开始
+			aac('system')->antiWord($content);
+			//过滤内容结束
 		}
 		
-		aac('user')->isUser($userid);
-		
-		//标签
-		doAction('add_comment','',$content,'');
-		
-		$arrData	= array(
+		$commentid = $new['photo']->create('photo_comment',array(
 			'photoid'			=> $photoid,
 			'userid'			=> $userid,
 			'content'	=> $content,
 			'addtime'		=> time(),
-		);
+		));
 		
-		$commentid = $db->insertArr($arrData,dbprefix.'photo_comment');
-		
-		
-		//发送系统消息(通知楼主有人回复他的帖子啦)
-		$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
-		if($strPhoto['userid'] != $userid){
-		
-			$msg_userid = '0';
-			$msg_touserid = $strPhoto['userid'];
-			$msg_content = '你有照片新增一条评论，快去看看给个回复吧^_^ <br />'
-										.$TS_SITE['base']['site_url'].'index.php?app=photo&ac=show&photoid='.$photoid;
-			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
-			
-		}
-		
-		header("Location: ".SITE_URL."index.php?app=photo&ac=show&photoid=".$photoid);
+		header("Location: ".tsUrl('photo','show',array('id'=>$photoid)));
 
 		break;
 		
@@ -117,29 +112,32 @@ switch($ts){
 	case "delcomment":
 	
 		//用户是否登录
-		$userid = intval($TS_USER['user']['userid']);
-		if($userid == 0){
-			header("Location: ".SITE_URL.tsUrl('user','login'));
-			exit;
-		}
+		$userid = aac('user')->isLogin();
 	
-		$commentid = $_GET['commentid'];
+		$commentid = intval($_GET['commentid']);
 		
-		$strComment = $db->once_fetch_assoc("select photoid,userid from ".dbprefix."photo_comment where `commentid`='$commentid'");
+		$strComment = $new['photo']->find('photo_comment',array(
+			'commentid'=>$commentid,
+		));
 		
-		$strPhoto = $db->once_fetch_assoc("select userid from ".dbprefix."photo where `photoid`='".$strComment['photoid']."'");
+		$strTopic = $new['photo']->find('photo',array(
+		
+			'photoid'=>$strComment['photoid'],
+		
+		));
+
 		
 		if($userid == $strPhoto['userid'] || $TS_USER['user']['isadmin']=='1'){
-		
-			$db->query("delete from ".dbprefix."photo_comment where `commentid`='$commentid'");
 			
-			qiMsg("删除评论成功！");
+			$new['photo']->delete('photo_comment',array(
+				'commentid'=>$commentid,
+			));
+			
+			tsNotice("删除评论成功！");
 			
 		}else{
-			qiMsg("非法操作！");
+			tsNotice("非法操作！");
 		}
-		
-		
 	
 		break;
 }

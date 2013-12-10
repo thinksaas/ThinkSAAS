@@ -19,8 +19,4 @@ $systemInfo = array(
 	'upload' =>'表单允许'.ini_get('post_max_size').',上传总大小'.ini_get('upload_max_filesize')
 );
 
-/*
- *包含模版
- */
-
 include template("main");

@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 
 include 'userinfo.php';
 
-$arrGroupsList = $new['user']->findAll('group_users',array(
+$arrGroupsList = $new['user']->findAll('group_user',array(
 	'userid'=>$strUser['userid'],
 ),null,'groupid');
 

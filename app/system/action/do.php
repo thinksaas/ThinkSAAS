@@ -34,6 +34,7 @@ switch($ts){
 		}
 		
 		fileWrite('system_options.php','data',$arrOption);
+		$tsMySqlCache->set('system_options',$arrOption);
 		
 		qiMsg("系统选项更新成功，并重置了缓存文件^_^");
 		

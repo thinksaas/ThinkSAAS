@@ -41,9 +41,7 @@ function evdata(userid) {
 		success : function (msg) {
 			if (msg == '0') {}
 			else if (msg > 0) {
-				$('#newmsg').html('<a href="' + siteUrl + 'index.php?app=message&ac=my"><span class="sms"  title="消息盒子"><em  title="' + msg + '条新消息">' + msg + '</em></span></a>');
-				$('#message_list_container').css("visibility", "visible");
-				$('#count_message').html(msg)
+				$('#newmsg').html('<a class="msgnum" href="' + siteUrl + 'index.php?app=message&ac=my">' + msg + '</a>');
 				newMessageRemind.show();
 			}
 		}

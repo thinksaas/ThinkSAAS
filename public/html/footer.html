@@ -1,20 +1,22 @@
-<!--footer-->
 <div class="footer">
-<div><a href="{SITE_URL}{tsUrl('home','about')}">{php echo L::public_aboutus}</a> | <a href="{SITE_URL}{tsUrl('home','contact')}">{php echo L::public_contactus}</a> | <a href="{SITE_URL}{tsUrl('home','agreement')}">{php echo L::public_agreement}</a> | <a href="{SITE_URL}{tsUrl('home','privacy')}">{php echo L::public_privacy}</a></div>
-Powered by <a class="softname" href="{$TS_CF[info][url]}">{$TS_CF[info][name]}</a> {$TS_CF[info][version]} {$TS_CF[info][year]} {$TS_SITE[base][site_icp]}<br /><span style="font-size:0.83em;">Processed in {$runTime} second(s)</span></div>
+<p>
+<a href="{tsUrl('home','info',array('key'=>'about'))}">关于我们</a> | <a href="{tsUrl('home','info',array('key'=>'contact'))}">联系我们</a> | <a href="{tsUrl('home','info',array('key'=>'agreement'))}">用户条款</a> | <a href="{tsUrl('home','info',array('key'=>'privacy'))}">隐私申明</a>
+ | <a href="{tsUrl('home','info',array('key'=>'job'))}">加入我们</a>
+</p>
+<p>Powered by <a target="_blank" class="softname" href="{$TS_CF[info][url]}">{$TS_CF[info][name]}</a> {$TS_CF[info][version]} Copyright ©  {$TS_CF[info][year]} <a target="_blank" href="{$TS_CF['info']['copyurl']}">{$TS_CF['info']['copyright']}</a> {$TS_SITE[base][site_icp]}</p><p><span style="font-size:0.83em;">Processed in {$runTime} second(s)</span></p></div>
 
-<!--imbox-->
-<!--{if $TS_USER['user']['userid']}-->
+{if intval($TS_USER['user']['userid'])}
 <script src="{SITE_URL}public/js/imbox/imbox.js" type="text/javascript"></script>
 <script>
-var userid={php echo intval($TS_USER['user']['userid'])};
-
-evdata(userid);
-
+var siteUid={php echo intval($TS_USER['user']['userid'])}; //网站用户ID
+evdata(siteUid);
 </script>
-<!--{/if}-->
-<!--imbox-->
+{/if}
+<script src="{SITE_URL}public/js/common.js" type="text/javascript"></script>
+{if is_file('app/'.$app.'/js/extend.func.js')}
+<script src="{SITE_URL}app/{$app}/js/extend.func.js" type="text/javascript"></script>
+{/if}
 {php doAction('pub_footer')}
 </body>
 </html>
-<!--{if $TS_SITE[base][isgzip]==1}-->{php ob_end_flush();}<!--{/if}-->
+{if $TS_SITE[base][isgzip]==1}{php ob_end_flush();}{/if}

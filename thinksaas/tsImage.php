@@ -57,15 +57,23 @@ class tsImage{
 			{
 				$newimg = imagecreatetruecolor($this->resize_width,$this->resize_height);
 				imagecopyresampled($newimg, $this->im, 0, 0, 0, 0, $this->resize_width,$this->resize_height, (($this->height)*$resize_ratio), $this->height);
-				ImageJpeg ($newimg,$this->dstimg);
+				
+				ImageJpeg ($newimg,$this->dstimg,100);
 			}
 			if($ratio<$resize_ratio)
 			//宽度优先
 			{
 				$newimg = imagecreatetruecolor($this->resize_width,$this->resize_height);
 				imagecopyresampled($newimg, $this->im, 0, 0, 0, 0, $this->resize_width, $this->resize_height, $this->width, (($this->width)/$resize_ratio));
-				ImageJpeg ($newimg,$this->dstimg);
+				ImageJpeg ($newimg,$this->dstimg,100);
 			}
+			
+		}elseif(($this->cut)=="2"){
+			//坐标裁图
+			$newimg = imagecreatetruecolor($this->resize_width,$this->resize_height);
+			imagecopyresampled($newimg,$this->im,0,0,$_POST['x'],$_POST['y'],$this->resize_width,$this->resize_height,$_POST['w'],$_POST['h']);
+			ImageJpeg ($newimg,$this->dstimg,100);
+		
 		}
 		else
 		//不裁图
@@ -74,13 +82,13 @@ class tsImage{
 			{
 				$newimg = imagecreatetruecolor($this->resize_width,($this->resize_width)/$ratio);
 				imagecopyresampled($newimg, $this->im, 0, 0, 0, 0, $this->resize_width, ($this->resize_width)/$ratio, $this->width, $this->height);
-				ImageJpeg ($newimg,$this->dstimg);
+				ImageJpeg ($newimg,$this->dstimg,100);
 			}
 			if($ratio<$resize_ratio)
 			{
 				$newimg = imagecreatetruecolor(($this->resize_height)*$ratio,$this->resize_height);
 				imagecopyresampled($newimg, $this->im, 0, 0, 0, 0, ($this->resize_height)*$ratio, $this->resize_height, $this->width, $this->height);
-				ImageJpeg ($newimg,$this->dstimg);
+				ImageJpeg ($newimg,$this->dstimg,100);
 			}
 		}
 	}
@@ -115,11 +123,11 @@ class tsImage{
 		$name_length  = $full_length-$type_length;
 
 
-		$name         = substr($this->srcimg,0,$name_length-1);
+		$name  = substr($this->srcimg,0,$name_length-1);
 		$this->dstimg = $dstpath;
 
 
-	//echo $this->dstimg;
+		//echo $this->dstimg;
 	
 	}
 }

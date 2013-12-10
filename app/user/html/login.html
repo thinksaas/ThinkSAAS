@@ -2,46 +2,51 @@
 <!--main-->
 <div class="midder">
 <div class="mc">
-<h1>用户登录</h1>
-<p>如果您在网吧或者非个人电脑，建议设置Cookie有效期为 即时，以保证账户安全</p>
 
-<div style="float:left;padding: 20px 0 0 100px;">
-<form method="POST" action="{SITE_URL}index.php?app=user&ac=login&ts=do">
-<table>
-<tr><td>Email：<br /><input class="uinput" type="text" name="email" /></td></tr>
-<tr><td>密码：<br /><input class="uinput" type="password" name="pwd" /></td></tr>
+<div class="bbox mh400">
 
-<!--
-<tr><th>验证码：</th><td><input name="authcode" /> <img src="{SITE_URL}index.php?app=user&ac=checkcode" align="absmiddle" onclick="javascript:newgdcode(this,this.src);" alt="看不清楚，换一张" /></td></tr>
--->
+<h1>用户登陆</h1>
+
+<div class="cleft">
+<div class="bc">
+<form method="POST" action="{tsUrl('user','login',array('ts'=>'do'))}">
+<table class="commtable">
+<tr><th>Email：</th><td><input  type="text" name="email" /></td></tr>
+<tr><th>密码：</th><td><input  type="password" name="pwd" /></td></tr>
 
 <tr>
-<td>
-COOKIE有效期<br />
+<th>
+Cookie有效期</th><td>
 <select name="cktime">
 		<option value="31536000">一年</option>
-		<option value="2592000">一个月</option>
+		<option value="2592000">一月</option>
 		<option value="86400">一天</option>
 		<option value="3600">一小时</option>
-		<option value="0">及时</option>
+		<option value="0">即时</option>
 	</select>
 </td></tr>
 
-<tr><td>
+<tr><th></th><td>
 <input type="hidden" name="jump" value="{$jump}" />
-<input class="submit" type="submit" value="登录" /> 
-<br />
-<a href="{SITE_URL}{tsUrl('user','register')}">还没有帐号？</a> | <a href="{SITE_URL}{tsUrl('user','forgetpwd')}">忘记密码</a></td></tr>
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<button class="btn btn-success btn-large" type="submit">登陆</button> 
+ 
+<a href="{tsUrl('user','register')}">还没有注册？</a> | <a href="{tsUrl('user','forgetpwd')}">忘记密码？</a></td></tr>
+
 </table>
 </form>
+
+</div>
 </div>
 
-
-<div style="margin-left: 300px;padding: 40px 35px;">
+<div class="cright">
+<div class="bc">
 {php doAction('user_login_footer')}
 </div>
+</div>
+
+</div>
 
 </div>
 </div>
-
 {template footer}

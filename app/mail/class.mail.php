@@ -11,9 +11,12 @@ class mail extends tsApp{
 	//发送邮件
 	function postMail($sendmail,$subject,$content){
 	
-		global $TS_SITE;
+		global $TS_SITE,$tsMySqlCache;
 	
 		$options = fileRead('data/mail_options.php');
+		if($options==''){
+			$options = $tsMySqlCache->get('mail_options');
+		}
 		date_default_timezone_set('Asia/Shanghai');
 		require_once THINKSAAS.'/PHPMailer/class.phpmailer.php';
 		$mail = new PHPMailer();
@@ -53,6 +56,7 @@ class mail extends tsApp{
 			
 		}
 	}
+	
 	
 	//析构函数
 	public function __destruct(){

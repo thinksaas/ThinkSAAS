@@ -1,0 +1,33 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+
+<div class="task_list">
+
+<h1>任务管理</h1>
+
+<ul>
+
+<li>
+<h2>上传头像</h2>
+{if $arrTask['face']}
+<span>已完成</span>
+{else}
+<a class="btn" href="{tsUrl('task','do',array('ts'=>'face'))}">完成</a>
+{/if}
+</li>
+
+<li>
+<h2 style="color:#999999;">神秘任务等待加入...</h2>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+{template footer}

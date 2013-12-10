@@ -9,18 +9,18 @@ class attach extends tsApp{
 	
 	//获取单个附件
 	function getOneAttach($attachid){
-	
-		$isattach = $this->db->once_num_rows("select * from ".dbprefix."attach where attachid='$attachid'");
-		
-		if($isattach > '0'){
-			$strAttach = $this->db->once_fetch_assoc("select * from ".dbprefix."attach where attachid='$attachid'");
-			
-			$menu = substr($strAttach['userid'],0,1);
-			
-			$strAttach['attachurl'] = 'uploadfile/attach/'.$menu.'/'.$strAttach['attachurl'];
-			
-			$strAttach['isattach'] = '1';
-			
+		$isAttach = $this->findCount('attach',array(
+			'attachid'=>$attachid,
+		));
+		if($isAttach > '0'){
+			$strAttach = $this->find('attach',array(
+				'attachid'=>$attachid,
+			));
+			if(is_file('uploadfile/attach/'.$strAttach['attachurl'])){
+				$strAttach['isattach'] = '1';
+			}else{
+				$strAttach['isattach'] = '0';
+			}
 			
 		}else{
 			$strAttach['isattach'] = '0';
@@ -29,5 +29,26 @@ class attach extends tsApp{
 		return $strAttach;
 		
 	}
+	
+	//是否存在资料库
+	function isAlbum($albumid){
+		$isAlbum = $this->findCount('attach_album',array(
+			'albumid'=>$albumid,
+		));
+		
+		if($isAlbum>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	function getOneAlbum($albumid){
+		$strAlbum = $this->find('attach_album',array(
+			'albumid'=>$albumid,
+		));
+		return $strAlbum;
+	}
+	
 	
 }

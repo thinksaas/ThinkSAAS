@@ -1,11 +1,17 @@
-{php include template("admin/header");}
+{php include template("admin/header")}
 
 <!--main-->
 <div class="midder">
 
-{php include template("admin/menu");}
+{php include template("admin/menu")}
 
-<div><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=count">重新统计相册</a></div>
+<table>
+<tr><td width="200">重新统计相册</td><td><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=count">执行</a></td></tr>
+
+<tr><td>删除空相册</td><td><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=nophoto">执行</a></td></tr>
+</table>
+
+
 </div>
 
-{php include template("admin/footer");}
+{php include template("admin/footer")}

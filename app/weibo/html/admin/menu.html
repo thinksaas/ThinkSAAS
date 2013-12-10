@@ -1,0 +1,9 @@
+<h2>Note管理</h2>
+<div class="tabnav">
+<ul>
+<li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=options">配置</a></li>
+
+<li {if $mg=='weibo' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=weibo&ts=list">列表</a></li>
+
+</ul>
+</div>

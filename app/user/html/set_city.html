@@ -1,72 +1,41 @@
 {template header}
 <script>
-$(document).ready(function() {
-
-//选择一级区域
-$('#oneid').change(function(){
-	$("#stwoid").html('<img src="'+siteUrl+'public/images/loading.gif" />');
-	var oneid = $(this).children('option:selected').val();  //弹出select的值
-	
-	if(oneid==0){
-		$("#stwoid").html('');
-		$("#sthreeid").html('');
-	}else{
-		$("#sthreeid").html('');
-		$.ajax({
-			type: "GET",
-			url:  "{SITE_URL}index.php?app=user&ac=area&ts=two&oneid="+oneid,
-			success: function(msg){
-				$("#stwoid").html(msg);
-				
-				//选择二级区域
-				$('#twoid').change(function(){
-					$("#sthreeid").html('<img src="'+siteUrl+'public/images/loading.gif" />');
-					var twoid = $(this).children('option:selected').val();  //弹出select的值
-					
-					if(twoid == 0){
-						$("#sthreeid").html('');
-					}else{
-					
-						//ajax
-						$.ajax({
-							type: "GET",
-							url:  "{SITE_URL}index.php?app=user&ac=area&ts=three&twoid="+twoid,
-							success: function(msg){
-								$('#sthreeid').html(msg);
-							}
-						});
-					
-					}
-
-				});
-				
-			}
+	$(document).ready(function(){
+		$("#province").change(function(){
+			var provinceid=$(this).val();
+			$("#citySpan").load("{SITE_URL}index.php?app=user&ac=city&provinceid="+provinceid);
+			$("#areaSpan").html('<select id="area" name="area"><option value="0">请选择区</option></select>');
 		});
-	
+	})
+	function selectArea(){
+		var cityid=$("#city").val();
+		$("#areaSpan").load("{SITE_URL}index.php?app=user&ac=area&cityid="+cityid);
 	}
-	
-});
-
-});
 </script>
 
-<!--main-->
 <div class="midder">
 <div class="mc">
+<div class="bbox mh400">
+
 {template set_menu}
 
-<div class="utable">
-<table cellpadding="5" cellspacing="5">
+<table class="commtable" width="100%">
 <tr>
 <th>常居地：</th>
 <td>
-<!--{if $strArea}-->
-{$strArea[one][areaname]} 
-{$strArea[two][areaname]} 
-{$strArea[three][areaname]} 
-<!--{else}-->
-火星
-<!--{/if}-->
+
+{if $strUser['province']}
+省份：{$strProvince['province']} 
+{/if}
+
+{if $strUser['city']}
+城市：{$strCity['city']}  
+{/if}
+
+{if $strUser['area']}
+区域：{$strArea['area']}  
+{/if}
+
 </td>
 </tr>
 
@@ -74,23 +43,35 @@ $('#oneid').change(function(){
 <th valign="top">修改常居地：</th>
 <td>
 <form method="POST" action="{SITE_URL}index.php?app=user&ac=do&ts=setcity">
-<select id="oneid" name="oneid">
-<option value="0">请选择</option>
-<!--{loop $arrOne $key $item}-->
-<option value="{$item[areaid]}">{$item[areaname]}</option>
-<!--{/loop}-->
+
+<select id="province" name="province">
+<option value='0' >请选择省</option>
+{loop $province $k $v}
+<option value="{$v['provinceid']}">{$v['province']}</option>
+{/loop}
 </select>
-<span id="stwoid"></span>
-<span id="sthreeid"></span>
-<br />
-<br />
-<input class="submit" type="submit" value="修改"  />
+<div class="clear ht10"></div>
+<span id="citySpan">
+	<select id="city" name="city">
+		<option value="0">请选择市</option>
+	</select>
+</span>
+<div class="clear ht10"></div>
+<span id="areaSpan">
+	<select id="area" name="area">
+		<option value="0">请选择区</option>
+	</select>
+</span>
+<div class="clear ht10"></div>
+<button class="btn btn-success" type="submit">修改</button>
 </form>
 </td>
 </tr>
 
 </table>
 </div>
+
+
 </div>
 </div>
 {template footer}

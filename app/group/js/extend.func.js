@@ -1,9 +1,3 @@
-//插入到编辑器
-function insertEdit(val)
-{
-	if(editor){ editor.pasteText(val);}else{ editors.pasteText(val);}
-}
-
 /*显示隐藏回复*/
 function commentOpen(id,gid)
 {
@@ -42,45 +36,54 @@ function showMp3(id,url)
 		$("#displaytitle").toggle();
 	}
 
-/*显示标签界面*/
-function showTagFrom(){	$('#tagFrom').toggle('fast');}
-/*提交标签*/
-function savaTag(tid)
-{
-	var tag = $('#tags').val();
-		if(tag ==''){ alert('请输入标签哟^_^');$('#tagFrom').show('fast');}else{
-			var url = siteUrl+'index.php?app=tag&ac=add_ajax&ts=do';
-			$.post(url,{objname:'topic',idname:'topicid',tags:tag,objid:tid},function(rs){  window.location.reload()   })
-		}
-	
-}
-
 //收藏帖子(1.8改为喜欢)
-function topic_collect(tid,c){
+function loveTopic(tid){
 	
 	var url = siteUrl+'index.php?app=group&ac=do&ts=topic_collect';
 	$.post(url,{topicid:tid},function(rs){
 			if(rs == 0){
-				alert('请登录后再喜欢！');return false;
+				art.dialog({
+					content : '请登录后再喜欢！',
+					time : 1000
+				})
 			}else if(rs == 1){
-				alert('自己不能喜欢自己的帖子哦^_^');return false;
+				art.dialog({
+					content : '自己不能喜欢自己的帖子哦',
+					time : 1000
+				})		
+			
 			}else if(rs == 2){
-				alert('你已经喜欢过本帖啦，请不要再次喜欢^_^');return false;
+				art.dialog({
+					content : '你已经喜欢过本帖啦，请不要再次喜欢',
+					time : 1000
+				})	
 			}else{
-				$('#love').html((c+1)+'人喜欢')
-				alert('恭喜您，帖子喜欢成功^_^');
 				topic_collect_user(tid);
-				return false;
+				window.location.reload();
 			}					
 	});
 }
 
-//谁收藏了这篇帖子
-function topic_collect_user(topicid){
-	var url = siteUrl+'index.php?app=group&ac=topic_collect_user&ts=ajax&topicid='+topicid;
-	$.post(url,function(rs){ $('#collects').html(rs); });
+//淘帖子,加专辑
+function taoalbum(topicid){
+	$.post(siteUrl+'index.php?app=group&ac=album&ts=topic',{'topicid':topicid},function(rs){
+		if(rs==0){
+			art.dialog({
+				content : '请登陆后再进行淘帖',
+				time : 1000
+			})
+		}else if(rs == 1){
+			art.dialog({
+				content : '请创建专辑后再进行淘贴',
+				time : 1000
+			})
+		}else {
+			art.dialog({
+				content : rs
+			})
+		}
+	})
 }
-
 
 //Ctrl+Enter 回复评论
 
@@ -95,13 +98,13 @@ function keyRecomment(rid,tid,event)
 }
 
 //回复评论
-function recomment(rid,tid){
+function recomment(rid,tid,token){
 
 	c = $('#recontent_'+rid).val();
 	if(c==''){alert('回复内容不能为空');return false;}
 	var url = siteUrl+'index.php?app=group&ac=do&ts=recomment';
 	$('#recomm_btn_'+rid).hide();
-	$.post(url,{referid:rid,topicid:tid,content:c} ,function(rs){
+	$.post(url,{referid:rid,topicid:tid,content:c,'token':token} ,function(rs){
 				if(rs == 0)
 				{
 					//alert('回复成功');
@@ -122,34 +125,86 @@ function newTopicFrom(that)
 	$(that).find('input[type=submit]').val('正在提交^_^').attr('disabled',true);
 }
 
-// 在光标处插入字符串 
-// myField 文本框对象 
-// 要插入的值 
-function insertAtCursor(myField, myValue) 
-{ 
-	//IE support 
-	if (document.selection) { 
-		myField.focus(); 
-		sel = document.selection.createRange(); 
-		sel.text = myValue; 
-		sel.select(); 
-	} 
-	//MOZILLA/NETSCAPE support 
-	else if (myField.selectionStart || myField.selectionStart == '0') { 
-		var startPos = myField.selectionStart; 
-		var endPos = myField.selectionEnd; 
-		// save scrollTop before insert 
-		var restoreTop = myField.scrollTop; 
-		myField.value = myField.value.substring(0, startPos) + myValue + myField.value.substring(endPos,myField.value.length); 
-		if (restoreTop > 0) { 
-			// restore previous scrollTop 
-			myField.scrollTop = restoreTop; 
-		} 
-		myField.focus(); 
-		myField.selectionStart = startPos + myValue.length; 
-		myField.selectionEnd = startPos + myValue.length; 
-	} else { 
-		myField.value += myValue; 
-		myField.focus(); 
-	} 
-} 
+//向下加载更多帖子
+function loadTopic(userid,page){
+	var num = parseInt(page)+1;
+	$("#viewmore").html('<img src="'+siteUrl+'public/images/loading.gif" />');
+	$.get(siteUrl+'index.php?app=group&ac=ajax&ts=topic',{'userid':userid,'page':page},function(rs){
+		if(rs==''){
+			$("#viewmore").html('没有可以加载的内容啦...');
+		}else{
+			$("#before").before(rs);
+			$("#viewmore").html('<a class="btn" href="javascript:void(0);" onclick="loadTopic('+userid+','+num+')">查看更多内容......</a>');
+		}
+	})
+}
+
+//帖子审核
+function topicAudit(topicid){
+	$.post(siteUrl+'index.php?app=group&ac=ajax&ts=topicaudit',{'topicid':topicid},function(rs){
+		if(rs==0){
+			art.dialog({
+				content : '帖子取消审核成功！',
+				time : 1000
+			})
+			
+			window.location.reload();
+			return false;
+		}else if(rs==1){
+		
+			art.dialog({
+				content : '帖子审核成功！',
+				time : 1000
+			})
+			
+			window.location.reload();
+			return false;
+		
+		}
+	})
+}
+
+//设为管理员，取消管理员
+function setAdmin(groupid,userid,token){
+
+	$.post(siteUrl+'index.php?app=group&ac=user&ts=manager',{'groupid':groupid,'userid':userid,'token':token},function(rs){
+	
+		if(rs=='0'){
+			art.dialog({
+				content : '非法操作',
+				time : 1000
+			})
+		}else if(rs=='1'){
+		
+			art.dialog({
+				content : '操作成功！',
+				time : 1000
+			});
+			
+			window.location.reload();
+		
+		}
+	
+	})
+	
+}
+
+//踢出小组
+function kickedGroup(groupid,userid){
+	$.post(siteUrl+'index.php?app=group&ac=kicked',{'groupid':groupid,'userid':userid},function(rs){
+		if(rs=='0'){
+			art.dialog({
+				content : '非法操作',
+				time : 1000
+			});
+		}else if(rs=='1'){
+			art.dialog({
+				content : '非法操作',
+				time : 1000
+			});
+		}else{
+			window.location.reload();
+		}
+	})
+	
+}

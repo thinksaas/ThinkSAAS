@@ -6,7 +6,7 @@ return array(
 'version' => '1.0',
 'desc' => '开启友情连接插件后，将在首页显示友情链接',
 'url' => 'http://www.thinksaas.cn',
-'email' => 'qiniao@vip.qq.com',
+'email' => 'thinksaas@qq.com',
 'author' => '邱君',
 'author_url' => 'http://www.thinksaas.cn',
 'isedit'	=> '1',

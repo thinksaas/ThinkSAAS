@@ -15,6 +15,11 @@ switch($ts){
 		break;
 
 	case "do":
+	
+		if($_POST['token'] != $_SESSION['token']) {
+			tsNotice('非法操作！');
+		}
+	
 		$email		= trim($_POST['email']);
 		$pwd			= trim($_POST['pwd']);
 		$repwd		= trim($_POST['repwd']);
@@ -22,7 +27,16 @@ switch($ts){
 		
 		$fuserid = intval($_POST['fuserid']);
 		
-		$authcode = strtoupper($_POST['authcode']);
+		$authcode = strtolower($_POST['authcode']);
+		
+		
+		/*禁止以下IP用户登陆或注册*/
+		$arrIp = aac('system')->antiIp();
+		if(in_array(getIp(),$arrIp)){
+			header('Location: '.SITE_URL);
+			exit;
+		}
+		
 		
 		//是否开启邀请注册
 		if($TS_SITE['base']['isinvite']=='1'){
@@ -51,95 +65,133 @@ switch($ts){
 		
 			tsNotice('所有必选项都不能为空！');
 		
-		}elseif(valid_email($email) == false){
+		}
+		
+		if(valid_email($email) == false){
 		
 			tsNotice('Email邮箱输入有误!');
 			
-		}elseif($isEmail > 0){
-			tsNotice('Email已经注册^_^');
-		}elseif($pwd != $repwd){
-			tsNotice('两次输入密码不正确！');
-		}elseif(strlen($username) < 4 || strlen($username) > 20){
-			tsNotice('姓名长度必须在4和20之间!');
-		}elseif($isUserName > 0){
-			tsNotice("用户名已经存在，请换个用户名！");
-		}elseif($authcode != $_SESSION['authcode']){
-			tsNotice("验证码输入有误，请重新输入！");
-		}else{
+		}
 		
-			//此处预留其他程序注册位置
+		if($isEmail > 0){
+			tsNotice('Email已经注册^_^');
+		}
+		
+		if($pwd != $repwd){
+			tsNotice('两次输入密码不正确！');
+		}
+		
+		
+		if(count_string_len($username) < 4 || count_string_len($username) > 20){
+			tsNotice('姓名长度必须在4和20之间!');
+		}
+		
+		if($isUserName > 0){
+			tsNotice("用户名已经存在，请换个用户名！");
+		}
+		
+		if($TS_SITE['base']['isauthcode']){
+			if($authcode != $_SESSION['verify']){
+				tsNotice("验证码输入有误，请重新输入！");
+			}
+		}
+		
+		$salt = md5(rand());
+		
+		$userid = $new['user']->create('user',array(
+			'pwd'=>md5($salt.$pwd),
+			'salt'=>$salt,
+			'email'=>$email,
+		));
+		
+		//插入用户信息			
+		$new['user']->create('user_info',array(
+			'userid'			=> $userid,
+			'fuserid'	=> $fuserid,
+			'username' 	=> $username,
+			'email'		=> $email,
+			'ip'			=> getIp(),
+			'addtime'	=> time(),
+			'uptime'	=> time(),
+		));
+		
+		//默认加入小组
+		$isGroup = $new['user']->find('user_options',array(
+			'optionname'=>'isgroup',
+		));
+		
+		if($isGroup['optionvalue']){
+			$arrGroup = explode(',',$isGroup['optionvalue']);
 			
-			//写入本地
-			$salt = md5(rand());
-
-			$db->query("insert into ".dbprefix."user (`pwd` , `salt`,`email`) values ('".md5($salt.$pwd)."', '$salt' ,'$email');");
-			
-			$userid = $db->insert_id();
-			
-			//积分
-			$db->query("insert into ".dbprefix."user_scores (`userid`,`scorename`,`score`,`addtime`) values ('".$userid."','注册','1000','".time()."')");
-			
-			//用户信息
-			$arrData = array(
-				'userid'			=> $userid,
-				'fuserid'	=> $fuserid,
-				'username' 	=> $username,
-				'email'		=> $email,
-				'ip'			=> getIp(),
-				'count_score'	=> '1000',
-				'addtime'	=> time(),
-				'uptime'	=> time(),
-			);
-			
-			//插入用户信息
-			$db->insertArr($arrData,dbprefix.'user_info');
-			
-			//默认加入小组
-			$isgroup = $db->once_fetch_assoc("select optionvalue from ".dbprefix."user_options where optionname='isgroup'");
-			if($isgroup['optionvalue'] != ''){
-				$arrGroup = explode(',',$isgroup['optionvalue']);
-				foreach($arrGroup as $item){
-					$groupusernum = $db->once_num_rows("select * from ".dbprefix."group_users where `userid`='".$userid."' and `groupid`='".$item."'");
-					if($groupusernum == '0'){
-						$db->query("insert into ".dbprefix."group_users (`userid`,`groupid`,`addtime`) values('".$userid."','".$item."','".time()."')");
+			if($arrGroup){
+				foreach($arrGroup as $key=>$item){
+					$groupUserNum = $new['user']->findCount('group_user',array(
+						'userid'=>$userid,
+						'groupid'=>$item,
+					));
+					
+					if($groupUserNum == 0){
+						$new['user']->create('group_user',array(
+							'userid'=>$userid,
+							'groupid'=>$item,
+							'addtime'=>time(),
+						));
+						
 						//统计更新
-						$count_user = $db->once_num_rows("select * from ".dbprefix."group_users where `groupid`='".$item."'");
-						$db->query("update ".dbprefix."group set `count_user`='".$count_user."' where `groupid`='".$item."'");
+						$count_user = $new['user']->findCount('group_user',array(
+							'groupid'=>$item,
+						));
+						
+						$new['user']->update('group',array(
+							'groupid'=>$item,
+						),array(
+							'count_user'=>$count_user,
+						));
+						
 					}
 				}
 			}
-			
-			//用户信息
-			$userData = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
-			
-			//用户session信息
-			$sessionData = array(
-				'userid' => $userData['userid'],
-				'username'	=> $userData['username'],
-				'areaid'	=> $userData['areaid'],
-				'path'	=> $userData['path'],
-				'face'	=> $userData['face'],
-				'count_score'	=> $userData['count_score'],
-				'isadmin'	=> $userData['isadmin'],
-				'uptime'	=> $userData['uptime'],
-			);
-			$_SESSION['tsuser']	= $sessionData;
-			
-			//发送系统消息(恭喜注册成功)
-			$msg_userid = '0';
-			$msg_touserid = $userid;
-			$msg_content = '亲爱的 '.$username.' ：<br />您成功加入了 '
-										.$TS_SITE['base']['site_title'].'<br />在遵守本站的规定的同时，享受您的愉快之旅吧!';
-			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
-			
-			//注销邀请码
-			if($TS_APP['options']['isregister']=='1'){
-				$db->query("update ".dbprefix."user_invites set `isused`='1' where `invitecode`='$invitecode'");
-			}
-			
-			//跳转
-			header('Location: '.SITE_URL.'index.php');
-			
 		}
+		
+		//用户信息
+		$userData = $new['user']->find('user_info',array(
+			'userid'=>$userid,
+		),'userid,username,path,face,isadmin,uptime');
+		
+		//用户session信息
+		$_SESSION['tsuser']	= $userData;
+		
+		//发送消息
+		aac('message')->sendmsg(0,$userid,'亲爱的 '.$username.' ：<br />您成功加入了 '.$TS_SITE['base']['site_title'].'<br />在遵守本站的规定的同时，享受您的愉快之旅吧!');
+		
+		//注销邀请码并将关注邀请用户
+		if($TS_SITE['base']['isinvite']=='1'){
+			
+			//邀请码信息
+			$strInviteCode = $new['user']->find('user_invites',array(
+				'invitecode'=>$invitecode,
+			));
+			
+			$new['user']->create('user_follow',array(
+				'userid'=>$userid,
+				'userid_follow'=>$strInviteCode['userid'],
+			));
+			
+			//注销
+			$new['user']->update('user_invites',array(
+				'invitecode'=>$invitecode,
+			),array(
+				'isused'=>'1',
+			));
+		}
+		
+		//对积分进行处理
+		aac('user')->doScore($app,$ac,$ts);
+		
+		//跳转
+		header('Location: '.SITE_URL);
+		
+	
 		break;
+		
 }

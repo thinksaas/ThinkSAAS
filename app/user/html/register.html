@@ -1,167 +1,96 @@
 {template header}
-<!--{if $TS_APP[options][isregister]=='2'}-->
-<!--{else}-->
-<link type="text/css" rel="stylesheet" href="{SITE_URL}app/{$app}/skins/{$skin}/validate.css" id="skin" />
-<script src="{SITE_URL}public/js/validate/jquery.validateid.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-$(document).ready(function() {
-	
-	var validator = $("#signupform").validate({
-		onkeyup: false,
-		rules:{
-		<!--{if $TS_SITE['base']['isinvite']=='1'}-->
-			invitecode:{
-				required:true,
-				remote:"{SITE_URL}index.php?app=user&ac=check&ts=isinvitecode"
-			},
-		<!--{/if}-->
-			email: {
-				required: true,
-				email: true,
-				remote: "{SITE_URL}index.php?app=user&ac=check&ts=inemail"
-			},
-			pwd: {
-				required: true,
-				minlength: 5
-			},
-			repwd: {
-				required: true,
-				minlength: 5,
-				equalTo: "#pwd"
-			},
-			username:{
-				required: true,
-				minlength: 2,
-				maxlength: 12,
-				remote:"{SITE_URL}index.php?app=user&ac=check&ts=isusername"
-			}
-		},
-		messages: {
-		<!--{if $TS_SITE['base']['isinvite']=='1'}-->
-			invitecode:{
-				required:"请输入邀请码",
-				remote:jQuery.format("邀请码无效，请寻找新的邀请码！")
-			},
-		<!--{/if}-->
-			email: {
-					required: "请输入Email地址",
-					email: "请输入一个正确的Email地址",
-					remote:jQuery.format("Email已经存在，请更换其他Email")
-			},
-			pwd: {
-				required: "请输入密码",
-				rangelength: jQuery.format("至少输入5个字符")
-			},
-			repwd: {
-				required: "请重复输入密码",
-				minlength: jQuery.format("两次输入密码不一致"),
-				equalTo: "两次输入密码不一致"
-			},
-			username:{
-				required:"请输入用户名",
-				minlength: jQuery.format("至少输入2个字符"),
-				maxlength: jQuery.format("最多输入12个字符"),
-				remote:jQuery.format("用户名已经存在，请更换其他用户名")
-			}
-		},
-
-		// the errorPlacement has to take the table layout into account
-		errorPlacement: function(error, element) {
-			if ( element.is(":radio") )
-				error.appendTo( element.parent().next().next() );
-			else if ( element.is(":checkbox") )
-				error.appendTo ( element.next() );
-			else
-				error.appendTo( element.parent().next() );
-		},
-
-		success: function(label) {
-			// set &nbsp; as text for IE
-			label.html("&nbsp;").addClass("checked");
-		}
+{if $TS_APP[options][isregister]=='2'}
+{else}
+<script type="text/javascript" src="{SITE_URL}public/js/Validform_v5.3.2_min.js"></script>
+<script language="javascript">
+$(document).ready(function(){
+	$(".subform").Validform({
+		btnSubmit:"#btnsub", 
+		btnReset:".btnreset",
+		tiptype:3,
 	});
-
 });
 </script>
 
-<script language="javascript">
-function newgdcode(obj,url) {
-obj.src = url+ '&nowtime=' + new Date().getTime();
-//后面传递一个随机参数，否则在IE7和火狐下，不刷新图片
-}
-</script>
+{/if}
 
-<!--{/if}-->
-
-<!--main-->
 <div class="midder">
 <div class="mc">
+
+<div class="bbox mh400">
+
 <h1>用户注册</h1>
-<!--{if $TS_APP[options][isregister]=='2'}-->
+
+<div class="cleft">
+
+{if $TS_APP[options][isregister]=='2'}
 <p>系统升级中，暂时关闭用户注册！</p>
-<p><a href="{SITE_URL}">[返回首页]</a></p>
-<!--{else}-->
+<p><a href="{SITE_URL}">返回首页</a></p>
+{else}
 <p></p>
-<form  id="signupform" method="POST" action="{SITE_URL}{tsUrl('user','register',array('ts'=>'do'))}">
+<form class="subform" method="POST" action="{tsUrl('user','register',array('ts'=>'do'))}">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="Tabletext">
+<table class="commtable" width="100%" border="0" cellspacing="0" cellpadding="0">
 
-<!--{if $TS_SITE['base']['isinvite']=='1'}-->
+{if $TS_SITE['base']['isinvite']=='1'}
 <tr>
-<td class="label"><label id="invitecode" for="invitecode">
-<font color="red">邀请码：</font></label></td>
-<td class="field" width="300"><input class="uinput" id="invitecode" name="invitecode" type="text" value="" /></td>
-<td class="status"></td>
+<th>
+<font color="red">邀请码:</font></th>
+<td><input name="invitecode" type="text" /></td>
 </tr>
-<!--{/if}-->
+{/if}
 
 
 <tr>
-<td class="label"><label id="email" for="email">Email：</label></td>
-<td class="field" width="300"><input class="uinput" id="email" name="email" type="text" value="" /></td>
-<td class="status"></td>
+<th>Email:</th>
+<td><input name="email" type="text" datatype="e" ajaxurl="{SITE_URL}index.php?app=user&ac=check&ts=inemail"  /></td>
 </tr>
 <tr>
-<td class="label"><label>密码：</label></td>
-<td class="field"><input class="uinput" type="password" id="pwd" name="pwd"  /></td>
-<td class="status"></td>
+<th>密码：</th>
+<td><input type="password" name="pwd"  datatype="*6-16"  /></td>
 </tr>
 <tr>
-<td class="label"><label>重复密码：</label></td>
-<td class="field"><input class="uinput" type="password" id="repwd" name="repwd"  /></td>
-<td class="status"></td>
+<th>重复密码：</th>
+<td><input type="password" name="repwd"  datatype="*" recheck="pwd" /></td>
 </tr>
 
 <tr>
-<td class="label"><label>用户名：</label></td>
-<td class="field"><input class="uinput" type="text" id="username" name="username" /></td>
-<td class="status"></td>
+<th>用户名：</th>
+<td><input type="text" name="username" datatype="s2-18" ajaxurl="{SITE_URL}index.php?app=user&ac=check&ts=isusername" /></td>
 </tr>
 
-<tr><td class="label">验证码：</td><td class="field"><input name="authcode" />
- <img src="{SITE_URL}index.php?app=user&ac=checkcode" onclick="javascript:newgdcode(this,this.src);" alt="点击刷新验证码" style="cursor:pointer;"/></td>
-<td class="status"></td></tr>
+{if $TS_SITE['base']['isauthcode']}
+<tr><th>验证码：</th><td><input name="authcode" datatype="*" ajaxurl="{SITE_URL}index.php?app=user&ac=check&ts=code" />
+ </td>
+</tr>
+<tr><th></th><td><img align="absmiddle" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;" /></td></tr>
+{/if}
 
 <tr>
-<td class="label"></td>
-<td class="field">
+<th></th>
+<td>
 <input type="hidden" name="fuserid" value="{$fuserid}" />
-<input class="submit" type="submit" value="注册" /> 
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<button id="btnsub" class="btn btn-success btn-large" type="submit">注册</button>
 
-<a href="{SITE_URL}{tsUrl('user','login')}">登录</a></td>
-<td class="status"></td>
-</tr>
-
-<tr>
-<td class="label"><br /></td>
-<td class="field"><br />{php doAction('user_register_footer')}</td>
-<td class="status"></td>
+<a href="{tsUrl('user','login')}">登陆</a></td>
 </tr>
 
 </table>
 </form>
-<!--{/if}-->
+{/if}
+</div>
+
+<div class="cright">
+
+<div class="bc">
+{php doAction('user_register_footer')}
+</div>
+
+</div>
+
+
+</div>
 
 </div>
 </div>

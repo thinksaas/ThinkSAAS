@@ -1,0 +1,33 @@
+{template header2}
+
+<div class="midder">
+<div>
+
+<div class="group_show">
+<div class="face"><img src="{$strGroup['icon_48']}" width="50" /></div>
+<div class="info">
+<div class="title">{$strGroup['groupname']}</div>
+<div class="content">{$strGroup['groupdesc']}</div>
+</div>
+<div class="join">{if $strGroup['isjoin']==0}<a href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}')">加入</a>{/if}</div>
+
+</div>
+
+<div class="commlist">
+<ul>
+{loop $arrTopic $key $item}
+<a href="{tsUrl('mobile','topic',array('ts'=>'show','topicid'=>$item['topicid']))}"><li><div class="photo"><img src="{$item['user']['face']}" width="50" height="50" /></div>
+<div class="info">
+<h3>{$item['title']}</h3>
+<div class="other"><span>{$item['user']['username']}</span><span>{php echo getTime($item['uptime'],time())}</span>  <span>{$item['count_comment']}评论</span></div>
+</div>
+</li></a>
+{/loop}
+<ul>
+</div>
+
+
+</div>
+</div>
+
+{template footer}

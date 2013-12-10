@@ -44,21 +44,11 @@ function sendmsg(userid,touserid){
 		beforeSend: function(){},
 		success: function(result){
 			if(result == '1'){
-				$.ajax({
-					type: "GET",
-					url:  siteUrl+"index.php?app=message&ac=msgbox&userid="+touserid,
-					success: function(msg){
-					
-						$('#msgbox').html(msg);
-						
-						var msgbox=document.getElementById('msgbox');
-						if(msgbox.scrollHeight>msgbox.offsetHeight) msgbox.scrollTop=msgbox.scrollHeight-msgbox.offsetHeight+20;
-						
-						$("#loading").css('display','none');
-						$("#sendbutton").css('display','block');
-						
-					}
-				});
+				$("#loading").css('display','none');
+				$("#sendbutton").css('display','block');
+				
+				window.location.reload();
+				
 			}
 			
 		}

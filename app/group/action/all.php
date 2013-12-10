@@ -1,8 +1,8 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 //所有小组
-$page = isset($_GET['page']) ? $_GET['page'] : '1';
-$url = SITE_URL.tsUrl('group','all',array('page'=>''));
+$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+$url = tsUrl('group','all',array('page'=>''));
 $lstart = $page*20-20;
 $arrGroups = $db->fetch_all_assoc("select groupid from ".dbprefix."group order by isrecommend desc limit $lstart,20");
 foreach($arrGroups as $key=>$item){
@@ -10,7 +10,7 @@ foreach($arrGroups as $key=>$item){
 }
 foreach($arrData as $key=>$item){
 	$arrGroup[] =  $item;
-	$arrGroup[$key]['groupdesc'] = getsubstrutf8(t($item['groupdesc']),0,35);
+	$arrGroup[$key]['groupdesc'] = cututf8(t($item['groupdesc']),0,35);
 }
 $groupNum = $db->once_fetch_assoc("select count(groupid) from ".dbprefix."group");
 $pageUrl = pagination($groupNum['count(groupid)'], 20, $page, $url);
@@ -22,7 +22,7 @@ if($page > 1){
 
 
 //热门帖子
-$arrTopic = $db->fetch_all_assoc("select topicid,title,count_comment from ".dbprefix."group_topics order by count_comment desc limit 10");
+$arrTopic = $db->fetch_all_assoc("select topicid,title,count_comment from ".dbprefix."group_topic order by count_comment desc limit 10");
 
 //最新10个小组
 $arrNewGroup = $new['group']->getNewGroup('10');

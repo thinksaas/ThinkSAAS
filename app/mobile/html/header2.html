@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{$title}</title>
+<link rel="stylesheet" type="text/css" href="{SITE_URL}app/mobile/skins/default/style.css">
+
+</head>
+
+<body>
+<div class="header">
+{if $arrHeadButton['left']}
+<div class="left"><a href="{$arrHeadButton['left']['url']}">{$arrHeadButton['left']['title']}</a></div>
+{/if}
+{if $arrHeadButton['right']}
+<div class="right"><a href="{$arrHeadButton['right']['url']}">{$arrHeadButton['right']['title']}</a></div>
+{/if}
+</div>

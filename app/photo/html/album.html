@@ -1,0 +1,73 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+
+<div class="bbox mh400">
+{template menu}
+
+<h1>{$title}</h1>
+<div class="bc">
+<div class="pl photitle">
+{if $strAlbum[userid] == $TS_USER[user][userid] || $TS_USER[user][isadmin]==1}    &nbsp;&gt;&nbsp;<a href="{SITE_URL}index.php?app=photo&ac=album&ts=edit&albumid={$strAlbum[albumid]}">修改相册属性</a>
+    &nbsp;&gt;&nbsp;<a href="{SITE_URL}index.php?app=photo&ac=upload&albumid={$strAlbum[albumid]}">添加照片</a>
+    {if $strAlbum[count_photo]>'0'}&nbsp;&gt;&nbsp;<a href="{SITE_URL}index.php?app=photo&ac=album&ts=info&albumid={$strAlbum[albumid]}">批量修改</a>{/if}{/if}
+    &nbsp;&gt;&nbsp;<a href="{tsUrl('photo','album',array(ts=>user,userid=>$strAlbum[userid]))}">返回{if $strAlbum[userid] == $TS_USER[user][userid]}我{else}{$strUser[username]}{/if}的相册首页</a>
+</div>
+
+<div id="container" class="photolst clearfix">
+{if $arrPhoto}
+{loop $arrPhoto $key $item}
+    <div class="box photo_wrap">
+        <a title="{$item[photodesc]}" class="photolst_photo" href="{tsUrl('photo','show',array('id'=>$item[photoid]))}">
+        <img src="{php echo tsXimg($item[photourl],'photo',170,'170',$item[path],1)}"  width="170" alt="{$item['albumname']}" />
+        </a><br>
+        <div class="pl">{$item[photodesc]}</div>
+        <div style="color:#999">
+                    &nbsp;{$item[count_view]}浏览
+        </div>
+    </div>
+	
+	{if is_int(($key+1)/5)}
+	<div class="clear"></div>
+	{/if}
+	
+{/loop}
+{else}
+<br>
+<div class="pl">这个相册现在还没有照片
+{if $strAlbum[userid] == $TS_USER[user][userid]}, 你可以<a href="{SITE_URL}index.php?app=photo&ac=upload&albumid={$strAlbum[albumid]}">添加照片</a>{/if}
+</div>
+<br>
+{/if}
+</div>
+<div class="clear"></div>
+
+<div class="page">{$pageUrl}</div>
+
+<div style="padding-bottom:30px" class="pl">{$strAlbum[albumdesc]}</div>
+<div class="wr">
+<span class="pl">
+    {$strAlbum[count_view]} 人浏览
+</span>
+<span class="pl">{$strAlbum[count_photo]}&nbsp;张照片
+&nbsp;{$strAlbum[addtime]}&nbsp;创建
+</span>
+{if $strAlbum[userid] == $TS_USER[user][userid] || $TS_USER[user][isadmin]==1}
+<span class="gact">&nbsp;&gt;&nbsp;<a  class="j a_confirm_link" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=album&ts=del&albumid={$strAlbum[albumid]}">删除相册</a></span>
+{/if}
+</div>
+
+
+<div>
+
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+{template footer}

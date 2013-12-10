@@ -1,62 +1,37 @@
 {template header}
-
-<style>
-.mbtl {
-    float: left;
-    margin: 8px 7px 0 0;
-    padding: 0;
-    width: 55px;
-}
-.mbtr {
-    border-bottom: 1px solid #EEEEEE;
-    margin: 0px 0 20px 0;
-    min-height: 55px;
-    overflow: hidden;
-    padding: 10px;;
-	background:#f8f8f8;
-}
-.mbtr .author{}
-.mbtr .author a{color:#8f8f8f;}
-.mbtr .title{margin-top:10px;}
-.mbtr .title a{color: #444444;font-size:22px;}
-.mbtr .content{line-height:30px;font-size:14px;}
-</style>
-
 <div class="midder">
 <div class="mc">
 
 {template menu}
-<div class="cleft">
+<div class="cleft bbox pd020">
 
 <ul>
-<!--{loop $arrTopic $key $item}-->
-<!--{if date('Y-m-d',$item[addtime]) !=date('Y-m-d',$arrTopic[$key-1][addtime])}-->
-<li style="margin-top:10px;border-bottom:1px solid #ddd;"><h2>{php echo date('Y-m-d',$item[addtime])}</h2></li>
-<!--{/if}-->
+{loop $arrTopic $key $item}
+{if date('Y-m-d',$item[addtime]) !=date('Y-m-d',$arrTopic[$key-1][addtime])}
+<li style="margin-top:10px;"><h2>{php echo date('Y-m-d',$item[addtime])}</h2></li>
+{/if}
 <li class="mbtl">
-<!--{if $item[user][userid] !=$arrTopic[$key-1][user][userid]}-->
-<a href="{SITE_URL}{tsUrl('group','user',array('id'=>$item[user][userid]))}"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
-<!--{/if}-->
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
 </li>
 <li class="mbtr">
-<div class="author"><a href="{SITE_URL}{tsUrl('group','user',array('id'=>$item[user][userid]))}">{$item[user][username]}</a></div>
-<div class="title"><a href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item[title]}</a></div>
+<div class="author"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a></div>
+<div class="title"><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item[title]}</a></div>
 <div class="content">
 {if $item['photo']}
-<img src="{SITE_URL}{php echo tsXimg($item[photo],'topic',500,'',$item[path])}" alt="{$item['title']}" title="{$item['title']}" />
+<img src="{php echo tsXimg($item[photo],'topic',500,'',$item[path])}" alt="{$item['title']}" title="{$item['title']}" />
 <br />
 {/if}
 {$item[content]}
 </div>
 <p style="text-align:right;">
 
-<a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['group']['groupname']}</a>
+<a href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['group']['groupname']}</a>
 
-<a href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item['topicid']))}">回复{if $item['count_comment']}({$item['count_comment']}){/if}</a>
+<a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">回复{if $item['count_comment']}({$item['count_comment']}){/if}</a>
 </p>
 </li>
 <div class="clear"></div>
-<!--{/loop}-->
+{/loop}
 </ul>
 
 <div class="clear"></div>
@@ -67,20 +42,23 @@
 
 <div class="cright">
 
-<div class="clear"></div>
+
+<div class="bbox">
 <h2>热门帖子</h2>
 <ul class="titles">
 {loop $arrHotTopic $key $item}
 <li>
-<h3><a href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item['topicid']))}" target="_blank">{$item['title']}</a></h3>
+<h3><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}" target="_blank">{$item['title']}</a></h3>
 <span class="titles-r-grey">{$item['count_comment']}</span>
 <p class="titles-b">
-<span class="titles-b-l">来自：<a title="{$item['group']['groupname']}" target="_blank" href="{SITE_URL}{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['group']['groupname']}</a>&nbsp;小组
+<span class="titles-b-l">来自：<a title="{$item['group']['groupname']}" target="_blank" href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['group']['groupname']}</a>&nbsp;小组
 </span>
 </p>
 </li>
 {/loop}
 </ul>
+</div>
+
 
 <div class="clear"></div>
 {php doAction('group_topic_right_footer',$strTopic,'300')}

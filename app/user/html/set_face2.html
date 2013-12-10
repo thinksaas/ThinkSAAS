@@ -1,0 +1,86 @@
+{template header}
+<script src="{SITE_URL}public/js/jquery.ocupload.js" type="text/javascript"></script>
+<script>
+var ocuploadArg = {
+        name: 'picfile',
+        method: 'post',
+        enctype: 'multipart/form-data',
+        action: '{SITE_URL}index.php?app=user&ac=set&ts=facedo',
+        onSubmit: function() {
+				art.dialog({
+					content : '<img src="{SITE_URL}public/images/loading.gif" />上传中.....',
+				});
+        },
+        onComplete: function(rs) {
+            if (rs==0){
+				art.dialog({
+					content : '你可能上传的不是图片哦',
+					time : 1000
+				});
+			} else if(rs == 1){
+				art.dialog({
+					content : '上传成功',
+					time : 1000
+				});
+				window.location.reload()
+			}
+        }
+    };
+    $(function() {
+        $("#btnupload").upload(ocuploadArg);
+    });
+</script>
+<style>
+.dface{overflow: hidden;}
+.dface li{float:left;}
+.dface li img{border:solid 1px #999999;margin-right:10px;}
+
+</style>
+
+<!--main-->
+<div class="midder">
+<div class="mc">
+{template set_menu}
+
+
+<div class="cleft bbox">
+
+{if $TS_SITE['base']['isface']=='1' && $strUser['face'] == SITE_URL.'public/images/user_normal.jpg'}
+<div class="alert">提示：你需要上传头像才可以正常使用网站！</div>
+{/if}
+
+<h2>当前头像</h2>
+<div>
+<img alt="{$TS_USER[uname]}" src="{$strUser[face]}?v={php echo rand();}" width="60" />
+</div>
+
+<h2>选择本地头像</h2>
+
+<div>
+<a class="btn" id="btnupload">点击修改头像</a>
+</div>
+
+<h2>选择系统预置头像</h2>
+<div>
+<form method="post" action="{SITE_URL}index.php?app=user&ac=do&ts=face">
+<ul class="dface">
+{loop $arrFace $key $item}
+<li>
+<img src="{SITE_URL}uploadfile/user/face/{$item}" width="60" />
+<br />
+<input type="radio" name="face" value="{$item}" />
+</li>
+{/loop}
+</ul>
+<button class="btn btn-success" type="submit">使用头像</button>
+</form>
+</div>
+
+</div>
+
+{template set_right}
+
+</div>
+</div>
+
+{template footer}

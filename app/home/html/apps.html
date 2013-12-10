@@ -8,19 +8,22 @@
 
 <div class="midder">
 <div class="mc">
+
+<div class="bbox">
 <h1>APP应用</h2>
 <div class="apps">
 <ul>
 
 {loop $arrApp $key $item}
 <li>
-<strong>{$item['about']['name']}</strong>({$item['name']})
+<img align="absmiddle" src="{SITE_URL}app/{$item['name']}/icon.png" /> <strong><a href="{tsUrl($item['name'])}">{$item['about']['name']}</a></strong>({$item['name']})
 <br />
 {$item['about']['desc']}
 </li>
 {/loop}
-
 </ul>
+</div>
+
 </div>
 
 </div>

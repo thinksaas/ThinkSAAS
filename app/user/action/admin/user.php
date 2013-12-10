@@ -1,8 +1,5 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-	/* 
-	 * 用户管理
-	 */
 	
 	switch($ts){
 	
@@ -12,7 +9,7 @@ defined('IN_TS') or die('Access Denied.');
 			$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 			
 			$userid = intval($_GET['userid']);
-			$username = trim($_GET['username']);
+			$username = tsFilter($_GET['username']);
 			
 			$arrData = null;
 			if($userid > 0 && $username==''){
@@ -58,61 +55,63 @@ defined('IN_TS') or die('Access Denied.');
 		case "isenable":
 		
 			$userid = intval($_GET['userid']);
-			
-			$isenable = $_GET['isenable'];
-			
-			
-			$new['user']->update('user_info',array(
-			
+			$strUser = $new['user']->find('user_info',array(
 				'userid'=>$userid,
-			
-			),array(
-			
-				'isenable'=>$isenable,
-			
 			));
 			
-			//更新数据
-			$arrUsers = $new['user']->findAll('user_info',array(
-				'isenable'=>'1',
-			));
 			
-			$user_isenable = '';
-			$count = 1;
-			if(is_array($arrUsers)){
-				foreach ($arrUsers as $item) {
-					if ($count==1) {
-						$user_isenable .= $item['userid'];
-					} else {
-						$user_isenable .= '|'.$item['userid'];
-					}
-						$count++;
+			//禁用
+			if($strUser['isenable']==0){
+			
+				$new['user']->update('user_info',array(
+					'userid'=>$userid,
+				),array(
+					'isenable'=>1,
+				));
+				
+				//封用户Id
+				$isuser = $new['user']->findCount('anti_user',array(
+					'userid'=>$userid,
+				));
+				if($isuser==0){
+					$new['user']->create('anti_user',array(
+						'userid'=>$userid,
+						'addtime'=>date('Y-m-d H:i:s'),
+					));
 				}
+				
+				//封IP
+				$isip = $new['user']->findCount('anti_ip',array(
+					'ip'=>$strUser['ip']
+				));
+				if($isip==0 && $strUser['ip']){
+					$new['user']->create('anti_ip',array(
+						'ip'=>$strUser['ip'],
+						'addtime'=>date('Y-m-d H:i:s'),
+					));
+				}
+			
 			}
 			
-			foreach($arrUsers as $item){
-				if($item['ip']){
-					$arrIp[] = $item['ip'];
-				}
-			}
-		
-			$user_ip = '';
-			$counts = 1;
-			if(is_array($arrIp)){
-				foreach ($arrIp as $item) {
-					if ($counts==1) {
-						$user_ip .= $item;
-					} else {
-						$user_ip .= '|'.$item;
-					}
-						$counts++;
-				}
+			
+			//启用
+			if($strUser['isenable']==1){
+			
+				$new['user']->update('user_info',array(
+					'userid'=>$userid,
+				),array(
+					'isenable'=>0,
+				));
+				
+				$new['user']->delete('anti_user',array(
+					'userid'=>$userid,
+				));
+				$new['user']->delete('anti_ip',array(
+					'ip'=>$strUser['ip'],
+				));
 			}
 			
-			fileWrite('user_isenable.php','data',$user_isenable);
-			fileWrite('user_ip.php','data',$user_ip);
-			
-			qiMsg('用户停用成功！');
+			qiMsg('操作成功！');
 			
 			break;
 		
@@ -157,46 +156,62 @@ defined('IN_TS') or die('Access Denied.');
 		//清空用户数据
 		case "deldata":
 			$userid = intval($_GET['userid']);
-			
-			//删除小组
-			$new['user']->delete('group',array(
-				'userid'=>$userid,
-			));
-			
-			//删除帖子
-			$new['user']->delete('group_topics',array(
-				'userid'=>$userid,
-			));
-			
-			//删除加入的小组
-			$new['user']->delete('group_users',array(
-				'userid'=>$userid,
-			));
-			
-			//删除帖子评论
-			$new['user']->delete('group_topics_comments',array(
-				'userid'=>$userid,
-			));
-			
-			//删除动态
-			$new['user']->delete('feed',array(
-				'userid'=>$userid,
-			));
-			
-			//删除收藏
-			$new['user']->delete('group_topics_collects',array(
-				'userid'=>$userid,
-			));
-			
+			aac('user')->toEmpty($userid);
 			qiMsg('清空数据成功！');
 			
 			break;
 			
-		//封IP
-		case "kip":
+		//管理员 
+		case "admin":
 			
+			$userid = intval($_GET['userid']);
+			$strUser = $new['user']->find('user_info',array(
+				'userid'=>$userid,
+			));
 			
+			if($strUser['isadmin']==1){
+				$new['user']->update('user_info',array(
+					'userid'=>$userid,
+				),array(
+					'isadmin'=>'0',
+				));
+			}elseif($strUser['isadmin']==0){
+				$new['user']->update('user_info',array(
+					'userid'=>$userid,
+				),array(
+					'isadmin'=>'1',
+				));
+			}
+			
+			qiMsg('操作成功！');
 			
 			break;
+			
+		//清空全部被禁用的用户数据并保存垃圾Email
+		case "clean":
+		
+			$arrUser = $new['user']->findAll('user_info',array(
+				'isenable'=>1,
+			));
+			foreach($arrUser as $key=>$item){
+				//执行删除用户数据
+				aac('user')->toEmpty($item['userid']);
+			}
+			
+			qiMsg('垃圾用户清空完毕！');
+		
+			break;
+			
+		case "face":
+			$userid = intval($_GET['userid']);
+			
+			$new['user']->update('user_info',array(
+				'userid'=>$userid,
+			),array(
+				'path'=>'',
+				'face'=>'',
+			));
+			
+			qiMsg('操作成功！');
 		
 	}

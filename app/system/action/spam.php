@@ -14,22 +14,45 @@ switch($ts){
 		
 		$arrSpam = json_decode($api,true);
 		
-		$strSpam = '';
+		foreach($arrSpam as $key=>$item){
+		
+			$isword = $new['system']->findCount('anti_word',array(
+				'word'=>$item,
+			));
+			
+			if($isword==0){
+				$new['system']->create('anti_word',array(
+					'word'=>$item,
+					'addtime'=>date('Y-m-d H:i:s'),
+				));
+			}
+		
+		}
+		
+		//生成缓存
+		$arrWords = $new['system']->findAll('anti_word');
+		foreach($arrWords as $key=>$item){
+			$arrWord[] = $item['word'];
+		}
+		
+		$strWord = '';
 		$count = 1;
-		if(is_array($arrSpam)){
-			foreach ($arrSpam as $item) {
+		if(is_array($arrWord)){
+			foreach ($arrWord as $item) {
 				if ($count==1) {
-					$strSpam .= $item;
+					$strWord .= $item;
 				} else {
-					$strSpam .= '|'.$item;
+					$strWord .= '|'.$item;
 				}
 					$count++;
 			}
 		}
 		
-		fileWrite('data.php','plugins/pubs/wast_word',$strSpam);
+		fileWrite('system_anti_word.php','data',$strWord);
+		$tsMySqlCache->set('system_anti_word',$strWord);
 		
-		qiMsg('更新云垃圾词库成功！');
+		
+		header('Location: '.SITE_URL.'index.php?app=system&ac=anti&ts=word');
 		
 		break;
 

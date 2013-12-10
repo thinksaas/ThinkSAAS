@@ -1,0 +1,5 @@
+.photoalbumlist{}
+.photoalbumlist ul{}
+.photoalbumlist ul li{float:left;border:solid 1px #DDDDDD;margin:0 7px 7px 7px;height:220px;}
+.photoalbumlist ul li .info{padding:5px;}
+.photoalbumlist ul li .info p{color:#999999;margin:0px;}

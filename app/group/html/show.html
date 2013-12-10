@@ -3,111 +3,89 @@
 
 <div class="mc">
 
-{template menu}
+<div class="cleft">
 
-<div class="cleft" style="position: relative;">
-<h1><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a> </h1>
+<div class="bbox">
+<div class="bc">
+
+<div class="group_show">
+<div class="face"><img title="{$strGroup[groupname]}" alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}" width="48" /></div>
+<div class="title">
+<h1>{$strGroup[groupname]}</h1>
+<p><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['count_topic']}</a> 帖子 | <a href="{tsUrl('group','user',array('id'=>$strGroup['groupid']))}">{$strGroup['count_user']}</a> 成员</p>
+</div>
+<div class="join">
+{if $isGroupUser > 0 && $TS_USER[user][userid] != $strGroup[userid]}
+<span>我是这个小组的{$strGroup[role_user]} <a href="{tsUrl('group','do',array('ts'=>'exit','groupid'=>$strGroup['groupid'],'token'=>$_SESSION['token']))}">退出小组</a></span>
+{elseif $isGroupUser > 0 && $TS_USER[user][userid] == $strGroup[userid]}
+<span>我是这个小组的{$strGroup[role_leader]}</span>
+{elseif $strGroup[joinway] == '0'}
+<span><a class="btn btn-success" href="{tsUrl('group','do',array('ts'=>'join','groupid'=>$strGroup['groupid'],'token'=>$_SESSION['token']))}">加入小组</a></span>
+{else}
+<span>本小组禁止加入</span>
+{/if}
+</div>
+</div>
+
 <div class="clear"></div>
-<div class="box">
+<p class="c9">
+创建于 {php echo date('Y-m-d',$strGroup[addtime])} 
+组长：<a href="{tsUrl('user','space',array('id'=>$strLeader[userid]))}"  rel="face" uid="{$strLeader['userid']}">{$strLeader[username]}</a>
+</p>
+<p>{$strGroup[groupdesc]}</p>
 
+
+</div>
+</div>
+
+
+
+<div class="bbox mh500" style="position: relative;">
+
+<div class="bc box">
 <div class="box_content">
 
-<!--帖子分类-->
+
 <div class="topictype">
 <ul>
-<li <!--{if $typeid=="0"}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup[groupid]))}"><span>全部</span></a></li>
-<!--{loop $arrTopicType $key $item}-->
-<li <!--{if $typeid==$item[typeid]}-->class="on"<!--{/if}-->><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup[groupid],typeid=>$item[typeid]))}"><span>{$item[typename]}</span></a></li>
-<!--{/loop}-->
+<li {if $typeid=="0"}class="on"{/if}><a href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}"><span>全部</span></a></li>
+{loop $arrTopicType $key $item}
+<li {if $typeid==$item[typeid]}class="on"{/if}><a href="{tsUrl('group','show',array('id'=>$strGroup[groupid],typeid=>$item[typeid]))}"><span>{$item[typename]}</span></a></li>
+{/loop}
 </ul>
 </div>
 <div class="clear"></div>
 
 
- {if $strUser[thems_other]==1} 
-<table class="olt">
-        <tbody><tr>
-            <td>话题</td><td>作者</td><td nowrap="nowrap">回应</td><td align="right">最后回应</td>
-        </tr>
-    {else}   
-    <div class="topic_list">
+
+<div class="topic_list">
 <ul>
-{/if}  
 
-<!--{if $arrTopic}-->
-
-
-
-<!--{loop $arrTopic $key $item}-->
- {if $strUser[thems_other]==1}       <tr>
-                <td>
-                         <span class="pl">
-                            <!--{if $item[istop]=='1'}-->
-							<img title="[置顶]" src="{SITE_URL}app/{$app}/skins/{$skin}/stick.gif">
-                            <!--{/if}-->
-							<!--{if $item[addtime]>strtotime(date('Y-m-d 00:00:00'))}-->
-                            <img src="{SITE_URL}app/{$app}/skins/{$skin}/topic_new.gif" align="absmiddle"  width="10" height="14" title="[新帖]" alt="[新帖]" /><!--{/if}-->
-                            <!--{if $item[isphoto]=='1'}-->
-                            <img src="{SITE_URL}app/{$app}/skins/{$skin}/image_s.gif" title="[图片]" alt="[图片]" width="10" height="14" align="absmiddle" />
-                            <!--{eif $item[isattach] == '1'}-->
-							<img src="{SITE_URL}app/{$app}/skins/{$skin}/attach.gif" title="[附件]" width="10" height="14" alt="[附件]" />
-                           <!--{/if}-->
-
-                            <!--{if $item[isposts] == '1'}-->
-                            <img src="{SITE_URL}public/images/posts.gif" title="[精华]" alt="[精华]"  width="10" height="14"/>
-                            <!--{/if}-->
-                            <!--{if $item['thread_type']=='music'}-->
-<img src="{SITE_URL}public/images/music.gif" align="absmiddle"  title="[音乐]" alt="[音乐]" />
-<!--{/if}-->
-                        </span>
-                   <a title="{$item[title]}" href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item[topicid]))}"  style="color:{php echo color({$item[color]})}"  style="color:{php echo color({$item[color]})}">{$item[title]}</a>
-                </td>
-                <td nowrap="nowrap" class="user"><a href="{SITE_URL}{tsUrl('group','user',array('id'=>$item[user][userid]))}" rel="face" uid="$item[user][userid]">{$item[user][username]}</a></td>
-                <td nowrap="nowrap">{$item[count_comment]}</td>
-               
-                <td nowrap="nowrap" class="time">{php echo getTime($item[uptime],time())}</td>
-              
-            </tr>
-           
-   {else}
+{loop $arrTopic $key $item}
 <li>
 <div class="userimg">
-<!--{if $item[user][userid] !=$arrTopic[$key-1][user][userid]}-->
-<a href="{SITE_URL}{tsUrl('group','user',array('id'=>$item[user][userid]))}" rel="face" uid="{$item['user']['userid']}"><img src="{$item[user][face_32]}" width="32" /></a>
-<!--{else}-->
-&nbsp;
-<!--{/if}-->
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}" rel="face" uid="{$item['user']['userid']}"><img src="{$item[user][face]}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" /></a>
 </div>
 
 <div class="topic_title">
 <div class="title">
-<!--{if $item[typeid] != 0}--><a href="{SITE_URL}{tsUrl('group','show',array('id'=>$item[groupid],typeid=>$item[typeid]))}">[{$item[typename]}]</a><!--{/if}-->
+{if $item[typeid] != 0}<a href="{tsUrl('group','show',array('id'=>$item[groupid],typeid=>$item[typeid]))}">[{$item[typename]}]</a>{/if}
 
-<a title="{$item[title]}" href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
-<!--{if $item[istop]=='1'}-->
+{if $item['appkey'] != 'group' && $item['appkey']!=''}
+<a target="_blank" style="color:#999999;font-size: 12px;margin-right: 5px;" class="titles-type" href="{SITE_URL}{php echo tsUrl($item['appkey'])}">[{$item['appname']}]</a>
+<a title="{$item[title]}" href="{SITE_URL}{php echo tsUrl($item['appkey'],$item['appaction'],array('id'=>$item['appid']))}">{$item[title]}</a>
+{else}
+<a title="{$item[title]}" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
+{/if}
+
+{if $item[istop]=='1'}
 <img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" title="[置顶]" alt="[置顶]" /> 
-<!--{/if}-->
-<!--{if $item[addtime]>strtotime(date('Y-m-d 00:00:00'))}-->
-<img src="{SITE_URL}app/{$app}/skins/{$skin}/topic_new.gif" align="absmiddle"  title="[新帖]" alt="[新帖]" />
-<!--{/if}--> 
+{/if} 
 
-<!--{if $item[photo]}-->
-<img src="{SITE_URL}app/{$app}/skins/{$skin}/image_s.gif" title="[图片]" alt="[图片]" align="absmiddle" />
-<!--{/if}--> 
-
-<!--{if $item['attach']}--><img src="{SITE_URL}app/{$app}/skins/{$skin}/attach.gif" title="[附件]" alt="[附件]" />
-<!--{/if}-->
-
-<!--{if $item[isposts] == '1'}-->
+{if $item[isposts] == '1'}
 <img src="{SITE_URL}public/images/posts.gif" title="[精华]" alt="[精华]" />
-<!--{/if}-->
-
-<!--{if $item['thread_type']=='music'}-->
-<img src="{SITE_URL}public/images/music.gif" align="absmiddle"  title="[音乐]" alt="[音乐]" />
-<!--{/if}-->
-<!--{if $item['thread_type']=='vote'}-->
-<img src="{SITE_URL}public/images/vote.gif" align="absmiddle"  title="[投票]" alt="[投票]" />
-<!--{/if}-->
+{/if}
+{if $item['postby']==1}<a href="{tsUrl('home','phone')}"><img align="absmiddle" alt="通过Iphone手机端发布" title="通过Iphone手机端发布" src="{SITE_URL}public/images/ios.jpg" /></a>{/if}
 
 </div>
 <div class="topic_info">
@@ -116,23 +94,18 @@
 </span>
 
 <span style="float:right;">
-<a href="{SITE_URL}{tsUrl('group','user',array('id'=>$item[userid]))}"  rel="face" uid="{$item['user']['userid']}">{$item[user][username]}</a>
+<a href="{tsUrl('user','space',array('id'=>$item[userid]))}"  rel="face" uid="{$item['user']['userid']}">{$item[user][username]}</a>
 
-<!--{if $item[count_comment]>0}--><a class="rank" style="color:#FFFFFF;" href="{SITE_URL}{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a><!--{/if}-->
+{if $item[count_comment]>0}<a class="rank" style="color:#FFFFFF;" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a>{/if}
 </span>
 </div>
 </div>
 <div class="clear"></div>
 </li>	
-{/if}
-<!--{/loop}-->
-<!--{/if}-->
-{if $strUser[thems_other]==1}
-</tbody></table>
-{else}
+{/loop}
+
 </ul>
 </div>
-{/if}
 
 
 <div class="page">{$pageUrl}</div>
@@ -141,86 +114,61 @@
 </div>
 
 
-<!--发布帖子-->
-<div style="position: absolute;right: 40px;;top: 10px;"><a class="submit" href="{SITE_URL}{tsUrl('group','add',array('id'=>$strGroup[groupid]))}">发布帖子</a></div>
+<div style="position: absolute;right: 10px;top: 10px;"><a class="btn btn-success" href="{tsUrl('group','add',array('id'=>$strGroup[groupid]))}">发布帖子</a></div>
+
+
+</div>
+
+
+
+
+
 </div>
 
 
 <div class="cright">
 
 
-<div class="infobox">
-
-<div class="bd">
-<img align="left" alt="{$strGroup[groupname]}" src="{$strGroup[icon_48]}" class="pil mr5 groupicon" valign="top" />
-<div>
-$strGroup['groupname']
-<br />
-创建于{php echo date('Y-m-d',$strGroup[addtime])}
-<br />
-组长：<a href="{SITE_URL}{tsUrl('group','user',array('id'=>$strLeader[userid]))}"  rel="face" uid="{$strLeader['userid']}">{$strLeader[username]}</a>
-</div>
-<div class="clear"></div>
-
-<div style="line-height: 23px;">
-{$strGroup[groupdesc]}
-</div>
-
-<div class="clearfix" style="margin-top: 10px;">
-<!--{if $isGroupUser > 0 && $TS_USER[user][userid] != $strGroup[userid]}-->
-<span class="fleft mr5 color-gray">我是这个小组的{$strGroup[role_user]} <a class="j a_confirm_link" href="{SITE_URL}{tsUrl('group','do',array('ts'=>'exit','groupid'=>$strGroup['groupid']))}" style="margin-left: 6px;">&gt;退出小组</a></span>
-<!--{elseif $isGroupUser > 0 && $TS_USER[user][userid] == $strGroup[userid]}-->
-<span class="fleft mr5 color-gray">我是这个小组的{$strGroup[role_leader]}</span>
-<!--{elseif $strGroup[joinway] == '0'}-->
-<span><a class="submit" href="{SITE_URL}{tsUrl('group','do',array('ts'=>'join','groupid'=>$strGroup['groupid']))}">加入小组</a></span>
-
-<!--{else}-->
-<span class="fright">本小组禁止加入</span>
-<!--{/if}-->
-
-
-</div>
-</div>
-
-</div>
-
-
-
-<div>
-<h2>最新加入成员</h2>
-
-<!--{loop $arrGroupUser $key $item}-->
+<div class="bbox">
+<h2>小组成员</h2>
+<div class="bc">
+{loop $arrGroupUser $key $item}
 <dl class="obu">
-<dt><a href="{SITE_URL}{tsUrl('group','user',array('id'=>$item[userid]))}" rel="face" uid="{$item['userid']}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}" width="48" /></a></dt>
-<dd>{$item[username]}</dd></dl>
-<!--{/loop}-->
-<br clear="all">
+<dt><a href="{tsUrl('user','space',array('id'=>$item[userid]))}" rel="face" uid="{$item['userid']}"><img class="m_sub_img" src="{$item[face]}" width="48" height="48" alt="{$item[username]}" title="{$item[username]}" /></a></dt>
+<dd>{$item[username]}</dd>
+</dl>
+{/loop}
+</div>
+</div>
 
+
+<div class="bbox">
+<div class="bc">
 {if $strGroup['joinway']==1 && $strGroup['userid'] == $TS_USER['user']['userid']}
 <p>
-<form method="post" action="{SITE_URL}{tsUrl('group','do',array('ts'=>'invite'))}">
+<form method="post" action="{tsUrl('group','do',array('ts'=>'invite'))}">
 <input type="text" name="userid" value="" /> 
 <input type="hidden" name="groupid" value="{$strGroup['groupid']}" />
-<input class="submit" type="submit" value="邀请" /></p>
+
+<button class="btn btn-success" type="submit">邀请</button>
+
+</p>
 </form>
 {/if}
 
-<!--{if $TS_USER[user][userid] == $strGroup[userid] || $TS_USER['user']['isadmin']=='1'}-->
-<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">修改小组设置 </a></p>
+{if $TS_USER[user][userid] == $strGroup[userid] || $TS_USER['user']['isadmin']=='1'}
+<p class="pl2">&gt; <a href="{tsUrl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">小组设置</a></p>
 
-<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup[groupid],'isshow'=>'1'))}">回收站 </a>({$strGroup['recoverynum']})</p>
+<p class="pl2">&gt; <a href="{tsUrl('group','audit',array('groupid'=>$strGroup[groupid]))}">帖子审核</a>({$strGroup['count_topic_audit']})</p>
+{/if}
 
-<!--{/if}-->
-
-<p class="pl2">&gt; <a href="{SITE_URL}{tsUrl('group','group_user',array(groupid=>$strGroup[groupid]))}">小组成员 </a>({$strGroup[count_user]})</p>
-
-<div class="clear"></div>
+<p><a href="{tsUrl('group','rss',array(groupid=>$strGroup[groupid]))}">feed: rss 2.0</a></p>
+</div>
 </div>
 
-<p class="pl"><span class="feed"><a href="{SITE_URL}{tsUrl('group','rss',array(groupid=>$strGroup[groupid]))}">feed: rss 2.0</a></span></p>
-
 <div class="clear"></div>
-{php doAction('group_group_right_footer',$strTopic,'300')}
+<!--广告位-->
+{php doAction('gobad','300')}
 
 </div>
 </div>

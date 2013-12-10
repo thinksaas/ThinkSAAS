@@ -1,0 +1,38 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table>
+
+
+<tr class="old"><td>ID</td><td>UserID</td><td>Content</td><td>操作</td></tr>
+
+{loop $arrNote $key $item}
+<tr class="odd"><td>{$item['noteid']}</td><td>{$item['userid']}</td><td>{php echo htmlspecialchars($item['content'])}</td><td width="150">
+
+
+<a href="{SITE_URL}index.php?app=note&ac=admin&mg=note&ts=isaudit&noteid={$item['noteid']}">
+{if $item['isaudit']==0}
+[取消审核]
+{else}
+<font color="red">[审核]</font>
+{/if}
+</a>
+
+
+<a href="{SITE_URL}index.php?app=note&ac=admin&mg=note&ts=delete&noteid={$item['noteid']}">[删除]</a>
+
+
+</td></tr>
+{/loop}
+
+</table>
+
+</div>
+
+{php include template("admin/footer");}

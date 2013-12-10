@@ -7,16 +7,16 @@
   <language>zh_cn</language>
   <copyright>&amp;amp;copy; {$TS_CF[info][year]}, {$TS_CF[info][copyright]}.</copyright>
   <pubDate>{php echo date('Y-m-d H:i:s',$pubdate)}</pubDate>
-	<!--{loop $arrTopic $key $item}-->
+	{loop $arrTopic $key $item}
     <item>
         <title>{$item[title]}</title>
-        <link>{SITE_URL}{tsUrl('group','topic',array('id'=>$item[topicid]))}</link>
+        <link>{tsUrl('group','topic',array('id'=>$item[topicid]))}</link>
         <description><![CDATA[{$item[content]}]]></description>
         <content:encoded><![CDATA[{$item[content]}]]></content:encoded>
         <dc:creator>{$item[username]}</dc:creator>
         <pubDate>{php echo date('Y-m-d H:i:s',$item[addtime])}</pubDate>
-        <guid isPermaLink="true">{SITE_URL}{tsUrl('group','topic',array('id'=>$item[topicid]))}</guid>
+        <guid isPermaLink="true">{tsUrl('group','topic',array('id'=>$item[topicid]))}</guid>
    </item>
-	<!--{/loop}-->
+	{/loop}
     </channel>
 </rss>

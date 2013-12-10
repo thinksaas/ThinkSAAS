@@ -8,9 +8,7 @@ switch($ts){
 	
 		$userid = aac('user')->isLogin();
 
-		$strUser = $new['user']->find('user_info',array(
-			'userid'=>$userid,
-		));
+		$strUser = $new['user']->getOneUser($userid);
 	
 		$title = '用户验证';
 		include template('verify');
@@ -18,6 +16,11 @@ switch($ts){
 
 	//发送验证
 	case "post":
+	
+		if($_GET['token'] != $_SESSION['token']) {
+			tsNotice('非法操作！');
+		}
+	
 		$userid = aac('user')->isLogin();
 
 		$strUser = $new['user']->find('user_info',array(
@@ -25,7 +28,11 @@ switch($ts){
 		));
 		if($strUser['verifycode']==''){
 			$verifycode = random(11);
-			$db->query("update ".dbprefix."user_info set `verifycode`='$verifycode' where `userid`='$userid'");
+			$new['user']->update('user_info',array(
+				'userid'=>$userid,
+			),array(
+				'verifycode'=>$verifycode,
+			));
 		}else{
 			$verifycode = $strUser['verifycode'];
 		}
@@ -47,8 +54,8 @@ switch($ts){
 		
 	//接收验证 
 	case "do":
-		$email = $_GET['email'];
-		$verifycode = $_GET['verifycode'];
+		$email = tsFilter($_GET['email']);
+		$verifycode = tsFilter($_GET['verifycode']);
 		
 		$verify = $new['user']->findCount('user_info',array(
 			'email'=>$email,
@@ -62,7 +69,7 @@ switch($ts){
 			),array(
 				'isverify'=>'1',
 			));
-			tsNotice("Email验证成功！点击返回首页！",'点击回首页！',SITE_URL);
+			tsNotice("Email验证成功!",'点击回首页！',SITE_URL);
 		}else{
 			tsNotice("Email验证失败！");
 		}

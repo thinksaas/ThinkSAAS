@@ -5,27 +5,26 @@ defined('IN_TS') or die('Access Denied.');
 include 'userinfo.php';
 
 
-//Feed
-$arrFeeds = $db->fetch_all_assoc("select * from ".dbprefix."feed where `userid`='$userid' order by addtime desc limit 10");
+//动态
+$arrFeeds = $new['user']->findAll('feed',array(
+	'userid'=>$strUser['userid'],
+),'addtime desc',null,'20');
 
 foreach($arrFeeds as $key=>$item){
-
-	$data = unserialize(stripslashes($item['data']));
-	
+	$data = json_decode($item['data'],true);
 	if(is_array($data)){
 		foreach($data as $key=>$itemTmp){
 			$tmpkey = '{'.$key.'}';
-			$tmpdata[$tmpkey] = $itemTmp;
+			$tmpdata[$tmpkey] = urldecode($itemTmp);
 		}
 	}
-	
 	$arrFeed[] = array(
 		'user'	=> aac('user')->getOneUser($item['userid']),
 		'content' => strtr($item['template'],$tmpdata),
 		'addtime' => $item['addtime'],
 	);
-	
 }
+
 
 //留言
 $arrGuests = $new['user']->findAll('user_gb',array(
@@ -37,5 +36,5 @@ foreach($arrGuests as $key=>$item){
 	$arrGuest[$key]['user']=$new['user']->getOneUser($item['userid']);
 }
 
-$title = $strUser['username'].'的个人空间';
+$title = $strUser['username'];
 include template("space");

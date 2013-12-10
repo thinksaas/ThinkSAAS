@@ -1,65 +1,74 @@
 {template header}
-{php doAction('group_add_header')}
 
 <div class="midder">
 <div class="mc">
-<h1>
-[{$strGroup[groupname]}]发布帖子
-</h1>
+<div class="bbox">
 
+<h1>[{$strGroup[groupname]}]发布帖子</h1>
+<div class="bc">
 {if $isGroupUser == '0'}
 <div style="font-size:14px;padding-top:50px;text-align:center;">不好意思，你不是本组成员不能发表帖子，请加入后再发帖</div>
 {else}
 <form method="POST" action="{SITE_URL}index.php?app=group&ac=add&ts=do" onsubmit="return newTopicFrom(this)"  enctype="multipart/form-data">
 
 
-<div id="default_thread">
-<table width="100%">
-<tbody>
-<tr><td width="50">标题*</td>
+<table class="commtable">
+
+<tr><th>标题:</th>
 <td><input style="padding:3px 0;width:600px;" type="text" name="title" /></td></tr>	
 
 {if $arrGroupType}
-<tr><td height="30">分类：</td><td>
+<tr><th>类型:</th><td>
 <select name="typeid">
-<option value="0">选择分类</option>
-<!--{loop $arrGroupType $key $item}-->
+<option value="0">选择类型</option>
+{loop $arrGroupType $key $item}
 <option value="{$item[typeid]}">{$item[typename]}</option>
-<!--{/loop}-->
+{/loop}
 </select></td></tr>
 {/if}
 
 
 <tr>
-<td valign="top">
-内容*
-</td><td><textarea style="width:600px;height:150px;font-size:14px;" id="bbcode" name="content"></textarea></td></tr>
+<th valign="top">
+内容:
+</th><td>
+<textarea style="width:100%" type="text" id="tseditor" name="content"></textarea>
 
-<tr><td>图片：</td><td><input type="file" name="picfile" /> (仅支持jpg,gif,png格式图片) <input type="checkbox" name="photoshow" value="1" />回复显示</td></tr>
-<tr><td>附件：</td><td><input type="file" name="attfile" />  (仅支持zip,rar,dic,txt,pdf,ppt,docx,xls,xlsx格式附件) 下载需要<input style="width:30px;" type="text" name="attachscore" value="0" />积分 <input type="checkbox" name="attachshow" value="1" />回复显示</td></tr>
-
-<tr><td>视频：</td><td><input style="width:300px;" name="video" /> (仅支持外部视频链接：swf格式)</td></tr>
-
-<tr><td>标签：</td><td><input type="text" name="tag" /> (多个标签请用,号分割)</td></tr>
-
-<tr><td>评论：</td><td><input type="radio" checked="select" name="iscomment" value="0" />允许 <input type="radio" name="iscomment" value="1" />不允许</td>
-</tr>
-
-<tr><td></td><td>
-<input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
-<input class="submit" type="submit" value="好啦，发布"> 
-<a href="{SITE_URL}{tsUrl('group','show',array('id'=>$strGroup[groupid]))}" id="back">返回</a>
 </td></tr>
 
-</tbody></table>
-</div>		
+<tr><th>标签:</th><td><input style="width:250px;" type="text" name="tag" /> (多个标签请用,号分割)</td></tr>
+
+<tr><th>评论:</th><td><input type="radio" checked="select" name="iscomment" value="0" />允许 <input type="radio" name="iscomment" value="1" />不允许</td>
+</tr>
+
+
+{if $TS_SITE['base']['isauthcode']}
+<tr><th>验证码:</th><td><input name="authcode" />
+ <img align="absmiddle" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/></td>
+</tr>
+{/if}
+
+<tr><th></th><td>
+<input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+
+
+
+<button class="btn btn-success" type="submit">提交</button>
+
+<a href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}" id="back">返回</a>
+</td></tr>
+</table>	
 
 </form>
 {/if}
 
+</div>
+
+</div>
+
 
 </div>
 </div>
-
-{php doAction('group_add_footer')}
+{php doAction('tseditor')}
 {template footer}

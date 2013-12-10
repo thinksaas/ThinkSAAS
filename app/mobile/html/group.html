@@ -1,0 +1,24 @@
+{template header}
+
+<div class="midder">
+<div>
+
+
+<div class="commlist">
+<ul>
+{loop $arrGroup $key $item}
+<a href="{tsUrl('mobile','group',array('ts'=>'show','groupid'=>$item['groupid']))}"><li><div class="photo"><img src="{if $item['photo']}{php echo tsXimg($item['photo'],'group','60','60',$item['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" width="50" height="50" /></div>
+<div class="info">
+<h3>{$item['groupname']}</h3>
+<div class="other"><span>{$item['count_user']}用户</span>  <span>{$item['count_topic']}帖子</span></div>
+</div>
+</li></a>
+{/loop}
+<ul>
+</div>
+
+
+</div>
+</div>
+
+{template footer}

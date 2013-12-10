@@ -16,7 +16,7 @@ switch($ts){
 		if(is_array($arrGroup)){
 			foreach($arrGroup as $key=>$item){
 				$arrAllGroup[] = $item;
-				$arrAllGroup[$key]['groupdesc'] = getsubstrutf8($item['groupdesc'],0,40);
+				$arrAllGroup[$key]['groupdesc'] = cututf8($item['groupdesc'],0,40);
 			}
 		}
 		$pageUrl = pagination($groupNum, 10, $page, $url);
@@ -32,25 +32,25 @@ switch($ts){
 	
 	//小组添加执行
 	case "add_do":
-		$userid = trim($_POST['userid']);
+		$userid = intval($_POST['userid']);
 		$strUser = $db->once_fetch_assoc("select * from ".dbprefix."user_info where userid='$userid'");
 		$arrData = array(
 			'userid' => $userid,
-			'groupname'	=> trim($_POST['groupname']),
-			'groupdesc'	=> trim($_POST['groupdesc']),
-			'isrecommend'	=> trim($_POST['isrecommend']),
+			'groupname'	=> t($_POST['groupname']),
+			'groupdesc'	=> tsClean($_POST['groupdesc']),
+			'isrecommend'	=> intval($_POST['isrecommend']),
 			'addtime'	=> time(),
-			'ispost'	=> $_POST['ispost'],
+			'ispost'	=> intval($_POST['ispost']),
 		);
 		$groupid = $db->insertArr($arrData,dbprefix.'group');
-		//更新group_users索引关系
-		$groupUserNum = $db->once_num_rows("select * from ".dbprefix."group_users where userid='$userid' and groupid='$groupid'");
+		//更新group_user索引关系
+		$groupUserNum = $db->once_num_rows("select * from ".dbprefix."group_user where userid='$userid' and groupid='$groupid'");
 		if($groupUserNum > 0){
 		}else{
 			//插入小组成员索引
-			$db->query("insert into ".dbprefix."group_users (`userid`,`groupid`) values ('".$userid."','".$groupid."')");
+			$db->query("insert into ".dbprefix."group_user (`userid`,`groupid`) values ('".$userid."','".$groupid."')");
 			//计算小组会员数
-			$groupUserNum = $db->once_num_rows("select * from ".dbprefix."group_users where groupid='$groupid'");
+			$groupUserNum = $db->once_num_rows("select * from ".dbprefix."group_user where groupid='$groupid'");
 			//更新小组成员统计
 			$db->query("update ".dbprefix."group set `count_user`='$groupUserNum' where groupid='$groupid'");
 		}
@@ -60,22 +60,22 @@ switch($ts){
 	
 	//小组编辑
 	case "edit":
-		$groupid = $_GET['groupid'];
+		$groupid = intval($_GET['groupid']);
 		$arrGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='$groupid'");
 		include template("admin/group_edit");
 		break;
 	
 	//小组编辑执行
 	case "edit_do":
-		$groupid = $_POST['groupid'];
+		$groupid = intval($_POST['groupid']);
 		
 		$new['group']->update('group',array(
 			'groupid'=>$groupid,
 		),array(
-			'groupname'		=> $_POST['groupname'],
-			'groupdesc'		=> $_POST['groupdesc'],
-			'userid'			=> $_POST['userid'],
-			'ispost'	=> $_POST['ispost'],
+			'groupname'		=> t($_POST['groupname']),
+			'groupdesc'		=> tsClean($_POST['groupdesc']),
+			'userid'			=> intval($_POST['userid']),
+			'ispost'	=> intval($_POST['ispost']),
 		));
 		
 		qiMsg("小组信息修改成功！");
@@ -89,7 +89,7 @@ switch($ts){
 			qiMsg("默认小组不能删除！");
 		}
 		
-		$topicNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topics where `groupid`='$groupid'");
+		$topicNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topic where `groupid`='$groupid'");
 		
 		if($topicNum['count(*)'] > 0){
 			qiMsg("本小组还有帖子，不允许删除。");
@@ -97,7 +97,7 @@ switch($ts){
 		
 		$db->query("DELETE FROM ".dbprefix."group WHERE groupid = '$groupid'");
 		
-		$db->query("DELETE FROM ".dbprefix."group_users WHERE groupid = '$groupid'");
+		$db->query("DELETE FROM ".dbprefix."group_user WHERE groupid = '$groupid'");
 		
 		qiMsg("小组删除成功！");
 		
@@ -105,7 +105,7 @@ switch($ts){
 		
 	//审核小组 
 	case "isaudit":
-		$groupid = $_GET['groupid'];
+		$groupid = intval($_GET['groupid']);
 		
 		$db->query("update ".dbprefix."group set `isaudit`='0' where groupid='$groupid'");
 		
@@ -114,7 +114,7 @@ switch($ts){
 		//发送系统消息(审核通过)
 		$msg_userid = '0';
 		$msg_touserid = $strGroup['userid'];
-		$msg_content = '恭喜你，你申请的小组《'.$strGroup['groupname'].'》审核通过！快去看看吧<br />'.SITE_URL.tsUrl('group','show',array('id'=>$groupid));
+		$msg_content = '恭喜你，你申请的小组《'.$strGroup['groupname'].'》审核通过！快去看看吧<br />'.tsUrl('group','show',array('id'=>$groupid));
 		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 		
 		qiMsg("小组审核通过！");
@@ -123,7 +123,7 @@ switch($ts){
 	
 	//推荐小组 
 	case "isrecommend":
-		$groupid = $_GET['groupid'];
+		$groupid = intval($_GET['groupid']);
 		
 		$strGroup = $db->once_fetch_assoc("select groupid,userid,groupname,isrecommend from ".dbprefix."group where groupid='$groupid'");
 		
@@ -133,7 +133,7 @@ switch($ts){
 			//发送系统消息(审核通过)
 			$msg_userid = '0';
 			$msg_touserid = $strGroup['userid'];
-			$msg_content = '恭喜你，你的小组《'.$strGroup['groupname'].'》被推荐啦！快去看看吧<br />'.SITE_URL.tsUrl('group','show',array('id'=>$groupid));
+			$msg_content = '恭喜你，你的小组《'.$strGroup['groupname'].'》被推荐啦！快去看看吧<br />'.tsUrl('group','show',array('id'=>$groupid));
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 			
 		}else{

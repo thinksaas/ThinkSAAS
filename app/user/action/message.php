@@ -6,7 +6,7 @@ $userid = aac('user')->isLogin();
 
 switch($ts){
 	//发送消息页面
-	case "message_add":
+	case "add":
 		
 		$touserid = intval($_GET['touserid']);
 		
@@ -22,11 +22,18 @@ switch($ts){
 		break;
 	
 	//
-	case "message_add_do":
+	case "do":
 	
-		$msg_userid = $_POST['userid'];
-		$msg_touserid = $_POST['touserid'];
-		$msg_content = $_POST['content'];
+		if($_POST['token'] != $_SESSION['token']) {
+			tsNotice('非法操作！');
+		}
+	
+		$msg_userid = intval($_POST['userid']);
+		$msg_touserid = intval($_POST['touserid']);
+		$msg_content = t($_POST['content']);
+		
+		aac('system')->antiWord($msg_content);
+		
 		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 		header("Location: ".SITE_URL."index.php?app=message&ac=my");
 		

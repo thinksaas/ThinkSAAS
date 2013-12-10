@@ -1,0 +1,44 @@
+{template header}
+<div class="midder">
+
+<div class="mc">
+
+<div class="bbox">
+<h1>添加商品</h1>
+<div class="bc">
+<form method="post" action="{SITE_URL}index.php?app=redeem&ac=add&ts=do" enctype="multipart/form-data">
+<table class="commtable">
+<tr><th>名称：</th><td><input style="width:600px;" type="text" name="title" /></td></tr>
+<tr><th>分类：</th><td>
+
+<select name="cateid">
+<option value="0">无分类</option>
+</select>
+
+</td></tr>
+<tr><th valign="top">内容：</th><td>
+
+<textarea style="width:600px;" name="content" id="tseditor">
+</textarea>
+
+</td></tr>
+<tr><th>兑换数量：</th><td><input type="text" name="nums" /></td></tr>
+<tr><th>需要积分：</th><td><input type="text" name="scores" /></td></tr>
+<tr><th>返还积分：</th><td><input type="text" name="return" /></td></tr>
+<tr><th>图片：</th><td><input type="file" name="photo" /></td></tr>
+<tr><td></td><td></td></tr>
+<tr><th></th><td>
+
+<input class="btn btn-success" type="submit" value="提交" />
+
+</td></tr>
+</table>
+</form>
+</div>
+</div>
+
+</div>
+
+</div>
+{php doAction('tseditor')}
+{template footer}

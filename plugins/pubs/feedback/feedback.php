@@ -1,7 +1,13 @@
 <?php 
 //feedback反馈插件 
 function feedback_html(){
-	$code = fileRead('plugins/pubs/feedback/data.php');
+	global $tsMySqlCache;
+	$code = fileRead('data/plugins_pubs_feedback.php');
+	
+	if($code==''){
+		$code = $tsMySqlCache->get('plugins_pubs_feedback');
+	}
+	
 	$code = stripcslashes($code);
 	echo '<div class="feedback-box">
 '.$code.'
@@ -30,7 +36,7 @@ function feedback_css(){
     border-left-color: #558BC6;
 }
 .feedback-box a {
-    background: url("'.SITE_URL.'plugins/pubs/feedback/feed-back.png") no-repeat scroll center 65px transparent;
+    background: url("'.SITE_URL.'plugins/pubs/feedback/feed-back.png") no-repeat 3px 70px;
     border-left: 1px solid #83ACC6;
     color: #FFFFFF !important;
     display: block;
@@ -40,4 +46,4 @@ function feedback_css(){
 }</style>';
 }
 
-addAction('pub_footer','feedback_css');
+addAction('pub_header_top','feedback_css');

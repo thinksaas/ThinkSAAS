@@ -1,0 +1,11 @@
+.goodslist{}
+.goodslist ul{}
+.goodslist ul li{float:left;width:150px;margin:25px;}
+.goodslist ul li .content{text-align:center;font-weight:bold;}
+.goodslist ul li .info{overflow:hidden;}
+.goodslist ul li .info .scores{float:left;color:#FF0000;font-weight:bold;}
+.goodslist ul li .info .dui{float:right}
+.goodsheader{overflow:hidden;}
+.goodsheader .photo{float:left;width:300px;}
+.goodsheader .info{margin-left:320px;}
+.goodscontent{line-height:30px;}.help{}.help .title{font-size:16px;font-weight:bold;padding:20px 0 10px 0;border-bottom:solid 1px #DDDDDD;}.help .content{font-size:14px;padding:10px 0;line-height:25px;}

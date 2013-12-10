@@ -7,7 +7,8 @@ defined('IN_TS') or die('Access Denied.');
 	switch($ts){
 		//配置
 		case "":
-			$arrOptions = $db->fetch_all_assoc("select * from ".dbprefix."user_options");
+			$arrOptions = $new['user']->findAll('user_options');
+			
 			foreach($arrOptions as $item){
 				$strOption[$item['optionname']] = $item['optionvalue'];
 			}
@@ -15,24 +16,32 @@ defined('IN_TS') or die('Access Denied.');
 			break;
 		//配置执行
 		case "do":
-			$arrData = array(
-				'appname' => trim($_POST['appname']),
-				'appdesc' => trim($_POST['appdesc']),
-				'isenable' => trim($_POST['isenable']),
-				//'isvalidate' => trim($_POST['isvalidate']),
-				'isgroup'	=> trim($_POST['isgroup']),
-			);
-			foreach ($arrData as $key => $val){
-				$db->query("UPDATE ".dbprefix."user_options SET optionvalue='$val' where optionname='$key'");
+		
+			//先清空数据 
+			$db->query("TRUNCATE TABLE `".dbprefix."user_options`");
+		
+			foreach($_POST['option'] as $key=>$item){
+				
+				$optionname = $key;
+				$optionvalue = trim($item);
+				
+				$new['user']->create('user_options',array(
+				
+					'optionname'=>$optionname,
+					'optionvalue'=>$optionvalue,
+				
+				));
+			
 			}
 			
-			//更新缓存
-			$arrOptions = $db->fetch_all_assoc("select optionname,optionvalue from ".dbprefix."user_options");
+			$arrOptions = $new['user']->findAll('user_options',null,null,'optionname,optionvalue');
 			foreach($arrOptions as $item){
 				$arrOption[$item['optionname']] = $item['optionvalue'];
 			}
+
 			
 			fileWrite('user_options.php','data',$arrOption);
+			$tsMySqlCache->set('user_options',$arrOption);
 			
 			qiMsg("用户APP配置成功！");
 			

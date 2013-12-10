@@ -1,0 +1,37 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+
+<div class="bbox mh400">
+
+{template menu}
+
+<div style="margin:30px 0 0 200px;">
+<form method="POST" action="{tsUrl('photo','create',array('ts'=>'do'))}">
+
+相册名称（必填）
+<br>
+<input style="width:300px;" name="albumname" />
+<br>
+相册介绍：
+<br>
+<textarea style="width:300px;height:100px;" name="albumdesc"></textarea>
+<br>
+<br>
+
+
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<button class="btn btn-success" type="submit">创建相册</button>
+
+<a href="{tsUrl('photo','album',array(ts=>user,userid=>$userid))}">返回我的相册</a>
+</form>
+</div>
+
+</div>
+
+</div>
+</div>
+
+{template footer}

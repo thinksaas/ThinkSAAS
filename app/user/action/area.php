@@ -1,35 +1,17 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
-switch($ts){
-	case "two":
-		$oneid = $_GET['oneid'];
-		$arrArea = $db->fetch_all_assoc("select * from ".dbprefix."area where referid='$oneid'");
-		
-		if($arrArea){
-			echo '<select id="twoid" name="twoid">';
-			echo '<option value="0">请选择</option>';
-			foreach($arrArea as $item){
-				echo '<option value="'.$item['areaid'].'">'.$item['areaname'].'</option>';
-			}
-			echo "</select>";
-		}else{
-			echo '';
+
+$cityid = intval($_GET['cityid']);
+
+$city = $new['user']->findAll('area',array(
+
+	'fatherid'=>$cityid,
+
+));
+
+echo '<select id="area" name="area">
+	<option value="0">请选则区</option>';
+		foreach($city as $k=>$v){
+		echo '<option value="'.$v['areaid'].'">'.$v['area'].'</option>';
 		}
-		break;
-		
-	case "three":
-		$twoid = $_GET['twoid'];
-		$arrArea = $db->fetch_all_assoc("select * from ".dbprefix."area where referid='$twoid'");
-		
-		if($arrArea){
-			echo '<select id="threeid" name="threeid">';
-			echo '<option value="0">请选择</option>';
-			foreach($arrArea as $item){
-				echo '<option value="'.$item['areaid'].'">'.$item['areaname'].'</option>';
-			}
-			echo "</select>";
-		}else{
-			echo '';
-		}
-		break;
-}
+echo '</select>';

@@ -1,0 +1,46 @@
+{template header2}
+
+<div class="midder">
+<div>
+
+<div class="topic">
+<div class="head">
+<div class="face"><img src="{$strTopic['user']['face']}" width="50" height="50" /></div>
+<div class="title">
+<h3>{$strTopic['title']}</h3>
+<div class="info"><span>{$strTopic['user']['username']}</span> <span>{php echo getTime($strTopic['addtime'],time())}</span> <span>{$strTopic['count_comment']}评论</span></div>
+</div>
+</div>
+<div class="content">{$strTopic['content']}</div>
+</div>
+
+<div class="commform">
+<form method="post" action="{tsUrl('mobile','comment',array('ts'=>'do'))}">
+<h3>评论内容：<h3>
+<p class="inputw"><textarea style="height:50px;" class="inputt" type="text" name="content"></textarea></p>
+<p>
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input type="hidden" name="topicid" value="{$strTopic['topicid']}" />
+<input type="submit" value="发布评论"></p>
+
+</form>
+</div>
+
+<div class="commlist">
+<ul>
+{loop $arrComment $key $item}
+<li><div class="photo"><img src="{$item['user']['face']}" width="50" height="50" /></div>
+<div class="info">
+<h3>{$item['content']}</h3>
+<div class="other">{php echo getTime($item['addtime'],time())}</div>
+</div>
+</li>
+{/loop}
+</ul>
+</div>
+
+
+</div>
+</div>
+
+{template footer}

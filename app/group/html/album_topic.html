@@ -1,0 +1,13 @@
+<div>
+<form method="post" action="{SITE_URL}index.php?app=group&ac=album&ts=topicdo">
+<p>选择专辑：</p>
+<select name="albumid">
+{loop $arrAlbum $key $item}
+<option value="{$item['albumid']}">{$item['albumname']}</option>
+{/loop}
+</select>
+<p>
+<input type="hidden" name="topicid" value="{$topicid}" />
+<input class="btn btn-success" type="submit" value="加入专辑" /></p>
+</form>
+</div>

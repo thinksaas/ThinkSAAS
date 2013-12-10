@@ -1,0 +1,72 @@
+{template header}
+<div class="midder">
+<div class="mc">
+
+<div class="cleft">
+
+<div class="bbox mh500">
+
+<h1>我关注的...</h1>
+
+<div>
+<div><textarea style="width:100%;"></textarea></div>
+<div><input class="btn" type="submit" value="发布" /></div>
+</div>
+
+</div>
+
+</div>
+
+<div class="cright">
+
+<div class="facebox bbox">
+<div class="face">
+<a href="{tsUrl('user','space',array('id'=>$strUser['userid']))}" rel="face" uid="$strUser[userid]"><img title="{$strUser[username]}" alt="{$strUser[username]}" src="{$strUser[face]}" width="48"></a>
+</div>
+
+<div class="info">
+<h3><a href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">{$strUser[username]}</a></h3>
+<div>
+
+{if $strUser['userid']==$TS_USER['user']['userid']}
+<a class="btn btn-mini" href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">我的空间</a>
+{else}
+<a class="btn btn-mini"  href="javascript:void('0')" onclick="follow('{$strUser['userid']}','{$_SESSION['token']}');">关注</a>
+{/if}
+
+</div>
+</div>
+
+<div class="clear"></div>
+
+<ul class="other">
+<li class="br"><span class="fs14"><a href="{tsUrl('user','score',array('id'=>$strUser['userid']))}">{$strUser['count_score']}</a></span><br />积分</li>
+<li class="br"><span class="fs14"><a href="">{$strUser['count_followed']}</a></span><br />粉丝</li>
+<li><span class="fs14"><a href="">{$strUser['count_follow']}</a></span><br />关注</li>
+</ul>
+
+<div class="clear"></div>
+
+<div class="fmore">
+
+<a href="{tsUrl('user','verify')}">
+{if $strUser['isverify']==1}
+<img src="{SITE_URL}public/images/rz1.gif" alt="认证用户" title="认证用户" align="absmiddle" />
+{else}
+<img src="{SITE_URL}public/images/rz2.gif" alt="未认证用户" title="未认证用户" align="absmiddle" />
+{/if}
+</a>
+<br />
+角色：<a href="{tsUrl('user','role')}">{$strUser['rolename']}</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+{template footer}

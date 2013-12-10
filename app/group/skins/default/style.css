@@ -1,13 +1,42 @@
-/*通用*/
+/*最新CSS*/
+.group_show{overflow:hidden;}
+.group_show .face{float:left;}
+.group_show .face img{}
+.group_show .title{float:left;margin-left:20px;}
+.group_show .title h1{margin:0;padding:0;}
+.group_show .title p{color:#999;}
+.group_show .join{float:left;margin-left:20px;color:#999;}
+/*最新CSS*/
 
+
+.mbtl {
+    float: left;
+    margin: 8px 7px 0 0;
+    padding: 0;
+    width: 55px;
+}
+.mbtr {
+    border-bottom: 1px solid #EEEEEE;
+    margin: 0px 0 20px 0;
+    min-height: 55px;
+    overflow: hidden;
+    padding: 10px;;
+	background:#f8f8f8;
+}
+.mbtr .author{}
+.mbtr .author a{color:#8f8f8f;}
+.mbtr .title{margin-top:10px;}
+.mbtr .title a{color: #444444;font-size:22px;}
+.mbtr .content{line-height:30px;font-size:14px;}
+
+/*通用*/
+.topictype .on{background:#83BF73;}
 .topictype .on a {
-    background: url("green_tab.gif") no-repeat scroll left top transparent;
     display: block;
     float: left;
     padding: 0 0 0 3px;
 }
 .topictype .on a span {
-    background: url("green_tab.gif") no-repeat scroll right top transparent;
     color: #FFFFFF;
     display: block;
     line-height: 12px;
@@ -20,7 +49,7 @@
     display: inline;
     float: left;
     margin: 0 0 10px;
-    width: 76px;
+    width: 70px;
 }
 .obu dt {
     height: 50px;
@@ -199,9 +228,8 @@ a.a_rec_btn:link, a.a_rec_btn:visited, a.a_rec_btn:hover, a.a_rec_btn:active {
 .olt td.time{width:70px;color:#999;padding-right:0;text-align:right}
 /*feed*/
 .feed {
-    background: url("feed1.png") no-repeat scroll 0 0 transparent;
     font-size: 14px;
-    padding: 0 0 30px 20px;
+    padding: 0 0 30px 00px;
 }
 
 /*内容页*/
@@ -209,12 +237,11 @@ a.a_rec_btn:link, a.a_rec_btn:visited, a.a_rec_btn:hover, a.a_rec_btn:active {
 .topic-content .user-face{float: left;height: 48px;overflow: hidden;width: 48px;}
 
 .topic-content .topic-doc {
-    float: right;
     margin-bottom: 30px;
-    width: 520px;
 	overflow: hidden;
+	margin-left:60px;
 }
-.topic-content .topic-doc h3 {
+.topic-content .topic-doc .author {
     height: auto;
     margin: 0;
 	margin-bottom: 1px;
@@ -224,8 +251,23 @@ a.a_rec_btn:link, a.a_rec_btn:visited, a.a_rec_btn:hover, a.a_rec_btn:active {
 	font-size:12px;
 }
 
+.topic-content .topic-doc h3 {
+ background: #F8F8F8;
+    border-top: 1px solid #EEEEEE;
+    color: #999999;
+    font-size: 12px;
+    height: auto;
+    margin: 0;
+    padding: 5px;
+	
+}
+
 .topic-content .topic-doc img{max-width:500px;}
-.topic-content .topic-doc .topic-view{font-size:14px;line-height:30px;padding: 10px 0;overflow: hidden;}
+.topic-content .topic-doc .topic-view{font-size:14px;line-height:30px;overflow: hidden;word-wrap: break-word;word-break: normal;}
+
+.topic-content .topic-doc .topic-view table{border:#CCCCCC 1px solid;}
+.topic-content .topic-doc .topic-view table td{ border:1px #CCCCCC solid; border-right:none; border-top:none;}
+
 .cmen {overflow: hidden;width: 63px;}
 .cmen a {overflow: hidden;float: left;width: 20px;height: 20px;}
 
@@ -278,7 +320,7 @@ a.a_rec_btn:link, a.a_rec_btn:visited, a.a_rec_btn:hover, a.a_rec_btn:active {
     float: left;
     margin: 0 0 10px;
     text-align: center;
-    width: 73px;
+    width: 70px;
 }
 .ob dt {
     height: 50px;
@@ -377,11 +419,9 @@ a.mini-share:hover {
 .topic_list ul{overflow:hidden;}
 .topic_list ul li{overflow:hidden;padding:15px 0;display: block;border-bottom: 1px dashed #999999;}
 
-.topic_list ul li:hover{background:#F0F0F0;}
-
 .topic_list .userimg{float:left;width:38px;overflow:hidden;}
 
-.topic_list .topic_title{width:545px;overflow:hidden;}
+.topic_list .topic_title{margin-left:40px;overflow:hidden;}
 
 .topic_list .topic_title .title a{color:#343434;font-size:14px;}
 
@@ -393,6 +433,7 @@ a.mini-share:hover {
     line-height: 15px;
     margin: 0 0 0 5px;
     padding: 0 3px;
+	border-radius:5px 5px 5px 5px;
 }
 
 /*小组列表*/
@@ -430,49 +471,6 @@ a.mini-share:hover {
 	width:220px;
 }
 
-/**/
-.top-wp {
-    border-bottom: 1px solid #CEE1EE;
-	margin-bottom:10px;
-}
-.top-wp:after {
-    clear: both;
-    content: ".";
-    display: block;
-    height: 0;
-    visibility: hidden;
-}
-.tabs {
-    height: 33px;
-    overflow: hidden;
-    width: 100%;
-	clear: both;
-    margin-bottom: -1px;
-}
-.tabs li {
-    float: left;
-}
-.tabs li a {
-    background-color: #CEE1EE;
-    border-color: #CEE1EE #CEE1EE #CEE1EE;
-    border-style: solid;
-    border-width: 1px;
-    float: left;
-    font-size: 12px;
-    height: 26px;
-    line-height: 26px;
-    margin-top: 5px;
-    padding: 0 10px;
-    text-align: center;
-	margin-right:10px;
-}
-.tabs li .current {
-	background:#FFFFFF;
-	border-bottom:solid 1px #FFFFFF;
-}
-.tabs li .current span {
-
-}
 
 /*帖子列表*/
 .titles {
@@ -507,7 +505,45 @@ a.mini-share:hover {
     color: #999999;
 }
 
-/*选择帖子主题*/
-.thread_select{width:100%; font-size:12px; margin-left:5px; zoom:1}
-.thread_select .title{float:left;width:45px;}
-.thread_select .select{float:left;margin-left:15px;}
+
+/*小组分类*/
+.catelist{ margin-bottom: 20px;overflow: hidden;}
+.catelist ul{}
+.catelist ul li{float:left;width:150px;font-size:14px;}
+
+/*分类下小组*/
+.categroup{}
+.categroup ul{}
+.categroup ul li{padding:10px;border-bottom: 1px dashed #CCCCCC;overflow:hidden;}
+.categroup ul li img{float:left;padding:0 10px 0 0;}
+
+/*帖子页*/
+.thumbnail{overflow:hidden;}
+.newtopic{}
+.newtopic ul{}
+.newtopic ul li{border-top: 1px dashed #CCCCCC;padding: 5px 0;}
+
+.title2{float:right;border: 1px solid #DDDDDD;border-bottom:none;margin-top:10px;}
+.title2 li{width:150px;border-bottom: 1px solid #DDDDDD;font-size:12px;padding:5px;line-height: 15px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+
+.btool{background:#F5F5F5;
+    border-bottom: 1px solid #EEEEEE;
+    font-size: 12px;
+    padding: 5px;
+    text-align: right;}
+.btool a{margin-left:10px;padding:0px;}
+
+.bltool{font-size:12px;text-align:left;padding:2px 0;}
+.bltool a{margin-right:10px;padding:0px;}
+.after-view{font-size:14px;}
+
+/*专辑*/
+.album{}
+.album li{float:left;width:225px;margin: 0 5px 10px;height: 80px;}
+.album li .al{float:left;width:50px;height:50px;text-align:center;}
+.album li .al .num{background:#F0F0F0;padding:10px 0}
+.album li .al .tz{background:#CCCCCC;}
+.album li .ar{margin-left:60px;}
+.album li .ar h3{margin:0px;font-weight:bold;}
+.album li .ar .info{}
+.album li .ar .time{color:#999999;}

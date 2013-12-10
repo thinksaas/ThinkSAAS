@@ -15,20 +15,30 @@ switch($ts){
 	//执行登录
 	case "do":
 	
+		if($_POST['token'] != $_SESSION['token']) {
+			tsNotice('非法操作！');
+		}
+	
 		$email	= trim($_POST['email']);
 		
-		$emailNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."user where `email`='$email'");
+		$emailNum = $new['user']->findCount('user',array(
+			'email'=>$email,
+		));
 		
 		if($email==''){
 			tsNotice('Email输入不能为空^_^');
-		}elseif($emailNum['count(*)'] == '0'){
+		}elseif($emailNum == '0'){
 			tsNotice("Email不存在，你可能还没有注册^_^");
 		}else{
 		
 			//随机MD5加密
 			$resetpwd = md5(rand());
-		
-			$db->query("update ".dbprefix."user set resetpwd='$resetpwd' where email='$email'");
+
+			$new['user']->update('user',array(
+				'email'=>$email,
+			),array(
+				'resetpwd'=>$resetpwd,
+			));
 			
 			//发送邮件
 			$subject = $TS_SITE['base']['site_title'].'会员密码找回';

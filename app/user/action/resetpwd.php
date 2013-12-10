@@ -2,14 +2,12 @@
 defined('IN_TS') or die('Access Denied.');
 //重设密码
 
-$title = '重设密码';
-
 
 switch($ts){
 	case "":
 	
-		$email = trim($_GET['mail']);
-		$resetpwd = trim($_GET['set']);
+		$email = tsFilter($_GET['mail']);
+		$resetpwd = tsFilter($_GET['set']);
 		
 		$userNum = $new['user']->findCount('user',array(
 			'email'=>$email,
@@ -22,6 +20,7 @@ switch($ts){
 			tsNotice("你应该去火星生活啦！");
 		}else{
 
+			$title = '重设密码';
 			include template("resetpwd");
 
 		}
@@ -32,8 +31,8 @@ switch($ts){
 	case "do":
 	
 		$email 	= trim($_POST['email']);
-		$pwd 	= trim($_POST['pwd']);
-		$repwd	= trim($_POST['repwd']);
+		$pwd 	= t($_POST['pwd']);
+		$repwd	= t($_POST['repwd']);
 		
 		$resetpwd = trim($_POST['resetpwd']);
 		
@@ -47,13 +46,6 @@ switch($ts){
 		}elseif($userNum == '0'){
 			tsNotice("你应该去火星生活啦！");
 		}else{
-			
-			//Ucenter
-			if($TS_SITE['base']['isucenter']==1){
-				$user =$db -> once_fetch_assoc("select ucid from ts_user_info where email='$email'"); 
-				$uc=uc_get_user($user['ucid'],1);
-				$status=uc_user_edit($uc[1],'',$repwd,'',1);
-			}
 		
 			$salt = md5(rand());
 			
@@ -66,7 +58,7 @@ switch($ts){
 			
 			if(isset($status) && $status!=1)   tsNotice("密码修改失败，请重试");
 			
-			tsNotice("密码修改成功^_^","点击登陆",SITE_URL.tsUrl('user','login'));
+			tsNotice("密码修改成功^_^","点击登陆",tsUrl('user','login'));
 		
 		}
 			

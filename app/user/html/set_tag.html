@@ -1,26 +1,27 @@
 {template header}
 
-<!--main-->
 <div class="midder">
 <div class="mc">
+
+<div class="bbox mh400">
+
 {template set_menu}
-
-<div>
+<div class="bc">
 <div class="tags">
-<!--{loop $arrTag $key $item}-->
-<a rel="tag" title="" class="post-tag" href="">{$item[tagname]}</a>
-<!--{/loop}-->
+{loop $arrTag $key $item}
+<a>{$item[tagname]}</a>
+{/loop}
 
-<a rel="tag"  href="javascript:void('0');" onclick="showTagFrom()">+添加个人标签</a>
+<a  href="javascript:void('0');" onclick="showTagFrom()">+添加个人标签</a>
 </div>
 
-<p id="tagFrom" style="display:none">
-<input style="width:250px;padding:3px 2px;" type="text" name="tags" id="tags" /> <button type="submit" class="submit" onClick="savaTag({$userid})">添加</button> <a href="javascript:void(0);" onClick="showTagFrom()">取消</a>
-</p>
+<div class="clear"></div>
 
-
+<div id="tagFrom" style="display:none">
+<input style="width:250px;padding:3px 2px;" type="text" name="tags" id="tags" /> <button type="submit" class="btn" onClick="savaTag({$userid})">添加</button> <a href="javascript:void(0);" onClick="showTagFrom()">取消</a>
 </div>
-
+</div>
+</div>
 
 
 </div>

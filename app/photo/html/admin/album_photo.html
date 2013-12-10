@@ -13,7 +13,7 @@
 <tr><td>{$item[photoid]}</td><td><a target="_blank" href="{SITE_URL}uploadfile/photo/{$item[photourl]}">
 
 <!--{if $item[photourl]}-->
-<img src="{SITE_URL}{php echo tsXimg($item[photourl],'photo',100,100,$item[path])}" />
+<img src="{php echo tsXimg($item[photourl],'photo',100,100,$item[path])}" />
 <!--{else}-->
 <img src="{SITE_URL}public/images/event_dft.jpg" />
 <!--{/if}-->

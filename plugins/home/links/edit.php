@@ -3,7 +3,11 @@ defined('IN_TS') or die('Access Denied.');
 //插件编辑
 switch($ts){
 	case "set":
-		$arrLink = fileRead('plugins/home/links/data.php');
+		
+		$arrLink = fileRead('data/plugins_home_links.php');
+		if($arrLink==''){
+			$arrLink = $tsMySqlCache->get('plugins_home_links');
+		}
 		
 		include 'edit_set.html';
 		break;
@@ -24,8 +28,9 @@ switch($ts){
 			
 		}
 		
-		fileWrite('data.php','plugins/home/links',$arrLink);
+		fileWrite('plugins_home_links.php','data',$arrLink);
+		$tsMySqlCache->set('plugins_home_links',$arrLink);
 		
-		qiMsg("修改成功！");
+		header('Location: '.SITE_URL.'index.php?app=home&ac=plugin&plugin=links&in=edit&ts=set');
 		break;
 }

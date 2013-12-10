@@ -37,7 +37,7 @@ if(is_array($followUsers)){
 }
 
 //加入的小组
-$arrGroups = $db->fetch_all_assoc("select * from ".dbprefix."group_users where userid='$userid' limit 12");
+$arrGroups = $db->fetch_all_assoc("select * from ".dbprefix."group_user where userid='$userid' limit 12");
 
 if(is_array($arrGroups)){
 	foreach($arrGroups as $key=>$item){

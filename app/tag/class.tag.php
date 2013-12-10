@@ -17,27 +17,79 @@ class tag extends tsApp{
 				$tagname = t($item);
 				if(strlen($tagname) < '32' && $tagname != ''){
 					$uptime = time();
-					$tagcount = $this->db->once_num_rows("select * from ".dbprefix."tag where tagname='".$tagname."'");
+					
+					$tagcount = $this->findCount('tag',array(
+						'tagname'=>$tagname,
+					));
 					
 					if($tagcount == '0'){
-						$this->db->query("INSERT INTO ".dbprefix."tag (`tagname`,`uptime`) VALUES ('".$tagname."','".$uptime."')");
-						$tagid = $this->db->insert_id();
 						
-						$tagIndexCount = $this->db->once_num_rows("select * from ".dbprefix."tag_".$objname."_index where ".$idname."='".$objid."' and tagid='".$tagid."'");
+						$tagid = $this->create('tag',array(
+							'tagname'=>$tagname,
+							'uptime'=>$uptime,
+						));
+						
+						$tagIndexCount = $this->findCount('tag_'.$objname.'_index',array(
+							$idname=>$objid,
+							'tagid'=>$tagid,
+						));
+						
 						if($tagIndexCount == '0'){
-							$this->db->query("INSERT INTO ".dbprefix."tag_".$objname."_index (`".$idname."`,`tagid`) VALUES ('".$objid."','".$tagid."')");
+							
+							$this->create("tag_".$objname."_index",array(
+								$idname=>$objid,
+								'tagid'=>$tagid,
+							));
+							
 						}
-						$tagIdCount = $this->db->once_num_rows("select * from ".dbprefix."tag_".$objname."_index where tagid='".$tagid."'");
-						$this->db->query("update ".dbprefix."tag set `count_".$objname."`='".$tagIdCount."',`uptime`='".$uptime."' where tagid='".$tagid."'");
+						
+						$tagIdCount = $this->findCount("tag_".$objname."_index",array(
+							'tagid'=>$tagid,
+						));
+						
+						$count_obj = "count_".$objname;
+						
+						$this->update('tag',array(
+							'tagid'=>$tagid,
+						),array(
+							$count_obj=>$tagIdCount,
+						));
+						
 					}else{
-						$tagData = $this->db->once_fetch_assoc("select * from ".dbprefix."tag where tagname='".$tagname."'");
+
+						$tagData = $this->find('tag',array(
+							'tagname'=>$tagname,
+						));
 						
-						$tagIndexCount = $this->db->once_num_rows("select * from ".dbprefix."tag_".$objname."_index where ".$idname."='".$objid."' and tagid='".$tagData['tagid']."'");
+						$tagIndexCount = $this->findCount("tag_".$objname."_index",array(
+							$idname=>$objid,
+							'tagid'=>$tagData['tagid'],
+						));
+						
 						if($tagIndexCount == '0'){
-							$this->db->query("INSERT INTO ".dbprefix."tag_".$objname."_index (`".$idname."`,`tagid`) VALUES ('".$objid."','".$tagData['tagid']."')");
+							
+							$this->create("tag_".$objname."_index",array(
+							
+								$idname=>$objid,
+								'tagid'=>$tagData['tagid'],
+							
+							));
+							
 						}
-						$tagIdCount = $this->db->once_num_rows("select * from ".dbprefix."tag_".$objname."_index where tagid='".$tagData['tagid']."'");
-						$this->db->query("update ".dbprefix."tag set `count_".$objname."`='".$tagIdCount."',`uptime`='".$uptime."' where tagid='".$tagData['tagid']."'");
+						
+						$tagIdCount = $this->findCount("tag_".$objname."_index",array(
+							'tagid'=>$tagData['tagid'],
+						));
+						
+						$count_obj = "count_".$objname;
+						
+						$this->update('tag',array(
+							'tagid'=>$tagData['tagid'],
+						),array(
+							$count_obj=>$tagIdCount,
+							'uptime'=>$uptime,
+						));
+						
 					}
 					
 				}
@@ -47,11 +99,17 @@ class tag extends tsApp{
 	
 	//通过topic获取tag
 	function getObjTagByObjid($objname,$idname,$objid){
-		$arrTagIndex = $this->db->fetch_all_assoc("select * from ".dbprefix."tag_".$objname."_index where ".$idname."='$objid'");
+	
+		$arrTagIndex = $this->findAll("tag_".$objname."_index",array(
+			$idname=>$objid,
+		));
 		
 		if(is_array($arrTagIndex)){
 		foreach($arrTagIndex as $item){
-			$arrTag[] = $this->getOneTag($item['tagid']);
+			$strTag = $this->getOneTag($item['tagid']);
+			if($strTag){
+				$arrTag[] = $strTag;
+			}
 		}
 		}
 		
@@ -61,16 +119,44 @@ class tag extends tsApp{
 	
 	//通过tagid获得tagname
 	function getOneTag($tagid){
-		$tagData = $this->db->once_fetch_assoc("select * from ".dbprefix."tag where tagid='$tagid'");
+		
+		$tagData = $this->find('tag',array(
+			'tagid'=>$tagid,
+		));
 		
 		return $tagData;
 	}
 	
 	//通过tagname获取tagid
 	function getTagId($tagname){
-		$strTag = $this->db->once_fetch_assoc("select tagid from ".dbprefix."tag where `tagname`='$tagname'");
+
+		$strTag = $this->find('tag',array(
+			'tagname'=>$tagname,
+		));
 		
-		return $strTag['tagid'];
+		return intval($strTag['tagid']);
 	}
+	
+	//统计标签
+	function countObjTag($objname,$tagid){
+		$countObj = $this->findCount("tag_".$objname."_index",array(
+			'tagid'=>$tagid,
+		));
+		$this->update('tag',array(
+			'tagid'=>$tagid,
+		),array(
+			'count_'.$objname=>$countObj,
+		));
+		
+	}
+	
+	//删除项目ID所有标签
+	function delIndextag($objname,$idname,$objid){
+		$this->delete("tag_".$objname."_index",array(
+			$idname=>$objid,
+		));
+		return true;
+	}
+	
 	
 }

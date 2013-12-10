@@ -14,8 +14,17 @@ switch($ts){
 	
 	//执行登录
 	case "do":
-	
-		if($TS_USER['user'] != '') header("Location: ".SITE_URL);
+		
+		if($_POST['token'] != $_SESSION['token']) {
+			tsNotice('非法操作！');
+		}
+		
+		/*禁止以下IP用户登陆或注册*/
+		$arrIp = aac('system')->antiIp();
+		if(in_array(getIp(),$arrIp)){
+			header('Location: '.SITE_URL);
+			exit;
+		}
 		
 		$jump = trim($_POST['jump']);
 		
@@ -65,10 +74,8 @@ switch($ts){
 		$sessionData = array(
 			'userid' => $userData['userid'],
 			'username'	=> $userData['username'],
-			'areaid'	=> $userData['areaid'],
 			'path'	=> $userData['path'],
 			'face'	=> $userData['face'],
-			'count_score'	=> $userData['count_score'],
 			'isadmin'	=> $userData['isadmin'],
 			'uptime'	=> $userData['uptime'],
 		);
@@ -80,27 +87,9 @@ switch($ts){
 		
 		//一天之内登录只算一次积分
 		if($strDate['uptime'] < strtotime(date('Y-m-d'))){
-			
-			//积分记录
-			$new['user']->create('user_scores',array(
-				'userid'=>$userid,
-				'scorename'=>'登录',
-				'score'=>'10',
-				'addtime'=>time(),
-			));
-			
+			//对积分进行处理
+			aac('user')->doScore($app,$ac,$ts);
 		}
-		
-		$strScore = $new['user']->find('user_scores',array(
-			'userid'=>$userid,
-		),'sum(score) score');
-		
-		//更新积分
-		$new['user']->update('user_info',array(
-			'userid'=>$userid,
-		),array(
-			'count_score'=>$strScore['score'],
-		));
 
 		//跳转
 		if($jump != ''){
@@ -113,11 +102,8 @@ switch($ts){
 	
 	//退出	
 	case "out":
-		
-		session_destroy();
-		setcookie("ts_email", '', time()+3600,'/');   
-		setcookie("ts_uptime", '', time()+3600,'/');
-		header('Location: '.SITE_URL.tsUrl('user','login'));
+		aac('user')->logout();
+		header('Location: '.tsUrl('user','login'));
 		
 		break;
 }

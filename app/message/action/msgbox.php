@@ -2,19 +2,21 @@
 defined('IN_TS') or die('Access Denied.');
 
 //消息盒子
+$userid = aac('user')->isLogin();
 
-$userid = intval($TS_USER['user']['userid']);
 $touserid= intval($_GET['userid']);
 
-if($userid == 0 || $touserid == 0) qiMsg("非法操作！");
+if($userid == 0 || $touserid == 0) {
+	exit;
+};
 
-$msgCount = $db->once_fetch_assoc("select count(messageid) from ".dbprefix."message where (userid='$userid' and touserid='$touserid') or (userid='$touserid' and touserid='$userid') ");
+$msgCount = $new['message']->findCount('message',"(userid='$userid' and touserid='$touserid') or (userid='$touserid' and touserid='$userid')");
 
-if($msgCount['count(messageid)'] ==0) qiMsg("非法操作");
+if($msgCount ==0) {
+	exit;
+};
 
-$sql = "select * from ".dbprefix."message where (userid='$userid' and touserid='$touserid') or (userid='$touserid' and touserid='$userid') order by addtime desc LIMIT 0 , 10";
-
-$arrMessages = $db->fetch_all_assoc($sql);
+$arrMessages = $new['message']->findAll('message',"(userid='$userid' and touserid='$touserid') or (userid='$touserid' and touserid='$userid')",'addtime desc',null,10);
 
 if(is_array($arrMessages)){
 	foreach($arrMessages as $key=>$item){
@@ -27,7 +29,13 @@ if(is_array($arrMessages)){
 }
 
 //isread设为已读
-$db->query("update ".dbprefix."message set `isread`='1' where userid='$touserid' and touserid='$userid' and `isread`='0'");
+$new['message']->update('message',array(
+	'userid'=>$touserid,
+	'touserid'=>$userid,
+	'isread'=>0,
+),array(
+	'isread'=>1,
+));
 
 $title = '消息盒子';
 

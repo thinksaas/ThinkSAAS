@@ -1,18 +1,23 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-$photoid = intval($_GET['photoid']);
 
-if($photoid == 0){
-	header("Location: ".SITE_URL.tsUrl('photo'));
+$photoid = intval($_GET['id']);
+
+$strPhoto = $new['photo']->find('photo',array(
+	'photoid'=>$photoid,
+));
+
+$strPhoto['photoname'] = htmlspecialchars($strPhoto['photoname']);
+$strPhoto['photodesc'] = htmlspecialchars($strPhoto['photodesc']);
+
+//404
+if($strPhoto == ''){
+	header("HTTP/1.1 404 Not Found");
+	header("Status: 404 Not Found");
+	$title = '404';
+	include pubTemplate("404");
 	exit;
 }
-
-if($new['photo']->isPhoto($photoid)==false){
-	header("Location: ".SITE_URL.tsUrl('photo'));
-	exit;
-}
-
-$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
 
 $albumid = $strPhoto['albumid'];
 
@@ -28,9 +33,15 @@ $arrPhoto = $new['photo']->findAll('photo',array(
 ),null,null,8);
 
 //所在专辑
-$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
+$strAlbum = $new['photo']->find('photo_album',array(
+	'albumid'=>$albumid,
+));
 
-$arrPhotoIds = $db->fetch_all_assoc("select photoid from ".dbprefix."photo where albumid='$albumid' order by photoid desc");
+$arrPhotoIds = $new['photo']->findAll('photo',array(
+
+	'albumid'=>$albumid,
+
+),'photoid desc');
 
 foreach($arrPhotoIds as $item){
 	$arrPhotoId[] = $item['photoid'];
@@ -49,15 +60,24 @@ $strUser = aac('user')->getOneUser($userid);
 
 //评论列表 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-$url = "index.php?app=photo&ac=show&photoid=".$photoid."&page=";
+$url = tsUrl('photo','show',array('id'=>$photoid,'page'=>''));
+
 $lstart = $page*10-10;
-$arrComments = $db->fetch_all_assoc("select * from ".dbprefix."photo_comment where photoid='$photoid' limit $lstart,10");
+
+$arrComments = $new['photo']->findAll('photo_comment',array(
+	'photoid'=>$photoid,
+),'addtime desc',null,$lstart.',10');
+
 foreach($arrComments as $key=>$item){
 	$arrComment[] = $item;
 	$arrComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
+	$arrComment[$key]['content'] = htmlspecialchars($item['content']);
 }
 
-$comment_num = $db->once_num_rows("select * from ".dbprefix."photo_comment where photoid='$photoid'");
+$comment_num = $new['photo']->findCount('photo_comment',array(
+	'photoid'=>$photoid,
+));
+
 $pageUrl = pagination($comment_num, 10, $page, $url);
 
 
@@ -67,6 +87,4 @@ if($TS_USER['user']['userid'] == $userid){
 	$title = $strUser['username'].'的相册-'.$strAlbum['albumname'].'-第'.$nowPage.'张';
 }
 
-include template("photo_show");
-
-$db->query("update ".dbprefix."photo set `count_view`=count_view+1 where photoid='$photoid'");
+include template("show");

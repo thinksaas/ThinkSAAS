@@ -40,6 +40,7 @@ switch($ts){
 		$arrRole = $new['user']->findAll('user_role',null,null,'rolename,score_start,score_end');
 		
 		fileWrite('user_role.php','data',$arrRole);
+		$tsMySqlCache->set('user_role',$arrRole);
 		
 		qiMsg("修改成功！");
 		

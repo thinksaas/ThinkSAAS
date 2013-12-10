@@ -1,9 +1,12 @@
-<?php
+<?php 
 defined('IN_TS') or die('Access Denied.');
 
 $userid = intval($TS_USER['user']['userid']);
-if($userid == 0) header("Location: ".SITE_URL."index.php");
-$strUser = aac('user')->isUser($userid);
+
+if($userid==0){
+	return false;
+	exit;
+}
  
 switch($ts){
 
@@ -23,7 +26,7 @@ switch($ts){
 	//Flash上传
 	case "flash":
 		
-		$albumid = $_GET['albumid'];
+		$albumid = intval($_GET['albumid']);
 		$addtime = time();
 		
 		include template("ajax/flash");
@@ -31,6 +34,27 @@ switch($ts){
 	
 	//相册
 	case "album":
+		
+		$isAlbum = $new['photo']->findCount('photo_album',array(
+		
+			'userid'=>$userid,
+		
+		));
+		
+		if($isAlbum == 0){
+		
+			$new['photo']->create('photo_album',array(
+			
+				'userid'=>$userid,
+				'albumname'=>'默认相册',
+				'albumdesc'=>'默认相册',
+				'addtime'=>time(),
+				'uptime'=>time(),
+			
+			
+			));
+		
+		}
 		
 		$arrAlbum = $new['photo']->findAll('photo_album',array(
 			'userid'=>$userid,
@@ -48,11 +72,17 @@ switch($ts){
 			'albumid'=>$albumid,
 		));
 		
-		$page = isset($_GET['page']) ? $_GET['page'] : '1';
+		$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
 		$url = SITE_URL."index.php?app=photo&ac=ajax&ts=photo&albumid=".$albumid."&page=";
 		$lstart = $page*6-6;
-		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid' order by photoid desc limit $lstart ,6");
-		$photoNum = $db->once_num_rows("select * from ".dbprefix."photo where albumid='$albumid'");
+		
+		$arrPhoto = $new['photo']->findAll('photo',array(
+			'albumid'=>$albumid,
+		),'photoid desc',null,$lstart.',6');
+		
+		$photoNum = $new['photo']->findCount('photo',array(
+			'albumid'=>$albumid,
+		));
 		
 		$pageUrl = pagination($photoNum, 6, $page, $url);
 		
@@ -65,39 +95,62 @@ switch($ts){
 		
 	case "create_do":
 		$albumname = t($_POST['albumname']);
+		
 		if($albumname == '') qiMsg("相册名称不能为空！");
 		
 		$albumdesc = h($_POST['albumdesc']);
 		$addtime = time();
 		$uptime = time();
 		
-		$db->query("insert into ".dbprefix."photo_album (`userid`,`albumname`,`albumdesc`,`addtime`,`uptime`) values ('$userid','$albumname','$albumdesc','$addtime','$uptime')");
+		$albumid = $new['photo']->create('photo_album',array(
 		
-		$albumid = $db->insert_id();
+			'userid'=>$userid,
+			'albumname'=>$albumname,
+			'albumdesc'=>$albumdesc,
+			'addtime'=>time(),
+			'uptime'=>time(),
+			
+		));
 		
 		header("Location: ".SITE_URL."index.php?app=photo&ac=ajax&ts=flash&albumid=".$albumid);
 		break;
 	
 	//
 	case "info":
-		$albumid = $_GET['albumid'];
-		$addtime = $_GET['addtime'];
+		$albumid = intval($_GET['albumid']);
+		$addtime = intval($_GET['addtime']);
 		
-		$strAlbum = $db->once_fetch_assoc("select * from ".dbprefix."photo_album where albumid='$albumid'");
+		$strAlbum = $new['photo']->find('photo_album',array(
+			'albumid'=>$albumid,
+		));
 		
 		if($strAlbum['userid'] != $userid) qiMsg("非法操作！");
 		
 		//统计 
-		$count_photo = $db->once_num_rows("select * from ".dbprefix."photo where albumid='$albumid'");
-		$db->query("update ".dbprefix."photo_album set `count_photo`='$count_photo' where albumid='$albumid'");
+		$count_photo = $new['photo']->findCount('photo',array(
+			'albumid'=>$albumid,
+		));
+		
+		$new['photo']->update('photo_album',array(
+			'albumid'=>$albumid,
+		),array(
+			'count_photo'=>$count_photo,
+		));
 		
 		//添加相册封面
 		if($strAlbum['albumface'] == ''){
-			$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where albumid='$albumid' and userid='$userid' and addtime>'$addtime'");
-			$db->query("update ".dbprefix."photo_album set `albumface`='".$strPhoto['photourl']."' where albumid='$albumid'");
+			
+			$strPhoto = $new['photo']->find('photo',"`albumid`='$albumid' and `userid`='$userid' and `addtime`>'$addtime'");
+			
+			$new['photo']->update('photo_album',array(
+				'albumid'=>$albumid,
+			),array(
+				'albumface'=>$strPhoto['photourl'],
+			));
+			
 		}
 		
-		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid' and  userid='$userid' and addtime>'$addtime'");
+		$arrPhoto = $new['photo']->findAll('photo',"`albumid`='$albumid' and  `userid`='$userid' and `addtime`>'$addtime'");
 		
 		include template("ajax/info");
 		break;

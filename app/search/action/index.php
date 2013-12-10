@@ -20,6 +20,11 @@ switch($ts){
 		$title = '搜索用户';
 		break;
 		
+	//搜索文章
+	case "article":
+		$title = '搜索文章';
+		break;
+		
 }
 
 include template("index");

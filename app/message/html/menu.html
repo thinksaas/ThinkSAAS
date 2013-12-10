@@ -1,0 +1,13 @@
+<div class="tabnav">
+<ul>
+
+<li {if $ac=='my'}class="select"{/if}><a href="{tsUrl('message','my')}"><span>最新消息</span></a></li>
+
+<li {if $ac=='system'}class="select"{/if}><a href="{tsUrl('message','system')}"><span>系统消息</span></a></li>
+
+<li {if $ac=='friend' || $ac=='user'}class="select"{/if}><a  href="{tsUrl('message','friend')}">好友消息</a></li>
+
+
+</ul>
+</div>
+<div class="clear"></div>

@@ -3,25 +3,28 @@
 <!--main-->
 <div class="midder">
 <div class="mc">
+
+<div class="bbox mh400">
+
 {template set_menu}
 
-<div class="utable">
 <form method="POST" action="{SITE_URL}index.php?app=user&ac=do&ts=setemail">
-<table cellpadding="5" cellspacing="5">
+<table width="100%" class="commtable">
 <tr>
-<th>当前登录Email帐号：</th><td>{$strUser['email']}</td>
+<th>当前Email帐号：</th><td>{$strUser['email']}</td>
 </tr>
 <tr>
-<th>更新Email帐号：</th><td><input class="uinput" name="email" type="email" /></td>
+<th>新Email帐号：</th><td><input class="uinput" name="email" type="email" /></td>
 </tr>
 
-<tr><th></th><td><input class="submit" type="submit" value="修改登录帐号"  />（如果修改登录帐号，用户将会被重置未认证状态）</td></tr>
+<tr><th></th><td>
+<button class="btn btn-success" type="submit">修改</button>
+（修改登陆帐号将需要重新验证Email）</td></tr>
 
 </table>
 </form>
+
 </div>
-
-
 
 </div>
 </div>

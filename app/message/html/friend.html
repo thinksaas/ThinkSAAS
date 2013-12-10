@@ -1,0 +1,30 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+<div class="bbox mh400">
+
+{template menu}
+
+<div class="msgbox">
+
+
+<ul>
+{loop $arrToUser $key $item}
+<li>
+<a href="{tsUrl('message','user',array('touserid'=>$item['userid']))}"><img alt="{$item[user][username]}" class="m_sub_img" width="16" src="{$item[user][face]}" align="absmiddle" /> {$item[user][username]} </a>{if $item[count] > 0}({$item[count]}){/if}
+</li>
+{/loop}
+
+</ul>
+
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+{template footer}

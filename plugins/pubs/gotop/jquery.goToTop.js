@@ -52,6 +52,6 @@
 	};
 })(jQuery);
 $(function(){
-	$('<a href="#" class="go-top"><img src="'+siteUrl+'plugins/pubs/gotop/go-top.png" alt="回到顶部" /></a>').appendTo("body");
+	$('<a href="#" class="go-top"><img src="'+siteUrl+'plugins/pubs/gotop/go-top.png" alt="回到顶部" width="22" height="78" /></a>').appendTo("body");
 });
 

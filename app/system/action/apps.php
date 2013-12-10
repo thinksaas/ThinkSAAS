@@ -105,6 +105,7 @@ switch($ts){
 		}
 		
 		fileWrite('system_appnav.php','data',$arrNav);
+		$tsMySqlCache->set('system_appnav',$arrNav);
 		
 		echo '1';
 		
@@ -120,6 +121,7 @@ switch($ts){
 		unset($arrNav[$appkey]);
 		
 		fileWrite('system_appnav.php','data',$arrNav);
+		$tsMySqlCache->set('system_appnav',$arrNav);
 		
 		echo '1';
 		

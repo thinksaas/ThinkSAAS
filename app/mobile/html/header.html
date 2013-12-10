@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{$title}</title>
+<link rel="stylesheet" type="text/css" href="{SITE_URL}app/mobile/skins/default/style.css" />
+
+</head>
+
+<body>
+<div class="header">
+<div class="logo">
+<a href="{tsUrl('mobile')}"></a>
+</div>
+<div class="nav">
+<ul>
+<li {if $ac=='index'}class="on"{/if}><a href="{tsUrl('mobile')}">首页</a></li>
+<li {if $ac=='group'}class="on"{/if}><a href="{tsUrl('mobile','group')}">小组</a></li>
+<li {if $ac=='topic'}class="on"{/if}><a href="{tsUrl('mobile','topic')}">帖子</a></li>
+<li {if $ac=='user'}class="on"{/if}><a href="{tsUrl('mobile','user')}">用户</a></li>
+</ul>
+</div>
+</div>

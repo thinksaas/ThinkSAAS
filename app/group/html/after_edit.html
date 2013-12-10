@@ -1,32 +1,36 @@
 {template header}
-
-<!--main-->
 <div class="midder">
 <div class="mc">
+
+<div class="bbox">
 <h1>补贴修改：</h1>
+<div class="bc">
+<form method="POST" action="{tsUrl('group','after',array('ts'=>'edo'))}"  enctype="multipart/form-data">
+<table class="commtable">
 
-<form method="POST" action="{SITE_URL}index.php?app=group&ac=after&ts=edo"  enctype="multipart/form-data">
-<table width="100%">
-<tbody>
 <tr>
-<td valign="top">
+<th valign="top">
 内容*
-</td><td><textarea style="width:600px;height:150px;font-size:14px;" name="content">{$strAfter['content']}</textarea></td></tr>
+</th><td><textarea id="tseditor" style="width:600px;font-size:14px;" name="content">{$strAfter['content']}</textarea></td></tr>
 
-<tr><td width="50">标题：</td>
-<td><input style="padding:3px 0;width:210px;" type="text" name="title" value="{$strAfter['title']}" /> (可选)</td></tr>	
+<tr><th>标题：</th>
+<td><input style="padding:3px 0;width:300px;" type="text" name="title" value="{$strAfter['title']}" /> (可选)</td></tr>	
 
-<tr><td>图片：</td><td><input type="file" name="picfile" /> (仅支持jpg,gif,png格式图片)</td></tr>
-<tr><td>附件：</td><td><input type="file" name="attfile" />  (仅支持zip,rar,dic,txt,pdf,ppt,docx,xls,xlsx格式附件)</td></tr>
-
-<tr><td></td><td>
+<tr><th></th><td>
 <input type="hidden" name="afterid" value="{$strAfter['id']}" />
-<input class="submit" type="submit" value="修改" /> <a href="{SITE_URL}{tsUrl('group','topic',array('id'=>$strAfter['topicid']))}">返回</a>
-</td></tr></tbody>
+
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+
+<button class="btn btn-success" type="submit">修改</button>
+
+<a href="{tsUrl('group','topic',array('id'=>$strAfter['topicid']))}">返回</a>
+</td></tr>
 </table>
 </form>
-
+</div>
+</div>
 </div>
 
 </div>
+{php doAction('tseditor')}
 {template footer}

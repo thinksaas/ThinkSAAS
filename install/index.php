@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
  *ThinkSAAS 安装程序
  * @copyright (c) 2010-3000 ThinkSAAS All Rights Reserved
  * @code by QiuJun
- * @Email:qiniao@vip.qq.com
+ * @Email:thinksaas@qq.com
  */
 
 //安装文件的IMG，CSS文件

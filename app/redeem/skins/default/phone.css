@@ -1,0 +1,21 @@
+.midder{margin-top:0px;width:100%;background:url(bg.gif) repeat-x;border:none;}
+
+.midder .mc{width:980px;margin:0 auto;}
+
+.midder .mc .cleft{background:url(1.gif) no-repeat;height:550px;margin-top:50px;}
+
+.midder .mc .cright{padding-top:100px;}
+
+.midder .mc .cright h1{background:url(2.gif) no-repeat;padding-left:50px;}
+
+.appnav{display:none;}
+
+.pinfo{margin-top:20px;font-size:14px;line-height:25px;}
+
+.iphone{margin:30px 0 30px 0;font-size:24px;background:url(3.gif)  20px 15px no-repeat #FFFFFF;width:200px;padding:10px 10px 10px 50px;border-radius: 30px;border:solid 1px #CCCCCC;}
+
+.iother{margin-top:10px;padding:5px 10px;border-radius: 20px;width:120px;background:#999999;text-align:center;color:#FFFFFF;}
+
+.iother a{color:#FFFFFF;}
+
+.discuz{font-size:24px;text-align:center;padding-bottom:50px;}

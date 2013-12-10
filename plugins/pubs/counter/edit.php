@@ -3,7 +3,10 @@ defined('IN_TS') or die('Access Denied.');
 //插件编辑
 switch($ts){
 	case "set":
-		$code = fileRead('plugins/pubs/counter/data.php');
+		$code = fileRead('data/plugins_pubs_counter.php');
+		if($code==''){
+			$code = $tsMySqlCache->get('plugins_pubs_counter');
+		}
 		$code = stripslashes($code);
 		
 		include 'edit_set.html';
@@ -12,8 +15,9 @@ switch($ts){
 	case "do":
 		$code = $_POST['code'];
 		
-		fileWrite('data.php','plugins/pubs/counter',$code);
+		fileWrite('plugins_pubs_counter.php','data',$code);
+		$tsMySqlCache->set('plugins_pubs_counter',$code);
 		
-		qiMsg("修改成功！");
+		header('Location: '.SITE_URL.'index.php?app=pubs&ac=plugin&plugin=counter&in=edit&ts=set');
 		break;
 }

@@ -1,5 +1,5 @@
 {php include template("admin/header");}
-<!--main-->
+
 <div class="midder">
 
 {php include template("admin/menu");}
@@ -15,8 +15,8 @@
 <td>会员发帖设置：</td>
 <td>
 <select name="ispost">
-<option <!--{if $arrGroup[ispost]==0}--> selected="selected"<!--{/if}--> value="0">允许会员发帖</option>
-<option <!--{if $arrGroup[ispost]==1}--> selected="selected"<!--{/if}--> value="1">不允许会员发帖</option>
+<option {if $arrGroup[ispost]==0} selected="selected"{/if} value="0">允许会员发帖</option>
+<option {if $arrGroup[ispost]==1} selected="selected"{/if} value="1">不允许会员发帖</option>
 </select>
 </td>
 </tr>

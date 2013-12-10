@@ -1,9 +1,9 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-$userid = $_POST['userid'];
-$touserid = $_POST['touserid'];
-$content = $_POST['content'];
+$userid = intval($_POST['userid']);
+$touserid = intval($_POST['touserid']);
+$content = t($_POST['content']);
 
 $new['message']->sendmsg($userid,$touserid,$content);
 

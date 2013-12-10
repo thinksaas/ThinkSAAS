@@ -15,29 +15,17 @@ class group extends tsApp{
 		));
 		
 		$strGroup['groupname'] = htmlspecialchars($strGroup['groupname']);
-		$strGroup['groupdesc'] = nl2br(htmlspecialchars($strGroup['groupdesc']));
 		
-		if($strGroup['groupicon'] == ''){
+		if($strGroup['photo'] == ''){
 			$strGroup['icon_48'] = SITE_URL.'public/images/group.jpg';
 			$strGroup['icon_16'] = SITE_URL.'public/images/group.jpg';
 		}else{
-			$strGroup['icon_48'] = SITE_URL.tsXimg($strGroup['groupicon'],'group',48,48,$strGroup['path'],1);
-			$strGroup['icon_16'] = SITE_URL.tsXimg($strGroup['groupicon'],'group',16,16,$strGroup['path'],1);
+			$strGroup['icon_48'] = tsXimg($strGroup['photo'],'group',60,60,$strGroup['path'],1);
+			$strGroup['icon_16'] = tsXimg($strGroup['photo'],'group',16,16,$strGroup['path'],1);
 		}
 		
 		return $strGroup;
 
-	}
-	
-	/*
-	 *获取小组全部内容列表
-	 */
-
-	function getGroupContent($page = 1, $prePageNum,$groupid){
-		$start_limit = !empty($page) ? ($page - 1) * $prePageNum : 0;
-		$limit = $prePageNum ? "LIMIT $start_limit, $prePageNum" : '';
-		$arrGroupContent	= $this->db->fetch_all_assoc("select * from ".dbprefix."group_topics where groupid='$groupid' order by addtime desc $limit");
-		return $arrGroupContent;
 	}
 	
 	//获取推荐的小组
@@ -56,7 +44,7 @@ class group extends tsApp{
 	
 	//获取最新创建的小组
 	function getNewGroup($num){
-		$arrNewGroups = $this->db->fetch_all_assoc("select groupid from ".dbprefix."group where isshow='0' order by addtime desc limit $num");
+		$arrNewGroups = $this->db->fetch_all_assoc("select groupid from ".dbprefix."group where `isaudit`='0' order by addtime desc limit $num");
 		if(is_array($arrNewGroups)){
 			foreach($arrNewGroups as $item){
 				$arrNewGroup[] = $this->getOneGroup($item['groupid']);
@@ -65,32 +53,13 @@ class group extends tsApp{
 		return $arrNewGroup;
 	}
 	
+
 	
-	/*
-	 *获取小组全部内容数
-	 */
-	
-	function getGroupContentNum($virtue, $setvirtue){
-		$where = 'where '.$virtue.'='.$setvirtue.'';
-		$sql = "SELECT * FROM ".dbprefix."group_topics $where";
-		$groupContentNum = $this->db->once_num_rows($sql);
-		return $groupContentNum;
-	}
-	
-	/*
-	 *获取内容
-	 */
-	 
-	function getOneGroupContent($topicid){
-		$strGroupContent = $this->db->once_fetch_assoc("select * from ".dbprefix."group_topics where topicid=$topicid");
-		return $strGroupContent;
-	}
 	
 	//Refer二级循环，三级循环暂时免谈
 	function recomment($referid){
-		$strComment = $this->db->once_fetch_assoc("select * from ".dbprefix."group_topics_comments where commentid='$referid'");
+		$strComment = $this->db->once_fetch_assoc("select * from ".dbprefix."group_topic_comment where commentid='$referid'");
 		$strComment['user'] = aac('user')->getOneUser($strComment['userid']);
-		$strComment['content'] = BBCode2Html($strComment['content']);
 		return $strComment;
 	}
 
@@ -98,7 +67,7 @@ class group extends tsApp{
 	//是否存在帖子 
 	public function isTopic($topicid){
 		
-		$isTopic = $this->findCount('group_topics',array(
+		$isTopic = $this->findCount('group_topic',array(
 			'topicid'=>$topicid,
 		));
 		
@@ -110,27 +79,6 @@ class group extends tsApp{
 			
 			return false;
 			
-		}
-		
-	}
-	
-	//获取一条帖子 
-	public function getOneTopic($topicid){
-		
-		if($this->isTopic($topicid)){
-			
-			$strTopic = $this->find('group_topics',array(
-				'topicid'=>$topicid,
-			));
-			
-			$strTopic['title'] = htmlspecialchars($strTopic['title']);
-			
-			$strTopic['content'] = BBCode2Html($strTopic['content']);
-			
-			return $strTopic;
-			
-		}else{
-			return false;
 		}
 		
 	}
@@ -149,30 +97,13 @@ class group extends tsApp{
 		}
 	}
 	
-	//获取小组最新帖子 
-	function newTopic($groupid=null,$limit){
-	
-		$conditions = null;
-		if($groupid) $conditions = array('groupid'=>$groupid,'isshow'=>0);
-		$arrTopics = aac('group')->findAll('group_topics',$conditions,'addtime desc','topicid,title',$limit);
-		
-		foreach($arrTopics as $key=>$item){
-		
-			$arrTopic[] = $item;
-			$arrTopic[$key]['title'] = htmlspecialchars($item['title']);
-			
-		}
-		
-		return $arrTopic;
-	
-	}
-	
+
 	//获取话题补贴
 	public function topicAfter($topicid){
 	
 		$arrAfter = null;
 		
-		$arrAfters = $this->findAll('group_topics_add',array(
+		$arrAfters = $this->findAll('group_topic_add',array(
 			'topicid'=>$topicid,
 		));
 		
@@ -180,7 +111,7 @@ class group extends tsApp{
 			$arrAfter[] = $item;
 			$arrAfter[$key]['user'] = aac('user')->getOneUser($item['userid']);
 			$arrAfter[$key]['title']=htmlspecialchars(stripslashes($item['title']));
-			$arrAfter[$key]['content']=BBCode2Html($item['content']);
+
 		}
 		
 		return $arrAfter;
@@ -190,14 +121,15 @@ class group extends tsApp{
 	//删除帖子
 	public function delTopic($topicid){
 
-		$strTopic = $this->find('group_topics',array(
+		$strTopic = $this->find('group_topic',array(
 			'topicid'=>$topicid,
 		));
 
-		$this->delete('group_topics',array('topicid'=>$topicid));
-		$this->delete('group_topics_comments',array('topicid'=>$topicid));
+		$this->delete('group_topic',array('topicid'=>$topicid));
+		$this->delete('group_topic_edit',array('topicid'=>$topicid));
+		$this->delete('group_topic_comment',array('topicid'=>$topicid));
 		$this->delete('tag_topic_index',array('topicid'=>$topicid));
-		$this->delete('group_topics_collects',array('topicid'=>$topicid));
+		$this->delete('group_topic_collect',array('topicid'=>$topicid));
 		
 		//删除图片
 		if($strTopic['photo']){
@@ -213,13 +145,15 @@ class group extends tsApp{
 		
 		$this->delTopicComment($topicid);
 		
+		$this->countTopic($strTopic['groupid']);
+		
 		return true;
 		
 	}
 	
 	//删除话题补贴
 	public function delTopicAfter($topicid){
-		$arrAfter = $this->findAll('group_topics_add',array(
+		$arrAfter = $this->findAll('group_topic_add',array(
 			'topicid'=>$topicid,
 		));
 		
@@ -232,7 +166,7 @@ class group extends tsApp{
 			}
 		}
 		
-		$this->delete('group_topics_add',array(
+		$this->delete('group_topic_add',array(
 			'topicid'=>$topicid,
 		));
 		
@@ -242,7 +176,7 @@ class group extends tsApp{
 	
 	//删除补贴
 	public function delAfter($id){
-		$strAfter = $this->find('group_topics_add',array(
+		$strAfter = $this->find('group_topic_add',array(
 			'id'=>$id,
 		));
 		
@@ -255,7 +189,7 @@ class group extends tsApp{
 			unlink('uploadfile/after/'.$strAfter['attach']);
 		}
 		
-		$this->delete('group_topics_add',array(
+		$this->delete('group_topic_add',array(
 			'id'=>$id,
 		));
 		
@@ -264,7 +198,7 @@ class group extends tsApp{
 	
 	//删除话题评论
 	public function delTopicComment($topicid){
-		$arrComment = $this->findAll('group_topics_comments',array(
+		$arrComment = $this->findAll('group_topic_comment',array(
 			'topicid'=>$topicid,
 		));
 		
@@ -278,7 +212,7 @@ class group extends tsApp{
 	
 	//删除评论
 	public function delComment($commentid){
-		$strComment = $this->find('group_topics_comments',array(
+		$strComment = $this->find('group_topic_comment',array(
 			'commentid'=>$commentid,
 		));
 		
@@ -291,7 +225,7 @@ class group extends tsApp{
 			unlink('uploadfile/comment/'.$strComment['attach']);
 		}
 		
-		$this->delete('group_topics_comments',array(
+		$this->delete('group_topic_comment',array(
 			'commentid'=>$commentid,
 		));
 		
@@ -305,7 +239,7 @@ class group extends tsApp{
 		$startTime = time()-($day*3600*60);
 		$endTime = time();
 		
-		$arrTopic = $this->findAll('group_topics',"`addtime`>'$startTime' and `addtime` < '$endTime' and `isshow`='0'",'count_comment desc',null,$num);
+		$arrTopic = $this->findAll('group_topic',"`addtime`>'$startTime' and `addtime` < '$endTime' and and `isaudit`='0'",'count_comment desc',null,$num);
 		
 		return $arrTopic;
 		
@@ -313,15 +247,15 @@ class group extends tsApp{
 	
 	//推荐喜欢的帖子
 	public function loveTopic($topicId,$userNum){
-		$strLike['num'] = $this->findCount('group_topics_collects',array(
+		$strLike['num'] = $this->findCount('group_topic_collect',array(
 			'topicid'=>$topicId,
 		));
 		
-		$strLike['topic']=$this->find('group_topics',array(
+		$strLike['topic']=$this->find('group_topic',array(
 			'topicid'=>$topicId,
 		));
 		
-		$likeUsers = $this->findAll('group_topics_collects',array(
+		$likeUsers = $this->findAll('group_topic_collect',array(
 			'topicid'=>$topicId,
 		),'addtime desc',null,$userNum);
 		
@@ -330,8 +264,41 @@ class group extends tsApp{
 		}
 		
 		return $strLike;
+	}
+
+	/*
+	 * 统计小组里的话题并更新到小组
+	 */
+	public function countTopic($groupid){
+		$count_topic = $this->findCount('group_topic',array(
+			'groupid'=>$groupid,
+		));
+		
+		$this->update('group',array(
+			'groupid'=>$groupid,
+		),array(
+			'count_topic'=>$count_topic,
+		));
 		
 	}
+	
+	//热门帖子,1天，7天，30天
+	public function getHotTopic($day){
+		$startTime = time()-($day*3600*60);
+		
+		$endTime = time();
+		
+		$arr = "`addtime`>'$startTime' and `count_view`>'0' and `addtime`<'$endTime'";
+		
+		$arrTopic = $this->findAll('group_topic',$arr,'addtime desc','topicid,title,count_view,count_comment',10);
+		foreach($arrTopic as $key=>$item){
+			$arrTopic[$key]['title']=htmlspecialchars($item['title']);
+		}
+		
+		return $arrTopic;
+		
+	}
+	
 	
 	//析构函数
 	public function __destruct(){

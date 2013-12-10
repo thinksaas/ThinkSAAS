@@ -1,8 +1,9 @@
 <div class="infomenu">
 <ul>
-<li><a <!--{if $ac=='about'}-->class="select"<!--{/if}--> href="{SITE_URL}{tsUrl('home','about')}">关于我们</a></li>
-<li><a <!--{if $ac=='contact'}-->class="select"<!--{/if}--> href="{SITE_URL}{tsUrl('home','contact')}">联系我们</a></li>
-<li><a <!--{if $ac=='agreement'}-->class="select"<!--{/if}--> href="{SITE_URL}{tsUrl('home','agreement')}">用户协议</a></li>
-<li><a <!--{if $ac=='privacy'}-->class="select"<!--{/if}--> href="{SITE_URL}{tsUrl('home','privacy')}">隐私声明</a></li>
+
+{loop $arrInfo $k $v}
+<li><a {if $key==$v['infokey']}class="select"{/if} href="{tsUrl('home','info',array('key'=>$v['infokey']))}">{$v['title']}</a></li>
+{/loop}
+
 </ul>
 </div>

@@ -1,0 +1,34 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+<div class="bbox">
+
+{template album_menu}
+
+<ul class="album">
+
+{loop $arrAlbum $key $item}
+<li class="bbox">
+<div class="bc">
+<div class="al">
+<div class="num">{$item['count_topic']}</div>
+<div class="tz">帖子</div>
+</div>
+<div class="ar">
+<h3><a href="{tsUrl('group','album',array('id'=>$item['albumid']))}">{php echo htmlspecialchars($item['albumname'])}</a></h3>
+<div class="info">{$item['albumdesc']}</div>
+<div class="time">创建于{$item['addtime']}</div>
+</div>
+</div>
+</li>
+{/loop}
+</ul>
+
+</div>
+
+
+</div>
+</div>
+{template footer}

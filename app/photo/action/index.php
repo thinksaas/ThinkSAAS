@@ -1,20 +1,21 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
-$page = isset($_GET['page']) ? $_GET['page'] : '1';
 
-$url = SITE_URL.tsUrl('photo','index',array('page'=>''));
+$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
 
-$lstart = $page*28-28;
+$url = tsUrl('photo','index',array('page'=>''));
 
-$arrPhoto = $new['photo']->findAll('photo',array(
-	'isrecommend'=>'1',
-),'photoid desc',null,$lstart.',28');
+$lstart = $page*25-25;
 
-$photoNum = $new['photo']->findCount('photo',array(
-	'isrecommend'=>'1',
-));
+$arrAlbum = $new['photo']->findAll('photo_album',null,'albumid desc',null,$lstart.',25');
 
-$pageUrl = pagination($photoNum, 28, $page, $url);
+foreach($arrAlbum as $key=>$item){
+	$arrAlbum[$key]['albumname'] = htmlspecialchars($item['albumname']);
+}
 
-$title = '推荐图片';
+$albumNum = $new['photo']->findCount('photo_album');
+
+$pageUrl = pagination($albumNum, 25, $page, $url);
+
+$title = '最新专辑';
 include template("index");
