@@ -11,7 +11,7 @@
 <form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=photo" enctype="multipart/form-data" >
 <table width="100%" class="commtable">
 <tr><th>小组图标：</th><td>
-     <img alt="{$strGroup[groupname]}" title="{$strGroup[groupname]}" valign="middle" src="{if $strGroup[photo]}{php echo tsXimg($strGroup[photo],'group','48','48',$strGroup[path])}{else}{SITE_URL}public/images/group.jpg{/if}" class="pil"></td></tr>
+     <img alt="{$strGroup[groupname]}" title="{$strGroup[groupname]}" valign="middle" src="{if $strGroup[photo]}{php echo tsXimg($strGroup[photo],'group','48','48',$strGroup[path])}?v={php echo rand();}{else}{SITE_URL}public/images/group.jpg{/if}" class="pil"></td></tr>
 <tr>
 <th>选择图片：</th>
      <td>

@@ -122,6 +122,9 @@ switch ($ts) {
 				'photo'=>$arrUpload['url'],
 			));
 			
+			tsDimg($arrUpload['url'],'group','48','48',$arrUpload['path']);
+			tsDimg($arrUpload['url'],'group','16','16',$arrUpload['path']);
+			
 			tsNotice("小组图标修改成功！");
 			
 		}else{
