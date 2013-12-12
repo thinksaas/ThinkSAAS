@@ -13,6 +13,7 @@
 <tr><td valign="top">资料库介绍：</td><td><textarea style="width:300px;height:100px;" name="content">{$strAlbum['content']}</textarea></td></tr>
 <tr><td></td><td>
 <input type="hidden" name="albumid" value="{$strAlbum['albumid']}" />
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
 <input class="btn btn-success" type="submit" value="修改" />
 </td></tr>
 </table>

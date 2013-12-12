@@ -21,21 +21,16 @@ switch($ts){
 		include template("message_add");
 		break;
 	
-	//
 	case "do":
 	
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
-	
-		$msg_userid = intval($_POST['userid']);
+		$msg_userid = $userid;
 		$msg_touserid = intval($_POST['touserid']);
-		$msg_content = t($_POST['content']);
+		$msg_content = tsFliter($_POST['content']);
 		
 		aac('system')->antiWord($msg_content);
 		
 		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
-		header("Location: ".SITE_URL."index.php?app=message&ac=my");
+		header("Location: ".tsUrl('message','my'));
 		
 		break;
 }

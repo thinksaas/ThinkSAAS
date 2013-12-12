@@ -149,7 +149,7 @@
 <form method="post" action="{tsUrl('group','do',array('ts'=>'invite'))}">
 <input type="text" name="userid" value="" /> 
 <input type="hidden" name="groupid" value="{$strGroup['groupid']}" />
-
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
 <button class="btn btn-success" type="submit">邀请</button>
 
 </p>
