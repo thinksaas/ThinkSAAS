@@ -1,0 +1,26 @@
+.mt20{margin-top:20px}
+
+
+.header{background: #49a5de;}
+
+.header .logo {
+	background: url('logo.gif') no-repeat;
+	width: 190px;
+	height: 40px
+}
+
+.header .navbar{margin-bottom:0;}
+.header .navbar-nav > li > a {
+color: #fff;
+}
+.header .nav>li>a:hover, .header .nav>li>a:focus {
+text-decoration: none;
+background-color: #0099FF;
+}
+
+.footer{color: #999;
+text-align: center;
+padding: 30px 0;
+margin-top: 70px;
+border-top: 1px solid #e5e5e5;
+background-color: #f5f5f5;}

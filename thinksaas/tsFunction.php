@@ -1513,60 +1513,6 @@ function userlog(&$array, $userid) {
 }
 
 /**
- * 为变量或者数组添加转义
- * 
- * @param string $value
- *        	- 字符串或者数组变量
- * @return array
- *
- */
-function tsadds($value) {
-	return $value = is_array ( $value ) ? array_map ( 'tsadds', $value ) : addslashes ( $value );
-}
-
-/**
- * 获取GPC变量。对于type为integer的变量强制转化为数字型
- * @param string $key
- *        	- 权限表达式
- * @param string $type
- *        	- integer 数字类型；string 字符串类型；array 数组类型
- * @param string $var
- *        	- R $REQUEST变量；G $GET变量；P $POST变量；C $COOKIE变量
- * @return string 返回经过过滤或者初始化的GPC变量
- *        
- */
-function tsgpc($key, $type = 'integer', $var = 'R') {
-	switch ($var) {
-		case 'G' :
-			$var = &$_GET;
-			break;
-		case 'P' :
-			$var = &$_POST;
-			break;
-		case 'C' :
-			$var = &$_COOKIE;
-			break;
-		case 'R' :
-			$var = &$_REQUEST;
-			break;
-	}
-	switch ($type) {
-		case 'integer' :
-			$return = isset ( $var [$key] ) ? intval ( $var [$key] ) : 0;
-			break;
-		case 'string' :
-			$return = isset ( $var [$key] ) ? $var [$key] : NULL;
-			break;
-		case 'array' :
-			$return = isset ( $var [$key] ) ? $var [$key] : array ();
-			break;
-		default :
-			$return = isset ( $var [$key] ) ? intval ( $var [$key] ) : 0;
-	}
-	return $return;
-}
-
-/**
  * 过滤脚本代码
  * @param unknown $text
  * @return mixed
@@ -1583,7 +1529,7 @@ function cleanJs($text) {
 	// 过滤多余html
 	$text = preg_replace ( '/<\/?(html|head|meta|link|base|body|title|style|script|form|iframe|frame|frameset)[^><]*>/i', '', $text );
 	// 过滤on事件lang js
-	while ( preg_match ( '/(<[^><]+)(lang|onfinish|onmouse|onexit|onerror|onclick|onkey|onload|onchange|onfocus|onblur)[^><]+/i', $text, $mat ) ) {
+	while ( preg_match ( '/(<[^><]+)(lang|data|onfinish|onmouse|onexit|onerror|onclick|onkey|onload|onchange|onfocus|onblur)[^><]+/i', $text, $mat ) ) {
 		$text = str_replace ( $mat [0], $mat [1], $text );
 	}
 	while ( preg_match ( '/(<[^><]+)(window\.|javascript:|js:|about:|file:|document\.|vbs:|cookie)([^><]*)/i', $text, $mat ) ) {
@@ -1657,13 +1603,59 @@ function tsFilter($value){
 	$words[] = "union ";
 	$words[] = "where ";
 	$words[] = "alert";
-	$words[] = "%";
-	$words[] = "/";
+	//$words[] = "%";
+	//$words[] = "/";
 	$value = strtolower($value);//转换为小写
 	foreach($words as $word){
 		if(strstr($value,$word)){
 			$value = str_replace($word,'',$value);
 		}
 	}
+	
+	$value = str_replace ( "_", "\_", $value ); 
+	//把"_"过滤掉 
+	$value = str_replace ( "%", "\%", $value ); 
+	//把"%"过滤掉 
+	
 	return $value;
+}
+
+
+function tsgpc(&$array) { 
+	//如果是数组，遍历数组，递归调用 
+	if (is_array ( $array )) { 
+		foreach ( $array as $k => $v ) { 
+			$array [$k] = tsgpc ( $v ); 
+		} 
+	} else if (is_string ( $array )) { 
+		//使用addslashes函数来处理 
+		$array = addslashes ( closetags($array) ); 
+	} else if (is_numeric ( $array )) { 
+		$array = intval ( $array ); 
+	} 
+	return $array; 
+} 
+
+/**
+ * 检查标签是否闭合
+ */
+function closetags($html) {
+    preg_match_all('#<(?!meta|img|br|hr|input\b)\b([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
+    $openedtags = $result[1];
+    preg_match_all('#</([a-z]+)>#iU', $html, $result);
+    $closedtags = $result[1];
+    $len_opened = count($openedtags);
+    $len_closed = count($closedtags);
+    if ($len_closed == $len_opened) {
+        return $html;
+    }
+    $openedtags = array_reverse($openedtags);
+    for ($i=0; $i < $len_opened; $i++) {
+        if (!in_array($openedtags[$i], $closedtags)) {
+            $html .= '</'.$openedtags[$i].'>';
+        } else {
+            unset($closedtags[array_search($openedtags[$i], $closedtags)]);
+        }
+    }
+    return $html;
 }

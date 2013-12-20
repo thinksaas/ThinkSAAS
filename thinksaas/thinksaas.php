@@ -156,6 +156,15 @@ if($TS_CF['subdomain'] && $app=='home'){
 	}
 }
 
+//判断magic_quotes_gpc状态 
+if (get_magic_quotes_gpc ()) { 
+	$_GET = tsgpc ( $_GET ); 
+	$_POST = tsgpc ( $_POST ); 
+	$_COOKIE = tsgpc ( $_COOKIE ); 
+	//$_FILES = tsgpc ( $_FILES ); 
+} 
+//$_SERVER = tsgpc ( $_SERVER ); 
+
 //Action专用
 $ac = isset($_GET['ac']) ? tsFilter($_GET['ac']) : 'index';
 //ThinkSAAS专用
@@ -171,13 +180,10 @@ $in = isset($_GET['in']) ? tsFilter($_GET['in']) : '';
 //皮肤
 $tstheme = isset($_COOKIE['tsTheme']) ? tsFilter($_COOKIE['tsTheme']) : 'sample';
 
-tsgpc('app','string');
-tsgpc('ac','string');
-tsgpc('ts','string');
-tsgpc('mg','string');
-tsgpc('api','string');
-tsgpc('plugin','string');
-tsgpc('in','string');
+//360安全过滤
+if(is_file($_SERVER['DOCUMENT_ROOT'].'/360safe/360webscan.php')){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/360safe/360webscan.php');
+} 
 
 //加载APP配置文件
 include 'app/'.$app.'/config.php';
