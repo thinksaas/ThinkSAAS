@@ -23,7 +23,7 @@ if($strTopic['isaudit']==1){
 
 
 $strTopic['title'] = htmlspecialchars($strTopic['title']);
-$strTopic['content'] = nl2br($strTopic['content']);
+$strTopic['content'] = nl2br(stripslashes($strTopic['content']));
 
 //编辑的数据
 if($strTopic['userid']==$TS_USER['user']['userid']){

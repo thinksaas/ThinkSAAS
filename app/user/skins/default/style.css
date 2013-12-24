@@ -388,9 +388,8 @@ fieldset, img {
 .glist ul{}
 .glist ul li{border-bottom: 1px solid #DDDDDD;overflow: hidden;padding: 10px 0;}
 .glist li img{float:left;}
-.glist li div{float:left;margin-left:10px;}
-.glist li div p{margin:0;padding:0;color:#999}
-.glist li div .content{line-height:23px;}
+.glist li .content{margin-left:60px;line-height:25px;}
+.glist li .content p{padding:0px;margin:0;}
 
 /*小组列表*/
 .sub-item{

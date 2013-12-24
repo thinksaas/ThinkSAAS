@@ -40,7 +40,7 @@
 {if $item['topic']}
 <div class="other">
 {loop $item['topic'] $tkey $titem}
-<p><a href="{tsUrl('group','topic',array('id'=>$titem['topicid']))}">{$titem['title']}</a></p>
+<p><a href="{tsUrl('group','topic',array('id'=>$titem['topicid']))}">{php echo htmlspecialchars($titem['title'])}</a></p>
 {/loop}
 </div>
 {/if}

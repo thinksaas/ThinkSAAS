@@ -20,6 +20,9 @@ if ($strArticle ['isaudit'] == 1) {
 	tsNotice ( '文章审核中...' );
 }
 
+$strArticle['title'] = htmlspecialchars($strArticle['title']);
+$strArticle['content'] = nl2br(stripslashes($strArticle['title']));
+
 $strArticle ['tags'] = aac ( 'tag' )->getObjTagByObjid ( 'article', 'articleid', $articleid );
 $strArticle ['user'] = aac ( 'user' )->getOneUser ( $strArticle ['userid'] );
 $strArticle ['cate'] = $new ['article']->find ( 'article_cate', array (

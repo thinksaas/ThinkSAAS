@@ -1603,19 +1603,12 @@ function tsFilter($value){
 	$words[] = "union ";
 	$words[] = "where ";
 	$words[] = "alert";
-	//$words[] = "%";
-	//$words[] = "/";
 	$value = strtolower($value);//转换为小写
 	foreach($words as $word){
 		if(strstr($value,$word)){
 			$value = str_replace($word,'',$value);
 		}
 	}
-	
-	$value = str_replace ( "_", "\_", $value ); 
-	//把"_"过滤掉 
-	$value = str_replace ( "%", "\%", $value ); 
-	//把"%"过滤掉 
 	
 	return $value;
 }

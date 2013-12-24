@@ -157,7 +157,7 @@ if($TS_CF['subdomain'] && $app=='home'){
 }
 
 //判断magic_quotes_gpc状态 
-if (get_magic_quotes_gpc ()) { 
+if(!get_magic_quotes_gpc()) { 
 	$_GET = tsgpc ( $_GET ); 
 	$_POST = tsgpc ( $_POST ); 
 	$_COOKIE = tsgpc ( $_COOKIE ); 

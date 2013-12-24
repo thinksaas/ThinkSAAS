@@ -7,13 +7,19 @@ class tsSession {
       * @var resource 
       */ 
      private static $_sess_db; 
+	 
+	function __destruct() {
+		session_write_close();
+	}
   
      /** 
       * Open the session 
       * @return bool 
       */ 
      public static function open() { 
-         global $TS_DB;
+         
+		 include 'data/config.inc.php';
+		 
          if (self::$_sess_db = mysql_connect($TS_DB['host'].':'.$TS_DB['port'], $TS_DB['user'], $TS_DB['pwd'])) { 
              return mysql_select_db($TS_DB['name'], self::$_sess_db); 
          } 
@@ -33,9 +39,13 @@ class tsSession {
       * @param int session id 
       * @return string string of the sessoin 
       */ 
-     public static function read($id) { 
+     public static function read($id) {
+		
          $id = mysql_real_escape_string($id); 
          $sql = sprintf("SELECT `session_data` FROM `".dbprefix."session` WHERE `session` = '%s'", $id); 
+		 
+		 //echo $sql;
+		 
          if ($result = mysql_query($sql, self::$_sess_db)) { 
              if (mysql_num_rows($result)) { 
                  $record = mysql_fetch_assoc($result); 
@@ -50,7 +60,7 @@ class tsSession {
       * @param int session id 
       * @param string data of the session 
       */ 
-     public static function write($id, $data) { 
+     public function write($id, $data) { 
 		$userid = intval($_SESSION['tsuser']['userid']);
          $sql = sprintf("REPLACE INTO `".dbprefix."session` VALUES('%s', '%s', '%s', '%s', '%s', '%s')", 
                         mysql_real_escape_string($id), 
