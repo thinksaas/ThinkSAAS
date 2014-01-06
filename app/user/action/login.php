@@ -86,7 +86,7 @@ switch($ts){
 		$userid = $userData['userid'];
 		
 		//一天之内登录只算一次积分
-		if($strDate['uptime'] < strtotime(date('Y-m-d'))){
+		if($userData['uptime'] < strtotime(date('Y-m-d'))){
 			//对积分进行处理
 			aac('user')->doScore($app,$ac,$ts);
 		}

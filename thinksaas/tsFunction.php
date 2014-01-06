@@ -1325,6 +1325,8 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 		
 		createFolders ( $dest_dir );
 		
+		//$ext = pathinfo($files['name'],PATHINFO_EXTENSION);
+		
 		$arrType = explode ( '.', strtolower ( $files ['name'] ) ); // 转小写一下
 		
 		$type = array_pop ( $arrType );
@@ -1345,7 +1347,7 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 			$filesize = filesize ( $dest );
 			if (intval ( $filesize ) > 0) {
 				return array (
-						'name' => $files ['name'],
+						'name' => tsFilter($files ['name']),
 						'path' => $path,
 						'url' => $path . '/' . $name,
 						'type' => $type,
