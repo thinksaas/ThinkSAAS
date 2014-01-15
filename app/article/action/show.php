@@ -21,7 +21,7 @@ if ($strArticle ['isaudit'] == 1) {
 }
 
 $strArticle['title'] = htmlspecialchars($strArticle['title']);
-$strArticle['content'] = nl2br(stripslashes($strArticle['title']));
+$strArticle['content'] = nl2br(stripslashes($strArticle['content']));
 
 $strArticle ['tags'] = aac ( 'tag' )->getObjTagByObjid ( 'article', 'articleid', $articleid );
 $strArticle ['user'] = aac ( 'user' )->getOneUser ( $strArticle ['userid'] );

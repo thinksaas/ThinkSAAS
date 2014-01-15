@@ -130,6 +130,7 @@ switch($ts){
 		}
 		
 		$new['photo']->update('photo_album',array(
+			'userid'=>$userid,
 			'albumid'=>$albumid,
 		),array(
 			'albumname'=>$albumname,
@@ -220,6 +221,8 @@ switch($ts){
 				$photoid = intval($arrPhotoId[$key]);
 				
 				$new['photo']->update('photo',array(
+					'photoid'=>$photoid,
+				),array(
 				
 					'photodesc'=>tsClean($item),
 				
@@ -231,6 +234,7 @@ switch($ts){
 		//更新相册封面
 		if($albumface){
 			$new['photo']->update('photo_album',array(
+				'userid'=>$userid,
 				'albumid'=>$albumid,
 			),array(
 				'albumface'=>$albumface,

@@ -140,8 +140,8 @@ function loadTopic(userid,page){
 }
 
 //帖子审核
-function topicAudit(topicid){
-	$.post(siteUrl+'index.php?app=group&ac=ajax&ts=topicaudit',{'topicid':topicid},function(rs){
+function topicAudit(topicid,token){
+	$.post(siteUrl+'index.php?app=group&ac=ajax&ts=topicaudit',{'topicid':topicid,'token':token},function(rs){
 		if(rs==0){
 			art.dialog({
 				content : '帖子取消审核成功！',
@@ -159,6 +159,13 @@ function topicAudit(topicid){
 			
 			window.location.reload();
 			return false;
+		
+		}else if(rs==2){
+		
+			art.dialog({
+				content : '非法操作！',
+				time : 1000
+			})
 		
 		}
 	})
