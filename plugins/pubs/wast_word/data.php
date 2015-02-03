@@ -1,3 +1,0 @@
-<?php
-defined('IN_TS') or die('Access Denied.');
-return '国民党|邓小平|江泽民|胡锦涛|共产党|毛主席|毛泽东|中共|中国共产党|枪|弹药|枪支|氣槍|猎槍|来福|雷鸣登|五连发|平式双管|立式双管|麻醉|军用|进口|录入员|招聘兼职|1332566258|直流电阻测试仪|继电保护测试仪|串联谐振|分压器|www.hbyhdl.com|www.bd-seo.net|武汉网站优化|武汉网络推广|武汉网络营销|武汉SEO|大脚骨矫正器|379056061|拇外翻|小姐|习近平|王立军|两会|薄熙来|谷开来|唱红打黑|听党指挥|薄一波|李长春|周永康|政府|zhenfu|傻逼|zhengfu|他杀|枪杀|谋杀|起义|就义|法轮功|邪教|GCD|hege123|菲律宾|薄熙莱|小姐上门|一夜情|性爱|性息|武汉婚纱摄影|武汉婚纱照|武汉艺术照|武汉婚纱摄影工作室|www.yilongphoto.com|www.windyx.com|www.ruile.net|www.wo-niu.com.cn|www.wlzb518.com|www.wufangzhai-zongzi.com|www.hege123.com|按摩|按摩服务|cwsurf.de|出台|包夜|www.maizongzi.com|代刷|微笑网络|刷信誉|53530.cn|waimaodao.com|小 妹|上 门 服 务|小 妹 上 门|王哥|花姐|学妹|姓ˊ感ˊ少ˊ妇|丰ˊ韵ˊ熟ˊ妇|丽人岛休闲会所|越ˊ南ˊ妹|77057|饥ˊ渴ˊ熟ˊ女|饥渴熟女|性感人妻|姓感少妇|51gouku.com|51够酷|585.cc';

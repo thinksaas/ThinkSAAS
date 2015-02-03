@@ -1,7 +1,0 @@
-<!--{if $list !=''}-->
-<!--{loop $list $val}-->
-<li><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$val[userid]))}" target="_blank" class="pic"><img class="fimg" src="<!--{if $val[face]==""}-->{SITE_URL}public/images/user_normal.jpg<!--{else}-->{SITE_URL}{php echo tsXimg($val[face],'user','24','24',$val[path],'1')}<!--{/if}-->" width="24" align="absmiddle" /> </a><a href="{SITE_URL}{tsUrl('user','space',array('id'=>$val[userid]))}" target="_blank">$val[username]</a></li>
-<!--{/loop}-->
-<!--{else}-->
-<div style="text-align:center">当前还没有人喜欢这篇帖子</div>
-<!--{/if}-->

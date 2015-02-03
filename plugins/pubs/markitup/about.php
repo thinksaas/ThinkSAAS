@@ -1,1 +1,0 @@
-<?php defined('IN_TS') or die('Access Denied.');//插件信息return array('name' => 'markitup编辑器','version' => '1.0','desc' => '为文本框增加编辑器功能！','url' => 'http://www.thinksaas.cn','email' => 'qiniao@vip.qq.com','author' => '邱君','author_url' => 'http://www.thinksaas.cn','isedit'	=> '0',);
