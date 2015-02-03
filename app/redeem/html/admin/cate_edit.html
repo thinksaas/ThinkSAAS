@@ -1,0 +1,18 @@
+{php include template("admin/header");}
+<!--main-->
+<div class="midder">
+{php include template("admin/menu");}
+
+<form method="POST" action="{SITE_URL}index.php?app=redeem&ac=admin&mg=cate&ts=editdo">
+<table  cellpadding="0" cellspacing="0">
+<tr><td width="100">分类名称：</td><td><input name="catename" value="{$strCate[catename]}" /></td></tr>
+
+<tr><td></td><td>
+<input type="hidden" name="cateid" value="{$strCate[cateid]}" />
+<input type="submit" value="修改分类" />
+</td></tr>
+</table>
+</form>
+
+</div>
+{php include template("admin/footer");}

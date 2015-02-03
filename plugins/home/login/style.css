@@ -1,0 +1,64 @@
+.login {
+    font-size: 14px;
+	height:210px;
+	margin-bottom:10px;
+	background:#fafafa
+}
+.login form {
+    padding: 23px 0 0 50px;
+    position: relative;
+}
+legend {
+    display: none;
+}
+fieldset {
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+	margin-bottom: 15px;
+}
+fieldset legend {
+    color: #666666;
+    padding: 0 5px;
+}
+.login .item {
+    margin-bottom: 10px;
+}
+.item label {
+    width: 4em;
+}
+label {
+    font-family: Tahoma;
+    vertical-align: middle;
+}
+.item input {
+    width: 80%;
+	height:30px;
+	line-height:30px;
+	font-size:14px;
+}
+.login .item a {
+    font-size: 12px;
+}
+.login .item1 {
+    color: #666666;
+    float: left;
+    font-size: 12px;
+    margin: 0 2px 10px 0;
+}
+.login .item1 label {
+    display: inline-block;
+    margin-left: 4.5em;
+    margin-top: 4px;
+}
+.bn-submit {
+    background: url("ui_nav_logo_4.png") no-repeat scroll -23px -48px transparent;
+    border: medium none;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 14px;
+    height: 28px;
+    line-height: 28px;
+    padding-bottom: 3px;
+    width: 80px;
+}

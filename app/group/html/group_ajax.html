@@ -1,0 +1,49 @@
+<div id="group_content">
+
+<!--{if $arrRecommendGroup != ''}-->
+<div id="more_a">
+<!--{loop $arrRecommendGroup $key $item}-->
+<div class="sub-item" id="group_g">
+<div class="pic">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">
+<img src="{$item[photo]}" alt="{$item[groupname]}" />
+</a>
+<div style="background:#F0F0F0;text-align:center;padding:3px 0;">
+
+{if in_array($item['groupid'],$myGroup)}
+已加入
+{else}
+<a href="{tsUrl('group','do',array('ts'=>'join','groupid'=>$item['groupid']))}">+加入</a>
+{/if}
+
+</div>
+</div>
+<div class="info">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a>  <font color="#999999">{$item[count_user]}人加入</font>             
+<p>{$item[groupdesc]}</p>
+</div>
+</div>
+<!--{/loop}-->
+</div>
+</div>
+
+<div class="clear"></div>
+
+
+<!--{else}--><div style="text-align:center;font-size:14px;padding:20px;" id="loding">该分类下没有小组</div><!--{/if}-->
+<div style="text-align:center;font-size:14px;padding:20px; color:#0099FF; cursor:pointer;" onclick="loadmore()" id="more">点击查看更多&gt;&gt;</div>
+
+<script>
+var lastid='2';
+var cid='{$_GET[cat]}';
+function loadmore(){
+
+$.post("{SITE_URL}index.php?app=group&cat="+cid+"&page="+lastid,{bac_d:'more'},function(res){
+if(res!=0) {
+$('#more_a').append(res);
+}else{
+  $('#more').html('没有更多了');
+}
+})
+}
+</script>

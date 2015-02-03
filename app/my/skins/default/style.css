@@ -1,0 +1,22 @@
+.my .my_right .rl{float:left;width:530px;padding:10px;}
+
+.my .my_right .rr{float:right;width:230px;padding:10px 10px 10px 0;}
+
+/*签到*/
+.qiandao{background-color: #F9F9F9;
+border: 1px solid #EEE;
+border-radius: 5px;text-align:center;padding:10px;}
+.qiandao a{font-size:14px;}
+
+
+
+/*最新帖子*/
+.newtopic{}
+.newtopic ul{}
+.newtopic ul li{border-bottom:1px dashed #DDD;padding:5px 0;overflow:hidden}
+.newtopic ul li .photo{width:36px;float:left;}
+.newtopic ul li .info{margin-left:36px;color:#999;}
+.newtopic ul li .info .title{float:left;width:50%}
+.newtopic ul li .info .comment{float:left;width:15%}
+.newtopic ul li .info .uptime{float:left;width:15%}
+.newtopic ul li .info .group{float:left;width:20%}

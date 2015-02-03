@@ -1,0 +1,49 @@
+{template header}
+<div class="container">
+
+
+<div class="my">
+
+
+<div class="my_left">
+
+{php include pubTemplate("my")}
+
+</div>
+
+<div class="my_right">
+<div class="rc">
+
+
+{php doAction('my_right_top')}
+
+
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation"><a href="{tsUrl('group','my',array('my'=>'index'))}">加入的小组</a></li>
+<li role="presentation" class="active"><a href="{tsUrl('group','my',array('my'=>'created'))}">创建的小组</a></li>
+</ul>
+
+
+<div class="facelist">
+<ul>
+{loop $arrGroup $key $item}
+<li>
+<a href="{tsUrl('group','show',array('id'=>$item['groupid']))}">
+<img alt="{$item['groupname']}" title="{$item['groupname']}" src="{$item['photo']}" width="48" />
+<p>{$item['groupname']}</p>
+<p><a href="{tsUrl('group','edit',array('ts'=>'base','groupid'=>$item['groupid']))}">管理</a></p>
+</a>
+</li>
+{/loop}
+</ul>
+</div>
+
+
+
+</div>
+</div>
+
+
+</div>
+</div>
+{template footer}

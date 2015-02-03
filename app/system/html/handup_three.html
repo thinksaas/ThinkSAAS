@@ -1,0 +1,45 @@
+{template header}
+<!--main-->
+<div class="midder">
+
+
+
+<div class="update">
+<h1>第三步：手动升级系统文件</h1>
+
+<div class="uplog">
+
+<p>1、点击下载程序包：<a id="downzip" href="">点击下载</a></p>
+<p>2、下载完成在本地进行解压</p>
+<p>3、把解压出来的程序目录下的以下几个目录全部覆盖你的ThinkSAAS网站：
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app目录
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plugins目录
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public目录
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;theme目录
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;thinksaas目录
+</p>
+<p>4、覆盖完成后，删除网站上cache/template目录下所有文件</p>
+<p>5、开始访问你的升级后的网站吧</p>
+</div>
+
+</div>
+
+
+</div>
+
+<script src="public/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+<script>
+//检测是否有升级
+function upfile(version){
+	$.getJSON("http://www.thinksaas.cn/index.php?app=upcenter&ac=find&version="+version+"&callback=?", function(rs){
+		if(rs){
+			
+			$("#downzip").attr("href","http://file.thinksaas.cn/down/thinksaas"+rs.upversion+".zip");
+			
+		}
+	});   
+}
+upfile("{$TS_CF['info']['version']}");
+</script>
+
+{template footer}

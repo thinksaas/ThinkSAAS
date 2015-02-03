@@ -1,0 +1,10 @@
+
+.inforight{margin:0 80px;}
+.inforight h1{padding:10px 0;}
+.infocontent{font-size:14px;line-height:30px;}
+
+.tstheme{}
+.tstheme ul{}
+.tstheme ul li{float:left;padding:5px;height:130px;margin:1px;text-align:center;border:solid 1px #fff}
+.tstheme ul li a{}
+.tstheme ul li:hover{border:solid 1px #336699}

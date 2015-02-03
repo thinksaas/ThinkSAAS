@@ -1,0 +1,28 @@
+{php include template("admin/header");}
+<!--main-->
+<div class="midder">
+{php include template("admin/menu");}
+
+<form method="POST" action="{SITE_URL}index.php?app=location&ac=admin&mg=location&ts=editdo" enctype="multipart/form-data">
+<table  cellpadding="0" cellspacing="0">
+<tr><td width="100">名称：</td><td><input style="width:300px;" name="title" value="{$strLocation['title']}" /></td></tr>
+
+<tr><td>内容：</td><td><textarea style="width:300px;" name="content">{$strLocation['content']}</textarea></td></tr>
+
+<tr><td>图片：</td><td>
+{if $strLocation['photo']}
+<img src="{php echo tsXimg($strLocation['photo'],'location','120','120',$strLocation['path'],1)}" />
+<br />
+{/if}
+<input type="file" name="photo" /></td></tr>
+
+<tr><td>排序ID：</td><td><input name="orderid" value="{$strLocation['orderid']}" /></td></tr>
+<tr><td></td><td>
+<input type="hidden" name="locationid" value="{$strLocation['locationid']}" />
+<input type="submit" value="修改" />
+</td></tr>
+</table>
+</form>
+
+</div>
+{php include template("admin/footer")}

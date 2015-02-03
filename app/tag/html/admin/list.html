@@ -1,0 +1,24 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div><form method="post" action="{SITE_URL}index.php?app=tag&ac=admin&mg=do&ts=adddo"><input type="text" name="tag" /><input type="submit" value="添加标签" /></form></div>
+
+<div class="page">{$pageUrl}</div>
+
+<table  cellpadding="0" cellspacing="0">
+<tr class="old"><td width="20">ID</td><td width="100">标签名字</td><td>创建时间</td><td>操作</td></tr>
+<!--{loop $arrTags $key $item}-->
+<tr class="odd"><td>{$item[tagid]}</td><td>{$item[tagname]}</td><td>{php echo date('Y-m-d H:i:s',$item[uptime])}</td><td>
+
+<a href="{SITE_URL}index.php?app=tag&ac=admin&mg=do&ts=opt&tagid={$item[tagid]}">[优化]</a>
+
+<a href="{SITE_URL}index.php?app=tag&ac=admin&mg=do&ts=isenable&tagid={$item[tagid]}&isenable=<!--{if $item[isenable]=='0'}-->1<!--{else}-->0<!--{/if}-->"><!--{if $item[isenable]=='0'}-->[禁用]<!--{else}--><font color="red">[启用]</font><!--{/if}--></a> <a href="{SITE_URL}index.php?app=tag&ac=admin&mg=do&ts=del&tagid={$item[tagid]}&page=$page">[删除]</a></td></tr>
+<!--{/loop}-->
+</table>
+
+</div>
+{php include template("admin/footer");}

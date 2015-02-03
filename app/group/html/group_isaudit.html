@@ -1,0 +1,41 @@
+{template header}
+<div class="midder">
+
+<div class="mc">
+<h1>{$strGroup[groupname]}</h1>
+<div class="cleft">
+<div class="infobox">
+<div class="bd"><img align="left" alt="{$strGroup[groupname]}" src="{$strGroup[photo]}" class="pil photo" valign="top" />
+<p>创建于：{php echo date('Y-m-d',$strGroup[addtime])}&nbsp; &nbsp; 组长：<a href="{tsUrl('user','space',array('id'=>$strLeader[userid]))}">{$strLeader[username]}</a><br></p>
+{$strGroup[groupname]}正在审核中......
+</div>
+</div>
+
+<div class="clear"></div>
+<!--{if $arrRecommendGroup}-->
+<h2>推荐小组</h2>
+<div class="indent obssin">
+
+<!--{loop $arrRecommendGroup $key $item}-->
+<dl class="ob">
+<dt><a href="{tsUrl('group','show',array('id'=>$item[groupid]))}"><img alt="{$item[groupname]}" class="m_sub_img" src="{$item[photo]}" width="48" /></a></dt>
+<dd><a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span>({$item[count_user]})</span>
+</dd>
+</dl>
+<!--{/loop}-->
+</div>
+<div class="clear"></div>
+<!--{/if}-->
+
+
+
+</div>
+
+
+<div class="cright">
+
+</div>
+</div>
+</div>
+
+{template footer}

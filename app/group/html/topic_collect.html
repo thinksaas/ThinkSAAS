@@ -1,0 +1,6 @@
+<div style="margin-bottom: 10px;overflow: hidden;">
+{loop $arrUser $key $item}
+<a href="{tsUrl('user','space',array('id'=>$item[userid]))}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}" width="48" height="48" /></a>
+{/loop}
+<br clear="all">
+</div>

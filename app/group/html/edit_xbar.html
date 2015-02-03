@@ -1,0 +1,13 @@
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" {if $ts=="base"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'base'))}">基本信息</a></li>
+
+<li role="presentation" {if $ts=="icon"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'icon'))}">小组图标</a></li>
+
+<li role="presentation" {if $ts=="type"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'type'))}">帖子分类</a></li>
+
+<li role="presentation" {if $ts=="cate"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'cate'))}">小组分类</a></li>
+
+{if $strGroup['joinway']==2}
+<li role="presentation" {if $ts=="useraudit"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'useraudit'))}">成员审核</a></li>
+{/if}
+</ul>

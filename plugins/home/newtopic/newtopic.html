@@ -1,0 +1,46 @@
+<div class="bbox">
+<div class="btitle">最新话题</div>
+
+<div class="bc topic_list">
+<ul>
+
+{loop $arrTopic $key $item}
+<li>
+<div class="userimg"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="img-circle" src="{$item[user][face]}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" /></a></div>
+
+<div class="topic_title">
+<div class="title">
+
+{if $item['appkey'] != 'group' && $item['appkey']!=''}
+<a target="_blank" style="color:#999999;font-size: 12px;margin-right: 5px;" class="titles-type" href="{SITE_URL}{php echo tsUrl($item['appkey'])}">[{$item['appname']}]</a>
+<a title="{$item[title]}" href="{SITE_URL}{php echo tsUrl($item['appkey'],$item['appaction'],array('id'=>$item['appid']))}">{$item[title]}</a>
+{else}
+<a title="{$item[title]}" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
+{/if}
+
+{if $item['postby']==1}<a href="{tsUrl('home','phone')}"><img align="absmiddle" alt="通过Iphone手机端发布" title="通过Iphone手机端发布" src="{SITE_URL}public/images/ios.jpg" /></a>{/if}
+
+</div>
+<div class="topic_info">
+<span style="float:left;">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[group][groupname]}</a>
+</span>
+
+<span style="float:right;">
+{php echo getTime($item[uptime],time())}
+
+<a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+
+{if $item[count_comment]>0}<a class="rank" style="color:#FFFFFF;" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a>{/if}
+</span>
+</div>
+
+</div>
+
+<div class="clear"></div>
+</li>	
+{/loop}
+</ul>
+</div>
+
+</div>

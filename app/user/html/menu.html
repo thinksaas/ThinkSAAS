@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" {if $ac=='space'}class="active"{/if}><a href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">首页</a></li>
+<li role="presentation" {if $ac=='topic'}class="active"{/if}><a href="{tsUrl('user','topic',array('id'=>$strUser['userid']))}">帖子</a></li>
+<li role="presentation" {if $ac=='group'}class="active"{/if}><a href="{tsUrl('user','group',array('id'=>$strUser['userid']))}">小组</a></li>
+<li role="presentation" {if $ac=='guestbook'}class="active"{/if}><a href="{tsUrl('user','guestbook',array('id'=>$strUser['userid']))}">留言</a></li>
+</ul>
+
+<div style="height:20px;"></div>

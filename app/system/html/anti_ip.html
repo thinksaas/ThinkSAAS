@@ -1,0 +1,31 @@
+{template header}
+
+<!--main-->
+<div class="midder">
+{template anti_menu}
+
+
+<div>
+<form method="post" action="{SITE_URL}index.php?app=system&ac=anti&ts=ipdo">
+IP：<input name="ip" /><input type="submit" value="添加" />
+</form>
+</div>
+
+
+<div>
+<table>
+
+<tr class="old"><td>IP</td><td>添加时间</td><td>操作</td></tr>
+
+{loop $arrIp $key $item}
+<tr class="odd"><td>{$item['ip']}</td><td>{$item['addtime']}</td><td><a href="{SITE_URL}index.php?app=system&ac=anti&ts=ipdel&id={$item['id']}">删除</a></td></tr>
+{/loop}
+
+</table>
+
+</div>
+
+
+</div>
+
+{template footer}

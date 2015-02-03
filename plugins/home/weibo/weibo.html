@@ -1,0 +1,30 @@
+<div class="bbox weibo">
+<div class="btitle">唠唠叨叨</div>
+<div class="bc">
+<div class="weiform">
+<form>
+<textarea id="weibocontent" name="content"></textarea>
+<input id="weibosend" type="button" onclick="sendweibo();" value="发送" />
+</form>
+</div>
+
+<div class="clear"></div>
+<ul id="weibolist" class="weilist">
+{loop $arrWeibo $key $item}
+<li>
+<span class="portrait"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img align="absmiddle" class="SmallPortrait img-circle" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}"></a></span>
+<span class="body">
+<span class="user"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a>：</span><span class="log">{$item['content']}</span>
+{if $item[photo]}
+<div style="padding:5px 0;"><a target="_blank" href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}"><img src="{php echo tsXimg($item['photo'],'weibo',240,'',$item['path'])}" width="120" alt="{$item['user']['username']}的唠叨图片" /></a>
+</div>
+{/if}
+<span class="time">{php echo getTime(strtotime($item['addtime']),time())} (<a href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}">{$item['count_comment']}评</a>)
+</span>
+</span>
+<div class="clear"></div>
+</li>
+{/loop}
+</ul>
+</div>
+</div>

@@ -1,0 +1,45 @@
+<div class="container">
+{php doAction('pub_footer_top')}
+</div>
+
+<div class="footer">
+<p>
+<a href="{tsUrl('home','info',array('key'=>'about'))}">关于我们</a> | <a href="{tsUrl('home','info',array('key'=>'contact'))}">联系我们</a> | <a href="{tsUrl('home','info',array('key'=>'agreement'))}">用户条款</a> | <a href="{tsUrl('home','info',array('key'=>'privacy'))}">隐私申明</a>
+ | <a href="{tsUrl('home','info',array('key'=>'job'))}">加入我们</a>
+</p>
+<p>Powered by <a target="_blank" class="softname" title="开源社区" href="{$TS_CF[info][url]}">{$TS_CF[info][name]}</a> {$TS_CF[info][version]} & <a target="_blank" href="{$TS_CF[info][copyurl]}" title="{$TS_CF[info][copyright]}">QINIAO INC.</a>  Copyright ©  {$TS_CF[info][year]}   <a target="_blank" href="{SITE_URL}">{$TS_SITE[base][site_title]}</a> {$TS_SITE[base][site_icp]}</p><p><span style="font-size:0.83em;">Processed in {$runTime} second(s)</span></p></div>
+
+<!--弹出窗口-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+        <h4 class="modal-title" id="myModalLabel">提示</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+{if intval($TS_USER['user']['userid'])}
+<script src="{SITE_URL}public/js/imbox/imbox.js" type="text/javascript"></script>
+<script>
+var siteUid={php echo intval($TS_USER['user']['userid'])}; //网站用户ID
+evdata(siteUid);
+</script>
+{/if}
+<script src="{SITE_URL}public/js/common.js" type="text/javascript"></script>
+{if is_file('app/'.$app.'/js/extend.func.js')}
+<script src="{SITE_URL}app/{$app}/js/extend.func.js" type="text/javascript"></script>
+{/if}
+{php doAction('pub_footer')}
+</body>
+</html>
+{if $TS_SITE[base][isgzip]==1}{php ob_end_flush();}{/if}

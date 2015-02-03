@@ -1,0 +1,29 @@
+{template header}
+<!--main-->
+<div class="midder">
+<div class="mc">
+<h1>{$TS_SITE[base][site_title]}邀请码</h1>
+
+<div class="bbox">
+<p class="fs14 tac">物质匮乏，一码难求，今日您仅剩下 <span style="font-size:24px;color:#FF6600">{$codeNum}</span> 个邀请码</p>
+
+{if $codeNum=='0'}
+<p style="text-align:center;padding:50px;">
+<a class="subab" href="{tsUrl('user','invite',array(ts=>code))}">点击申请邀请码</a>
+</p>
+{else}
+
+<div class="invitecode">
+<ul>
+{loop $arrCode $key $item}
+<li>{$item['invitecode']}</li>
+{/loop}
+</ul>
+</div>
+
+{/if}
+</div>
+
+</div>
+</div>
+{template footer}

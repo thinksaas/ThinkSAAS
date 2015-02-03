@@ -1,0 +1,18 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table  cellpadding="0" cellspacing="0">
+<tr class="old"><td width="20">ID</td><td width="100">小组名字</td><td width="200">小组介绍</td><td>帖子统计</td><td>成员统计</td><td>创建时间</td><td>操作</td></tr>
+<!--{loop $arrAllGroup $key $item}-->
+<tr class="odd"><td>{$item[groupid]}</td><td><a href="{tsUrl('group','show',array('id'=>$item['groupid']))}" target="_blank">[{$item[groupname]}]</a></td><td>{php echo cututf8(t($item[groupdesc]),0,20)}</td><td>{$item[count_topic]}</td><td>{$item[count_user]}</td><td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td><td><!--{if $item[isaudit] == 1}--><a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=isaudit&groupid={$item[groupid]}">[未审核]</a><!--{/if}--><a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=isrecommend&groupid={$item[groupid]}"><!--{if $item[isrecommend]=='0'}--><font color="red">[推荐]</font><!--{else}-->[取消推荐]<!--{/if}--></a> <a href="{SITE_URL}index.php?app=group&ac=admin&mg=upuser&groupid={$item[groupid]}">[投送]</a> <a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=edit&groupid={$item[groupid]}">[修改]</a> <a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=del&groupid={$item[groupid]}">[删除]</a></td></tr>
+<!--{/loop}-->
+</table>
+
+</div>
+{php include template("admin/footer");}

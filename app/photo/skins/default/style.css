@@ -1,0 +1,271 @@
+.show_photo{}
+.show_photo img{max-width:100%;}
+
+.wr {
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.albumlst {
+  float: left;
+    margin: 7px;
+    width: 170px;
+	border:solid 1px #CCCCCC;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+
+.album_photo {
+display: block;
+overflow: hidden;
+width: 181px;
+}
+
+.album_photo img{}
+
+.album_photo:link {
+    color: #777777;
+    display: block;
+    font-style: italic;
+}
+
+.album {
+    background: url("albumback.gif") no-repeat scroll 1px 1px transparent;
+    padding: 4px 7px 7px 4px;
+}
+
+.albumlst_r {
+  color: #777777;
+    overflow: hidden;
+    padding-top: 4px;
+    word-wrap: break-word;
+}
+
+.pl2 {
+    color: #666666;
+    font: 14px/150% Arial,Helvetica,sans-serif;
+}
+.albumlst_descri {
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.mbt {
+    clear: both;
+    margin: 0;
+    padding: 0;
+}
+.mbtl {
+float: left;
+    margin: 8px 7px 0 0;
+    padding: 0;
+    width: 55px;
+}
+
+.mbtrdot {
+    min-height: 55px;
+    overflow: hidden;
+    padding: 4px 0;
+}
+
+.extra {
+    clear: both;
+    text-align: right;
+}
+
+.photitle {
+    border-bottom: 1px solid #DDDDDD;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    text-align: right;
+}
+.photo_wrap {
+    display: inline;
+    float: left;
+    margin: 10px 7px;
+    overflow: hidden;
+    width: 170px;
+	border:solid 1px #CCCCCC;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+	
+}
+.photolst_photo {
+    margin: 0;
+    width: 180px;
+}
+.photo_wrap .pl {
+    margin: 6px 0 3px;
+}
+.gact {
+    color: #BBBBBB;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+}
+
+.sns-bar {
+    clear: both;
+    color: #666666;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding-top: 20px;
+}
+.sns-bar-donate {
+    float: left;
+    margin-right: 15px;
+}
+.sns-bar-rec {
+    float: left;
+}
+.sns-bar form, .sns-bar .rec-sec {
+    display: inline-block;
+    float: none;
+}
+.rec-sec {
+    color: #999999;
+    text-align: right;
+}
+.lnk-sharing {
+    border: 1px solid #B9DCD0;
+    border-radius: 3px 3px 3px 3px;
+    display: inline-block;
+    height: 19px;
+    line-height: 19px;
+    overflow: hidden;
+    padding: 0 8px;
+    vertical-align: middle;
+}
+a.lnk-sharing:link, a.lnk-sharing:visited {
+    background-color: #F2F8F2;
+    border-color: #E3F1ED;
+    color: #4F946E;
+}
+.sns-bar-fav {
+    float: right;
+}
+
+.btn-fav {
+    border: 1px solid #EDCEBA;
+    border-radius: 3px 3px 3px 3px;
+    display: inline-block;
+    height: 19px;
+    line-height: 19px;
+    margin-left: 4px;
+    overflow: hidden;
+    padding: 0 8px 0 30px;
+    vertical-align: middle;
+}
+.fav-add, .fav-add:link, .fav-add:hover {
+    background: url("ic_like.png") no-repeat scroll 8px 3px transparent;
+}
+a.btn-fav:link, a.btn-fav:visited {
+    background-color: #FFF6EE;
+    border-color: #F2ECE7;
+    color: #99776B;
+}
+.clearfix {
+    display: block;
+}
+
+.rr {
+    float: right;
+}
+.ll {
+    float: left;
+}
+.photo_descri {
+    overflow: hidden;
+    padding: 0 0 0 14px;
+    word-wrap: break-word;
+}
+.edtext {
+    margin: 7px 0 15px;
+    width: 100%;
+}
+
+#comments {
+    overflow: hidden;
+    padding: 20px 0 0;
+    width: 100%;
+    word-wrap: break-word;
+}
+.wrap {
+    background: url("topicbar.gif") no-repeat scroll 0 0 transparent;
+    display: block;
+}
+h4 {
+    background: url("topicbar.gif") no-repeat scroll right top transparent;
+    color: #666666;
+    font: 12px/1.8em Arial,Helvetica,sans-serif;
+    height: 26px;
+    margin: 0 0 10px 4px;
+    overflow: hidden;
+}
+.align-right {
+    text-align: right;
+}
+.gact a:link, a.gact:link {
+    color: #BBBBBB;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+}
+.txd textarea {
+    width: 90%;
+}
+textarea {
+    border: 1px solid #CCCCCC;
+    font-size: 14px;
+    padding: 3px;
+}
+textarea {
+    font-family: Arial;
+    overflow: auto;
+}
+textarea {
+    resize: none;
+}
+
+.photo-complete {
+    background: none repeat scroll 0 0 #F8F8F8;
+    margin-bottom: 15px;
+    padding: 15px 20px 1px;
+}
+.photo-item {
+    margin-bottom: 15px;
+}
+.photo-item .cover, .photo-item .intro {
+    display: inline-block;
+}
+.photo-item .cover {
+	float:left;
+    margin-right: 10px;
+    vertical-align: top;
+}
+.photo-item .cover a {
+    display: block;
+    margin-bottom: -3px;
+    text-align: center;
+    width: 100px;
+}
+.photo-item .choose-cover {
+    text-align: center;
+}
+label {
+    font-family: Tahoma;
+    vertical-align: middle;
+}
+.photo-item .cover, .photo-item .intro {
+    display: inline-block;
+}
+.photo-item .intro textarea {
+    border: 1px solid #DDDDDD;
+    color: #666666;
+    padding: 5px;
+    width: 424px;
+}
+.photo-item .intro p {
+    margin: 0;
+    text-align: right;
+}

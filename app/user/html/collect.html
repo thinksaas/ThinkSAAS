@@ -1,0 +1,31 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<h1>{$strUser['username']} </h1>
+<div class="cleft">
+<div class="bbox">
+{template menu}
+
+<div class="clear"></div>
+<div class="commlist">
+<ul>
+{loop $arrTopicList $key $item}
+<li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{php echo htmlspecialchars($item['title'])}</a> <i>{$item['count_comment']}</i></li>
+{/loop}
+</ul>
+</div>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+</div>
+</div>
+
+<div class="cright">
+{template userinfo}
+</div>
+
+</div>
+</div>
+{template footer}

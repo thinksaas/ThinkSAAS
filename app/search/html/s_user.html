@@ -1,0 +1,26 @@
+{template header}
+
+<div class="container">
+
+<div class="bbox">
+<div class="bc">
+{template s_menu}
+<div class="s_top">获得约 {$user_num} 条结果</div>
+
+<!--{loop $arrUser $key $item}-->
+<div class="result">
+
+<div class="content">
+<h3><span>[用户] </span>&nbsp;<a  href="{tsUrl('user','space',array('id'=>$item[userid]))}">{tsTitle($item[username])}</a></h3>
+<div class="info">{php echo date('Y-m-d',$item[addtime])} 加入&nbsp; <a href="#">{$item[count_followed]} 人关注</a></div>
+<p>{$item[signed]}</p>
+</div>
+</div>
+<!--{/loop}-->
+<div class="page">{$pageUrl}</div>
+</div>
+</div>
+
+</div>
+
+{template footer}

@@ -1,0 +1,9 @@
+<div class="infomenu">
+<ul>
+
+{loop $arrInfo $k $v}
+<li><a {if $key==$v['infokey']}class="select"{/if} href="{tsUrl('home','info',array('key'=>$v['infokey']))}">{$v['title']}</a></li>
+{/loop}
+
+</ul>
+</div>

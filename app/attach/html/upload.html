@@ -1,0 +1,56 @@
+{template header}
+
+<script src="{SITE_URL}public/js/uploadify/jquery.uploadify.min.js?ver={php echo rand(0,9999)}" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="{SITE_URL}public/js/uploadify/uploadify.css">
+
+<script type="text/javascript">
+	$(function() {
+		$('#file_upload').uploadify({
+			'auto'     : true,
+			'fileTypeDesc' : 'txt,doc,wps,ppt,rar,zip格式',
+			'fileTypeExts' : '*.pptx;*.docx;*.pdf;*.txt;*.doc;*.wps;*.ppt;*.rar;*.zip;*.7z',
+			'buttonImage' : '{SITE_URL}public/images/upload.png',
+			'swf'      : '{SITE_URL}public/js/uploadify/uploadify.swf',
+			
+			'formData' : { 
+				'albumid':'{$albumid}',
+				'tokens':"{php echo md5('unique_salt' . $addtime)}"
+			},
+			
+			'uploader' : '{SITE_URL}index.php?app=attach&ac=upload&ts=do',
+		
+			'onQueueComplete' : function(queueData) {
+				window.location = "{tsUrl('attach','album',array('id'=>$albumid))}";
+			}
+			
+		});
+	});
+</script>
+
+<div class="container">
+
+
+
+<div class="bbox">
+<div class="bc">
+
+{template menu}
+
+<h1>上传资料</h1>
+
+<div style="padding:0 10px;">
+
+<p style="padding:10px 0;">上传文件只支持：jpeg,jpg,png,gif,txt,doc,rar,zip,7z,wps,ppt格式</p>
+
+<div id="queue"></div>
+<input id="file_upload" name="file_upload" type="file" multiple="true">
+
+</div>
+
+</div>
+</div>
+
+
+</div>
+
+{template footer}

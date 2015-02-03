@@ -1,0 +1,19 @@
+<h2>小组管理</h2>
+<div class="tabnav">
+<ul>
+<li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=group&ac=admin&mg=options">小组配置</a></li>
+<li {if $mg=='group' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=list">全部小组</a></li>
+
+<li {if $mg=='cate' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=group&ac=admin&mg=cate&ts=list">小组分类</a></li>
+
+<li {if $mg=='cate' && $ts=='add'}class="select"{/if}><a href="{SITE_URL}index.php?app=group&ac=admin&mg=cate&ts=add">添加分类</a></li>
+
+<li {if $mg=='topic' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=group&ac=admin&mg=topic&ts=list">帖子管理</a></li>
+
+<li {if $mg=='topic' && $ts=='deletetopic'}class="select"{/if}><a href="{SITE_URL}index.php?app=group&ac=admin&mg=topic&ts=deletetopic">删除的帖子</a></li>
+<li {if $mg=='topic' && $ts=='edittopic'}class="select"{/if}><a href="{SITE_URL}index.php?app=group&ac=admin&mg=topic&ts=edittopic">修改的帖子</a></li>
+
+<li {if $mg=='album' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=group&ac=admin&mg=album&ts=list">淘贴专辑管理</a></li>
+
+</ul>
+</div>

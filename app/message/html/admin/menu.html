@@ -1,0 +1,9 @@
+<h2>管理</h2>
+<div class="tabnav">
+<ul>
+<li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=message&ac=admin&mg=options">配置</a></li>
+
+<li {if $mg=='msg' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=message&ac=admin&mg=msg&ts=list">消息列表</a></li>
+
+</ul>
+</div>

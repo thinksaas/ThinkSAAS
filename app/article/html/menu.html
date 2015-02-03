@@ -1,0 +1,9 @@
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" {if $ac=='index'}class="active"{/if}><a href="{tsUrl('article')}">最新文章</a></li>
+{loop $arrCate $key $item}
+<li role="presentation" {if $ac=='cate' && $cateid==$item['cateid']}class="active"{/if}>
+<a href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
+</li>{/loop}
+<li role="presentation" {if $ac=='tags'}class="active"{/if}><a href="{tsUrl('article','tags')}">标签</a></li>
+<li role="presentation" {if $ac=='add'}class="active"{/if}><a href="{tsUrl('article','add')}">写文章</a></li>
+</ul>

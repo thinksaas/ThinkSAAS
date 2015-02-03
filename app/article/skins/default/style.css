@@ -1,0 +1,16 @@
+
+/**/
+.clist{}
+.clist ul{}
+.clist ul li{border-bottom: 1px dashed  #cccccc;padding:10px 0}
+.clist ul li img{margin:0px 20px 0 0;border:solid 1px #DDDDDD;}
+.clist ul li .title{font-weight: normal;font-size:16px;}
+.clist ul li .info{padding:10px 0;color:#999;}
+.clist ul li .content{line-height: 20px;margin:5px 0 10px 0;}
+
+.clist ul li .cate {color:#999999;}
+
+.catelist{}
+.catelist ul{}
+.catelist ul li{font-size:12px;height:30px;line-height:30px; width:140px;}
+.catelist .on{background:#999999;padding:5px 10px;color:#FFFFFF;}

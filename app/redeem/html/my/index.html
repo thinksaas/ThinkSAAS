@@ -1,0 +1,50 @@
+{template header}
+<div class="container">
+
+
+<div class="my">
+
+
+<div class="my_left">
+
+{php include pubTemplate("my")}
+
+</div>
+
+<div class="my_right">
+
+<div class="rc">
+
+
+{php doAction('my_right_top')}
+
+
+
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" class="active"><a href="">我的积分兑换</a></li>
+</ul>
+
+
+<div class="goodslist">
+<ul>
+{loop $arrGoods $key $item}
+<li><a href="{tsUrl('redeem','goods',array('id'=>$item['goodsid']))}"><img src="{php echo tsXimg($item['photo'],'redeem','150','',$item['path'])}" alt="{$item['title']}" /></a>
+<p class="content"><a href="{tsUrl('redeem','goods',array('id'=>$item['goodsid']))}">{$item['title']}</a></p>
+<div class="info"><span class="scores">{$item['scores']}积分</span><span class="dui"><a class="btn btn-success btn-mini" href="{tsUrl('redeem','goods',array('id'=>$item['goodsid']))}">兑换</a></span></div>
+</li>
+{/loop}
+</ul>
+</div>
+
+
+
+
+
+</div>
+
+</div>
+
+
+</div>
+</div>
+{template footer}

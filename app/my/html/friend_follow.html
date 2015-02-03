@@ -1,0 +1,50 @@
+{template header}
+<div class="container">
+
+
+<div class="my">
+
+
+<div class="my_left">
+
+{php include pubTemplate("my")}
+
+</div>
+
+<div class="my_right">
+<div class="rc">
+
+
+{php doAction('my_right_top')}
+
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" class="active"><a href="{tsUrl('my','friend',array('ts'=>'follow'))}">我关注的人</a></li>
+<li role="presentation"><a href="{tsUrl('my','friend',array('ts'=>'fans'))}">我的粉丝</a></li>
+</ul>
+
+
+<div class="facelist">
+<ul>
+{loop $arrUser $key $item}
+<li>
+<a href="{tsUrl('user','space',array('id'=>$item['userid']))}">
+<img alt="{$item['username']}" title="{$item['username']}" src="{$item['face']}" width="48" />
+<p>{$item['username']}</p>
+<p><a href="javascript:void('0');" onclick="">取消关注</a></p>
+</a>
+</li>
+{/loop}
+</ul>
+</div>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+
+
+</div>
+</div>
+
+
+</div>
+</div>
+{template footer}

@@ -1,0 +1,52 @@
+{php include template("admin/header");}
+{php doAction('tseditor')}
+<!--main-->
+<div class="midder">
+{php include template("admin/menu");}
+
+<form method="post" action="{SITE_URL}index.php?app=redeem&ac=admin&mg=goods&ts=editdo" enctype="multipart/form-data">
+<table>
+<tr><td>名称：</td><td><input style="width:600px;" type="text" name="title" value="{$strGoods['title']}" /></td></tr>
+<tr><td>分类：</td><td>
+
+<select name="cateid">
+<option value="0" {if $strGoods['cateid']==0}selected{/if}>请选择分类</option>
+{loop $arrCate $key $item}
+<option value="{$item['cateid']}" {if $strGoods['cateid']==$item['cateid']}selected{/if}>{$item['catename']}</option>
+{/loop}
+</select>
+
+</td></tr>
+<tr><td valign="top">内容：</td><td>
+
+<textarea style="width:600px;" name="content" id="tseditor">
+{$strGoods['content']}
+</textarea>
+
+</td></tr>
+
+<tr><td>兑换数量：</td><td><input type="text" name="nums" value="{$strGoods['nums']}" /></td></tr>
+
+<tr><td>需要积分：</td><td><input type="text" name="scores" value="{$strGoods['scores']}" /></td></tr>
+
+<tr><td>返还积分：</td><td><input type="text" name="return" value="{$strGoods['return']}" /></td></tr>
+
+
+
+<tr><td>图片：</td><td>
+{if $strGoods['photo']}
+<img src="{php echo tsXimg($strGoods['photo'],'redeem','300','',$strGoods['patd'])}" alt="{$strGoods['title']}" />
+<br />
+{/if}
+<input type="file" name="photo" /></td></tr>
+<tr><td></td><td></td></tr>
+<tr><td></td><td>
+<input type="hidden" name="goodsid" value="{$strGoods['goodsid']}" />
+<input type="submit" value="修改" />
+
+</td></tr>
+</table>
+</form>
+
+</div>
+{php include template("admin/footer");}

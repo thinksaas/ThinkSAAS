@@ -1,0 +1,37 @@
+{template header}
+<!--main-->
+<div class="container">
+
+<ol class="breadcrumb">
+  <li><a href="{SITE_URL}">首页</a></li>
+  <li><a href="{tsUrl('user')}">用户</a></li>
+  <li class="active">角色</li>
+</ol>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+
+
+<table class="table">
+
+<thead>
+<tr><th>角色名称</th><th>开始积分</th><th>结束积分</th><th>权限</th></tr>
+</thead>
+
+
+<tbody>
+{loop $arrRole $key $item}
+<tr><td>{$item['rolename']}</td><td>{$item['score_start']}</td><td>{$item['score_end']}</td><td></td></tr>
+{/loop}
+</tbody>
+
+</table>
+
+
+</div>
+</div>
+
+</div>
+
+{template footer}

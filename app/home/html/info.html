@@ -1,0 +1,47 @@
+{template header}
+
+<div class="container">
+<div class="row">
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="list-group">
+{loop $arrInfo $k $v}
+  <a href="{tsUrl('home','info',array('key'=>$v['infokey']))}" class="list-group-item {if $keys==$v['infokey']}active{/if}">
+{$v['title']}
+  </a>
+{/loop}
+</div>
+
+
+</div>
+<div class="col-md-9">
+
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+<h1>{$strInfo['title']}</h1>
+
+<div class="lh30 f14">
+{$strInfo[content]}
+</div>
+
+  </div>
+</div>
+
+
+
+</div>
+
+
+
+
+</div>
+</div>
+
+{template footer}

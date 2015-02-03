@@ -1,0 +1,44 @@
+{template header}
+<div class="container">
+
+
+<div class="bbox mh400">
+<div class="bc">
+{template menu}
+
+<h1>{$strAlbum['title']}</h1>
+
+
+<div>
+<p>{$strAlbum['content']}</p>
+<p>{$strAlbum['user']['username']} 创建于 {$strAlbum['addtime']}</p>
+{if $TS_USER['user']['userid']==$strAlbum['userid'] || $TS_USER['user']['isadmin']==1}
+<p><a class="btn btn-default btn-sm" href="{tsUrl('attach','upload',array('albumid'=>$strAlbum['albumid']))}">上传资料</a>    <a class="btn btn-default btn-sm" href="{tsUrl('attach','album',array('ts'=>'edit','albumid'=>$strAlbum['albumid']))}">修改</a>    <a class="btn btn-default btn-sm" href="{tsUrl('attach','album',array('ts'=>'delete','albumid'=>$strAlbum['albumid']))}" onclick="return  confirm('确定删除整个资料库吗？')">删除</a></p>
+{/if}
+</div>
+
+
+
+
+
+<div>
+<table class="table">
+<thead>
+<tr><th>资料名称</th><th>类型</th><th>大小</th><th>上传时间</th><th>下载次数</th>{if $TS_USER['user']['userid']==$strAlbum['userid'] || $TS_USER['user']['isadmin']==1}<th>操作</th>{/if}</tr>
+</thead>
+
+<tbody>
+{loop $arrAttach $key $item}
+<tr><td><a href="{tsUrl('attach','show',array('id'=>$item['attachid']))}">{$item['attachname']}</a></td><td>{$item['attachtype']}</td><td>{php echo format_bytes($item['attachsize'])}</td><td>{$item['addtime']}</td><td>{$item['count_down']}</td>{if $TS_USER['user']['userid']==$strAlbum['userid'] || $TS_USER['user']['isadmin']==1}<td><a href="{tsUrl('attach','delete',array('attachid'=>$item['attachid'],'token'=>$_SESSION['token']))}" onclick="return  confirm('确定删除文件吗？')">删除</a></td>{/if}</tr>
+{/loop}
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+{template footer}

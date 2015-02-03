@@ -1,0 +1,138 @@
+{template header}
+<div class="container">
+
+
+<ol class="breadcrumb">
+  <li><a href="{SITE_URL}">首页</a></li>
+  <li><a href="{tsUrl('photo')}">相册</a></li>
+  <li><a href="{tsUrl('photo','album',array('id'=>$strAlbum['albumid']))}">{$strAlbum['albumname']}</a></li>
+  <li class="active">第{$nowPage}张</li>
+</ol>
+
+
+
+<div class="row">
+
+
+
+<div class="col-md-8">
+
+<div class="panel panel-default">
+  <div class="panel-body">
+<h1>{$title}</h1>
+
+<div>
+    &gt; <a href="{tsUrl('photo','album',array('id'=>$strAlbum[albumid]))}">返回相册</a>第{$nowPage}张 / 共{$conutPage}张
+ 
+{if $nowPage >1}
+<link href="#" rel="prev">
+<a id="pre_photo" title="用方向键←可以向前翻页" href="{tsUrl('photo','show',array('id'=>$prev))}">上一张</a>
+{if $nowPage < $conutPage}
+/
+{/if}
+{/if}
+{if $nowPage < $conutPage}
+<link href="#" rel="next">
+<a id="next_photo" title="用方向键→可以向后翻页" name="next_photo" href="{tsUrl('photo','show',array('id'=>$next))}">下一张</a>
+{/if}
+</div>
+
+
+<div class="tac show_photo">
+    {if $nowPage < $conutPage}
+	<a title="点击查看下一张" href="{tsUrl('photo','show',array('id'=>$next))}" class="mainphoto">
+{/if}
+        <img src="{php echo tsXimg($strPhoto[photourl],'photo',600,'',$strPhoto[path])}" alt="{$strAlbum['albumname']}{$strPhoto['photoname']}" title="{$strAlbum['albumname']}{$strPhoto['photoname']}" />
+	{if $nowPage < $conutPage}
+   </a>
+   {/if}
+</div>
+
+
+<div>
+{$strPhoto[photoname]}  {$strPhoto[photodesc]}
+{if $TS_USER[user][userid] == $strPhoto[userid] || $TS_USER[user][isadmin]==1}<a href="{tsUrl('photo','edit',array('photoid'=>$strPhoto['photoid']))}">修改</a>{/if}
+</div>
+
+
+<div class="c9">
+    {$strPhoto[count_view]}人浏览　
+上传于{$strPhoto[addtime]}
+
+<a class="thickbox" target="_blank" href="{SITE_URL}uploadfile/photo/{$strPhoto[photourl]}">查看原图</a>
+
+　{if $TS_USER[user][userid] == $strPhoto[userid] || $TS_USER[user][isadmin]==1}&gt;&nbsp;<a title="删除这张照片" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$strPhoto[photoid]}">删除照片</a>{/if}
+</div>
+
+
+
+<div id="comments">
+
+<table class="wr" id="c-80243627">
+<tbody>
+
+{loop $arrComment $key $item}
+<tr><td width="75" valign="top"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img src="{$item[user][face]}" width="48" height="48" class="pil"></a>
+</td>
+<td valign="top">
+<span class="wrap">
+<h4>{php echo date('Y-m-d H:i:s',$item[addtime])}: <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a></h4>
+</span>{$item[content]}<br>
+<div class="align-right">
+
+{if intval($TS_USER[user][isadmin]) == 1 || $strPhoto[userid]==$TS_USER[user][userid]}
+<span class="gact">&gt; <a class="j a_confirm_link" href="{SITE_URL}index.php?app=photo&ac=do&ts=delcomment&commentid={$item[commentid]}">删除</a></span>
+{/if}
+
+</div>
+</td></tr>
+{/loop}
+</tbody></table>
+
+<br><br>
+<h3>你的回应</h3>
+
+<div class="txd">
+
+{if intval($TS_USER[user][userid]) > 0}
+<form method="POST" action="{SITE_URL}index.php?app=photo&ac=do&ts=comment_do">
+<textarea style="width:500px;height:50px;" name="content"></textarea><br>
+<input type="hidden" value="{$strPhoto[photoid]}" name="photoid">
+<button class="btn btn-success" type="submit">加上去</button>
+</form>
+{else}
+请登录后再评论哦^_^
+{/if}
+
+</div>
+<br>
+</div>
+
+
+</div>
+</div>
+
+
+
+</div>
+
+
+<div class="col-md-4">
+<div class="panel panel-default">
+  <div class="panel-body">
+
+  
+ {php doAction('gobad','300')}
+  
+
+</div>
+</div>
+</div>
+
+
+
+</div>
+
+</div>
+
+{template footer}

@@ -1,0 +1,70 @@
+{template header}
+<script src="{SITE_URL}public/js/jeditable/jeditable.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+$(function() {
+
+$(".editable_textarea").editable("{SITE_URL}index.php?app=group&ac=do&ts=edit_type", { 
+  indicator : '<img src="'+siteUrl+'public/js/loading.gif">',
+  type   : 'textarea',
+  submitdata: { _method: "put"},
+  select : true,
+  submit : '确定',
+  cancel : '取消',
+  cssclass : "editable",
+  tooltip   : '点击进行编辑......'
+});
+
+});
+
+//删除帖子类型
+function deltopictype(typeid){
+	if(confirm("确定删除吗？")){
+		$.ajax({
+			type: "POST",
+			url: siteUrl+'index.php?app=group&ac=do&ts=del_type',
+			data: "&typeid=" + typeid,
+			beforeSend: function(){},
+			success: function(result){
+				if(result == '0'){
+					window.location.reload(); 	
+				}
+			}
+		});
+	}
+}
+
+</script>
+
+<div class="container">
+
+
+<div class="bbox">
+<div class="bc">
+{template edit_xbar}
+<div>
+{if $arrGroupType}
+<table align="center" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC" width="50%">
+<tr bgcolor="#F0F0F0">
+<td>类型</td><td>操作</td>
+</tr>
+{loop $arrGroupType $key $item}
+<tr>
+<td class="editable_textarea" id="{$item[typeid]}">{$item[typename]}</td><td><a href="javascript:void('0');" onclick="deltopictype('{$item[typeid]}')">删除</a></td>
+</tr>
+{/loop}
+</table>
+{/if}
+</div>
+
+<div class="tac" style="margin-top:30px;">
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=topic_type">
+添加帖子分类：
+<input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
+<input name="typename" /> <input class="btn" type="submit" value="提交" />
+</form>
+</div>
+</div>
+</div>
+
+</div>
+{template footer}

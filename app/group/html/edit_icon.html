@@ -1,0 +1,34 @@
+{template header}
+
+<div class="container">
+
+
+
+<div class="bbox">
+<div class="bc">
+
+{template edit_xbar}
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=do&ts=photo" enctype="multipart/form-data" >
+<table width="100%" class="commtable">
+<tr><th>小组图标：</th><td>
+     <img alt="{$strGroup[groupname]}" title="{$strGroup[groupname]}" valign="middle" src="{if $strGroup[photo]}{php echo tsXimg($strGroup[photo],'group','48','48',$strGroup[path])}?v={php echo rand();}{else}{SITE_URL}public/images/group.jpg{/if}" class="pil"></td></tr>
+<tr>
+<th>选择图片：</th>
+     <td>
+      <input type="file" name="picfile">
+<input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
+<input type="submit" value="上传照片" />
+	  
+    </td>
+</tr>
+</table>
+</form>
+
+</div>
+</div>
+
+
+
+</div>
+{template footer}

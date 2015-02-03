@@ -1,0 +1,11 @@
+<h2>附件管理</h2>
+<div class="tabnav">
+<ul>
+<li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=attach&ac=admin&mg=options">配置</a></li>
+
+<li {if $mg=='attach' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=attach&ac=admin&mg=attach&ts=list">附件列表</a></li>
+
+<li {if $mg=='album' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=attach&ac=admin&mg=album&ts=list">专辑列表</a></li>
+
+</ul>
+</div>

@@ -1,0 +1,34 @@
+{php include template("admin/header");}
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=admin&mg=options&ts=do">
+<table  cellpadding="0" cellspacing="0">
+
+<tr><td width="150">APP名称：</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
+<tr><td>APP介绍：</td><td><textarea style="width:300px;" name="option[appdesc]">{$strOption[appdesc]}</textarea></td></tr>
+
+
+<tr><td>APP关键词：</td><td><input style="width:300px;" name="option[appkey]" value="{$strOption[appkey]}" /></td></tr>
+
+
+<tr><td>是否允许用户创建小组 :</td><td><input {if $strOption[iscreate]=='0'}checked="select"{/if} name="option[iscreate]" type="radio" value="0" />允许 <input {if $strOption[iscreate]=='1'}checked="select"{/if} name="option[iscreate]" type="radio" value="1" />不允许(只有管理员可以创建小组)</td></tr>
+
+<tr><td>创建小组是否需要审核 :</td><td><input {if $strOption[isaudit]=='1'}checked="select"{/if} name="option[isaudit]" type="radio" value="1" />审核 <input {if $strOption[isaudit]=='0'}checked="select"{/if} name="option[isaudit]" type="radio" value="0" />不审核</td></tr>
+
+<tr><td>每个会员加入小组数 :</td><td><input type="text" name="option[joinnum]" value="{$strOption['joinnum']}" width="50" /> (创建和加入的总和)</td></tr>
+
+
+<tr><td>是否允许用户发帖 :</td><td><input {if $strOption['isallowpost']=='1'}checked="select"{/if} name="option[isallowpost]" type="radio" value="1" />不允许 <input {if $strOption['isallowpost']=='0'}checked="select"{/if} name="option[isallowpost]" type="radio" value="0" />允许</td></tr>
+
+
+<tr><td></td><td>
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input type="submit" value="提 交" /></td></tr>
+</table>
+</form>
+</div>
+
+{php include template("admin/footer");}

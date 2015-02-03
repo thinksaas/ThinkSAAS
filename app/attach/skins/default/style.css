@@ -1,0 +1,5 @@
+.albumlist{}
+.albumlist ul{}
+.albumlist ul li{float:left;width:150px;height:150px;border:solid 1px #DDDDDD;padding:10px;overflow:hidden;margin:7px;}
+.albumlist ul li h2{}
+.albumlist ul li p{color:#999;}

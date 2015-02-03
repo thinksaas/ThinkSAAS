@@ -1,0 +1,18 @@
+{php include pubTemplate("header");}
+
+<!--{if $isAutoGo}-->
+<meta http-equiv="refresh" content="2;url={$url}" />
+<!--{/if}-->
+
+<div class="container">
+<div class="bbox">
+
+<div style="font-size:14px;text-align:center;margin:100px 0;">
+<p>{$notice}</p>
+<p><a href="{$url}">{$button}</a></p>
+</div>
+
+</div>
+</div>
+
+{php include pubTemplate("footer");}

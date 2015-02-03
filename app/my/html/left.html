@@ -1,0 +1,46 @@
+<div class="user_info">
+<div class="photo"><img src="{$strUser['face']}" width="48" /></div>
+<div class="info">
+<div class="username"><a target="_blank" href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">{$strUser['username']}</a></div>
+<div class="rolename"><a class="user-level" href="">3级</a></div>
+</div>
+</div>
+
+<div class="stats-mod">
+<ul class="user-stats clearfix">
+<li><a href="#"><strong>{$strUser['count_score']}</strong>积分</a></li>
+<!--<li><a href="#"><strong>1</strong>T币</a></li>-->
+</ul>
+</div>
+
+
+
+<div class="menu-mod clearfix">
+<ul class="menus">
+<li class="active"><a href="#"><i class="feature-icon feature-icon-home"></i>我的社区</a></li>
+<li><a href="#"><i class="feature-icon feature-icon-feed"></i>好友动态<!--<span class="counter" id="feed-counter"><span title="有2条未读的动态" class="badge badge-warning">2</span></span>--></a></li>
+<li><a href="#"><i class="feature-icon feature-icon-learn"></i>小组</a></li>
+<li><a href="#"><i class="feature-icon feature-icon-teach"></i>相册</a></li>
+<li><a href="#"><i class="feature-icon feature-icon-note"></i>资料</a></li>
+<li><a href="{tsUrl('article','my')}"><i class="feature-icon feature-icon-faq"></i>文章</a></li>
+<li><a href="#"><i class="feature-icon feature-icon-faq"></i>积分兑换</a></li>
+<li><a href="#"><i class="feature-icon feature-icon-faq"></i>任务</a></li>
+
+
+</ul>
+
+<div class="divider"></div>
+
+<ul class="menus">
+<li><a href="#"><i class="feature-icon feature-icon-friend"></i>好友</a></li>
+<li><a href="#"><i class="feature-icon feature-icon-notification"></i>通知</a></li>
+<li><a href="#"><i class="feature-icon feature-icon-message"></i>私信</a></li>
+</ul>
+
+<div class="divider"></div>
+
+<ul class="menus">
+<!--<li><a href="#"><i class="feature-icon feature-icon-coin"></i>金币</a></li>-->
+<li><a href="#"><i class="feature-icon feature-icon-setting"></i>账户设置</a></li>
+</ul>
+</div>

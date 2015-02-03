@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+<style>
+
+body{ font-size:12px;font-family:Arial;margin:0 auto;color:#434343;background:#FFFFFF;}
+p,form{margin:0;padding:0;}
+a{color:#66873E;text-decoration:none;}
+/*链接按钮*/
+.subab{
+background: #EBF5EB;
+    border: 1px solid #B8CACB;
+    border-radius: 12px 12px 12px 12px;
+    color: #333333;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 4px 10px;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+</style>
+
+</head>
+<body>
+<div style="text-align:center;padding:10px 0;">
+
+<form method="post" action="{SITE_URL}index.php?app=tag&ac=add_ajax&ts=do">
+<p><input style="width:250px;padding:3px 2px;" type="text" name="tags" /> </p>
+<p>
+<br />
+<input type="hidden" name="objname" value="{$objname}" />
+<input type="hidden" name="idname" value="{$idname}" />
+<input type="hidden" name="objid" value="{$objid}" />
+
+<button type="submit" class="subab">添 加</button>
+</p>
+</form>
+
+</div>
+
+</body>
+</html>

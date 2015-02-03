@@ -1,0 +1,45 @@
+{template header}
+
+<!--main-->
+<div class="container">
+
+
+
+<div class="bbox mh400">
+
+
+<div class="bc">
+{if intval($strUser['path'])=='' && intval($TS_SITE['base']['isface'])==1}
+<div class="alert">提示：你必须上传头像才可以正常使用本社区</div>
+{/if}
+{if $strUser['path']}
+<div class="verify_face">
+您已经上传头像！现在可以随便点点看看我们的社区！
+</div>
+{else}
+
+<div class="verify_face">
+
+
+<h3>上传头像：</h3>
+<form method="post" action="{tsUrl('user','verify',array('ts'=>'facedo'))}" enctype="multipart/form-data">
+<p>
+<img alt="{$strUser['username']}" src="{$strUser[face]}?v={php echo rand();}" width="120" />
+</p>
+<p>
+<input type="file" name="picfile" />
+</p>
+<p><input class="btn btn-info" type="submit" value="提交" /></p>
+</form>
+
+</div>
+
+{/if}
+</div>
+
+</div>
+
+
+</div>
+
+{template footer}

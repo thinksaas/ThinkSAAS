@@ -1,0 +1,43 @@
+{template header}
+
+<div class="container">
+
+
+<ol class="breadcrumb">
+  <li><a href="{SITE_URL}">首页</a></li>
+  <li class="active">相册</li>
+</ol>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+  
+{template menu}
+
+
+<div class="row">
+{loop $arrAlbum $key $item}
+  <div class="col-xs-6 col-md-2">
+    <a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}" class="thumbnail">
+      <img src="{if $item[albumface] == ''}{SITE_URL}app/{$app}/skins/{$skin}/photo_album.png{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" alt="{$item[albumname]}" width="170" height="170">
+    </a>
+	
+ <div class="caption">
+        <h3>{$item[albumname]}</h3>
+        <p> {$item[count_photo]}张照片&nbsp;
+           {$item[addtime]}创建</p>
+      </div>
+	
+  </div>
+{/loop}
+</div>
+
+
+
+ <div class="clear"></div>
+ <div class="page">{$pageUrl}</div>
+
+</div>
+</div>
+</div>
+
+{template footer}

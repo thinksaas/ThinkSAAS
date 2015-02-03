@@ -1,0 +1,20 @@
+<!--{loop $arrPhoto $key $item}-->
+    <div class="item">
+        <a title="{$item[photodesc]}" class="photolst_photo" href="{tsUrl('photo','show',array('id'=>$item[photoid]))}">
+        <img src="{php echo tsXimg($item[photourl],'photo',200,'',$item[path])}">
+        </a>
+    </div>
+<!--{/loop}-->
+
+<script src="{SITE_URL}public/js/jquery.masonry.min.js"></script>
+<script>
+
+$(function(){
+  $('#container').masonry({
+    // options
+    itemSelector : '.box',
+
+  });
+});
+
+</script>

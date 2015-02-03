@@ -1,0 +1,82 @@
+{template header}
+{php doAction('tseditor')}
+<div class="container">
+
+<ol class="breadcrumb">
+  <li><a href="{SITE_URL}">首页</a></li>
+  <li><a href="{tsUrl('article')}">文章</a></li>
+  <li><a href="{tsUrl('article','show',array('id'=>$strArticle['articleid']))}">{$strArticle['title']}</a></li>
+  <li class="active">修改文章</li>
+</ol>
+
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+
+
+<form method="POST" action="{SITE_URL}index.php?app=article&ac=edit&ts=do"  enctype="multipart/form-data">
+
+  <div class="form-group">
+    <label>标题：</label>
+    <input name="title" type="text" class="form-control" value="{$strArticle['title']}">
+  </div>
+{if $arrCate}  
+  <div class="form-group">
+    <label>分类：</label>
+    
+<select id="cateid" name="cateid">
+{loop $arrCate $key $item}
+<option value="{$item['cateid']}" {if $item['cateid']==$strArticle['ceteid']}selected{/if}>{$item['catename']}</option>
+{/loop}
+</select>
+	
+  </div>
+{/if}
+
+  <div class="form-group">
+    <label>内容：</label>
+<textarea name="content" id="tseditor">{$strArticle['content']}</textarea>
+  </div>
+  
+  <div class="form-group">
+    <label>标签：</label>
+    <input name="tag" type="text" class="form-control" value="{$strArticle['tag']}">
+  </div>
+
+   <div class="form-group">
+    <label>封面图片：</label>
+	
+	{if $strArticle['photo']}
+	<img src="{php echo tsXimg($strArticle['photo'],'article',180,140,$strArticle['path'],'1')}" /><br />
+	{/if}
+    <input name="photo" type="file">
+  </div>
+  
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input type="hidden" name="articleid" value="{$strArticle['articleid']}" />
+<button class="btn btn-success" type="submit">发布文章</button>
+  
+</form>
+
+
+</div>
+<div class="col-md-2"></div>
+</div>
+
+
+
+</div>
+</div>
+
+
+
+
+
+</div>
+
+{template footer}

@@ -1,0 +1,13 @@
+<h2>管理</h2>
+<div class="tabnav">
+<ul>
+<li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=redeem&ac=admin&mg=options">配置</a></li>
+
+<li {if $mg=='cate' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=redeem&ac=admin&mg=cate&ts=list">分类列表</a></li>
+<li {if $mg=='cate' && $ts=='add'}class="select"{/if}><a href="{SITE_URL}index.php?app=redeem&ac=admin&mg=cate&ts=add">添加分类</a></li>
+
+<li {if $mg=='goods' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=redeem&ac=admin&mg=goods&ts=list">商品列表</a></li>
+<li {if $mg=='goods' && $ts=='add'}class="select"{/if}><a href="{SITE_URL}index.php?app=redeem&ac=admin&mg=goods&ts=add">添加商品</a></li>
+
+</ul>
+</div>

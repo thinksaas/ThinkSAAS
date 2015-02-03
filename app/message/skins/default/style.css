@@ -1,0 +1,30 @@
+/*imbox*/
+.imbox{}
+.leftbar{}
+.leftbar .bartitle{background:#dae9ef;padding:5px;}
+.leftbar ul{}
+.leftbar ul li{line-height:23px;padding-left:10px;}
+
+.msgbox{padding:0 10px 20px 10px;overflow:hidden;}
+.msgbox ul{}
+.msgbox ul li{width:175px;float:left;line-height:23px;padding-left:10px;}
+.mysend{background:#f5f8fa}
+
+.system{padding:0 10px;overflow:hidden;}
+.system ul{}
+.system ul li{line-height:23px;padding-left:10px;}
+
+.sendbox{padding:0 20px 20px 20px;overflow:hidden;}
+.sendbox p{}
+.sendbox textarea{width:350px;height:50px;}
+
+.boxabout{line-height:23px;padding:0 10px;}
+
+.usermsg{padding:0 10px 20px 10px;overflow:hidden;}
+.usermsg ul{}
+.usermsg ul li{line-height:23px;padding:0 10px;}
+
+
+.newmsg{}
+.newmsg ul{}
+.newmsg ul li{padding:5px 10px;}

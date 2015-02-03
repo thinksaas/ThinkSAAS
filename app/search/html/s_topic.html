@@ -1,0 +1,30 @@
+{template header}
+
+<div class="container">
+
+<div class="bbox">
+<div class="bc">
+{template s_menu}
+
+<div class="s_top">获得约 {$topic_num} 条结果</div>
+
+<!--{loop $arrTopic $key $item}-->
+<div class="result">
+<div class="pic">
+</div>
+<div class="content">
+<h3><span>[话题] </span>&nbsp;<a  href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{tsTitle($item[title])}</a></h3>
+<div class="info">发表于 {php echo date('Y-m-d',$item[addtime])} &nbsp; <a href="#">{$item[count_comment]} 回复</a></div>
+<p></p>
+</div>
+</div>
+<!--{/loop}-->
+
+
+<div class="page">{$pageUrl}</div>
+</div>
+</div>
+
+</div>
+
+{template footer}

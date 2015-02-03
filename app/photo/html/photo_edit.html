@@ -1,0 +1,42 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+
+<div class="bbox">
+{template menu}
+<h1>编辑图片信息</h1>
+
+
+
+<div style="padding-left:200px;">
+
+<form method="post" action="{tsUrl('photo','edit',array('ts'=>'do'))}">
+
+<p>图片：</p>
+<p>
+<img src="{php echo tsXimg($strPhoto['photourl'],'photo','170','170',$strPhoto['path'],1)}" />
+</p>
+<p>图片名称：</p>
+<p><input style="width:300px;" name="photoname" value="{$strPhoto['photoname']}" /></p>
+<p>图片介绍：</p>
+<p><textarea style="width:300px;height:100px;" name="photodesc">{$strPhoto['photodesc']}</textarea></p>
+
+<p>
+<input type="hidden" name="photoid" value="{$strPhoto['photoid']}" />
+
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+
+<input class="btn btn-success" type="submit" value="修改" /></p>
+</form>
+</div>
+
+
+
+</div>
+
+</div>
+</div>
+
+{template footer}

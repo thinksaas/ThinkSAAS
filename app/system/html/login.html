@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$title} - {$TS_APP[options][appname]} - {$TS_SITE[base][site_title]}</title>
+
+<style>
+body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;background:#EEEEEE;}
+.login{width:500px;margin:0 auto;background:#3a81c0; overflow: hidden;margin-top:100px;border-radius: 10px;}
+.login .logo{float:left;margin-top: 100px;font-size:14px;color:#FFFFFF;width:230px;text-align:center;}
+
+.login .logo a{color:#FFFFFF;border:none;text-decoration: none;}
+
+.login .logo img{border:none;}
+
+.login .info{float:left;margin:50px 0;}
+
+.login .info a{color:#FFFFFF;text-decoration: none;font-size:12px;}
+
+.login .info h1{font-size:16px;color:#FFFFFF;}
+
+.login .info p{font-size:14px;color:#FFFFFF;}
+.login .info p input{border:solid 1px #FFFFFF;padding:5px;background:#FFFFFF;}
+.login .info button{border:none;background:#F0F0F0;padding:10px 20px;}
+
+</style>
+
+</head>
+<body>
+
+<div class="login">
+
+<div class="logo">
+<a href="http://www.thinksaas.cn/" target="_blank">
+<img src="{SITE_URL}app/{$app}/skins/{$skin}/logo_login.gif" alt="ThinkSAAS社区管理" />
+<br />
+www.thinksaas.cn
+</a>
+</div>
+
+<div class="info">
+<h1>登录ThinkSAAS管理后台</h1>
+<div>
+<form method="post" action="{SITE_URL}index.php?app=system&ac=login&ts=do">
+
+<p>Email<br />
+<input style="width:200px;" name="email" /></p>
+<p>密码<br /><input style="width:200px;" type="password" name="pwd" /></p>
+
+<input type="hidden" name="cktime" value="2592000">
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<button type="submit">登录后台</button> <a href="{SITE_URL}">返回首页</a>
+
+</form>
+</div>
+</div>
+
+</div>
+
+
+</body>
+</html>

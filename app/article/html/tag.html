@@ -1,0 +1,61 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+{template menu}
+
+<h1>{$strTag['tagname']}</h1>
+
+<div class="cleft">
+
+
+
+<div class="clist">
+<ul>
+{loop $arrArticle $key $item}
+<li>
+{if $item['photo']}<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">
+<img style="float:left;" src="{php echo tsXimg($item['photo'],'article',180,140,$item['path'],'1')}" />
+</a>
+{/if}
+<div><a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{php echo htmlspecialchars($item[title])}</a></div>
+<span><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {$item[addtime]}</span>
+<p>{$item[content]} (<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">查看全文</a>)</p>
+
+<div class="clear"></div>
+</li>
+{/loop}
+</ul>
+</div>
+
+<div class="page">{$pageUrl}</div>
+</div>
+
+
+<div class="cright">
+
+<div class="bbox">
+<div class="btitle">热门标签</div>
+<div class="bc">
+<div class="tags">
+{loop $arrTag $key $item}
+<a href="{tsUrl('article','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
+{/loop}
+
+</div>
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+</div>
+
+{template footer}

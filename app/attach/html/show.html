@@ -1,0 +1,51 @@
+{template header}
+
+<div class="container">
+
+
+
+<div class="row">
+  <div class="col-md-8">
+  
+<div class="bbox">
+<div class="btitle">附件：{$strAttach[attachname]}</div>
+<div class="bc">
+<table>
+<tr><td>资料库：</td><td><a href="{tsUrl('attach','album',array('id'=>$strAttach['albumid']))}">{$strAttach['album'][title]}</a></td></td>
+<tr><td>上传者：</td><td><a href="{tsUrl('user','space',array('id'=>$strAttach['user']['userid']))}">{$strAttach[user][username]}</a></td></td>
+<tr><td>附件类型：</td><td>{$strAttach[attachtype]}</td></td>
+<tr><td>附件大小：</td><td>{php echo format_bytes($strAttach[attachsize])}</td></td>
+<tr><td>添加时间：</td><td>{$strAttach[addtime]}</td></td>
+</table>
+
+<div><a class="btn btn-success" href="{tsUrl('attach','ajax',array('ts'=>'down','attachid'=>$strAttach['attachid']))}" target="_blank">点击下载</a></div>
+
+</div>
+</div>
+  
+  </div>
+  <div class="col-md-4">
+  
+  
+<div class="bbox">
+<div class="btitle">{$strAttach[user][username]}分享的其他附件</div>
+<div class="bc commlist">
+<ul>
+{loop $userAttach $key $item}
+<li><a href="{tsUrl('attach','show',array('id'=>$item['attachid']))}" target="_blank">{$item[attachname]}</a></li>
+{/loop}
+</ul>
+</div>
+</div>
+  
+  </div>
+</div>
+
+
+
+
+
+
+</div>
+
+{template footer}

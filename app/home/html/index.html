@@ -1,0 +1,25 @@
+{template header}
+{php doAction('home_index_js')}
+{php doAction('home_index_css')}
+<div class="container">
+{php doAction('home_index_header')}
+
+{php doAction('wordad')}
+
+<div class="row">
+<div class="col-md-8">
+{php doAction('home_index_left')}
+</div>
+
+<div class="col-md-4">
+{php doAction('home_index_right')}
+
+<!--广告位-->
+{php doAction('gobad','300')}
+</div>
+</div>
+
+{php doAction('home_index_footer')}
+
+</div>
+{template footer}

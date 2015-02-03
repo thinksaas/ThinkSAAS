@@ -1,0 +1,19 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<table>
+<tr class="old"><td>attachid</td><td>userid</td><td>attachname</td><td>attachsize</td><td>attachurl</td><td>时间</td><td>操作</td></tr>
+{loop $arrAttach $key $item}
+<tr class="odd"><td>{$item['attachid']}</td><td>{$item['userid']}</td><td><a target="_blank" href="{SITE_URL}uploadfile/attach/{$item['attachurl']}">{$item['attachname']}</a></td><td>{php echo format_bytes($item['attachsize'])}</td><td>{$item['attachurl']}</td><td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td><td><a onclick="return confirm('确定删除吗？')" href="{SITE_URL}index.php?app=attach&ac=admin&mg=attach&ts=delete&attachid={$item['attachid']}">删除</a></td></tr>
+{/loop}
+</table>
+
+<div class="page">{$pageUrl}</div>
+
+</div>
+
+{php include template("admin/footer");}

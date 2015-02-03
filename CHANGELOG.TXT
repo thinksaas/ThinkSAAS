@@ -1,0 +1,477 @@
+﻿ThinkSAAS Change List
+
+ThinkSAAS开源社区功能和特点：
+
+1、基于PHP语言开发
+2、支持MySQL数据库连接
+3、完全UTF-8无bom编码
+4、适用于Window，Linux等操作系统
+5、支持Apache，IIS，Nginx等服务器环境
+6、支持QQ登录，微博登录，豆瓣登录
+7、标配16大免费开源功能APP模块：
+	1)、用户中心模块(user)
+	2)、系统管理模块(system)
+	3)、小组模块(group)
+	4)、相册模块(photo)
+	5)、资料模块(attach)
+	6)、动态模块(feed)
+	7)、标签模块(tag)
+	8)、邮件模块(mail)
+	9)、消息模块(message)
+	10)、唠叨模块(weibo)
+	11)、搜索模块(search)
+	12)、同城模块(location)
+	13)、积分兑换(redeem)
+	14)、文章(article)
+	15)、手机(mobile)
+	16)、我的社区(my)
+	
+8、自带7种URL重写形式
+9、二次开发简单容易
+10、系统扩展性高，APP模块化开发
+11、首创面向目录和文件开发方式，看得见的开发
+12、APP二级域名支持
+13、APP独立数据库支持
+
+--------------------------------------------------------
+Version 2.3
+
+
+1、采用Bootstrap前端框架重新布局
+2、增加app独立数据库连接
+3、更新首页第三方登录的显示可配置问题
+4、修正登陆改登录
+5、增加标题输出tsTitle过滤函数
+6、增加首页轮播修改功能
+7、支持多端访问自适应
+8、还有很多细节的完善
+
+
+ALTER TABLE `ts_user_info`
+  DROP `province`,
+  DROP `city`,
+  DROP `area`,
+  DROP `areaid`;
+ALTER TABLE `ts_user_info` ADD `province` CHAR(64) NOT NULL DEFAULT '' COMMENT '省/直辖市/自治区' AFTER `roleid`;
+ALTER TABLE `ts_user_info` ADD `city` CHAR(65) NOT NULL DEFAULT '' COMMENT '市县区' AFTER `province`;
+ALTER TABLE `ts_article` ADD UNIQUE( `title`);
+DROP TABLE `ts_area`, `ts_area_city`, `ts_area_province`;
+
+-----------------------------------------------------------------------------------------
+
+Version 2.2-beta	
+
+ALTER TABLE  `ts_attach` ADD  `isaudit` TINYINT( 1 ) NOT NULL DEFAULT  '0' COMMENT  '0审核1未审核' AFTER  `isshow`
+
+ALTER TABLE  `ts_attach_album` ADD  `isaudit` TINYINT( 1 ) NOT NULL DEFAULT  '0' COMMENT  '0审核1未审核' AFTER  `addtime`
+
+ALTER TABLE  `ts_photo_album` ADD  `isaudit` TINYINT( 1 ) NOT NULL DEFAULT  '0' COMMENT  '0审核1未审核' AFTER  `isrecommend`
+
+ALTER TABLE  `ts_article` CHANGE  `content`  `content` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT  '内容'
+
+ALTER TABLE  `ts_group_topic` CHANGE  `content`  `content` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT  '帖子内容'
+
+[2014-07-06]
+	. 修复个人空间修改资料链接错误
+	. 修复前台换肤功能
+	. 增加帖子回复后可见功能
+[2014-06-08]
+	. 增加对IIS环境下登陆无法退出的程序配置解决方案
+	. 修复文章内容页评论列表用户头像没显示全的问题
+	. 增加手机web唠叨发图功能
+	. 其他微小修复等
+[2014-06-04]
+	. 增加对MySqli数据库扩展的支持
+	. 增加对PHP5.5的支持
+[2014-06-03]
+	. 增强对xss攻击的过滤
+	. 增强用户自动登录的安全验证规则
+[2014-06-02]
+	. 修复帖子评论内容中图片显示不全的问题
+	. 修改手机web帖子内容和评论内容未正常显示的问题 
+[2014-06-01]
+新增完善：
+	. 完善资料库APP功能
+	. 完善url参数过滤
+	. 增加成员加入小组需要审核选项
+	. 增加我的社区功能
+	. 增加社区签到功能
+	. 增加手机访问判断跳转到手机页面
+	. 后台增加是否开启手机访问判断
+	. 增加创建小组打标签
+	. 增加手机web端发布唠叨
+	. 增加手机web端消息提醒
+	. 增加社区公告组件
+	. 增加用户登录后是否跳转到我的社区配置
+优化修复
+	. 优化发帖和发文章内容过长的问题
+	. 修复有些浏览器下的ajax图片上传问题
+	. 取消发布文章对必须填写文章分类的限制
+	. 修复帐号自动登陆问题
+
+--------------------------------------------------------
+
+Version 2.1[2月15日发布]
+新增完善
+	. 增加SEO优化，优化全站、小组、帖子、文章等的SEO设置
+	. 增加积分兑换分类并将积分产品添加移入后台管理
+	. 完善图片和附件上传格式大小后台配置的控制
+	. 增加文章后台分类排序
+	. 增加首页幻灯片插件后台上传图片操作
+	. 增加后台上传网站logo图片
+	. 增加唠叨上传图片功能
+	. 增加类似同城的垂直内容划分功能（可实现区域、大学、社区、类型等不同性质的会员内容聚合）
+优化修复
+	. 修复注册页面等验证码刷新失败的问题
+	. 修复登陆加积分的问题
+	. 修复相册增加浏览量问题
+	. 修复上传资料不加积分问题
+	
+SQL LOG:
+ALTER TABLE  `ts_article` ADD  `locationid` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '同城ID' AFTER  `userid` ;
+ALTER TABLE  `ts_attach` ADD  `locationid` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '同城ID' AFTER  `userid` ;
+ALTER TABLE  `ts_group_topic` ADD  `locationid` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '同城ID' AFTER  `userid` ;
+ALTER TABLE  `ts_photo` ADD  `locationid` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '同城iD' AFTER  `userid` ;
+ALTER TABLE  `ts_user_info` ADD  `locationid` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '同城ID' AFTER  `userid` ;
+ALTER TABLE  `ts_weibo` ADD  `locationid` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '同城ID' AFTER  `userid` ;
+
+CREATE TABLE IF NOT EXISTS `ts_location` (
+  `locationid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `title` char(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `content` text NOT NULL COMMENT '内容介绍',
+  `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
+  `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片',
+  `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
+  PRIMARY KEY (`locationid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='同城' AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ts_attach_options` (
+  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
+  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
+  UNIQUE KEY `optionname` (`optionname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
+
+CREATE TABLE IF NOT EXISTS `ts_feed_options` (
+  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
+  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
+  UNIQUE KEY `optionname` (`optionname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
+
+CREATE TABLE IF NOT EXISTS `ts_redeem_options` (
+  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
+  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
+  UNIQUE KEY `optionname` (`optionname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
+
+CREATE TABLE IF NOT EXISTS `ts_weibo_options` (
+  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
+  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
+  UNIQUE KEY `optionname` (`optionname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
+
+
+ALTER TABLE  `ts_article` ADD INDEX (  `locationid` ) ;
+ALTER TABLE  `ts_attach` ADD INDEX (  `locationid` ) ;
+ALTER TABLE  `ts_group_topic` ADD INDEX (  `locationid` ) ;
+ALTER TABLE  `ts_photo` ADD INDEX (  `locationid` ) ;
+ALTER TABLE  `ts_user_info` ADD INDEX (  `locationid` ) ;
+ALTER TABLE  `ts_weibo` ADD INDEX (  `locationid` ) ;
+
+
+CREATE TABLE IF NOT EXISTS `ts_slide` (
+  `slideid` int(11) NOT NULL AUTO_INCREMENT,
+  `title` char(128) NOT NULL DEFAULT '',
+  `url` char(128) NOT NULL DEFAULT '',
+  `path` char(32) NOT NULL DEFAULT '',
+  `photo` char(32) NOT NULL DEFAULT '',
+  `addtime` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`slideid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='轮播' AUTO_INCREMENT=4 ;
+
+INSERT INTO `ts_slide` (`slideid`, `title`, `url`, `path`, `photo`, `addtime`) VALUES
+(1, 'ThinkSAAS开源社区', 'http://www.thinksaas.cn', '0/0', '0/0/1.gif', 1392396528),
+(2, 'ThinkSAAS开源社区', 'http://www.thinksaas.cn', '0/0', '0/0/2.gif', 1392396573),
+(3, 'ThinkSAAS开源社区', 'http://www.thinksaas.cn', '0/0', '0/0/3.gif', 1392396587);
+
+同城垂直数据举例：
+示例一：北京、上海、天津、重庆....
+示例二：北京大学、清华大学、南开大学、复旦大学....
+示例三：一年级、二年级、三年级、四年级....
+示例三：初一、初二、初三、初四....
+示例三：XX小区、YY小区、AA小区、BB小区....
+示例三：设计、开发、营销、产品....
+等等等
+同城的概念就是你可以按照区域划分，也可以按照属性、行为和领域等进行扩展划分，通过同城垂直数据功能来聚合你的内容
+--------------------------------------------------------
+2013-11-30 
+1、修复安装thinksaas出现的缓存错误日志
+2、安装完成后数据库缓存生成本地缓存
+4、整理php代码和html代码
+--------------------------------------------------------
+
+Version 2.0.1
+新增功能
+	. 增加手机web端加入小组，发布帖子和评论
+	. 增加后台手动升级功能和说明
+	. 增加后台补丁信息及时更新发布
+	. 增加面向对象开发模式
+优化修复
+	. 优化小组页面展示
+	. 修复提交内容提示后记录消失的问题
+--------------------------------------------------------
+
+Version 2.0
+新增功能
+  . 增加后台用户留言管理
+  . 增加后台消息管理
+  . 增加淘贴管理，完善帖子专辑功能
+  . 增加任务模块
+  . 增加积分兑换
+  . 积分完善，积分全部后台配置
+  . 编辑器更换为umeditor(百度迷你编辑器)
+  . 增加单附件的删除
+  . 增加文章TAG功能和TAG检索
+  . 增加后台配置是否开启前台验证码
+  . 增加后台管理删除动态
+  . 优化搜索增加文章搜索
+
+优化修复
+  . 修复提交内容提示后记录消失的问题
+  . 完善mobile手机web应用
+  . 修复qq登陆验证错误问题
+  . 修复个别环境下带有中文Url无法识别的问题
+  . 更换最新的uploadify上传插件
+  . 更新图片上传和附件上传
+  . 修复回复评论的csrf漏洞
+  . 修复加入和退出小组的csrf漏洞
+  . 修正微博分页链接错误
+  . 统一和优化数据库和规范数据库表名命名
+  . 修复后台换肤功能
+  . 修复后台插件删除不了的问题
+
+ SQL：
+  
+ALTER TABLE  `ts_attach` CHANGE  `attachname`  `attachname` CHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  '' COMMENT  '附件名字'
+ALTER TABLE `ts_user_info` DROP `thems_other`;
+RENAME TABLE  `ts_group_cates` TO  `ts_group_cate` ;
+RENAME TABLE  `ts_group_topics_type` TO  `ts_group_topic_type` ;
+RENAME TABLE  `ts_group_topics_edit` TO  `ts_group_topic_edit` ;
+RENAME TABLE  `ts_group_topics_comments` TO  `ts_group_topic_comment` ;
+RENAME TABLE  `ts_group_topics_collects` TO  `ts_group_topic_collect` ;
+RENAME TABLE  `ts_group_topics_add` TO  `ts_group_topic_add` ;
+RENAME TABLE  `ts_group_topics` TO  `ts_group_topic` ;
+RENAME TABLE  `ts_group_users` TO  `ts_group_user` ;
+ALTER TABLE `ts_group_topic`
+  DROP `appkey`,
+  DROP `appname`,
+  DROP `appaction`,
+  DROP `appid`,
+  DROP `path`,
+  DROP `photo`,
+  DROP `photoshow`,
+  DROP `attach`,
+  DROP `attachname`,
+  DROP `attachshow`,
+  DROP `attachscore`,
+  DROP `music`,
+  DROP `video`,
+  DROP `color`;
+ALTER TABLE  `ts_group` CHANGE  `groupicon`  `photo` CHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  '' COMMENT  '小组图标';
+ALTER TABLE `ts_group` DROP `groupname_en`;
+ALTER TABLE `ts_group_topic` DROP `isshow`;
+CREATE TABLE `ts_redeem_cate` (
+`cateid`  int(11) NOT NULL AUTO_INCREMENT COMMENT '分类ID' ,
+`catename`  char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '分类名称' ,
+PRIMARY KEY (`cateid`)
+)
+ENGINE=MyISAM
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+CHECKSUM=0
+ROW_FORMAT=Fixed
+DELAY_KEY_WRITE=0
+;
+
+CREATE TABLE `ts_redeem_goods` (
+`goodsid`  int(11) NOT NULL AUTO_INCREMENT COMMENT '产品ID' ,
+`cateid`  int(11) NOT NULL DEFAULT 0 COMMENT '分类ID' ,
+`title`  char(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '产品标题' ,
+`content`  text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '产品介绍' ,
+`nums`  int(11) NOT NULL DEFAULT 0 COMMENT '数量' ,
+`scores`  int(11) NOT NULL DEFAULT 0 COMMENT '需要积分' ,
+`return`  int(11) NOT NULL DEFAULT 0 COMMENT '返还积分' ,
+`endtime`  datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '结束时间' ,
+`path`  char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '路径' ,
+`photo`  char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图片' ,
+`addtime`  datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '添加时间' ,
+PRIMARY KEY (`goodsid`)
+)
+ENGINE=MyISAM
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+CHECKSUM=0
+ROW_FORMAT=Dynamic
+DELAY_KEY_WRITE=0
+;
+
+CREATE TABLE `ts_redeem_user` (
+`userid`  int(11) NOT NULL DEFAULT 0 COMMENT '用户ID' ,
+`goodsid`  int(11) NOT NULL DEFAULT 0 COMMENT '产品ID' ,
+`isreturn`  tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否返还0未返还1返还' ,
+INDEX `userid` (`userid`, `goodsid`) USING BTREE ,
+INDEX `userid_2` (`userid`) USING BTREE ,
+INDEX `goodsid` (`goodsid`) USING BTREE 
+)
+ENGINE=MyISAM
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+CHECKSUM=0
+ROW_FORMAT=Fixed
+DELAY_KEY_WRITE=0
+;
+CREATE TABLE `ts_task` (
+`taskid`  int(11) NOT NULL AUTO_INCREMENT COMMENT '任务ID' ,
+`taskkey`  char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '任务标识' ,
+`title`  char(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '任务标题' ,
+`content`  varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '任务介绍' ,
+`addtime`  datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '时间' ,
+PRIMARY KEY (`taskid`),
+UNIQUE INDEX `taskkey` (`taskkey`) USING BTREE 
+)
+ENGINE=MyISAM
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+CHECKSUM=0
+ROW_FORMAT=Dynamic
+DELAY_KEY_WRITE=0
+;
+
+CREATE TABLE `ts_task_user` (
+`userid`  int(11) NOT NULL DEFAULT 0 COMMENT '用户ID' ,
+`taskkey`  char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '任务key' ,
+`addtime`  datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '时间' ,
+UNIQUE INDEX `userid` (`userid`, `taskkey`) USING BTREE ,
+INDEX `taskkey` (`taskkey`) USING BTREE ,
+INDEX `userid_2` (`userid`) USING BTREE 
+)
+ENGINE=MyISAM
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+CHECKSUM=0
+ROW_FORMAT=Fixed
+DELAY_KEY_WRITE=0
+;
+
+TRUNCATE `ts_user_score`;
+
+ALTER TABLE `ts_user_score` ADD COLUMN `app`  char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'APP' AFTER `scorename`;
+
+ALTER TABLE `ts_user_score` ADD COLUMN `action`  char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'ACTION' AFTER `app`;
+
+ALTER TABLE `ts_user_score` ADD COLUMN `ts`  char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'TS' AFTER `action`;
+
+ALTER TABLE `ts_user_score` ADD COLUMN `status`  tinyint(1) NOT NULL DEFAULT 0 COMMENT '0加积分1减积分' AFTER `score`;
+
+CREATE UNIQUE INDEX `app` ON `ts_user_score`(`app`, `action`, `ts`) USING BTREE ;
+
+INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`, `ts`, `score`, `status`) VALUES
+(1, 'user_register', '用户注册', 'user', 'register', 'do', 100, 0),
+(2, 'user_login', '用户登陆', 'user', 'login', 'do', 10, 0),
+(3, 'group_topic_add', '发帖', 'group', 'add', 'do', 10, 0),
+(4, 'group_topic_comment', '回帖', 'group', 'comment', 'do', 10, 0);
+
+--------------------------------------------------------
+
+Version 1.99
+新增功能
+  . 发布内容同步到sina微博和qq微博
+  . 增加豆瓣帐号登录连接插件
+  
+优化修复
+  . 修复个别环境下带有中文Url无法识别的问题
+  . 修复用户关注和取消关注的CSRF漏洞
+  . 修正小组管理员功能
+  . 修正首页唠唠叨叨防止重复发布
+  . ueditor编辑器更新到最新版本
+  . 优化消息系统体验更友好
+
+  
+SQL增改
+ALTER TABLE  `ts_user_info` DROP INDEX  `username`
+--------------------
+ALTER TABLE  `ts_user_open` ADD  `uptime` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '更新时间' AFTER  `access_token`
+
+--------------------------------------------------------
+
+Version 1.98
+新增功能
+  . 增加数据库缓存
+  . 增加顶部960广告位
+  . 后台增加系统升级版块，简化系统升级
+  .	增加帖子修改后台审核更新操作
+  . 增加后台为用户加积分
+  . 增加发帖和回复验证码
+  . 增加删除帖子审核操作，杜绝恶意删除行为
+  . 增加Flash上传头像并裁切功能
+  . 增加手机web访问页面支持(mobile app)，让你的网站支持手机访问更方便
+
+  
+优化修复
+  . 优化IE6内核浏览器兼容
+  . 优化本地缓存同时进行数据库存储
+  . 更新最新版UEditor编辑器
+  .	修复个别IE内核浏览器不能加载编辑器问题
+  . 优化压缩公共CSS,JS和图片文件，提升加载速度
+  . 修复php5.4下数据库备份出现错误的问题
+  
+SQL增改
+
+--------------------------------------------------------
+
+Version 1.97
+新增功能
+  . 增加通过配置开启图片等目录文件其他域名访问
+  .	增加不能自动升级后的手动升级解决方案
+  . 动态APP增加我的动态
+  . 唠叨APP增加我的唠叨
+  . 增加后台管理用户列表展示是否验证Email
+  . 等等...
+  
+优化修复
+  . 对同一用户连续帖子列表进行重新组合设计
+  . 优化界面细节，页面栏目导航细节
+  . 简化整体界面设计方案
+  . 优化防止CSRF攻击
+  . 修复后台文章分类删除不跳转的问题
+  . 去除前台加载裁切图片的SITE_URL常量
+  . 等等...
+
+--------------------------------------------------------
+
+Version 1.96
+新增功能
+  . APP独立域名支持
+  . APP二级域名支持
+  . 增加前台编辑帖子同时编辑标签
+  . 增加后台删除用户功能
+  . 增加后台底层一键升级功能
+  . 增加APP一键升级功能
+  
+优化修复
+  . 优化网站Title
+  . 优化标签URL更人性化
+  . 修复添加和修改信息的CSRF攻击
+  . 改善图片清晰度
+  . 修正相册诸多问题
+  . 修复诸多细节
+
+-----------------------------------------------------------
+Version 1.95
+新增功能
+  . feed动态整体重构
+  . 新增微博说一句话功能
+  . 首页增加微博说插件，相册调用插件
+  . 新增8套可更换皮肤
+  . 新增资料、资料库功能，用户可多上传和分享资料
+  . 新增百度编辑器ueditor，功能强大，发帖更方便
+  . 新增pdo_mysql数据库连接方式
+优化修复
+  . 优化tsUrl函数，使用tsUrl之前不用再写SITE_URL常量
+  . 优化相册和资料功能，独立使用相册和资料
+  . 优化数据输入过滤和底层过滤
+  . 优化垃圾数据过滤，加强信息安全处理

@@ -1,0 +1,29 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<h1>移动帖子：{$strTopic[title]}</h1>
+<div class="cleft">
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=topicmove&ts=do">
+<p>选择小组：
+<select name="groupid">
+<!--{loop $arrGroup $key $item}-->
+<option value="{$item[groupid]}">{$item[groupname]}</option>
+<!--{/loop}-->
+</select>
+</p>
+<p>
+<input type="hidden" name="topicid" value="{$topicid}" />
+
+<button class="btn btn-success" type="submit">移动</button>
+
+</p>
+</form>
+</div>
+
+
+</div>
+</div>
+
+{template footer}

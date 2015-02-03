@@ -1,0 +1,40 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table>
+<tr class="old">
+<td width="100">ID</td><td>userid</td><td>title</td> <td>操作</td>
+</tr>
+
+<!--{loop $arrArticle $key $item}-->
+<tr><td>{$item['articleid']}</td><td>{$item['userid']}</td><td><a target="_blank" href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{php echo htmlspecialchars($item[title])}</a></td><td>
+
+<a href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=isaudit&articleid={$item['articleid']}">
+{if $item['isaudit']==0}
+取消审核
+{else}
+<font color="red">审核</font>
+{/if}
+</a>
+
+<a href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=isrecommend&articleid={$item['articleid']}">{if $item['isrecommend']==1}
+取消推荐
+{else}
+推荐
+{/if}</a>
+
+<a onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=delete&articleid={$item['articleid']}">删除</a>
+</td></tr>
+<!--{/loop}-->
+
+</table>
+
+</div>
+
+{php include template("admin/footer");}

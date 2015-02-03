@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" {if $ac=='my'}class="active"{/if}><a href="{tsUrl('message','my')}">最新消息</a></li>
+<li role="presentation" {if $ac=='system'}class="active"{/if}><a href="{tsUrl('message','system')}">系统消息</a></li>
+<li role="presentation" {if $ac=='friend' || $ac=='user'}class="active"{/if}><a  href="{tsUrl('message','friend')}">好友消息</a></li>
+</ul>

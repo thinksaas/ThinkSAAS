@@ -1,0 +1,26 @@
+<!--{loop $arrRecommendGroup $key $item}-->
+<div class="sub-item" id="group_g">
+<div class="pic">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">
+<img src="{$item[photo]}" alt="{$item[groupname]}" />
+</a>
+<div style="background:#F0F0F0;text-align:center;padding:3px 0;">
+
+{if in_array($item['groupid'],$myGroup)}
+已加入
+{else}
+<a href="{tsUrl('group','do',array('ts'=>'join','groupid'=>$item['groupid']))}">+加入</a>
+{/if}
+
+</div>
+</div>
+<div class="info">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a>  <font color="#999999">{$item[count_user]}人加入</font>             
+<p>{$item[groupdesc]}</p>
+</div>
+</div>
+<!--{/loop}-->
+<script>
+lastid=lastid+1;
+
+</script>

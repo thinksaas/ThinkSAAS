@@ -1,0 +1,6 @@
+/cache
+/data
+/tslogs
+/uploadfile
+.gitignore
+/nbproject/private/

@@ -1,0 +1,59 @@
+{template header}
+
+<div class="midder">
+<div class="mc">
+
+<div class="bbox">
+<div class="bc">
+<div class="upgrade">
+<h1>ThinkSAAS升级程序</h1>
+
+<h3>1、检查目录权限：</h3>
+<table class="commtable">
+<tr><th>cache目录：</th><td>{if iswriteable('cache')==0}<font color="red">不可写</font>(请设置为可写777权限){else}可写{/if}</td></tr>
+
+<tr><th>data目录：</th><td>{if iswriteable('data')==0}<font color="red">不可写</font>(请设置为可写777权限){else}可写{/if}</td></tr>
+
+<tr><th>plugins目录：</th><td>{if iswriteable('plugins')==0}<font color="red">不可写</font>(请设置为可写777权限){else}可写{/if}</td></tr>
+
+<tr><th>tslogs目录：</th><td>{if iswriteable('tslogs')==0}<font color="red">不可写</font>(请设置为可写777权限){else}可写{/if}</td></tr>
+
+<tr><th>upgrade目录：</th><td>{if iswriteable('upgrade')==0}<font color="red">不可写</font>(请设置为可写777权限){else}可写{/if}</td></tr>
+
+<tr><th>uploadfile目录：</th><td>{if iswriteable('uploadfile')==0}<font color="red">不可写</font>(请设置为可写777权限){else}可写{/if}</td></tr>
+</table>
+
+<div style="padding:30px 0;">
+
+{if $f_cache==0 || $f_data==0 || $f_tslogs==0 || $f_plugins==0 || $f_uploadfile==0  || $f_upgrade==0}
+<p>请将不可写的目录设置为可写(777)权限。</p>
+<p><a class="btn btn-success" href="{SITE_URL}">设置完毕，点击刷新</a></p>
+{else}
+
+
+<h3>2、选择要升级的版本：</h3>
+<form method="post" action="{SITE_URL}index.php?app=upgrade&ac=do">
+<select name="sql">
+{loop $arrSql $key $item}
+<option value="{$item}">{$item}</option>
+{/loop}
+</select>
+
+<input class="btn btn-success" type="submit" value="点击升级" />
+</form>
+{/if}
+
+<p>特别提醒：如果你在升级中出现问题，请到<strong><a target="_blank" href="http://www.thinksaas.cn/">ThinkSAAS官方社区</a></strong>提问和寻找答案。
+<br />
+<br />
+<a target="_blank" href="http://www.thinksaas.cn/service/">购买ThinkSAAS商业授权，保安装，保升级！</a></p>
+</div>
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+{template footer}

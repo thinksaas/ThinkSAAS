@@ -1,0 +1,1 @@
+<?php defined('IN_TS') or die('Access Denied.');//插件信息return array('name' => 'ueditor编辑器','version' => '1.4.3','desc' => '针对ThinkSAAS社区开发的百度ueditor编辑器','url' => 'http://www.thinksaas.cn','email' => 'thinksaas@qq.com','author' => '百度','author_url' => 'http://ueditor.baidu.com','isedit'	=> '0',);

@@ -1,0 +1,106 @@
+{template header}
+{php doAction('tseditor')}
+<div class="container">
+
+<ol class="breadcrumb">
+  <li><a href="{SITE_URL}">首页</a></li>
+  <li><a href="{tsUrl('group')}">小组</a></li>
+  <li><a href="{tsUrl('group','topic',array('id'=>$strTopic['topicid']))}">{$strTopic['title']}</a></li>
+  <li class="active">编辑帖子</li>
+</ol>
+
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+
+
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=topicedit&ts=do" enctype="multipart/form-data">
+
+
+  <div class="form-group">
+    <label>标题</label>
+    <input name="title" type="text" class="form-control" value="{$strTopic['title']}">
+  </div>
+ 
+{if $arrGroupType} 
+  <div class="form-group">
+    <label>类型</label>
+    
+<select name="typeid">
+<option {if $strTopic[typeid]=='0'}selected="select"{/if} value="0">请选择</option>
+{loop $arrGroupType $key $item}
+<option {if $item[typeid]==$strTopic[typeid]}selected="select"{/if} value="{$item[typeid]}">{$item[typename]}</option>
+{/loop}
+</select>
+	
+  </div>
+{/if}
+
+
+  <div class="form-group">
+    <label>内容</label>
+<textarea name="content" id="tseditor">{$strTopic['content']}</textarea>
+  </div>
+  
+  <div class="form-group">
+    <label>标签</label>
+    <input name="tag" type="text" class="form-control" value="{$strTopic['tag']}">
+  </div>
+  
+  <div class="form-group">
+    <label>评论</label>
+    
+<input type="radio" name="iscomment" value="0" {if $strTopic[iscomment]=='0'}checked="select"{/if} />允许 
+<input type="radio" name="iscomment" value="1" {if $strTopic[iscomment]=='1'}checked="select"{/if} />不允许
+	
+  </div>
+  
+  
+  <div class="form-group">
+    <label>回复可读</label>
+    
+<input type="radio" name="iscommentshow" value="0" {if $strTopic[iscommentshow]=='0'}checked="select"{/if} />不需要 
+<input type="radio" name="iscommentshow" value="1" {if $strTopic[iscommentshow]=='1'}checked="select"{/if} />需要
+	
+  </div>
+  
+  
+  <div class="form-group">
+    <label>验证码</label>
+    
+<input name="authcode" />
+ <img align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
+	
+  </div>
+
+	<input type="hidden" name="topicid" value="{$strTopic[topicid]}" />
+	
+	<input type="hidden" name="token" value="{$_SESSION['token']}" />
+	
+	<button class="btn btn-success" type="submit">修改</button>
+	
+	<a href="{tsUrl('group','topic',array('id'=>$strTopic[topicid]))}">返回</a>
+<p></p>
+
+</form>
+
+
+
+</div>
+<div class="col-md-2"></div>
+</div>
+
+
+</div>
+</div>
+
+
+
+</div>
+{template footer}

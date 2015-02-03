@@ -1,0 +1,79 @@
+<div class="facebox bbox">
+<div class="bc">
+<div class="face">
+<a href="{tsUrl('user','space',array('id'=>$strUser['userid']))}" rel="face" uid="$strUser[userid]"><img title="{$strUser[username]}" alt="{$strUser[username]}" src="{$strUser[face]}" width="48"></a>
+</div>
+
+<div class="info">
+<h3><a href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">{$strUser[username]}</a></h3>
+<div>
+
+{if $strUser[userid] != $TS_USER[user][userid]}
+{if $strUser[isfollow]}
+<a class="btn btn-mini" href="javascript:void('0');" onclick="unfollow('{$strUser['userid']}','{$_SESSION['token']}');">取消关注</a>
+{else}
+<a class="btn btn-mini" href="javascript:void('0')" onclick="follow('{$strUser['userid']}','{$_SESSION['token']}');">关注</a>
+{/if}
+<a href="{tsUrl('user','message',array(ts=>add,touserid=>$strUser[userid]))}" rel="nofollow" class="btn btn-mini">发消息</a>
+{/if}
+
+</div>
+</div>
+<div class="clear"></div>
+
+<ul class="other">
+<li class="br"><span class="fs14"><a href="{tsUrl('user','follow',array('id'=>$strUser['userid']))}">{$strUser['count_follow']}</a></span><br />关注</li>
+<li class="br"><span class="fs14"><a href="{tsUrl('user','followed',array('id'=>$strUser['userid']))}">{$strUser['count_followed']}</a></span><br />粉丝</li>
+<li><span class="fs14">{$strUser['count_score']}</span><br />积分</li>
+</ul>
+
+<div class="clear"></div>
+
+<div class="fmore">
+
+<a href="{tsUrl('user','verify')}">
+{if $strUser['isverify']==1}
+<img src="{SITE_URL}public/images/rz1.gif" alt="认证用户" title="认证用户" align="absmiddle" />
+{else}
+<img src="{SITE_URL}public/images/rz2.gif" alt="未认证用户" title="未认证用户" align="absmiddle" /> 
+{/if}
+</a>
+
+<br />
+
+UID:{$strUser[userid]} 
+<br /> 
+{php echo date('Y-m-d',$strUser[addtime])} 加入
+<br />
+角色：<a href="{tsUrl('user','role')}">{$strUser['rolename']}</a>
+
+<br />
+
+性别：{if $strUser[sex]=='0'}保密{elseif $strUser[sex]=='1'}男{else}女{/if}<br />
+{if $strUser[blog]}博客：{$strUser[blog]}<br />{/if}
+{if $strUser[about]}关于：{php echo nl2br(htmlspecialchars($strUser[about]))} <br />{/if}
+{if $strUser[signed]}签名：{php echo nl2br(htmlspecialchars($strUser[signed]))}<br />{/if}
+{if $strUser[userid] == $TS_USER[user][userid]}[<a href="{tsUrl('my','setting',array(ts=>base))}">修改基本信息</a>]{/if}
+
+</div>
+</div>
+</div>
+
+<div class="clear"></div>
+
+<div class="bbox">
+<div class="btitle">关注的用户<span class="pl">&nbsp;(
+<a href="{tsUrl('user','follow',array('id'=>$strUser['userid']))}">全部</a>
+) </span>
+</div>
+<div class="bc">
+{loop $arrFollowUser $key $item}
+<dl class="obu"><dt><a class="nbg" href="{tsUrl('user','space',array('id'=>$item[userid]))}" rel="face" uid="{$item['userid']}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}" width="48" height="48" /></a></dt>
+<dd><a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[username]}</a></dd>
+</dl>
+{/loop}
+</div>
+</div>
+
+<!--广告位-->
+{php doAction('gobad','300')}

@@ -1,0 +1,25 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<table>
+<tr class="old"><td>albumid</td><td>userid</td><td>title</td><td>时间</td><td>操作</td></tr>
+{loop $arrAlbum $key $item}
+<tr class="odd"><td>{$item['albumid']}</td><td>{$item['userid']}</td><td>{$item['title']}</td><td>{$item['addtime']}</td>
+
+<td>
+
+<a href="{SITE_URL}index.php?app=attach&ac=admin&mg=album&ts=isaudit&albumid={$item['albumid']}">{if $item['isaudit']}审核{else}取消审核{/if}</a>
+
+<a onclick="return confirm('确定删除吗？')" href="{SITE_URL}index.php?app=attach&ac=admin&mg=album&ts=delete&albumid={$item['albumid']}">删除</a></td></tr>
+{/loop}
+</table>
+
+<div class="page">{$pageUrl}</div>
+
+</div>
+
+{php include template("admin/footer");}

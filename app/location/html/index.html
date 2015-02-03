@@ -1,0 +1,33 @@
+{template header}
+
+<div class="container">
+
+
+<div class="bbox">
+<div class="btitle">选择加入同城</div>
+<div class="bc">
+
+<div class="location_list">
+<ul>
+{loop $arrLocation $key $item}
+<li>
+<div class="photo"><img src="{if $item['photo']}{php echo tsXimg($item['photo'],'location','120','120',$item['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" width="90" height="90" alt="{$item['title']}" /></div>
+<div class="info">
+<div class="title">{$item['title']}</div>
+<div class="content">{$item['content']}</div>
+
+<div><a class="btn btn-success" href="javascript:void('0');" onclick="tsPost('index.php?app=location&ac=ajax&ts=join',{'locationid':'{$item[locationid]}'})">加入</a></div>
+
+</div>
+</li>
+{/loop}
+</ul>
+</div>
+
+</div>
+</div>
+
+
+</div>
+
+{template footer}

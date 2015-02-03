@@ -1,0 +1,47 @@
+{template header}
+
+<div class="container">
+
+
+<div class="bbox mh400">
+
+<div class="bc s_index">
+
+<div class="s_menu">
+<a {if $ts==''}class="s_select"{/if} href="{tsUrl('search')}">全部</a> | 
+<a {if $ts=='group'}class="s_select"{/if} href="{tsUrl('search','index',array(ts=>group))}">小组</a> | 
+<a {if $ts=='topic'}class="s_select"{/if} href="{tsUrl('search','index',array(ts=>topic))}">帖子</a> | 
+<a {if $ts=='user'}class="s_select"{/if} href="{tsUrl('search','index',array(ts=>user))}">用户</a> | 
+<a {if $ts=='article'}class="s_select"{/if} href="{tsUrl('search','index',array(ts=>article))}">文章</a>
+</div>
+
+<div>
+<form method="GET" action="{SITE_URL}index.php">
+<input type="hidden" name="app" value="search" />
+<input type="hidden" name="ac" value="s" />
+
+{if $ts=='group'}
+<input type="hidden" name="ts" value="group" />
+{elseif $ts=='topic'}
+<input type="hidden" name="ts" value="topic" />
+{elseif $ts=='user'}
+<input type="hidden" name="ts" value="user" />
+{elseif $ts=='article'}
+<input type="hidden" name="ts" value="article" />
+{else}
+{/if}
+
+<input class="s_input" name="kw" x-webkit-speech /> 
+<button class="btn btn-success" type="submit">搜索</button>
+
+</form>
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+
+{template footer}

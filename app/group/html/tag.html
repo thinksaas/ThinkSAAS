@@ -1,0 +1,103 @@
+{template header}
+
+<div class="container">
+
+<ol class="breadcrumb">
+  <li><a href="{SITE_URL}">首页</a></li>
+  <li><a href="{tsUrl('group')}">小组</a></li>
+  <li class="active">{$strTag[tagname]}</li>
+</ol>
+
+<div class="row">
+
+<div class="col-md-8">
+<div class="bbox">
+<div class="bc">
+<h1><a href="{tsUrl('group','tag',array('id'=>$strTag[tagname]))}">{$strTag[tagname]}</a></h1>
+</div>
+</div>
+
+
+<div class="bbox">
+<div class="btitle">{$strTag[tagname]}相关的小组</div>
+<div class="bc">
+
+<div class="facelist">
+<ul>
+{loop $arrGroup $key $item}
+<li><a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img src="{$item['photo']}" width="48" alt="{$item['groupname']}" /></a>
+<p><a href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['groupname']}</a></p>
+</li>
+{/loop}
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="bbox">
+<div class="btitle">{$strTag[tagname]}相关的帖子</div>
+<div class="bc">
+<div class="topic_list">
+<ul>
+{if $arrTopic}
+{loop $arrTopic $key $item}
+<li>
+<div class="userimg"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img src="{$item[user][face]}" width="32"></a></div>
+
+<div class="topic_title">
+<div class="title"><a title="{$item[title]}" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
+</div>
+
+<div class="topic_info">
+<span style="float:left;">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[group][groupname]}</a>
+</span>
+
+<span style="float:right;">
+{php echo getTime($item[uptime],time())}
+
+<a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+
+{if $item[count_comment]>0}<a class="rank" style="color:#FFFFFF;" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a>{/if}
+</span>
+</div>
+</div>
+<div class="clear"></div>
+</li>	
+{/loop}
+{/if}
+</ul>
+</div>
+
+<div class="page">{$pageUrl}</div>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="col-md-4">
+
+<div class="bbox tags">
+
+<div class="btitle">热门标签</div>
+<div class="bc">
+{loop $arrTag $key $item}
+<a href="{tsUrl('group','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
+{/loop}
+<a href="{tsUrl('group','tags')}">更多...</a>
+</div>
+</div>
+
+<div class="clear"></div>
+<!--广告位-->
+{php doAction('gobad','300')}
+
+</div>
+</div>
+</div>
+
+
+{template footer}

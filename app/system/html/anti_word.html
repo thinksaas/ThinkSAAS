@@ -1,0 +1,31 @@
+{template header}
+
+<!--main-->
+<div class="midder">
+{template anti_menu}
+
+
+<div>
+<form method="post" action="{SITE_URL}index.php?app=system&ac=anti&ts=worddo">
+词语：<input name="word" /><input type="submit" value="添加" />
+</form>
+</div>
+
+
+<div>
+<table>
+
+<tr class="old"><td>ID</td><td>敏感词</td><td>添加时间</td><td>操作</td></tr>
+
+{loop $arrWord $key $item}
+<tr class="odd"><td>{$item['id']}</td><td>{$item['word']}</td><td>{$item['addtime']}</td><td><a href="{SITE_URL}index.php?app=system&ac=anti&ts=worddel&id={$item['id']}">删除</a></td></tr>
+{/loop}
+
+</table>
+
+</div>
+
+
+</div>
+
+{template footer}

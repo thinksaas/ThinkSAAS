@@ -1,0 +1,33 @@
+{php include template("admin/header");}
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=edit_do">
+<table  cellpadding="0" cellspacing="0">
+<tr><td width="100">小组名称：</td><td><input name="groupname" value="{$arrGroup[groupname]}" /></td></tr>
+<tr><td>小组介绍：</td><td><textarea style="width:500px;height:200px;" name="groupdesc">{$arrGroup[groupdesc]}</textarea></td></tr>
+
+<tr><td>组长(ID)：</td><td><input name="userid" value="{$arrGroup[userid]}" /></td></tr>
+
+<tr>
+<td>会员发帖设置：</td>
+<td>
+<select name="ispost">
+<option {if $arrGroup[ispost]==0} selected="selected"{/if} value="0">允许会员发帖</option>
+<option {if $arrGroup[ispost]==1} selected="selected"{/if} value="1">不允许会员发帖</option>
+</select>
+</td>
+</tr>
+
+<tr><td></td><td>
+<input type="hidden" name="groupid" value="{$arrGroup[groupid]}" />
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input type="submit" value="更新小组" />
+</td></tr>
+</table>
+</form>
+
+</div>
+{php include template("admin/footer");}

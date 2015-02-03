@@ -1,0 +1,31 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table>
+<tr class="old"><td width="60">AlbumID</td><td width="120">图片</td><td>UserID</td><td>统计</td><td>操作</td></tr>
+<!--{loop $arrAlbum $key $item}-->
+<tr><td>{$item[albumid]}</td><td><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=photo&albumid={$item[albumid]}">
+
+{if $item[albumface]}
+<img src="{php echo tsXimg($item[albumface],'photo',100,100,$item[path])}" />
+{else}
+<img src="{SITE_URL}public/images/event_dft.jpg" />
+{/if}
+
+</a></td><td>{$item[userid]}</td><td>{$item[count_photo]}</td><td>
+
+<a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=isrecommend&albumid={$item[albumid]}">{if $item[isrecommend]==0}推荐{else}取消推荐{/if}</a>
+
+<a href="">修改</a> <a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=del_album&albumid={$item[albumid]}">删除</a></td></tr>
+<!--{/loop}-->
+</table>
+
+</div>
+
+{php include template("admin/footer");}

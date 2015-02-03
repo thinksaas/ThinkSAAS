@@ -1,0 +1,42 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=add_do">
+<table  cellpadding="0" cellspacing="0">
+<tr><td width="100">小组名称：</td><td><input name="groupname" value="" /></td></tr>
+<tr><td width="100">小组介绍：</td><td><textarea style="width:400px;height:150px;" name="groupdesc"></textarea></td></tr>
+<tr>
+<td>推荐设置：</td>
+<td>
+<select name="isrecommend">
+<option  value="0">默认</option>
+<option  value="1">推荐</option>
+</select>
+</td>
+</tr>
+
+<tr><td>组长(ID)：</td><td><input name="userid" value="" /></td></tr>
+
+<tr>
+<td>会员发帖设置：</td>
+<td>
+<select name="ispost">
+<option  value="0">允许会员发帖</option>
+<option  value="1">不允许会员发帖</option>
+</select>
+</td>
+</tr>
+
+<tr><td></td><td>
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input type="submit" value="添加小组" />
+</td></tr>
+</table>
+</form>
+
+</div>
+{php include template("admin/footer");}

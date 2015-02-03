@@ -1,0 +1,39 @@
+{template header}
+<div class="container">
+
+<ol class="breadcrumb">
+  <li><a href="{SITE_URL}">首页</a></li>
+  <li class="active">积分兑换</li>
+</ol>
+
+<div class="bbox">
+
+
+<div class="bc">
+
+
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" {if $ac=='index' && $cateid==0}class="active"{/if}><a href="{tsUrl('redeem')}">最新兑换</a></li>
+
+{loop $arrCate $key $item}
+<li role="presentation" {if $ac=='index' && $cateid==$item['cateid']}class="active"{/if}><a href="{tsUrl('redeem','index',array('cateid'=>$item['cateid']))}">{$item['catename']}</a></li>
+{/loop}
+</ul>
+
+
+<div class="goodslist">
+<ul>
+{loop $arrGoods $key $item}
+<li><a href="{tsUrl('redeem','goods',array('id'=>$item['goodsid']))}"><img src="{if $item['photo']}{php echo tsXimg($item['photo'],'redeem','150','150',$item['path'],1)}{else}{SITE_URL}public/images/redeem.png{/if}" alt="{$item['title']}" width="150" /></a>
+<p class="content"><a href="{tsUrl('redeem','goods',array('id'=>$item['goodsid']))}">{$item['title']}</a></p>
+<div class="info"><span class="scores">{$item['scores']}积分</span><span class="dui"><a class="btn btn-success btn-mini" href="{tsUrl('redeem','goods',array('id'=>$item['goodsid']))}">兑换</a></span></div>
+</li>
+{/loop}
+</ul>
+</div>
+</div>
+</div>
+
+
+</div>
+{template footer}

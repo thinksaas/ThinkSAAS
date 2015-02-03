@@ -1,0 +1,8 @@
+<div class="sendbox">
+<p>和<span style="color:#0066cc;">{$strTouser[username]}</span>进行及时消息通话中</p>
+<p><textarea id="boxcontent"></textarea> </p>
+<p>
+<span id="sendbutton" style="display:block;"><a class="btn" href="javascript:void('0');" onclick="sendmsg('{$TS_USER[user][userid]}','{$strTouser[userid]}');">发送</a></span>
+<span id="loading" style="display:none;">消息送达中<img src="{SITE_URL}app/{$app}/skins/{$skin}/loading.gif" alt="Loading..." /></span>
+</p>
+</div>

@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>评论</title>
+
+<style>
+
+body{ font-size:12px;font-family:Arial;margin:0 auto;color:#434343;background:#FFFFFF;}
+p{margin:0;}
+a{color:#66873E;text-decoration:none;}
+/*链接按钮*/
+.subab{
+background: #EBF5EB;
+    border: 1px solid #B8CACB;
+    border-radius: 12px 12px 12px 12px;
+    color: #333333;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 4px 10px;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+</style>
+
+</head>
+<body>
+<div style="text-align:center;padding:10px 0;">
+<p>
+<textarea style="width:90%;height:60px;font-size:14px;" id="recontent"  type="text"></textarea>
+</p>
+<p>
+<br />
+<a class="subab" href="javascript:void('0');" onclick="self.parent.recomment('{$commentid}','{$topicid}',document.getElementById('recontent').value);">提交回复</a>
+</p>
+</div>
+
+</body>
+</html>

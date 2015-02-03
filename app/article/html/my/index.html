@@ -1,0 +1,63 @@
+{template header}
+<div class="container">
+
+
+<div class="my">
+
+
+<div class="my_left">
+
+{php include pubTemplate("my")}
+
+</div>
+
+<div class="my_right">
+
+<div class="rc">
+
+
+{php doAction('my_right_top')}
+
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" class="active"><a href="">我的文章</a></li>
+</ul>
+
+
+
+
+<table class="table">
+<thead>
+<tr><th>标题</th><th>时间</th><th>操作</th></tr>
+</thead>
+
+<tbody>
+{loop $arrArticle $key $item}
+<tr><td>
+
+<a target="_blank" href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></td><td>{$item['addtime']}</td><td>
+
+<a target="_blank" href="{SITE_URL}index.php?app=article&ac=edit&articleid={$item[articleid]}">修改</a> | 
+
+<a target="_blank" href="{SITE_URL}index.php?app=article&ac=delete&articleid={$item[articleid]}">删除</a>
+
+</td></tr>
+{/loop}
+<tbody>
+</table>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+
+
+
+
+</div>
+
+</div>
+
+
+</div>
+</div>
+
+
+{template footer}

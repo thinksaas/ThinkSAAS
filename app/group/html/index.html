@@ -1,0 +1,99 @@
+{template header}
+<div class="container">
+
+<ol class="breadcrumb">
+  <li><a href="{SITE_URL}">首页</a></li>
+  <li class="active">小组</li>
+</ol>
+
+<div class="row">
+
+<div class="col-md-8">
+
+<div class="bbox mh500">
+<div class="btitle">全部小组</div>
+
+<div class="bc">
+<div id="group_content">
+
+{loop $arrGroup $key $item}
+<div class="sub-item">
+<div class="pic">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">
+<img src="{if $item[photo]}{php echo tsXimg($item['photo'],'group','120','120',$item['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" alt="{$item[groupname]}" />
+</a>
+<div style="background:#F0F0F0;text-align:center;padding:3px 0;">
+
+{if in_array($item['groupid'],$myGroup)}
+已加入
+{else}
+<a href="javascript:void('0')" onclick="joinGroup('{$item['groupid']}')">+加入</a>
+{/if}
+
+</div>
+</div>
+<div class="info">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a>  <font color="#999999">{$item[count_user]}人加入</font>             
+<p>{$item[groupdesc]}</p>
+</div>
+</div>
+{/loop}
+
+
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+
+
+{if $TS_APP[options][iscreate]==0 || $TS_USER[user][isadmin]==1}
+<a class="btn btn-info btn-block btn-lg" href="{tsUrl('group','create')}">
+<span class="glyphicon glyphicon-plus-sign"></span> 创建小组</a>
+<p></p>
+{/if}
+
+
+<div class="bbox">
+
+<div class="btitle">热门帖子</div>
+<ul class="bc titles">
+{loop $arrTopic $key $item}
+<li>
+<h3><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}" target="_blank">{$item['title']}</a></h3>
+<span class="titles-r-grey">{$item['count_comment']}</span>
+<p class="titles-b">
+<span class="titles-b-l">来自：<a title="{$item['group']['groupname']}" target="_blank" href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['group']['groupname']}</a>&nbsp;小组
+</span>
+</p>
+</li>
+{/loop}
+</ul>
+
+</div>
+
+
+<div class="bbox">
+
+<div class="btitle">最新创建小组</div>
+
+<div class="bc line23">
+{if $arrNewGroup}
+{loop $arrNewGroup $key $item}
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]})<br>
+{/loop}
+{/if}
+</div>
+</div>
+
+<!--广告位-->
+{php doAction('gobad','300')}
+
+</div>
+</div>
+</div>
+{template footer}

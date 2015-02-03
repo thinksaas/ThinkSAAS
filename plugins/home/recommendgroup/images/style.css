@@ -1,0 +1,37 @@
+/****************/
+.subitem {
+    left: 20px;
+    position: absolute;
+    top: 23px;
+    width: 95%;
+}
+.sub-item{
+   border-bottom: 1px dashed #AAAAAA;
+    float: left;
+    height: 72px;
+    margin: 0 2px 15px 0;
+    overflow: hidden;
+    width: 49%;
+}
+.sub-item .pic {
+	float: left;
+    display: table-cell;
+    height: 48px;
+    vertical-align: top;
+    width: 48px;
+}
+.sub-item .info {
+    color: #666666;
+    vertical-align: top;
+    word-wrap: break-word;
+	margin-left:60px;
+}
+.sub-item .pic img {
+    height: 48px;
+    margin-bottom: -3px;
+    width: 48px;
+}
+.sub-item p {
+    margin: 0;
+	width:220px;
+}

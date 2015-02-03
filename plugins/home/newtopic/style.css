@@ -1,0 +1,28 @@
+/*帖子列表*/
+.topic_list{overflow:hidden;}
+.topic_list ul{overflow:hidden;}
+.topic_list ul li{overflow:hidden;padding:15px 0;display: block;border-bottom: 1px dashed #999999;}
+
+.topic_list ul li .other{background: none repeat scroll 0 0 #F8F8F8;
+    border-left: 3px solid #EEEEEE;
+    margin-left: 38px;
+    margin-top: 5px;
+    padding: 5px;}
+.topic_list ul li .other p{margin:0px;padding:5px 0;}
+
+.topic_list .userimg{float:left;width:38px;overflow:hidden;}
+
+.topic_list .topic_title{margin-left:40px;overflow:hidden;}
+
+.topic_list .topic_title .title a{color:#343434;font-size:14px;}
+
+.topic_list .topic_info{overflow: hidden;font-size:12px;color:#999999;}
+
+.rank {
+	background: none repeat scroll 0 0 #BBBBBB;
+    height: 15px;
+    line-height: 15px;
+    margin: 0 0 0 5px;
+    padding: 0 3px;
+	border-radius:5px 5px 5px 5px;
+}

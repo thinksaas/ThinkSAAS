@@ -1,0 +1,51 @@
+{template header}
+{php doAction('tseditor','mt')}
+<div class="container">
+
+
+<div class="bbox mh400">
+<div class="bc">
+
+{template menu}
+<h1>修改资料库</h1>
+
+
+
+
+
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+  
+<form role="form" method="post" action="{tsUrl('attach','album',array('ts'=>'editdo'))}">
+  <div class="form-group">
+    <label>资料库名称：</label>
+    <input name="title" type="text" class="form-control" value="{$strAlbum['title']}" >
+  </div>
+  
+  <div class="form-group">
+    <label>资料库介绍：</label>
+    <textarea name="content" type="text" id="tseditor" >{$strAlbum['content']}</textarea>
+  </div>
+
+
+
+<input type="hidden" name="albumid" value="{$strAlbum['albumid']}" />
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input class="btn btn-success" type="submit" value="修改" />
+</form>
+  
+  
+  
+  </div>
+  <div class="col-md-3"></div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+{template footer}

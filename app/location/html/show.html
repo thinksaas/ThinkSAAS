@@ -1,0 +1,169 @@
+{template header}
+
+<div class="container">
+
+
+<div class="bbox">
+<div class="bc">
+
+<div class="location">
+<div class="photo"><img src="{if $strLocation['photo']}{php echo tsXimg($strLocation['photo'],'location','120','120',$strLocation['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" width="90" height="90" alt="{$strLocation['title']}" /></div>
+<div class="info">
+<h1>{tsTitle($strLocation['title'])}</h1>
+<p>{$strLocation['content']}</p>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-8">
+
+<div class="bbox">
+<div class="btitle">用户</div>
+<div class="bc facelist">
+<ul>
+{loop $arrUser $key $item}
+<li><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{if $item['face']}{php echo tsXimg($item['face'],'user','120','120',$item['path'],1)}{else}{SITE_URL}public/images/user_large.jpg{/if}" alt="{$item['username']}" width="48" height="48" /></a><div><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></div></li>
+{/loop}
+</ul>
+</div>
+<div class="clear"></div>
+</div>
+
+
+<div class="bbox">
+<div class="btitle">图片</div>
+<div class="bc photo">
+
+<ul>
+{loop $arrPhoto $key $item}
+<li>
+<a title="{$item[photodesc]}" class="photolst_photo" href="{tsUrl('photo','show',array('id'=>$item[photoid]))}">
+<img src="{php echo tsXimg($item[photourl],'photo',170,'170',$item[path],1)}"  width="120" height="120" alt="{$item['albumname']}" />
+</a>
+</li>
+{/loop}
+</ul>
+
+</div>
+</div>
+
+<div class="bbox">
+<div class="btitle">帖子</div>
+<div class="bc">
+
+
+<div class="bc topic_list">
+<ul>
+
+{loop $arrTopic $key $item}
+<li>
+<div class="userimg"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img src="{$item[user][face]}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" /></a></div>
+
+<div class="topic_title">
+<div class="title">
+<a title="{$item[title]}" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{tsTitle($item[title])}</a>
+
+</div>
+<div class="topic_info">
+<span style="float:left;">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{tsTitle($item[group][groupname])}</a>
+</span>
+
+<span style="float:right;">
+{php echo getTime($item[uptime],time())}
+
+<a href="{tsUrl('group','user',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+
+{if $item[count_comment]>0}<a class="rank" style="color:#FFFFFF;" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a>{/if}
+</span>
+</div>
+
+</div>
+
+{if $item['topic']}
+<div class="other">
+{loop $item['topic'] $tkey $titem}
+<p><a href="{tsUrl('group','topic',array('id'=>$titem['topicid']))}">{tsTitle($titem['title'])}</a></p>
+{/loop}
+</div>
+{/if}
+<div class="clear"></div>
+</li>	
+{/loop}
+</ul>
+</div>
+
+
+</div>
+</div>
+
+
+</div>
+
+
+<div class="col-md-4">
+
+<div class="bbox">
+<div class="btitle">唠唠叨叨</div>
+<div class="bc">
+
+<ul id="weibo" class="weilist">
+{loop $arrWeibo $key $item}
+<li>
+<span class="portrait"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img align="absmiddle" class="SmallPortrait" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}"></a></span>
+<span class="body">
+<span class="user"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a>：</span><span class="log">{php echo tsDecode($item['content'])}</span>
+{if $item[photo]}
+<div style="padding:5px 0;"><a target="_blank" href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}"><img src="{php echo tsXimg($item['photo'],'weibo',240,'',$item['path'])}" width="120" /></a>
+</div>
+{/if}
+<span class="time">{php echo getTime(strtotime($item['addtime']),time())} (<a href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}">{$item['count_comment']}评</a>)
+</span>
+</span>
+<div class="clear"></div>
+</li>
+{/loop}
+</ul>
+
+</div>
+</div>
+
+
+<div class="bbox">
+<div class="btitle">文章</div>
+<div class="bc commlist">
+
+<ul>
+{loop $arrArticle $key $item}
+<li><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{tsTitle($item['title'])}</a></li>
+{/loop}
+</ul>
+
+</div>
+</div>
+
+
+<div class="bbox">
+<div class="btitle">资料</div>
+<div class="bc commlist">
+
+<ul>
+{loop $arrAttach $key $item}
+<li><a href="{tsUrl('attach','show',array('id'=>$item['attachid']))}">{tsTitle($item['attachname'])}</a></li>
+{/loop}
+</ul>
+
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+</div>
+
+{template footer}

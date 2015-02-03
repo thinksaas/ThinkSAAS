@@ -1,0 +1,48 @@
+{template header}
+<div class="midder">
+<div class="mc">
+<h1>{$strGroup[groupname]}</h1>
+<div class="cleft">
+<div class="infobox">
+
+<div class="bd"><img align="left" alt="{$strGroup[groupname]}" src="{$strGroup[photo]}" class="pil photo" valign="top" />
+<p>创建于：{php echo date('Y-m-d',$strGroup[addtime])}&nbsp; &nbsp; 组长：<a href="{tsUrl('user','space',array('id'=>$strLeader[userid]))}">{$strLeader[username]}</a><br></p>
+{$strGroup[groupdesc]}
+<div class="clearfix" style="margin-top: 10px;">
+
+{if $strGroup['joinway']==0}
+<span class="fright mr5 color-gray"><a rel="nofollow" class="btn" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">加入小组</a></span>
+{/if}
+
+</div>
+</div>
+
+</div>
+
+<div>
+<p>加入方式: {if $strGroup['joinway']==0}自由加入{elseif $strGroup['joinway']==1}邀请加入{else}不允许加入{/if} 
+
+浏览权限: 
+{if $strGroup['isopen']==0}
+完全开放
+{else}
+仅组员
+{/if}
+
+</p>
+<p>成员：{$strGroup[count_user]}  帖子：{$strGroup[count_topic]}</p>
+</div>
+
+</div>
+
+
+<div class="cright">
+
+<p class="pl">本页永久链接：<br />
+<a href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">{tsUrl('group','show',array('id'=>$strGroup[groupid]))}</a></p>
+
+</div>
+</div>
+</div>
+
+{template footer}

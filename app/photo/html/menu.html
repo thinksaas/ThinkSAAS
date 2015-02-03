@@ -1,0 +1,12 @@
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" {if $ac=='index'}class="active"{/if}><a href="{tsUrl('photo')}">最新专辑</a></li>
+{if $ac=='album' && $ts=='user'}
+<li role="presentation" class="active"><a href="{tsUrl('photo','album',array(ts=>user,userid=>$userid))}">{$title}</a></li>
+{/if}
+{if $ts!='user' && intval($TS_USER[user][userid]) > '0'}
+<li role="presentation"><a href="{tsUrl('photo','album',array(ts=>user,userid=>$TS_USER[user][userid]))}">我的专辑</a></li>
+{/if}
+<li role="presentation" {if $ac=='create'}class="active"{/if}><a href="{tsUrl('photo','create')}">创建新专辑</a></li>
+</ul>
+
+<div style="height:30px;"></div>

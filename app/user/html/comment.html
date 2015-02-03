@@ -1,0 +1,35 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<h1>{$strUser['username']} </h1>
+<div class="cleft">
+<div class="bbox">
+{template menu}
+
+<div class="clear"></div>
+
+<ul class="topic">
+{loop $arrComment $key $item}
+<li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{php echo htmlspecialchars($item['topic']['title'])}</a> <i>{$item['topic']['count_comment']}</i>
+<br />
+<i>“{php echo nl2br(htmlspecialchars($item['content']))}”</i>
+</li>
+{/loop}
+</ul>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+
+
+</div>
+</div>
+
+<div class="cright">
+{template userinfo}
+</div>
+
+</div>
+</div>
+{template footer}

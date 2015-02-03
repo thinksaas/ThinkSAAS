@@ -1,0 +1,52 @@
+{template header}
+<!--main-->
+<div class="midder">
+
+
+
+<div class="update">
+<h1>第一步：检测系统权限</h1>
+<div class="uplog"></div>
+
+<div id="upgo" class="upgo" style="display:none;"><a href="index.php?app=system&ac=handup&ts=two">下一步：升级数据库</a></div>
+
+<div class="notice" style="display:none;">
+【提示】<br />
+根目录不可写，请将全站设置为可写权限。<br />Linux空间请手动设置整个网站空间777权限。<br />如果你设置好了，请点击下面的刷新按钮
+</div>
+<div id="rego" class="upgo" style="display:none;"><a href="index.php?app=system&ac=handup&ts=one">刷新权限</a>
+</div>
+
+
+</div>
+
+
+</div>
+<script src="public/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+<script>
+//检测是否有升级
+function iswritable(){
+	$(".uplog").html('<img src="public/images/loading.gif" />权限检测中...')
+	$.get('index.php?app=system&ac=handup&ts=iswritable',function(rs){
+		if(rs=='0'){
+			$(".uplog").html('opendir函数不可用');
+			$("#rego").show();
+		}else if(rs=='1'){
+			$(".uplog").html('readdir函数不可用');
+			$("#rego").show();
+		}else if(rs=='2'){
+			$(".uplog").html('copy函数不可用');
+			$("#rego").show();
+		}else if(rs=='3'){
+			$(".uplog").html('权限未通过！');
+			$(".notice").show();
+			$("#rego").show();
+		}else if(rs=='4'){
+			$(".uplog").html('权限通过！');
+			$("#upgo").show();
+		}
+	})
+}
+iswritable();
+</script>
+{template footer}

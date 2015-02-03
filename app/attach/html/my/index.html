@@ -1,0 +1,53 @@
+{template header}
+<div class="container">
+
+
+<div class="my">
+
+
+<div class="my_left">
+
+{php include pubTemplate("my")}
+
+</div>
+
+<div class="my_right">
+
+<div class="rc">
+
+
+{php doAction('my_right_top')}
+
+
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" class="active"><a href="">我的文件夹</a></li>
+</ul>
+
+
+
+<div class="albumlist">
+
+<ul>
+{loop $arrAlbum $key $item}
+<li>
+<div>
+<h2><a target="_blank" href="{tsUrl('attach','album',array('id'=>$item['albumid']))}">{$item['title']}</a></h2>
+<p>创建于{$item['addtime']}</p>
+<p>{$item['count_attach']}个资料</p>
+</div>
+</li>
+{/loop}
+</ul>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+</div>
+</div>
+{template footer}

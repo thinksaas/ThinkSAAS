@@ -1,0 +1,26 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+
+{template menu}
+
+<div class="tags">
+{loop $arrTag $key $item}
+<a href="{tsUrl('article','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
+{/loop}
+
+</div>
+<div class="clear"></div>
+<div style="height:30px;"></div>
+<div class="page">{$pageUrl}</div>
+
+
+
+
+</div>
+</div>
+
+
+{template footer}

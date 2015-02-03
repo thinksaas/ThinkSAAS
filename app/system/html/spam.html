@@ -1,0 +1,83 @@
+{template header}
+
+<div class="midder">
+
+<h2>反垃圾设置</h2>
+<p>针对日益猖獗的垃圾广告和垃圾内容，ThinkSAAS成立反垃圾广告和内容联盟，自启用之日起就将和垃圾广告和内容战斗到底。</p>
+
+<table>
+<tr><td width="100"><strong>禁止用户：</strong></td>
+
+<td>
+禁止用户会同时禁止用户登录和禁止用户IP登录
+<br />
+操作方法：<br />
+用户管理->停用
+<br />
+<a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=list">进入用户管理>></a>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>清空用户数据：</strong></td><td>
+
+清空垃圾用户所发的所有垃圾内容
+<br />
+操作方法：<br />
+用户管理->清空数据
+<br />
+<a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=list">进入用户管理>></a>
+</td>
+</tr>
+
+<tr><td><strong>垃圾词过滤：</strong></td><td>
+
+通过开启《敏感词语过滤插件 (wast_word)》来过滤和杜绝垃圾广告和内容
+<br />
+操作方法：<br />
+插件管理->敏感词语过滤插件 (wast_word)->开启
+<br /><a href="{SITE_URL}index.php?app=system&ac=plugin&ts=list&apps=pubs">进入插件管理>></a>  |  <a href="{SITE_URL}index.php?app=system&ac=spam&ts=get">更新云垃圾词库>></a>
+</td></tr>
+
+<tr>
+<td><strong>开启验证码：</strong></td>
+<td>
+通过开启发帖验证码，评论回复验证码来限制垃圾用户创造垃圾内容
+</td>
+</tr>
+
+</table>
+
+<h2>远程提交垃圾词语</h2>
+<p>如果你发现有垃圾词语，请通过下面输入远程提交给ThinkSAAS，我们将建立强大的垃圾词云存储库。</p>
+<table>
+<tr>
+<td width="100">垃圾词：</td><td>
+
+<input id="spamword" type="text" name="word" /> 
+<input type="button" value="提交" onclick="postword();" />
+
+</td>
+</tr>
+</table>
+
+</div>
+<script>var siteUrl = '{SITE_URL}';</script>
+<script src="{SITE_URL}public/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+<script>
+function postword(){
+	var word = $("#spamword").val();
+	if(word==''){
+		alert('垃圾词不能为空！');return false;
+	}else{
+		$.post("http://www.thinksaas.cn/index.php?app=service&ac=spam", { 'word': word},
+		function(rs){			
+			alert('添加成功！感谢您的提供！');
+			$("#spamword").val('');
+			return false;
+		})
+	}
+}
+</script>
+{template footer}

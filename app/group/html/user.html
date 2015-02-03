@@ -1,0 +1,93 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+
+<div class="cleft">
+
+
+<div class="bbox">
+<div class="btitle">{$strGroup['groupname']}组长</div>
+<div class="bc">
+<a class="nbg" href="{tsUrl('user','space',array('id'=>$strLeader[userid]))}"><img alt="{$strLeader[username]}" src="{$strLeader[face]}" width="48" height="48" /></a>
+<p>{$strLeader[username]}</p>
+</div>
+</div>
+
+<div class="bbox">
+<div class="btitle">{$strGroup['groupname']}管理员</div>
+<div class="bc">
+
+<div class="facelist">
+<ul>
+{loop $arrAdmin $key $item}
+<li>
+<a href="{tsUrl('user','space',array('id'=>$item[userid]))}"><img alt="{$item[username]}" src="{$item[face]}" width="48" height="48" /></a>
+<p>{$item[username]}</p>
+<p>{if $strGroup['userid']==$TS_USER['user']['userid'] || $TS_USER['user']['isadmin']==1}
+
+<a href="javascript:void('0');" onclick="setAdmin('{$strGroup[groupid]}','{$item['userid']}','{$_SESSION['token']}')">
+{if $item['isadmin']==1}
+取消管理员
+{elseif $item['isadmin']==0}
+设为管理员
+{/if}
+</a>
+{/if}</p>
+</li>
+{/loop}
+</ul>
+</div>
+
+</div>
+</div>
+
+
+<div class="bbox">
+<div class="btitle">{$strGroup['groupname']}成员</div>
+<div class="bc">
+
+<div class="facelist">
+
+<ul>
+{loop $arrGroupUser $key $item}
+<li>
+<a href="{tsUrl('user','space',array('id'=>$item[userid]))}"><img alt="{$item[username]}" src="{$item[face]}" width="48" height="48" /></a>
+<p>{$item[username]}</p>
+<p>
+{if $strGroup['userid']==$TS_USER['user']['userid'] || $TS_USER['user']['isadmin']==1}
+
+{if $item['isadmin']==1}
+<a href="javascript:void('0');" onclick="setAdmin('{$strGroup[groupid]}','{$item['userid']}','{$_SESSION['token']}')">取消管理员</a>
+{elseif $item['isadmin']==0 && $strGroup['userid']!=$item['userid']}
+<a href="javascript:void('0');" onclick="setAdmin('{$strGroup[groupid]}','{$item['userid']}','{$_SESSION['token']}')">设为管理员</a>
+<br /><a href="javascript:void('0');" onclick="kickedGroup('{$strGroup['groupid']}','{$item['userid']}')" title="踢出">X</a>
+{/if}
+
+{/if}</p>
+</li>
+{/loop}
+</ul>
+
+</div>
+
+</div>
+</div>
+
+
+
+</div>
+
+
+<div class="cright">
+<div class="bbox">
+<div class="bc">
+<a href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回{$strGroup[groupname]}</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+{template footer}

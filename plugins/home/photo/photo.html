@@ -1,0 +1,18 @@
+<div class="photoalbumlist bbox">
+<div class="btitle">推荐相册
+<div class="right"><a href="{tsUrl('photo')}">更多</a></div>
+</div>
+<ul class="bc">
+{loop $arrAlbum $key $item}
+<li>
+<div><a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}" class="album_photo"><img src="{if $item[albumface] == ''}{SITE_URL}app/photo/skins/default/photo_album.png{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" width="170" height="170" alt="{$item['albumname']}" /></a>
+</div>
+<div class="info">
+<p>{$item['albumname']}</p>
+<p>{$item['count_photo']}张图片</p>
+</div>
+</li>
+{/loop}
+</ul>
+<div class="clear"></div>
+</div>

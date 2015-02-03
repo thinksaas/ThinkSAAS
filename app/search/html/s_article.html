@@ -1,0 +1,29 @@
+{template header}
+
+<div class="container">
+
+<div class="bbox">
+<div class="bc">
+{template s_menu}
+
+<div class="s_top">获得约 {$articleNum} 条结果</div>
+
+{loop $arrArticle $key $item}
+<div class="result">
+
+<div class="content">
+<h3><span>[文章] </span>&nbsp;<a  href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{tsTitle($item[title])}</a></h3>
+<div class="info">发表于 {$item[addtime]} &nbsp; <a href="#">{$item[count_comment]} 回复</a></div>
+<p></p>
+</div>
+</div>
+{/loop}
+
+
+<div class="page">{$pageUrl}</div>
+</div>
+</div>
+
+</div>
+
+{template footer}

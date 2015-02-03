@@ -1,0 +1,42 @@
+{template header}
+
+<div class="container">
+
+<div class="my">
+
+<div class="my_left">
+
+{php include pubTemplate("my")}
+
+</div>
+
+
+
+<div class="my_right">
+<div class="rc">
+
+{template menu}
+
+<div class="system">
+<ul>
+{loop $arrMessage $key $item}
+<li>
+<span style="color:#42b475;">{php echo date('H:i:s',$item[addtime])}</span>
+<br />
+{$item[content]}
+</li>
+{/loop}
+</ul>
+</div>
+
+</div>
+</div>
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+{template footer}

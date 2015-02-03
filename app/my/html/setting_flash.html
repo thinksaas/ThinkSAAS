@@ -1,0 +1,73 @@
+{template header}
+<!--放入项目中 start -->
+  <script type="text/javascript">
+   function uploadevent(status){
+	//alert(status);
+        status += '';
+     switch(status){
+     case '1':
+		
+		var time = new Date().getTime();
+		//document.getElementById('avatar_priview').innerHTML = "头像1 : <img src='1.png?" + time + "'/>" ;
+		
+		//加载头像
+		$.get(siteUrl+"index.php?app=user&ac=flash&ts=face&userid={$strUser['userid']}",function(rs){
+			//$("#avatar_priview").html('<img src="'+siteUrl+rs+'?'+time+'" />');
+		})
+		
+	break;
+     break;
+     case '-1':
+	  window.location.reload();
+     break;
+     default:
+     window.location.reload();
+    } 
+   }
+  </script>
+  <!--放入项目中 start -->
+<!--main-->
+<div class="container">
+<div class="my">
+
+<div class="my_left">
+
+{php include pubTemplate("my")}
+
+</div>
+
+
+
+<div class="my_right">
+<div class="rc">
+
+{php doAction('my_right_top')}
+
+{template setting_menu}
+
+<div style="height:30px;"></div>
+
+<!--放入项目中 start -->
+<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
+WIDTH="650" HEIGHT="450" id="myMovieName">
+<PARAM NAME=movie VALUE="{SITE_URL}public/avatar/avatar.swf">
+<PARAM NAME=quality VALUE=high>
+<PARAM NAME=bgcolor VALUE=#FFFFFF>
+<param name="flashvars" value="imgUrl={$strUser['face']}&uploadUrl={SITE_URL}index.php?app=user|ac=flash|userid={$strUser['userid']}|uploadSrc=false" />
+<EMBED src="{SITE_URL}public/avatar/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="650" HEIGHT="450" wmode="transparent" flashVars="imgUrl={$strUser['face']}&uploadUrl={SITE_URL}index.php?app=user|ac=flash|userid={$strUser['userid']}|uploadSrc=false"
+NAME="myMovieName" ALIGN="" TYPE="application/x-shockwave-flash" allowScriptAccess="always"
+PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer">
+</EMBED>
+</OBJECT>
+<!--放入项目中 end -->
+
+<div id="avatar_priview"></div>
+
+
+</div>
+</div>
+
+</div>
+</div>
+{template footer}

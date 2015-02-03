@@ -1,0 +1,72 @@
+{template header}
+<!--main-->
+<div class="container">
+
+
+
+
+<div class="top10">
+<dl>
+<dd>
+<h3>用户积分榜<span>积分</span></h3>
+<ul>
+{loop $arrScoreUser $key $item}
+{if $key<='2'}
+<li><div class="avatar"><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" /></a></div>
+<p><em>{$item['count_score']}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p></li>
+{elseif $key >= '3'}
+<li><span>{php echo $key+1}</span><em>{$item['count_score']}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></li>
+{/if}
+{/loop}
+</ul>
+</dd>
+
+<dd>
+<h3>用户关注榜<span>关注数</span></h3>
+<ul>
+{loop $arrFollowUser $key $item}
+{if $key<='2'}
+<li><div class="avatar"><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" /></a></div>
+<p><em>{$item['count_followed']}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p></li>
+{elseif $key >= '3'}
+<li><span>{php echo $key+1}</span><em>{$item['count_followed']}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></li>
+{/if}
+{/loop}
+</ul>
+</dd>
+
+<dd>
+<h3>活跃用户<span>时间</span></h3>
+<ul>
+{loop $arrHotUser $key $item}
+{if $key<='2'}
+<li><div class="avatar"><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" /></a></div>
+<p><em>{php echo getTime($item[uptime],time())}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p></li>
+{elseif $key >= '3'}
+<li><span>{php echo $key+1}</span><em>{php echo getTime($item[uptime],time())}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></li>
+{/if}
+{/loop}
+</ul>
+</dd>
+
+<dd>
+<h3>新用户<span>时间</span></h3>
+<ul>
+{loop $arrNewUser $key $item}
+{if $key<='2'}
+<li><div class="avatar"><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" /></a></div>
+<p><em>{php echo getTime($item[addtime],time())}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p></li>
+{elseif $key >= '3'}
+<li><span>{php echo $key+1}</span><em>{php echo getTime($item[addtime],time())}</em><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></li>
+{/if}
+{/loop}
+</ul>
+</dd>
+
+</dl>
+</div>
+
+
+</div>
+
+{template footer}

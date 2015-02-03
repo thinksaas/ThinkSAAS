@@ -1,0 +1,39 @@
+{template header}
+
+<div class="midder">
+
+<div class="mc">
+<div class="bbox">
+{template menu}
+<h1>{$title}</h1>
+
+<div class="pl photitle">
+    &gt;<a href="{SITE_URL}index.php?app=photo&ac=upload&albumid={$strAlbum[albumid]}">添加照片</a> 
+    &nbsp;&gt; <a href="{SITE_URL}index.php?app=photo&ac=album&ts=info&albumid={$strAlbum[albumid]}">批量修改</a>
+    &nbsp;&gt; <a href="{tsUrl('photo','album',array('id'=>$strAlbum[albumid]))}">返回相册</a><br></div>
+
+<div style="margin:30px 0 30px 200px;">
+<form method="POST" action="{SITE_URL}index.php?app=photo&ac=album&ts=edit_do">
+
+相册名称（必填）
+<br>
+<input style="width:300px;" name="albumname" value="{$strAlbum[albumname]}" />
+<br>
+相册介绍：
+<br>
+<textarea style="width:300px;height:100px;" name="albumdesc">{$strAlbum[albumdesc]}</textarea>
+<br>
+<br>
+<input type="hidden" name="albumid" value="{$strAlbum[albumid]}" />
+
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input class="btn btn-success" type="submit" value="更改我的设置" />
+</form>
+</div>
+
+</div>
+
+</div>
+</div>
+
+{template footer}

@@ -1,0 +1,36 @@
+{template header}
+
+<div class="container">
+
+<div class="row">
+
+<div class="col-md-8">
+<div class="bbox">
+
+
+<div class="bc">
+
+{template menu}
+
+<div class="obss">
+
+{loop $arrUser $key $item}
+<dl class="obu"><dt><a class="nbg" href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img alt="{$item['username']}" title="{$item['username']}" class="m_sub_img" src="{$item['face']}" width="48" height="48"></a></dt>
+<dd><a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[username]}</a></dd></dl>
+{/loop}
+</div>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+{template userinfo}
+</div>
+
+</div>
+</div>
+{template footer}

@@ -1,0 +1,70 @@
+{template header}
+<div class="midder">
+<div class="mc">
+
+{template menu}
+<div class="cleft bbox pd020">
+
+<ul>
+{loop $arrTopic $key $item}
+{if date('Y-m-d',$item[addtime]) !=date('Y-m-d',$arrTopic[$key-1][addtime])}
+<li style="margin-top:10px;"><h2>{php echo date('Y-m-d',$item[addtime])}</h2></li>
+{/if}
+<li class="mbtl">
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
+</li>
+<li class="mbtr">
+<div class="author"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a></div>
+<div class="title"><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item[title]}</a></div>
+<div class="content">
+{if $item['photo']}
+<img src="{php echo tsXimg($item[photo],'topic',500,'',$item[path])}" alt="{$item['title']}" title="{$item['title']}" />
+<br />
+{/if}
+{$item[content]}
+</div>
+<p style="text-align:right;">
+
+<a href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['group']['groupname']}</a>
+
+<a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">回复{if $item['count_comment']}({$item['count_comment']}){/if}</a>
+</p>
+</li>
+<div class="clear"></div>
+{/loop}
+</ul>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+
+</div>
+
+
+<div class="cright">
+
+
+<div class="bbox">
+<div class="btitle">热门帖子</div>
+<ul class="titles">
+{loop $arrHotTopic $key $item}
+<li>
+<h3><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}" target="_blank">{$item['title']}</a></h3>
+<span class="titles-r-grey">{$item['count_comment']}</span>
+<p class="titles-b">
+<span class="titles-b-l">来自：<a title="{$item['group']['groupname']}" target="_blank" href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['group']['groupname']}</a>&nbsp;小组
+</span>
+</p>
+</li>
+{/loop}
+</ul>
+</div>
+
+
+<div class="clear"></div>
+{php doAction('group_topic_right_footer',$strTopic,'300')}
+</div>
+
+</div>
+</div>
+
+{template footer}

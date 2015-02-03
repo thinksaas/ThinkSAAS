@@ -1,0 +1,27 @@
+{template header}
+
+
+<div class="midder">
+
+<div class="mc">
+
+<div class="bbox">
+<div class="bc">
+
+{template edit_xbar}
+
+
+
+<table style="width:500px;margin:0 auto;border:solid 1px #ddd">
+<tr bgcolor="#cccccc"><td>申请用户</td><td>操作</td></tr>
+{loop $arrUser $key $item}
+<tr><td><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></td><td><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'userauditdo','userid'=>$item['userid'],'status'=>'0'))}">通过</a> | <a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'userauditdo','userid'=>$item['userid'],'status'=>'1'))}">删除</a></td></tr>
+{/loop}
+</table>
+
+</div>
+</div>
+
+</div>
+</div>
+{template footer}

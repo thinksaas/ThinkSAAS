@@ -1,0 +1,50 @@
+{template header}
+<div class="container">
+
+
+<div class="my">
+
+
+<div class="my_left">
+
+{php include pubTemplate("my")}
+
+</div>
+
+<div class="my_right">
+<div class="rc">
+
+
+{php doAction('my_right_top')}
+
+
+<div class="tabnav">
+<ul>
+<li class="select"><a href="">我的积分</a></li>
+</ul>
+</div>
+
+
+
+<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#cccccc">
+<tr bgcolor="#f0f0f0"><td>名称</td><td>积分</td><td>状态</td><td>时间</td></tr>
+{loop $arrScore $key $item}
+<tr><td>{$item['scorename']}</td><td>{$item['score']}</td><td>{if $item['status']==0}+{else}-{/if}</td><td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td></tr>
+{/loop}
+</table>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+
+
+
+
+
+</div>
+</div>
+
+
+</div>
+</div>
+
+{template footer}

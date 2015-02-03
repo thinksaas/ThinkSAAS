@@ -1,0 +1,231 @@
+{template header}
+{php doAction('tseditor','mini')}
+<div class="container">
+
+<ol class="breadcrumb">
+  <li><a href="{SITE_URL}">首页</a></li>
+  <li><a href="{tsUrl('group')}">小组</a></li>
+  <li><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['groupname']}</a></li>
+  <li class="active">{$strTopic[title]}</li>
+</ol>
+
+<div class="row">
+
+<div class="col-md-8">
+<div class="bbox">
+
+<div class="bc">
+<h1>{if $strTopic[typeid] !='0'}<a href="{tsUrl('group','show',array('id'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}{$strTopic[title]}</h1>
+
+
+<div class="media mb20">
+<a class="pull-left" href="{tsUrl('user','space',array('id'=>$strTopic[user][userid]))}"><img class="media-object img-circle" title="{$strTopic[user][username]}" alt="{$strTopic[user][username]}" src="{$strTopic[user][face]}" width="48" height="48"></a>
+<div class="media-body">
+<h4 class="media-heading"><a href="{tsUrl('user','space',array('id'=>$strTopic[userid]))}">{$strTopic[user][username]}</a></h4>
+<div class="c9">发表于 {php echo date('Y-m-d H:i:s',$strTopic[addtime])}</div>
+</div>
+</div>
+
+
+{if $page == '1'}
+<div class="topic-content">
+ 
+<div class="topic-view">
+
+{$strTopic[content]}
+
+{$tpUrl}
+
+{php doAction('gobad','468')}
+
+</div>
+
+{if $TS_USER[user][userid] == $strTopic[userid] || $TS_USER[user][userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[user][isadmin]=="1"}
+<div class="btool">
+{if $TS_USER[user][userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[user][isadmin]=="1"}
+
+<a href="javascript:void('0');" onclick="topicAudit('{$strTopic['topicid']}','{$_SESSION['token']}');">{if $strTopic['isaudit']=='1'}审核{else}取消审核{/if}</a> 
+
+<a href="{SITE_URL}index.php?app=group&ac=do&ts=topic_istop&topicid={$strTopic[topicid]}">{if $strTopic[istop]=='0'}置顶{else}取消置顶{/if}</a> 
+ 
+<a href="javascript:void('0');" onclick="tsPost('index.php?app=group&ac=ajax&ts=isrecommend&js=1',{'topicid':'{$strTopic['topicid']}'})">{if $strTopic['isrecommend']=='0'}推荐{else}取消推荐{/if}</a> 
+ 
+<a href="{SITE_URL}index.php?app=group&ac=do&ts=isposts&topicid={$strTopic[topicid]}&token={$_SESSION['token']}">{if $strTopic[isposts]==0}精华{else}取消精华{/if}</a>
+
+<a href="{SITE_URL}index.php?app=group&ac=topicmove&topicid={$strTopic[topicid]}">移动</a>
+
+{/if}
+<a href="{SITE_URL}index.php?app=group&ac=topicedit&topicid={$strTopic[topicid]}">编辑</a> 
+<a href="{SITE_URL}index.php?app=group&ac=do&ts=deltopic&topicid={$strTopic['topicid']}&token={$_SESSION['token']}" onClick="return confirm('确定删除吗?')">删除</a>
+
+</div>
+{/if}
+
+</div>
+
+
+<div class="clear"></div>
+
+
+<div class="tags">
+{loop $strTopic[tags] $key $item}
+<a rel="tag" title="" class="post-tag" href="{tsUrl('group','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
+{/loop}
+
+</div>
+{/if}
+</div>
+</div>
+
+<div class="bbox">
+<div class="btitle">用户评论({$strTopic['count_comment']})</div>
+<div class="bc">
+<ul class="comment">
+{if is_array($arrTopicComment)}
+{loop $arrTopicComment $key $item}
+<li class="clearfix" id="l_{$item[commentid]}">
+<div class="user-face">
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}" rel="face" uid="$item[user][userid]"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
+</div>
+<div class="reply-doc">
+<h4>{php echo date('Y-m-d H:i:s',$item[addtime])}
+	<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}" rel="face" uid="$item[user][userid]" style="margin-left:5px; margin-right:5px;">{$item[user][username]}</a>
+    <i>$item[l]#</i>
+</h4>
+
+
+{if $item[referid] !='0'}
+<div class="recomment"><a href="{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}"><img src="{$item[recomment][user][face]}" width="24" align="absmiddle"></a> <strong><a href="{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}" rel="face" uid="$item[recomment][user][userid]">{$item[recomment][user][username]}</a></strong>：{$item[recomment][content]}</div>
+{/if}
+<p>
+{$item[content]}
+</p>
+
+<div class="tar">
+{if $strGroupUser}
+<span><a href="javascript:void(0)"  onclick="commentOpen({$item[commentid]},{$item[topicid]})">回复</a></span>
+{/if}
+
+{if $TS_USER[user][userid] == $strGroup[userid] || $TS_USER[user][userid] == $item[userid] || $strGroupUser[isadmin]==1 || $TS_USER[user][isadmin]==1}
+<span><a class="j a_confirm_link" href="{SITE_URL}index.php?app=group&ac=comment&ts=delete&commentid={$item[commentid]}&token={$_SESSION['token']}" rel="nofollow" onClick="return confirm('确定删除吗?')">删除</a>
+</span>
+{/if}
+</div>
+
+
+<div id="rcomment_{$item[commentid]}" style="display:none">
+<textarea style="width:90%;height:60px;font-size:14px;" id="recontent_{$item[commentid]}" type="text" onKeyDown="keyRecomment({$item[commentid]},{$item[topicid]},event)"></textarea>
+
+<p><a class="btn" href="javascript:void(0);" onClick="recomment({$item[commentid]},{$item[topicid]},'{$_SESSION['token']}')" id="recomm_btn_$item[commentid]">提交</a> <a href="javascript:void('0');" onclick="commentOpen({$item['commentid']},{$item['topicid']})">取消</a></p>
+</div>
+</div>
+<div class="clear"></div>
+</li>
+{/loop}
+{/if}
+</ul>
+<div class="page">{$pageUrl}</div>
+
+
+<div class="commentform">
+{if intval($TS_USER[user][userid])==0}
+<div class="tac pd20">
+<a href="{tsUrl('user','login')}">登录</a> | <a href="{tsUrl('user','register')}">注册</a>
+</div>
+{elseif $strGroupUser==''}
+<div class="tac pd20">
+不是本组成员不能回应此贴哦
+</div>
+{elseif $strTopic[iscomment] == 1 && $strTopic[userid] != $TS_USER[user][userid]}
+<div class="tac pd20">
+本帖除作者外不允许任何人评论
+</div>
+{elseif $strTopic[isclose]=='1'}
+<div class="tac pd20">
+该帖子已被关闭，无法评论
+</div>
+{else}
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=comment&ts=do" enctype="multipart/form-data">
+<textarea type="text" style="width:100%;" id="tseditor" name="content"></textarea>
+<p>
+<input type="hidden" name="topicid" value="{$strTopic[topicid]}" />
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+
+<div class="authcode">
+{if $TS_SITE['base']['isauthcode']}
+验证码：<input name="authcode" />
+ <img align="absmiddle" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
+{/if}
+</div>
+
+<div class="submit">
+<button class="btn btn-success" type="submit">提交评论</button>
+</div>
+
+</p>
+</form>
+{/if}
+</div>
+
+</div>
+</div>
+
+
+<div class="bbox">
+<div class="btitle">推荐帖子</div>
+<div class="bc">
+
+<div class="topic_recommend">
+<ul>
+{loop $arrRecommendTopic $key $item}
+<li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></li>
+{/loop}
+</ul>
+</div>
+
+</div>
+</div>
+
+
+</div>
+
+<div class="col-md-4">
+
+
+{php doAction('gobad','topic_right_top')}
+
+<div class="bbox">
+<div class="btitle">最新帖子</div>
+<div class="bc commlist">
+<ul>
+{loop $newTopic $key $item}
+<li>
+<a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a> 
+</li>
+{/loop}
+</ul>
+</div>
+</div>
+
+<div class="bbox"><div class="btitle">热门帖子</div>
+
+<div class="bc commlist">
+<ul>
+{loop $arrHotTopic $key $item}
+<li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></li>
+{/loop}
+</ul>
+</div>
+
+</div>
+
+
+
+<div class="clear"></div>
+<!--广告位-->
+{php doAction('gobad','300')}
+</div>
+
+</div>
+</div>
+{template footer}

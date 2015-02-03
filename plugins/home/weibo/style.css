@@ -1,0 +1,73 @@
+.weiform{}
+.weiform  form {
+    background: none repeat scroll 0 0 #0099FF;
+    border: 1px solid #0099FF;
+    margin: 0 0 10px;
+	height:36px;
+	width:100%;
+    position: relative;
+	overflow:hidden;
+}
+.weiform textarea {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 0 none;
+    float: left;
+    font-size: 9pt;
+    height: 36px;
+    overflow: auto;
+    padding: 2px;
+    resize: none;
+    width: 80%;
+}
+.weiform input {
+    background: none repeat scroll 0 0 #0099FF;
+    border: 0 none;
+    color: #FFFFFF;
+    float: right;
+    font-size: 10pt;
+    height: 36px;
+	line-height:36px;
+    width: 20%;
+}
+
+.weilist{}
+.weilist  li {
+    border-bottom: 1px dashed #DDDDDD;
+    margin: 0 0 5px;
+    padding: 0 0 8px;
+}
+.weilist li .portrait {
+    float: left;
+    padding-top: 3px;
+    width: 45px;
+}
+.weilist  li .portrait img {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    height: 32px;
+    padding: 1px;
+    width: 32px;
+}
+.weilist li .body {
+    float: left;
+    font-size: 9pt;
+    overflow: hidden;
+    width: 230px;
+}
+.weilist li .user a {
+    color: #6CABE1;
+}
+
+.weilist li .log {
+    color: #666666;
+    word-break: break-all;
+}
+.weilist li .time {
+    color: #9A9A9A;
+    display: block;
+    margin: 5px 0 0;
+}
+.weilist li .time a {
+    color: #9A9A9A;
+    text-decoration: none;
+}

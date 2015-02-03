@@ -1,0 +1,27 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table>
+<tr class="old"><td width="60">PhotoId</td><td width="120">图片</td><td>AlbumID</td><td>UserId</td><td>操作</td></tr>
+<!--{loop $arrPhoto $key $item}-->
+<tr><td>{$item[photoid]}</td><td><a target="_blank" href="{SITE_URL}uploadfile/photo/{$item[photourl]}">
+
+<!--{if $item[photourl]}-->
+<img src="{php echo tsXimg($item[photourl],'photo',100,100,$item[path])}" />
+<!--{else}-->
+<img src="{SITE_URL}public/images/event_dft.jpg" />
+<!--{/if}-->
+
+</a></td><td>{$item[albumid]}</td><td>{$item[userid]}</td><td><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=face&photoid={$item[photoid]}">设为封面</a> <a href="">修改</a> <a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=del_photo&photoid={$item[photoid]}">删除</a></td></tr>
+<!--{/loop}-->
+</table>
+
+</div>
+
+{php include template("admin/footer");}

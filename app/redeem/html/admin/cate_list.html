@@ -1,0 +1,26 @@
+{php include template("admin/header");}
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<table  cellpadding="0" cellspacing="0">
+<tr class="old"><td>分类ID</td><td>分类名字</td><td>操作</td></tr>
+
+
+{loop $arrCate $key $item}
+
+<tr class="odd"><td>{$item[cateid]}</td><td>{$item[catename]}</td>
+
+<td>
+
+
+
+<a href="{SITE_URL}index.php?app=redeem&ac=admin&mg=cate&ts=edit&cateid={$item[cateid]}">[修改] </a> <a href="{SITE_URL}index.php?app=redeem&ac=admin&mg=cate&ts=delete&cateid={$item['cateid']}" onclick="return confirm('确定删除?')">[删除]</a></td></tr>
+
+
+{/loop}
+</table>
+
+</div>
+{php include template("admin/footer");}

@@ -1,0 +1,57 @@
+{template header}
+
+<style>
+.thumbnail{overflow:hidden;max-width:400px;max-height:400px;}
+.newtopic{}
+.newtopic ul{}
+.newtopic ul li{border-top: 1px dashed #CCCCCC;padding: 5px 0;}
+</style>
+
+<div class="midder">
+<div class="mc">
+
+<h1><!--{if $strTopic[typeid] !='0'}--><a href="{tsUrl('group','show',array('id'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}<a href="{tsUrl('group','topic',array('id'=>$strTopic[topicid]))}">{$strTopic[title]}</a></h1>
+
+<div class="cleft">
+
+<div style="text_align:center;">
+<p>本小组帖子只有小组成员才可以浏览</p>
+<p><a rel="nofollow" class="btn" href="{tsUrl('group','do',array('ts'=>'join','groupid'=>$strGroup['groupid']))}">加入小组</a></p>
+</div>
+
+</div>
+
+<div class="cright">
+<p class="pl2"><a href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回{$strGroup[groupname]}</a></p>
+<p>
+<a class="btn" href="{tsUrl('group','add',array('groupid'=>$strGroup[groupid]))}">
+<span>发布帖子</span>
+</a>
+</p>
+
+<div>
+<h2>谁收藏了这篇帖子</h2>
+<script>topic_collect_user('{$strTopic[topicid]}')</script>
+<div id="collects">
+<div style="padding:10px;text-align:center;"><img src="{SITE_URL}public/images/loading.gif" />正在加载中......</div>
+</div>
+</div>
+
+<h2 class="usf">最新话题</h2>
+<div class="indent newtopic">
+<ul>
+<!--{loop $newTopic $key $item}-->
+<li><a title="{$item[title]}" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
+</li>
+<!--{/loop}-->
+</ul>
+</div>
+
+{php doAction('group_topic_right',$strTopic)}
+
+</div>
+
+
+</div>
+</div>
+{template footer}

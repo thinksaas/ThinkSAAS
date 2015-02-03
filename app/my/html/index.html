@@ -1,0 +1,68 @@
+{template header}
+<div class="container">
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+<div class="row">
+
+
+<div class="col-md-2">
+<div class="my_left">
+
+{php include pubTemplate("my")}
+
+</div>
+</div>
+
+<div class="col-md-10">
+<div class="row">
+
+
+<div class="col-md-8">
+
+{php doAction('my_right_top')}
+
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" class="active"><a href="">最新帖子</a></li>
+</ul>
+
+
+<div class="clear"></div>
+
+<div class="newtopic">
+<ul>
+{loop $arrTopic $key $item}
+<li>
+<div class="photo"><img src="{$item['user']['face']}" width="24" /></div>
+<div class="info">
+<div class="title"><a target="_blank" href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></div>
+<div class="comment">{$item['count_comment']}回应</div>
+<div class="uptime">{php echo getTime($item['uptime'])}</div>
+<div class="group"><a href="{tsUrl('group','show',array('id'=>$item['group']['groupid']))}">{$item['group']['groupname']}</a></div>
+</div>
+</li>
+{/loop}
+</ul>
+</div>
+
+</div>
+<div class="col-md-4">
+
+<div class="qiandao">{if $TS_USER['user']['signin']<strtotime(date('Y-m-d 00:00:00'))}<a href="javascript:void('0');" onclick="qianDao();">每日签到+5积分</a>{else}今日已签到{/if}</div>
+
+</div>
+
+
+</div>
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+</div>
+{template footer}

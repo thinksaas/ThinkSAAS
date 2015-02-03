@@ -1,0 +1,12 @@
+<h2>首页管理</h2>
+<div class="tabnav">
+<ul>
+<li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=home&ac=admin&mg=options">首页配置</a></li>
+
+<li {if $mg=='info' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=home&ac=admin&mg=info&ts=list">网站信息</a></li>
+
+
+<li {if $ts=='add'}class="select"{/if}><a href="{SITE_URL}index.php?app=home&ac=admin&mg=info&ts=add">添加信息</a></li>
+
+</ul>
+</div>

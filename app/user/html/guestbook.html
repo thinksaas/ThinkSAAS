@@ -1,0 +1,77 @@
+{template header}
+
+<div class="container">
+
+<div class="row">
+<div class="col-md-8">
+
+
+<div class="bbox">
+<div class="bc">
+
+{template menu}
+
+<p></p>
+
+{if intval($TS_USER['user']['userid']) >0 && intval($TS_USER['user']['userid']) != $strUser['userid']}
+<div class="guest">
+<img src="{SITE_URL}public/images/user_normal.jpg" />
+<form method="post" action="{SITE_URL}index.php?app=user&ac=guestbook&ts=do">
+<textarea style="width:100%;height:50px;" name="content"></textarea>
+<br />
+<input type="hidden" name="touserid" value="{$strUser['userid']}" />
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<button class="btn btn-success" type="submit">添加留言</button>
+</form>
+</div>
+{/if}
+<div class="clear"></div>
+
+<!--回复-->
+<div id="reguest" style="display:none;">
+<form method="post" action="{SITE_URL}index.php?app=user&ac=guestbook&ts=redo">
+<textarea style="width:100%" name="content"></textarea>
+<br />
+<input id="touserid" type="hidden" name="touserid" value="0" />
+<input id="reid" type="hidden" name="reid" value="0" />
+
+<button class="btn btn-success" type="submit">回复</button>
+</form>
+</div>
+
+<div class="glist">
+<ul>
+
+{loop $arrGuestList $key $item}
+<li>
+<a href="{tsUrl('user','space',array('id'=>$item['userid']))}" rel="face" uid="{$item['user']['userid']}"><img src="{$item['user']['face']}" width="48" height="48" /></a>
+<div style="width:520px;">
+<p><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"  rel="face" uid="{$item['user']['userid']}">{$item['user']['username']}</a> {$item['addtime']}</p>
+<div class="content">{php echo nl2br(htmlspecialchars($item['content']))}</div>
+<p style="text-align:right">
+{if intval($TS_USER['user']['userid'] == $strUser['userid'])}
+<a href="#reguest" onclick="reguest('{$item['userid']}','{$item['id']}')">回复</a> <a href="{tsUrl('user','guestbook',array('ts'=>'delete','gbid'=>$item['id']))}" onclick="return confirm('确定删除?')">删除</a>
+{/if}
+</p>
+<!--回复留言-->
+
+</div>
+</li>
+{/loop}
+</ul>
+</div>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+{template userinfo}
+</div>
+
+</div>
+</div>
+{template footer}

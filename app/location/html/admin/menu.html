@@ -1,0 +1,11 @@
+<h2>区域管理</h2>
+<div class="tabnav">
+<ul>
+<li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=location&ac=admin&mg=options">配置</a></li>
+<li {if $mg=='location' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=location&ac=admin&mg=location&ts=list">同城列表</a></li>
+<li {if $mg=='location' && $ts=='add'}class="select"{/if}><a href="{SITE_URL}index.php?app=location&ac=admin&mg=location&ts=add">添加同城</a></li>
+
+
+
+</ul>
+</div>

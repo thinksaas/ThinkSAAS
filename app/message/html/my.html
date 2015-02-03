@@ -1,0 +1,33 @@
+{template header}
+<div class="container">
+<div class="my">
+
+<div class="my_left">
+
+{php include pubTemplate("my")}
+
+</div>
+
+
+
+<div class="my_right">
+<div class="rc">
+
+{template menu}
+
+
+<div class="newmsg">
+<ul>
+{loop $arrMsg $key $item}
+<li>{if $item['userid']}<img src="{$item['user']['face']}" width="16" align="absmiddle" /> {$item['user']['username']}：{$item['content']} <a href="{tsUrl('message','user',array('touserid'=>$item['userid']))}">[回复]</a>{else}系统消息：<a href="{tsUrl('message','system')}">[查看]</a>{/if}</li>
+{/loop}
+</ul>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+{template footer}
