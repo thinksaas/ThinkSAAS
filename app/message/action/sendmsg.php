@@ -1,7 +1,7 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-$userid = intval($_POST['userid']);
+$userid = aac('user')->isLogin();
 $touserid = intval($_POST['touserid']);
 $content = t($_POST['content']);
 

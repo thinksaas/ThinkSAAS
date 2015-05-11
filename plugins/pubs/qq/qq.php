@@ -19,7 +19,7 @@ function qq_add_t($arr){
 	/*
 	global $TS_USER;
 	
-	$userid = intval($TS_USER['user']['userid']);
+	$userid = intval($TS_USER['userid']);
 	
 
 	$strOpen = '';

@@ -11,6 +11,11 @@
 <div class="info">
 <h1>{tsTitle($strLocation['title'])}</h1>
 <p>{$strLocation['content']}</p>
+
+{if $isLocationId}
+<div class="tar"><a class="btn btn-default" href="javascript:void('0')" onclick="tsPost('index.php?app=location&ac=ajax&ts=exit',{'locationid':'{$strLocation[locationid]}'})">退出同城</a></div>
+{/if}
+
 </div>
 </div>
 

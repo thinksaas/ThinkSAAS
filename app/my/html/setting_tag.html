@@ -43,7 +43,7 @@
 <p>
 <input style="width:300px;" class="form-control" type="text" name="tags" id="tags" /></p> 
 <p>
-<button type="submit" class="btn btn-success" onClick="savaTag({$userid})">添加</button> <a href="javascript:void(0);" onClick="showTagFrom()">取消</a>
+<button type="submit" class="btn btn-success" onClick="savaTag()">添加</button> <a href="javascript:void(0);" onClick="showTagFrom()">取消</a>
 </p>
 </div>
   
@@ -69,8 +69,8 @@
 /*显示标签界面*/
 function showTagFrom(){	$('#tagFrom').toggle('fast');}
 /*提交标签*/
-function savaTag(userid)
-{
+function savaTag(){
+	var userid = "{$strUser['userid']}";
 	var tag = $('#tags').val();
 		if(tag ==''){ alert('请输入标签哟^_^');$('#tagFrom').show('fast');}else{
 			var url = siteUrl+'index.php?app=tag&ac=add_ajax&ts=do';

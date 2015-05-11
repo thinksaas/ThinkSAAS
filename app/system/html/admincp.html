@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>{$title} - {$TS_APP[options][appname]} - {$TS_SITE[base][site_title]}</title>
+<title>{$title} - {$TS_SITE['site_title']}</title>
 <style type="text/css">
 html {height:100%;max-height:100%;padding:0;margin:0;border:0;background:#fff;font-size:12px;font-family:Arial;
 /* hide overflow:hidden from IE5/Mac */
@@ -56,9 +56,9 @@ $(function(){
 <div class="right">
 
 <div class="user">
-欢迎您，{$TS_USER[admin][username]} 
+欢迎您，{$TS_USER[username]} 
 <a href="index.php" target="_blank">返回前台</a> 
-<a href="index.php?app=system&ac=login&ts=out">[退出]</a>
+<a href="index.php?app=user&ac=login&ts=out">[退出]</a>
 </div>
 
 <div class="menu">

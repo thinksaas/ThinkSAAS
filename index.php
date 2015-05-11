@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ThinkSAAS单入口
  * copyright (c) 2010-3000 ThinkSAAS All Rights Reserved
@@ -18,6 +17,6 @@ define('THINKPLUGIN', THINKROOT . '/plugins');
 
 // 装载ThinkSAAS核心
 
-include 'thinksaas/thinksaas.php';
+include THINKSAAS.'/thinksaas.php';
 
 unset($GLOBALS);

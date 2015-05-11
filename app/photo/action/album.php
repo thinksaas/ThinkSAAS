@@ -47,7 +47,7 @@ switch($ts){
 		
 		$pageUrl = pagination($photoNum, 20, $page, $url);
 		
-		if($TS_USER['user']['userid'] == $strAlbum['userid']){
+		if($TS_USER['userid'] == $strAlbum['userid']){
 			$title = '我的相册-'.$strAlbum['albumname'];
 		}else{
 			$title = $strUser['username'].'的相册-'.$strAlbum['albumname'];
@@ -95,7 +95,7 @@ switch($ts){
 		
 		$pageUrl = pagination($albumNum, 6, $page, $url);
 		
-		if($TS_USER['user']['userid'] == $userid){
+		if($TS_USER['userid'] == $userid){
 			$title = '我的相册';
 		}else{
 			$title = $strUser['username'].'的相册';
@@ -119,7 +119,7 @@ switch($ts){
 		$strAlbum['albumname'] = stripslashes($strAlbum['albumname']);
 		$strAlbum['albumdesc'] = stripslashes($strAlbum['albumdesc']);
 		
-		if($strAlbum['userid'] == $userid || $TS_USER['user']['isadmin']==1) {
+		if($strAlbum['userid'] == $userid || $TS_USER['isadmin']==1) {
 		
 			$title = '修改相册属性-'.$strAlbum['albumname'];
 			include template("album_edit");
@@ -147,7 +147,7 @@ switch($ts){
 			'albumid'=>$albumid,
 		));
 		
-		if($strAlbum['userid']==$userid || $TS_USER['user']['isadmin']==1){
+		if($strAlbum['userid']==$userid || $TS_USER['isadmin']==1){
 		
 			$albumname = tsClean($_POST['albumname']);
 			if($albumname == '') qiMsg("相册名称不能为空！");
@@ -155,7 +155,7 @@ switch($ts){
 			$albumdesc = tsClean($_POST['albumdesc']);
 			
 			
-			if($TS_USER['user']['isadmin']==0){
+			if($TS_USER['isadmin']==0){
 				//过滤内容开始
 				aac('system')->antiWord($albumname);
 				aac('system')->antiWord($albumdesc);
@@ -258,7 +258,7 @@ switch($ts){
 		$arrPhotoId = $_POST['photoid'];
 		$arrPhotoDesc = $_POST['photodesc'];
 		
-		if($TS_USER['user']['isadmin']==0){
+		if($TS_USER['isadmin']==0){
 		
 			foreach($arrPhotoDesc as $key=>$item){
 			
@@ -311,7 +311,7 @@ switch($ts){
 			'albumid'=>$albumid,
 		));
 		
-		if($strAlbum['userid'] == $userid || $TS_USER['user']['isadmin'] == 1) {
+		if($strAlbum['userid'] == $userid || $TS_USER['isadmin'] == 1) {
 		
 			$new['photo']->deletePhotoAlbum($strAlbum['albumid']);
 		

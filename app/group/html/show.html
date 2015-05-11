@@ -21,9 +21,9 @@
 <p><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['count_topic']}</a> 帖子 | <a href="{tsUrl('group','user',array('id'=>$strGroup['groupid']))}">{$strGroup['count_user']}</a> 成员</p>
 </div>
 <div class="join">
-{if $isGroupUser > 0 && $TS_USER[user][userid] != $strGroup[userid]}
+{if $isGroupUser > 0 && $TS_USER[userid] != $strGroup[userid]}
 <span>我是这个小组的{$strGroup[role_user]} <a href="javascript:void('0')" onclick="exitGroup('{$strGroup['groupid']}')">退出小组</a></span>
-{elseif $isGroupUser > 0 && $TS_USER[user][userid] == $strGroup[userid]}
+{elseif $isGroupUser > 0 && $TS_USER[userid] == $strGroup[userid]}
 <span>我是这个小组的{$strGroup[role_leader]}</span>
 {elseif $strGroup[joinway] == '0'}
 <span><a class="btn btn-success" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">加入小组</a></span>
@@ -160,7 +160,7 @@
 <div class="bbox">
 <div class="bc">
 
-{if $TS_USER[user][userid] == $strGroup[userid] || $TS_USER['user']['isadmin']=='1'}
+{if $TS_USER[userid] == $strGroup[userid] || $TS_USER['isadmin']=='1'}
 <p class="pl2">&gt; <a href="{tsUrl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">小组设置</a></p>
 
 <p class="pl2">&gt; <a href="{tsUrl('group','audit',array('groupid'=>$strGroup[groupid]))}">帖子审核</a>({$strGroup['count_topic_audit']})</p>

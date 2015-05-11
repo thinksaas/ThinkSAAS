@@ -1,0 +1,19 @@
+.mbtl {
+    float: left;
+    margin: 8px 7px 0 0;
+    padding: 0;
+    width: 55px;
+}
+.mbtr {
+    border-bottom: 1px solid #EEEEEE;
+    margin: 0px 0 20px 0;
+    min-height: 55px;
+    overflow: hidden;
+    padding: 10px;;
+	background:#f8f8f8;
+}
+.mbtr .author{}
+.mbtr .author a{color:#8f8f8f;}
+.mbtr .title{margin-top:10px;}
+.mbtr .title a{color: #444444;font-size:22px;}
+.mbtr .content{line-height:30px;font-size:14px;}

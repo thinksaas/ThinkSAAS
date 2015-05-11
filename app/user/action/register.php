@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
 //用户注册
 switch($ts){
 	case "":
-		if(intval($TS_USER['user']['userid']) > 0) tsNotice("请退出后再注册！");
+		if(intval($TS_USER['userid']) > 0) tsNotice("请退出后再注册！");
 		
 		//邀请用户ID
 		$fuserid = intval($_GET['fuserid']);
@@ -41,7 +41,7 @@ switch($ts){
 		
 		
 		//是否开启邀请注册
-		if($TS_SITE['base']['isinvite']=='1'){
+		if($TS_SITE['isinvite']=='1'){
 		
 			$invitecode = trim($_POST['invitecode']);
 			if($invitecode == '') getJson('邀请码不能为空！',$js);
@@ -92,7 +92,7 @@ switch($ts){
 			getJson('用户名已经存在，请换个用户名！',$js);
 		}
 		
-		if($TS_SITE['base']['isauthcode']){
+		if($TS_SITE['isauthcode']){
 			if($authcode != $_SESSION['verify']){
 				getJson('验证码输入有误，请重新输入！',$js);
 			}
@@ -164,10 +164,10 @@ switch($ts){
 		$_SESSION['tsuser']	= $userData;
 		
 		//发送消息
-		aac('message')->sendmsg(0,$userid,'亲爱的 '.$username.' ：<br />您成功加入了 '.$TS_SITE['base']['site_title'].'<br />在遵守本站的规定的同时，享受您的愉快之旅吧!');
+		aac('message')->sendmsg(0,$userid,'亲爱的 '.$username.' ：<br />您成功加入了 '.$TS_SITE['site_title'].'<br />在遵守本站的规定的同时，享受您的愉快之旅吧!');
 		
 		//注销邀请码并将关注邀请用户
-		if($TS_SITE['base']['isinvite']=='1'){
+		if($TS_SITE['isinvite']=='1'){
 			
 			//邀请码信息
 			$strInviteCode = $new['user']->find('user_invites',array(
@@ -188,7 +188,7 @@ switch($ts){
 		}
 		
 		//对积分进行处理
-		aac('user')->doScore($app,$ac,$ts);
+		aac('user')->doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
 		
 		//跳转
 		getJson('登录成功！',$js,2,SITE_URL);

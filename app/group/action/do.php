@@ -100,7 +100,7 @@ switch ($ts) {
 	case "deltopic":
 	
 		//普通用户不允许删除内容
-		if($TS_SITE['base']['isallowdelete'] && $TS_USER ['user'] ['isadmin'] == 0) tsNotice('系统不允许用户删除内容，请联系管理员删除！');
+		if($TS_SITE['isallowdelete'] && $TS_USER ['isadmin'] == 0) tsNotice('系统不允许用户删除内容，请联系管理员删除！');
 		
 		$topicid = intval($_GET['topicid']);
 		
@@ -116,7 +116,7 @@ switch ($ts) {
 		));
 		
 		//系统管理员删除
-		if($TS_USER['user']['isadmin'] == '1'){
+		if($TS_USER['isadmin'] == '1'){
 			$new['group']->delTopic($topicid);
 			
 			header('Location: '.tsUrl('group'));
@@ -193,7 +193,7 @@ switch ($ts) {
 			'groupid'=>$strTopic['groupid'],
 		));
 		
-		if($userid==$strGroup['userid'] || $TS_USER['user']['isadmin']==1){
+		if($userid==$strGroup['userid'] || $TS_USER['isadmin']==1){
 			$new['group']->update('group_topic',array(
 				'topicid'=>$topicid,
 			),array(
@@ -271,8 +271,12 @@ switch ($ts) {
 	
 		$groupid = intval($_POST['groupid']);
 		$typename = t($_POST['typename']);
-		if($typename != '')
-		  $db->query("insert into ".dbprefix."group_topic_type (`groupid`,`typename`) values ('$groupid','$typename')");
+		if($typename != ''){
+			$new['group']->create('group_topic_type',array(
+				'groupid'=>$groupid,
+				'typename'=>$typename,
+			));
+		}
 		
 		header("Location: ".tsUrl('group','edit',array('groupid'=>$groupid,'ts'=>'type')));
 		
@@ -288,29 +292,45 @@ switch ($ts) {
 		$referid = intval($_POST['referid']);
 		$topicid = intval($_POST['topicid']);
 		$content = tsClean($_POST['content']);
-		$addtime = time();
-
-		$db->query("insert into ".dbprefix."group_topic_comment (`referid`,`topicid`,`userid`,`content`,`addtime`) values ('$referid','$topicid','$userid','$content','$addtime')");
+		
+		$new['group']->create('group_topic_comment',array(
+			'referid'=>$referid,
+			'topicid'=>$topicid,
+			'userid'=>$userid,
+			'content'=>$content,
+			'addtime'=>time(),
+		));
+		
 		
 		//统计评论数
-		$count_comment = $db->once_num_rows("select * from ".dbprefix."group_topic_comment where topicid='$topicid'");
+		$count_comment = $new['group']->findCount('group_topic_comment',array(
+			'topicid'=>$topicid,
+		));
 		
 		//更新帖子最后回应时间和评论数
-		$uptime = time();
+		$new['group']->update('group_topic',array(
+			'topicid'=>$topicid,
+		),array(
+			'count_comment'=>$count_comment,
+			'uptime'=>time(),
+		));
 		
-		$db->query("update ".dbprefix."group_topic set uptime='$uptime',count_comment='$count_comment' where topicid='$topicid'");
+		$strTopic = $new['group']->find('group_topic',array(
+			'topicid'=>$topicid,
+		));
 		
-		$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topic where topicid='$topicid'");
-		$strComment = $db->once_fetch_assoc("select * from ".dbprefix."group_topic_comment where commentid='$referid'");
+		$strComment = $new['group']->find('group_topic_comment',array(
+			'commentid'=>$referid,
+		));
 		
-		if($topicid && $strTopic['userid'] != $TS_USER['user']['userid']){
+		if($topicid && $strTopic['userid'] != $TS_USER['userid']){
 			$msg_userid = '0';
 			$msg_touserid = $strTopic['userid'];
 			$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ <br />'.tsUrl('group','topic',array('id'=>$topicid));
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 		}
 		
-		if($referid && $strComment['userid'] != $TS_USER['user']['userid']){
+		if($referid && $strComment['userid'] != $TS_USER['userid']){
 			$msg_userid = '0';
 			$msg_touserid = $strComment['userid'];
 			$msg_content = '有人评论了你在帖子：《'.$strTopic['title'].'》中的回复，快去看看给个回复吧^_^ <br />'.tsUrl('group','topic',array('id'=>$topicid));
@@ -417,7 +437,7 @@ switch ($ts) {
 		
 		$strGroup = $db->once_fetch_assoc("select userid from ".dbprefix."group where groupid='".$strTopic['groupid']."'");
 		
-		if($userid == $strGroup['userid'] || intval($TS_USER['user']['isadmin']) == 1){
+		if($userid == $strGroup['userid'] || intval($TS_USER['isadmin']) == 1){
 			if($strTopic['isposts']==0){
 				$db->query("update ".dbprefix."group_topic set `isposts`='1' where `topicid`='$topicid'");
 				

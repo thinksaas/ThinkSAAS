@@ -22,7 +22,7 @@ switch($ts){
 		$about = t($_POST['about']);
 		$sex = intval($_POST['sex']);
 
-		if($TS_USER['user'] == '') {
+		if($TS_USER == '') {
 		
 			tsNotice("机房重地，闲人免进！");
 		
@@ -40,9 +40,9 @@ switch($ts){
 		
 		if($username != $strUser['username']){
 		
-			if($TS_APP['options']['banuser']){
+			if($TS_APP['banuser']){
 			
-				$arrUserName = explode('|',$TS_APP['options']['banuser']);
+				$arrUserName = explode('|',$TS_APP['banuser']);
 				if(in_array($username,$arrUserName)){
 					tsNotice("用户名已经存在，请换个用户名！");
 				}
@@ -60,7 +60,7 @@ switch($ts){
 			}
 		}
 		
-		if(intval($TS_USER['user']['isadmin'])==0){
+		if(intval($TS_USER['isadmin'])==0){
 			//过滤内容开始
 			aac('system')->antiWord($username);
 			aac('system')->antiWord($signed);
@@ -256,44 +256,6 @@ switch($ts){
 		
 	//设置常居地 
 	case "city":
-		
-		//省份
-		if($strUser['province']){
-		
-			$strProvince = $new['my']->find('area_province',array(
-			
-				'provinceid'=>$strUser['province'],
-			
-			));
-		
-		}
-		
-		//城市 
-		if($strUser['city']){
-		
-			$strCity = $new['my']->find('area_city',array(
-			
-				'cityid'=>$strUser['city'],
-			
-			));
-		
-		}
-		
-		//区域 
-		if($strUser['area']){
-		
-			$strArea = $new['my']->find('area',array(
-			
-				'areaid'=>$strUser['area'],
-			
-			));
-		
-		}
-		
-		
-	
-		//调出省份数据
-		$province = $new['my']->findAll('area_province');
 		
 		$title = '常居地修改';
 		include template("setting_city");

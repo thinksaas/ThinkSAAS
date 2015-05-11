@@ -32,7 +32,7 @@ switch($ts){
 	//关注执行 
 	case "do":
 	
-		$userid = intval($TS_USER['user']['userid']);
+		$userid = intval($TS_USER['userid']);
 		$userid_follow = intval($_GET['userid']);
 		
 		if($_GET['token'] != $_SESSION['token']) {
@@ -112,7 +112,7 @@ switch($ts){
 	//取消关注
 	case "un":
 	
-		$userid = intval($TS_USER['user']['userid']);
+		$userid = intval($TS_USER['userid']);
 		$userid_follow = intval($_GET['userid']);
 		
 		if($_GET['token'] != $_SESSION['token']) {

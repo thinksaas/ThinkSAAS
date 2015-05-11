@@ -22,6 +22,6 @@ $pageUrl = pagination($albumNum, 30, $page, $url);
 
 $title = '最新专辑';
 
-$sitekey = $TS_APP['options']['appkey'];
-$sitedesc = $TS_APP['options']['appdesc'];
+$sitekey = $TS_APP['appkey'];
+$sitedesc = $TS_APP['appdesc'];
 include template("index");

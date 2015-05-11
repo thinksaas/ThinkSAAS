@@ -6,11 +6,10 @@ class article extends tsApp {
 
     //构造函数
     public function __construct($db) {
-
-        include 'config.php';
+        $tsAppDb = array();
+        include 'app/article/config.php';
         //判断APP是否采用独立数据库
         if ($tsAppDb) {
-            include 'sql/' . $tsAppDb['sql'] . '.php';
             $db = new MySql($tsAppDb);
         }
 
@@ -18,6 +17,11 @@ class article extends tsApp {
     }
 
     //热门文章,1天，7天，30天
+    /**
+     * @param $day
+     * @param int $cateid
+     * @return mixed
+     */
     public function getHotArticle($day, $cateid = 0) {
         $startTime = time() - ($day * 3600 * 60);
         $startTime = date('Y-m-d', $startTime);
@@ -43,6 +47,10 @@ class article extends tsApp {
     }
 
     //推荐文章 $cateid
+    /**
+     * @param int $cateid
+     * @return mixed
+     */
     public function getRecommendArticle($cateid = 0) {
 
         if ($cateid) {

@@ -5,4 +5,4 @@ require_once THINKDATA."/config.inc.php";
 
 $skin = 'default';
 
-$TS_APP['options']['appname'] = '搜索';
+$TS_APP['appname'] = '搜索';

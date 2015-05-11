@@ -58,7 +58,7 @@
 						<a class="btn" href="">{$strArticle['count_comment']}评论</a>
 					</div>
 
-					{if $TS_USER[user][isadmin]==1}
+					{if $TS_USER[isadmin]==1}
 					<div class="tar pd100">
 						<a
 							href="{SITE_URL}index.php?app=article&ac=edit&articleid={$strArticle[articleid]}">修改</a>
@@ -89,8 +89,8 @@
 										href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
 								</h4>
 								<p>{$item[content]}</p>
-								{if $TS_USER[user][userid] == $strArticle[userid] ||
-								$TS_USER['user']['isadmin']==1}
+								{if $TS_USER[userid] == $strArticle[userid] ||
+								$TS_USER['isadmin']==1}
 								<div class="group_banned">
 									<span><a class="j a_confirm_link"
 										href="{SITE_URL}index.php?app=article&ac=comment&ts=delete&commentid={$item['commentid']}"
@@ -105,7 +105,7 @@
 
 
 					<div>
-						{if intval($TS_USER[user][userid])==0}
+						{if intval($TS_USER[userid])==0}
 						<div class="pd20 tac">
 							<a href="{tsUrl('user','login')}">登录</a> | <a
 								href="{tsUrl('user','register')}">注册</a>

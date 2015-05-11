@@ -5,7 +5,7 @@ switch($ts){
 
 	case "user":
 	
-		$userid = intval($TS_USER['user']['userid']);
+		$userid = intval($TS_USER['userid']);
 		
 		if($userid==0){
 			echo '0';exit;//未登陆

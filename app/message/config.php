@@ -8,4 +8,4 @@ defined('IN_TS') or die('Access Denied.');
 	$skin = 'default';
 	
 	//APP配置
-	$TS_APP['options']['appname']	= '消息';
+	$TS_APP['appname']	= '消息';

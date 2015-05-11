@@ -60,7 +60,7 @@ switch ($ts) {
 				'articleid' => $strComment ['articleid'] 
 		) );
 		
-		if ($userid == $strArticle ['userid'] || $TS_USER ['user'] ['isadmin'] == 1) {
+		if ($userid == $strArticle ['userid'] || $TS_USER ['isadmin'] == 1) {
 			
 			$new ['article']->delete ( 'article_comment', array (
 					

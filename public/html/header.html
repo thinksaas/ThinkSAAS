@@ -1,4 +1,4 @@
-{if $TS_SITE[base][isgzip]==1}{php ob_start('ob_gzip');}{/if}
+{if $GLOBALS['TS_SITE'][isgzip]==1}{php ob_start('ob_gzip');}{/if}
 <!DOCTYPE HTML>
 <!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
@@ -12,13 +12,13 @@
 <meta name="applicable-device" content="pc,mobile">
 <meta name="robots" content="all" />
 <meta name="save" content="history" />
-<meta name="author" content="{$TS_CF[info][email]}" />
-<meta name="Copyright" content="{$TS_CF[info][name]}" />
-<title>{if $app=='home' && $ac=='index'}{$TS_SITE[base][site_title]} - {$title}{elseif $app=='home' && $ac!='index'}{$title} - {$TS_SITE[base][site_title]}{elseif  $app!='home' && $ac=='index'}{$TS_APP[options][appname]}_{$TS_SITE[base][site_title]}{else}{$title}_{$TS_APP[options][appname]}_{$TS_SITE[base][site_title]}{/if}
+<meta name="author" content="{$GLOBALS['TS_CF'][info][email]}" />
+<meta name="Copyright" content="{$GLOBALS['TS_CF'][info][name]}" />
+<title>{if $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_SITE']['site_title']} - {$title}{elseif $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']!='index'}{$title} - {$GLOBALS['TS_SITE'][site_title]}{elseif  $GLOBALS['TS_URL']['app']!='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE'][site_title]}{else}{$title}_{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE'][site_title]}{/if}
 </title>
-{if  $app=='home' && $ac=='index'}
-<meta name="keywords" content="{$TS_SITE[base][site_key]}" /> 
-<meta name="description" content="{$TS_SITE[base][site_desc]}" /> 
+{if  $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']=='index'}
+<meta name="keywords" content="{$GLOBALS['TS_SITE'][site_key]}" /> 
+<meta name="description" content="{$GLOBALS['TS_SITE'][site_desc]}" /> 
 {else}
 {if $sitekey}<meta name="keywords" content="{$sitekey}" /> {/if}
 {if $sitedesc}<meta name="description" content="{$sitedesc}" /> {/if}
@@ -27,15 +27,13 @@
 
 <!-- 新 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet" href="{SITE_URL}public/bootstrap/css/bootstrap.min.css">
-
 <link rel="stylesheet" type="text/css" href="{SITE_URL}theme/sample/base.css" />
-{if is_file('theme/'.$tstheme.'/style.css')}
-<link rel="stylesheet" type="text/css" href="{SITE_URL}theme/{$tstheme}/style.css" id="tsTheme" />
-{/if}
-{if is_file('app/'.$app.'/skins/'.$skin.'/style.css')}
-<link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$app}/skins/{$skin}/style.css">
-{/if}
 
+{if is_file('app/'.$GLOBALS['TS_URL']['app'].'/skin/style.css')}
+<link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skin/style.css">
+{else}
+<link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skins/default/style.css">
+{/if}
 
 <!--[if lt IE 8]>
   <link href="{SITE_URL}public/js/oldie.css" rel="stylesheet">
@@ -53,6 +51,9 @@
 <script src="{SITE_URL}public/js/jquery-1.8.0.min.js" type="text/javascript"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="{SITE_URL}public/bootstrap/js/bootstrap.min.js"></script>
+
+<!--bootstrap 前端验证-->
+<script type="text/javascript" src="{SITE_URL}public/js/bootstrap3-validation.js"></script>
 
 <style>
 {php doAction('pub_header_css')}
@@ -75,7 +76,7 @@
       </button>
 	  
 	  
-      <a class="navbar-brand" href="{SITE_URL}"><img title="{$TS_SITE[base][site_title]}" src="{SITE_URL}uploadfile/logo/{$TS_SITE[base][logo]}" alt="{$TS_SITE[base][site_title]}" width="190" height="40" /></a>
+      <a class="navbar-brand" href="{SITE_URL}"><img title="{$GLOBALS['TS_SITE'][site_title]}" src="{SITE_URL}uploadfile/logo/{$GLOBALS['TS_SITE'][logo]}" alt="{$GLOBALS['TS_SITE'][site_title]}" width="190" height="40" /></a>
 	  
 	  
     </div>
@@ -104,7 +105,7 @@
 
       <ul class="nav navbar-nav navbar-right navbar-collapse collapse" id="header-user">
 	  
-{if $TS_USER[user]==''}	  
+{if $GLOBALS['TS_USER']==''}	  
 <li><a href="{tsUrl('user','login')}">登录</a></li>
 <li><a href="{tsUrl('user','register')}">注册</a></li>
 {else}
@@ -115,19 +116,19 @@
 
         <li class="dropdown" style="width:200px;text-align:right;">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-<img class="img-circle" src="{if $TS_USER[user][face]==""}{SITE_URL}public/images/user_normal.jpg{else}{php echo tsXimg($TS_USER[user][face],'user','120','120',$TS_USER[user][path],'1')}{/if}" width="24" height="24" align="absmiddle" alt="{$TS_USER['user']['username']}" />
-{$TS_USER[user][username]}
+<img class="img-circle" src="{if $GLOBALS['TS_USER']['face']==""}{SITE_URL}public/images/user_normal.jpg{else}{php echo tsXimg($GLOBALS['TS_USER']['face'],'user','120','120',$GLOBALS['TS_USER'][path],'1')}{/if}" width="24" height="24" align="absmiddle" alt="{$GLOBALS['TS_USER']['username']}" />
+{$GLOBALS['TS_USER'][username]}
 
 		  <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
 <li><a href="{tsUrl('my','setting',array('ts'=>'base'))}" >设置</a></li>
-{if $TS_SITE['base']['isinvite']=='1'}
+{if $GLOBALS['TS_SITE']['base']['isinvite']=='1'}
 <li>
 <a href="{tsUrl('user','invite')}">邀请</a> 
 </li>
 {/if}
-<li><a href="{tsUrl('home','theme')}">换肤</a></li>
-{if $TS_USER['user']['isadmin']=='1'}
+
+{if $GLOBALS['TS_USER']['isadmin']=='1'}
 <li>
 <a target="_blank" href="{SITE_URL}index.php?app=system">管理</a>
 </li>
@@ -147,11 +148,11 @@
 <div class="appnav">
  <div class="container">
 <ul>
-{loop $TS_SITE[appnav] $key $item}
+{loop $GLOBALS['TS_SITE'][appnav] $key $item}
 {if $key=='home'}
-<li {if $app==$key}class="select"{/if}><a href="{SITE_URL}">{$item}</a></li>
+<li {if $GLOBALS['TS_URL']['app']==$key}class="select"{/if}><a href="{SITE_URL}">{$item}</a></li>
 {else}
-<li {if $app==$key}class="select"{/if}><a href="{tsUrl($key)}">{$item}</a></li>
+<li {if $GLOBALS['TS_URL']['app']==$key}class="select"{/if}><a href="{tsUrl($key)}">{$item}</a></li>
 {/if}
 {/loop}
 </ul>

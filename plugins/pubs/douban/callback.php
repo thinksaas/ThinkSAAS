@@ -140,7 +140,7 @@ Array ( [loc_id] => 108288 [name] => 我就是我 [created] => 2012-01-07 13:02:
 		$msg_userid = '0';
 		$msg_touserid = $userid;
 		$msg_content = '亲爱的豆瓣用户 '.$username.' ：<br />您成功加入了 '
-									.$TS_SITE['base']['site_title'].'<br />在遵守本站的规定的同时，享受您的愉快之旅吧!';
+									.$TS_SITE['site_title'].'<br />在遵守本站的规定的同时，享受您的愉快之旅吧!';
 		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 		
 		$_SESSION['tsuser']	= $userData;

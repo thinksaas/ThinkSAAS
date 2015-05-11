@@ -1,7 +1,7 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 
-if(intval($TS_USER['user']['isadmin'])==0){
+if(intval($TS_USER['isadmin'])==0){
 	echo '0';exit;//非法操作
 }
 

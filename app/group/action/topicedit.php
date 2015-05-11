@@ -5,7 +5,7 @@ defined('IN_TS') or die('Access Denied.');
 $userid = aac('user')->isLogin();
 
 //普通不用不允许编辑内容
-if($TS_SITE['base']['isallowedit'] && $TS_USER ['user'] ['isadmin'] == 0) tsNotice('系统不允许用户编辑内容，请联系管理员编辑！');
+if($TS_SITE['isallowedit'] && $TS_USER ['isadmin'] == 0) tsNotice('系统不允许用户编辑内容，请联系管理员编辑！');
 
 switch($ts){
 	
@@ -45,7 +45,7 @@ switch($ts){
 		
 		//print_r($strGroupUser);exit;
 
-		if($strTopic['userid'] == $userid || $strGroup['userid']==$userid || $TS_USER['user']['isadmin']==1 || $strGroupUser['isadmin']==1){
+		if($strTopic['userid'] == $userid || $strGroup['userid']==$userid || $TS_USER['isadmin']==1 || $strGroupUser['isadmin']==1){
 			$arrGroupType = $new['group']->findAll('group_topic_type',array(
 				'groupid'=>$strGroup['groupid'],
 			));
@@ -90,7 +90,7 @@ switch($ts){
 		if($topicid == '' || $title=='' || $content=='') tsNotice("都不能为空的哦!");
 		
 		
-		if($TS_USER['user']['isadmin']==0){
+		if($TS_USER['isadmin']==0){
 		
 			//过滤内容开始
 			aac('system')->antiWord($title);
@@ -112,7 +112,7 @@ switch($ts){
 			'groupid'=>$strTopic['groupid'],
 		));
 		
-		if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['user']['isadmin']==1 || $strGroupUser['isadmin']==1){
+		if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['isadmin']==1 || $strGroupUser['isadmin']==1){
 
 			$new['group']->update('group_topic',array(
 				'topicid'=>$topicid,

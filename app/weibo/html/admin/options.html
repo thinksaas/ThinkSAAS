@@ -1,0 +1,26 @@
+{php include template("admin/header");}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+
+<form  method="POST" action="index.php?app=weibo&ac=admin&mg=optionsdo">
+<table>
+<tr><td width="150">APP名称：</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
+
+<tr><td>APP介绍：</td><td><textarea style="width:300px;" name="option[appdesc]">{$strOption[appdesc]}</textarea></td></tr>
+
+<tr><td>APP关键词：</td><td><input style="width:300px;" name="option[appkey]" value="{$strOption[appkey]}" /></td></tr>
+
+<tr><td></td><td>
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input type="submit" value="提交修改" /></td></tr>
+</table>
+</form>
+
+
+</div>
+
+{php include template("admin/footer");}

@@ -51,7 +51,7 @@
 
 <div>
 {$strPhoto[photoname]}  {$strPhoto[photodesc]}
-{if $TS_USER[user][userid] == $strPhoto[userid] || $TS_USER[user][isadmin]==1}<a href="{tsUrl('photo','edit',array('photoid'=>$strPhoto['photoid']))}">修改</a>{/if}
+{if $TS_USER[userid] == $strPhoto[userid] || $TS_USER[isadmin]==1}<a href="{tsUrl('photo','edit',array('photoid'=>$strPhoto['photoid']))}">修改</a>{/if}
 </div>
 
 
@@ -61,7 +61,7 @@
 
 <a class="thickbox" target="_blank" href="{SITE_URL}uploadfile/photo/{$strPhoto[photourl]}">查看原图</a>
 
-　{if $TS_USER[user][userid] == $strPhoto[userid] || $TS_USER[user][isadmin]==1}&gt;&nbsp;<a title="删除这张照片" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$strPhoto[photoid]}">删除照片</a>{/if}
+　{if $TS_USER[userid] == $strPhoto[userid] || $TS_USER[isadmin]==1}&gt;&nbsp;<a title="删除这张照片" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$strPhoto[photoid]}">删除照片</a>{/if}
 </div>
 
 
@@ -80,7 +80,7 @@
 </span>{$item[content]}<br>
 <div class="align-right">
 
-{if intval($TS_USER[user][isadmin]) == 1 || $strPhoto[userid]==$TS_USER[user][userid]}
+{if intval($TS_USER[isadmin]) == 1 || $strPhoto[userid]==$TS_USER[userid]}
 <span class="gact">&gt; <a class="j a_confirm_link" href="{SITE_URL}index.php?app=photo&ac=do&ts=delcomment&commentid={$item[commentid]}">删除</a></span>
 {/if}
 
@@ -94,7 +94,7 @@
 
 <div class="txd">
 
-{if intval($TS_USER[user][userid]) > 0}
+{if intval($TS_USER[userid]) > 0}
 <form method="POST" action="{SITE_URL}index.php?app=photo&ac=do&ts=comment_do">
 <textarea style="width:500px;height:50px;" name="content"></textarea><br>
 <input type="hidden" value="{$strPhoto[photoid]}" name="photoid">

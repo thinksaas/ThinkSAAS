@@ -37,7 +37,7 @@
 {$strGoods['content']}
 </div>
 
-{if $TS_USER['user']['isadmin']=='1'}
+{if $TS_USER['isadmin']=='1'}
 <div class="tar"><a href="{tsUrl('redeem','edit',array('goodsid'=>$strGoods['goodsid']))}">修改</a></div>
 {/if}
 
@@ -57,7 +57,7 @@
 <p class="username"><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p>
 {if $strGoods['return']}
 <p>{if $item['isreturn']}<font color="red">[已返还]</font>{else}
-{if $TS_USER['user']['isadmin']==1}
+{if $TS_USER['isadmin']==1}
 <a href="javascript:void('0');" onclick="returnscore('{$strGoods['goodsid']}','{$item['userid']}')">[未返还]</a>
 {else}
 [未返还]

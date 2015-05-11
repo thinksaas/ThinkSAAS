@@ -5,7 +5,7 @@ defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 $userid = aac ( 'user' )->isLogin ();
 
 //普通不用不允许编辑内容
-if($TS_SITE['base']['isallowedit'] && $TS_USER ['user'] ['isadmin'] == 0) tsNotice('系统不允许用户编辑内容，请联系管理员编辑！');
+if($TS_SITE['isallowedit'] && $TS_USER ['isadmin'] == 0) tsNotice('系统不允许用户编辑内容，请联系管理员编辑！');
 
 switch ($ts) {
 	
@@ -19,7 +19,7 @@ switch ($ts) {
 				'articleid' => $articleid 
 		) );
 		
-		if ($strArticle ['userid'] == $userid || $TS_USER ['user'] ['isadmin'] == 1) {
+		if ($strArticle ['userid'] == $userid || $TS_USER ['isadmin'] == 1) {
 		
 			$strArticle['title'] = stripslashes($strArticle['title']);
 			$strArticle['content'] = tsDecode($strArticle['content']);
@@ -52,7 +52,7 @@ switch ($ts) {
 				'articleid' => $articleid 
 		) );
 		
-		if($strArticle['userid']!=$userid && $TS_USER['user']['isadmin']==0){
+		if($strArticle['userid']!=$userid && $TS_USER['isadmin']==0){
 			tsNotice('非法操作！');
 		}
 		
@@ -60,7 +60,7 @@ switch ($ts) {
 		$title = trim ( $_POST ['title'] );
 		$content = tsClean ( $_POST ['content'] );
 		
-		if ($TS_USER ['user'] ['isadmin'] == 0) {
+		if ($TS_USER ['isadmin'] == 0) {
 			// 过滤内容开始
 			aac ( 'system' )->antiWord ( $title );
 			aac ( 'system' )->antiWord ( $content );

@@ -1,6 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.'); 
-aac('system')->isLogin();
+
 //将用户全部绑定到群组
 $groupid = intval($_GET['groupid']);
 

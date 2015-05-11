@@ -5,11 +5,10 @@ class user extends tsApp{
 
 	//构造函数
 	public function __construct($db){
-		
-		include 'config.php';
+        $tsAppDb = array();
+		include 'app/user/config.php';
 		//判断APP是否采用独立数据库
 		if($tsAppDb){
-			include 'sql/'.$tsAppDb['sql'].'.php';
 			$db = new MySql($tsAppDb);
 		}
 		
@@ -93,10 +92,14 @@ class user extends tsApp{
 	}
 	
 	//是否登录 
-	public function isLogin(){
+	public function isLogin($type=''){
 	
 		$userid = intval($_SESSION['tsuser']['userid']);
-		
+
+        if($type && $userid==0){
+            getJson('你还没有登录',1);
+        }
+
 		if($userid>0){
 			if($this->isUser($userid)){
 				return $userid;

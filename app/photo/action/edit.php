@@ -17,7 +17,7 @@ switch($ts){
 		$strPhoto['photoname'] = stripslashes($strPhoto['photoname']);
 		$strPhoto['photodesc'] = stripslashes($strPhoto['photodesc']);
 
-		if($strPhoto['userid']==$userid || $TS_USER['user']['isadmin']==1){
+		if($strPhoto['userid']==$userid || $TS_USER['isadmin']==1){
 
 			$title = '修改图片信息';
 			include template('photo_edit');

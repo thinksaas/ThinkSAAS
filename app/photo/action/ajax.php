@@ -1,7 +1,7 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 
-$userid = intval($TS_USER['user']['userid']);
+$userid = intval($TS_USER['userid']);
 
 if($userid==0){
 	return false;

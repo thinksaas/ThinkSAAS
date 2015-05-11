@@ -53,7 +53,7 @@
 <div class="btitle">留言板</div>
 <div class="bc">
 
-{if intval($TS_USER['user']['userid']) >0 && intval($TS_USER['user']['userid']) != $strUser['userid']}
+{if intval($TS_USER['userid']) >0 && intval($TS_USER['userid']) != $strUser['userid']}
 <div class="guest">
 <img src="{SITE_URL}public/images/user_normal.jpg" />
 <form method="post" action="{SITE_URL}index.php?app=user&ac=guestbook&ts=do">
@@ -95,7 +95,7 @@
 {$item['content']}
 
 <p style="text-align:right">
-{if intval($TS_USER['user']['userid'] == $strUser['userid'])}
+{if intval($TS_USER['userid'] == $strUser['userid'])}
 <a href="#reguest" onclick="reguest('{$item['userid']}','{$item['id']}')">回复</a> <a href="{tsUrl('user','guestbook',array('ts'=>'delete','gbid'=>$item['id']))}" onclick="return confirm('确定删除?')">删除</a>
 {/if}
 </p>

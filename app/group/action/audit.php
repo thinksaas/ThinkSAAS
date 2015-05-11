@@ -10,7 +10,7 @@ $strGroup = $new['group']->find('group',array(
 	'groupid'=>$groupid,
 ));
 
-if($strGroup['userid']==$userid || $TS_USER['user']['isadmin']==1){
+if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 
 	switch($ts){
 

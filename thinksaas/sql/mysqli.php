@@ -4,30 +4,31 @@ class MySql {
 	public $queryCount = 0;
 	public $conn;
 	public $result;
+
+    /**
+     * æ‰§è¡Œçš„SQLè¯­å¥è®°å½•
+     */
+    public $arrSql;
 	
 	/**
-	 * @param unknown $DB	Êı¾İ¿âÁ´½Ó²ÎÊı	
+	 * @param unknown $DB	æ•°æ®åº“é“¾æ¥å‚æ•°	
 	 */
 	function __construct($DB) {
-	
-	
+
+
 		if (! function_exists ( 'mysqli_connect' )) {
-			qiMsg ( '·şÎñÆ÷PHP²»Ö§³ÖMySQLiÊı¾İ¿â' );
+			qiMsg ( 'æœåŠ¡å™¨PHPä¸æ”¯æŒMySQLiæ•°æ®åº“' );
 		}
-		
-		
-			
+
 		$this->conn = mysqli_connect ( $DB ['host'],$DB ['user'], $DB ['pwd'] ,$DB ['name'],$DB ['port'] );
 		
-		$this->query ( "SET NAMES 'utf8'" );
-		
-		if(mysqli_connect_errno())qiMsg('Êı¾İ¿âÁ´½Ó´íÎó/ÎŞ·¨ÕÒµ½Êı¾İ¿â : '. mysqli_connect_error());
+		if(mysqli_connect_errno())qiMsg('æ•°æ®åº“é“¾æ¥é”™è¯¯/æ— æ³•æ‰¾åˆ°æ•°æ®åº“ : '. mysqli_connect_error());
 		$this->query("SET NAMES UTF8");
 		
 	}
 	
 	/**
-	 * ¶ÔÌØÊâ×Ö·û½øĞĞ¹ıÂË
+	 * å¯¹ç‰¹æ®Šå­—ç¬¦è¿›è¡Œè¿‡æ»¤
 	 * @param unknown $value
 	 * @return string|number
 	 */
@@ -49,7 +50,7 @@ class MySql {
 	}
 	
 	/**
-	 * ¸ñÊ½»¯´ølimitµÄSQLÓï¾ä
+	 * æ ¼å¼åŒ–å¸¦limitçš„SQLè¯­å¥
 	 * @param unknown $sql
 	 * @param unknown $limit
 	 * @return string
@@ -59,18 +60,18 @@ class MySql {
 	}
 	
 	/**
-	 * ·¢ËÍ²éÑ¯Óï¾ä
+	 * å‘é€æŸ¥è¯¢è¯­å¥
 	 * @param unknown $sql
 	 * @return resource
 	 */
 	function query($sql) {
-		global $TS_CF;
-		
-		//echo '<pre>'.$sql.'</pre>';
+
+        $this->arrSql = $sql;
+
 		$this->result = mysqli_query ( $this->conn,$sql );
 		$this->queryCount ++;
 		
-		// ¼ÇÂ¼SQL´íÎóÈÕÖ¾²¢¼ÌĞøÖ´ĞĞ
+		// è®°å½•SQLé”™è¯¯æ—¥å¿—å¹¶ç»§ç»­æ‰§è¡Œ
 		if (! $this->result) {
 			$log = "TIME:" . date ( 'Y-m-d :H:i:s' ) . "\n";
 			$log .= "SQL:" . $sql . "\n";
@@ -80,8 +81,8 @@ class MySql {
 			logging ( date ( 'Ymd' ) . '-mysqli-error.txt', $log );
 		}
 		
-		// ¼ÇÂ¼SQLÈÕÖ¾
-		if ($TS_CF ['logs']) {
+		// è®°å½•SQLæ—¥å¿—
+		if ($GLOBALS['TS_CF'] ['logs']) {
 			
 			$log = "TIME:" . date ( 'Y-m-d :H:i:s' ) . "\n";
 			$log .= "SQL:" . $sql . "\n";
@@ -119,7 +120,7 @@ class MySql {
 	}
 	
 	/**
-	 * »ñÈ¡ĞĞµÄÊıÄ¿
+	 * è·å–è¡Œçš„æ•°ç›®
 	 * @param unknown $sql
 	 * @return number
 	 */
@@ -129,7 +130,7 @@ class MySql {
 	}
 	
 	/**
-	 * »ñµÃ½á¹û¼¯ÖĞ×Ö¶ÎµÄÊıÄ¿
+	 * è·å¾—ç»“æœé›†ä¸­å­—æ®µçš„æ•°ç›®
 	 * @param unknown $query
 	 * @return number
 	 */
@@ -138,7 +139,7 @@ class MySql {
 	}
 	
 	/**
-	 * È¡µÃÉÏÒ»²½INSERT²úÉúµÄID
+	 * å–å¾—ä¸Šä¸€æ­¥INSERTäº§ç”Ÿçš„ID
 	 * @return number
 	 */
 	function insert_id() {
@@ -146,7 +147,7 @@ class MySql {
 	}
 	
 	/**
-	 * Êı×éÌí¼Ó
+	 * æ•°ç»„æ·»åŠ 
 	 * @param unknown $arrData
 	 * @param unknown $table
 	 * @param string $where
@@ -165,7 +166,7 @@ class MySql {
 	}
 	
 	/**
-	 * Êı×é¸üĞÂ(Update)
+	 * æ•°ç»„æ›´æ–°(Update)
 	 * @param unknown $arrData
 	 * @param unknown $table
 	 * @param string $where
@@ -182,7 +183,7 @@ class MySql {
 	}
 	
 	/**
-	 * »ñÈ¡mysql´íÎó
+	 * è·å–mysqlé”™è¯¯
 	 * @return string
 	 */
 	function geterror() {
@@ -194,10 +195,10 @@ class MySql {
 	 * @return number
 	 */
 	function affected_rows() {
-		return mysqli_affected_rows ();
+        return mysqli_affected_rows($this->conn);
 	}
 	/**
-	 * »ñÈ¡Êı¾İ¿â°æ±¾ĞÅÏ¢
+	 * è·å–æ•°æ®åº“ç‰ˆæœ¬ä¿¡æ¯
 	 */
 	function getMysqlVersion() {
 		return mysqli_get_server_info ($this->conn);

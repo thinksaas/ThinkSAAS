@@ -10,7 +10,7 @@ switch($ts){
 		$token = trim($_POST['token']);
 		
 	
-		if($TS_USER['user']['isadmin']==0 || $token!=$_SESSION['token']){
+		if($TS_USER['isadmin']==0 || $token!=$_SESSION['token']){
 			echo 2;exit;//非法操作
 		}
 		
@@ -47,7 +47,7 @@ switch($ts){
 	//加入小组
 	case "joingroup":
 		
-		$userid = intval($TS_USER['user']['userid']);
+		$userid = intval($TS_USER['userid']);
 	
 		$groupid = intval($_POST['groupid']);
 		
@@ -56,11 +56,11 @@ switch($ts){
 		));
 		
 		if($userid==0 || $groupid==0 || $strGroup==''){
-			getJson('请登录后再加入小组',2,tsUrl('user','login'));
+			getJson('请登录后再加入小组',1,2,tsUrl('user','login'));
 		}
 		
 		//管理员可以加入任何小组
-		if($TS_USER['user']['isadmin'] != 1){
+		if($TS_USER['isadmin'] != 1){
 			
 			//除管理员外其他用户都要经过这一关审核
 			if($strGroup['joinway'] == 1) getJson('本小组禁止加入！');
@@ -82,7 +82,7 @@ switch($ts){
 			//先统计用户有多少个小组了，50个封顶
 			$userGroupNum = $new['group']->findCount('group_user',array('userid'=>$userid));
 			
-			if($userGroupNum >= $TS_APP['options']['joinnum']) getJson('你加入的小组总数已经到达'.$TS_APP['options']['joinnum'].'个，不能再加入小组！');
+			if($userGroupNum >= $TS_APP['joinnum']) getJson('你加入的小组总数已经到达'.$TS_APP['joinnum'].'个，不能再加入小组！');
 			
 			$groupUserNum = $new['group']->findCount('group_user',array(
 				'userid'=>$userid,
@@ -128,7 +128,7 @@ switch($ts){
 	//退出小组
 	case "exitgroup":
 	
-		$userid = intval($TS_USER['user']['userid']);
+		$userid = intval($TS_USER['userid']);
 		
 		$groupid = intval($_POST['groupid']);
 		
@@ -171,7 +171,7 @@ switch($ts){
 		
 		$topicid = intval($_POST['topicid']);
 		
-		if($TS_USER['user']['isadmin']==1 && $topicid){
+		if($TS_USER['isadmin']==1 && $topicid){
 		
 			$strTopic = $new['group']->find('group_topic',array(
 				'topicid'=>$topicid,

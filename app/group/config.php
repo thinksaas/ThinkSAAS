@@ -7,4 +7,4 @@ defined('IN_TS') or die('Access Denied.');
 	
 	$skin = 'default';
 	
-	$TS_APP['options']['appname'] = '小组';
+	$TS_APP['appname'] = '小组';

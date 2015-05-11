@@ -1,6 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-aac('system')->isLogin();
+
 $arrOptions = $db->fetch_all_assoc("select * from ".dbprefix."mail_options");
 
 foreach($arrOptions as $item){

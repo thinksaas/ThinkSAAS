@@ -29,9 +29,9 @@ switch($ts){
 		$username = tsFilter($_POST["param"]);
 		
 		
-		if($TS_APP['options']['banuser']){
+		if($TS_APP['banuser']){
 		
-			$arrUserName = explode('|',$TS_APP['options']['banuser']);
+			$arrUserName = explode('|',$TS_APP['banuser']);
 			if(in_array($username,$arrUserName)){
 				echo '{"info":"用户名已经存在！","status":"n"}';
 				exit;

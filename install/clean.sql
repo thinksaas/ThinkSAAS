@@ -1,7 +1,6 @@
-----------------------------------------------
----这里记录着数据库更新前需要清空的表
----By Qiujun 2014-10-1
-----------------------------------------------
+TRUNCATE `ts_anti_email`;
+TRUNCATE `ts_anti_ip`;
+TRUNCATE `ts_anti_user`;
 TRUNCATE `ts_article`;
 TRUNCATE `ts_article_cate`;
 TRUNCATE `ts_article_comment`;

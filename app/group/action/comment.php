@@ -23,7 +23,7 @@ switch($ts){
 		
 		
 		//过滤内容开始
-		if($TS_USER['user']['isadmin']==0){
+		if($TS_USER['isadmin']==0){
 			aac('system')->antiWord($content);
 		}
 		//过滤内容结束
@@ -52,14 +52,14 @@ switch($ts){
 			));
 			
 			//对积分进行处理
-			aac('user')->doScore($app,$ac,$ts);
+			aac('user')->doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
 			
 			//发送系统消息(通知楼主有人回复他的帖子啦)			
 			$strTopic = $new['group']->find('group_topic',array(
 				'topicid'=>$topicid,
 			));
 			
-			if($strTopic['userid'] != $TS_USER['user']['userid']){
+			if($strTopic['userid'] != $TS_USER['userid']){
 			
 				$msg_userid = '0';
 				$msg_touserid = $strTopic['userid'];
@@ -100,7 +100,7 @@ switch($ts){
 			'groupid'=>$strTopic['groupid'],
 		));
 		
-		if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['user']['isadmin']==1 || $strComment['userid']==$userid){
+		if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['isadmin']==1 || $strComment['userid']==$userid){
 			
 			$new['group']->delComment($commentid);
 			

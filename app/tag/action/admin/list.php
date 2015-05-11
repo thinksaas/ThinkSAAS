@@ -1,7 +1,7 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 
-aac('system')->isLogin();
+
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 

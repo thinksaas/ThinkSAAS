@@ -7,4 +7,4 @@ defined('IN_TS') or die('Access Denied.');
 	
 	$skin = 'default';
 	
-	$TS_APP['options']['appname'] = '积分兑换';
+	$TS_APP['appname'] = '积分兑换';

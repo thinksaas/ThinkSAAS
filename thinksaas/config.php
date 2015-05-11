@@ -48,7 +48,7 @@ return array(
 	 */
 	'info' => array(
 		'name' => 'ThinkSAAS', 
-		'version' => '2.31', 
+		'version' => '2.4',
 		'url' => 'http://www.thinksaas.cn/', 
 		'email' => 'jun.qiu@thinksaas.cn', 
 		'powered' => 'Powered by ThinkSAAS', 

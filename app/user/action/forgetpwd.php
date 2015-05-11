@@ -44,9 +44,9 @@ switch($ts){
 			));
 			
 			//发送邮件
-			$subject = $TS_SITE['base']['site_title'].'会员密码找回';
+			$subject = $TS_SITE['site_title'].'会员密码找回';
 			
-			$content = '您的登陆信息：<br />Email：'.$email.'<br />重设密码链接：<br /><a href="'.$TS_SITE['base']['site_url'].'index.php?app=user&ac=resetpwd&mail='.$email.'&set='.$resetpwd.'">'.$TS_SITE['base']['site_url'].'index.php?app=user&ac=resetpwd&mail='.$email.'&set='.$resetpwd.'</a>';
+			$content = '您的登陆信息：<br />Email：'.$email.'<br />重设密码链接：<br /><a href="'.$TS_SITE['site_url'].'index.php?app=user&ac=resetpwd&mail='.$email.'&set='.$resetpwd.'">'.$TS_SITE['site_url'].'index.php?app=user&ac=resetpwd&mail='.$email.'&set='.$resetpwd.'</a>';
 			
 			$result = aac('mail')->postMail($email,$subject,$content);
 			

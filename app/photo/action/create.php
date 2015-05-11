@@ -32,13 +32,13 @@ switch($ts){
 		}
 		
 		//1审核后显示0不审核
-		if ($TS_APP['options']['isaudit']==1) {
+		if ($TS_APP['isaudit']==1) {
 			$isaudit = 1;
 		} else {
 			$isaudit = 0;
 		}
 		
-		if($TS_USER['user']['isadmin']==0){
+		if($TS_USER['isadmin']==0){
 			//过滤内容开始
 			aac('system')->antiWord($albumname);
 			aac('system')->antiWord($albumdesc);

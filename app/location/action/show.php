@@ -42,6 +42,15 @@ foreach($arrWeibo as $key=>$item){
 	$arrWeibo[$key]['user'] = aac('user')->getOneUser($item['userid']);
 }
 
+//是否是同城用户
+$isLocationId = 0;
+if($TS_USER['userid']){
+	$strUser=$new['location']->find('user_info',array(
+		'userid'=>$TS_USER['userid'],
+	));
+	$isLocationId = $strUser['locationid'];
+}
+
 $sitekey = $strLocation['title'];
 $sitedesc = cututf8(t($strLocation['content']),0,100);
 $title = $strLocation['title'];

@@ -14,7 +14,7 @@ if($cateid){
 
 $arrGoods = $new['redeem']->findAll('redeem_goods',$where,'addtime desc');
 
-$sitekey = $TS_APP['options']['appkey'];
-$sitedesc = $TS_APP['options']['appdesc'];
+$sitekey = $TS_APP['appkey'];
+$sitedesc = $TS_APP['appdesc'];
 $title = '积分兑换';
 include template("index");

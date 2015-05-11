@@ -1,0 +1,51 @@
+{template header}
+<div class="container">
+
+    <ol class="breadcrumb">
+        <li><a href="{SITE_URL}">首页</a></li>
+        <li class="active">动态</li>
+    </ol>
+
+<div class="row">
+
+<div class="col-md-8">
+
+<div class="bbox">
+<div class="bc">
+
+<div class="feed">
+<ul>
+{loop $arrFeed $key $item}
+<li class="mbtl">
+{if $item[user][userid] !=$arrFeed[$key-1][user][userid]}
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" height="48" /></a>
+{/if}
+</li>
+<li class="mbtr">
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 
+{$item[content]}
+</li>
+<div class="clear"></div>
+{/loop}
+</ul>
+
+</div>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+
+
+<div class="clear"></div>
+<!--广告位-->
+{php doAction('gobad','300')}
+</div>
+
+</div>
+</div>
+
+{template footer}

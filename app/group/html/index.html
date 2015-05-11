@@ -10,11 +10,21 @@
 
 <div class="col-md-8">
 
-<div class="bbox mh500">
-<div class="btitle">全部小组</div>
+<div class="bbox">
+
 
 <div class="bc">
-<div id="group_content">
+
+
+<ul class="nav nav-pills">
+  <li role="presentation" {if $cateid==0}class="active"{/if}><a href="{tsUrl('group')}">全部</a></li>
+{loop $arrGroupCate $key $item}
+  <li role="presentation" {if $cateid==$item['cateid']}class="active"{/if}><a href="{tsUrl('group','index',array('cateid'=>$item['cateid']))}">{$item['catename']}</a></li>
+{/loop}
+</ul>
+
+
+<div id="group_content" style="margin-top:10px;">
 
 {loop $arrGroup $key $item}
 <div class="sub-item">
@@ -51,7 +61,7 @@
 <div class="col-md-4">
 
 
-{if $TS_APP[options][iscreate]==0 || $TS_USER[user][isadmin]==1}
+{if $TS_APP[iscreate]==0 || $TS_USER[isadmin]==1}
 <a class="btn btn-info btn-block btn-lg" href="{tsUrl('group','create')}">
 <span class="glyphicon glyphicon-plus-sign"></span> 创建小组</a>
 <p></p>

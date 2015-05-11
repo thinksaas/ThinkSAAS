@@ -1,0 +1,110 @@
+{template header}
+
+<script type="text/javascript" src="{SITE_URL}public/js/jquery.upload.v2.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+function doUpload() {
+	var contents = $("#content").val();
+	$("#upload").upload({
+		action: "{SITE_URL}index.php?app=weibo&ac=photo", //上传地址
+		fileName: "filedata",    //文件名称。用于后台接收
+		params: {content: contents,token:'{$_SESSION["token"]}'},         //参数
+		accept: ".jpg,.png,.gif",     //文件类型
+		complete: function () {  //上传完成
+			window.location.reload()
+		},
+		submit: function () {   //提交之前
+			//alert("submit");
+		}
+	});
+
+}
+</SCRIPT>
+
+<div class="container">
+
+<ol class="breadcrumb">
+  <li><a href="{SITE_URL}">首页</a></li>
+  <li class="active">唠叨</li>
+</ol>
+
+<div class="row">
+
+
+<div class="col-md-8">
+
+
+<div class="bbox">
+<div class="bc">
+
+<div>
+<form id="comm-form" method="post" class="form text-form" action="{tsUrl('weibo','add')}" enctype="multipart/form-data">
+<textarea class="form-control" rows="3" id="content" name="content"></textarea>
+
+<div style="padding:5px 0;">
+
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+
+<a href="javascript:void('0');" id="upload" onclick="doUpload()">[图片]</a> 
+
+<div class="fr"><button  class="btn btn-success"  type="submit">唠叨一下</button></div>
+
+</div>
+</form>
+</div>
+
+<div class="clear"></div>
+
+<ul>
+{loop $arrWeibo $key $item}
+<li class="mbtl">
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="img-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
+</li>
+<li class="mbtr">
+<div class="author"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> {$item['addtime']}</div>
+<div class="title"><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item[title]}</a></div>
+<div class="content">
+{if $item[photo]}<a target="_blank" href="{SITE_URL}uploadfile/weibo/{$item[photo]}"><img src="{php echo tsXimg($item['photo'],'weibo',240,'',$item['path'])}" /></a>{/if}
+{$item[content]}
+</div>
+<p style="text-align:right;">
+
+<a href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}">{if $item['count_comment'] > '0'}({$item['count_comment']}){/if}回复</a>
+
+{if $GLOBALS['TS_USER']['isadmin'] == 1}
+<a href="{tsUrl('weibo','deleteweibo',array('weiboid'=>$item['weiboid']))}">删除</a>
+{/if}
+
+</p>
+</li>
+<div class="clear"></div>
+{/loop}
+</ul>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+<div>
+
+</div>
+
+</div>
+</div>
+
+
+</div>
+
+
+<div class="col-md-4">
+<div class="panel panel-default">
+  <div class="panel-body">
+
+<!--广告位-->
+{php doAction('gobad','300')}
+
+</div>
+</div>
+</div>
+
+
+</div>
+</div>		
+{template footer}

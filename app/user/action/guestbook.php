@@ -21,7 +21,7 @@ switch($ts){
 		}
 		
 		$guestNum = $new['user']->findCount('user_gb',array(
-			'userid'=>$strUser['userid'],
+			'touserid'=>$strUser['userid'],
 		));
 		
 		$pageUrl = pagination($guestNum, 20, $page, $url);

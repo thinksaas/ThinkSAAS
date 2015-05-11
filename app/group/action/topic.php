@@ -30,17 +30,17 @@ $strTopic['content'] = tsDecode($strTopic['content'],$tp);
 
 //判断是否评论后显示帖子内容
 $isComment = $new['group']->findCount('group_topic_comment', array(
-	'userid' => intval($TS_USER['user']['userid']),
+	'userid' => intval($TS_USER['userid']),
 	'topicid' => $strTopic['topicid'],
 )); 
 
-if($strTopic['iscommentshow']==1 && $isComment==0 && $strTopic['userid']!=intval($TS_USER['user']['userid'])){
+if($strTopic['iscommentshow']==1 && $isComment==0 && $strTopic['userid']!=intval($TS_USER['userid'])){
 	$strTopic['content'] = '你需要回复后才可以浏览帖子内容！';
 }
 
 
 //编辑的数据
-if($strTopic['userid']==$TS_USER['user']['userid']){
+if($strTopic['userid']==$TS_USER['userid']){
 
 	if($strTopic['isdelete']=='1'){
 		tsNotice('你的帖子删除中...');
@@ -124,9 +124,9 @@ if ($strGroup['isopen'] == '1' && $isGroupUser == '0')
 	
 	// 判断会员是否加入该小组
 	$strGroupUser = '';
-	if(intval($TS_USER['user']['userid'])){
+	if(intval($TS_USER['userid'])){
 		$strGroupUser = $new['group']->find('group_user',array(
-			'userid'=>intval($TS_USER['user']['userid']),
+			'userid'=>intval($TS_USER['userid']),
 			'groupid'=>$strTopic['groupid'],
 		));
 	}

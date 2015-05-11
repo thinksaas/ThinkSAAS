@@ -23,7 +23,7 @@ switch($ts){
 				'groupid'=>$strTopic['groupid'],
 			));
 			
-			if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['user']['isadmin']==1){
+			if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 			
 				$arrGroups = $new['group']->findAll('group_user',array(
 					'userid'=>$strTopic['userid'],
@@ -67,7 +67,7 @@ switch($ts){
 			'topicid'=>$topicid,
 		));
 		
-		if($strTopicid['userid']==$userid || $TS_USER['user']['isadmin']==1){
+		if($strTopicid['userid']==$userid || $TS_USER['isadmin']==1){
 
 			$new['group']->update('group_topic',array(
 				'topicid'=>$topicid,

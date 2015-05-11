@@ -7,7 +7,7 @@ require_once THINKDATA."/config.inc.php";
 
 $skin = 'default';
 
-$TS_APP['options']['appname'] = '文章';
+$TS_APP['appname'] = '文章';
 
 /*
  * APP独立数据库配置
@@ -18,6 +18,6 @@ $tsAppDb['host']='localhost';
 $tsAppDb['port']='3306';
 $tsAppDb['user']='root';
 $tsAppDb['pwd']='';
-$tsAppDb['name']='thinksaas_git_app';
+$tsAppDb['name']='thinksaas_app';
 $tsAppDb['pre']='ts_';
 */

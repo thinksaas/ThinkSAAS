@@ -1,9 +1,17 @@
 <?php
 defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 class MySql {
+
+
+
 	public $queryCount = 0;
 	public $conn;
 	public $result;
+
+    /**
+     * 执行的SQL语句记录
+     */
+    public $arrSql;
 	
 	/**
 	 * @param unknown $DB	数据库链接参数	
@@ -67,8 +75,9 @@ class MySql {
 	 * @return resource
 	 */
 	function query($sql) {
-		global $TS_CF;
-		
+
+        $this->arrSql = $sql;
+
 		//echo $sql;
 		$this->result = mysql_query ( $sql, $this->conn );
 		$this->queryCount ++;
@@ -84,7 +93,7 @@ class MySql {
 		}
 		
 		// 记录SQL日志
-		if ($TS_CF ['logs']) {
+		if ($GLOBALS['TS_CF'] ['logs']) {
 			
 			$log = "TIME:" . date ( 'Y-m-d :H:i:s' ) . "\n";
 			$log .= "SQL:" . $sql . "\n";
@@ -197,7 +206,7 @@ class MySql {
 	 * @return number
 	 */
 	function affected_rows() {
-		return mysql_affected_rows ();
+        return mysql_affected_rows($this->conn);
 	}
 	/**
 	 * 获取数据库版本信息

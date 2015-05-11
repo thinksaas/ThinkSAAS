@@ -42,10 +42,10 @@ $strLeader = aac('user')->getOneUser($strGroup['userid']);
 
 //判断会员是否加入该小组
 $isGroupUser = 0;
-if(intval($TS_USER['user']['userid'])){
-	$strUser = aac('user')->getOneUser(intval($TS_USER['user']['userid']));
+if(intval($TS_USER['userid'])){
+	$strUser = aac('user')->getOneUser(intval($TS_USER['userid']));
 	$isGroupUser = $new['group']->findCount('group_user',array(
-		'userid'=>intval($TS_USER['user']['userid']),
+		'userid'=>intval($TS_USER['userid']),
 		'groupid'=>$groupid,
 	));
 }

@@ -4,7 +4,7 @@ require_once THINKDATA."/config.inc.php";
 
 $skin = 'default';
 
-$TS_APP['options']['appname'] = '用户';
+$TS_APP['appname'] = '用户';
 
 /*
  * APP独立数据库配置

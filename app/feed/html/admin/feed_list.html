@@ -1,0 +1,25 @@
+{php include template("admin/header");}
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table>
+<tr class="old">
+<td>feedid</td><td>userid</td><td>data</td> <td>时间</td> <td>操作</td>
+</tr>
+
+{loop $arrFeed $key $item}
+<tr><td>{$item['feedid']}</td><td>{$item['userid']}</td><td>{$item['content']}</td><td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td><td>
+
+<a href="{SITE_URL}index.php?app=feed&ac=admin&mg=deletefeed&feedid={$item['feedid']}">删除</a>
+</td></tr>
+{/loop}
+
+</table>
+
+</div>
+
+{php include template("admin/footer");}

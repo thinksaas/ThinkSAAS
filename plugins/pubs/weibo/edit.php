@@ -1,6 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-aac('system')->isLogin();
+
 switch($ts){
 	case "set":
 		$arrData = fileRead('data/plugins_pubs_weibo.php');

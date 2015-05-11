@@ -147,7 +147,7 @@ Array ( [id] => 2741015883 [idstr] => 2741015883 [class] => 1 [screen_name] => �
 		$msg_userid = '0';
 		$msg_touserid = $userid;
 		$msg_content = '亲爱的微博用户 '.$username.' ：<br />您成功加入了 '
-									.$TS_SITE['base']['site_title'].'<br />在遵守本站的规定的同时，享受您的愉快之旅吧!';
+									.$TS_SITE['site_title'].'<br />在遵守本站的规定的同时，享受您的愉快之旅吧!';
 		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
 		
 		$_SESSION['tsuser']	= $userData;

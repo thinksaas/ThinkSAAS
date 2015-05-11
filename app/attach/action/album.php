@@ -50,7 +50,7 @@ switch($ts){
 		$strAlbum['content'] = tsDecode($strAlbum['content']);
 		
 		
-		if($strAlbum['userid']==$userid || $TS_USER['user']['isadmin']==1){
+		if($strAlbum['userid']==$userid || $TS_USER['isadmin']==1){
 		
 			$title = '修改资料库';
 			include template('album_edit');
@@ -73,7 +73,7 @@ switch($ts){
 			tsNotice('资料库标题和内容不能为空！');
 		}
 		
-		if($strAlbum['userid']==$userid || $TS_USER['user']['isadmin']==1){
+		if($strAlbum['userid']==$userid || $TS_USER['isadmin']==1){
 		
 			$new['attach']->update('attach_album',array(
 				'albumid'=>$strAlbum['albumid'],
@@ -98,7 +98,7 @@ switch($ts){
 			'albumid'=>$albumid,
 		));
 		
-		if($strAlbum['userid']==$userid || $TS_USER['user']['isadmin']==1){
+		if($strAlbum['userid']==$userid || $TS_USER['isadmin']==1){
 		
 			$arrAttach = $new['attach']->findAll('attach',array(
 				'albumid'=>$albumid,

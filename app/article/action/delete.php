@@ -10,11 +10,11 @@ $strArticle = $new ['article']->find ( 'article', array (
 ) );
 
 //普通用户不允许删除内容
-if($TS_SITE['base']['isallowdelete'] && $TS_USER ['user'] ['isadmin'] == 0) tsNotice('系统不允许用户删除内容，请联系管理员删除！');
+if($TS_SITE['isallowdelete'] && $TS_USER ['isadmin'] == 0) tsNotice('系统不允许用户删除内容，请联系管理员删除！');
 
 
 
-if ($strArticle ['userid'] == $userid || $TS_USER ['user'] ['isadmin'] == 1) {
+if ($strArticle ['userid'] == $userid || $TS_USER ['isadmin'] == 1) {
 	$new ['article']->delete ( 'article', array (
 			'articleid' => $articleid 
 	) );

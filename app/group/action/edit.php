@@ -14,7 +14,7 @@ $strGroup = $new['group']->find('group',array(
 $strGroup['groupname'] = tsDecode($strGroup['groupname']);
 $strGroup['groupdesc'] = tsDecode($strGroup['groupdesc']);
 
-if($strGroup['userid']==$userid || $TS_USER['user']['isadmin']==1){
+if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 
 
 	switch($ts){

@@ -28,7 +28,7 @@
 <h3><a href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">{$strUser[username]}</a></h3>
 <div>
 
-{if $strUser['userid']==$TS_USER['user']['userid']}
+{if $strUser['userid']==$TS_USER['userid']}
 <a class="btn btn-mini" href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">我的空间</a>
 {else}
 <a class="btn btn-mini"  href="javascript:void('0')" onclick="follow('{$strUser['userid']}','{$_SESSION['token']}');">关注</a>

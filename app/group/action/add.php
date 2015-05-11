@@ -5,7 +5,7 @@ defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 $userid = aac ( 'user' )->isLogin ();
 
 //无人值守状态下
-if($TS_SITE['base']['isunattended']) tsNotice('客官，俺家主人说了，这个点暂不接收送来的任何帖子，请回吧！如需人工帮助，请直接点击客服留言咨询！');
+if($TS_SITE['isunattended']) tsNotice('客官，俺家主人说了，这个点暂不接收送来的任何帖子，请回吧！如需人工帮助，请直接点击客服留言咨询！');
 
 switch ($ts) {
 	// 发布帖子
@@ -97,7 +97,7 @@ switch ($ts) {
 			tsNotice ( '小组还未审核通过，不允许发帖！' );
 		}
 		
-		if ($TS_USER ['user'] ['isadmin'] == 0) {
+		if ($TS_USER ['isadmin'] == 0) {
 			aac ( 'system' )->antiWord ( $title );
 			aac ( 'system' )->antiWord ( $content );
 			aac ( 'system' )->antiWord ( $tag );
@@ -171,6 +171,7 @@ switch ($ts) {
 		) );
 		
 		// 处理@用户名
+		/*
 		if (preg_match_all ( '/@/', $content, $at )) {
 			preg_match_all ( "/@(.+?)([\s|:]|$)/is", $content, $matches );
 			
@@ -198,6 +199,7 @@ switch ($ts) {
 				) );
 			}
 		}
+		*/
 		
 		// 统计帖子类型
 		if ($typeid) {
@@ -241,7 +243,7 @@ switch ($ts) {
 		) );
 		
 		// 对积分进行处理
-		aac ( 'user' )->doScore ( $app, $ac, $ts );
+		aac ( 'user' )->doScore ( $TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'] );
 		
 		// QQ分享
 		$arrShare = array (

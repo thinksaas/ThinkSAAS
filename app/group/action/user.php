@@ -93,7 +93,7 @@ switch($ts){
 			echo '0';exit;//非法操作
 		}
 		
-		$nuserid = intval($TS_USER['user']['userid']);
+		$nuserid = intval($TS_USER['userid']);
 		
 		if($nuserid==0){
 			echo '0';exit;//非法操作

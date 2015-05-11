@@ -1,11 +1,5 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-aac('system')->isLogin();
 
-$title = '首页';
-
-/*
- *包含模版
- */
-
+$title = '管理后台';
 include template("admincp");

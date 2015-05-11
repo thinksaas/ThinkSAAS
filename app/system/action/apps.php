@@ -1,6 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-aac('system')->isLogin();
+
 
 switch($ts){
 	//app列表
@@ -100,6 +100,13 @@ switch($ts){
 			$arrNav = array(
 				$appkey=>$appname,
 			);
+		}
+		
+		foreach($arrNav as $key=>$item){
+			
+			if(!is_dir('app/'.$key)){
+				unset($arrNav[$key]);
+			}
 		}
 		
 		fileWrite('system_appnav.php','data',$arrNav);

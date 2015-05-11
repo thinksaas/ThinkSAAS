@@ -5,14 +5,15 @@ class system extends tsApp{
 
 	//构造函数
 	public function __construct($db){
-	
-		include 'config.php';
+		
+        $tsAppDb = array();
+		include 'app/system/config.php';
+		
 		//判断APP是否采用独立数据库
 		if($tsAppDb){
-			include 'sql/'.$tsAppDb['sql'].'.php';
 			$db = new MySql($tsAppDb);
 		}
-	
+		
 		parent::__construct($db);
 	}
 	
@@ -148,22 +149,5 @@ class system extends tsApp{
 		$this->searchDir($dir,$data); 
 		return $data; 
 	} 
-	
-	//判断后台是否登陆
-	function isLogin(){
-		$userid = intval($_SESSION['tsadmin']['userid']);
-		if($userid>0){
-			$strUser = aac('user')->getOneUser($userid);
-			if($strUser['isadmin']==$_SESSION['tsadmin']['isadmin']){
-				return true;
-			}else{
-				header("Location: ".tsUrl('user','login',array('ts'=>'out')));
-				exit;
-			}
-		}else{
-			header("Location: ".tsUrl('user','login',array('ts'=>'out')));
-			exit;
-		}
-	}
 
 }

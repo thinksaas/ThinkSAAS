@@ -1,6 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-aac('system')->isLogin();
+
 //插件编辑
 switch($ts){
 	case "set":

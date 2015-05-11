@@ -37,8 +37,8 @@ $arrHot7 = $new ['article']->getHotArticle ( 7 );
 $arrHot30 = $new ['article']->getHotArticle ( 30 );
 
 
-$sitekey = $TS_APP['options']['appkey'];
-$sitedesc = $TS_APP['options']['appdesc'];
+$sitekey = $TS_APP['appkey'];
+$sitedesc = $TS_APP['appdesc'];
 $title = '文章';
 
 include template ( 'index' );

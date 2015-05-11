@@ -8,7 +8,7 @@ $strAttach = $new['attach']->find('attach',array(
 	'attachid'=>$attachid,
 ));
 
-if($TS_USER['user']['isadmin']==1 || $strAttach['userid']==$userid){
+if($TS_USER['isadmin']==1 || $strAttach['userid']==$userid){
 
 	unlink('uploadfile/attach/'.$strAttach['attachurl']);
 	$new['attach']->delete('attach',array(

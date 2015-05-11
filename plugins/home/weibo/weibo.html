@@ -2,9 +2,10 @@
 <div class="btitle">唠唠叨叨</div>
 <div class="bc">
 <div class="weiform">
-<form>
-<textarea id="weibocontent" name="content"></textarea>
-<input id="weibosend" type="button" onclick="sendweibo();" value="发送" />
+<form id="comm-form" method="post" action="{SITE_URL}index.php?app=weibo&ac=add">
+<textarea name="content"></textarea>
+    <input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input type="submit" value="发送" />
 </form>
 </div>
 

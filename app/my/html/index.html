@@ -49,7 +49,7 @@
 </div>
 <div class="col-md-4">
 
-<div class="qiandao">{if $TS_USER['user']['signin']<strtotime(date('Y-m-d 00:00:00'))}<a href="javascript:void('0');" onclick="qianDao();">每日签到+5积分</a>{else}今日已签到{/if}</div>
+<div class="qiandao">{if $TS_USER['signin']<strtotime(date('Y-m-d 00:00:00'))}<a href="javascript:void('0');" onclick="qianDao();">每日签到+5积分</a>{else}今日已签到{/if}</div>
 
 </div>
 

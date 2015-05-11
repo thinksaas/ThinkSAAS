@@ -22,7 +22,7 @@ foreach($arrAttachs as $key=>$item){
 	
 }
 
-$sitekey = $TS_APP['options']['appkey'];
-$sitedesc = $TS_APP['options']['appdesc'];
+$sitekey = $TS_APP['appkey'];
+$sitedesc = $TS_APP['appdesc'];
 
 include template("index");

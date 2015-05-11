@@ -6,7 +6,7 @@ $userid = aac('user') -> isLogin();
 
 switch ($ts) {
 	case "" :
-		if ($TS_APP['options']['allowpost'] == 0 && $TS_USER['user']['isadmin'] == 0) {
+		if ($TS_APP['allowpost'] == 0 && $TS_USER['isadmin'] == 0) {
 			tsNotice('系统设置不允许会员发文章！');
 		}
 
@@ -27,7 +27,7 @@ switch ($ts) {
 		$tag = tsClean($_POST['tag']);
 		$addtime = date('Y-m-d H:i:s');
 
-		if (intval($TS_USER['user']['isadmin']) == 0) {
+		if (intval($TS_USER['isadmin']) == 0) {
 			// 过滤内容开始
 			aac('system') -> antiWord($title);
 			aac('system') -> antiWord($content);
@@ -39,7 +39,7 @@ switch ($ts) {
 			tsNotice("标题和内容都不能为空！");
 
 		//1审核后显示0不审核
-		if ($TS_APP['options']['isaudit'] == 1) {
+		if ($TS_APP['isaudit'] == 1) {
 			$isaudit = 1;
 		} else {
 			$isaudit = 0;
@@ -58,7 +58,7 @@ switch ($ts) {
 		aac('tag') -> addTag('article', 'articleid', $articleid, $tag);
 
 		// 对积分进行处理
-		aac('user') -> doScore($app, $ac, $ts);
+		aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
 
 		header("Location: " . tsUrl('article', 'show', array('id' => $articleid)));
 

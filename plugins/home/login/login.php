@@ -4,8 +4,8 @@ defined('IN_TS') or die('Access Denied.');
 function login(){
 	global $TS_USER;
 	
-	if($TS_USER['user']['userid']){
-		$strUser = aac('user')->getOneUser($TS_USER['user']['userid']);
+	if($TS_USER['userid']){
+		$strUser = aac('user')->getOneUser($TS_USER['userid']);
 		$strUser['rolename'] = aac('user')->getRole($strUser['count_score']);
 	}
 	

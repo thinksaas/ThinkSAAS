@@ -84,7 +84,7 @@ $comment_num = $new['photo']->findCount('photo_comment',array(
 $pageUrl = pagination($comment_num, 10, $page, $url);
 
 
-if($TS_USER['user']['userid'] == $userid){
+if($TS_USER['userid'] == $userid){
 	$title = '我的相册-'.$strAlbum['albumname'].'-第'.$nowPage.'张';
 }else{
 	$title = $strUser['username'].'的相册-'.$strAlbum['albumname'].'-第'.$nowPage.'张';

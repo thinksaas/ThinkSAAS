@@ -15,13 +15,13 @@ switch($ts){
 			'userid'=>$userid
 		));
 		
-		if($userGroupNum >= $TS_APP['options']['joinnum'] && $TS_USER['user']['isadmin']==0){
+		if($userGroupNum >= $TS_APP['joinnum'] && $TS_USER['isadmin']==0){
 		
-			tsNotice('你加入的小组总数已经到达'.$TS_APP['options']['joinnum'].'个，不能再创建小组！');
+			tsNotice('你加入的小组总数已经到达'.$TS_APP['joinnum'].'个，不能再创建小组！');
 		
 		}
 		
-		if($TS_APP['options']['iscreate'] == 0 || $TS_USER['user']['isadmin']==1){
+		if($TS_APP['iscreate'] == 0 || $TS_USER['isadmin']==1){
 		
 			//小组分类
 			$arrCate = $new['group']->findAll('group_cate',array(
@@ -44,7 +44,7 @@ switch($ts){
 	//执行创建小组
 	case "do":
 	
-		if($TS_APP['options']['iscreate'] == 0 || $TS_USER['user']['isadmin']==1){
+		if($TS_APP['iscreate'] == 0 || $TS_USER['isadmin']==1){
 			
 			$groupname = trim($_POST['groupname']);
 			$groupdesc = tsClean($_POST['groupdesc']);
@@ -54,15 +54,15 @@ switch($ts){
 			}
 			
 			//过滤内容开始
-			if($TS_USER['user']['isadmin']!=1){
+			if($TS_USER['isadmin']!=1){
 				aac('system')->antiWord($groupname);
 				aac('system')->antiWord($groupdesc);
 			}
 			//过滤内容结束
 			
 			//配置文件是否需要审核
-			$isaudit = intval($TS_APP['options']['isaudit']);
-			if($TS_USER['user']['isadmin']==1){
+			$isaudit = intval($TS_APP['isaudit']);
+			if($TS_USER['isadmin']==1){
 				$isaudit = 0;
 			}
 			

@@ -17,7 +17,7 @@ function sendweibo(){
 			tsNotice('发布内容不能为空！');
 			
 		}else if(rs==2){
-			
+			$("#weibocontent").val('');
 			$("#weibosend").removeAttr('disabled');
 			weibolist();
 		

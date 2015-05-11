@@ -40,9 +40,9 @@
 
 </div>
 
-{if $TS_USER[user][userid] == $strTopic[userid] || $TS_USER[user][userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[user][isadmin]=="1"}
+{if $TS_USER[userid] == $strTopic[userid] || $TS_USER[userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[isadmin]=="1"}
 <div class="btool">
-{if $TS_USER[user][userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[user][isadmin]=="1"}
+{if $TS_USER[userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[isadmin]=="1"}
 
 <a href="javascript:void('0');" onclick="topicAudit('{$strTopic['topicid']}','{$_SESSION['token']}');">{if $strTopic['isaudit']=='1'}审核{else}取消审核{/if}</a> 
 
@@ -106,7 +106,7 @@
 <span><a href="javascript:void(0)"  onclick="commentOpen({$item[commentid]},{$item[topicid]})">回复</a></span>
 {/if}
 
-{if $TS_USER[user][userid] == $strGroup[userid] || $TS_USER[user][userid] == $item[userid] || $strGroupUser[isadmin]==1 || $TS_USER[user][isadmin]==1}
+{if $TS_USER[userid] == $strGroup[userid] || $TS_USER[userid] == $item[userid] || $strGroupUser[isadmin]==1 || $TS_USER[isadmin]==1}
 <span><a class="j a_confirm_link" href="{SITE_URL}index.php?app=group&ac=comment&ts=delete&commentid={$item[commentid]}&token={$_SESSION['token']}" rel="nofollow" onClick="return confirm('确定删除吗?')">删除</a>
 </span>
 {/if}
@@ -128,7 +128,7 @@
 
 
 <div class="commentform">
-{if intval($TS_USER[user][userid])==0}
+{if intval($TS_USER[userid])==0}
 <div class="tac pd20">
 <a href="{tsUrl('user','login')}">登录</a> | <a href="{tsUrl('user','register')}">注册</a>
 </div>
@@ -136,7 +136,7 @@
 <div class="tac pd20">
 不是本组成员不能回应此贴哦
 </div>
-{elseif $strTopic[iscomment] == 1 && $strTopic[userid] != $TS_USER[user][userid]}
+{elseif $strTopic[iscomment] == 1 && $strTopic[userid] != $TS_USER[userid]}
 <div class="tac pd20">
 本帖除作者外不允许任何人评论
 </div>
@@ -152,7 +152,7 @@
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
 
 <div class="authcode">
-{if $TS_SITE['base']['isauthcode']}
+{if $TS_SITE['isauthcode']}
 验证码：<input name="authcode" />
  <img align="absmiddle" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
 {/if}

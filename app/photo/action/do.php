@@ -14,7 +14,7 @@ switch($ts){
 			'photoid'=>$photoid,
 		));
 		
-		if($strPhoto['userid']==$userid || $TS_USER['user']['isadmin']==1) {
+		if($strPhoto['userid']==$userid || $TS_USER['isadmin']==1) {
 		
 		
 			$albumid = $strPhoto['albumid'];
@@ -55,7 +55,7 @@ switch($ts){
 		$photoid	= intval($_POST['photoid']);
 		$content	= tsClean($_POST['content']);
 		
-		if($TS_USER['user']['isadmin']==0){
+		if($TS_USER['isadmin']==0){
 			//过滤内容开始
 			aac('system')->antiWord($content);
 			//过滤内容结束
@@ -91,7 +91,7 @@ switch($ts){
 		));
 
 		
-		if($userid == $strPhoto['userid'] || $TS_USER['user']['isadmin']=='1'){
+		if($userid == $strPhoto['userid'] || $TS_USER['isadmin']=='1'){
 			
 			$new['photo']->delete('photo_comment',array(
 				'commentid'=>$commentid,

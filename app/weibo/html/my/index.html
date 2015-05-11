@@ -1,0 +1,85 @@
+{template header}
+<div class="container">
+
+
+<div class="my">
+
+
+<div class="my_left">
+
+{php include pubTemplate("my")}
+
+</div>
+
+<div class="my_right">
+
+<div class="rc">
+
+
+{php doAction('my_right_top')}
+
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" class="active"><a href="">我的唠叨</a></li>
+</ul>
+
+    <div style="height:20px"></div>
+
+
+
+
+<div>
+<form method="post" class="form text-form" action="{tsUrl('weibo','add',array('ts'=>'do'))}" enctype="multipart/form-data">
+<textarea class="form-control" rows="3" name="content"></textarea>
+<div style="padding:5px 0;">
+
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+
+<button  class="btn btn-success"  type="submit">发布</button>
+</div>
+</form>
+</div>
+
+<ul>
+{loop $arrWeibo $key $item}
+<li class="mbtl">
+<a href="{tsUrl('user','space',array('id'=>$strUser[userid]))}"><img title="{$strUser[username]}" alt="{$strUser[username]}" src="{$strUser[face]}" width="48" /></a>
+</li>
+<li class="mbtr">
+<div class="author"><a href="{tsUrl('user','space',array('id'=>$strUser[userid]))}">{$strUser[username]}</a> {$item['addtime']}</div>
+<div class="title"><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item[title]}</a></div>
+<div class="content">
+{if $item[photo]}<a target="_blank" href="{SITE_URL}uploadfile/weibo/{$item[photo]}"><img src="{php echo tsXimg($item['photo'],'weibo',240,'',$item['path'])}" /></a>{/if}
+{php echo tsDecode($item[content])}
+</div>
+<p style="text-align:right;">
+
+<a href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}">{if $item['count_comment'] > '0'}({$item['count_comment']}){/if}回复</a>
+
+{if $GLOBALS['TS_USER']['isadmin'] == 1}
+<a href="{tsUrl('weibo','delete',array('weiboid'=>$item['weiboid']))}">删除</a>
+{/if}
+
+</p>
+</li>
+<div class="clear"></div>
+{/loop}
+</ul>
+
+<div class="clear"></div>
+<div class="page">{$pageUrl}</div>
+<div>
+
+</div>
+
+
+
+
+
+</div>
+
+</div>
+
+
+</div>
+</div>
+{template footer}

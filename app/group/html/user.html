@@ -25,7 +25,7 @@
 <li>
 <a href="{tsUrl('user','space',array('id'=>$item[userid]))}"><img alt="{$item[username]}" src="{$item[face]}" width="48" height="48" /></a>
 <p>{$item[username]}</p>
-<p>{if $strGroup['userid']==$TS_USER['user']['userid'] || $TS_USER['user']['isadmin']==1}
+<p>{if $strGroup['userid']==$TS_USER['userid'] || $TS_USER['isadmin']==1}
 
 <a href="javascript:void('0');" onclick="setAdmin('{$strGroup[groupid]}','{$item['userid']}','{$_SESSION['token']}')">
 {if $item['isadmin']==1}
@@ -56,7 +56,7 @@
 <a href="{tsUrl('user','space',array('id'=>$item[userid]))}"><img alt="{$item[username]}" src="{$item[face]}" width="48" height="48" /></a>
 <p>{$item[username]}</p>
 <p>
-{if $strGroup['userid']==$TS_USER['user']['userid'] || $TS_USER['user']['isadmin']==1}
+{if $strGroup['userid']==$TS_USER['userid'] || $TS_USER['isadmin']==1}
 
 {if $item['isadmin']==1}
 <a href="javascript:void('0');" onclick="setAdmin('{$strGroup[groupid]}','{$item['userid']}','{$_SESSION['token']}')">取消管理员</a>

@@ -13,9 +13,11 @@ defined('IN_TS') or die('Access Denied.');
  * AutoAppClass
  * @app APP名称
  * @
+ * @param $app
+ * @return bool
  */
 function aac($app) {
-	global $db;
+
 	$path = THINKAPP . '/' . $app . '/';
 	if (!class_exists($app)) {
 		require_once $path . 'class.' . $app . '.php';
@@ -23,11 +25,8 @@ function aac($app) {
 	if (!class_exists($app)) {
 		return false;
 	}
-	$obj = new $app($db);
+	$obj = new $app($GLOBALS['db']);
 	return $obj;
-
-	unset($db);
-	unset($tsAppDb);
 }
 
 /**
@@ -62,19 +61,9 @@ function array_sort($arr, $keys, $type = 'asc') {
  * @param string $isAutoGo
  */
 function tsNotice($notice, $button = '点击返回', $url = 'javascript:history.back(-1);', $isAutoGo = false) {
-	global $app;
-	global $TS_SITE;
-	global $TS_APP;
-	global $site_theme;
-	global $skin;
-	global $TS_USER;
-	global $TS_CF;
 	global $runTime;
-
 	$title = '提示：';
-
 	include  pubTemplate('notice');
-
 	exit();
 }
 
@@ -86,7 +75,7 @@ function tsNotice($notice, $button = '点击返回', $url = 'javascript:history.
  * @param string $isAutoGo
  */
 function qiMsg($msg, $button = '点击返回>>', $url = 'javascript:history.back(-1);', $isAutoGo = false) {
-	echo <<<EOT
+    echo <<<EOT
 <html>
 <head>
 EOT;
@@ -143,10 +132,8 @@ EOT;
  * @return string
  */
 function pagination($count, $perlogs, $page, $url, $suffix = '') {
-	global $TS_SITE;
-	global $ac;
 
-	$urlset = $TS_SITE['base']['site_urltype'];
+	$urlset = $GLOBALS['TS_SITE']['site_urltype'];
 	if ($urlset == 3) {
 		$suffix = '.html';
 	} elseif ($urlset == 7) {
@@ -312,18 +299,6 @@ function cututf8($string, $start = 0, $sublen, $append = true) {
 }
 
 /**
- * utf-8截取过渡
- * @param unknown $string
- * @param number $start
- * @param unknown $sublen
- * @param string $append
- * @return string
- */
-function getsubstrutf8($string, $start = 0, $sublen, $append = true) {
-	return cututf8($string, $start = 0, $sublen, $append = true);
-}
-
-/**
  * 计算时间
  * @return number
  */
@@ -341,14 +316,13 @@ function getmicrotime() {
  * @return boolean
  */
 function fileWrite($file, $dir, $data, $isphp = 1) {
-	global $TS_CF, $TS_MC;
 
 	$dfile = $dir . '/' . $file;
 
 	// 支持memcache
-	if ($TS_CF['memcache'] && extension_loaded('memcache')) {
-		$TS_MC -> delete(md5($dfile));
-		$TS_MC -> set(md5($dfile), $data, 0, 172800);
+	if ($GLOBALS['TS_CF']['memcache'] && extension_loaded('memcache')) {
+		$GLOBALS['TS_MC'] -> delete(md5($dfile));
+        $GLOBALS['TS_MC'] -> set(md5($dfile), $data, 0, 172800);
 	}
 
 	// 同时保存文件
@@ -369,12 +343,12 @@ function fileWrite($file, $dir, $data, $isphp = 1) {
  * @param unknown $dfile
  */
 function fileRead($dfile) {
-	global $TS_CF, $TS_MC;
-	// 支持memcache
-	if ($TS_CF['memcache'] && extension_loaded('memcache')) {
 
-		if ($TS_MC -> get(md5($dfile))) {
-			return $TS_MC -> get(md5($dfile));
+	// 支持memcache
+	if ($GLOBALS['TS_CF']['memcache'] && extension_loaded('memcache')) {
+
+		if ($GLOBALS['TS_MC'] -> get(md5($dfile))) {
+			return $GLOBALS['TS_MC'] -> get(md5($dfile));
 		} else {
 			if (is_file($dfile))
 				return
@@ -521,24 +495,24 @@ function makedir($dir) {
  *
  */
 function template($file, $plugin = '', $self = '') {
-	global $app;
 
 	if ($plugin) {
-		$tplfile = 'plugins/' . $app . '/' . $plugin . '/' . $file . '.html';
+		$tplfile = 'plugins/' . $GLOBALS['TS_URL']['app'] . '/' . $plugin . '/' . $file . '.html';
 		if (!is_file($tplfile)) {
 			$tplfile = 'plugins/pubs/' . $plugin . '/' . $file . '.html';
 		}
 		$objfile = 'cache/template/' . $plugin . '.' . $file . '.tpl.php';
 	} else if ($self) {
+        $tplfile ='';
 		foreach ($self as $v) {
-			$tplfile .= $v . '/';
+            $tplfile .= $v . '/';
 			$cache = $v . '_';
 		}
 		$tplfile = $tplfile . $file . '.html';
 		$objfile = 'cache/template/self/' . $self[3] . '.' . $file . '.tpl.php';
 	} else {
-		$tplfile = 'app/' . $app . '/html/' . $file . '.html';
-		$objfile = 'cache/template/' . $app . '.' . $file . '.tpl.php';
+		$tplfile = 'app/' . $GLOBALS['TS_URL']['app'] . '/html/' . $file . '.html';
+		$objfile = 'cache/template/' . $GLOBALS['TS_URL']['app'] . '.' . $file . '.tpl.php';
 	}
 
 	if (@filemtime($tplfile) > @filemtime($objfile)) {
@@ -550,7 +524,6 @@ function template($file, $plugin = '', $self = '') {
 	}
 
 	return $objfile;
-	unset($app);
 }
 
 /**
@@ -596,7 +569,7 @@ function addAction($hook, $actionFunc) {
  * @param string $hook
  */
 function doAction($hook) {
-	global $tsHooks, $TS_CF;
+	global $tsHooks;
 	$args = array_slice(func_get_args(), 1);
 	if (isset($tsHooks[$hook])) {
 		foreach ($tsHooks [$hook] as $function) {
@@ -604,7 +577,7 @@ function doAction($hook) {
 		}
 	}
 
-	if ($TS_CF['hook'])
+	if ($GLOBALS['TS_CF']['hook'])
 		var_dump($hook);
 }
 
@@ -756,10 +729,9 @@ function ob_gzip($content) {
  * @return string
  */
 function tsUrl($app, $ac = '', $params = array()) {
-	global $TS_CF;
-	global $TS_SITE;
-	$urlset = $TS_SITE['base']['site_urltype'];
 
+	$urlset = $GLOBALS['TS_SITE']['site_urltype'];
+    $str ='';
 	if ($urlset == 1) {
 		foreach ($params as $k => $v) {
 			$str .= '&' . $k . '=' . $v;
@@ -767,20 +739,21 @@ function tsUrl($app, $ac = '', $params = array()) {
 		if ($ac == '') {
 			$ac = '';
 		} else {
-			if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+			if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 				$ac = '?ac=' . $ac;
 			} else {
 				$ac = '&ac=' . $ac;
 			}
 		}
-		if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+		if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 			$url = 'index.php' . $ac . $str;
 		} else {
 			$url = 'index.php?app=' . $app . $ac . $str;
 		}
 	} elseif ($urlset == 2) {
+
 		foreach ($params as $k => $v) {
-			$str .= '/' . $k . '-' . $v;
+            $str .= '/' . $k . '-' . $v;
 		}
 		if ($ac == '') {
 			$ac = '';
@@ -788,7 +761,7 @@ function tsUrl($app, $ac = '', $params = array()) {
 			$ac = '/' . $ac;
 		}
 
-		if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+		if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 			$url = 'index.php' . $ac . $str;
 		} else {
 			$url = 'index.php/' . $app . $ac . $str;
@@ -801,7 +774,7 @@ function tsUrl($app, $ac = '', $params = array()) {
 		if ($ac == '') {
 			$ac = '';
 		} else {
-			if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+			if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 				$ac = $ac;
 			} else {
 				$ac = '-' . $ac;
@@ -811,13 +784,13 @@ function tsUrl($app, $ac = '', $params = array()) {
 		$page = strpos($str, 'page');
 
 		if ($page) {
-			if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+			if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 				$url = $ac . $str;
 			} else {
 				$url = $app . $ac . $str;
 			}
 		} else {
-			if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+			if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 				$url = $ac . $str . '.html';
 			} else {
 				$url = $app . $ac . $str . '.html';
@@ -830,13 +803,13 @@ function tsUrl($app, $ac = '', $params = array()) {
 		if ($ac == '') {
 			$ac = '';
 		} else {
-			if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+			if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 				$ac = $ac;
 			} else {
 				$ac = '/' . $ac;
 			}
 		}
-		if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+		if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 			$url = $ac . $str;
 		} else {
 			$url = $app . $ac . $str;
@@ -849,13 +822,13 @@ function tsUrl($app, $ac = '', $params = array()) {
 		if ($ac == '') {
 			$ac = '';
 		} else {
-			if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+			if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 				$ac = $ac;
 			} else {
 				$ac = '/' . $ac;
 			}
 		}
-		if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+		if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 			$url = $ac . $str;
 		} else {
 			$url = $app . $ac . $str;
@@ -868,13 +841,13 @@ function tsUrl($app, $ac = '', $params = array()) {
 		if ($ac == '') {
 			$ac = '';
 		} else {
-			if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+			if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 				$ac = $ac;
 			} else {
 				$ac = '/' . $ac;
 			}
 		}
-		if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+		if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 			$url = $ac . $str;
 		} else {
 			$url = $app . $ac . $str;
@@ -887,7 +860,7 @@ function tsUrl($app, $ac = '', $params = array()) {
 		if ($ac == '') {
 			$ac = '';
 		} else {
-			if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+			if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 				$ac = $ac;
 			} else {
 				$ac = '/' . $ac;
@@ -897,13 +870,13 @@ function tsUrl($app, $ac = '', $params = array()) {
 		$page = strpos($str, 'page');
 
 		if ($page) {
-			if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+			if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 				$url = $ac . $str;
 			} else {
 				$url = $app . $ac . $str;
 			}
 		} else {
-			if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app']) || $TS_CF['appdomain'][$app]) {
+			if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app']) || $GLOBALS['TS_CF']['appdomain'][$app]) {
 				if ($ac == '') {
 					$url = '';
 				} else {
@@ -914,10 +887,10 @@ function tsUrl($app, $ac = '', $params = array()) {
 			}
 		}
 	}
-	if ($TS_CF['subdomain'] && in_array($app, $TS_CF['subdomain']['app'])) {
-		return 'http://' . $app . '.' . $TS_CF['subdomain']['domain'] . '/' . $url;
-	} elseif ($TS_CF['appdomain'][$app]) {
-		return 'http://' . $TS_CF['appdomain'][$app] . '/' . $url;
+	if ($GLOBALS['TS_CF']['subdomain'] && in_array($app, $GLOBALS['TS_CF']['subdomain']['app'])) {
+		return 'http://' . $app . '.' . $GLOBALS['TS_CF']['subdomain']['domain'] . '/' . $url;
+	} elseif ($GLOBALS['TS_CF']['appdomain'][$app]) {
+		return 'http://' . $GLOBALS['TS_CF']['appdomain'][$app] . '/' . $url;
 	} else {
 		return SITE_URL . $url;
 	}
@@ -940,13 +913,6 @@ function reurl() {
 
 	$rurl = substr($_SERVER['REQUEST_URI'], strlen($scriptName[0]));
 	//过滤掉网站目录剩下的就是URL部分
-	
-	//处理云锁验证的参数问题
-	/*
-	if(count(explode($rurl,'?yunsuo_session_verify='))>0){
-		$rurl = '';
-	}
-	*/
 
 	// 针对QQ开放平台做一下修改strpos($rurl,'?openid=')==true
 	if (strpos($rurl, '?') == false || strpos($rurl, '?openid=') == true) {
@@ -1340,7 +1306,6 @@ function delDirFile($dir) {
  * @return multitype:string unknown mixed |boolean	返回数组：array('name'=>'','path'=>'','url'=>'','path'=>'','size'=>'')
  */
 function tsUpload($files, $projectid, $dir, $uptypes) {
-	global $TS_SITE;
 	
 	if ($files['size'] > 0) {
 	
@@ -1348,11 +1313,11 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 		//上传图片大小控制
 		if(in_array('png',$uptypes) || in_array('jpg',$uptypes) || in_array('gif',$uptypes) || in_array('jpeg',$uptypes)){
 		
-			if($TS_SITE['base']['photo_size']){
-				$upsize = $TS_SITE['base']['photo_size']*1048576;
+			if($GLOBALS['TS_SITE']['photo_size']){
+				$upsize = $GLOBALS['TS_SITE']['photo_size']*1048576;
 				
 				if($files ['size']>$upsize){
-					tsNotice('上传图片不能超过'.$TS_SITE['base']['photo_size'].'M，请修改小点后再上传！');
+					tsNotice('上传图片不能超过'.$GLOBALS['TS_SITE']['photo_size'].'M，请修改小点后再上传！');
 				}
 				
 			}
@@ -1424,7 +1389,7 @@ function tsUploadUrl($fileurl, $projectid, $dir, $uptypes) {
 		chmod($dest, 0777);
 		$filesize = filesize($dest);
 		if (intval($filesize) > 0) {
-			return array('name' => $files['name'], 'path' => $path, 'url' => $path . '/' . $name, 'type' => $type, 'size' => $files['size'], );
+			return array('name' => $name, 'path' => $path, 'url' => $path . '/' . $name, 'type' => $type, 'size' => $filesize, );
 		} else {
 			return false;
 		}
@@ -1579,7 +1544,7 @@ function userlog(&$array, $userid) {
 				$data .= "--------------------------------------\n";
 				logging(date('Ymd') . '-' . $userid . '.txt', $data);
 			} else {
-				userlog($array[$key]);
+                userlog($array[$key],$userid);
 			}
 		}
 	}
@@ -1820,6 +1785,7 @@ function tsUrlCheck($parameter) {
 		if (stripos($strOk, $item) === false) {
 			//qiMsg('非法URL参数！');
 			header('Location: /');
+			exit;
 		}
 	}
 	return $parameter;
@@ -1996,3 +1962,102 @@ $domain = $host;
 } 
 return $domain; 
 } 
+
+/*
+ * 验证手机号，支持13、15、18、17号段
+ * 
+ */
+function isPhone($phone){
+	if(preg_match("/^13[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$|17[0-9]{1}[0-9]{8}$/",$phone)){    
+		return true;
+	}else{
+		return false;
+	}
+}
+
+
+/**
+ * 将字符串转换为数组
+ *
+ * @param string $data        	
+ * @return array
+ */
+function string2array($data) {
+	if ($data == '') {
+		return array ();
+	}
+	if (is_array ( $data )) {
+		return $data;
+	}
+	if (strpos ( $data, 'array' ) !== false && strpos ( $data, 'array' ) === 0) {
+		@eval ( "\$array = $data;" );
+		return $array;
+	}
+	return unserialize ( ($data) ); //unserialize ( new_stripslashes ( $data ) );
+}
+
+/**
+ * 将数组转换为字符串
+ *
+ * @param array $data        	
+ * @param bool $isformdata        	
+ * @return string
+ *
+ */
+function array2string($data, $isformdata = 1) {
+	if ($data == '') {
+		return '';
+	}
+	if ($isformdata) {
+		$data = ($data); //new_stripslashes ( $data );
+	}
+	return serialize ( $data );
+}
+
+/**
+ * 浏览器友好的变量输出
+ * @param mixed $var 变量
+ * @param boolean $echo 是否输出 默认为True 如果为false 则返回输出字符串
+ * @param string $label 标签 默认为空
+ * @param boolean $strict 是否严谨 默认为true
+ * @return void|string
+ */
+function dump($var, $echo = true, $label = null, $strict = true) {
+	$label = ($label === null) ? '' : rtrim ( $label ) . ' ';
+	if (! $strict) {
+		if (ini_get ( 'html_errors' )) {
+			$output = print_r ( $var, true );
+			$output = '<pre>' . $label . htmlspecialchars ( $output, ENT_QUOTES ) . '</pre>';
+		} else {
+			$output = $label . print_r ( $var, true );
+		}
+	} else {
+		ob_start ();
+		var_dump ( $var );
+		$output = ob_get_clean ();
+		if (! extension_loaded ( 'xdebug' )) {
+			$output = preg_replace ( '/\]\=\>\n(\s+)/m', '] => ', $output );
+			$output = '<pre>' . $label . htmlspecialchars ( $output, ENT_QUOTES ) . '</pre>';
+		}
+	}
+	if ($echo) {
+		echo ($output);
+		return null;
+	} else
+		return $output;
+}
+
+//404
+function ts404(){
+    header ( "HTTP/1.1 404 Not Found" );
+    header ( "Status: 404 Not Found" );
+    $title = '404';
+    include pubTemplate ( "404" );
+    exit ();
+}
+
+//跳转
+function tsHeaderUrl($url){
+	header('Location: '.$url);
+	exit;
+}

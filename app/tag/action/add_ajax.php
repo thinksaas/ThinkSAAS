@@ -3,8 +3,8 @@ defined('IN_TS') or die('Access Denied.');
 switch($ts){
 	case "":
 		
-		$objname = tsFilter($_GET['objname']);
-		$idname = tsFilter($_GET['idname']);
+		$objname = tsUrlCheck($_GET['objname']);
+		$idname = tsUrlCheck($_GET['idname']);
 		$objid = intval($_GET['objid']);
 		
 		include template("add_ajax");

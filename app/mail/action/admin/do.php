@@ -1,6 +1,6 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
-aac('system')->isLogin();
+
 switch($ts){
 	//APP配置选项
 	case "options":

@@ -15,7 +15,7 @@ $arrNewUser = $new['user']->getNewUser(10);
 
 $title = '用户';
 
-$sitekey = $TS_APP['options']['appkey'];
-$sitedesc = $TS_APP['options']['appdesc'];
+$sitekey = $TS_APP['appkey'];
+$sitedesc = $TS_APP['appdesc'];
 
 include template('index');

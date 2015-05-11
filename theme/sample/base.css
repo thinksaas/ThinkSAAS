@@ -116,6 +116,10 @@ h3,h4,h5,h6 {
 	background: #333a40
 }
 
+.appnav .hot{
+	background:url('hot.gif') no-repeat;
+}
+
 .appnav .select a {
 	color: #fff
 }

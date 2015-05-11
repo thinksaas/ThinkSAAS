@@ -5,11 +5,10 @@ class mail extends tsApp{
 	
 	//构造函数
 	public function __construct($db){
-	
-		include 'config.php';
+        $tsAppDb = array();
+		include 'app/mail/config.php';
 		//判断APP是否采用独立数据库
 		if($tsAppDb){
-			include 'sql/'.$tsAppDb['sql'].'.php';
 			$db = new MySql($tsAppDb);
 		}
 	
@@ -52,9 +51,9 @@ class mail extends tsApp{
 
 		//POST过来的信息
 		$frommail		= $options['mailuser'];
-		$fromname	= $TS_SITE['base']['site_title'];
+		$fromname	= $TS_SITE['site_title'];
 		$replymail		= $options['mailuser'];
-		$replyname	= $TS_SITE['base']['site_title'];
+		$replyname	= $TS_SITE['site_title'];
 		$sendname	= '';
 
 		if(empty($frommail) || empty($subject) || empty($content) || empty($sendmail)){

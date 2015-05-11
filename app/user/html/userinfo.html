@@ -8,7 +8,7 @@
 <h3><a href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">{$strUser[username]}</a></h3>
 <div>
 
-{if $strUser[userid] != $TS_USER[user][userid]}
+{if $strUser[userid] != $TS_USER[userid]}
 {if $strUser[isfollow]}
 <a class="btn btn-mini" href="javascript:void('0');" onclick="unfollow('{$strUser['userid']}','{$_SESSION['token']}');">取消关注</a>
 {else}
@@ -53,7 +53,7 @@ UID:{$strUser[userid]}
 {if $strUser[blog]}博客：{$strUser[blog]}<br />{/if}
 {if $strUser[about]}关于：{php echo nl2br(htmlspecialchars($strUser[about]))} <br />{/if}
 {if $strUser[signed]}签名：{php echo nl2br(htmlspecialchars($strUser[signed]))}<br />{/if}
-{if $strUser[userid] == $TS_USER[user][userid]}[<a href="{tsUrl('my','setting',array(ts=>base))}">修改基本信息</a>]{/if}
+{if $strUser[userid] == $TS_USER[userid]}[<a href="{tsUrl('my','setting',array(ts=>base))}">修改基本信息</a>]{/if}
 
 </div>
 </div>

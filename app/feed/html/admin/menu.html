@@ -1,0 +1,10 @@
+<h2>动态管理</h2>
+<div class="tabnav">
+<ul>
+<li {if $GLOBALS['TS_URL']['mg']=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=feed&ac=admin&mg=options">配置</a></li>
+
+<li {if $GLOBALS['TS_URL']['mg']=='feedlist'}class="select"{/if}><a href="{SITE_URL}index.php?app=feed&ac=admin&mg=feedlist">动态列表</a></li>
+
+
+</ul>
+</div>

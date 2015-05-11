@@ -16,8 +16,8 @@ $strUser = $new['user']->getOneUser($userid);
 $strUser['rolename'] = aac('user')->getRole($strUser['count_score']);
 
 //是否关注
-if($TS_USER['user']['userid'] != '' && $TS_USER['user']['userid'] != $strUser['userid']){
-	$followNum = $db->once_num_rows("select * from ".dbprefix."user_follow where userid='".$TS_USER['user']['userid']."' and userid_follow='$userid'");
+if($TS_USER['userid'] != '' && $TS_USER['userid'] != $strUser['userid']){
+	$followNum = $db->once_num_rows("select * from ".dbprefix."user_follow where userid='".$TS_USER['userid']."' and userid_follow='$userid'");
 	if($followNum > '0'){
 		$strUser['isfollow'] = true;
 	}else{

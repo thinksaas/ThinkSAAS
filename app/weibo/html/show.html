@@ -1,0 +1,115 @@
+{template header}
+
+
+<div class="container">
+
+<ol class="breadcrumb">
+  <li><a href="{SITE_URL}">首页</a></li>
+  <li><a href="{tsUrl('weibo')}">唠叨</a></li>
+  <li class="active">{$title}</li>
+</ol>
+
+<div class="row">
+
+<div class="col-md-8">
+
+
+<div class="bbox">
+<div class="bc">
+<li class="mbtl">
+<a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}"><img class="img-circle" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="48" /></a>
+</li>
+<li class="mbtr">
+<div class="author"><a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}">{$strWeibo[user][username]}</a> {$strWeibo[addtime]}</div>
+<div class="content">
+{if $strWeibo[photo]}<a target="_blank" href="{SITE_URL}uploadfile/weibo/{$strWeibo[photo]}"><img src="{php echo tsXimg($strWeibo['photo'],'weibo',240,'',$strWeibo['path'])}" /></a>{/if}
+{$strWeibo[content]}
+</div>
+<p style="text-align:right;">
+{if $GLOBALS['TS_USER']['isadmin'] == 1}
+<a href="{tsUrl('weibo','deleteweibo',array('weiboid'=>$strWeibo['weiboid']))}">删除</a>
+{/if}
+
+</p>
+</li>
+</div>
+</div>
+
+
+<div class="bbox">
+
+<div class="btitle">回复({$strWeibo['count_comment']})</div>
+
+<div class="bc">
+<ul class="comment">
+{loop $arrComment $key $item}
+<li class="clearfix">
+<div class="user-face">
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="img-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
+</div>
+<div class="reply-doc">
+<h4>
+{$item[addtime]} 
+<a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+</h4>
+<p>{$item[content]}</p>
+{if $GLOBALS['TS_USER'][user][userid] == $item[userid] || $GLOBALS['TS_USER']['isadmin']==1}
+<div class="group_banned">
+<span><a class="j a_confirm_link" href="{tsUrl('weibo','deletecomment',array('commentid'=>$item['commentid']))}" rel="nofollow">删除</a>
+</span>
+</div>
+{/if}
+</div>
+</li>
+{/loop}
+</ul>
+
+
+<div>
+<form method="post" class="form text-form" action="{SITE_URL}index.php?app=weibo&ac=addcomment" enctype="multipart/form-data">
+<textarea class="form-control" rows="3" name="content"></textarea>
+<div style="padding:5px 0;">
+<input type="hidden" name="weiboid" value="{$strWeibo['weiboid']}" />
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<button  class="btn btn-success"  type="submit">回复</button>
+</div>
+</form>
+</div>
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+<div class="col-md-4">
+
+<div class="facebox bbox">
+<div class="bc">
+<div class="face">
+<a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}" rel="face" uid="$strWeibo[user][userid]"><img class="img-circle" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="48"></a>
+</div>
+
+<div class="info">
+<h3><a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}">{$strWeibo[user][username]}</a></h3>
+<div><a class="btn btn-success btn-sm" href="javascript:void('0')" onclick="follow('{$strWeibo['user']['userid']}','{$_SESSION['token']}');">关注</a></div>
+</div>
+</div>
+</div>
+
+<!--广告位-->
+{php doAction('gobad','300')}
+
+
+</div>
+
+</div>
+
+</div>
+
+
+{template footer}

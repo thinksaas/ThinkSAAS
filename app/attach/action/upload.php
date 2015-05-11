@@ -15,7 +15,7 @@ switch($ts){
 		$strAlbum['title'] = tsTitle($strAlbum['title']);
 		$strAlbum['content'] = tsDecode($strAlbum['content']);
 		
-		if($strAlbum['userid']==$userid || $TS_USER['user']['isadmin']==1){
+		if($strAlbum['userid']==$userid || $TS_USER['isadmin']==1){
 		
 			$title = '上传资料';
 			include template('upload');
@@ -52,7 +52,7 @@ switch($ts){
 		));
 		
 		//上传
-		$arrUpload = tsUpload($_FILES['Filedata'],$attachid,'attach',array('pptx','docx','pdf','jpg','gif','png','rar','zip','doc','ppt','txt'));
+		$arrUpload = tsUpload($_FILES['Filedata'],$attachid,'attach',array('xls','xlsx','pptx','docx','pdf','jpg','gif','png','rar','zip','doc','ppt','txt'));
 		
 		if($arrUpload){
 
@@ -78,7 +78,7 @@ switch($ts){
 			));
 			
 			//对积分进行处理
-			aac('user')->doScore($app,$ac,$ts,$strAlbum['userid']);
+			aac('user')->doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strAlbum['userid']);
 		
 			
 		}
