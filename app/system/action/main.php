@@ -9,8 +9,8 @@ defined('IN_TS') or die('Access Denied.');
  */
 function GetUrlToDomain($domain) {
     $re_domain = '';
-    $domain_postfix_cn_array = array("com", "net", "org", "gov", "edu", "com.cn", "cn");
-    $array_domain = explode(".", $domain);
+    $domain_postfix_cn_array = array('com', 'net', 'org', 'gov', 'edu', 'com.cn', 'cn','cc','me','tv','la','net.cn','org.cn','top','wang','hk','co','pw','ren','asia','biz','gov.cn','tw','com.tw','us','tel','info','website','host','io','press','mobi');
+    $array_domain = explode('.', $domain);
     $array_num = count($array_domain) - 1;
     if ($array_domain[$array_num] == 'cn') {
         if (in_array($array_domain[$array_num - 1], $domain_postfix_cn_array)) {
