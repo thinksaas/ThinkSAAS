@@ -3,4 +3,4 @@
 /tslogs
 /uploadfile
 .gitignore
-/nbproject/private/
+.idea
