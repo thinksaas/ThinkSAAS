@@ -7,7 +7,11 @@ switch($ts){
 	case "":
 	
 		$email = trim($_GET['mail']);
-		$resetpwd = trim($_GET['set']);
+		$resetpwd = tsUrlCheck($_GET['set']);
+
+        if(valid_email($email)==false){
+            tsNotice('非法操作');
+        }
 		
 		$userNum = $new['user']->findCount('user',array(
 			'email'=>$email,
@@ -37,17 +41,25 @@ switch($ts){
 		$repwd	= trim($_POST['repwd']);
 		
 		$resetpwd = trim($_POST['resetpwd']);
-		
-		$userNum = $new['user']->findCount('user',array(
-			'email'=>$email,
-			'resetpwd'=>$resetpwd,
-		));
+
+
 		
 		if($email=='' || $pwd=='' || $repwd=='' || $resetpwd==''){
 			getJson("所有输入项都不能为空！",$js);
-		}elseif($userNum == '0'){
+		}
+
+        if(valid_email($email)==false){
+            getJson('Email输入不正确',$js);
+        }
+
+        $userNum = $new['user']->findCount('user',array(
+            'email'=>$email,
+            'resetpwd'=>$resetpwd,
+        ));
+
+        if($userNum == '0'){
 			getJson("你应该去火星生活啦！",$js);
-		}else{
+		}
 		
 			$salt = md5(rand());
 			
@@ -62,7 +74,7 @@ switch($ts){
 			
 			getJson("密码修改成功^_^",$js);
 		
-		}
+
 			
 		break;
 		

@@ -23,6 +23,10 @@ switch($ts){
 		}
 	
 		$email	= trim($_POST['email']);
+
+        if(valid_email($email)==false){
+            getJson('Email输入不正确',$js);
+        }
 		
 		$emailNum = $new['user']->findCount('user',array(
 			'email'=>$email,
