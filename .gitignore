@@ -1,6 +1,6 @@
 /cache
 /data
 /tslogs
-/uploadfile
+#/uploadfile
 .gitignore
 .idea
