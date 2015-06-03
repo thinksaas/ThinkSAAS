@@ -1,6 +1,8 @@
 /cache
 /data
 /tslogs
-#/uploadfile
+/upgrade
+/uploadfile
 .gitignore
 .idea
+.htaccess

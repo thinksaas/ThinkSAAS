@@ -137,7 +137,7 @@ function pagination($count, $perlogs, $page, $url, $suffix = '') {
 	if ($urlset == 3) {
 		$suffix = '.html';
 	} elseif ($urlset == 7) {
-		if($ac=='admin'){
+		if($GLOBALS['TS_URL']['ac']=='admin'){
 			$suffix = '';
 		}else{
 			$suffix = '/';
@@ -910,15 +910,14 @@ function reurl() {
 	$scriptName = explode('index.php', $_SERVER['SCRIPT_NAME']);
 
 	//获取到网站目录
-
 	$rurl = substr($_SERVER['REQUEST_URI'], strlen($scriptName[0]));
 	//过滤掉网站目录剩下的就是URL部分
 
-	// 针对QQ开放平台做一下修改strpos($rurl,'?openid=')==true
-	if (strpos($rurl, '?') == false || strpos($rurl, '?openid=') == true) {
+	if (strpos($rurl, 'index.php?') === false) {
 
 		if (preg_match('/index.php/i', $rurl)) {
 			$rurl = str_replace('index.php', '', $rurl);
+
 			$rurl = substr($rurl, 1);
 			$params = $rurl;
 		} else {
@@ -927,7 +926,37 @@ function reurl() {
 
 		if ($rurl) {
 
-			if ($options['site_urltype'] == 3) {
+            if($options['site_urltype'] == 2) {
+                //形式：index.php/group/topic/id-1
+                $params = explode('/', $params);
+
+                foreach ($params as $p => $v) {
+                    switch ($p) {
+                        case 0 :
+                            $_GET['app'] = $v;
+                            break;
+                        case 1 :
+                            $_GET['ac'] = $v;
+                            break;
+
+                            // 处理TAG
+                            if ($_GET['ac'] == 'tag') {
+                                $_GET['id'] = $v;
+                                break;
+                            }
+
+                        default :
+                            $kv = explode('-', $v);
+                            if (count($kv) > 1) {
+                                $_GET[$kv[0]] = $kv[1];
+                            } else {
+                                $_GET['params' . $p] = $kv[0];
+                            }
+
+                            break;
+                    }
+                }
+            }elseif ($options['site_urltype'] == 3) {
 				// http://localhost/group-topic-id-1.html
 				$params = explode('.', $params);
 
@@ -984,8 +1013,12 @@ function reurl() {
 					}
 				}
 			} elseif ($options['site_urltype'] == 5) {
-				// http://localhost/group/topic/1
-				$params = explode('/', $params);
+				// http://localhost/group/topic/1<后面可以继续跟参数：?a=b&c=d>
+
+                $params = explode('?',$params);
+                $otherParams = $params[1];
+                $params = explode('/', $params[0]);
+                $arrOther = explode('&',$otherParams);
 
 				foreach ($params as $p => $v) {
 					switch ($p) {
@@ -1013,6 +1046,16 @@ function reurl() {
 							break;
 					}
 				}
+
+
+                if($arrOther){
+                    foreach($arrOther as $key=>$item){
+                        $arrKv = explode('=',$item);
+                        $_GET[$arrKv[0]] = $arrKv[1];
+                    }
+                }
+
+
 			} elseif ($options['site_urltype'] == 6) {
 				// http://localhost/group/topic/id/1
 				$params = explode('/', $params);
@@ -1061,47 +1104,19 @@ function reurl() {
 							break;
 					}
 				}
-			} else {
-
-				$params = explode('/', $params);
-
-				foreach ($params as $p => $v) {
-					switch ($p) {
-						case 0 :
-							$_GET['app'] = $v;
-							break;
-						case 1 :
-							$_GET['ac'] = $v;
-							break;
-
-							// 处理TAG
-							if ($_GET['ac'] == 'tag') {
-								$_GET['id'] = $v;
-								break;
-							}
-
-						default :
-							$kv = explode('-', $v);
-							if (count($kv) > 1) {
-								$_GET[$kv[0]] = $kv[1];
-							} else {
-								$_GET['params' . $p] = $kv[0];
-							}
-
-							break;
-					}
-				}
 			}
 		}
 	}
 
 	//规划化URL规则，对跳转到首页不符合规则的进行404处理
+    /*
 	if ($_GET['app'] == '' && $_GET['ac'] == '' && $rurl) {
 		header("HTTP/1.1 404 Not Found");
 		header("Status: 404 Not Found");
 		echo '404 page by <a href="http://www.thinksaas.cn/">www.thinksaas.cn</a>';
 		exit ;
 	}
+    */
 
 }
 
@@ -2060,4 +2075,77 @@ function ts404(){
 function tsHeaderUrl($url){
 	header('Location: '.$url);
 	exit;
+}
+
+/*
+ * curl get 方式请求url
+ */
+function curl_get_file_contents($URL){
+    $c = curl_init();
+    curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+//curl_setopt($c, CURLOPT_HEADER, 1);//输出远程服务器的header信息
+    curl_setopt($c, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727;http://www.thinksaas.cn)');
+    curl_setopt($c, CURLOPT_URL, $URL);
+    $contents = curl_exec($c);
+    curl_close($c);
+    if ($contents) {return $contents;}
+    else {return FALSE;}
+}
+
+/**
+ * 获取客户端IP地址
+ * @return string
+ */
+function get_client_ip() {
+    if(getenv('HTTP_CLIENT_IP')){
+        $client_ip = getenv('HTTP_CLIENT_IP');
+    } elseif(getenv('HTTP_X_FORWARDED_FOR')) {
+        $client_ip = getenv('HTTP_X_FORWARDED_FOR');
+    } elseif(getenv('REMOTE_ADDR')) {
+        $client_ip = getenv('REMOTE_ADDR');
+    } else {
+        $client_ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $client_ip;
+}
+
+
+/*
+ * 通过curl模拟post的请求
+ */
+function sendDataByCurl($url,$data=array()){
+    //对空格进行转义
+    $url = str_replace(' ','+',$url);
+    $ch = curl_init();
+    //设置选项，包括URL
+    curl_setopt($ch, CURLOPT_URL, "$url");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch,CURLOPT_TIMEOUT,60);  //定义超时3秒钟
+    // POST数据
+    curl_setopt($ch, CURLOPT_POST, 1);
+    // 把post的变量加上
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));    //所需传的数组用http_bulid_query()函数处理一下，就ok了
+
+    //执行并获取url地址的内容
+    $output = curl_exec($ch);
+    $errorCode = curl_errno($ch);
+    //释放curl句柄
+    curl_close($ch);
+    if(0 !== $errorCode) {
+        return false;
+    }
+    return $output;
+
+}
+
+/*
+ * 获取毫秒时间
+ */
+function getTimestamp(){
+    $time = explode ( " ", microtime () );
+    $time = $time [1] . ($time [0] * 1000);
+    $time2 = explode ( ".", $time );
+    $time = $time2 [0];
+    return $time;
 }
