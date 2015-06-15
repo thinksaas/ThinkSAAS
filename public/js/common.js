@@ -114,7 +114,22 @@ jQuery(document).ready(function(){
             success: function(rs) {
 			
 				if(rs.status==2 && rs.url){
-					window.location = rs.url;
+
+
+					//window.location = rs.url;
+
+                    //再来个提示
+                    tsNotice(rs.data+"<br />3秒后自动跳转...");
+
+                    //3秒后跳转
+                    setTimeout(function() {
+
+                        window.location = rs.url;
+
+                    },3000)
+
+
+
 				}else if(rs.status==1){
 					window.location.reload();
 				}else{

@@ -1,4 +1,15 @@
+/app/ask
+/app/event
+/app/vote
+/app/api
+/app/wechat
+/app/pay
+/app/market
+/app/shop
+/app/service
+/app/upgrade
 /cache
+/create_direct_pay_by_user-PHP-UTF-8
 /data
 /tslogs
 /upgrade
