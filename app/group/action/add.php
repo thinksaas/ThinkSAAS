@@ -65,7 +65,7 @@ switch ($ts) {
 		
 		$authcode = strtolower ( $_POST ['authcode'] );
 		
-		if ($TS_SITE ['base'] ['isauthcode']) {
+		if ($TS_SITE['isauthcode']) {
 			if ($authcode != $_SESSION ['verify']) {
 				tsNotice ( "验证码输入有误，请重新输入！" );
 			}
