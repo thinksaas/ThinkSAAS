@@ -136,12 +136,6 @@ function pagination($count, $perlogs, $page, $url, $suffix = '') {
 	$urlset = $GLOBALS['TS_SITE']['site_urltype'];
 	if ($urlset == 3) {
 		$suffix = '.html';
-	} elseif ($urlset == 7) {
-		if($GLOBALS['TS_URL']['ac']=='admin'){
-			$suffix = '';
-		}else{
-			$suffix = '/';
-		}
 	}
 
 	$pnums = @ceil($count / $perlogs);

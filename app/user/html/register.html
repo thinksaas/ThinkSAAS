@@ -52,8 +52,23 @@
 {if $TS_SITE['isauthcode']}
 <div class="form-group">
 <label>验证码：</label>
-  <input name="authcode" type="text" class="form-control" placeholder="" check-type="required">
-<img align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;" />
+
+
+    {if $geetest->register()}
+
+    {php echo $geetest->get_widget("float")}
+
+    {else}
+
+    <input name="authcode" type="text" class="form-control" placeholder="" check-type="required">
+    <img align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;" />
+
+    {/if}
+
+
+
+
+
 </div>
 {/if}
 

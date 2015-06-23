@@ -37,7 +37,7 @@ switch($ts){
 			'isused'=>0,
 		));
 		
-		if($codeNum == 0){
+		if($codeNum == 0 && $TS_USER['isadmin']==1){
 		
 			//当数据库中没码的时间生成10个码
 			for($i=1;$i<=10;$i++){

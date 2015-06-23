@@ -20,11 +20,12 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
 <div class="page">{$pageUrl}</div>
 
 <table  cellpadding="0" cellspacing="0">
-<tr class="old"><td width="60">UID</td><td width="200">Email</td><td width="100">姓名</td><td>注册时间</td><td>登录IP</td><td>验证Email</td><td>操作</td></tr>
+<tr class="old"><td width="60">UID</td><td width="200">Email</td><td width="100">姓名</td><td>注册时间</td><td>登录IP</td><td>来自</td><td>验证Email</td><td>操作</td></tr>
 {loop $arrAllUser $key $item}
 <tr class="odd"><td>{$item[userid]}</td><td>{$item[email]}</td><td>{$item[username]}</td><td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td>
 
 <td>{$item['ip']}</td>
+<td>{$item['comefrom']}</td>
 <td>{if $item['isverify']==1}已验证{else}<font color="red">未验证</a>{/if}</td>
 <td><a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=view&userid={$item[userid]}">[明细]</a> <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isenable&&userid={$item[userid]}">
 
