@@ -90,6 +90,20 @@
 {php doAction('pub_header_nav')}
 
       </ul>
+
+      <!--ThinkSAAS官方加载百度搜索，如果搜索引量大，可以申请百度站内搜索-->
+      {if $GLOBALS['TS_SITE']['link_url']=='http://www.thinksaas.cn/'}
+      <form class="navbar-form navbar-left hidden-xs" role="search" method="get" action="http://s.thinksaas.cn/cse/search" target="_blank">
+          <div class="form-group">
+              <input type="text" class="form-control" name="q" placeholder="小组 话题 文章">
+              <input type="hidden" name="s" value="8638015022651739653" />
+              <input type="hidden" name="nsid" value="1" />
+          </div>
+          <button type="submit" class="btn btn-default">搜索</button>
+      </form>
+
+      {else}
+
       <form class="navbar-form navbar-left hidden-xs" role="search" method="get" action="{SITE_URL}index.php">
         <div class="form-group">
 <input type="hidden" name="app" value="search" />
@@ -98,6 +112,7 @@
         </div>
         <button type="submit" class="btn btn-default">搜索</button>
       </form>
+      {/if}
 	  
 
 
