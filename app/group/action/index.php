@@ -11,19 +11,16 @@ $arrGroupCate = $new['group']->findAll('group_cate',array(
 
 // 所有小组
 $page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : '1';
-
 $lstart = $page * 24 - 24;
-
+$url = tsUrl ( 'group', 'index', array ('page' => '') );
 $arr = array(
 	'isaudit'=>0
 );
 
 if($cateid){
-
     $strCate = $new['group']->find('group_cate',array(
         'cateid'=>$cateid,
     ));
-	
 	$url = tsUrl ( 'group', 'index', array ('cateid'=>$cateid,'page' => '') );
 	$arr = array(
 		'cateid'=>$cateid,
