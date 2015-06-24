@@ -2143,3 +2143,37 @@ function getTimestamp(){
     $time = $time2 [0];
     return $time;
 }
+
+/**
+ * 取得根域名
+ * @param type $domain 域名
+ * @return string 返回根域名
+ */
+function GetUrlToDomain($domain) {
+
+    $arrDomain= parse_url($domain);
+
+    $domain = $arrDomain['host'];
+
+    $re_domain = '';
+    $domain_postfix_cn_array = array('com', 'net', 'org', 'gov', 'edu', 'com.cn', 'cn','cc','me','tv','la','net.cn','org.cn','top','wang','hk','co','pw','ren','asia','biz','gov.cn','tw','com.tw','us','tel','info','website','host','io','press','mobi');
+
+    $domain = str_replace('http://','',$domain);
+    $domain = str_replace('https://','',$domain);
+
+    $array_domain = explode('.', $domain);
+    $array_num = count($array_domain) - 1;
+    if ($array_domain[$array_num] == 'cn') {
+        if (in_array($array_domain[$array_num - 1], $domain_postfix_cn_array)) {
+            $re_domain = $array_domain[$array_num - 2] . '.' . $array_domain[$array_num - 1] . '.' . $array_domain[$array_num];
+        } else {
+            $re_domain = $array_domain[$array_num - 1] . '.' . $array_domain[$array_num];
+        }
+    } else {
+        $re_domain = $array_domain[$array_num - 1] . '.' . $array_domain[$array_num];
+    }
+
+    $re_domain = str_replace('/','',$re_domain);
+
+    return $re_domain;
+}
