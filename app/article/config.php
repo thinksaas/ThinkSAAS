@@ -16,8 +16,8 @@ $TS_APP['appname'] = '文章';
 $tsAppDb['sql']='mysqli';
 $tsAppDb['host']='localhost';
 $tsAppDb['port']='3306';
-$tsAppDb['user']='root';
-$tsAppDb['pwd']='';
-$tsAppDb['name']='thinksaas_app';
+$tsAppDb['user']='thinksaas';
+$tsAppDb['pwd']='123456';
+$tsAppDb['name']='thinksaas';
 $tsAppDb['pre']='ts_';
 */
