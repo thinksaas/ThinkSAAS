@@ -17,6 +17,8 @@ switch($ts){
 		
 		//用于JS提交验证
 		$js = intval($_GET['js']);
+
+        $ad = intval($_POST['ad']);
 		
 		if($_POST['token'] != $_SESSION['token']) {
 			getJson('非法操作！',$js);
@@ -95,6 +97,10 @@ switch($ts){
 			 setcookie("ts_email", $userData['email'], time()+$cktime,'/');   
 			 setcookie("ts_autologin", $autologin, time()+$cktime,'/');
 		 }
+
+        if($ad==1){
+            getJson('登录成功！',$js,2,SITE_URL.'index.php?app=system');
+        }
 
 		//跳转
 		if($jump != ''){

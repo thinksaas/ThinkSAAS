@@ -20,7 +20,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">小组图标：</label>
     <div class="col-sm-10">
-     <img alt="{$strGroup[groupname]}" title="{$strGroup[groupname]}" valign="middle" src="{if $strGroup[photo]}{php echo tsXimg($strGroup[photo],'group','120','120',$strGroup[path])}?v={php echo rand();}{else}{SITE_URL}public/images/group.jpg{/if}">
+     <img alt="{$strGroup[groupname]}" title="{$strGroup[groupname]}" valign="middle" src="{if $strGroup[photo]}{php echo tsXimg($strGroup[photo],'group','120','120',$strGroup[path],1)}?v={php echo rand();}{else}{SITE_URL}public/images/group.jpg{/if}">
     </div>
   </div>
   

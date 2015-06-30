@@ -233,6 +233,7 @@ color:#999
 	color: #ddd
 }
 
+.tags{overflow: hidden;padding-bottom: 20px;}
 .tags a {
 	float: left;
 	background: #eee;
@@ -806,7 +807,7 @@ background-image: url(lr_images/jt1.gif);background-repeat:no-repeat;background-
 .my{background: #F6F6F6;overflow:hidden;border: 1px solid #E6E6E6;
     border-radius: 5px;margin-bottom:20px;}
 
-.my_left{float:left;width:168px;}
+.my_left{background: #F6F6F6;}
 
 
 .my_left .user_info{padding:10px 0 10px 10px;overflow:hidden;}
@@ -855,6 +856,7 @@ background-image: url(lr_images/jt1.gif);background-repeat:no-repeat;background-
 
 .my_left .menu-mod .menus {
     margin-left: 10px;
+    margin-right: 10px;
 }
 
 .my_left .menu-mod .menus li {
@@ -864,16 +866,18 @@ background-image: url(lr_images/jt1.gif);background-repeat:no-repeat;background-
     color: #555555;
     display: block;
     font-size: 14px;
-    height: 28px;
-    line-height: 28px;
+    height: 35px;
+    line-height: 35px;
     text-decoration: none;
+    padding-left: 10px;
 }
 
 .my_left .menu-mod .menus li.active a {
     background: none repeat scroll 0 0 #FFFFFF;
     border-color: #E9E9E9;
     border-style: solid;
-    border-width: 1px 0 1px 1px;
+    border-width: 1px 1px 1px 1px;
+    border-radius: 5px;
 }
 
 .my_left .menu-mod .menus li .feature-icon {

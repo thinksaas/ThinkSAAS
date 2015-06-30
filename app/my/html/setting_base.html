@@ -2,20 +2,23 @@
 <div class="container">
 
 
-<div class="my">
+<div class="row">
 
 
+<div class="col-md-2">
 <div class="my_left">
 
 {php include pubTemplate("my")}
 
 </div>
+</div>
 
-<div class="my_right">
-<div class="rc">
+<div class="col-md-10">
 
 
-{php doAction('my_right_top')}
+    <div class="panel panel-default">
+        <div class="panel-body">
+
 
 
 {template setting_menu}
@@ -77,6 +80,7 @@
 
 
 
+</div>
 </div>
 </div>
 

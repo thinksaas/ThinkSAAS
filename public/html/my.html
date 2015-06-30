@@ -17,31 +17,39 @@
 
 <div class="menu-mod clearfix">
 <ul class="menus">
-<li {if $app=='my' && $ac=='index'}class="active"{/if}><a href="{tsUrl('my')}"><i class="feature-icon feature-icon-home"></i>我的社区</a></li>
-<!--<li><a href="{tsUrl('feed','my')}"><i class="feature-icon feature-icon-feed"></i>好友动态<span class="counter" id="feed-counter"><span title="有2条未读的动态" class="badge badge-warning">2</span></span></a></li>-->
-<li {if $app=='group'}class="active"{/if}><a href="{tsUrl('group','my')}"><i class="feature-icon feature-icon-learn"></i>小组</a></li>
-<li {if $app=='photo'}class="active"{/if}><a href="{tsUrl('photo','my')}"><i class="feature-icon feature-icon-teach"></i>相册</a></li>
-<li {if $app=='attach'}class="active"{/if}><a href="{tsUrl('attach','my')}"><i class="feature-icon feature-icon-note"></i>资料</a></li>
-<li {if $app=='article'}class="active"{/if}><a href="{tsUrl('article','my')}"><i class="feature-icon feature-icon-faq"></i>文章</a></li>
-<li {if $app=='weibo'}class="active"{/if}><a href="{tsUrl('weibo','my')}"><i class="feature-icon feature-icon-faq"></i>唠叨</a></li>
-<li><a href="{tsUrl('redeem','my')}"><i class="feature-icon feature-icon-faq"></i>积分兑换</a></li>
+    
+<li {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='index'}class="active"{/if}><a href="{tsUrl('my')}">我的社区</a></li>
+
+<li {if $GLOBALS['TS_URL']['app']=='group' && $GLOBALS['TS_URL']['my']=='index'}class="active"{/if}><a href="{tsUrl('group','my')}">小组</a></li>
+    
+<li {if $GLOBALS['TS_URL']['app']=='group' && $GLOBALS['TS_URL']['my']=='topic'}class="active"{/if}><a href="{tsUrl('group','my',array('my'=>'topic'))}">帖子</a></li>
+    
+    <li {if $GLOBALS['TS_URL']['app']=='article'}class="active"{/if}><a href="{tsUrl('article','my')}">文章</a></li>
+    
+<li {if $GLOBALS['TS_URL']['app']=='photo'}class="active"{/if}><a href="{tsUrl('photo','my')}">相册</a></li>
+    
+<li {if $GLOBALS['TS_URL']['app']=='attach'}class="active"{/if}><a href="{tsUrl('attach','my')}">资料</a></li>
 
 
+
+</ul>
+
+
+<ul class="menus">
+
+<li {if $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='my' || $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='system'}class="active"{/if}><a href="{tsUrl('message','my')}">消息</a></li>
+    
+    <li {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='score'}class="active"{/if}><a href="{tsUrl('my','score')}">积分</a></li>
 </ul>
 
 
 
 <ul class="menus">
-<li {if $app=='my' && $ac=='friend'}class="active"{/if}><a href="{tsUrl('my','friend',array('ts'=>'follow'))}"><i class="feature-icon feature-icon-friend"></i>好友</a></li>
-<li {if $app=='message' && $ac=='my' || $app=='message' && $ac=='system'}class="active"{/if}><a href="{tsUrl('message','my')}"><i class="feature-icon feature-icon-notification"></i>通知</a></li>
-<li {if $app=='message' && $ac=='friend'}class="active"{/if}><a href="{tsUrl('message','friend')}"><i class="feature-icon feature-icon-message"></i>私信</a></li>
+
+<li {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='setting'}class="active"{/if}><a href="{tsUrl('my','setting',array('ts'=>'base'))}">账户设置</a></li>
+
 </ul>
-
-
-
-<ul class="menus">
-<!--<li><a href="#"><i class="feature-icon feature-icon-coin"></i>金币</a></li>-->
-<li {if $app=='my' && $ac=='setting'}class="active"{/if}><a href="{tsUrl('my','setting',array('ts'=>'base'))}"><i class="feature-icon feature-icon-setting"></i>账户设置</a></li>
-<li {if $app=='my' && $ac=='score'}class="active"{/if}><a href="{tsUrl('my','score')}"><i class="feature-icon feature-icon-setting"></i>积分</a></li>
-</ul>
+    
+    <div style="height: 30px"></div>
+    
 </div>

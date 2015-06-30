@@ -1,8 +1,8 @@
 {template header}
+
 <div class="container">
 
-<div class="panel panel-default">
-  <div class="panel-body">
+
 
 <div class="row">
 
@@ -15,54 +15,116 @@
 </div>
 </div>
 
+
+
 <div class="col-md-10">
-<div class="row">
 
 
-<div class="col-md-8">
+    <div class="panel panel-default">
+        <div class="panel-heading">我的小组</div>
+        <div class="panel-body">
 
-{php doAction('my_right_top')}
+            <div class="row">
 
-<ul class="nav nav-tabs" role="tablist">
-<li role="presentation" class="active"><a href="">最新帖子</a></li>
-</ul>
+                {loop $arrGroup $key $item}
+                <div class="col-sm-6 col-md-2">
+                    <div class="thumbnail">
+                        <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img src="{$item['photo']}" alt="{$item['groupname']}" width="120" height="120"></a>
+                        <div class="caption">
+                            <h3>{php echo cututf8($item['groupname'],0,8,false)}</h3>
+
+                            <p><a href="{tsUrl('group','add',array('id'=>$item['groupid']))}" class="btn btn-default btn-block" role="button">发帖</a> </p>
+                        </div>
+                    </div>
+                </div>
+                {/loop}
 
 
-<div class="clear"></div>
+            </div>
 
-<div class="newtopic">
-<ul>
-{loop $arrTopic $key $item}
-<li>
-<div class="photo"><img src="{$item['user']['face']}" width="24" /></div>
-<div class="info">
-<div class="title"><a target="_blank" href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></div>
-<div class="comment">{$item['count_comment']}回应</div>
-<div class="uptime">{php echo getTime($item['uptime'])}</div>
-<div class="group"><a href="{tsUrl('group','show',array('id'=>$item['group']['groupid']))}">{$item['group']['groupname']}</a></div>
+        </div>
+    </div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">我的帖子</div>
+        <div class="panel-body">
+
+            <table class="table">
+                <thead>
+                <tr><th>发布时间</th><th>标题</th><th>浏览/评论</th><th>操作</th></tr>
+                </thead>
+                <tbody>
+                {loop $arrTopic $key $item}
+                <tr><td>{php echo date('Y-m-d',$item['addtime'])}</td><td><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></td><td>{$item['count_view']}/{$item['count_comment']}</td><td><a href="{tsUrl('group','topicedit',array('topicid'=>$item['topicid']))}">修改</a></td></tr>
+                {/loop}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">我的文章</div>
+        <div class="panel-body">
+
+            <table class="table">
+                <thead>
+                <tr><th>发布时间</th><th>标题</th><th>浏览/评论</th><th>操作</th></tr>
+                </thead>
+                <tbody>
+                {loop $arrArticle $key $item}
+                <tr><td>{php echo date('Y-m-d',strtotime($item['addtime']))}</td><td><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></td><td>{$item['count_view']}/{$item['count_comment']}</td><td><a href="{tsUrl('article','edit',array('articleid'=>$item['articleid']))}">修改</a></td></tr>
+                {/loop}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">我的资料</div>
+        <div class="panel-body">
+
+
+
+            <div class="row">
+                {loop $arrAttach $key $item}
+                <div class="col-xs-12 col-md-3">
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><a href="{tsUrl('attach','album',array('id'=>$item['albumid']))}">{$item['title']}</a></div>
+                        <div class="panel-body">
+                            <p>时间：{php echo date('Y-m-d',strtotime($item['addtime']))}</p>
+                            <p>资料：{$item['count_attach']}个</p>
+                        </div>
+                    </div>
+
+
+                </div>
+                {/loop}
+            </div>
+
+
+
+        </div>
+    </div>
+
+
 </div>
-</li>
-{/loop}
-</ul>
-</div>
-
-</div>
-<div class="col-md-4">
-
-<div class="qiandao">{if $TS_USER['signin']<strtotime(date('Y-m-d 00:00:00'))}<a href="javascript:void('0');" onclick="qianDao();">每日签到+5积分</a>{else}今日已签到{/if}</div>
-
-</div>
 
 
-</div>
-</div>
 
 
 </div>
 
-</div>
-</div>
 
 
 </div>
+
+<!--
+<div class="qiandao">{if $TS_USER['signin']<strtotime(date('Y-m-d 00:00:00'))}<a href="javascript:void('0');" onclick="qianDao();">每日签到+5积分</a>{else}今日已签到{/if}</div>-->
 {template footer}

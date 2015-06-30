@@ -1613,6 +1613,12 @@ function tsClean($text) {
 	return $text;
 }
 
+function tsClean2($text){
+    $text = stripslashes(trim($text));
+    $text = htmlentities($text, ENT_NOQUOTES, "utf-8");
+    return $text;
+}
+
 /*
  * @text 内容
  * @tp 内容分页

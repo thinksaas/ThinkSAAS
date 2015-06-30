@@ -42,4 +42,4 @@ evdata(siteUid);
 {php doAction('pub_footer')}
 </body>
 </html>
-{if $TS_SITE[base][isgzip]==1}{php ob_end_flush();}{/if}
+{if $GLOBALS['TS_SITE']['isgzip']==1}{php ob_end_flush();}{/if}

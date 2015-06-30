@@ -13,20 +13,29 @@
 
 {template menu}
 
-<div class="albumlist">
-<ul>
-{loop $arrAlbum $key $item}
-<li>
-<div>
-<h2><a href="{tsUrl('attach','album',array('id'=>$item['albumid']))}">{$item['title']}</a></h2>
-<p>作者：{$item['user']['username']}</p>
-<p>时间：{php echo date('Y-m-d',strtotime($item['addtime']))}</p>
-<p>资料：{$item['count_attach']}个</p>
-</div>
-</li>
-{/loop}
-</ul>
-</div>
+<div style="height:20px"></div>
+
+    <div class="row">
+        {loop $arrAlbum $key $item}
+        <div class="col-xs-12 col-md-3">
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading"><a href="{tsUrl('attach','album',array('id'=>$item['albumid']))}">{$item['title']}</a></div>
+                <div class="panel-body">
+                    <p>作者：{$item['user']['username']}</p>
+                    <p>时间：{php echo date('Y-m-d',strtotime($item['addtime']))}</p>
+                    <p>资料：{$item['count_attach']}个</p>
+                </div>
+            </div>
+
+
+        </div>
+        {/loop}
+    </div>
+
+
+
 
 </div>
 

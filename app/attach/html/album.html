@@ -1,10 +1,15 @@
 {template header}
 <div class="container">
 
+    <ol class="breadcrumb">
+        <li><a href="{SITE_URL}">首页</a></li>
+        <li><a href="{tsUrl('attach')}">资料</a></li>
+        <li>{$strAlbum['title']}</li>
+    </ol>
 
-<div class="bbox mh400">
-<div class="bc">
-{template menu}
+
+    <div class="panel panel-default">
+        <div class="panel-body">
 
 <h1>{$strAlbum['title']}</h1>
 

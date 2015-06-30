@@ -16,19 +16,22 @@ $(function(){
 </script>
 
 <div class="container">
-<div class="my">
+<div class="row">
 
+<div class="col-md-2">
 <div class="my_left">
 
 {php include pubTemplate("my")}
 
 </div>
+</div>
 
-<div class="my_right">
-<div class="rc">
+<div class="col-md-10">
+    <div class="panel panel-default">
+        <div class="panel-body">
 
 
-{php doAction('my_right_top')}
+
 {template setting_menu}
 
 
@@ -60,6 +63,7 @@ $(function(){
 
 
 
+</div>
 </div>
 </div>
 

@@ -1,12 +1,17 @@
 {template header}
 
-<div class="midder">
+<div class="container">
 
-<div class="mc">
-<div class="bbox">
-{template menu}
+    <ol class="breadcrumb">
+        <li><a href="{SITE_URL}">首页</a></li>
+        <li><a href="{tsUrl('photo')}">相册</a></li>
+        <li><a href="{tsUrl('photo','album',array('id'=>$strAlbum['albumid']))}">{$strAlbum['albumname']}</a></li>
+        <li class="active">批量修改</li>
+    </ol>
 
-<h1>{$title}</h1>
+    <div class="panel panel-default">
+        <div class="panel-body">
+
 
 <div style="margin:30px 0 0 100px;">
 <form method="post" action="{SITE_URL}index.php?app=photo&ac=album&ts=info_do">

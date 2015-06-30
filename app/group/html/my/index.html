@@ -2,51 +2,94 @@
 <div class="container">
 
 
-<div class="my">
+
+    <div class="row">
 
 
-<div class="my_left">
+        <div class="col-md-2">
 
-{php include pubTemplate("my")}
+            <div class="my_left">
 
-</div>
+                {php include pubTemplate("my")}
 
-<div class="my_right">
-<div class="rc">
+            </div>
 
-
-{php doAction('my_right_top')}
-
-
-<ul class="nav nav-tabs" role="tablist">
-<li role="presentation" class="active"><a href="{tsUrl('group','my',array('my'=>'index'))}">加入的小组</a></li>
-<li role="presentation"><a href="{tsUrl('group','my',array('my'=>'created'))}">创建的小组</a></li>
-</ul>
+        </div>
+        <div class="col-md-10">
 
 
 
-<div class="facelist">
-<ul>
-{loop $arrGroup $key $item}
-<li>
-<a href="{tsUrl('group','show',array('id'=>$item['groupid']))}">
-<img alt="{$item['groupname']}" title="{$item['groupname']}" src="{$item['photo']}" width="48" />
-<p>{$item['groupname']}</p>
-{if $strUser['userid']!=$item['userid']}
-<p><a onclick="return " href="javascript:void('0')" onclick="exitGroup('{$item['groupid']}')">退出</a></p>
-{/if}
-</a>
-</li>
-{/loop}
-</ul>
-</div>
+            <div class="panel panel-default">
+            <div class="panel-heading">创建的小组</div>
+            <div class="panel-body">
 
 
 
-</div>
-</div>
+
+                <div class="row">
+
+                    {loop $arrCreateGroup $key $item}
+                    <div class="col-sm-6 col-md-2">
+                        <div class="thumbnail">
+                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img src="{$item['photo']}" alt="{$item['groupname']}" width="120" height="120"></a>
+                            <div class="caption">
+                                <h3>{php echo cututf8($item['groupname'],0,8,false)}</h3>
+
+                                <p><a href="{tsUrl('group','edit',array('ts'=>'base','groupid'=>$item['groupid']))}" class="btn btn-default btn-block" role="button">管理</a> </p>
+                            </div>
+                        </div>
+                    </div>
+                    {/loop}
 
 
-</div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">加入的小组</div>
+                <div class="panel-body">
+
+
+
+
+                    {loop $arrGroup $key $item}
+                    <div class="col-sm-6 col-md-2">
+                        <div class="thumbnail">
+                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img src="{$item['photo']}" alt="{$item['groupname']}" width="120" height="120"></a>
+                            <div class="caption">
+                                <h3>{php echo cututf8($item['groupname'],0,6,false)}</h3>
+
+                                {if $strUser['userid']!=$item['userid']}
+                                <p><a class="btn btn-default btn-block" href="javascript:void('0')" onclick="exitGroup('{$item['groupid']}')">退出</a></p>
+                                {else}
+                                <p><a class="btn btn-default btn-block" href="{tsUrl('group','add',array('id'=>$item['groupid']))}" >发帖</a></p>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                    {/loop}
+
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+        </div>
+
+
+
+
 </div>
 {template footer}

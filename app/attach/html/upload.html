@@ -30,13 +30,18 @@
 <div class="container">
 
 
+    <ol class="breadcrumb">
+        <li><a href="{SITE_URL}">首页</a></li>
+        <li><a href="{tsUrl('attach')}">资料</a></li>
+        <li><a href="{tsUrl('attach','album',array('id'=>$strAlbum['albumid']))}">{$strAlbum['title']}</a></li>
+        <li class="active">上传资料</li>
+    </ol>
 
-<div class="bbox">
-<div class="bc">
 
-{template menu}
 
-<h1>上传资料</h1>
+    <div class="panel panel-default">
+        <div class="panel-body">
+
 
 <div style="padding:0 10px;">
 
