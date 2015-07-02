@@ -271,6 +271,23 @@ class group extends tsApp{
 		return $arrTopic;
 		
 	}
+
+    /*
+     * 是否小组组长
+     */
+    public function isGroupCreater($groupid,$userid){
+        $isCreater = $this->findCount('group',array(
+           'groupid'=>$groupid,
+           'userid'=>$userid,
+        ));
+
+        if($isCreater){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 	
 	
 	//析构函数

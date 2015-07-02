@@ -16,9 +16,7 @@ switch($ts){
 		));
 		
 		if($userGroupNum >= $TS_APP['joinnum'] && $TS_USER['isadmin']==0){
-		
 			tsNotice('你加入的小组总数已经到达'.$TS_APP['joinnum'].'个，不能再创建小组！');
-		
 		}
 		
 		if($TS_APP['iscreate'] == 0 || $TS_USER['isadmin']==1){
@@ -43,6 +41,15 @@ switch($ts){
 	
 	//执行创建小组
 	case "do":
+
+        //先判断加入多少个小组啦
+        $userGroupNum = $new['group']->findCount('group_user',array(
+            'userid'=>$userid
+        ));
+
+        if($userGroupNum >= $TS_APP['joinnum'] && $TS_USER['isadmin']==0){
+            tsNotice('你加入的小组总数已经到达'.$TS_APP['joinnum'].'个，不能再创建小组！');
+        }
 	
 		if($TS_APP['iscreate'] == 0 || $TS_USER['isadmin']==1){
 			

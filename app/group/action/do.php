@@ -11,6 +11,10 @@ switch ($ts) {
 	case "photo":
 		
 		$groupid = intval($_POST['groupid']);
+
+        if($new['group']->isGroupCreater($groupid,$userid)==false){
+            tsNotice("非法操作！");
+        }
 		
 		//上传
 		$arrUpload = tsUpload($_FILES['picfile'],$groupid,'group',array('jpg','gif','png'));
@@ -270,6 +274,11 @@ switch ($ts) {
 	case "topic_type":
 	
 		$groupid = intval($_POST['groupid']);
+
+        if($new['group']->isGroupCreater($groupid,$userid)==false){
+            tsNotice("非法操作！");
+        }
+
 		$typename = t($_POST['typename']);
 		if($typename != ''){
 			$new['group']->create('group_topic_type',array(
@@ -470,7 +479,7 @@ switch ($ts) {
 			//先统计用户有多少个小组了，20个封顶
 			$userGroupNum = $new['group']->findCount('group_user',array('userid'=>$iuserid));
 			
-			if($userGroupNum >= 20) tsNotice('邀请用户加入的小组总数已经到达20个，不能再加入小组！');
+			if($userGroupNum >= $TS_APP['joinnum']) tsNotice('邀请用户加入的小组总数已经到达'.$TS_APP['joinnum'].'个，不能再加入小组！');
 			
 			$groupUserNum = $new['group']->findCount('group_user',array(
 				'userid'=>$iuserid,
