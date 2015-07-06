@@ -9,6 +9,7 @@
 7、用户在购买ThinkSAAS商业授权后才可以去除底部Powered by ThinkSAAS 文字链接或者标识。
 8、ThinkSAAS不会监控用户网站信息，但有权通过邮件或者其他联系方式获悉用户使用情况，有权拿用户网站用作案例展示。
 9、在未经ThinkSAAS官方书面允许的情况下，除【自身运营】外，任何个人、公司和组织不能单方面发布和出售以ThinkSAAS为基础开发的任何互联网软件或者产品，否则将视为侵权行为，将依照中华人民共和国法律追究其法律责任。
-10、ThinkSAAS官方拥有对此协议的修改和不断完善。
+10、公司企业等组织机构使用ThinkSAAS软件必须购买ThinkSAAS商业授权协议。
+11、ThinkSAAS官方拥有对此协议的修改和不断完善。
 【自身运营】解释：即用户在使用ThinkSAAS中，不通过出售任何以ThinkSAAS为基础开发的产品，仅用作自身学习和自身商业运营的网站。
 【用户条款】网址：http://www.thinksaas.cn/home/info/key/agreement/
