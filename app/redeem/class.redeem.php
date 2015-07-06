@@ -14,5 +14,23 @@ class redeem extends tsApp{
 	
 		parent::__construct($db);
 	}
+
+    /*
+     * 获取一个积分商品信息
+     */
+    public function getRedeemGoods($goodsid){
+        $strGoods = $this->find('redeem_goods',array(
+            'goodsid'=>$goodsid,
+        ));
+
+        if($strGoods['photo']){
+            $strGoods['photo'] = tsXimg($strGoods['photo'],'redeem','150','150',$strGoods['path'],1);
+        }else{
+            $strGoods['photo'] = SITE_URL.'public/images/redeem.png';
+        }
+
+        return $strGoods;
+
+    }
 	
 }

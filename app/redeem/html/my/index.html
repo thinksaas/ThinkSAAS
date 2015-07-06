@@ -2,49 +2,53 @@
 <div class="container">
 
 
-<div class="my">
+<div class="row">
 
 
+<div class="col-md-2">
 <div class="my_left">
 
 {php include pubTemplate("my")}
 
 </div>
-
-<div class="my_right">
-
-<div class="rc">
-
-
-{php doAction('my_right_top')}
-
-
-
-<ul class="nav nav-tabs" role="tablist">
-<li role="presentation" class="active"><a href="">我的积分兑换</a></li>
-</ul>
-
-
-<div class="goodslist">
-<ul>
-{loop $arrGoods $key $item}
-<li><a href="{tsUrl('redeem','goods',array('id'=>$item['goodsid']))}"><img src="{php echo tsXimg($item['photo'],'redeem','150','',$item['path'])}" alt="{$item['title']}" /></a>
-<p class="content"><a href="{tsUrl('redeem','goods',array('id'=>$item['goodsid']))}">{$item['title']}</a></p>
-<div class="info"><span class="scores">{$item['scores']}积分</span><span class="dui"><a class="btn btn-success btn-mini" href="{tsUrl('redeem','goods',array('id'=>$item['goodsid']))}">兑换</a></span></div>
-</li>
-{/loop}
-</ul>
 </div>
 
+<div class="col-md-10">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">我的积分兑换</div>
+        <div class="panel-body">
 
 
 
 
-</div>
+            {if $arrGoods}
+            <table class="table">
+                <thead>
+                <tr><th>图片</th><th>商品名称</th><th>兑换数量</th></tr>
+                </thead>
 
-</div>
+                <tbody>
+                {loop $arrGoods $key $item}
+                <tr><td><img src="{$item['photo']}" width="48"></td><td><a target="_blank" href="{tsUrl('redeem','goods',array('id'=>$item['goodsid']))}">{$item['title']}</a></td><td>1</td></tr>
+                {/loop}
+                </tbody>
+
+            </table>
+
+            {else}
+            <div class="alert alert-info">你还没有任何积分兑换，<a class="btn btn-success" href="{tsUrl('redeem')}">点击去兑换</a></div>
+            {/if}
+
+
+
 
 
 </div>
+</div>
+</div>
+
+</div>
+
 </div>
 {template footer}
