@@ -35,7 +35,7 @@ $isComment = $new['group']->findCount('group_topic_comment', array(
 )); 
 
 if($strTopic['iscommentshow']==1 && $isComment==0 && $strTopic['userid']!=intval($TS_USER['userid'])){
-	$strTopic['content'] = '你需要回复后才可以浏览帖子内容！';
+	$strTopic['content'] = '<div class="alert alert-info">你需要回复后才可以浏览帖子内容！</div>';
 }
 
 

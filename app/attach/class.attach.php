@@ -56,6 +56,10 @@ class attach extends tsApp{
 		));
 		return $strAlbum;
 	}
+
+    /*
+     * 是否附件上传者
+     */
 	
 	
 }

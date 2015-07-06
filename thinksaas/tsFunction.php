@@ -1613,7 +1613,10 @@ function tsClean($text) {
 	return $text;
 }
 
-function tsClean2($text){
+/*
+ * 针对tsClean函数会过滤很多html标签的补充函数
+ */
+function tsCleanContent($text){
     $text = stripslashes(trim($text));
     $text = htmlentities($text, ENT_NOQUOTES, "utf-8");
     return $text;
@@ -1625,6 +1628,7 @@ function tsClean2($text){
  * @url URL
  */
 function tsDecode($text, $tp = 1) {
+    $text = trim($text);
 	$text = html_entity_decode(stripslashes($text), ENT_NOQUOTES, "utf-8");
 	$text = str_replace('<br /><br />', '<br />', $text);
 

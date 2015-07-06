@@ -72,4 +72,21 @@ class article extends tsApp {
         return $arrArticle;
     }
 
+    /*
+     * 是否文章作者
+     */
+    public function isArticleUser($articleid,$userid){
+        $isUser = $this->findCount('article',array(
+            'articleid'=>$articleid,
+            'userid'=>$userid,
+        ));
+
+        if($isUser){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
 }
