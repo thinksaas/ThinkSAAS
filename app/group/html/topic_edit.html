@@ -70,7 +70,7 @@
 	
   </div>
   
-  
+{if $TS_SITE['isauthcode']}
   <div class="form-group">
     <label>验证码</label>
     
@@ -78,7 +78,7 @@
  <img align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
 	
   </div>
-
+{/if}
 	<input type="hidden" name="topicid" value="{$strTopic[topicid]}" />
 	
 	<input type="hidden" name="token" value="{$_SESSION['token']}" />

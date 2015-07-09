@@ -231,7 +231,7 @@ switch ($ts) {
 		$today_start = strtotime ( date ( 'Y-m-d 00:00:00' ) );
 		$today_end = strtotime ( date ( 'Y-m-d 23:59:59' ) );
 		
-		$count_topic_today = $new ['group']->findCount ( 'group_topic', "`groupid`='$groupid' and `addtime`='$today_start'" );
+		$count_topic_today = $new ['group']->findCount ( 'group_topic', "`groupid`='$groupid' and `addtime`>'$today_start' and `addtime`<'$today_end'" );
 		
 		$new ['group']->update ( 'group', array (
 				'groupid' => $groupid 
