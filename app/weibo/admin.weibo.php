@@ -100,6 +100,12 @@ class weiboAdmin extends weibo{
     public function deleteweibo(){
         $weiboid=intval($_GET['weiboid']);
 
+        $strWeibo = $this->find('weibo',array(
+            'weiboid'=>$weiboid,
+        ));
+
+        unlink('uploadfile/weibo/'.$strWeibo['photo']);
+
         $this->delete('weibo',array(
             'weiboid'=>$weiboid,
         ));

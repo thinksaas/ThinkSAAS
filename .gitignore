@@ -19,6 +19,7 @@
 /create_direct_pay_by_user-PHP-UTF-8
 /data
 /tslogs
+/plugins/pubs/customer
 /upgrade
 /uploadfile
 .gitignore
