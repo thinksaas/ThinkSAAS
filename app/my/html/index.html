@@ -56,7 +56,7 @@
                 </thead>
                 <tbody>
                 {loop $arrTopic $key $item}
-                <tr><td>{php echo date('Y-m-d',$item['addtime'])}</td><td><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></td><td>{$item['count_view']}/{$item['count_comment']}</td><td><a href="{tsUrl('group','topicedit',array('topicid'=>$item['topicid']))}">修改</a></td></tr>
+                <tr><td>{php echo date('Y-m-d',$item['addtime'])}</td><td><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{tsTitle($item['title'])}</a></td><td>{$item['count_view']}/{$item['count_comment']}</td><td><a href="{tsUrl('group','topicedit',array('topicid'=>$item['topicid']))}">修改</a></td></tr>
                 {/loop}
                 </tbody>
             </table>
@@ -75,7 +75,7 @@
                 </thead>
                 <tbody>
                 {loop $arrArticle $key $item}
-                <tr><td>{php echo date('Y-m-d',strtotime($item['addtime']))}</td><td><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></td><td>{$item['count_view']}/{$item['count_comment']}</td><td><a href="{tsUrl('article','edit',array('articleid'=>$item['articleid']))}">修改</a></td></tr>
+                <tr><td>{php echo date('Y-m-d',strtotime($item['addtime']))}</td><td><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{tsTitle($item['title'])}</a></td><td>{$item['count_view']}/{$item['count_comment']}</td><td><a href="{tsUrl('article','edit',array('articleid'=>$item['articleid']))}">修改</a></td></tr>
                 {/loop}
                 </tbody>
             </table>
@@ -96,7 +96,7 @@
 
 
                     <div class="panel panel-default">
-                        <div class="panel-heading"><a href="{tsUrl('attach','album',array('id'=>$item['albumid']))}">{$item['title']}</a></div>
+                        <div class="panel-heading"><a href="{tsUrl('attach','album',array('id'=>$item['albumid']))}">{tsTitle($item['title'])}</a></div>
                         <div class="panel-body">
                             <p>时间：{php echo date('Y-m-d',strtotime($item['addtime']))}</p>
                             <p>资料：{$item['count_attach']}个</p>
