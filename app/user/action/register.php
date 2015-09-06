@@ -8,11 +8,6 @@ switch($ts){
 		
 		//邀请用户ID
 		$fuserid = intval($_GET['fuserid']);
-
-
-        require_once("thinksaas/class.geetest.php");
-        $geetest = new Geetest();
-        $geetest->set_captchaid("1af5a4e60b594c11fb017d6ad7da0f37"); //TO DO 请使用自己的验证码ID替换此处
 	
 		$title = '注册';
 		
@@ -21,10 +16,6 @@ switch($ts){
 
 	case "do":
 
-        require_once("thinksaas/class.geetest.php");
-        $geetest = new Geetest();
-        $geetest->set_privatekey("83dfaed7e0a54f214ca1b91c968f40e5"); //TO DO 请使用自己的验证码KEY替换此处
-	
 		//用于JS提交验证
 		$js = intval($_GET['js']);
 	
@@ -103,28 +94,8 @@ switch($ts){
 		
 		if($TS_SITE['isauthcode']){
 
-
-
-            if (isset($_POST['geetest_challenge']) && isset($_POST['geetest_validate']) && isset($_POST['geetest_seccode'])) {
-                $result = $geetest->validate($_POST['geetest_challenge'], $_POST['geetest_validate'], $_POST['geetest_seccode']);
-                if ($result == TRUE) {
-                    //echo 'Yes!';
-                } else if ($result == FALSE) {
-                    //echo 'No';
-                    getJson('验证码输入有误，请重新输入！',$js);
-
-                } else {
-                    //echo 'FORBIDDEN';
-                    getJson('验证码输入有误，请重新输入！',$js);
-                }
-
-            } else {
-
-                if ($authcode != $_SESSION['verify']) {
-                    getJson('验证码输入有误，请重新输入！', $js);
-                }
-
-
+            if ($authcode != $_SESSION['verify']) {
+                getJson('验证码输入有误，请重新输入！', $js);
             }
 
 		}
