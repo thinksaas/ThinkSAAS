@@ -78,7 +78,7 @@ switch($ts){
 				'photo'=>$arrUpload['url'],
 			));
 			
-			tsDimg($arrUpload['url'],'slide','630','340',$arrUpload['path']);
+			tsDimg($arrUpload['url'],'slide','748','210',$arrUpload['path']);
 			
 		}
 		
