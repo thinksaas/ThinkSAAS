@@ -12,9 +12,13 @@
 <div class="row">
 
 <div class="col-md-8">
-<div class="bbox">
 
-<div class="bc">
+
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+
 <h1>{if $strTopic[typeid] !='0'}<a href="{tsUrl('group','show',array('id'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}{$strTopic[title]}</h1>
 
 
@@ -77,9 +81,12 @@
 </div>
 </div>
 
-<div class="bbox">
-<div class="btitle">用户评论({$strTopic['count_comment']})</div>
-<div class="bc">
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">用户评论({$strTopic['count_comment']})</div>
+        <div class="panel-body">
+
 <ul class="comment">
 {if is_array($arrTopicComment)}
 {loop $arrTopicComment $key $item}
@@ -171,9 +178,11 @@
 </div>
 
 
-<div class="bbox">
-<div class="btitle">推荐帖子</div>
-<div class="bc">
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">推荐帖子</div>
+        <div class="panel-body">
 
 <div class="topic_recommend">
 <ul>
@@ -194,9 +203,11 @@
 
 {php doAction('gobad','topic_right_top')}
 
-<div class="bbox">
-<div class="btitle">最新帖子</div>
-<div class="bc commlist">
+
+
+<div class="panel panel-default">
+<div class="panel-heading">最新帖子</div>
+<div class="panel-body commlist">
 <ul>
 {loop $newTopic $key $item}
 <li>
@@ -207,9 +218,11 @@
 </div>
 </div>
 
-<div class="bbox"><div class="btitle">热门帖子</div>
 
-<div class="bc commlist">
+
+<div class="panel panel-default">
+<div class="panel-heading">最新帖子</div>
+<div class="panel-body commlist">
 <ul>
 {loop $arrHotTopic $key $item}
 <li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></li>

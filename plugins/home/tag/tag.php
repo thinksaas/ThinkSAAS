@@ -11,9 +11,9 @@ function tag(){
 
 	//echo '<div class="bbox">'.doAction('gobad','home_left_1').'</div>';
 	
-	echo '<div class="bbox">';
-	echo '<div class="btitle">热门标签<div class="right"><a href="'.tsUrl('group','tags').'">更多</a></div></div>';
-	echo '<div class="bc tags">';
+	echo '<div class="panel panel-default">';
+	echo '<div class="panel-heading">热门标签<small><a href="'.tsUrl('group','tags').'">更多</a></small></div>';
+	echo '<div class="panel-body tags">';
 	foreach($arrTag as $key=>$item){
 		echo '<a href="'.tsUrl('group','tag',array('id'=>urlencode($item['tagname']))).'">'.$item['tagname'].'</a>';
 	}

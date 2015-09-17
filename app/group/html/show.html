@@ -11,15 +11,30 @@
 
 <div class="col-md-8">
 
-<div class="bbox">
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-body">
 
 <div class="group_show">
-<div class="face"><img title="{$strGroup[groupname]}" alt="{$strGroup[groupname]}" src="{$strGroup[photo]}" width="48" /></div>
+<div class="face"><img title="{$strGroup[groupname]}" alt="{$strGroup[groupname]}" src="{$strGroup[photo]}" width="70" height="70" /></div>
+
+
 <div class="title">
+
+
 <h1>{$strGroup[groupname]}</h1>
+
+
 <p><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['count_topic']}</a> 帖子 | <a href="{tsUrl('group','user',array('id'=>$strGroup['groupid']))}">{$strGroup['count_user']}</a> 成员</p>
+
+
+    <p class="c9">
+        创建于 {php echo date('Y-m-d',$strGroup[addtime])}
+        组长：<a href="{tsUrl('user','space',array('id'=>$strLeader[userid]))}"  rel="face" uid="{$strLeader['userid']}">{$strLeader[username]}</a>
+    </p>
+
 </div>
+
+
 <div class="join">
 {if $isGroupUser > 0 && $TS_USER[userid] != $strGroup[userid]}
 <span>我是这个小组的{$strGroup[role_user]} <a href="javascript:void('0')" onclick="exitGroup('{$strGroup['groupid']}')">退出小组</a></span>
@@ -33,13 +48,12 @@
 <span>本小组禁止加入</span>
 {/if}
 </div>
+
+
 </div>
 
 <div class="clear"></div>
-<p class="c9">
-创建于 {php echo date('Y-m-d',$strGroup[addtime])} 
-组长：<a href="{tsUrl('user','space',array('id'=>$strLeader[userid]))}"  rel="face" uid="{$strLeader['userid']}">{$strLeader[username]}</a>
-</p>
+
 <p>{$strGroup[groupdesc]}</p>
 
 {if $strGroup ['tags']}
@@ -55,21 +69,22 @@
 
 
 
-<div class="bbox" style="position: relative;">
-
-<div class="bc box">
-<div class="box_content">
+    <div class="panel panel-default" >
+        <div class="panel-body" style="position: relative;">
 
 
-<div class="topictype">
-<ul>
-<li {if $typeid=="0"}class="on"{/if}><a href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}"><span>全部</span></a></li>
-{loop $arrTopicType $key $item}
-<li {if $typeid==$item[typeid]}class="on"{/if}><a href="{tsUrl('group','show',array('id'=>$strGroup[groupid],typeid=>$item[typeid]))}"><span>{$item[typename]}</span></a></li>
-{/loop}
-</ul>
-</div>
-<div class="clear"></div>
+            <div style="position: absolute;right: 15px;top: 15px;"><a class="btn btn-success" href="{tsUrl('group','add',array('id'=>$strGroup[groupid]))}">发布帖子</a></div>
+
+
+            <ul class="nav nav-pills">
+
+                <li role="presentation" {if $typeid=="0"}class="active"{/if}><a href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">全部</a></li>
+                {loop $arrTopicType $key $item}
+                <li role="presentation" {if $typeid==$item['typeid']}class="active"{/if}><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid'],typeid=>$item['typeid']))}">{$item['typename']}</a></li>
+                {/loop}
+
+            </ul>
+
 
 
 
@@ -125,11 +140,8 @@
 
 <div class="page">{$pageUrl}</div>
 
-</div>
-</div>
 
-
-<div style="position: absolute;right: 10px;top: 10px;"><a class="btn btn-success" href="{tsUrl('group','add',array('id'=>$strGroup[groupid]))}">发布帖子</a></div>
+</div>
 
 
 </div>
@@ -144,9 +156,9 @@
 <div class="col-md-4">
 
 
-<div class="bbox">
-<div class="btitle">小组成员</div>
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-heading">成员</div>
+        <div class="panel-body">
 {loop $arrGroupUser $key $item}
 <dl class="obu">
 <dt><a href="{tsUrl('user','space',array('id'=>$item[userid]))}" rel="face" uid="{$item['userid']}"><img class="img-circle" src="{$item[face]}" width="48" height="48" alt="{$item[username]}" title="{$item[username]}" /></a></dt>
@@ -157,17 +169,22 @@
 </div>
 
 
-<div class="bbox">
-<div class="bc">
 
-{if $TS_USER[userid] == $strGroup[userid] || $TS_USER['isadmin']=='1'}
+
+    {if $TS_USER['userid'] == $strGroup['userid'] || $TS_USER['isadmin']=='1'}
+    <div class="panel panel-default">
+        <div class="panel-heading">管理</div>
+        <div class="panel-body">
+
 <p class="pl2">&gt; <a href="{tsUrl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">小组设置</a></p>
 
 <p class="pl2">&gt; <a href="{tsUrl('group','audit',array('groupid'=>$strGroup[groupid]))}">帖子审核</a>({$strGroup['count_topic_audit']})</p>
-{/if}
+
 
 </div>
 </div>
+
+    {/if}
 
 <div class="clear"></div>
 <!--广告位-->

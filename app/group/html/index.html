@@ -10,10 +10,8 @@
 
 <div class="col-md-8">
 
-<div class="bbox">
-
-
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-body">
 
 
 <ul class="nav nav-pills">
@@ -68,10 +66,11 @@
 {/if}
 
 
-<div class="bbox">
+    <div class="panel panel-default">
+        <div class="panel-heading">热门帖子</div>
+        <div class="panel-body">
 
-<div class="btitle">热门帖子</div>
-<ul class="bc titles">
+<ul class="titles">
 {loop $arrTopic $key $item}
 <li>
 <h3><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}" target="_blank">{$item['title']}</a></h3>
@@ -85,13 +84,13 @@
 </ul>
 
 </div>
+</div>
 
 
-<div class="bbox">
 
-<div class="btitle">最新创建小组</div>
-
-<div class="bc line23">
+    <div class="panel panel-default">
+        <div class="panel-heading">最新创建小组</div>
+        <div class="panel-body line23">
 {if $arrNewGroup}
 {loop $arrNewGroup $key $item}
 <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]})<br>

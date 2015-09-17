@@ -78,6 +78,7 @@ $('#cateid').change(function(){
 <input type="hidden" name="groupid" value="{$strGroup['groupid']}" />
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
 <button class="btn btn-success" type="submit">修改</button>
+    <a class="btn btn-default" href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回小组</a>
 </form>
 
 

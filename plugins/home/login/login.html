@@ -1,7 +1,7 @@
 {if $TS_USER['userid']}
 
-<div class="facebox bbox">
-<div class="bc">
+<div class="facebox panel panel-default">
+<div class="panel-body">
 <div class="face">
 <a href="{tsUrl('user','space',array('id'=>$strUser['userid']))}"><img class="img-circle" title="{$strUser[username]}" alt="{$strUser[username]}" src="{$strUser[face]}" width="48"></a>
 </div>
@@ -48,7 +48,7 @@
 
 
 {else}
-<div class="bbox login">
+<div class="panel panel-default login">
 <form action="{tsUrl('user','login',array('ts'=>'do'))}" method="post">
 <fieldset>
 <legend>登录</legend>

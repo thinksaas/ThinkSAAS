@@ -5,9 +5,9 @@ function recommendgroup(){
 	
 	$arrRecommendGroup = aac('group')->getRecommendGroup('12');
 	
-	echo '<div class="bbox">';
-	echo '<div class="btitle">推荐小组</div>';
-	echo '<div class="bc">';
+	echo '<div class="panel panel-default">';
+	echo '<div class="panel-heading">推荐小组</div>';
+	echo '<div class="panel-body">';
 	foreach($arrRecommendGroup as $key=>$item){
 	$count_user = $item['count_user'];
 	echo '<div class="sub-item">

@@ -42,10 +42,16 @@
 	
 <input type="hidden" name="jump" value="{$jump}" />
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
-      <button id="comm-submit" type="submit" class="btn btn-fat btn-success">登录</button> <a href="{tsUrl('user','register')}">还没有注册？</a> | <a href="{tsUrl('user','forgetpwd')}">忘记密码？</a>
+      <button id="comm-submit" type="submit" class="btn btn-fat btn-success btn-lg btn-block">登录</button>
+
+
+
    
   </div>
 </form>
+
+
+    <p><a href="{tsUrl('user','register')}">还没有注册？</a> | <a href="{tsUrl('user','forgetpwd')}">忘记密码？</a></p>
 
 
 <div>

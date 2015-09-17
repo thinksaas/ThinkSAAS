@@ -1,11 +1,11 @@
 /*最新CSS*/
-.group_show{overflow:hidden;}
+.group_show{overflow:hidden;padding-bottom: 10px;border-bottom: solid 1px #dddddd}
 .group_show .face{float:left;}
 .group_show .face img{}
 .group_show .title{float:left;margin-left:20px;}
-.group_show .title h1{margin:0;padding:0;}
-.group_show .title p{color:#999;}
-.group_show .join{float:left;margin-left:20px;color:#999;}
+.group_show .title h1{font-size:24px;margin:0;padding:0;font-weight: 500}
+.group_show .title p{color:#999;margin: 0;margin-top: 6px;}
+.group_show .join{float:right;margin-left:20px;color:#999;}
 /*最新CSS*/
 
 
@@ -406,7 +406,7 @@ a.mini-share:hover {
 
 
 /*帖子列表*/
-.topic_list{overflow:hidden;}
+.topic_list{overflow:hidden;margin-top: 10px;border-top: solid 1px #dddddd}
 .topic_list ul{overflow:hidden;}
 .topic_list ul li{overflow:hidden;padding:15px 0;display: block;border-bottom: 1px dashed #999999;}
 
