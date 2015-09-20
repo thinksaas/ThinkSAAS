@@ -270,26 +270,7 @@ switch ($ts) {
 		
 		break;
 		
-	//帖子分类
-	case "topic_type":
-	
-		$groupid = intval($_POST['groupid']);
 
-        if($new['group']->isGroupCreater($groupid,$userid)==false){
-            tsNotice("非法操作！");
-        }
-
-		$typename = t($_POST['typename']);
-		if($typename != ''){
-			$new['group']->create('group_topic_type',array(
-				'groupid'=>$groupid,
-				'typename'=>$typename,
-			));
-		}
-		
-		header("Location: ".tsUrl('group','edit',array('groupid'=>$groupid,'ts'=>'type')));
-		
-		break;
 			
 	//回复评论
 	case "recomment":
@@ -349,65 +330,8 @@ switch ($ts) {
 		echo 0;exit;
 		
 		break;
-	
-	//编辑帖子类型
-	case "edit_type":
-		$typeid = intval($_POST['id']);
-		
-		$strType = $new['group']->find('group_topic_type',array(
-			'typeid'=>$typeid,
-		));
-		
-		$strGroup = $new['group']->find('group',array(
-			'groupid'=>$strType['groupid'],
-		));
-		
-		if($strGroup['userid']!=$userid){
-			tsNotice('非法操作！');
-		}
-		
-		$typename = t($_POST['value']);
-		if(empty($typename)){
-			echo '帖子类型不能为空，请点击继续编辑';
-		}else{
-			
-			$new['group']->update('group_topic_type',array(
-				'typeid'=>$typeid,
-			),array(
-				'typename'=>$typename,
-			));
-			
-			echo $typename;
-		}
-		break;
-	//删除帖子类型 
-	case "del_type":
-		$typeid = intval($_POST['typeid']);
-		
-		$strType = $new['group']->find('group_topic_type',array(
-			'typeid'=>$typeid,
-		));
-		
-		$strGroup = $new['group']->find('group',array(
-			'groupid'=>$strType['groupid'],
-		));
-		
-		if($strGroup['userid']!=$userid){
-			echo 1;exit;//非法操作
-		}
-		
-		$new['group']->delete('group_topic_type',array(
-			'typeid'=>$typeid,
-		));
-		
-		$new['group']->update('group_topic',array(
-			'typeid'=>$typeid,
-		),array(
-			'typeid'=>0,
-		));
-		
-		echo '0';
-		break;
+
+
 	
 	case 'parseurl':
 		function formPost($url,$post_data){

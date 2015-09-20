@@ -49,15 +49,10 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 			include template("edit_privacy");
 			
 			break;
-		
-		//友情小组
-		case "friends":
 
-			$title = '编辑友情小组';
-			include template("edit_friends");
-			
-			break;
-			
+
+
+
 		//帖子分类
 		case "type":
 			//调出类型
@@ -69,6 +64,62 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 			include template("edit_type");
 			
 			break;
+
+
+        //添加帖子分类
+        case "typeadd":
+
+            $typename = trim($_POST['typename']);
+            if($typename){
+                $new['group']->create('group_topic_type',array(
+                    'groupid'=>$groupid,
+                    'typename'=>$typename,
+                ));
+            }
+
+            header("Location: ".tsUrl('group','edit',array('ts'=>'type','groupid'=>$groupid)));
+            break;
+
+        //修改帖子分类
+        case "typeedit":
+            $typeid = intval($_POST['typeid']);
+            $typename = trim($_POST['typename']);
+            if($typeid && $typename){
+                $new['group']->update('group_topic_type',array(
+                    'typeid'=>$typeid,
+                    'groupid'=>$groupid,
+                ),array(
+                    'typename'=>$typename,
+                ));
+            }
+            header("Location: ".tsUrl('group','edit',array('ts'=>'type','groupid'=>$groupid)));
+            break;
+
+
+        //删除帖子分类
+        case "typedelete":
+
+            $typeid = intval($_GET['typeid']);
+
+            $new['group']->delete('group_topic_type',array(
+                'typeid'=>$typeid,
+                'groupid'=>$groupid,
+            ));
+
+            $new['group']->update('group_topic',array(
+                'groupid'=>$groupid,
+                'typeid'=>$typeid,
+            ),array(
+                'typeid'=>0,
+            ));
+
+            header("Location: ".tsUrl('group','edit',array('ts'=>'type','groupid'=>$groupid)));
+            break;
+
+
+
+
+
 			
 		//小组分类
 		case "cate":
@@ -160,6 +211,10 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 			header('Location: '.tsUrl('group','edit',array('groupid'=>$groupid,'ts'=>'useraudit')));
 			
 			break;
+
+
+
+
 			
 		
 	}
