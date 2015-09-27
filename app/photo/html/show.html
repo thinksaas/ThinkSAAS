@@ -1,4 +1,11 @@
 {template header}
+
+<style>
+    .page-header {
+        margin: 0px 0 20px;
+    }
+</style>
+
 <div class="container">
 
 
@@ -19,7 +26,12 @@
 
 <div class="panel panel-default">
   <div class="panel-body">
-<h1>{$title}</h1>
+
+
+      <div class="page-header">
+          <h1>{$title} <small></small></h1>
+      </div>
+
 
 <div>
     &gt; <a href="{tsUrl('photo','album',array('id'=>$strAlbum[albumid]))}">返回相册</a>第{$nowPage}张 / 共{$conutPage}张
@@ -66,51 +78,80 @@
 
 
 
-<div id="comments">
 
-<table class="wr" id="c-80243627">
-<tbody>
 
-{loop $arrComment $key $item}
-<tr><td width="75" valign="top"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img src="{$item[user][face]}" width="48" height="48" class="pil"></a>
-</td>
-<td valign="top">
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">用户评论</div>
+        <div class="panel-body">
+
+    <div id="comments">
+
+        <table class="wr" id="c-80243627">
+            <tbody>
+
+            {loop $arrComment $key $item}
+            <tr><td width="75" valign="top"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img src="{$item[user][face]}" width="48" height="48" class="pil"></a>
+            </td>
+                <td valign="top">
 <span class="wrap">
 <h4>{php echo date('Y-m-d H:i:s',$item[addtime])}: <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a></h4>
 </span>{$item[content]}<br>
-<div class="align-right">
+                    <div class="align-right">
 
-{if intval($TS_USER[isadmin]) == 1 || $strPhoto[userid]==$TS_USER[userid]}
-<span class="gact">&gt; <a class="j a_confirm_link" href="{SITE_URL}index.php?app=photo&ac=do&ts=delcomment&commentid={$item[commentid]}">删除</a></span>
-{/if}
+                        {if intval($TS_USER[isadmin]) == 1 || $strPhoto[userid]==$TS_USER[userid]}
+                        <span class="gact">&gt; <a class="j a_confirm_link" href="{SITE_URL}index.php?app=photo&ac=do&ts=delcomment&commentid={$item[commentid]}">删除</a></span>
+                        {/if}
 
-</div>
-</td></tr>
-{/loop}
-</tbody></table>
+                    </div>
+                </td></tr>
+            {/loop}
+            </tbody>
 
-<br><br>
-<h3>你的回应</h3>
-
-<div class="txd">
-
-{if intval($TS_USER[userid]) > 0}
-<form method="POST" action="{SITE_URL}index.php?app=photo&ac=do&ts=comment_do">
-<textarea style="width:500px;height:50px;" name="content"></textarea><br>
-<input type="hidden" value="{$strPhoto[photoid]}" name="photoid">
-<button class="btn btn-success" type="submit">加上去</button>
-</form>
-{else}
-请登录后再评论哦^_^
-{/if}
-
-</div>
-<br>
-</div>
+        </table>
 
 
-</div>
-</div>
+
+
+
+
+            {if intval($TS_USER[userid]) > 0}
+            <form method="POST" action="{SITE_URL}index.php?app=photo&ac=do&ts=comment_do">
+                <textarea class="form-control" name="content"></textarea>
+                <div class="tar">
+<br />
+                    <input type="hidden" value="{$strPhoto[photoid]}" name="photoid">
+                    <button class="btn btn-success" type="submit">加上去</button>
+
+                </div>
+
+            </form>
+            {else}
+            请登录后再评论哦^_^
+            {/if}
+
+
+    </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
 
 
 
@@ -118,15 +159,10 @@
 
 
 <div class="col-md-4">
-<div class="panel panel-default">
-  <div class="panel-body">
 
-  
- {php doAction('gobad','300')}
-  
+    {php doAction('gobad','300')}
 
-</div>
-</div>
+
 </div>
 
 

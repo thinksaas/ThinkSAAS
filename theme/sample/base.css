@@ -196,7 +196,7 @@ color:#999
 .tabnav .select a{color:#666}
 
 .page {
-	margin: 0;
+	margin: 20px 0 10px 0;
 	text-align: center;
 	padding: 5px
 }
@@ -923,3 +923,9 @@ background-image: url(lr_images/jt1.gif);background-repeat:no-repeat;background-
 .carousel-inner>.active a{overflow:hidden;display:block;}
 .carousel-caption{left:0;text-align:right;bottom:0px;padding:0;right:0px;} 
 .carousel-caption a{font-size:14px;color:#fff;padding:10px;}
+
+
+
+.page-header {
+    margin: 0px 0 20px;
+}

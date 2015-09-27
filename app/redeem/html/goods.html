@@ -53,7 +53,11 @@
 <ul>
 {loop $arrUser $key $item}
 <li style="height:auto;">
-<a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{$item['face']}" width="48" height="48" title="{$item['username']}" alt="{$item['username']}"  /></a>
+<a href="{tsUrl('user','space',array('id'=>$item['userid']))}">
+
+    <img class="img-circle" src="{$item['face']}" width="48" height="48" title="{$item['username']}" alt="{$item['username']}"  />
+
+</a>
 <p class="username"><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></p>
 {if $strGoods['return']}
 <p>{if $item['isreturn']}<font color="red">[已返还]</font>{else}

@@ -121,6 +121,35 @@ switch($ts){
 		qiMsg("操作成功！");
 	
 		break;
+
+    //是否审核
+    case "isaudit":
+
+        $albumid = intval($_GET['albumid']);
+
+        $strAlbum = $new['photo']->find('photo_album',array(
+            'albumid'=>$albumid,
+        ));
+
+        if($strAlbum['isaudit']==0){
+
+            $new['photo']->update('photo_album',array(
+                'albumid'=>$albumid,
+            ),array(
+                'isaudit'=>1,
+            ));
+
+        }else{
+            $new['photo']->update('photo_album',array(
+                'albumid'=>$albumid,
+            ),array(
+                'isaudit'=>0,
+            ));
+        }
+
+        qiMsg("操作成功！");
+
+        break;
 		
 	//删除没有图片的相册
 	case "nophoto":
