@@ -25,6 +25,7 @@
 /tslogs
 /plugins/pubs/customer
 /plugins/pubs/haozhi
+/plugins/home/favorite
 /upgrade
 /uploadfile
 .gitignore

@@ -4,8 +4,9 @@ defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 // 用户是否登录
 $userid = aac ( 'user' )->isLogin ();
 
-//无人值守状态下
-if($TS_SITE['isunattended']) tsNotice('客官，俺家主人说了，这个点暂不接收送来的任何帖子，请回吧！如需人工帮助，请直接点击客服留言咨询！');
+//判断发布者状态
+if(aac('user')->isPublisher()==false) tsNotice('不好意思，你还没有权限发布内容！');
+
 
 switch ($ts) {
 	// 发布帖子

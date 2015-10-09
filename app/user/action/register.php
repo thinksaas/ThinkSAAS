@@ -31,6 +31,13 @@ switch($ts){
 		$fuserid = intval($_POST['fuserid']);
 		
 		$authcode = strtolower($_POST['authcode']);
+
+
+        //检测垃圾Email后缀
+        $arrEmail = explode('@',$email);
+        if($arrEmail[1]=='chacuo.net' || $arrEmail[1]=='mail.ru' || $arrEmail[1]=='yandex.ru' || $arrEmail[1]=='yandex.com' || $arrEmail[1]=='027168.net' || $arrEmail[1]=='027168.com'){
+            getJson('Fuck you every day！',$js);
+        }
 		
 		
 		/*禁止以下IP用户登陆或注册*/

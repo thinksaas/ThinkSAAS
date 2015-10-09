@@ -332,6 +332,33 @@ class user extends tsApp{
 			return false;
 		}
 	}
+
+
+    /*
+     * 判断是否允许用户发布内容
+     */
+    public function isPublisher(){
+        $publisher = $GLOBALS['TS_SITE']['publisher'];
+        $userid = intval($GLOBALS['TS_USER']['userid']);
+
+        if($publisher){
+
+            $ispublisher = $this->findCount('user_info',array(
+                'userid'=>$userid,
+                $publisher=>1,
+            ));
+
+            if($ispublisher){
+                return true;
+            }else{
+                return false;
+            }
+
+        }else{
+            return true;
+        }
+
+    }
 	
 	//析构函数
 	public function __destruct(){

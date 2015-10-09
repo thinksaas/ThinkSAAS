@@ -59,11 +59,8 @@
 
 <tr><td>Gzip压缩 :</td><td><input type="radio" {if $strOption[isgzip]=='0'}checked="select"{/if} name="option[isgzip]" value="0" />关闭 <input type="radio" {if $strOption[isgzip]=='1'}checked="select"{/if} name="option[isgzip]" value="1" />开启</td></tr>
 
-<tr><td>无人值守状态 :</td><td><input type="radio" {if $strOption['isunattended']=='0'}checked="select"{/if} name="option[isunattended]" value="0" />关闭 <input type="radio" {if $strOption['isunattended']=='1'}checked="select"{/if} name="option[isunattended]" value="1" />开启 （开启后全站不允许用户发布内容，比如有人半夜乘主人来制造垃圾广告！）</td></tr>
 
-<tr><td>是否允许用户删除自己发布的内容 :</td><td><input type="radio" {if $strOption['isallowdelete']=='0'}checked="select"{/if} name="option[isallowdelete]" value="0" />允许 <input type="radio" {if $strOption['isallowdelete']=='1'}checked="select"{/if} name="option[isallowdelete]" value="1" />不允许 (管理员除外)</td></tr>
 
-<tr><td>是否允许用户修改自己发布的内容 :</td><td><input type="radio" {if $strOption['isallowedit']=='0'}checked="select"{/if} name="option[isallowedit]" value="0" />允许 <input type="radio" {if $strOption['isallowedit']=='1'}checked="select"{/if} name="option[isallowedit]" value="1" />不允许 (管理员除外)</td></tr>
 
 <tr><td>时区:</td><td>
 <select name="option[timezone]">
@@ -74,6 +71,28 @@
 </td>
 </tr>
 </table>
+
+
+<h2>内容设定</h2>
+
+    <table>
+        <tr><td  width="150">用户发布内容权限：</td><td>
+            <input type="radio" name="option[publisher]" value="0" {if $strOption['publisher']=='0'}checked="select"{/if} />注册用户
+            <input type="radio" name="option[publisher]" value="isverify" {if $strOption['publisher']=='isverify'}checked="select"{/if} />仅Email验证用户
+            <input type="radio" name="option[publisher]" value="isrenzheng" {if $strOption['publisher']=='isrenzheng'}checked="select"{/if} />仅手工认证用户
+            <input type="radio" name="option[publisher]" value="isadmin" {if $strOption['publisher']=='isadmin'}checked="select"{/if} />仅管理员
+        </td></tr>
+
+
+        <tr><td>用户修改内容权限 :</td><td><input type="radio" {if $strOption['isallowedit']=='0'}checked="select"{/if} name="option[isallowedit]" value="0" />允许 <input type="radio" {if $strOption['isallowedit']=='1'}checked="select"{/if} name="option[isallowedit]" value="1" />不允许 (管理员除外)</td></tr>
+
+
+        <tr><td>用户删除内容权限 :</td><td><input type="radio" {if $strOption['isallowdelete']=='0'}checked="select"{/if} name="option[isallowdelete]" value="0" />允许 <input type="radio" {if $strOption['isallowdelete']=='1'}checked="select"{/if} name="option[isallowdelete]" value="1" />不允许 (管理员除外)</td></tr>
+
+
+        <tr><td ></td><td></td></tr>
+    </table>
+
 
 <h2>系统主题</h2>
 

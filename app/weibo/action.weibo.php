@@ -7,6 +7,7 @@ class weiboAction extends weibo{
      * 首页
      */
     public function index(){
+
         //dump($GLOBALS);
 
         $page = isset($_GET['page']) ? intval($_GET['page']) : '1';
@@ -39,9 +40,15 @@ class weiboAction extends weibo{
      * 发布唠叨
      */
     public function add(){
+
         $js = intval($_GET['js']);
 
         $userid = aac('user')->isLogin(1);
+
+        //判断发布者状态
+        if(aac('user')->isPublisher()==false) {
+            getJson('不好意思，你还没有权限发布内容！',$js);
+        }
 
         if($_POST['token'] != $_SESSION['token']) {
             getJson('非法操作！',$js);
@@ -130,6 +137,7 @@ class weiboAction extends weibo{
 	 * 发布唠叨图片
 	 */
 	public function photo(){
+
 		$userid = intval($GLOBALS['TS_USER']['userid']);
 
 		if($userid==0){

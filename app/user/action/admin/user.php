@@ -213,5 +213,54 @@ defined('IN_TS') or die('Access Denied.');
 			));
 			
 			qiMsg('操作成功！');
+
+            break;
+
+        //是否手工认证
+        case "isrenzheng":
+            $userid = intval($_GET['userid']);
+            $strUser = $new['user']->find('user_info',array(
+                'userid'=>$userid,
+            ));
+
+
+            //开通认证
+            if($strUser['isrenzheng']==0){
+                $new['user']->update('user_info',array(
+                    'userid'=>$userid,
+                ),array(
+                    'isrenzheng'=>1,
+                ));
+
+
+                //发系统消息
+                $msg_userid = '0';
+                $msg_touserid = $userid;
+                $msg_content = '恭喜你，系统已经通过你的个人信息认证！';
+                aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+
+
+            }
+
+
+            //取消认证
+            if($strUser['isrenzheng']==1){
+
+                $new['user']->update('user_info',array(
+                    'userid'=>$userid,
+                ),array(
+                    'isrenzheng'=>0,
+                ));
+
+                //发系统消息
+                $msg_userid = '0';
+                $msg_touserid = $userid;
+                $msg_content = '很抱歉，系统取消了你的个人信息认证！';
+                aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+
+            }
+
+            qiMsg('操作成功！');
+            break;
 		
 	}

@@ -19,6 +19,8 @@ switch($ts){
 		
 		$topicid	= intval($_POST['topicid']);
 		$content	= tsClean($_POST['content']);
+
+        $ispublic = intval($_POST['ispublic']);
 		
 		
 		
@@ -35,6 +37,7 @@ switch($ts){
 				'topicid'	=> $topicid,
 				'userid'	=> $userid,
 				'content'	=> $content,
+                'ispublic'=>$ispublic,
 				'addtime'=> time(),
 			));
 			

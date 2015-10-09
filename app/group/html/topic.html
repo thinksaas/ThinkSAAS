@@ -90,10 +90,17 @@
 <ul class="comment">
 {if is_array($arrTopicComment)}
 {loop $arrTopicComment $key $item}
+
+
 <li class="clearfix" id="l_{$item[commentid]}">
 <div class="user-face">
 <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}" rel="face" uid="$item[user][userid]"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
 </div>
+
+
+
+
+
 <div class="reply-doc">
 <h4>{php echo date('Y-m-d H:i:s',$item[addtime])}
 	<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}" rel="face" uid="$item[user][userid]" style="margin-left:5px; margin-right:5px;">{$item[user][username]}</a>
@@ -104,9 +111,20 @@
 {if $item[referid] !='0'}
 <div class="recomment"><a href="{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}"><img src="{$item[recomment][user][face]}" width="24" align="absmiddle"></a> <strong><a href="{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}" rel="face" uid="$item[recomment][user][userid]">{$item[recomment][user][username]}</a></strong>：{$item[recomment][content]}</div>
 {/if}
+
+
+
 <p>
-{$item[content]}
+    {if $item['ispublic'] && $item['userid']==$TS_USER['userid'] || $item['ispublic'] && $strTopic['userid']==$TS_USER['userid']}
+    {$item[content]}
+    {elseif  $item['ispublic'] && $item['userid']!=$TS_USER['userid'] || $item['ispublic'] && $strTopic['userid']!=$TS_USER['userid']}
+    <div class="alert alert-warning" role="alert">评论内容不公开显示！</div>
+    {else}
+    {$item[content]}
+    {/if}
 </p>
+
+
 
 <div class="tar">
 {if $strGroupUser}
@@ -127,7 +145,14 @@
 </div>
 </div>
 <div class="clear"></div>
+
+
+
+
 </li>
+
+
+
 {/loop}
 {/if}
 </ul>
@@ -163,6 +188,9 @@
 验证码：<input name="authcode" />
  <img align="absmiddle" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
 {/if}
+
+    是否公开：<input type="radio" name="ispublic" value="0" checked />公开 <input type="radio" name="ispublic" value="1" />不公开
+
 </div>
 
 <div class="submit">

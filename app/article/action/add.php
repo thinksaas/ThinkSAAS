@@ -1,7 +1,11 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
+//判断用户登录
 $userid = aac('user') -> isLogin();
+
+//判断发布者状态
+if(aac('user')->isPublisher()==false) tsNotice('不好意思，你还没有权限发布内容！');
 
 
 switch ($ts) {

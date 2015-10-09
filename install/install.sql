@@ -1,20 +1,23 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.1.4
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 2015-04-26 11:28:18
+-- Host: localhost
+-- Generation Time: 2015-10-09 20:18:06
 -- 服务器版本： 5.6.17
--- PHP Version: 5.5.12
+-- PHP Version: 5.5.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+
 --
--- Database: `thinksaas_svn`
+-- Database: `thinksaas_release`
 --
 
+
 DROP TABLE IF EXISTS `ts_anti_email`, `ts_anti_ip`, `ts_anti_user`, `ts_anti_word`, `ts_article`, `ts_article_cate`, `ts_article_comment`, `ts_article_options`, `ts_article_recommend`, `ts_attach`, `ts_attach_album`, `ts_attach_options`, `ts_cache`, `ts_editor`, `ts_feed`, `ts_feed_options`, `ts_group`, `ts_group_album`, `ts_group_album_topic`, `ts_group_cate`, `ts_group_options`, `ts_group_topic`, `ts_group_topic_add`, `ts_group_topic_collect`, `ts_group_topic_comment`, `ts_group_topic_edit`, `ts_group_topic_type`, `ts_group_user`, `ts_group_user_isaudit`, `ts_home_info`, `ts_location`, `ts_mail_options`, `ts_message`, `ts_photo`, `ts_photo_album`, `ts_photo_comment`, `ts_photo_options`, `ts_redeem_cate`, `ts_redeem_goods`, `ts_redeem_options`, `ts_redeem_user`, `ts_session`, `ts_slide`, `ts_system_options`, `ts_tag`, `ts_tag_article_index`, `ts_tag_group_index`, `ts_tag_photo_index`, `ts_tag_topic_index`, `ts_tag_user_index`, `ts_task`, `ts_task_user`, `ts_user`, `ts_user_follow`, `ts_user_gb`, `ts_user_group`, `ts_user_info`, `ts_user_invites`, `ts_user_open`, `ts_user_options`, `ts_user_role`, `ts_user_score`, `ts_user_score_log`, `ts_weibo`, `ts_weibo_comment`, `ts_weibo_options`;
+
 
 -- --------------------------------------------------------
 
@@ -1081,6 +1084,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_comment` (
   `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片地址',
   `attach` char(32) NOT NULL DEFAULT '' COMMENT '附件地址',
   `attachname` char(64) NOT NULL DEFAULT '' COMMENT '附件名字',
+  `ispublic` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0公开1不公开（仅自己和发帖者可看）',
   `addtime` int(11) DEFAULT '0' COMMENT '回复时间',
   PRIMARY KEY (`commentid`),
   KEY `topicid` (`topicid`),
@@ -1704,6 +1708,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
   `isadmin` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否是管理员',
   `isenable` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否启用：0启用1禁用',
   `isverify` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未验证1验证',
+  `isrenzheng` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否认证0未认证1认证',
   `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否推荐',
   `verifycode` char(11) NOT NULL DEFAULT '' COMMENT '验证码',
   `autologin` char(128) NOT NULL DEFAULT '' COMMENT '自动登陆',
@@ -1714,7 +1719,8 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
   UNIQUE KEY `userid` (`userid`),
   UNIQUE KEY `email_2` (`email`,`autologin`),
   KEY `fuserid` (`fuserid`),
-  KEY `isrecommend` (`isrecommend`)
+  KEY `isrecommend` (`isrecommend`),
+  KEY `isrenzheng` (`isrenzheng`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户';
 
 -- --------------------------------------------------------

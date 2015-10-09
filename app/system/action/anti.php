@@ -162,5 +162,7 @@ switch($ts){
 		
 		include template('anti_cloud');
 		break;
+
+
 		
 }
