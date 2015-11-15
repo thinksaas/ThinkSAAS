@@ -22,36 +22,45 @@
 </ul>
 
 
-<div id="group_content" style="margin-top:10px;">
-
-{loop $arrGroup $key $item}
-<div class="sub-item">
-<div class="pic">
-<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">
-<img src="{if $item[photo]}{php echo tsXimg($item['photo'],'group','120','120',$item['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" alt="{$item[groupname]}" />
-</a>
-<div style="background:#F0F0F0;text-align:center;padding:3px 0;">
-
-{if in_array($item['groupid'],$myGroup)}
-已加入
-{else}
-<a href="javascript:void('0')" onclick="joinGroup('{$item['groupid']}')">+加入</a>
-{/if}
-
-</div>
-</div>
-<div class="info">
-<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a>  <font color="#999999">{$item[count_user]}人加入</font>             
-<p>{$item[groupdesc]}</p>
-</div>
-</div>
-{/loop}
 
 
+            <div class="row" style="margin-top: 20px;">
+                {loop $arrGroup $key $item}
+                <div class="col-md-6">
 
-<div class="clear"></div>
-<div class="page">{$pageUrl}</div>
-</div>
+                    <div class="sub-item">
+                        <div class="pic">
+                            <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">
+                                <img src="{if $item[photo]}{php echo tsXimg($item['photo'],'group','120','120',$item['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" alt="{$item[groupname]}" />
+                            </a>
+                            <div style="background:#F0F0F0;text-align:center;padding:3px 0;">
+
+                                {if in_array($item['groupid'],$myGroup)}
+                                已加入
+                                {else}
+                                <a href="javascript:void('0')" onclick="joinGroup('{$item['groupid']}')">+加入</a>
+                                {/if}
+
+                            </div>
+                        </div>
+                        <div class="info">
+                            <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a>  <font color="#999999">{$item[count_user]}人加入</font>
+                            <p>{$item[groupdesc]}</p>
+                        </div>
+                    </div>
+
+                </div>
+                {/loop}
+            </div>
+
+
+
+
+            <div class="page">{$pageUrl}</div>
+
+
+
+
 </div>
 </div>
 </div>

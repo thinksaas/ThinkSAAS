@@ -430,11 +430,10 @@ a.mini-share:hover {
 /*小组列表*/
 .sub-item{
    border-bottom: 1px dashed #AAAAAA;
-    float: left;
     height: 72px;
     margin: 0 2px 15px 0;
     overflow: hidden;
-    width: 49%;
+    width: 100%;
 	padding-bottom: 15px;
 }
 .sub-item .pic {
