@@ -13,9 +13,9 @@
 
 <div class="col-md-8">
 
-<div class="bbox">
-<div class="btitle">最新文章</div>
-<div class="bc">
+  <div class="panel panel-default">
+    <div class="panel-heading">最新文章</div>
+    <div class="panel-body">
 <div class="clist">
 <ul>
 {loop $arrArticle $key $item}
@@ -55,27 +55,28 @@
 <p></p>
 
 
-<div class="bbox">
-<div class="btitle">文章分类</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">分类</div>
+    <div class="panel-body">
 
-<div class="bc">
 
-<ul class="nav nav-pills nav-stacked" role="tablist">
 {loop $arrCate $key $item}
-<li role="presentation" {if $ac=='cate' && $cateid==$item['cateid']}class="active"{/if}><a href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a></li>
+
+  <a class="btn btn-link" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
+
 {/loop}
-<li role="presentation" {if $ac=='tags'}class="active"{/if}><a href="{tsUrl('article','tags')}">标签</a></li>
+<a class="btn btn-link" href="{tsUrl('article','tags')}">标签</a>
 
-</ul>
 
-</div>
 
 </div>
 
+</div>
 
-<div class="bbox">
-<div class="btitle">推荐阅读</div>
-<div class="bc">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">推荐阅读</div>
+    <div class="panel-body">
 <div class="commlist">
 <ul>
 {loop $arrRecommend $key $item}
@@ -86,9 +87,9 @@
 </div>
 </div>
 
-<div class="bbox">
-<div class="btitle">一周热门</div>
-<div class="bc">
+  <div class="panel panel-default">
+    <div class="panel-heading">一周热门</div>
+    <div class="panel-body">
 <div class="commlist">
 <ul>
 {loop $arrHot7 $key $item}
@@ -99,9 +100,9 @@
 </div>
 </div>
 
-<div class="bbox">
-<div class="btitle">一月热门</div>
-<div class="bc">
+  <div class="panel panel-default">
+    <div class="panel-heading">一月热门</div>
+    <div class="panel-body">
 <div class="commlist">
 <ul>
 {loop $arrHot30 $key $item}
