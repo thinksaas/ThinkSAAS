@@ -443,7 +443,7 @@ fieldset, img {
 /*排行榜页面*/
 .top10{}
 .top10 dl{overflow: hidden;}
-.top10 dl dd{float:left;margin-bottom:15px;margin-left: 0;width:33%;}
+.top10 dl dd{margin-bottom:15px;margin-left: 0;}
 .top10 dl dd h3{background:none repeat scroll 0 0 #F5F5F5;border:1px solid #EEEEEE;margin:0 8px;padding:5px;font-size:12px;position:relative;font-weight: bold;}
 
 .top10 dl dd h3 span{float:right;color:#999999;font-weight:400;position:absolute;right:10px;}
