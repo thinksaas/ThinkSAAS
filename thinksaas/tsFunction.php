@@ -2163,7 +2163,9 @@ function GetUrlToDomain($domain) {
 
     $arrDomain= parse_url($domain);
 
-    $domain = $arrDomain['host'];
+	//print_r($arrDomain);
+
+    $domain = $arrDomain['path'];
 
     $re_domain = '';
     $domain_postfix_cn_array = array('com', 'net', 'org', 'gov', 'edu', 'com.cn', 'cn','cc','me','tv','la','net.cn','org.cn','top','wang','hk','co','pw','ren','asia','biz','gov.cn','tw','com.tw','us','tel','info','website','host','io','press','mobi');

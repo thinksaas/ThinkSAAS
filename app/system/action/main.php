@@ -18,6 +18,5 @@ $systemInfo = array(
 
 //获取域名
 $theAuthUrl = GetUrlToDomain($_SERVER['HTTP_HOST']);
-//echo 111;exit;
 
 include template("main");

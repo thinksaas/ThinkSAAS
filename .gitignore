@@ -28,6 +28,7 @@
 /plugins/home/favorite
 /upgrade
 /uploadfile
+/manual
 .gitignore
 .idea
 .htaccess
