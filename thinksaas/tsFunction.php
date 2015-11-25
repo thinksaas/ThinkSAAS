@@ -2189,3 +2189,19 @@ function GetUrlToDomain($domain) {
 
     return $re_domain;
 }
+
+/*
+ * 对抓去到的内容做简单过滤（过滤空白字符，便于正则匹配）
+ */
+function _prefilter($output) {
+	$output=preg_replace("/\/\/[\S\f\t\v ]*?;[\r|\n]/", "", $output);
+	$output=preg_replace("/\<\!\-\-[\s\S]*?\-\-\>/", "", $output);
+	$output=preg_replace("/\>[\s]+\</", "><", $output);
+	$output=preg_replace("/;[\s]+/", ";", $output);
+	$output=preg_replace("/[\s]+\}/", "}", $output);
+	$output=preg_replace("/}[\s]+/", "}", $output);
+	$output=preg_replace("/\{[\s]+/", "{", $output);
+	$output=preg_replace("/([\s]){2,}/", "$1", $output);
+	$output=preg_replace("/[\s]+\=[\s]+/", "=", $output);
+	return $output;
+}

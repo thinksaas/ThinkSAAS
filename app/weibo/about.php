@@ -14,4 +14,3 @@ return array (
   'issystem' => '1',
   'isappnav'	=> '1',
 );
-?>

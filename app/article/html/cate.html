@@ -57,13 +57,11 @@
 
 <div class="bc">
 
-<ul class="nav nav-pills nav-stacked" role="tablist">
-{loop $arrCate $key $item}
-<li role="presentation" {if $ac=='cate' && $cateid==$item['cateid']}class="active"{/if}><a href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a></li>
-{/loop}
-<li role="presentation" {if $ac=='tags'}class="active"{/if}><a href="{tsUrl('article','tags')}">标签</a></li>
-<li role="presentation" {if $ac=='add'}class="active"{/if}><a href="{tsUrl('article','add')}">写文章</a></li>
-</ul>
+  {loop $arrCate $key $item}
+  <a class="btn btn-link" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
+  {/loop}
+  <a class="btn btn-link" href="{tsUrl('article','tags')}">标签</a>
+  <a class="btn btn-link" href="{tsUrl('article','add')}">写文章</a>
 
 </div>
 

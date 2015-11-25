@@ -1,3 +1,4 @@
+/app/article/action/caiji.php
 /app/ask
 /app/event
 /app/vote
@@ -19,6 +20,7 @@
 /app/bang
 /app/weixin
 /app/news
+/app/yingyonghui
 /cache
 /create_direct_pay_by_user-PHP-UTF-8
 /data
