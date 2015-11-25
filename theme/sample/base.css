@@ -113,7 +113,8 @@ h3,h4,h5,h6 {
 }
 
 .appnav .select {
-	background: #333a40
+	background: #333a40;
+	border-radius: 5px;
 }
 
 .appnav .hot{

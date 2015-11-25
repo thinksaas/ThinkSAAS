@@ -7,6 +7,7 @@
 	width:100%;
     position: relative;
 	overflow:hidden;
+    border-radius: 5px;
 }
 .weiform textarea {
     background: none repeat scroll 0 0 #FFFFFF;
@@ -26,7 +27,6 @@
     float: right;
     font-size: 10pt;
     height: 36px;
-	line-height:36px;
     width: 20%;
 }
 

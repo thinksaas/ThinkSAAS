@@ -402,7 +402,6 @@ fieldset, img {
 .sub-item{
    border-bottom: 1px dashed #AAAAAA;
     float: left;
-    height: 72px;
     margin: 0 2px 15px 0;
     overflow: hidden;
     width: 49%;
@@ -464,3 +463,21 @@ fieldset, img {
 .subform{}
 .subform th{font-size:14px;}
 .subform input[type="text"], .subform input[type="email"], .subform input[type="password"]{height:30px;line-height:30px;font-size:14px;width:200px;}
+
+
+
+
+
+
+.user_space_userinfo{}
+.user_space_userinfo .photo{width:90px;float:left;}
+.user_space_userinfo .info{margin-left:100px;}
+.user_space_userinfo .info .sex{}
+.user_space_userinfo .info .city{}
+.user_space_userinfo .info .about{}
+
+
+.user_space_right_follow{}
+.user_space_right_follow ul{}
+.user_space_right_follow ul .br{border-right:solid 1px #ddd;}
+.user_space_right_follow li{float:left;padding:10px 20px;text-align:center}

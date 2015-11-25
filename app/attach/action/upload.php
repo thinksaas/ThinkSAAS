@@ -54,7 +54,7 @@ switch($ts){
 		//上传
 		$arrUpload = tsUpload($_FILES['Filedata'],$attachid,'attach',array('xls','xlsx','pptx','docx','pdf','jpg','gif','png','rar','zip','doc','ppt','txt'));
 		
-		if($arrUpload){
+		if($arrUpload['size']){
 
 			$new['attach']->update('attach',array(
 				'attachid'=>$attachid,

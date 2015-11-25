@@ -1,24 +1,36 @@
+
+<div class="panel panel-default">
+    <div class="panel-body">
+<div class="user_space_right_follow">
+    <ul>
+        <li class="br">关注了
+            <br />
+            <a href="{tsUrl('user','follow',array('id'=>$strUser['userid']))}">{$strUser['count_follow']} 人</a>
+        </li>
+        <li class="br">关注者<br />
+            <a href="{tsUrl('user','followed',array('id'=>$strUser['userid']))}">{$strUser['count_followed']} 人</a>
+
+        </li>
+
+
+
+        <li >积分<br />{$strUser['count_score']}</li>
+
+
+
+    </ul>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+<!--
 <div class="facebox bbox">
 <div class="bc">
-<div class="face">
-<a href="{tsUrl('user','space',array('id'=>$strUser['userid']))}" rel="face" uid="$strUser[userid]"><img title="{$strUser[username]}" alt="{$strUser[username]}" src="{$strUser[face]}" width="48"></a>
-</div>
-
-<div class="info">
-<h3><a href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">{$strUser[username]}</a></h3>
-<div>
-
-{if $strUser[userid] != $TS_USER[userid]}
-{if $strUser[isfollow]}
-<a class="btn btn-mini" href="javascript:void('0');" onclick="unfollow('{$strUser['userid']}','{$_SESSION['token']}');">取消关注</a>
-{else}
-<a class="btn btn-mini" href="javascript:void('0')" onclick="follow('{$strUser['userid']}','{$_SESSION['token']}');">关注</a>
-{/if}
-<a href="{tsUrl('user','message',array(ts=>add,touserid=>$strUser[userid]))}" rel="nofollow" class="btn btn-mini">发消息</a>
-{/if}
-
-</div>
-</div>
 <div class="clear"></div>
 
 <ul class="other">
@@ -58,15 +70,20 @@ UID:{$strUser[userid]}
 </div>
 </div>
 </div>
+-->
+
+
 
 <div class="clear"></div>
 
-<div class="bbox">
-<div class="btitle">关注的用户<span class="pl">&nbsp;(
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">关注的用户<span class="pl">&nbsp;(
 <a href="{tsUrl('user','follow',array('id'=>$strUser['userid']))}">全部</a>
-) </span>
-</div>
-<div class="bc">
+) </span></div>
+    <div class="panel-body">
+
 {loop $arrFollowUser $key $item}
 <dl class="obu"><dt><a class="nbg" href="{tsUrl('user','space',array('id'=>$item[userid]))}" rel="face" uid="{$item['userid']}"><img alt="{$item[username]}" class="m_sub_img" src="{$item[face]}" width="48" height="48" /></a></dt>
 <dd><a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[username]}</a></dd>
