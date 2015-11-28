@@ -14,9 +14,11 @@
 
 <div class="col-md-8">
 
-<div class="bbox">
-<div class="btitle">{$strCate['catename']}</div>
-<div class="bc">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">{$strCate['catename']}</div>
+    <div class="panel-body">
+
 <div class="clist">
 <ul>
 {loop $arrArticle $key $item}
@@ -52,10 +54,11 @@
 <div class="col-md-4">
 
 
-<div class="bbox">
-<div class="btitle">文章分类</div>
 
-<div class="bc">
+  <div class="panel panel-default">
+    <div class="panel-heading">文章分类</div>
+    <div class="panel-body">
+
 
   {loop $arrCate $key $item}
   <a class="btn btn-link" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
@@ -68,9 +71,9 @@
 </div>
 
 
-<div class="bbox">
-<div class="btitle">推荐阅读</div>
-<div class="bc">
+  <div class="panel panel-default">
+    <div class="panel-heading">推荐阅读</div>
+    <div class="panel-body">
 <div class="commlist">
 <ul>
 {loop $arrRecommend $key $item}
@@ -81,9 +84,9 @@
 </div>
 </div>
 
-<div class="bbox">
-<div class="btitle">一周热门</div>
-<div class="bc">
+  <div class="panel panel-default">
+    <div class="panel-heading">一周热门</div>
+    <div class="panel-body">
 <div class="commlist">
 <ul>
 {loop $arrHot7 $key $item}
@@ -94,9 +97,9 @@
 </div>
 </div>
 
-<div class="bbox">
-<div class="btitle">一月热门</div>
-<div class="bc">
+  <div class="panel panel-default">
+    <div class="panel-heading">一月热门</div>
+    <div class="panel-body">
 <div class="commlist">
 <ul>
 {loop $arrHot30 $key $item}

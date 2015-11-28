@@ -23,14 +23,8 @@
     {template menu}
 
 
-<div class="bbox">
-
-<div class="bc">
-
-
-
-
-
+    <div class="panel panel-default">
+        <div class="panel-body">
 
 
 {loop $arrGroup $key $item}
@@ -59,9 +53,9 @@
 </div>
 
 
-<div class="bbox">
-<div class="btitle">留言板</div>
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-heading">留言板</div>
+        <div class="panel-body">
 
 {if intval($TS_USER['userid']) >0 && intval($TS_USER['userid']) != $strUser['userid']}
 <div class="guest">
@@ -96,7 +90,7 @@
 {loop $arrGuest $key $item}
 <li>
 <a href="{tsUrl('user','space',array('id'=>$item['userid']))}" rel="face" uid="{$item['user']['userid']}">
-<img src="{$item['user']['face']}" alt="{$item['user']['username']}" width="48" height="48" /></a>
+<img class="img-circle" src="{$item['user']['face']}" alt="{$item['user']['username']}" width="48" height="48" /></a>
 
 <div class="content">
 

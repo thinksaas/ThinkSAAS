@@ -617,7 +617,7 @@ color:#999
 	overflow: hidden
 }
 
-.facelist ul li .username{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+.facelist .username{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;text-align: center;}
 
 .of {
 	overflow: hidden

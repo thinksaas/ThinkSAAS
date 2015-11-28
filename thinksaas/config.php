@@ -41,6 +41,24 @@ return array(
 		//'dir'=>array('cache','uploadfile','public'),
 	),
 
+
+	//feed模板数据
+	'feed'=>array(
+		'user_register'=>'',
+		'user_follow'=>'',
+
+		'group_create'=>'',
+		'group_topic_add'=>'',
+		'group_topic_comment'=>'',
+
+		'weibo_add'=>'',
+		'weibo_comment'=>'',
+
+		'article_add'=>'',
+		'article_comment'=>'',
+	),
+
+
 	/* 软件信息
 	 * 奇鸟软件（北京）有限公司
 	 * 请尊重ThinkSAAS版权信息，如需去除请购买ThinkSAAS商业授权

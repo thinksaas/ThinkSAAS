@@ -333,6 +333,14 @@ if (is_file('app/' . $TS_URL['app'] . '/class.' . $TS_URL['app'] . '.php')) {
     include_once 'app/' . $TS_URL['app'] . '/class.' . $TS_URL['app'] . '.php';
     $new[$TS_URL['app']] = new $TS_URL['app']($db);
 
+
+    //在执行action之前加载
+    doAction('beforeAction');
+
+    //全站通用数据加载
+    include 'thinksaas/common.php';
+
+
     if(is_file('app/'.$TS_URL['app'].'/action.'.$TS_URL['app'].'.php')){
         //面向对象的写法
         include_once 'app/'.$TS_URL['app'].'/action.'.$TS_URL['app'].'.php';

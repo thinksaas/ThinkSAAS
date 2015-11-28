@@ -23,12 +23,12 @@
 	
 		<div class="col-md-8">
 
-			<div class="bbox">
+			<div class="panel panel-default">
+				<div class="panel-body">
 
-				
-				<div class="bc">
-				
-<h1>{$strArticle[title]}</h1>
+					<div class="page-header">
+						<h1>{$strArticle[title]}</h1>
+					</div>
 				
 				
 <div class="media mb20">
@@ -77,9 +77,9 @@
 			</div>
 
 
-			<div class="bbox">
-				<div class="btitle">你的回应</div>
-				<div class="bc">
+			<div class="panel panel-default">
+				<div class="panel-heading">你的回应</div>
+				<div class="panel-body">
 					<ul class="comment">
 						{loop $arrComment $key $item}
 						<li class="clearfix">
@@ -144,12 +144,11 @@
 		<div class="col-md-4">
 
             {php doAction('gobad','topic_right_top')}
-		
-		
-<div class="bbox">
-<div class="btitle">文章分类</div>
 
-<div class="bc">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">文章分类</div>
+				<div class="panel-body">
 
 {loop $arrCate $key $item}
 <a class="btn btn-link" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
@@ -161,11 +160,12 @@
 </div>
 
 </div>
-		
 
-			<div class="bbox">
-				<div class="btitle">一周热门</div>
-				<div class="bc commlist">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">一周热门</div>
+				<div class="panel-body">
+				<div class="commlist">
 					<ul>
 						{loop $arrHot7 $key $item}
 						<li><a
@@ -173,19 +173,21 @@
 						{/loop}
 					</ul>
 				</div>
+				</div>
 
 			</div>
 
-			<div class="bbox">
-				<div class="btitle">一月热门</div>
-
-				<div class="bc commlist">
+			<div class="panel panel-default">
+				<div class="panel-heading">一月热门</div>
+				<div class="panel-body">
+				<div class="commlist">
 					<ul>
 						{loop $arrHot30 $key $item}
 						<li><a
 							href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></li>
 						{/loop}
 					</ul>
+				</div>
 				</div>
 
 			</div>

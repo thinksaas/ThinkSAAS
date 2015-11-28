@@ -22,7 +22,7 @@ switch($ts){
 		}
 		
 		$strAlbum['albumname'] = tsTitle($strAlbum['albumname']);
-		$strAlbum['albumdesc'] = tsDecode($strAlbum['albumdesc']);
+		$strAlbum['albumdesc'] = tsTitle($strAlbum['albumdesc']);
 		
 		
 		$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
@@ -116,9 +116,6 @@ switch($ts){
 			'albumid'=>$albumid,
 		));
 		
-		$strAlbum['albumname'] = stripslashes($strAlbum['albumname']);
-		$strAlbum['albumdesc'] = stripslashes($strAlbum['albumdesc']);
-		
 		if($strAlbum['userid'] == $userid || $TS_USER['isadmin']==1) {
 		
 			$title = '修改相册属性-'.$strAlbum['albumname'];
@@ -149,10 +146,10 @@ switch($ts){
 		
 		if($strAlbum['userid']==$userid || $TS_USER['isadmin']==1){
 		
-			$albumname = tsClean($_POST['albumname']);
+			$albumname = trim($_POST['albumname']);
 			if($albumname == '') qiMsg("相册名称不能为空！");
 			
-			$albumdesc = tsClean($_POST['albumdesc']);
+			$albumdesc = trim($_POST['albumdesc']);
 			
 			
 			if($TS_USER['isadmin']==0){
@@ -188,9 +185,6 @@ switch($ts){
 		$strAlbum = $new['photo']->find('photo_album',array(
 			'albumid'=>$albumid,
 		));
-		
-		$strAlbum['albumname'] = stripslashes($strAlbum['albumname']);
-		$strAlbum['albumdesc'] = stripslashes($strAlbum['albumdesc']);
 		
 		if($strAlbum['userid'] != $userid) {
 		
@@ -278,7 +272,7 @@ switch($ts){
 					'photoid'=>$photoid,
 				),array(
 				
-					'photodesc'=>tsClean($item),
+					'photodesc'=>trim($item),
 				
 				));
 			
