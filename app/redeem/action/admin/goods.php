@@ -26,9 +26,6 @@ switch($ts){
 		
 		if($title && $content && $nums){
 			
-			aac('system')->antiWord($title);
-			aac('system')->antiWord($content);
-			
 			$goodsid = $new['redeem']->create('redeem_goods',array(
 				'cateid'=>$cateid,
 				'title'=>$title,
@@ -77,7 +74,7 @@ switch($ts){
 		$goodsid = intval($_POST['goodsid']);
 		$cateid = intval($_POST['cateid']);
 		$title = trim($_POST['title']);
-		$content = trim($_POST['content']);
+		$content = tsClean($_POST['content']);
 		$nums = intval($_POST['nums']);
 		$scores = intval($_POST['scores']);
 		$return = intval($_POST['return']);
