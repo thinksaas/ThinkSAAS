@@ -42,21 +42,17 @@ function loveTopic(tid){
 	var url = siteUrl+'index.php?app=group&ac=do&ts=topic_collect';
 	$.post(url,{topicid:tid},function(rs){
 			if(rs == 0){
-				art.dialog({
-					content : '请登录后再喜欢！',
-					time : 1000
-				})
+
+                tsNotice('请登录后再喜欢');
+
 			}else if(rs == 1){
-				art.dialog({
-					content : '自己不能喜欢自己的帖子哦',
-					time : 1000
-				})		
+
+                tsNotice('自己不能喜欢自己的帖子哦')
 			
 			}else if(rs == 2){
-				art.dialog({
-					content : '你已经喜欢过本帖啦，请不要再次喜欢',
-					time : 1000
-				})	
+
+                tsNotice('你已经喜欢过本帖啦，请不要再次喜欢');
+
 			}else{
 				window.location.reload();
 			}					
@@ -67,19 +63,19 @@ function loveTopic(tid){
 function taoalbum(topicid){
 	$.post(siteUrl+'index.php?app=group&ac=album&ts=topic',{'topicid':topicid},function(rs){
 		if(rs==0){
-			art.dialog({
-				content : '请登陆后再进行淘帖',
-				time : 1000
-			})
+
+            tsNotice('请登陆后再进行淘帖');
+
 		}else if(rs == 1){
-			art.dialog({
-				content : '请创建专辑后再进行淘贴',
-				time : 1000
-			})
+
+            tsNotice('请创建专辑后再进行淘贴');
+
 		}else {
-			art.dialog({
-				content : rs
-			})
+
+
+            tsNotice(rs);
+
+
 		}
 	})
 }
@@ -142,29 +138,17 @@ function loadTopic(userid,page){
 function topicAudit(topicid,token){
 	$.post(siteUrl+'index.php?app=group&ac=ajax&ts=topicaudit',{'topicid':topicid,'token':token},function(rs){
 		if(rs==0){
-			art.dialog({
-				content : '帖子取消审核成功！',
-				time : 1000
-			})
 			
 			window.location.reload();
 			return false;
 		}else if(rs==1){
-		
-			art.dialog({
-				content : '帖子审核成功！',
-				time : 1000
-			})
 			
 			window.location.reload();
 			return false;
 		
 		}else if(rs==2){
-		
-			art.dialog({
-				content : '非法操作！',
-				time : 1000
-			})
+
+            tsNotice('非法操作！');
 		
 		}
 	})
@@ -176,16 +160,10 @@ function setAdmin(groupid,userid,token){
 	$.post(siteUrl+'index.php?app=group&ac=user&ts=manager',{'groupid':groupid,'userid':userid,'token':token},function(rs){
 	
 		if(rs=='0'){
-			art.dialog({
-				content : '非法操作',
-				time : 1000
-			})
+
+            tsNotice('非法操作！')
+
 		}else if(rs=='1'){
-		
-			art.dialog({
-				content : '操作成功！',
-				time : 1000
-			});
 			
 			window.location.reload();
 		
@@ -199,15 +177,13 @@ function setAdmin(groupid,userid,token){
 function kickedGroup(groupid,userid){
 	$.post(siteUrl+'index.php?app=group&ac=kicked',{'groupid':groupid,'userid':userid},function(rs){
 		if(rs=='0'){
-			art.dialog({
-				content : '非法操作',
-				time : 1000
-			});
+
+            tsNotice('非法操作！')
+
 		}else if(rs=='1'){
-			art.dialog({
-				content : '非法操作',
-				time : 1000
-			});
+
+            tsNotice('非法操作！')
+
 		}else{
 			window.location.reload();
 		}
