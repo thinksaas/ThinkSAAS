@@ -22,52 +22,6 @@ switch($ts){
 		
 		break;
 	
-	//小组添加
-	case "add":
-		include template("admin/group_add");
-		break;
-	
-	//小组添加执行
-	case "add_do":
-		$userid = intval($_POST['userid']);
-		$strUser = aac('user')->getOneUser($userid);
-		
-		$groupid = $new['group']->create('group',array(
-			'userid' => $userid,
-			'groupname'	=> t($_POST['groupname']),
-			'groupdesc'	=> tsClean($_POST['groupdesc']),
-			'isrecommend'	=> intval($_POST['isrecommend']),
-			'addtime'	=> time(),
-			'ispost'	=> intval($_POST['ispost']),
-		));
-		
-		//更新group_user索引关系
-		$groupUserNum = $db->once_num_rows("select * from ".dbprefix."group_user where userid='$userid' and groupid='$groupid'");
-		if($groupUserNum > 0){
-		}else{
-			//插入小组成员索引
-			$new['group']->create('group_user',array(
-				'userid'=>$userid,
-				'groupid'=>$groupid,
-			));
-			
-			//计算小组会员数
-			$groupUserNum = $new['group']->findCount('group_user',array(
-				'groupid'=>$groupid,
-			));
-			
-			//更新小组成员统计
-			$new['group']->update('group',array(
-				'groupid'=>$groupid,
-			),array(
-				'count_user'=>$groupUserNum,
-			));
-			
-		}
-		//回到小组管理首页
-		header("Location: ".SITE_URL."index.php?app=group&ac=admin&mg=group&ts=list");
-		break;
-	
 	//小组编辑
 	case "edit":
 		$groupid = intval($_GET['groupid']);
@@ -76,16 +30,13 @@ switch($ts){
 		break;
 	
 	//小组编辑执行
-	case "edit_do":
+	case "editdo":
 		$groupid = intval($_POST['groupid']);
 		
 		$new['group']->update('group',array(
 			'groupid'=>$groupid,
 		),array(
-			'groupname'		=> t($_POST['groupname']),
-			'groupdesc'		=> tsClean($_POST['groupdesc']),
 			'userid'			=> intval($_POST['userid']),
-			'ispost'	=> intval($_POST['ispost']),
 		));
 		
 		qiMsg("小组信息修改成功！");
