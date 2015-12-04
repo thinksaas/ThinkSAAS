@@ -94,7 +94,7 @@
 
 <li class="clearfix" id="l_{$item[commentid]}">
 <div class="user-face">
-<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}" rel="face" uid="$item[user][userid]"><img title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}" rel="face" uid="$item[user][userid]"><img class="img-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
 </div>
 
 
@@ -208,19 +208,49 @@
 
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">推荐帖子</div>
-        <div class="panel-body">
+<div class="row">
+    <div class="col-md-6">
 
-<div class="topic_recommend">
-<ul>
-{loop $arrRecommendTopic $key $item}
-<li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></li>
-{/loop}
-</ul>
-</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">推荐帖子</div>
+            <div class="panel-body">
 
-</div>
+                <div class="commlist">
+                    <ul>
+                        {loop $arrRecommendTopic $key $item}
+                        <li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></li>
+                        {/loop}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">本组热门帖子</div>
+            <div class="panel-body">
+
+
+
+                <div class="commlist">
+                    <ul>
+                        {loop $arrGroupHotTopic $key $item}
+                        <li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></li>
+                        {/loop}
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+    </div>
 </div>
 
 
@@ -249,7 +279,7 @@
 
 
 <div class="panel panel-default">
-<div class="panel-heading">最新帖子</div>
+<div class="panel-heading">热门帖子</div>
 <div class="panel-body commlist">
 <ul>
 {loop $arrHotTopic $key $item}

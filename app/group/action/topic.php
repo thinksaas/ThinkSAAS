@@ -149,6 +149,13 @@ $arrHotTopic = $new['group']->getHotTopic(7);
 $arrRecommendTopic = $new['group']->getRecommendTopic();
 
 
+//本组热门帖子
+$arrGroupHotTopic = $new['group']->findAll('group_topic',array(
+    'groupid'=>$strGroup['groupid'],
+    'isaudit'=>0,
+),'count_view desc',null,10);
+
+
 $sitedesc = cututf8(t($strTopic['content']),0,100);
 
 include template('topic');

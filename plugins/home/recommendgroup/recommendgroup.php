@@ -13,7 +13,7 @@ function recommendgroup(){
 	echo '<div class="sub-item">
 	<div class="pic">
 	<a href="'.tsUrl('group','show',array('id'=>$item[groupid])).'">
-	<img src="'.$item['photo'].'" alt="'.$item['groupname'].'" title="'.$item['groupname'].'" />
+	<img class="img-rounded" src="'.$item['photo'].'" alt="'.$item['groupname'].'" title="'.$item['groupname'].'" />
 	</a>
 	</div>
 	<div class="info">
