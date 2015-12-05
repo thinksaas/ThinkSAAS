@@ -14,8 +14,8 @@
 <div class="col-md-8">
 
 
-<div class="bbox">
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-body">
 <li class="mbtl">
 <a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}"><img class="img-circle" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="48" /></a>
 </li>
@@ -36,11 +36,12 @@
 </div>
 
 
-<div class="bbox">
 
-<div class="btitle">回复({$strWeibo['count_comment']})</div>
+    <div class="panel panel-default">
+        <div class="panel-heading">回复({$strWeibo['count_comment']})</div>
+        <div class="panel-body">
 
-<div class="bc">
+
 <ul class="comment">
 {loop $arrComment $key $item}
 <li class="clearfix">
@@ -67,7 +68,7 @@
 
 <div>
 <form method="post" class="form text-form" action="{SITE_URL}index.php?app=weibo&ac=addcomment" enctype="multipart/form-data">
-<textarea class="form-control" rows="3" name="content"></textarea>
+<textarea class="form-control" rows="2" name="content"></textarea>
 <div style="padding:5px 0;">
 <input type="hidden" name="weiboid" value="{$strWeibo['weiboid']}" />
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
@@ -88,8 +89,10 @@
 
 <div class="col-md-4">
 
-<div class="facebox bbox">
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+    <div class="facebox">
 <div class="face">
 <a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}" rel="face" uid="$strWeibo[user][userid]"><img class="img-circle" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="48"></a>
 </div>
@@ -98,6 +101,10 @@
 <h3><a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}">{$strWeibo[user][username]}</a></h3>
 <div><a class="btn btn-success btn-sm" href="javascript:void('0')" onclick="follow('{$strWeibo['user']['userid']}','{$_SESSION['token']}');">关注</a></div>
 </div>
+    </div>
+
+
+
 </div>
 </div>
 

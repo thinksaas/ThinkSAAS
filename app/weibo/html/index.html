@@ -33,18 +33,18 @@ function doUpload() {
 <div class="col-md-8">
 
 
-<div class="bbox">
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-body">
 
 <div>
 <form id="comm-form" method="post" class="form text-form" action="{SITE_URL}index.php?app=weibo&ac=add" enctype="multipart/form-data">
-<textarea class="form-control" rows="3" id="content" name="content"></textarea>
+<textarea class="form-control" rows="2" id="content" name="content"></textarea>
 
 <div style="padding:5px 0;">
 
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
 
-<a href="javascript:void('0');" id="upload" onclick="doUpload()">[图片]</a> 
+<a href="javascript:void('0');" id="upload" onclick="doUpload()"><span class="glyphicon glyphicon-picture fs20"></span></a>
 
 <div class="fr"><button  class="btn btn-success"  type="submit">唠叨一下</button></div>
 

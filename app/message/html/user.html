@@ -1,9 +1,23 @@
 {template header}
-<div class="midder">
-<div class="mc">
-<div class="bbox mh400">
+<div class="container">
+<div class="row">
 
-{template menu}
+
+
+    <div class="col-md-2">
+        <div class="my_left">
+
+            {php include pubTemplate("my")}
+
+        </div>
+    </div>
+
+
+    <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                {template menu}
 
 
 <div class="usermsg">
@@ -20,15 +34,20 @@
 
 <div class="sendbox">
 <p>和<span style="color:#0066cc;">{$strTouser[username]}</span>进行及时消息通话中</p>
-<p><textarea id="boxcontent"></textarea> </p>
+<p><textarea class="form-control" id="boxcontent"></textarea> </p>
 <p>
-<span id="sendbutton" style="display:block;"><a class="btn" href="javascript:void('0');" onclick="window.parent.sendmsg('{$TS_USER[userid]}','{$strTouser[userid]}');">发送</a></span>
+<span id="sendbutton" style="display:block;"><a class="btn btn-success" href="javascript:void('0');" onclick="window.parent.sendmsg('{$TS_USER[userid]}','{$strTouser[userid]}');">发送</a></span>
 <span id="loading" style="display:none;">消息送达中<img src="{SITE_URL}app/{$app}/skins/{$skin}/loading.gif" alt="Loading..." /></span>
 </p>
 </div>
 
 
 </div>
+</div>
+</div>
+
+
+
 </div>
 </div>
 
