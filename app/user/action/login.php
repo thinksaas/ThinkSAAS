@@ -3,7 +3,9 @@ defined('IN_TS') or die('Access Denied.');
 //程序主体
 switch($ts){
 	case "":
-		if(intval($TS_USER['userid']) > 0) tsNotice("已经登陆啦!");
+		if(intval($TS_USER['userid']) > 0) {
+            header('Location: '.SITE_URL);exit;
+        }
 		
 		//记录上次访问地址
 		$jump = $_SERVER['HTTP_REFERER'];

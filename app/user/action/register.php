@@ -4,7 +4,9 @@ defined('IN_TS') or die('Access Denied.');
 //用户注册
 switch($ts){
 	case "":
-		if(intval($TS_USER['userid']) > 0) tsNotice("请退出后再注册！");
+		if(intval($TS_USER['userid']) > 0) {
+            header('Location: '.SITE_URL);exit;
+        }
 		
 		//邀请用户ID
 		$fuserid = intval($_GET['fuserid']);
