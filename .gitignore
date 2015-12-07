@@ -28,7 +28,7 @@
 /plugins/pubs/customer
 /plugins/pubs/haozhi
 /plugins/home/favorite
-/upgrade
+#/upgrade
 /uploadfile
 /manual
 .gitignore
