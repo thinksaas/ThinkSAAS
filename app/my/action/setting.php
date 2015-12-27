@@ -65,10 +65,22 @@ switch($ts){
 			aac('system')->antiWord($username);
 			aac('system')->antiWord($signed);
 			aac('system')->antiWord($phone);
-			aac('system')->antiWord($blog);
+			//aac('system')->antiWord($blog);
 			aac('system')->antiWord($about);
 			//过滤内容结束
 		}
+
+
+        //签名中禁止写URL,Email
+        if(filter_var($signed, FILTER_SANITIZE_URL) || filter_var($signed, FILTER_VALIDATE_EMAIL)){
+            tsNotice('签名不合法！请修改后再提交！');
+        }
+
+        if(filter_var($about, FILTER_SANITIZE_URL) || filter_var($about, FILTER_VALIDATE_EMAIL)){
+            tsNotice('个人介绍不合法！请修改后再提交！');
+        }
+
+
 		
 		//更新数据
 		$new['my']->update('user_info',array(
@@ -78,7 +90,6 @@ switch($ts){
 			'sex'	=> $sex,
 			'signed'	=> $signed,
 			'phone'	=> $phone,
-			'blog'	=> $blog,
 			'about' => $about,
 		));
 
