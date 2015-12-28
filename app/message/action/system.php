@@ -6,21 +6,14 @@ defined('IN_TS') or die('Access Denied.');
 $userid = '0';
 $touserid= aac('user')->isLogin();
 
-$arrMessages = $new['message']->findAll('message',array(
+$arrMessage = $new['message']->findAll('message',array(
 	'userid'=>0,
 	'touserid'=>$touserid,
 ),'addtime desc',null,10);
 
-$pattern='/(http:\/\/|https:\/\/|ftp:\/\/)([\w:\/\.\?=&-_]+)/is';
-
-if(is_array($arrMessages)){
-	foreach($arrMessages as $key=>$item){
-		$arrMessage[] = $item;
-		$arrMessage[$key]['content'] = nl2br(@preg_replace($pattern, '<a href="\1\2">\1\2</a>', $item['content']));
-		$arrMessage[$key]['content'] = stripslashes(str_replace('[SITE_URL]',SITE_URL,$arrMessage[$key]['content']));
-	}
+foreach($arrMessage as $key=>$item){
+    $arrMessage[$key]['content'] = tsTitle($item['content']);
 }
-
 
 //isread设为已读
 $new['message']->update('message',array(

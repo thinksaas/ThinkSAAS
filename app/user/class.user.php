@@ -61,7 +61,14 @@ class user extends tsApp{
 			if($strUser){
 			
 				$strUser['username'] = tsTitle($strUser['username']);
-			
+				$strUser['email'] = tsTitle($strUser['email']);
+				$strUser['phone'] = tsTitle($strUser['phone']);
+				$strUser['province'] = tsTitle($strUser['province']);
+				$strUser['city'] = tsTitle($strUser['city']);
+				$strUser['signed'] = tsTitle($strUser['signed']);
+				$strUser['about'] = tsTitle($strUser['about']);
+				$strUser['address'] = tsTitle($strUser['address']);
+
 				if($strUser['face'] && $strUser['path']){
 					$strUser['face'] = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1);
 				}elseif($strUser['face'] && $strUser['path']==''){

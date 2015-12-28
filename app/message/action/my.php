@@ -8,7 +8,7 @@ $arrMsg = $new['message']->findAll('message',array(
 ));
 
 foreach($arrMsg as $key=>$item){
-	$arrMsg[$key]['content'] = str_replace('[SITE_URL]',SITE_URL,$item['content']);
+	$arrMsg[$key]['content'] = tsTitle($item['content']);
 	if($item['userid']){
 		$arrMsg[$key]['user'] = aac('user')->getOneUser($item['userid']);
 	}

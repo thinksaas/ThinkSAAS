@@ -5,6 +5,6 @@ defined('IN_TS') or die('Access Denied.');
 	 */
 	require_once THINKDATA."/config.inc.php";
 	
-	$TS_APP['options']['appname'] = '动态';
+	$TS_APP['appname'] = '动态';
 	
 	$skin = 'default';

@@ -16,17 +16,16 @@ if($msgCount ==0) {
 	exit;
 };
 
-$arrMessages = $new['message']->findAll('message',"(userid='$userid' and touserid='$touserid') or (userid='$touserid' and touserid='$userid')",'addtime desc',null,10);
+$arrMessage = $new['message']->findAll('message',"(userid='$userid' and touserid='$touserid') or (userid='$touserid' and touserid='$userid')",'addtime desc',null,10);
 
-if(is_array($arrMessages)){
-	foreach($arrMessages as $key=>$item){
-		$arrMessage[] = $item;
-		$arrMessage[$key]['user'] = aac('user')->getOneUser($item['userid']);
-		$arrMessage[$key]['content'] = urlcontent($item['content']);
-	}
-	
-	$arrMessage = array_reverse($arrMessage);
+
+foreach($arrMessage as $key=>$item){
+    $arrMessage[$key]['user'] = aac('user')->getOneUser($item['userid']);
+    $arrMessage[$key]['content'] = tsTitle($item['content']);
 }
+
+$arrMessage = array_reverse($arrMessage);
+
 
 //isread设为已读
 $new['message']->update('message',array(

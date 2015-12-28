@@ -25,7 +25,7 @@ switch($ts){
 	
 		$msg_userid = $userid;
 		$msg_touserid = intval($_POST['touserid']);
-		$msg_content = tsFilter($_POST['content']);
+		$msg_content = trim($_POST['content']);
 		
 		aac('system')->antiWord($msg_content);
 		
