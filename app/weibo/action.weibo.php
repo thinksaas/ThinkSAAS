@@ -129,7 +129,7 @@ class weiboAction extends weibo{
 
         $pageUrl = pagination($commentNum, 20, $page, $url);
 
-        $title = '微博#'.$weiboid;
+        $title = cututf8(t(tsDecode($strWeibo['content'])),0,100,false);
 
         include template('show');
     }
