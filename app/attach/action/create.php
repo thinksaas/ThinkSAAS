@@ -18,7 +18,7 @@ switch($ts){
 	case "do":
 	
 		$title = trim($_POST['title']);
-		$content = tsClean($_POST['content']);
+		$content = trim($_POST['content']);
 		
 		if (intval ( $TS_USER ['isadmin'] ) == 0) {
 			// 过滤内容开始

@@ -14,7 +14,7 @@ $strAttach['album'] = $new['attach']->find('attach_album',array(
 ));
 
 $strAttach['album']['title'] = tsTitle($strAttach['album']['title']);
-$strAttach['album']['content'] = tsDecode($strAttach['album']['content']);
+$strAttach['album']['content'] = tsTitle($strAttach['album']['content']);
 
 $strAttach['user'] = aac('user')->getOneUser($strAttach['userid']);
 

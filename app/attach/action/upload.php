@@ -13,7 +13,7 @@ switch($ts){
 		));
 		
 		$strAlbum['title'] = tsTitle($strAlbum['title']);
-		$strAlbum['content'] = tsDecode($strAlbum['content']);
+		$strAlbum['content'] = tsTitle($strAlbum['content']);
 		
 		if($strAlbum['userid']==$userid || $TS_USER['isadmin']==1){
 		

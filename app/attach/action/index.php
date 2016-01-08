@@ -6,7 +6,7 @@ defined('IN_TS') or die('Access Denied.');
 $arrAlbum = $new['attach']->findAll('attach_album',array('isaudit'=>0),'addtime desc',null,15);
 foreach($arrAlbum as $key=>$item){
 	$arrAlbum[$key]['title'] = tsTitle($item['title']);
-	$arrAlbum[$key]['content'] = tsDecode($item['content']);
+	$arrAlbum[$key]['content'] = tsTitle($item['content']);
 	$arrAlbum[$key]['user'] = aac('user')->getOneUser($item['userid']);
 	$new['attach'] ->update('attach_album',array(
 			'albumid'=>$item['albumid'],

@@ -24,7 +24,7 @@ switch($ts){
 		}
 		
 		$strAlbum['title'] = tsTitle($strAlbum['title']);
-		$strAlbum['content'] = tsDecode($strAlbum['content']);
+		$strAlbum['content'] = tsTitle($strAlbum['content']);
 		
 		$strAlbum['user']= aac('user')->getOneUser($strAlbum['userid']);
 
@@ -46,8 +46,8 @@ switch($ts){
 			'albumid'=>$albumid,
 		));
 		
-		$strAlbum['title'] = stripslashes($strAlbum['title']);
-		$strAlbum['content'] = tsDecode($strAlbum['content']);
+		$strAlbum['title'] = tsTitle($strAlbum['title']);
+		$strAlbum['content'] = tsTitle($strAlbum['content']);
 		
 		
 		if($strAlbum['userid']==$userid || $TS_USER['isadmin']==1){
@@ -66,8 +66,8 @@ switch($ts){
 			'albumid'=>$albumid,
 		));
 		
-		$title = tsClean($_POST['title']);
-		$content = tsClean($_POST['content']);
+		$title = trim($_POST['title']);
+		$content = trim($_POST['content']);
 		
 		if($title == '' || $content==''){
 			tsNotice('资料库标题和内容不能为空！');
