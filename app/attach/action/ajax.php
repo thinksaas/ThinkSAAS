@@ -82,6 +82,8 @@ switch ($ts) {
 	
 	// 下载
 	case "down" :
+
+        $userid = aac('user')->isLogin();
 		
 		$attachid = intval ( $_GET ['attachid'] );
 		

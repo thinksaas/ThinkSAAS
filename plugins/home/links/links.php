@@ -14,7 +14,7 @@ function links_html(){
 	echo '<div class="panel-heading">友情链接</div>';
 	echo '<div class="panel-body links">';
 	foreach($arrLink as $item){
-		echo '<a target="_blank" href="'.$item['linkurl'].'">'.$item['linkname'].'</a> '; 
+		echo '<a class="btn btn-link" target="_blank" href="'.$item['linkurl'].'">'.$item['linkname'].'</a> ';
 	}
 	echo '</div></div>';
 }
