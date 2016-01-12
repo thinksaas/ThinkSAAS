@@ -54,7 +54,7 @@ switch ($ts) {
 			'groupid'=>$groupid,
 		));
 		
-		if($strGroup['userid']==$userid || $TS_SITE['user']['isadmin']==1){
+		if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 		
 			$groupname = trim($_POST['groupname']);
 			$groupdesc = tsClean($_POST['groupdesc']);
@@ -62,8 +62,11 @@ switch ($ts) {
 			if($groupname=='' || $groupdesc=='') tsNotice("小组名称和介绍都不能为空！");
 			
 			//过滤内容开始
-			aac('system')->antiWord($groupname);
-			aac('system')->antiWord($groupdesc);
+            if($TS_USER['isadmin']!=1){
+                aac('system')->antiWord($groupname);
+                aac('system')->antiWord($groupdesc);
+            }
+
 			//过滤内容结束
 			
 			$isgroupname = $new['group']->findCount('group',array(
