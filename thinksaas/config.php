@@ -72,7 +72,7 @@ return array(
 		'powered' => 'Powered by ThinkSAAS', 
 		'copyright' => '奇鸟软件（北京）有限公司', 
 		'copyurl' => 'http://www.qiniao.com/', 
-		'year' => '2011 - 2015', 
+		'year' => '2011 - 2016',
 		'author' => '邱君',
 	),
 	

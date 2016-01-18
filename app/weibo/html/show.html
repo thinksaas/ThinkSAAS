@@ -84,6 +84,23 @@
 
 
 
+    <div class="panel panel-default">
+        <div class="panel-heading">相关唠叨</div>
+        <div class="panel-body">
+
+
+            <div class="commlist">
+                <ul>
+                    {loop $arrWeibo $key $item}
+                    <li><a href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}">{php echo cututf8(t(tsDecode($item['content'])),0,50,false)}</a></li>
+                    {/loop}
+                </ul>
+            </div>
+
+</div>
+</div>
+
+
 </div>
 
 

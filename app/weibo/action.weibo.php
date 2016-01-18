@@ -129,6 +129,29 @@ class weiboAction extends weibo{
 
         $pageUrl = pagination($commentNum, 20, $page, $url);
 
+
+
+        //他的更多唠叨
+        $arrWeibo = $this->findAll('weibo',array(
+            'userid'=>$strWeibo['userid'],
+        ),'addtime desc',null,20);
+
+        $weiboNum = $this->findCount('weibo',array(
+            'userid'=>$strWeibo['userid'],
+        ));
+
+        if($weiboNum<20){
+
+            $num = 20-$weiboNum;
+            $userid = $strWeibo['userid'];
+            $arrNewWeibo = $this->findAll('weibo',"`userid`!='$userid'",'addtime desc',null,$num);
+
+            $arrWeibo = array_merge($arrWeibo, $arrNewWeibo);
+
+        }
+
+
+
         $title = cututf8(t(tsDecode($strWeibo['content'])),0,100,false);
 
         include template('show');
