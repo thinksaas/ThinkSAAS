@@ -27,6 +27,10 @@
 <span style="color:#42b475;">{php echo date('H:i:s',$item[addtime])}</span>
 <br />
 {$item[content]}
+
+    {if $item['tourl']}
+    <a href="{$item['tourl']}">[点击查看]</a>
+    {/if}
 </li>
 {/loop}
 </ul>

@@ -75,8 +75,9 @@ switch($ts){
 		//发送系统消息(审核通过)
 		$msg_userid = '0';
 		$msg_touserid = $strGroup['userid'];
-		$msg_content = '恭喜你，你申请的小组《'.$strGroup['groupname'].'》审核通过！快去看看吧<br />'.tsUrl('group','show',array('id'=>$groupid));
-		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+		$msg_content = '恭喜你，你申请的小组《'.$strGroup['groupname'].'》审核通过！快去看看吧';
+        $msg_tourl = tsUrl('group','show',array('id'=>$groupid));
+		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 		
 		qiMsg("小组审核通过！");
 		
@@ -94,8 +95,9 @@ switch($ts){
 			//发送系统消息(审核通过)
 			$msg_userid = '0';
 			$msg_touserid = $strGroup['userid'];
-			$msg_content = '恭喜你，你的小组《'.$strGroup['groupname'].'》被推荐啦！快去看看吧<br />'.tsUrl('group','show',array('id'=>$groupid));
-			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+			$msg_content = '恭喜你，你的小组《'.$strGroup['groupname'].'》被推荐啦！快去看看吧';
+            $msg_tourl = tsUrl('group','show',array('id'=>$groupid));
+			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 			
 		}else{
 			

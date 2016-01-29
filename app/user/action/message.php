@@ -30,6 +30,7 @@ switch($ts){
 		aac('system')->antiWord($msg_content);
 		
 		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+
 		header("Location: ".tsUrl('message','my'));
 		
 		break;

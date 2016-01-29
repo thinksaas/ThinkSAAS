@@ -42,7 +42,8 @@ aac('user')->addScore($userid,'积分兑换('.$strGoods['goodsid'].')返还积�
 //系统消息
 $msg_userid = '0';
 $msg_touserid = $userid;
-$msg_content = '你有积分兑换返还'.$strGoods['return'].'积分，快去看看吧：'.tsUrl('redeem','goods',array('id'=>$goodsid));
-aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+$msg_content = '你有积分兑换返还'.$strGoods['return'].'积分，快去看看吧：';
+$msg_torul = tsUrl('redeem','goods',array('id'=>$goodsid));
+aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_torul);
 
 echo '4';exit;

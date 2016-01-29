@@ -66,9 +66,9 @@ switch($ts){
 			
 				$msg_userid = '0';
 				$msg_touserid = $strTopic['userid'];
-				$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ <br /><a href="'.tsUrl('group','topic',array('id'=>$topicid)).'">'
-											.tsUrl('group','topic',array('id'=>$topicid)).'</a>';
-				aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+				$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ ';
+                $msg_tourl = tsUrl('group','topic',array('id'=>$topicid));
+				aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 				
 			}
 			

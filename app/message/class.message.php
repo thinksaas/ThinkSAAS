@@ -15,24 +15,28 @@ class message extends tsApp{
 		parent::__construct($db);
 	}
 	
-	//发送消息
-	public function sendmsg($userid,$touserid,$content){
+
+    /**
+     * 	发送消息
+     * @param $userid       发送者用户ID，0为系统消息
+     * @param $touserid     接收消息的用户ID
+     * @param $content      消息内容
+     * @param string $tourl 消息对应的内容网址
+     */
+    public function sendmsg($userid,$touserid,$content,$tourl=''){
 	
 		$userid = intval($userid);
-		
 		$touserid = intval($touserid);
-		
-		$content = str_replace(SITE_URL,'[SITE_URL]',$content);
-		
 		$content = addslashes(trim($content));
 		
 		if($touserid && $content){
 		
 			$messageid = $this->create('message',array(
 				'userid'		=> $userid,
-				'touserid'		=> $touserid,
-				'content'		=> $content,
-				'addtime'			=> time(),
+				'touserid'	=> $touserid,
+				'content'	=> $content,
+                'tourl'=>$tourl,
+				'addtime'	=> time(),
 			));
 			
 		}

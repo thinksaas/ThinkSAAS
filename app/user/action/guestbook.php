@@ -59,8 +59,9 @@ switch($ts){
 		//发送系统消息
 		$msg_userid = '0';
 		$msg_touserid = $touserid;
-		$msg_content = '有人在你的留言板上留言了哦，快去看看吧！<br />'.tsUrl('user','space',array('id'=>$touserid));
-		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+		$msg_content = '有人在你的留言板上留言了哦，快去看看吧';
+        $msg_tourl = tsUrl('user','space',array('id'=>$touserid));
+		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 		
 		tsNotice('留言成功！');
 		
@@ -93,8 +94,9 @@ switch($ts){
 		//发送系统消息
 		$msg_userid = '0';
 		$msg_touserid = $touserid;
-		$msg_content = '有人在你的留言板上留言了哦，快去看看吧！<br />'.tsUrl('user','space',array('id'=>$touserid));
-		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+		$msg_content = '有人在你的留言板上留言了哦，快去看看吧！';
+        $msg_tourl = tsUrl('user','space',array('id'=>$touserid));
+		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 		tsNotice('回复成功！');
 		break;
 		
