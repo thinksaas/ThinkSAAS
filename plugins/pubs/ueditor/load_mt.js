@@ -3,6 +3,8 @@ var options = {
 	toolbars:[['Bold','link','unlink']],
 	initialFrameWidth:'100%',
 	initialFrameHeight:100,
-	focus:false
+	focus:false,
+    elementPathEnabled:false,
+    wordCount:false
 };
 var ue = UE.getEditor('tseditor', options);
