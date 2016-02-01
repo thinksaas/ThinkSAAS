@@ -98,25 +98,31 @@ function tsPost(url,datas){
 
 jQuery(document).ready(function(){
     $('#comm-form').live('submit', function() {
-		
-    	$.ajax({
+        //alert(event.type);
+        $('button[type="submit"]').html('发送中...');
+        $('button[type="submit"]').attr("disabled", true);
+
+
+        $.ajax({
             cache: true,
             type: "POST",
             url:$(this).prop('action')+'&js=1',
             data:$(this).serialize(),
-			dataType: "json", 
+            dataType: "json",
             async: false,
-			
+
             error: function(request) {
-				tsNotice('请求失败');
+                tsNotice('请求失败');
+                $('button[type="submit"]').removeAttr("disabled");
+                $('button[type="submit"]').html('重新提交');
             },
-			
+
             success: function(rs) {
-			
-				if(rs.status==2 && rs.url){
+
+                if(rs.status==2 && rs.url){
 
 
-					//window.location = rs.url;
+                    //window.location = rs.url;
 
                     //再来个提示
                     tsNotice(rs.data+"<br />3秒后自动跳转...");
@@ -130,19 +136,21 @@ jQuery(document).ready(function(){
 
 
 
-				}else if(rs.status==1){
-					window.location.reload();
-				}else{
-					tsNotice(rs.data);
-				}
-			
+                }else if(rs.status==1){
+                    window.location.reload();
+                }else{
+                    tsNotice(rs.data);
+                    $('button[type="submit"]').removeAttr("disabled");
+                    $('button[type="submit"]').html('重新提交');
+                }
+
             }
         });
-    	return false;
-	
-		
+        return false;
+
+
     });
-	
+
 });
 
 
