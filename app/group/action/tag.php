@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 
 $name = urldecode(tsFilter($_GET['id']));
 
-//$name=mb_convert_encoding($name,'UTF-8', 'GB2312'); 
+//$name=mb_convert_encoding($name,'UTF-8', 'GB2312'); //针对IIS环境可能出现的问题请取消此行注释
 
 $tagid = aac('tag')->getTagId(t($name));
 

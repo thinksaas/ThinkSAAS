@@ -1407,6 +1407,34 @@ function tsUploadUrl($fileurl, $projectid, $dir, $uptypes) {
 	}
 }
 
+
+/**
+ * 拷贝已经上传的文件
+ */
+function tsUploadCopy($dfile,$projectid, $dir){
+	$menu2 = intval($projectid / 1000);
+	$menu1 = intval($menu2 / 1000);
+	$path = $menu1 . '/' . $menu2;
+	$dest_dir = 'uploadfile/' . $dir . '/' . $path;
+	createFolders($dest_dir);
+	$arrType = explode('.', strtolower($dfile));
+	// 转小写一下
+	$type = array_pop($arrType);
+	$name = $projectid . '.' . $type;
+	$dest = $dest_dir . '/' . $name;
+
+	unlink($dest);
+	copy($dfile, $dest);
+	unlink($dfile);
+
+	chmod($dest, 0777);
+	return array(
+		'path' => $path,
+		'url' => $path . '/' . $name
+	);
+}
+
+
 /**
  * 扫描目录
  * @param unknown $dir
