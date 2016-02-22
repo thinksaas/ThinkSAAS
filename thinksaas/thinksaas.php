@@ -35,6 +35,11 @@ set_time_limit(0);
 
 ini_set('session.cookie_path', '/');
 
+//杜绝非本站域名的使用
+if($TS_CF['urllock'] && $_SERVER['SERVER_NAME']!=$TS_CF['urllock']){
+    echo '404 page';exit;
+}
+
 //自定义session存储目录路径
 if ($TS_CF['sessionpath']) {
     ini_set('session.save_path', THINKROOT . '/cache/sessions');

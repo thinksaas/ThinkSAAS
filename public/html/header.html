@@ -59,6 +59,11 @@
 <!--bootstrap 前端验证-->
 <script type="text/javascript" src="{SITE_URL}public/js/bootstrap3-validation.js"></script>
 
+{if $GLOBALS['TS_CF']['urllock']}
+<script type="text/javascript">
+var urllock="$GLOBALS['TS_CF']['urllock']";if(document.domain!=urllock){top.location.href=siteUrl;}
+</script>
+{/if}
 
 <style>
 {php doAction('pub_header_css')}

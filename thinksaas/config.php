@@ -58,6 +58,9 @@ return array(
 		'article_comment'=>'',
 	),
 
+    //域名锁定，防止网站被恶意缓存仿站。例如我的网址是http://www.thinksaas.cn/,只要输入www.thinksaas.cn即可
+    'urllock'=>'',
+
 
 	/* 软件信息
 	 * 奇鸟软件（北京）有限公司
