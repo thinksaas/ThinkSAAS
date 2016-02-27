@@ -14,10 +14,12 @@ switch($ts){
 	case "do":
 	
 
+		$typeid = intval($_POST['typeid']);
 		$title = trim($_POST['title']);
 		$url = trim($_POST['url']);
 		
 		$slideid = $new[$app]->create('slide',array(
+            'typeid'=>$typeid,
 			'title'=>$title,
 			'url'=>$url,
 			'addtime'=>time(),
@@ -55,12 +57,14 @@ switch($ts){
 	case "editdo":
 		
 		$slideid = intval($_POST['slideid']);
+		$typeid = intval($_POST['typeid']);
 		$title = trim($_POST['title']);
 		$url = trim($_POST['url']);
 		
 		$new[$app]->update('slide',array(
 			'slideid'=>$slideid,
 		),array(
+			'typeid'=>$typeid,
 			'title'=>$title,
 			'url'=>$url,
 		));

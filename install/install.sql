@@ -1428,6 +1428,7 @@ CREATE TABLE IF NOT EXISTS `ts_session` (
 
 CREATE TABLE IF NOT EXISTS `ts_slide` (
   `slideid` int(11) NOT NULL AUTO_INCREMENT,
+  `typeid` int(11) NOT NULL DEFAULT '0' COMMENT '类型ID默认0为web端轮播',
   `title` char(128) NOT NULL DEFAULT '',
   `url` char(128) NOT NULL DEFAULT '',
   `path` char(32) NOT NULL DEFAULT '',
@@ -1440,8 +1441,8 @@ CREATE TABLE IF NOT EXISTS `ts_slide` (
 -- 转存表中的数据 `ts_slide`
 --
 
-INSERT INTO `ts_slide` (`slideid`, `title`, `url`, `path`, `photo`, `addtime`) VALUES
-(1, 'ThinkSAAS开源社区', 'http://www.thinksaas.cn', '0/0', '0/0/1.jpg', 1416533676);
+INSERT INTO `ts_slide` (`slideid`, `typeid`, `title`, `url`, `path`, `photo`, `addtime`) VALUES
+  (1, 0, 'ThinkSAAS开源社区', 'http://www.thinksaas.cn', '0/0', '0/0/1.jpg', 1416533676);
 
 -- --------------------------------------------------------
 

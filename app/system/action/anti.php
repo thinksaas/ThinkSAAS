@@ -62,6 +62,36 @@ switch($ts){
 		}
 		
 		break;
+
+    case "worddelall":
+
+        $db->query("TRUNCATE ".dbprefix."anti_word");
+
+        //生成缓存
+        $arrWords = $new['system']->findAll('anti_word');
+        foreach($arrWords as $key=>$item){
+            $arrWord[] = $item['word'];
+        }
+
+        $strWord = '';
+        $count = 1;
+        if(is_array($arrWord)){
+            foreach ($arrWord as $item) {
+                if ($count==1) {
+                    $strWord .= $item;
+                } else {
+                    $strWord .= '|'.$item;
+                }
+                $count++;
+            }
+        }
+
+        fileWrite('system_anti_word.php','data',$strWord);
+        $tsMySqlCache->set('system_anti_word',$strWord);
+
+        qiMsg('删除成功！');
+
+        break;
 	
 	case "worddel":
 		$id = intval($_GET['id']);
