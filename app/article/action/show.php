@@ -21,7 +21,10 @@ if ($strArticle ['isaudit'] == 1) {
 }
 
 $strArticle['title'] = tsTitle($strArticle['title']);
-$strArticle['content'] = tsDecode($strArticle['content']);
+
+$tpUrl = tpPage($strArticle['content'],'article','show',array('id'=>$strArticle['articleid']));
+
+$strArticle['content'] = tsDecode($strArticle['content'],$tp);
 
 $strArticle ['tags'] = aac ( 'tag' )->getObjTagByObjid ( 'article', 'articleid', $articleid );
 $strArticle ['user'] = aac ( 'user' )->getOneUser ( $strArticle ['userid'] );
