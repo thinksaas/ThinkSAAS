@@ -176,7 +176,7 @@ switch($ts){
 		$_SESSION['tsuser']	= $userData;
 		
 		//发送消息
-		aac('message')->sendmsg(0,$userid,'亲爱的 '.$username.' ：<br />您成功加入了 '.$TS_SITE['site_title'].'<br />在遵守本站的规定的同时，享受您的愉快之旅吧!');
+		aac('message')->sendmsg(0,$userid,'亲爱的 '.$username.' ：您成功加入了 '.$TS_SITE['site_title'].'。在遵守本站的规定的同时，享受您的愉快之旅吧!');
 		
 		//注销邀请码并将关注邀请用户
 		if($TS_SITE['isinvite']=='1'){

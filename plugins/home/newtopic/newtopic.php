@@ -9,12 +9,10 @@ function newtopic(){
 	),'uptime desc',null,35);
 	
 	foreach($arrTopics as $key=>$item){
-	
 			$arrTopic[] = $item;
 			$arrTopic[$key]['title']=tsTitle($item['title']);
 			$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 			$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
-		
 	}
 	
 	
