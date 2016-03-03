@@ -167,7 +167,7 @@
 </div>
 {elseif $strGroupUser==''}
 <div class="tac pd20">
-不是本组成员不能回应此贴哦
+不是本组成员不能回应此贴哦！<a class="btn btn-success btn-sm" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">加入小组</a>
 </div>
 {elseif $strTopic[iscomment] == 1 && $strTopic[userid] != $TS_USER[userid]}
 <div class="tac pd20">
