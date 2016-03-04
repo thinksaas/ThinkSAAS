@@ -37,7 +37,7 @@ function newgdcode(obj, url) {
 }
 /*!搜索点击*/
 function searchon() {
-    $("#searchto").click()
+    $("#searchto").submit()
 }
 /*!用户关注*/
 function follow(userid, token) {
