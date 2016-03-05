@@ -931,3 +931,8 @@ background-image: url(lr_images/jt1.gif);background-repeat:no-repeat;background-
 .page-header {
     margin: 0px 0 20px;
 }
+
+
+.pubs_home{background: url('bg-2.jpg') no-repeat;background-size: cover;}
+.pubs_home_login{background: #000000;padding:30px 20px;margin-top:50px;margin-bottom: 20px;}
+.pubs_home_footer{text-align: right;width: 100%;}

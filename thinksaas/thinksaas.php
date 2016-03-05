@@ -225,6 +225,13 @@ if ($TS_CF['logs']) {
     userlog($_GET, intval($TS_USER['userid']));
 }
 
+//控制访客权限
+if($TS_USER=='' && $TS_SITE['visitor'] == 1){
+    if($ac!='home' && $ac!='register' && $ac!='login' && $ac!='forgetpwd' && $ac!='resetpwd'){
+        tsHeaderUrl(tsUrl('pubs','home'));
+    }
+}
+
 //控制前台ADMIN访问权限
 if ($TS_URL['ac'] == 'admin' && $TS_USER['isadmin'] != 1 && $TS_URL['app'] != 'system') {
     tsHeaderUrl(SITE_URL);

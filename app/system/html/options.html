@@ -76,7 +76,18 @@
 <h2>内容设定</h2>
 
     <table>
-        <tr><td  width="150">用户发布内容权限：</td><td>
+
+
+
+        <tr><td  width="150">用户访问内容权限：</td><td>
+            <input type="radio" name="option[visitor]" value="0" {if $strOption['visitor']=='0'}checked="select"{/if} />不需要登录
+            <input type="radio" name="option[visitor]" value="1" {if $strOption['visitor']=='1'}checked="select"{/if} />需要登录
+        </td></tr>
+
+
+
+
+        <tr><td>用户发布内容权限：</td><td>
             <input type="radio" name="option[publisher]" value="0" {if $strOption['publisher']=='0'}checked="select"{/if} />注册用户
             <input type="radio" name="option[publisher]" value="isverify" {if $strOption['publisher']=='isverify'}checked="select"{/if} />仅Email验证用户
             <input type="radio" name="option[publisher]" value="isrenzheng" {if $strOption['publisher']=='isrenzheng'}checked="select"{/if} />仅手工认证用户
