@@ -392,11 +392,12 @@ fieldset, img {
 .guest form{margin-left:10px;float:left;width:480px;}
 
 .glist{}
+.glist ul, .glist ul li{list-style: none;margin:0;padding: 0;}
 .glist ul{}
 .glist ul li{border-bottom: 1px solid #DDDDDD;overflow: hidden;padding: 10px 0;}
-.glist li img{float:left;}
-.glist li .content{margin-left:60px;line-height:25px;}
-.glist li .content p{padding:0px;margin:0;}
+.glist ul li img{float:left;}
+.glist ul li .content{margin-left:60px;line-height:25px;}
+.glist ul li .content p{padding:0px;margin:0;}
 
 /*小组列表*/
 .sub-item{
@@ -423,7 +424,6 @@ fieldset, img {
 }
 .sub-item .pic img {
     height: 48px;
-    margin-bottom: -3px;
     width: 48px;
 }
 .sub-item p {
@@ -446,6 +446,8 @@ fieldset, img {
 .top10 dl dd h3{background:none repeat scroll 0 0 #F5F5F5;border:1px solid #EEEEEE;margin:0 8px;padding:5px;font-size:12px;position:relative;font-weight: bold;}
 
 .top10 dl dd h3 span{float:right;color:#999999;font-weight:400;position:absolute;right:10px;}
+
+.top10 dl dd ul, .top10 dl dd ul li{list-style: none;padding:0;margin:0;}
 
 .top10 dl dd ul{border-top:1px solid #F5F5F5;margin:0 8px;background:#FFFFFF;}
 .top10 dl dd ul li{border-color:#EEEEEE;border-style:solid;border-width:0 1px 1px;margin-bottom:0;padding:7px;clear:both;line-height:20px;word-wrap:break-word;overflow:hidden;}
@@ -478,6 +480,7 @@ fieldset, img {
 
 
 .user_space_right_follow{}
+.user_space_right_follow ul, .user_space_right_follow ul li{list-style: none;margin:0;padding:0;}
 .user_space_right_follow ul{}
 .user_space_right_follow ul .br{border-right:solid 1px #ddd;}
-.user_space_right_follow li{float:left;padding:10px 20px;text-align:center}
+.user_space_right_follow ul li{float:left;padding:10px 20px;text-align:center}

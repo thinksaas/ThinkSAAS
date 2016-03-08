@@ -87,8 +87,8 @@
     <div class="panel panel-default">
         <div class="panel-heading">用户评论({$strTopic['count_comment']})</div>
         <div class="panel-body">
-
-<ul class="comment">
+<div class="comment">
+<ul>
 {if is_array($arrTopicComment)}
 {loop $arrTopicComment $key $item}
 
@@ -157,6 +157,7 @@
 {/loop}
 {/if}
 </ul>
+            </div>
 <div class="page">{$pageUrl}</div>
 
 

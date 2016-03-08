@@ -16,6 +16,9 @@
 
     <div class="panel panel-default">
         <div class="panel-body">
+
+            <div class="weibo_show">
+   <ul>
 <li class="mbtl">
 <a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}"><img class="img-circle" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="48" /></a>
 </li>
@@ -32,7 +35,11 @@
 
 </p>
 </li>
-</div>
+   </ul>
+            </div>
+
+
+        </div>
 </div>
 
 
@@ -41,8 +48,8 @@
         <div class="panel-heading">回复({$strWeibo['count_comment']})</div>
         <div class="panel-body">
 
-
-<ul class="comment">
+<div  class="comment">
+<ul>
 {loop $arrComment $key $item}
 <li class="clearfix">
 <div class="user-face">
@@ -64,9 +71,11 @@
 </li>
 {/loop}
 </ul>
+</div>
 
 
-<div>
+
+
 <form method="post" class="form text-form" action="{SITE_URL}index.php?app=weibo&ac=addcomment" enctype="multipart/form-data">
 <textarea class="form-control" rows="2" name="content"></textarea>
 <div style="padding:5px 0;">
@@ -76,9 +85,6 @@
 </div>
 </form>
 </div>
-</div>
-
-
 </div>
 
 

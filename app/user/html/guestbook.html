@@ -6,12 +6,10 @@
 <div class="col-md-8">
     {template menu}
 
-<div class="bbox">
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-body">
 
 
-
-<p></p>
 
 {if intval($TS_USER['userid']) >0 && intval($TS_USER['userid']) != $strUser['userid']}
 <div class="guest">
@@ -44,10 +42,12 @@
 
 {loop $arrGuestList $key $item}
 <li>
-<a href="{tsUrl('user','space',array('id'=>$item['userid']))}" rel="face" uid="{$item['user']['userid']}"><img src="{$item['user']['face']}" width="48" height="48" /></a>
-<div style="width:520px;">
+<a href="{tsUrl('user','space',array('id'=>$item['userid']))}" rel="face" uid="{$item['user']['userid']}">
+    <img src="{$item['user']['face']}" width="48" height="48" class="img-circle" />
+</a>
+<div class="content">
 <p><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"  rel="face" uid="{$item['user']['userid']}">{$item['user']['username']}</a> {$item['addtime']}</p>
-<div class="content">{php echo nl2br(htmlspecialchars($item['content']))}</div>
+<div>{php echo tsDecode($item['content'])}</div>
 <p style="text-align:right">
 {if intval($TS_USER['userid'] == $strUser['userid'])}
 <a href="#reguest" onclick="reguest('{$item['userid']}','{$item['id']}')">回复</a> <a href="{tsUrl('user','guestbook',array('ts'=>'delete','gbid'=>$item['id']))}" onclick="return confirm('确定删除?')">删除</a>

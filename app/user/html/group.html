@@ -6,17 +6,15 @@
 <div class="col-md-8">
 
     {template menu}
-<div class="bbox">
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-body">
 
-
-<p></p>
 
 {loop $arrGroupList $key $item}
 <div class="sub-item">
 <div class="pic">
 <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">
-<img src="{$item[photo]}" alt="{$item[groupname]}" />
+<img class="img-rounded" src="{$item[photo]}" alt="{$item[groupname]}" />
 </a>
 
 

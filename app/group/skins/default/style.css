@@ -407,6 +407,7 @@ a.mini-share:hover {
 
 /*帖子列表*/
 .topic_list{overflow:hidden;margin-top: 10px;border-top: solid 1px #dddddd}
+.topic_list ul, .topic_list ul li{list-style: none;margin:0;padding:0;}
 .topic_list ul{overflow:hidden;}
 .topic_list ul li{overflow:hidden;padding:15px 0;display: block;border-bottom: 1px dashed #999999;}
 
@@ -464,12 +465,17 @@ a.mini-share:hover {
 /*帖子列表*/
 .titles {
     word-wrap: break-word;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 .titles li {
     border-bottom: 1px dashed #CCCCCC;
     color: #999999;
     overflow: hidden;
     padding: 6px 0;
+    list-style: none;
+    margin: 0;
 }
 .titles h3 {
     color: #666666;
@@ -509,6 +515,7 @@ a.mini-share:hover {
 /*帖子页*/
 .thumbnail{overflow:hidden;}
 .newtopic{}
+.newtopic ul, .newtopic ul li{list-style: none;margin:0;padding:0;}
 .newtopic ul{}
 .newtopic ul li{border-top: 1px dashed #CCCCCC;padding: 5px 0;}
 

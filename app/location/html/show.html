@@ -3,8 +3,8 @@
 <div class="container">
 
 
-<div class="bbox">
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-body">
 
 <div class="location">
 <div class="photo"><img src="{if $strLocation['photo']}{php echo tsXimg($strLocation['photo'],'location','120','120',$strLocation['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" width="90" height="90" alt="{$strLocation['title']}" /></div>
@@ -25,22 +25,25 @@
 <div class="row">
 <div class="col-md-8">
 
-<div class="bbox">
-<div class="btitle">用户</div>
-<div class="bc facelist">
+    <div class="panel panel-default">
+        <div class="panel-heading">同城用户</div>
+        <div class="panel-body">
+        <div class="facelist">
 <ul>
 {loop $arrUser $key $item}
-<li><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{if $item['face']}{php echo tsXimg($item['face'],'user','120','120',$item['path'],1)}{else}{SITE_URL}public/images/user_large.jpg{/if}" alt="{$item['username']}" width="48" height="48" /></a><div><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></div></li>
+<li><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{if $item['face']}{php echo tsXimg($item['face'],'user','120','120',$item['path'],1)}{else}{SITE_URL}public/images/user_large.jpg{/if}" alt="{$item['username']}" width="48" height="48" class="img-circle" /></a><div><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></div></li>
 {/loop}
 </ul>
+</div>
 </div>
 <div class="clear"></div>
 </div>
 
 
-<div class="bbox">
-<div class="btitle">图片</div>
-<div class="bc photo">
+    <div class="panel panel-default">
+        <div class="panel-heading">同城图片</div>
+        <div class="panel-body">
+<div class="photo">
 
 <ul>
 {loop $arrPhoto $key $item}
@@ -54,18 +57,25 @@
 
 </div>
 </div>
+</div>
 
-<div class="bbox">
-<div class="btitle">帖子</div>
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-heading">同城帖子</div>
+        <div class="panel-body">
 
 
-<div class="bc topic_list">
+<div class="topic_list">
 <ul>
 
 {loop $arrTopic $key $item}
 <li>
-<div class="userimg"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img src="{$item[user][face]}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" /></a></div>
+<div class="userimg">
+
+    <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">
+
+        <img class="img-circle" src="{$item[user][face]}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" />
+    </a>
+</div>
 
 <div class="topic_title">
 <div class="title">
@@ -111,14 +121,21 @@
 
 <div class="col-md-4">
 
-<div class="bbox">
-<div class="btitle">唠唠叨叨</div>
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-heading">唠唠叨叨</div>
+        <div class="panel-body">
 
-<ul id="weibo" class="weilist">
+    <div class="weilist">
+<ul id="weibo">
 {loop $arrWeibo $key $item}
 <li>
-<span class="portrait"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img align="absmiddle" class="SmallPortrait" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}"></a></span>
+<span class="portrait">
+
+    <a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">
+
+    <img align="absmiddle" class="img-circle" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}">
+
+</a></span>
 <span class="body">
 <span class="user"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a>：</span><span class="log">{php echo tsDecode($item['content'])}</span>
 {if $item[photo]}
@@ -135,11 +152,13 @@
 
 </div>
 </div>
+</div>
 
 
-<div class="bbox">
-<div class="btitle">文章</div>
-<div class="bc commlist">
+    <div class="panel panel-default">
+        <div class="panel-heading">同城文章</div>
+        <div class="panel-body">
+<div class="commlist">
 
 <ul>
 {loop $arrArticle $key $item}
@@ -149,11 +168,13 @@
 
 </div>
 </div>
+</div>
 
 
-<div class="bbox">
-<div class="btitle">资料</div>
-<div class="bc commlist">
+    <div class="panel panel-default">
+        <div class="panel-heading">同城资料</div>
+        <div class="panel-body">
+<div class="commlist">
 
 <ul>
 {loop $arrAttach $key $item}
@@ -163,11 +184,12 @@
 
 </div>
 </div>
+</div>
 
 
 
-    <div class="bbox">
-        <div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-body">
             <a href="{tsUrl('location','all')}">查看全部同城</a>
             </div>
         </div>

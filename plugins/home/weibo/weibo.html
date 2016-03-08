@@ -10,7 +10,8 @@
 </div>
 
 <div class="clear"></div>
-<ul id="weibolist" class="weilist">
+    <div class="weilist">
+<ul id="weibolist">
 {loop $arrWeibo $key $item}
 <li>
 <span class="portrait"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img align="absmiddle" class="SmallPortrait img-circle" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}"></a></span>
@@ -27,5 +28,6 @@
 </li>
 {/loop}
 </ul>
+</div>
 </div>
 </div>

@@ -10,7 +10,7 @@
 <h1>发送短消息</h1>
 
 <form method="POST" action="{tsUrl('user','message',array('ts'=>'do'))}">
-<table class="commtable">
+<table>
 <tr><th>收件人：</th><td><img alt="{$strTouser[username]}" class="m_sub_img" src="{$strTouser[face]}" width="16" align="absmiddle" /> {$strTouser[username]}</td></tr>
 <tr><th valign="top">内容：</th><td><textarea style="width:450px;height:100px;" name="content"></textarea></td></tr>
 <tr><th></th><td>

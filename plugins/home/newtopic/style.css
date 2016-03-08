@@ -1,5 +1,6 @@
 /*帖子列表*/
 .topic_list{overflow:hidden;}
+.topic_list ul, .topic_list ul li{list-style: none;margin:0;padding:0;}
 .topic_list ul{overflow:hidden;}
 .topic_list ul li{overflow:hidden;padding:15px 0;display: block;border-bottom: 1px dashed #999999;}
 

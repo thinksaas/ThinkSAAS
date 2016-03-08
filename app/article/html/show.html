@@ -84,7 +84,8 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">你的回应</div>
 				<div class="panel-body">
-					<ul class="comment">
+                    <div class="comment">
+					<ul>
 						{loop $arrComment $key $item}
 						<li class="clearfix">
 							<div class="user-face">
@@ -110,6 +111,7 @@
 							</div>
 						</li> {/loop}
 					</ul>
+                    </div>
 
 					<div class="page">{$pageUrl}</div>
 

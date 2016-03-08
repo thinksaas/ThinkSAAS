@@ -18,7 +18,9 @@
 <div class="obss">
 
 {loop $arrUser $key $item}
-<dl class="obu"><dt><a class="nbg" href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img alt="{$item['username']}" title="{$item['username']}" class="m_sub_img" src="{$item['face']}" width="48" height="48"></a></dt>
+<dl class="obu"><dt><a class="nbg" href="{tsUrl('user','space',array('id'=>$item['userid']))}">
+    <img alt="{$item['username']}" title="{$item['username']}" class="img-circle" src="{$item['face']}" width="48" height="48">
+</a></dt>
 <dd><a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[username]}</a></dd></dl>
 {/loop}
 </div>

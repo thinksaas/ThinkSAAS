@@ -1,4 +1,5 @@
 .location_list{}
+.location_list ul, .location_list ul li{list-style: none;margin:0;padding:0;}
 .location_list ul{}
 .location_list ul li{float:left;padding:20px;width:420px;}
 .location_list ul li .photo{float:left;width:100px;}
@@ -15,54 +16,57 @@
 
 
 .photo{}
+.photo ul, .photo ul li{list-style: none;margin:0;padding: 0;}
 .photo ul{}
 .photo ul li{float:left;}
 
 
 .weilist{}
-.weilist  li {
+.weilist ul, .weilist ul li{list-style: none;margin:0;padding:0;}
+.weilist ul li {
     border-bottom: 1px dashed #DDDDDD;
     margin: 0 0 5px;
     padding: 0 0 8px;
 }
-.weilist li .portrait {
+.weilist ul li .portrait {
     float: left;
     padding-top: 3px;
     width: 45px;
 }
-.weilist  li .portrait img {
+.weilist ul  li .portrait img {
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #CCCCCC;
     height: 32px;
     padding: 1px;
     width: 32px;
 }
-.weilist li .body {
+.weilist ul li .body {
     float: left;
     font-size: 9pt;
     overflow: hidden;
     width: 230px;
 }
-.weilist li .user a {
+.weilist ul li .user a {
     color: #6CABE1;
 }
 
-.weilist li .log {
+.weilist ul li .log {
     color: #666666;
     word-break: break-all;
 }
-.weilist li .time {
+.weilist ul li .time {
     color: #9A9A9A;
     display: block;
     margin: 5px 0 0;
 }
-.weilist li .time a {
+.weilist ul li .time a {
     color: #9A9A9A;
     text-decoration: none;
 }
 
 /*帖子列表*/
 .topic_list{overflow:hidden;}
+.topic_list ul, .topic_list ul li{list-style: none;margin:0;padding:0;}
 .topic_list ul{overflow:hidden;}
 .topic_list ul li{overflow:hidden;padding:15px 0;display: block;border-bottom: 1px dashed #999999;}
 
