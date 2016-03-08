@@ -1,9 +1,14 @@
 <?php  
 defined('IN_TS') or die('Access Denied.');
 
+$page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : 1;
+$url = tsUrl ( 'attach', 'index', array ('page' => '') );
+$lstart = $page * 20 - 20;
 
 //资料库
-$arrAlbum = $new['attach']->findAll('attach_album',array('isaudit'=>0),'addtime desc',null,15);
+$arrAlbum = $new['attach']->findAll('attach_album',array(
+    'isaudit'=>0
+),'addtime desc',null,$lstart.',20');
 foreach($arrAlbum as $key=>$item){
 	$arrAlbum[$key]['title'] = tsTitle($item['title']);
 	$arrAlbum[$key]['content'] = tsTitle($item['content']);
@@ -15,12 +20,12 @@ foreach($arrAlbum as $key=>$item){
 	));
 }
 
+$albumNum = $new ['attach']->findCount ( 'attach_album', array (
+    'isaudit' => '0'
+) );
 
-$arrAttach = $new['attach']->findAll('attach',null,'addtime desc',null,20);
-foreach($arrAttachs as $key=>$item){
-	$arrAttach[$key]['user'] = aac('user')->getOneUser($item['userid']);
-	
-}
+$pageUrl = pagination ( $albumNum, 20, $page, $url );
+
 
 $sitekey = $TS_APP['appkey'];
 $sitedesc = $TS_APP['appdesc'];
