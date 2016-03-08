@@ -131,10 +131,10 @@ EOT;
  * @param string $suffix
  * @return string
  */
-function pagination($count, $perlogs, $page, $url, $suffix = '') {
+function pagination($count, $perlogs, $page, $url ,$suffix = '') {
 
 	$urlset = $GLOBALS['TS_SITE']['site_urltype'];
-	if ($urlset == 3) {
+	if ($urlset == 3 && !strpos($url,'index.php')) {
 		$suffix = '.html';
 	}
 

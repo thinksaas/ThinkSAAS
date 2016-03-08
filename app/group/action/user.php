@@ -72,7 +72,7 @@ switch($ts){
 			}
 		}
 
-		$pageUrl = pagination($groupUserNum, 40, $page, $url,$TS_URL['suffix']);
+		$pageUrl = pagination($groupUserNum, 40, $page, $url);
 
 		if($page > '1'){
 			$titlepage = " - 第".$page."页";
