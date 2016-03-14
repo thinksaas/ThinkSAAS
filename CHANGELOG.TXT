@@ -38,6 +38,7 @@ Version 2.5
 1、增加手工认证用户
 2、增加是否开启仅手工认证用户发布内容控制选项
 2、增加帖子私密评论
+ALTER TABLE `ts_slide` ADD `typeid` INT( 11 ) NOT NULL DEFAULT '0' COMMENT '类型ID默认0为web端轮播' AFTER `slideid` ;
 ALTER TABLE `ts_message` ADD `tourl` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '消息跳转地址' AFTER `content`;
 ALTER TABLE `ts_user_info` ADD `isrenzheng` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '是否认证0未认证1认证' AFTER `isverify`;
 ALTER TABLE `ts_user_info` ADD INDEX(`isrenzheng`);
