@@ -10,7 +10,7 @@ $lstart = $page * 10 - 10;
 
 $arrArticles = $new ['article']->findAll ( 'article', array (
 		'isaudit' => '0' 
-), 'addtime desc', null, $lstart . ',10' );
+), 'addtime desc', 'articleid,userid,cateid,title,gaiyao,path,photo,count_comment,count_recommend,count_view,addtime', $lstart . ',10' );
 
 $articleNum = $new ['article']->findCount ( 'article', array (
 		'isaudit' => '0' 
@@ -21,7 +21,6 @@ $pageUrl = pagination ( $articleNum, 10, $page, $url );
 foreach ( $arrArticles as $key => $item ) {
 	$arrArticle [] = $item;
 	$arrArticle [$key]['title'] = tsTitle($item['title']);
-	$arrArticle [$key] ['content'] = cututf8 ( t(tsDecode ( $item ['content'] )), 0, 100 );
 	$arrArticle [$key] ['user'] = aac ( 'user' )->getOneUser ( $item ['userid'] );
 	$arrArticle [$key] ['cate'] = $new ['article']->find ( 'article_cate', array (
 			'cateid' => $item ['cateid'] 

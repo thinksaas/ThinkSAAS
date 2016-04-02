@@ -15,9 +15,6 @@
 }
 .sub-item .pic {
 	float: left;
-    display: table-cell;
-    height: 48px;
-    vertical-align: top;
     width: 48px;
 }
 .sub-item .info {
@@ -26,12 +23,15 @@
     word-wrap: break-word;
 	margin-left:60px;
 }
+
 .sub-item .pic img {
     height: 48px;
     margin-bottom: -3px;
     width: 48px;
 }
+
+.sub-item .info .content{font-size:12px;}
+
 .sub-item p {
     margin: 0;
-	width:220px;
 }

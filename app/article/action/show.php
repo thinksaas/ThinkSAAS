@@ -59,8 +59,10 @@ $pageUrl = pagination ( $commentNum, 10, $page, $url );
 // 标签
 $strArticle ['tags'] = aac ( 'tag' )->getObjTagByObjid ( 'article', 'articleid', $strArticle ['articleid'] );
 
-// 推荐阅读
-$arrArticle = $new ['article']->findAll ( 'article', null, 'addtime desc', null, 10 );
+//最新文章
+$arrArticle = $new ['article']->findAll ( 'article', array(
+    'isaudit'=>0,
+), 'addtime desc', null, 10 );
 
 // 推荐阅读
 $arrRecommend = $new ['article']->getRecommendArticle ();

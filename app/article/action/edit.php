@@ -59,7 +59,8 @@ switch ($ts) {
 		$cateid = intval ( $_POST ['cateid'] );
 		$title = trim ( $_POST ['title'] );
 		$content = tsClean ( $_POST ['content'] );
-		
+		$gaiyao = trim ( $_POST ['gaiyao'] );
+
 		if ($TS_USER ['isadmin'] == 0) {
 			// 过滤内容开始
 			aac ( 'system' )->antiWord ( $title );
@@ -75,7 +76,8 @@ switch ($ts) {
 		), array (		
 			'cateid' => $cateid,
 			'title' => $title,
-			'content' => $content 
+			'content' => $content ,
+			'gaiyao' => $gaiyao
 		));
 		
 		// 处理标签

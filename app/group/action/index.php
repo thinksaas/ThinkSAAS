@@ -11,7 +11,7 @@ $arrGroupCate = $new['group']->findAll('group_cate',array(
 
 // 所有小组
 $page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : '1';
-$lstart = $page * 24 - 24;
+$lstart = $page * 32 - 32;
 $url = tsUrl ( 'group', 'index', array ('page' => '') );
 $arr = array(
 	'isaudit'=>0
@@ -29,7 +29,7 @@ if($cateid){
 	
 }
 
-$arrGroup = $new ['group']->findAll ( 'group', $arr, 'isrecommend desc,addtime asc', null, $lstart . ',24' );
+$arrGroup = $new ['group']->findAll ( 'group', $arr, 'isrecommend desc,addtime asc', null, $lstart . ',32' );
 
 foreach ( $arrGroup as $key => $item ) {
 	$arrGroup [$key] ['groupname'] = tsTitle ( $item['groupname'] );
@@ -38,7 +38,7 @@ foreach ( $arrGroup as $key => $item ) {
 
 $groupNum = $new ['group']->findCount ( 'group',$arr);
 
-$pageUrl = pagination ( $groupNum, 24, $page, $url );
+$pageUrl = pagination ( $groupNum, 32, $page, $url );
 
 // 我加入的小组
 $myGroup = array ();

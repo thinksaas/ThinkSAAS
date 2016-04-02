@@ -626,6 +626,8 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   `cateid` int(11) NOT NULL DEFAULT '0' COMMENT '分类ID',
   `title` char(64) NOT NULL DEFAULT '' COMMENT '标题',
   `content` longtext NOT NULL COMMENT '内容',
+  `tags` varchar(128) NOT NULL DEFAULT '' COMMENT '标签',
+  `gaiyao` varchar(128) NOT NULL DEFAULT '' COMMENT '内容概要',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
   `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片路径',
   `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否审核',
@@ -643,8 +645,9 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   KEY `title` (`title`),
   KEY `count_view` (`count_view`),
   KEY `count_view_2` (`count_view`,`addtime`),
-  KEY `locationid` (`locationid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `locationid` (`locationid`),
+  KEY `tags` (`tags`,`isaudit`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 

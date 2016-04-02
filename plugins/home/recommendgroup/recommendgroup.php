@@ -18,7 +18,7 @@ function recommendgroup(){
 	</div>
 	<div class="info">
 	<a href="'.tsUrl('group','show',array('id'=>$item[groupid])).'">'.$item['groupname'].'</a> ('.$count_user.')             
-	<p>'.cututf8(t($item['groupdesc']),0,50).'</p>
+	<div class="content">'.cututf8(t($item['groupdesc']),0,43,false).'</div>
 	</div>
 	</div>';
 	}

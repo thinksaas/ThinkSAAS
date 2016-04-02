@@ -286,7 +286,37 @@ class group extends tsApp{
         }else{
             return false;
         }
+    }
 
+    /*
+ * 是否小组管理员，仅次于小组组长
+ */
+    public function isGroupAdmin($groupid,$userid){
+        $isAdmin = $this->findCount('group_user',array(
+            'userid'=>$userid,
+            'groupid'=>$groupid,
+            'isadmin'=>1,
+        ));
+        if($isAdmin){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /*
+ * 是否小组成员，被统治阶级
+ */
+    public function isGroupUser($groupid,$userid){
+        $countGroupUser = $this->findCount('group_user',array(
+            'groupid'=>$groupid,
+            'userid'=>$userid,
+        ));
+        if($countGroupUser){
+            return true;
+        }else{
+            return false;
+        }
     }
 	
 	

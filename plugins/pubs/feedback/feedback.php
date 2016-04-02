@@ -35,7 +35,7 @@ function feedback_css(){
     border-left-color: #558BC6;
 }
 .feedback-box a {
-    background: url("'.SITE_URL.'plugins/pubs/feedback/feed-back.png") no-repeat 3px 70px;
+    background: url("'.SITE_URL.'plugins/pubs/feedback/feed-back.png") no-repeat 3px 85px;
     border-left: 1px solid #83ACC6;
     color: #FFFFFF !important;
     display: block;

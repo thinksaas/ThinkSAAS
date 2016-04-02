@@ -2,29 +2,26 @@
 
 <div class="container">
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li><a href="{tsUrl('group')}">小组</a></li>
-  <li class="active">标签</li>
-</ol>
+    <ol class="breadcrumb">
+        <li><a href="{SITE_URL}">首页</a></li>
+        <li><a href="{tsUrl('group')}">小组</a></li>
+        <li class="active">标签</li>
+    </ol>
 
-<div class="bbox">
+    <div class="panel panel-default">
+        <div class="panel-heading">全部标签</div>
+        <div class="panel-body">
 
-<div class="bc">
+            <div>
+                {loop $arrTag $key $item}
+                <a class="btn btn-link" href="{tsUrl('group','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
+                {/loop}
 
-<h1>标签</h1>
+            </div>
 
-<div class="tags">
-{loop $arrTag $key $item}
-<a href="{tsUrl('group','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
-{/loop}
-
-</div>
-<div class="clear"></div>
-<div style="height:30px;"></div>
-<div class="page">{$pageUrl}</div>
-</div>
-</div>
+            <div class="page">{$pageUrl}</div>
+        </div>
+    </div>
 
 
 

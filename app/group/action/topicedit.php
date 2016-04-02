@@ -74,6 +74,15 @@ switch($ts){
 		if($_POST['token'] != $_SESSION['token']) {
 			tsNotice('非法操作！');
 		}
+
+
+        $authcode = strtolower ( $_POST ['authcode'] );
+
+        if ($TS_SITE['isauthcode']) {
+            if ($authcode != $_SESSION ['verify']) {
+                tsNotice ( "验证码输入有误，请重新输入！" );
+            }
+        }
 		
 		$topicid = intval($_POST['topicid']);
 		$typeid = intval($_POST['typeid']);

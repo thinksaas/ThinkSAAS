@@ -108,10 +108,10 @@ class tsApp {
 				$condition = $this->escape ( $condition );
 				$join [] = "`{$key}` = {$condition}";
 			}
-			$where = "WHERE ( " . join ( " AND ", $join ) . ")";
+			$where = "WHERE  " . join ( " AND ", $join ) . "";
 		} else {
 			if (null != $conditions)
-				$where = "WHERE ( " . $conditions . ")";
+				$where = "WHERE  " . $conditions . "";
 		}
 		$sql = "DELETE FROM " . dbprefix . "{$table} {$where}";
 		return $this->db->query ( $sql );

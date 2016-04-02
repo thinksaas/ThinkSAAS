@@ -28,6 +28,7 @@ switch ($ts) {
 		$cateid = intval($_POST['cateid']);
 		$title = trim($_POST['title']);
 		$content = tsClean($_POST['content']);
+		$gaiyao = trim($_POST['gaiyao']);
 		$tag = tsClean($_POST['tag']);
 		$addtime = date('Y-m-d H:i:s');
 
@@ -49,12 +50,26 @@ switch ($ts) {
 			$isaudit = 0;
 		}
 
-		$articleid = $new['article'] -> create('article', array('userid' => $userid, 'locationid' => aac('user') -> getLocationId($userid), 'cateid' => $cateid, 'title' => $title, 'content' => $content, 'isaudit' => $isaudit, 'addtime' => date('Y-m-d H:i:s')));
+        $articleid = $new['article'] -> create('article', array(
+            'userid' => $userid,
+            'locationid' => aac('user') -> getLocationId($userid),
+            'cateid' => $cateid,
+            'title' => $title,
+            'content' => $content,
+            'gaiyao' => $gaiyao,
+            'isaudit' => $isaudit,
+            'addtime' => date('Y-m-d H:i:s')
+        ));
 
 		// 上传帖子图片开始
 		$arrUpload = tsUpload($_FILES['photo'], $articleid, 'article', array('jpg', 'gif', 'png', 'jpeg'));
 		if ($arrUpload) {
-			$new['article'] -> update('article', array('articleid' => $articleid), array('path' => $arrUpload['path'], 'photo' => $arrUpload['url']));
+			$new['article'] -> update('article', array(
+                'articleid' => $articleid
+            ), array(
+                'path' => $arrUpload['path'],
+                'photo' => $arrUpload['url']
+            ));
 		}
 		// 上传帖子图片结束
 

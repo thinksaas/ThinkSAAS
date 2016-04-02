@@ -1,6 +1,5 @@
 body {
-	font-family: Verdana,sans-serif,宋体;
-	font-size: 12px;
+	font-family: '微软雅黑',Helvetica,Arial,Verdana,sans-serif,宋体;
 	margin: 0 auto;
 	color: #434343;
 	background: #eeeff0
@@ -558,10 +557,12 @@ color:#999
 .mh500 {
 	min-height: 500px
 }
+
 .commlist ul, .commlist ul li{list-style: none;margin:0;padding:0;}
 .commlist ul li {
 	padding: 8px;
-	border-bottom: dashed 1px #ddd
+	border-bottom: dashed 1px #ddd;
+    white-space: nowrap;  overflow: hidden;
 }
 
 .facelist ul, .facelist ul li{list-style: none;margin:0;padding:0;}

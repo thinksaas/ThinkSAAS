@@ -1,5 +1,9 @@
 {template header}
-{php doAction('tseditor','mini')} 
+{php doAction('tseditor','mini')}
+<style>
+    .article_show_content{}
+    .article_show_content img{max-width: 100%;}
+</style>
 <div class="container">
 
 <ol class="breadcrumb">
@@ -53,7 +57,7 @@
 
 
 
-					<div class="fs14 lh30">
+					<div class="article_show_content fs14 lh30">
                         {php doAction('gobad','content_top')}
 					{$strArticle[content]}
 
@@ -84,6 +88,8 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">你的回应</div>
 				<div class="panel-body">
+
+                    {if $arrComment}
                     <div class="comment">
 					<ul>
 						{loop $arrComment $key $item}
@@ -112,8 +118,9 @@
 						</li> {/loop}
 					</ul>
                     </div>
-
 					<div class="page">{$pageUrl}</div>
+                    {/if}
+
 
 
 					<div>
@@ -142,6 +149,24 @@
 
 				</div>
 			</div>
+
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">最新文章</div>
+                <div class="panel-body">
+
+                    <div class="commlist">
+                        <ul>
+                            {loop $arrArticle $key $item}
+                            <li><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></li>
+                            {/loop}
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
 
 
 		</div>

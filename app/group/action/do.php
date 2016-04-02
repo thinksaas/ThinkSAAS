@@ -319,15 +319,17 @@ switch ($ts) {
 		if($topicid && $strTopic['userid'] != $TS_USER['userid']){
 			$msg_userid = '0';
 			$msg_touserid = $strTopic['userid'];
-			$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ <br />'.tsUrl('group','topic',array('id'=>$topicid));
-			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+			$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ ';
+            $msg_tourl = tsUrl('group','topic',array('id'=>$topicid));
+			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 		}
 		
 		if($referid && $strComment['userid'] != $TS_USER['userid']){
 			$msg_userid = '0';
 			$msg_touserid = $strComment['userid'];
-			$msg_content = '有人评论了你在帖子：《'.$strTopic['title'].'》中的回复，快去看看给个回复吧^_^ <br />'.tsUrl('group','topic',array('id'=>$topicid));
-			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+			$msg_content = '有人评论了你在帖子：《'.$strTopic['title'].'》中的回复，快去看看给个回复吧^_^ ';
+            $msg_tourl = tsUrl('group','topic',array('id'=>$topicid));
+			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 		}
 		
 		echo 0;exit;
@@ -380,8 +382,9 @@ switch ($ts) {
 				//msg start
 				$msg_userid = '0';
 				$msg_touserid = $strTopic['userid'];
-				$msg_content = '恭喜，你的帖子：《'.$strTopic['title'].'》被评为精华帖啦^_^ <br />'.tsUrl('group','topic',array('id'=>$topicid));
-				aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+				$msg_content = '恭喜，你的帖子：《'.$strTopic['title'].'》被评为精华帖啦^_^ ';
+                $msg_tourl = tsUrl('group','topic',array('id'=>$topicid));
+				aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 				//msg end
 				
 			}else{
@@ -436,9 +439,9 @@ switch ($ts) {
 			//发送系统消息开始
 			$msg_userid = '0';
 			$msg_touserid = $iuserid;
-			$msg_content = '你被邀请加入一个小组，快去看看吧<br />'
-						.tsUrl('group','show',array('id'=>$groupid));
-			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+			$msg_content = '你被邀请加入一个小组，快去看看吧';
+            $msg_tourl = tsUrl('group','show',array('id'=>$groupid));
+			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 			//发送系统消息end
 		
 			header('Location: '.tsUrl('group','show',array('id'=>$groupid)));

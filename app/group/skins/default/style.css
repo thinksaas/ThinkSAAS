@@ -439,18 +439,16 @@ a.mini-share:hover {
 }
 .sub-item .pic {
 	float: left;
-    display: table-cell;
-    vertical-align: top;
     width: 48px;
-	overflow: hidden;
 }
 .sub-item .info {
-    color: #666666;
     vertical-align: top;
     word-wrap: break-word;
-	line-height:20px;
 	margin-left:60px;
 }
+
+.sub-item .info .content{	line-height:20px;font-size: 12px;color:#999999}
+
 .sub-item .pic img {
     height: 48px;
     margin-bottom: -3px;
@@ -458,47 +456,29 @@ a.mini-share:hover {
 }
 .sub-item p {
     margin: 0;
-	width:220px;
 }
 
 
-/*帖子列表*/
-.titles {
+/*热门帖子列表*/
+.group_index_right_hottopic{}
+.group_index_right_hottopic ul {
     word-wrap: break-word;
     list-style: none;
     margin: 0;
     padding: 0;
 }
-.titles li {
+.group_index_right_hottopic ul li {
     border-bottom: 1px dashed #CCCCCC;
     color: #999999;
     overflow: hidden;
-    padding: 6px 0;
+    padding: 10px 0;
     list-style: none;
     margin: 0;
 }
-.titles h3 {
-    color: #666666;
-    float: left;
-	font-size:12px;
-	margin:0;
-}
-.titles-r-grey {
-    color: #999999;
-    float: right;
-}
-.titles-b {
-    color: #999999;
-    overflow: hidden;
-    width: 100%;
-	margin:0;
-}
-.titles-b-l {
-    float: left;
-}
-.titles-b a {
-    color: #999999;
-}
+.group_index_right_hottopic ul li h3 {margin: 0;padding:0;white-space: nowrap;  overflow: hidden;}
+.group_index_right_hottopic ul li .info{overflow: hidden;margin-top: 10px;font-size: 12px;}
+.group_index_right_hottopic ul li .info .left{float: left}
+.group_index_right_hottopic ul li .info .right{float: right}
 
 
 /*小组分类*/

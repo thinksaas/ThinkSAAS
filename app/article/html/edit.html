@@ -42,8 +42,14 @@
     <label>内容：</label>
 <textarea name="content" id="tseditor">{$strArticle['content']}</textarea>
   </div>
-  
-  <div class="form-group">
+
+
+    <div class="form-group">
+        <label>内容概要：</label>
+        <textarea class="form-control" name="gaiyao">{$strArticle['gaiyao']}</textarea>
+    </div>
+
+    <div class="form-group">
     <label>标签：</label>
     <input name="tag" type="text" class="form-control" value="{$strArticle['tag']}">
   </div>
