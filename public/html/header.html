@@ -5,202 +5,209 @@
 <!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class=""> <!--<![endif]-->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta http-equiv="content-language" content="zh-CN" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="applicable-device" content="pc,mobile">
-<meta name="robots" content="all" />
-<meta name="save" content="history" />
-<meta name="author" content="{$GLOBALS['TS_CF'][info][email]}" />
-<meta name="Copyright" content="{$GLOBALS['TS_CF'][info][name]}" />
-<title>{if $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_SITE']['site_title']} - {$title}{elseif $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']!='index'}{$title} - {$GLOBALS['TS_SITE'][site_title]}{elseif  $GLOBALS['TS_URL']['app']!='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE'][site_title]}{else}{$title}_{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE'][site_title]}{/if}
-</title>
-{if  $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']=='index'}
-<meta name="keywords" content="{$GLOBALS['TS_SITE'][site_key]}" /> 
-<meta name="description" content="{$GLOBALS['TS_SITE'][site_desc]}" /> 
-{else}
-{if $sitekey}<meta name="keywords" content="{$sitekey}" /> {/if}
-{if $sitedesc}<meta name="description" content="{$sitedesc}" /> {/if}
-{/if}
-<link rel="shortcut icon" href="{SITE_URL}favicon.ico" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-language" content="zh-CN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="applicable-device" content="pc,mobile">
+    <meta name="robots" content="all" />
+    <meta name="save" content="history" />
+    <meta name="author" content="{$GLOBALS['TS_CF'][info][email]}" />
+    <meta name="Copyright" content="{$GLOBALS['TS_CF'][info][name]}" />
+    <title>{if $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_SITE']['site_title']} - {$title}{elseif $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']!='index'}{$title} - {$GLOBALS['TS_SITE'][site_title]}{elseif  $GLOBALS['TS_URL']['app']!='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE'][site_title]}{else}{$title}_{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE'][site_title]}{/if}
+    </title>
+    {if  $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']=='index'}
+    <meta name="keywords" content="{$GLOBALS['TS_SITE'][site_key]}" />
+    <meta name="description" content="{$GLOBALS['TS_SITE'][site_desc]}" />
+    {else}
+    {if $sitekey}<meta name="keywords" content="{$sitekey}" /> {/if}
+    {if $sitedesc}<meta name="description" content="{$sitedesc}" /> {/if}
+    {/if}
+    <link rel="shortcut icon" href="{SITE_URL}favicon.ico" />
 
-<!-- 新 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="{SITE_URL}public/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="{SITE_URL}theme/sample/base.css" />
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="{SITE_URL}public/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{SITE_URL}theme/sample/base.css" />
 
-{if is_file('app/'.$GLOBALS['TS_URL']['app'].'/skin/style.css')}
-<link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skin/style.css">
-{else}
-<link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skins/default/style.css">
-{/if}
-
-<!--[if lt IE 8]>
-  <link href="{SITE_URL}public/js/oldie.css" rel="stylesheet">
-<![endif]-->
-	<!--[if lt IE 9]>
-<script src="{SITE_URL}public/js/html5shiv.js"></script>
-<![endif]-->
-
-<!--[if IE 8]>
-<script src="{SITE_URL}public/js/respond.min.js"></script>
-<![endif]-->
+    {if is_file('app/'.$GLOBALS['TS_URL']['app'].'/skin/style.css')}
+    <link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skin/style.css">
+    {else}
+    <link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skins/default/style.css">
+    {/if}
 
 
-<script>var siteUrl = '{SITE_URL}'; //网站网址</script>
-<script src="{SITE_URL}public/js/jquery.min.js" type="text/javascript"></script>
+    <!--新风格加载-->
+    {if is_file('theme/'.$tstheme.'/style.css')}
+    <link rel="stylesheet" type="text/css" href="{SITE_URL}theme/{$tstheme}/style.css" id="tsTheme" />
+    {/if}
 
-<!--jquery向下兼容-->
-<script src="{SITE_URL}public/js/jquery-migrate.js" type="text/javascript"></script>
 
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="{SITE_URL}public/bootstrap/js/bootstrap.min.js"></script>
+    <!--[if lt IE 8]>
+    <link href="{SITE_URL}public/js/oldie.css" rel="stylesheet">
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="{SITE_URL}public/js/html5shiv.js"></script>
+    <![endif]-->
 
-<!--bootstrap 前端验证-->
-<script type="text/javascript" src="{SITE_URL}public/js/bootstrap3-validation.js"></script>
+    <!--[if IE 8]>
+    <script src="{SITE_URL}public/js/respond.min.js"></script>
+    <![endif]-->
 
-{if $GLOBALS['TS_CF']['urllock']}
-<script type="text/javascript">
-var urllock="$GLOBALS['TS_CF']['urllock']";if(document.domain!=urllock){top.location.href=siteUrl;}
-</script>
-{/if}
 
-<style>
-{php doAction('pub_header_css')}
-</style>
-{php doAction('pub_header_top')}
+    <script>var siteUrl = '{SITE_URL}'; //网站网址</script>
+    <script src="{SITE_URL}public/js/jquery.min.js" type="text/javascript"></script>
 
-{php doAction('gobad','pub_header')}
+    <!--jquery向下兼容-->
+    <script src="{SITE_URL}public/js/jquery-migrate.js" type="text/javascript"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="{SITE_URL}public/bootstrap/js/bootstrap.min.js"></script>
+
+    <!--bootstrap 前端验证-->
+    <script type="text/javascript" src="{SITE_URL}public/js/bootstrap3-validation.js"></script>
+
+    {if $GLOBALS['TS_CF']['urllock']}
+    <script type="text/javascript">
+        var urllock="$GLOBALS['TS_CF']['urllock']";if(document.domain!=urllock){top.location.href=siteUrl;}
+    </script>
+    {/if}
+
+    <style>
+        {php doAction('pub_header_css')}
+    </style>
+    {php doAction('pub_header_top')}
+
+    {php doAction('gobad','pub_header')}
 
 </head>
 <body>
 
 <nav class="navbar navbar-blue header" role="navigation">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-	
-	
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-user">
-        <span class="sr-only">用户信息/登录等</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-	  
-	  
-      <a class="navbar-brand" href="{SITE_URL}"><img title="{$GLOBALS['TS_SITE'][site_title]}" src="{SITE_URL}uploadfile/logo/{$GLOBALS['TS_SITE'][logo]}" alt="{$GLOBALS['TS_SITE'][site_title]}" width="190" height="40" /></a>
-	  
-	  
-    </div>
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
 
 
-	
-	
-	
-      <ul class="nav navbar-nav hidden-xs">
-        <li class="active"><a href="{SITE_URL}">首页</a></li>
-{php doAction('pub_header_nav')}
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-user">
+                <span class="sr-only">用户信息/登录等</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
 
-      </ul>
 
-      <!--ThinkSAAS官方加载百度搜索，如果搜索引量大，可以申请百度站内搜索-->
-      {if $GLOBALS['TS_SITE']['link_url']=='http://www.thinksaas.cn/'}
-      <form id="searchto" class="navbar-form navbar-left hidden-xs form-inline" role="search" method="get" action="http://s.thinksaas.cn/cse/search" target="_blank">
+            <a class="navbar-brand" href="{SITE_URL}"><img title="{$GLOBALS['TS_SITE'][site_title]}" src="{SITE_URL}uploadfile/logo/{$GLOBALS['TS_SITE'][logo]}" alt="{$GLOBALS['TS_SITE'][site_title]}" width="190" height="40" /></a>
 
-          <div class="form-group">
-              <div class="input-group">
-              <input type="text" class="form-control" name="q" placeholder="小组 话题 文章" style="width:180px;" />
-              <input type="hidden" name="s" value="8638015022651739653" />
-              <input type="hidden" name="nsid" value="1" />
 
-              <a href="javascript:void('0')" class="input-group-addon search_click" onclick="searchon()"><span class="glyphicon glyphicon-search"></span></a>
+        </div>
 
-          </div>
-          </div>
-          <!--
+
+
+
+
+        <ul class="nav navbar-nav hidden-xs">
+            <li class="active"><a href="{SITE_URL}">首页</a></li>
+            {php doAction('pub_header_nav')}
+
+        </ul>
+
+        <!--ThinkSAAS官方加载百度搜索，如果搜索引量大，可以申请百度站内搜索-->
+        {if $GLOBALS['TS_SITE']['link_url']=='http://www.thinksaas.cn/'}
+        <form id="searchto" class="navbar-form navbar-left hidden-xs form-inline" role="search" method="get" action="http://s.thinksaas.cn/cse/search" target="_blank">
+
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="q" placeholder="小组 话题 文章" style="width:180px;" />
+                    <input type="hidden" name="s" value="8638015022651739653" />
+                    <input type="hidden" name="nsid" value="1" />
+
+                    <a href="javascript:void('0')" class="input-group-addon search_click" onclick="searchon()"><span class="glyphicon glyphicon-search"></span></a>
+
+                </div>
+            </div>
+            <!--
+            <button type="submit" class="btn btn-default">搜索</button>
+            -->
+        </form>
+
+        {else}
+
+        <form id="searchto" class="navbar-form navbar-left hidden-xs form-inline" role="search" method="get" action="{SITE_URL}index.php">
+            <div class="form-group">
+
+                <div class="input-group">
+                    <input type="hidden" name="app" value="search" />
+                    <input type="hidden" name="ac" value="s" />
+                    <input type="text" class="form-control" name="kw" placeholder="小组 话题 文章" style="width:180px;" />
+
+                    <a href="javascript:void('0')" class="input-group-addon search_click" onclick="searchon()"><span class="glyphicon glyphicon-search"></span></a>
+
+                </div>
+            </div>
+            <!--
           <button type="submit" class="btn btn-default">搜索</button>
           -->
-      </form>
-
-      {else}
-
-      <form id="searchto" class="navbar-form navbar-left hidden-xs form-inline" role="search" method="get" action="{SITE_URL}index.php">
-        <div class="form-group">
-
-            <div class="input-group">
-<input type="hidden" name="app" value="search" />
-<input type="hidden" name="ac" value="s" />
-          <input type="text" class="form-control" name="kw" placeholder="小组 话题 文章" style="width:180px;" />
-
-            <a href="javascript:void('0')" class="input-group-addon search_click" onclick="searchon()"><span class="glyphicon glyphicon-search"></span></a>
-
-        </div>
-        </div>
-          <!--
-        <button type="submit" class="btn btn-default">搜索</button>
-        -->
-      </form>
-      {/if}
-	  
+        </form>
+        {/if}
 
 
 
 
-      <ul class="nav navbar-nav navbar-right navbar-collapse collapse" id="header-user">
-	  
-{if $GLOBALS['TS_USER']==''}	  
-<li><a href="{tsUrl('user','login')}">登录</a></li>
-<li><a href="{tsUrl('user','register')}">注册</a></li>
-{else}
 
-<li><a href="{tsUrl('my')}">我的社区</a></li>
+        <ul class="nav navbar-nav navbar-right navbar-collapse collapse" id="header-user">
 
-<li><a href="{tsUrl('message','my')}"><span class="badge" id="newmsg">0</span>  消息</a></li>
+            {if $GLOBALS['TS_USER']==''}
+            <li><a href="{tsUrl('user','login')}">登录</a></li>
+            <li><a href="{tsUrl('user','register')}">注册</a></li>
+            {else}
 
-        <li class="dropdown" style="width:200px;text-align:right;">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-<img class="img-circle" src="{if $GLOBALS['TS_USER']['face']==""}{SITE_URL}public/images/user_normal.jpg{else}{php echo tsXimg($GLOBALS['TS_USER']['face'],'user','120','120',$GLOBALS['TS_USER'][path],'1')}{/if}" width="24" height="24" align="absmiddle" alt="{$GLOBALS['TS_USER']['username']}" />
-{$GLOBALS['TS_USER'][username]}
+            <li><a href="{tsUrl('my')}">我的社区</a></li>
 
-		  <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-<li><a href="{tsUrl('my','setting',array('ts'=>'base'))}" >设置</a></li>
-{if $GLOBALS['TS_SITE']['isinvite']=='1'}
-<li>
-<a href="{tsUrl('user','invite')}">邀请</a> 
-</li>
-{/if}
+            <li><a href="{tsUrl('message','my')}"><span class="badge" id="newmsg">0</span>  消息</a></li>
 
-{if $GLOBALS['TS_USER']['isadmin']=='1'}
-<li>
-<a target="_blank" href="{SITE_URL}index.php?app=system">管理</a>
-</li>
-{/if}
-<li><a href="{tsUrl('user','login',array(ts=>out))}">退出</a></li>
-          </ul>
-        </li>
-{/if}
-		
-      </ul>
-	  
-	  
- 
-  </div><!-- /.container-fluid -->
+            <li class="dropdown" style="width:200px;text-align:right;">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <img class="img-circle" src="{if $GLOBALS['TS_USER']['face']==""}{SITE_URL}public/images/user_normal.jpg{else}{php echo tsXimg($GLOBALS['TS_USER']['face'],'user','120','120',$GLOBALS['TS_USER'][path],'1')}{/if}" width="24" height="24" align="absmiddle" alt="{$GLOBALS['TS_USER']['username']}" />
+                    {$GLOBALS['TS_USER'][username]}
+
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{tsUrl('my','setting',array('ts'=>'base'))}" >设置</a></li>
+                    {if $GLOBALS['TS_SITE']['isinvite']=='1'}
+                    <li>
+                        <a href="{tsUrl('user','invite')}">邀请</a>
+                    </li>
+                    {/if}
+
+                    {if $GLOBALS['TS_USER']['isadmin']=='1'}
+                    <li>
+                        <a target="_blank" href="{SITE_URL}index.php?app=system">管理</a>
+                    </li>
+                    {/if}
+                    <li><a href="{tsUrl('user','login',array(ts=>out))}">退出</a></li>
+                </ul>
+            </li>
+            {/if}
+
+        </ul>
+
+
+
+    </div><!-- /.container-fluid -->
 </nav>
 
 <div class="appnav">
- <div class="container">
-<ul>
-{loop $GLOBALS['TS_SITE'][appnav] $key $item}
-{if $key=='home'}
-<li {if $GLOBALS['TS_URL']['app']==$key}class="select"{/if}><a href="{SITE_URL}">{$item}</a></li>
-{else}
-<li {if $GLOBALS['TS_URL']['app']==$key}class="select"{/if}><a href="{tsUrl($key)}">{$item}</a></li>
-{/if}
-{/loop}
-</ul>
-</div>
+    <div class="container">
+        <ul>
+            {loop $GLOBALS['TS_SITE'][appnav] $key $item}
+            {if $key=='home'}
+            <li {if $GLOBALS['TS_URL']['app']==$key}class="select"{/if}><a href="{SITE_URL}">{$item}</a></li>
+            {else}
+            <li {if $GLOBALS['TS_URL']['app']==$key}class="select"{/if}><a href="{tsUrl($key)}">{$item}</a></li>
+            {/if}
+            {/loop}
+        </ul>
+    </div>
 </div>
 
 <div class="container">{php doAction('gobad','960')}</div>

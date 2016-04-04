@@ -2,24 +2,34 @@
 
 <div class="container">
 
-<div class="bbox mh400">
 
 
-<div class="bc tstheme">
-<ul>
-{loop $arrTheme $key $item}
-<li>
-<a href="javascript:void('0');" onclick="selectTheme('{$item}')"><img src="{SITE_URL}theme/{$item}/preview.jpg"></a>
- <p>{$item}</p>
-</li>
-{if is_int(($key+1)/7)}
-<div class="clear"></div>
-{/if}
-{/loop}
-</ul>
-</div>
 
-</div>
+    <div class="panel panel-default">
+        <div class="panel-heading">更换皮肤</div>
+        <div class="panel-body">
+            <div class="tstheme">
+                <ul>
+                    {loop $arrTheme $key $item}
+                    <li>
+                        <a href="javascript:void('0');" onclick="selectTheme('{$item}')"><img src="{SITE_URL}theme/{$item}/preview.jpg"></a>
+                        <p>{$item}</p>
+                    </li>
+                    {if is_int(($key+1)/7)}
+                    <div class="clear"></div>
+                    {/if}
+                    {/loop}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
 
 
 </div>

@@ -191,6 +191,9 @@ if ($TS_SITE == '') {
     $TS_SITE = $tsMySqlCache -> get('system_options');
 }
 
+//加载皮肤
+$tstheme = isset($_COOKIE['tsTheme']) ? tsUrlCheck($_COOKIE['tsTheme']) : $TS_SITE['site_theme'];
+
 //加载APP导航
 $TS_SITE['appnav'] = fileRead('data/system_appnav.php');
 if ($TS_SITE['appnav'] == '') {

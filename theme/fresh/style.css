@@ -1,0 +1,6 @@
+body{background:url('body_bg.jpg') repeat-x #B4E2E2}
+.appnav{
+    filter:alpha(opacity=20); /* IE 透明度20% */
+    -moz-opacity:0.8; /* Moz + FF 透明度20%*/
+    opacity: 0.8; /* 支持CSS3的浏览器（FF 1.5也支持）透明度20%*/
+}

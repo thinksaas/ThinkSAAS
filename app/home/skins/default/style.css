@@ -4,6 +4,7 @@
 .infocontent{font-size:14px;line-height:30px;}
 
 .tstheme{}
+.tstheme ul,.tstheme ul li{list-style: none;margin:0;padding:0;}
 .tstheme ul{}
 .tstheme ul li{float:left;padding:5px;height:130px;margin:1px;text-align:center;border:solid 1px #fff}
 .tstheme ul li a{}
