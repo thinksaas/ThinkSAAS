@@ -12,6 +12,9 @@
 <a href="{tsUrl('home','info',array('key'=>'contact'))}">联系我们</a> |
 <a href="{tsUrl('home','info',array('key'=>'agreement'))}">用户条款</a> |
 <a href="{tsUrl('home','info',array('key'=>'privacy'))}">隐私申明</a> |
+    {if $GLOBALS['TS_SITE']['link_url']=='http://www.thinksaas.cn/'}
+<a href="{tsUrl('home','info',array('key'=>'disclaimer'))}">免责声明</a> |
+    {/if}
 <a href="{tsUrl('home','info',array('key'=>'job'))}">加入我们</a> |
 <a href="{tsUrl('home','theme')}">更换皮肤</a>
 </p>

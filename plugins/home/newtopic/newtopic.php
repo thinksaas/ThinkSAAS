@@ -6,7 +6,7 @@ function newtopic(){
 	//最新帖子	
 	$arrTopics = aac('group')->findAll('group_topic',array(
 		'isaudit'=>0,
-	),'uptime desc',null,35);
+	),'uptime desc','topicid,userid,groupid,title,count_comment,uptime',35);
 	
 	foreach($arrTopics as $key=>$item){
 			$arrTopic[] = $item;

@@ -84,16 +84,6 @@ $strTopic['content'] = @preg_replace("/\[@(.*)\:(.*)]/U","<a href='".tsUrl('user
 
 
 
-// 最新帖子
-$newTopic = $new['group']->findAll('group_topic',array(
-	'isaudit'=>'0',
-),'addtime desc',null,10);
-foreach($newTopic as $key=>$item){
-	$newTopic[$key]['title'] = tsTitle($item['title']);
-	$newTopic[$key]['content'] = tsDecode($item['content']);
-}
-
-
 // 帖子标签
 $strTopic['tags'] = aac('tag')->getObjTagByObjid('topic', 'topicid', $topicid);
 $strTopic['user'] = aac('user')->getOneUser($strTopic['userid']);
@@ -127,7 +117,7 @@ foreach($arrComment as $key => $item)
 	$arrTopicComment[$key]['l'] = (($page-1) * 15) + $key + 1;
 	$arrTopicComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
 
-	$arrTopicComment[$key]['content'] = @preg_replace("/\[@(.*)\:(.*)]/U","<a href='".tsUrl('user','space',array('id'=>'$2'))." ' rel=\"face\" uid=\"$2\"'>@$1</a>",tsDecode($item['content']));
+	$arrTopicComment[$key]['content'] = tsDecode($item['content']);
 
 	$arrTopicComment[$key]['recomment'] = $new['group']->recomment($item['referid']);
 }
@@ -138,8 +128,6 @@ $commentNum = $new['group']->findCount('group_topic_comment',array(
 
 $pageUrl = pagination($commentNum, 15, $page, $url);
 // 评论列表结束
-
-
 
 
 //7天内的热门帖子
@@ -153,7 +141,13 @@ $arrRecommendTopic = $new['group']->getRecommendTopic();
 $arrGroupHotTopic = $new['group']->findAll('group_topic',array(
     'groupid'=>$strGroup['groupid'],
     'isaudit'=>0,
-),'count_view desc',null,10);
+),'count_view desc','topicid,title',10);
+
+// 最新帖子
+$newTopic = $new['group']->findAll('group_topic',array(
+    'isaudit'=>'0',
+),'addtime desc','topicid,title',10);
+
 
 
 $sitedesc = cututf8(t($strTopic['content']),0,100);
@@ -161,6 +155,7 @@ $sitedesc = cututf8(t($strTopic['content']),0,100);
 include template('topic');
 
 // 增加浏览次数
+
 $new['group']->update('group_topic', array(
 	'topicid' => $strTopic['topicid'],
 ), array(

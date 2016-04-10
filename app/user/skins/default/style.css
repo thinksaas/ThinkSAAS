@@ -30,10 +30,10 @@
     margin-bottom: 3px;
     padding: 0;
     width: 100%;
-	border: medium none;
+    border: medium none;
     border-collapse: collapse;
     margin: 0;
-	border-spacing: 0;
+    border-spacing: 0;
 }
 .olt td {
     border-bottom: 1px dashed #DDDDDD;
@@ -55,14 +55,14 @@
 }
 .obu dd {
     margin: 0;
-	 height: 30px;
+    height: 30px;
     overflow: hidden;
     text-align: center;
 }
 .pl {
     color: #666666;
     font: 12px/150% Arial;
-	padding:10px 0;
+    padding:10px 0;
 }
 
 .pl2 {
@@ -90,12 +90,12 @@
 
 /*链接按钮*/
 .subab{
-background: #66873E;
+    background: #66873E;
     color: #FFFFFF;
     cursor: pointer;
     padding: 10px 20px;
-	font-size:16px;
-   
+    font-size:16px;
+
 }
 
 
@@ -105,10 +105,10 @@ background: #66873E;
     margin-bottom: 3px;
     padding: 0;
     width: 100%;
-	border: medium none;
+    border: medium none;
     border-collapse: collapse;
     margin: 0;
-	border-spacing: 0;
+    border-spacing: 0;
 }
 .olt td {
     border-bottom: 1px dashed #DDDDDD;
@@ -388,8 +388,8 @@ fieldset, img {
 
 /*留言*/
 .guest{}
-.guest img{float:left;}
-.guest form{margin-left:10px;float:left;width:480px;}
+.guest img{float:left;width:50px;}
+.guest form{margin-left:60px;}
 
 .glist{}
 .glist ul, .glist ul li{list-style: none;margin:0;padding: 0;}
@@ -401,26 +401,26 @@ fieldset, img {
 
 /*小组列表*/
 .sub-item{
-   border-bottom: 1px dashed #AAAAAA;
+    border-bottom: 1px dashed #AAAAAA;
     float: left;
     margin: 0 2px 15px 0;
     overflow: hidden;
     width: 49%;
-	padding-bottom: 15px;
+    padding-bottom: 15px;
 }
 .sub-item .pic {
-	float: left;
+    float: left;
     display: table-cell;
     vertical-align: top;
     width: 48px;
-	overflow: hidden;
+    overflow: hidden;
 }
 .sub-item .info {
     color: #666666;
     vertical-align: top;
     word-wrap: break-word;
-	line-height:20px;
-	margin-left:60px;
+    line-height:20px;
+    margin-left:60px;
 }
 .sub-item .pic img {
     height: 48px;
@@ -428,10 +428,10 @@ fieldset, img {
 }
 .sub-item p {
     margin: 0;
-	height:60px;;
-	width:220px;
-	overflow:hidden;
-	
+    height:60px;;
+    width:220px;
+    overflow:hidden;
+
 }
 
 /*帖子列表*/

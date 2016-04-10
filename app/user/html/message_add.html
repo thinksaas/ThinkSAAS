@@ -1,31 +1,75 @@
 {template header}
 
 <!--main-->
-<div class="midder">
+<div class="container">
 
-<div class="mc">
 
-<div class="bbox">
 
-<h1>发送短消息</h1>
+    <div class="panel panel-default">
+        <div class="panel-heading">发送短消息</div>
+        <div class="panel-body">
 
-<form method="POST" action="{tsUrl('user','message',array('ts'=>'do'))}">
-<table>
-<tr><th>收件人：</th><td><img alt="{$strTouser[username]}" class="m_sub_img" src="{$strTouser[face]}" width="16" align="absmiddle" /> {$strTouser[username]}</td></tr>
-<tr><th valign="top">内容：</th><td><textarea style="width:450px;height:100px;" name="content"></textarea></td></tr>
-<tr><th></th><td>
 
-<input type="hidden" name="touserid" value="{$strTouser[userid]}" />
 
-<input type="hidden" name="token" value="{$_SESSION['token']}" />
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
 
-<button class="btn btn-success" type="submit">发送</button>
-</td></tr>
-</table>
-</form>
-</div>
 
-</div>
+
+
+                    <form class="form-horizontal" method="POST" action="{tsUrl('user','message',array('ts'=>'do'))}">
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">收件人：</label>
+                            <div class="col-sm-10">
+                                <div style="padding-top: 7px;">
+                                    <img alt="{$strTouser[username]}" class="m_sub_img" src="{$strTouser[face]}" width="16" align="absmiddle" /> {$strTouser['username']}
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">内容：</label>
+                            <div class="col-sm-10">
+
+                                <textarea class="form-control" name="content"></textarea>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+
+                                <input type="hidden" name="touserid" value="{$strTouser[userid]}" />
+
+                                <input type="hidden" name="token" value="{$_SESSION['token']}" />
+
+                                <button type="submit" class="btn btn-success">点击发送</button>
+
+                                <a class="btn btn-default" href="{tsUrl('user','space',array('id'=>$strTouser['userid']))}">返回</a>
+
+                            </div>
+                        </div>
+                    </form>
+
+
+
+
+
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
 </div>
 
 {template footer}

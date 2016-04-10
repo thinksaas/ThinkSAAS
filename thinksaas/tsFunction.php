@@ -2233,3 +2233,17 @@ function _prefilter($output) {
 	$output=preg_replace("/[\s]+\=[\s]+/", "=", $output);
 	return $output;
 }
+
+
+/*
+ * 去除文本内容中图片的高度和宽度
+ */
+function cleanContentImgWH($content){
+    $search = '/(<img.*?)width=(["\'])?.*?(?(2)\2|\s)([^>]+>)/is';
+    $content = preg_replace($search,'$1$3',$content);
+    $search1 = '/(<img.*?)height=(["\'])?.*?(?(2)\2|\s)([^>]+>)/is';   //去除图片的高度
+    $style = '/(<img.*?)style=(["\'])?.*?(?(2)\2|\s)([^>]+>)/is';
+    $content =  preg_replace($search1,'$1$3',$content);
+    $content =  preg_replace($style,'$1$3',$content);
+    return $content;
+}

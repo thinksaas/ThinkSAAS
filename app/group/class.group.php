@@ -265,7 +265,6 @@ class group extends tsApp{
 		
 		foreach($arrTopic as $key=>$item){
 			$arrTopic[$key]['title']=tsTitle($item['title']);
-			$arrTopic[$key]['content']=tsDecode($item['content']);
 		}
 		
 		return $arrTopic;
