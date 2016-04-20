@@ -1181,7 +1181,7 @@ CREATE TABLE IF NOT EXISTS `ts_home_info` (
 INSERT INTO `ts_home_info` (`infoid`, `infokey`, `title`, `content`) VALUES
 (1, 'about', '关于我们', '关于我们'),
 (2, 'contact', '联系我们', '联系我们'),
-(3, 'agreement', '用户条款', '<p>本协议适用ThinkSAAS发布的所有程序版本和代码。</p>\r\n<p>ThinkSAAS官方指：ThinkSAAS社区，奇鸟软件（北京）有限公司和ThinkSAAS社区系统开发者邱君。</p>\r\n<p>ThinkSAAS禁止用户在使用中触犯中国法律范围内的任何法律条文。</p>\r\n<p>ThinkSAAS、奇鸟软件（北京）有限公司及其创始人邱君拥有对ThinkSAAS的所有权，任何个人，公司和组织不得以任何形式和目的侵犯ThinkSAAS的版权和著作权</p>\r\n<p>ThinkSAAS官方拥有对ThinkSAAS社区软件绝对的版权和著作权。</p>\r\n<p>ThinkSAAS商业授权全面免费，公司和个人可以用ThinkSAAS搭建任何商业应用和网站，不用再支付任何商业授权费用。</p>\r\n<p>ThinkSAAS不会监控用户网站信息，但有权通过邮件或者其他联系方式获悉用户使用情况，有权拿用户网站用作案例展示。</p>\r\n<p>在未经ThinkSAAS官方书面允许的情况下，除【自身运营】外，任何个人、公司和组织不能单方面发布和出售以ThinkSAAS为基础开发的任何互联网软件或者产品，否则将视为侵权行为，将依照中华人民共和国法律追究其法律责任。</p>\r\n<p>ThinkSAAS官方拥有对此协议的修改和不断完善。</p>\r\n<p>【自身运营】解释：即用户在使用ThinkSAAS中，不通过出售任何以ThinkSAAS为基础开发的产品，仅用作自身学习和自身商业运营的网站。</p>'),
+(3, 'agreement', '用户条款', '<p>本协议适用ThinkSAAS发布的所有程序版本和代码。</p>\r\n<p>ThinkSAAS官方指：ThinkSAAS社区，ThinkSAAS社区系统开发者邱君。</p>\r\n<p>ThinkSAAS禁止用户在使用中触犯中国法律范围内的任何法律条文。</p>\r\n<p>ThinkSAAS及其创始人邱君拥有对ThinkSAAS的所有权，任何个人，公司和组织不得以任何形式和目的侵犯ThinkSAAS的版权和著作权</p>\r\n<p>ThinkSAAS官方拥有对ThinkSAAS社区软件绝对的版权和著作权。</p>\r\n<p>ThinkSAAS商业授权全面免费，公司和个人可以用ThinkSAAS搭建任何商业应用和网站，不用再支付任何商业授权费用。</p>\r\n<p>ThinkSAAS不会监控用户网站信息，但有权通过邮件或者其他联系方式获悉用户使用情况，有权拿用户网站用作案例展示。</p>\r\n<p>在未经ThinkSAAS官方书面允许的情况下，除【自身运营】外，任何个人、公司和组织不能单方面发布和出售以ThinkSAAS为基础开发的任何互联网软件或者产品，否则将视为侵权行为，将依照中华人民共和国法律追究其法律责任。</p>\r\n<p>ThinkSAAS官方拥有对此协议的修改和不断完善。</p>\r\n<p>【自身运营】解释：即用户在使用ThinkSAAS中，不通过出售任何以ThinkSAAS为基础开发的产品，仅用作自身学习和自身商业运营的网站。</p>'),
 (4, 'privacy', '隐私申明', '隐私申明'),
 (5, 'job', '加入我们', '加入我们');
 
