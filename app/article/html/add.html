@@ -28,7 +28,7 @@
   <div class="form-group">
     <label>分类：</label>
     
-<select id="cateid" name="cateid">
+<select id="cateid" name="cateid" class="form-control">
 {loop $arrCate $key $item}
 <option value="{$item['cateid']}">{$item['catename']}</option>
 {/loop}
@@ -60,6 +60,8 @@
   
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
 <button class="btn btn-success" type="submit">发布文章</button>
+
+    <a class="btn btn-default" href="{tsUrl('article')}">取消发布</a>
   
 </form>
 

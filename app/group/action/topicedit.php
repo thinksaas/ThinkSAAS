@@ -134,7 +134,7 @@ switch($ts){
 			));
 			
 
-			
+
 			//处理标签
 			$tag = trim($_POST['tag']);
 			if($tag){

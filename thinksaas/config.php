@@ -63,7 +63,7 @@ return array(
 
 
 	/* 软件信息
-	 * 奇鸟软件（北京）有限公司
+	 * ThinkSAAS
 	 * 请尊重ThinkSAAS版权信息，如需去除请购买ThinkSAAS商业授权
 	 * 联系QQ:1078700473
 	 */
@@ -72,9 +72,9 @@ return array(
 		'version' => '2.4',
 		'url' => 'http://www.thinksaas.cn/', 
 		'email' => 'jun.qiu@thinksaas.cn', 
-		'powered' => 'Powered by ThinkSAAS', 
-		'copyright' => '奇鸟软件（北京）有限公司', 
-		'copyurl' => 'http://www.qiniao.com/', 
+		'powered' => 'Powered by ThinkSAAS',
+		'copyright' => 'ThinkSAAS',
+		'copyurl' => 'http://www.thinksaas.cn/',
 		'year' => '2011 - 2016',
 		'author' => '邱君',
 	),
