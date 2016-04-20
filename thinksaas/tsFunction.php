@@ -2247,3 +2247,12 @@ function cleanContentImgWH($content){
     $content =  preg_replace($style,'$1$3',$content);
     return $content;
 }
+
+
+//获取正文图片
+function getTextPhotos($text){
+    $pattern="/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/";
+    preg_match_all($pattern,$text,$match);
+    $arrPhoto = $match[1];
+    return $arrPhoto;
+}
