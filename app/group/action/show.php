@@ -64,7 +64,7 @@ if($strGroup['isaudit']=='1'){
 	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 	
 	$lstart = $page*30-30;
-	
+
 	if($typeid > 0){
 		$andType = " and `typeid`='$typeid'";
 		$url = tsUrl('group','show',array('id'=>$groupid,'typeid'=>$typeid,'page'=>''));
@@ -118,7 +118,7 @@ if($strGroup['isaudit']=='1'){
 	if($page > 1){
 		$title = $strGroup['groupname'].' - 第'.$page.'页';
 	}
-	
+
 	//把标签作为关键词
 	if($strGroup['tags']){
 		foreach($strGroup['tags'] as $key=>$item){
@@ -131,7 +131,7 @@ if($strGroup['isaudit']=='1'){
 
 	
 	$sitedesc = tsCutContent($strGroup['groupdesc'],50);
-	
+
 	if($TS_CF['mobile']) $sitemb = tsUrl('moblie','group',array('ts'=>'show','groupid'=>$strGroup['groupid']));
 		
 	include template("show");

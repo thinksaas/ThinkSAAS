@@ -975,7 +975,8 @@ function reurl() {
 				$ck = count($kv) / 2;
 
 				if ($ck >= 2) {
-					$arrKv = array_chunk($kv, $ck);
+					//$arrKv = array_chunk($kv, $ck);
+					$arrKv = array_chunk($kv, 2);
 					foreach ($arrKv as $key => $item) {
 						$_GET[$item[0]] = $item[1];
 					}
