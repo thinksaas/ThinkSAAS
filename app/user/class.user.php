@@ -90,7 +90,7 @@ class user extends tsApp{
 		$isUser = $this->findCount('user',array('userid'=>$userid));
 		
 		if($isUser == 0){
-			$this->toEmpty($userid);
+			//$this->toEmpty($userid);
 			return false;
 		}else{
 			return true;

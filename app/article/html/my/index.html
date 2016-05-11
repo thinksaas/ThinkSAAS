@@ -37,6 +37,8 @@
 
                             <a target="_blank" href="{SITE_URL}index.php?app=article&ac=edit&articleid={$item[articleid]}">修改</a> |
 
+                            <a href="{SITE_URL}index.php?app=article&ac=delete&articleid={$strArticle[articleid]}&token={$_SESSION['token']}">删除</a>
+
                         </td></tr>
                         {/loop}
                         <tbody>
