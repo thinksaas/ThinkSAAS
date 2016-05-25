@@ -127,8 +127,10 @@ switch ($ts) {
 		), 'topicid,title,addtime', 'addtime desc' );
 		
 		// print_r($strPreTopic);exit;
-		
+
+
 		// 发帖间隔时间
+        /*
 		$IntervalTime = time () - $strPreTopic ['addtime'];
 		// if($strPreTopic && $IntervalTime<3600){
 		if ($strPreTopic) {
@@ -142,6 +144,10 @@ switch ($ts) {
 				$isaudit = 1;
 			}
 		}
+        */
+
+
+
 		/**
 		 * *****************
 		 */
@@ -245,21 +251,8 @@ switch ($ts) {
 		
 		// 对积分进行处理
 		aac ( 'user' )->doScore ( $TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'] );
+
 		
-		// QQ分享
-		$arrShare = array (
-				'content' => $title . '[ThinkSAAS社区]' . tsUrl ( 'group', 'topic', array (
-						'id' => $topicid 
-				) ) 
-		);
-		doAction ( 'qq_share', $arrShare );
-		// 微博分享
-		doAction ( 'weibo_share', $title . '[ThinkSAAS社区]' . tsUrl ( 'group', 'topic', array (
-				'id' => $topicid 
-		) ) );
-		
-		header ( "Location: " . tsUrl ( 'group', 'topic', array (
-				'id' => $topicid 
-		) ) );
+		header ( "Location: " . tsUrl('group', 'topic', array ('id' => $topicid)));
 		break;
 } 
