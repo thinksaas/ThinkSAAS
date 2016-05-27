@@ -19,8 +19,8 @@ switch($ts){
 		
 	case "adddo":
 	
-		$infokey = $_POST['infokey'];
-		$title = $_POST['title'];
+		$infokey = trim($_POST['infokey']);
+		$title = trim($_POST['title']);
 		$content = tsClean($_POST['content']);
 		
 		$new['home']->create('home_info',array(
@@ -40,9 +40,7 @@ switch($ts){
 	
 		$infoid = intval($_GET['infoid']);
 		$strInfo = $new['home']->find('home_info',array(
-		
 			'infoid'=>$infoid,
-		
 		));
 		
 		$strInfo['content'] = tsDecode($strInfo['content']);

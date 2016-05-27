@@ -1,5 +1,11 @@
 {php include template("admin/header");}
 
+<script>window.UEDITOR_HOME_URL = "{SITE_URL}plugins/pubs/ueditor/";</script>
+<script type="text/javascript" charset="utf-8" src="{SITE_URL}plugins/pubs/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="{SITE_URL}plugins/pubs/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="{SITE_URL}plugins/pubs/ueditor/load.js"></script>
+<script type="text/javascript" charset="utf-8" src="{SITE_URL}plugins/pubs/ueditor/lang/zh-cn/zh-cn.js"></script>
+
 <!--main-->
 <div class="midder">
 
@@ -20,7 +26,7 @@
 <tr>
 <td>内容:</td><td>
 
-<textarea style="width:500px;height:200px;padding:5px;" name="content"></textarea>
+<textarea id="tseditor" style="width:800px;" name="content"></textarea>
 
 </td>
 </tr>
