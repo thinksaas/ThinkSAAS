@@ -339,7 +339,7 @@ $TS_CF['runTime'] = number_format($runTime, 6);
 
 
 //定义全局变量
-global $TS_CF,$TS_SITE,$TS_APP,$TS_USER,$TS_URL,$TS_MC,$db,$tsMySqlCache;
+global $TS_CF,$TS_SITE,$TS_APP,$TS_USER,$TS_URL,$TS_MC,$db,$tsMySqlCache,$tstheme;
 
 //装载APP应用
 if (is_file('app/' . $TS_URL['app'] . '/class.' . $TS_URL['app'] . '.php')) {
