@@ -21,25 +21,6 @@
 <p>Powered by <a target="_blank" class="softname" title="开源社区" href="{$GLOBALS['TS_CF'][info][url]}">{$GLOBALS['TS_CF'][info][name]}</a> {$GLOBALS['TS_CF'][info][version]}  Copyright ©  {$GLOBALS['TS_CF'][info][year]}   <a target="_blank" href="{SITE_URL}">{$GLOBALS['TS_SITE'][site_title]}</a> {$GLOBALS['TS_SITE']['site_icp']}</p><p><span style="font-size:0.83em;">Processed in {$GLOBALS['TS_CF']['runTime']} second(s)</span></p>
 </div>
 
-<!--弹出窗口-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
-        <h4 class="modal-title" id="myModalLabel">提示</h4>
-      </div>
-      <div class="modal-body">
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        
-      </div>
-    </div>
-  </div>
-</div>
-
 {if intval($GLOBALS['TS_USER']['userid'])}
 <script src="{SITE_URL}public/js/imbox/imbox.js" type="text/javascript"></script>
 <script>
