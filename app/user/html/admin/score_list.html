@@ -31,7 +31,7 @@
         <h2>积分使用帮助</h2>
         <p>1、在需要使用积分的php代码处加：</p>
         <code>
-            aac('user')->doScore({php echo "$GLOBALS['TS_URL']['app']"},{php echo "$GLOBALS['TS_URL']['ac']"},{php echo "$GLOBALS['TS_URL']['ts']"});
+            aac('user')->doScore({php echo '$app'},{php echo '$ac'},{php echo '$ts'})
         </code>
         <p>以上代码具体使用方式请看app/user/class.user.php中doScore方法</p>
         <p>2、根据对应的app,action,ts变量配置好积分</p>
