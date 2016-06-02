@@ -135,7 +135,7 @@
                                         {/if}
 
                                         {if $TS_USER[userid] == $strGroup[userid] || $TS_USER[userid] == $item[userid] || $strGroupUser[isadmin]==1 || $TS_USER[isadmin]==1}
-<span><a class="j a_confirm_link" href="{SITE_URL}index.php?app=group&ac=comment&ts=delete&commentid={$item[commentid]}&token={$_SESSION['token']}" rel="nofollow" onClick="return confirm('确定删除吗?')">删除</a>
+<span><a href="{SITE_URL}index.php?app=group&ac=comment&ts=delete&commentid={$item[commentid]}&token={$_SESSION['token']}" rel="nofollow" onClick="return confirm('确定删除吗?')">删除</a>
 </span>
                                         {/if}
                                     </div>

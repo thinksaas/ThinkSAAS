@@ -81,7 +81,7 @@ switch($ts){
 		//一天之内登录只算一次积分
 		if($userData['uptime'] < strtotime(date('Y-m-d'))){
 			//对积分进行处理
-			aac('user')->doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
+			aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
 		}
 		
 		//更新登录时间，用作自动登录

@@ -214,7 +214,7 @@ switch($ts){
 
 		
 		//对积分进行处理
-		aac('user')->doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
+		aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
 		
 		//跳转
 		getJson('登录成功！',$js,2,SITE_URL);
