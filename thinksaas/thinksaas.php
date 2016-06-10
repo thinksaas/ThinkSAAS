@@ -7,7 +7,7 @@ defined('IN_TS') or die('Access Denied.');
  * @Email:thinksaas@qq.com
  * @site:www.thinksaas.cn
  */
-if ('5' != substr(PHP_VERSION, 0, 1)) {
+if (version_compare('PHP_VERSION','5.0.0','>=')) {
     exit("ThinkSAAS运行环境要求PHP5！");
 }
 
