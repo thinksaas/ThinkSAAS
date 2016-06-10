@@ -25,7 +25,7 @@ if ($TS_CF['debug']) {
     error_reporting(0);
 }
 
-@set_magic_quotes_runtime(0);
+ini_set('magic_quotes_runtime',0);
 
 //ini_set("memory_limit","120M");
 
