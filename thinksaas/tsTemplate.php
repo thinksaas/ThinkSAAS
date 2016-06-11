@@ -43,19 +43,33 @@ class tsTemplate {
 		$template = @preg_replace ( "/\{($this->var_regexp)\}/", "<?php echo \\1;?>", $template ); // 替换带{}的变量
 		$template = @preg_replace ( "/\{($this->const_regexp)\}/", "<?php echo \\1;?>", $template ); // 替换带{}的常量
 		$template = @preg_replace ( "/(?<!\<\?php echo |\\\\)$this->var_regexp/", "<?php echo \\0;?>", $template ); // 替换重复的<?php echo
-		$template = @preg_replace ( "/\{php (.*?)\}/ies", "\$this->stripvTag('<?php \\1?>')", $template ); // 替换php标签
-		$template = @preg_replace ( "/\{for (.*?)\}/ies", "\$this->stripvTag('<?php for(\\1) {?>')", $template ); // 替换for标签
-		
-		$template = @preg_replace ( "/\{elseif\s+(.+?)\}/ies", "\$this->stripvTag('<?php } elseif (\\1) { ?>')", $template ); // 替换elseif标签
+		$template = @preg_replace_callback ( "/\{php (.*?)\}/is",function( $m ){
+			return $this->stripvTag('<?php '.$m[1].'?>');
+		}, $template ); // 替换php标签
+
+		$template = @preg_replace_callback ( "/\{for (.*?)\}/is", function( $m ){
+			return $this->stripvTag('<?php for('.$m[1].') {?>');
+		}, $template ); // 替换for标签
+		$template = @preg_replace_callback ( "/\{elseif\s+(.+?)\}/is", function( $m ){
+			return $this->stripvTag('<?php } elseif ('.$m[1].') { ?>');
+		}, $template ); // 替换elseif标签
 		for($i = 0; $i < 3; $i ++) {
-			$template = @preg_replace ( "/\{loop\s+$this->vtag_regexp\s+$this->vtag_regexp\s+$this->vtag_regexp\}(.+?)\{\/loop\}/ies", "\$this->loopSection('\\1', '\\2', '\\3', '\\4')", $template );
-			$template = @preg_replace ( "/\{loop\s+$this->vtag_regexp\s+$this->vtag_regexp\}(.+?)\{\/loop\}/ies", "\$this->loopSection('\\1', '', '\\2', '\\3')", $template );
+			$template = @preg_replace_callback ( "/\{loop\s+$this->vtag_regexp\s+$this->vtag_regexp\s+$this->vtag_regexp\}(.+?)\{\/loop\}/is", function( $m ){
+				return $this->loopSection($m[1], $m[2], $m[3], $m[4]);
+			}, $template );
+			$template = @preg_replace_callback ( "/\{loop\s+$this->vtag_regexp\s+$this->vtag_regexp\}(.+?)\{\/loop\}/is", function( $m ){
+				return $this->loopSection($m[1], '', $m[2], $m[3]);
+			}, $template );
 		}
-		$template = @preg_replace ( "/\{if\s+(.+?)\}/ies", "\$this->stripvTag('<?php if(\\1) { ?>')", $template ); // 替换if标签
+		$template = @preg_replace_callback ( "/\{if\s+(.+?)\}/is", function( $m ){
+			return $this->stripvTag('<?php if('.$m[1].') { ?>');
+		}, $template ); // 替换if标签
 		$template = @preg_replace ( "/\{include\s+(.*?)\}/is", "<?php include \\1; ?>", $template ); // 替换include标签
 		
 		$template = @preg_replace ( "/\{template\s+(\w+?)\}/is", "<?php include template('\\1'); ?>", $template ); // 替换template标签
-		$template = @preg_replace ( "/\{block (.*?)\}/ies", "\$this->stripBlock('\\1')", $template ); // 替换block标签
+		$template = @preg_replace_callback ( "/\{block (.*?)\}/is",function( $m ){
+			return $this->stripBlock($m[1]);
+		}, $template ); // 替换block标签
 		$template = @preg_replace ( "/\{else\}/is", "<?php } else { ?>", $template ); // 替换else标签
 		$template = @preg_replace ( "/\{\/if\}/is", "<?php } ?>", $template ); // 替换/if标签
 		$template = @preg_replace ( "/\{\/for\}/is", "<?php } ?>", $template ); // 替换/for标签
