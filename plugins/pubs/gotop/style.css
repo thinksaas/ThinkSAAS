@@ -1,0 +1,10 @@
+/*gotop*/
+.cbbfixed {position: fixed;right: 10px;transition: bottom ease .3s;bottom: -85px;z-index: 3;cursor:pointer;}
+.cbbfixed .cbbtn {width: 40px;height: 40px;display: block;background-color: #02a2aa;}
+.cbbfixed .gotop {transition: background-color ease .3s;margin-top: 1px;}
+.cbbfixed .gotop .up-icon{float:left;margin:14px 0 0 9px;width:23px;height:12px;background: url(side-icon02.png);}
+.cbbfixed .gotop:hover {background-color:#2c2d2e;}
+.cbbfixed .cweixin {background: #dadbdd;}
+.cbbfixed .cweixin div {background: url(erwei.png);width: 194px;height: 199px;position: absolute;left: -194px;top: -115px;opacity: 0;transform: scale(0);    -webkit-transform: scale(0);transform-origin: 100% 70%;-webkit-transform-origin: 100% 70%;transition: transform ease .3s,opacity ease .3s;-webkit-transition: all ease .3s;display:none\0;*display:none;}
+.cbbfixed .cweixin:hover div {display: block;transform: scale(1);-webkit-transform: scale(1);opacity: 1;*display:block;}
+.cbbfixed .cweixin .weixin-icon{float: left;margin:12px 0 0 11px;width:18px;height: 18px; background: url(side-icon01.png);}
