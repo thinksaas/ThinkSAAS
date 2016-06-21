@@ -9,9 +9,6 @@ chinaz.prototype = {
     },
     _initBackTop: function(){
         var $backTop = this.$backTop = $('<div class="cbbfixed">'+
-        '<a class="cweixin cbbtn"">'+
-        '<span class="weixin-icon"></span><div></div>'+
-        '</a>'+
         '<a class="gotop cbbtn">'+
         '<span class="up-icon"></span>'+
         '</a>'+

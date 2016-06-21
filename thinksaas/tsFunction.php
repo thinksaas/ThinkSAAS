@@ -2251,9 +2251,24 @@ function cleanContentImgWH($content){
 
 
 //获取正文图片
-function getTextPhotos($text){
+function getTextPhotos($text,$num=0){
     $pattern="/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/";
     preg_match_all($pattern,$text,$match);
     $arrPhoto = $match[1];
-    return $arrPhoto;
+
+    $count = count($arrPhoto);
+
+    if($count>$num && $num){
+
+        for($i=0;$i<=$num-1;$i++){
+            $arrPhotos[$i]=$arrPhoto[$i];
+        }
+
+        return $arrPhotos;
+
+    }else{
+        return $arrPhoto;
+    }
+
+
 }
