@@ -11,4 +11,4 @@ function gotop_css(){
 }
 
 addAction('pub_footer', 'gotop_html');
-addAction('pub_header', 'gotop_css');
+addAction('pub_header_top', 'gotop_css');
