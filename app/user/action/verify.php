@@ -17,10 +17,6 @@ switch($ts){
 	//发送验证
 	case "post":
 	
-		if($_GET['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
-	
 		$userid = aac('user')->isLogin();
 
 		$strUser = $new['user']->find('user_info',array(
@@ -80,10 +76,7 @@ switch($ts){
 	case "setemail":
 		
 		$userid = aac('user')->isLogin();
-		
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
+
 		
 		$strUser = $new['user']->getOneUser($userid);
 		

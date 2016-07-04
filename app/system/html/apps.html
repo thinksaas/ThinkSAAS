@@ -32,6 +32,22 @@ function unisappnav(appkey){
 	})
 }
 
+function ismynav(appkey,appname){
+    $.post('index.php?app=system&ac=apps&ts=mynav',{'appkey':appkey,'appname':appname},function(rs){
+        if(rs==1){
+            window.location.reload(true);
+        }
+    })
+}
+
+function unismynav(appkey){
+    $.post('index.php?app=system&ac=apps&ts=unmynav',{'appkey':appkey},function(rs){
+        if(rs==1){
+            window.location.reload(true);
+        }
+    })
+}
+
 </script>
 
 
@@ -52,12 +68,12 @@ function unisappnav(appkey){
 <td>介绍</td>
 <td>作者</td>
 <td>管理</td>
-<td>操作</td>
+<td>顶部导航</td>
+<td>我的社区导航</td>
 </tr>
 {loop $arrApp $keys $item}
 <tr class="odd">
-<td><img src="app/{$item[name]}/icon.png" title="{$item}" align="absmiddle" />
-{$item[about][name]}({$item[name]})</td>
+<td>{$item[about][name]}({$item[name]})</td>
 <td>{$item[about][version]}
 </td>
 <td>{$item[about][desc]}</td>
@@ -65,11 +81,29 @@ function unisappnav(appkey){
 <td>
 {if $item[about][isoption] == '1' && $item[about][isinstall]=='1'}<a href="index.php?app={$item[name]}&ac=admin&mg=options">[管理]</a>{/if} 
 </td>
-<td>
-{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] == ''}<a href="javascript:void('0');" onclick="isappnav('{$item[name]}','{$item[about][name]}');">[导航]</a>{/if}
 
-{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] != ''}<a href="javascript:void('0');" onclick="unisappnav('{$item[name]}');">[取消导航]</a>{/if}
+
+<td>
+
+
+{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] == ''}<a href="javascript:void('0');" onclick="isappnav('{$item[name]}','{$item[about][name]}');">[开启]</a>{/if}
+
+{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] != ''}<a href="javascript:void('0');" onclick="unisappnav('{$item[name]}');">[取消]</a>{/if}
+
+
+
 </td>
+
+
+    <td>
+
+        {if $item[about]['ismy'] == '1' && $TS_SITE[mynav][$item[name]] == ''}<a href="javascript:void('0');" onclick="ismynav('{$item[name]}','{$item[about][name]}');">[开启]</a>{/if}
+
+        {if $item[about]['ismy'] == '1' && $TS_SITE[mynav][$item[name]] != ''}<a href="javascript:void('0');" onclick="unismynav('{$item[name]}');">[取消]</a>{/if}
+
+    </td>
+
+
 </tr>
 {/loop}
 </table>

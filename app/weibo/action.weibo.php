@@ -52,9 +52,6 @@ class weiboAction extends weibo{
         }
 		*/
 
-        if($_POST['token'] != $_SESSION['token']) {
-            getJson('非法操作！',$js);
-        }
 
         $content = tsClean($_POST['content']);
 
@@ -170,10 +167,6 @@ class weiboAction extends weibo{
 		}
 
 
-		if($_POST['token'] != $_SESSION['token']) {
-			echo 1;exit;//非法操作
-		} 
-
 		$content = tsClean($_POST['content']);
 
 		if($GLOBALS['TS_USER']['isadmin']==0){
@@ -213,9 +206,6 @@ class weiboAction extends weibo{
 	 * 回复唠叨，添加评论
 	 */
 	public function addcomment(){
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
 
 		//用户是否登录
 		$userid = aac('user')->isLogin();

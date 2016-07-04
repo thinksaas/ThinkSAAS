@@ -7,15 +7,6 @@ switch($ts){
 	
 		$topicid = intval($_POST['topicid']);
 		
-		$token = trim($_POST['token']);
-		
-	
-		if($TS_USER['isadmin']==0 || $token!=$_SESSION['token']){
-			echo 2;exit;//非法操作
-		}
-		
-		
-		
 		$strTopic = $new['group']->find('group_topic',array(
 			'topicid'=>$topicid,
 		));

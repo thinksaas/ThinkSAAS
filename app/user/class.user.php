@@ -77,6 +77,9 @@ class user extends tsApp{
 					//没有头像
 					$strUser['face']	= SITE_URL.'public/images/user_large.jpg';
 				}
+
+                $strUser['rolename'] = $this->getRole($strUser['allscore']);
+
 			}else{
 				$strUser = '';
 			}
@@ -163,9 +166,13 @@ class user extends tsApp{
 			$strUser = $this->find('user_info',array(
 				'userid'=>$userid,
 			));
+
+            $strAllScore = $this->db->once_fetch_assoc("select SUM(score) as allscore from ".dbprefix."user_score_log where `userid`='$userid' and  `status`='0'");
+
 			$this->update('user_info',array(
 				'userid'=>$userid,
 			),array(
+                'allscore'=>$strAllScore['allscore'],
 				'count_score'=>$strUser['count_score']+$score,
 			));
 		}
@@ -315,30 +322,54 @@ class user extends tsApp{
 		setcookie("ts_email", '', time()+3600,'/');   
 		setcookie("ts_autologin", '', time()+3600,'/');
 	}
-	
-	//用户签到
-	function signin(){
-		$userid = intval($_SESSION['tsuser']['userid']);
-		$signin = intval($_SESSION['tsuser']['signin']);
-		if($userid && $signin<strtotime(date('Y-m-d 00:00:00'))){
-			$this->update('user_info',array(
-				'userid'=>$userid,
-			),array(
-				'signin'=>time(),
-			));
-			
-			//加积分
-			$this->doScore('user','signin');
-			
-			//更新signin
-			$_SESSION['tsuser']['signin'] = time();
-			
-			return true;
-			
-		}else{
-			return false;
-		}
-	}
+
+    //用户签到
+    function signin(){
+
+        $userid = intval($_SESSION['tsuser']['userid']);
+
+        $zuotian = date('Y-m-d',strtotime("-1 day"));
+
+        $jintian = date('Y-m-d');
+
+
+        $zuotianSign = $this->find('sign',array(
+            'userid'=>$userid,
+            'addtime'=>$zuotian,
+        ));
+
+        $jintianSign = $this->find('sign',array(
+            'userid'=>$userid,
+            'addtime'=>$jintian,
+        ));
+
+        if($jintianSign==''){
+
+            if($zuotianSign==''){
+                $this->create('sign',array(
+                    'userid'=>$userid,
+                    'num'=>1,
+                    'addtime'=>$jintian,
+                ));
+            }else{
+
+                $this->create('sign',array(
+                    'userid'=>$userid,
+                    'num'=>$zuotianSign['num']+1,
+                    'addtime'=>$jintian,
+                ));
+
+            }
+
+            //加积分
+            $this->doScore('user','signin');
+
+            return true;
+
+        }else{
+            return false;
+        }
+    }
 
 
     /*

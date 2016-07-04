@@ -37,10 +37,6 @@ switch($ts){
 		$touserid = intval($_POST['touserid']);
 		$content = tsClean($_POST['content']);
 		
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
-		
 		if($content == ''){
 		
 			tsNotice('留言内容不能为空!');
@@ -63,7 +59,9 @@ switch($ts){
         $msg_tourl = tsUrl('user','space',array('id'=>$touserid));
 		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 		
-		tsNotice('留言成功！');
+		#tsNotice('留言成功！');
+        header('Location: '.tsUrl('user','guestbook',array('id'=>$touserid)));
+        exit;
 		
 		break;
 		

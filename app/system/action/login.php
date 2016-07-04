@@ -8,10 +8,6 @@ switch($ts){
 		break;
 		
 	case "do":
-	
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
 		
 		$email = trim($_POST['email']);
 		$pwd = trim($_POST['pwd']);

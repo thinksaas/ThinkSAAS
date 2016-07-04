@@ -88,10 +88,6 @@ switch($ts){
 		
 	//设为管理员 
 	case "manager":
-	
-		if($_POST['token'] != $_SESSION['token']) {
-			echo '0';exit;//非法操作
-		}
 		
 		$nuserid = intval($TS_USER['userid']);
 		

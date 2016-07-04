@@ -65,6 +65,8 @@ outline:0 none;}
 .midder table tr.old td{font-weight:bold;background:none repeat scroll 0 0 #F6F6F6;}
 .midder table tr.odd td{background:none repeat scroll 0 0 #FBFBFB;}
 
+.odd:hover{background: #F6F6F6;}
+
 /*分页*/
 .page {margin:0;text-align: left;padding:5px;}
 .page a {

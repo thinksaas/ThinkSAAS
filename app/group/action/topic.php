@@ -19,7 +19,7 @@ if($strTopic==''){
 
 
 //帖子审核 
-if($strTopic['isaudit']==1){
+if($strTopic['isaudit']==1 && $GLOBALS['TS_USER']['isadmin']==0){
 	tsNotice('内容审核中......');
 }
 

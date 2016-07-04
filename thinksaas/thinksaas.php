@@ -75,17 +75,6 @@ if ($TS_CF['memcache'] && extension_loaded('memcache')) {
     $TS_MC = Memcache::connect($TS_CF['memcache']['host'], $TS_CF['memcache']['port']);
 }
 
-//加密用户操作
-if (!isset($_SESSION['token'])) {
-    $_SESSION['token'] = sha1(uniqid(mt_rand(), TRUE));
-}
-
-if ($_REQUEST['token']) {
-    if (tsFilter($_REQUEST['token']) != $_SESSION['token']) {
-        tsNotice('非法操作！');
-    }
-}
-
 //处理html编码
 header('Content-Type: text/html; charset=UTF-8');
 //安装专用变量
@@ -200,16 +189,36 @@ if ($TS_SITE['appnav'] == '') {
     $TS_SITE['appnav'] = $tsMySqlCache -> get('system_appnav');
 }
 
+//加载我的社区导航
+$TS_SITE['mynav'] = fileRead('data/system_mynav.php');
+if ($TS_SITE['mynav'] == '') {
+    $TS_SITE['mynav'] = $tsMySqlCache -> get('system_mynav');
+}
+
+
+//加载APP配置
 if (is_file('data/' . $TS_URL['app'] . '_options.php')) {
     $TS_APP = fileRead('data/' . $TS_URL['app'] . '_options.php');
     if ($TS_APP == '') {
         $TS_APP = $tsMySqlCache -> get($TS_URL['app'] . '_options');
     }
-
     if ($TS_APP['isenable'] == '1' && $TS_URL['ac'] != 'admin') {
         tsNotice($TS_URL['app'] . "应用关闭，请开启后访问！");
     }
 }
+
+
+//加密用户操作
+if (!isset($_SESSION['token'])) {
+    $_SESSION['token'] = sha1(uniqid(mt_rand(), TRUE));
+}
+
+if ($_REQUEST['token'] && $TS_SITE['istoken']) {
+    if (tsFilter($_REQUEST['token']) != $_SESSION['token']) {
+        tsNotice('非法操作！');
+    }
+}
+
 
 //定义网站URL
 define('SITE_URL', $TS_SITE['site_url']);
@@ -252,20 +261,15 @@ if ($TS_USER['isadmin'] != 1 && $TS_URL['in'] == 'edit') {
 
 //判断用户是否需要验证Email,管理员除外
 if ($TS_SITE['isverify'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
-
     $verifyUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid']), ));
-
     if (intval($verifyUser['isverify']) == 0 && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
         tsHeaderUrl(tsUrl('user', 'verify'));
     }
-
 }
 
 //判断用户是否上传头像,管理员除外
 if ($TS_SITE['isface'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
-
     $faceUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid']), ));
-
     if ($faceUser['face'] == '' && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
         tsHeaderUrl(tsUrl('user', 'verify', array('ts' => 'face')));
     }

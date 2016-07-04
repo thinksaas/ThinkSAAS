@@ -3,10 +3,6 @@ defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 
 $userid = aac ( 'user' )->isLogin ();
 
-if ($_GET['token'] != $_SESSION['token']) {
-    tsNotice('非法操作！');
-}
-
 $articleid = intval ( $_GET ['articleid'] );
 
 $strArticle = $new ['article']->find ( 'article', array (

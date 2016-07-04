@@ -21,10 +21,6 @@ switch($ts){
 		//用于JS提交验证
 		$js = intval($_GET['js']);
 	
-		if($_POST['token'] != $_SESSION['token']) {
-			getJson('非法操作！',$js);
-		}
-	
 		$email		= trim($_POST['email']);
 		$pwd			= trim($_POST['pwd']);
 		$repwd		= trim($_POST['repwd']);

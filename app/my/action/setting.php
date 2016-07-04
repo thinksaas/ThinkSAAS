@@ -11,10 +11,6 @@ switch($ts){
 		
 	case "basedo":
 	
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
-	
 		$username = t($_POST['username']);
 		$signed = t($_POST['signed']);
 		$phone = t($_POST['phone']);
@@ -224,10 +220,6 @@ switch($ts){
 		break;
 		
 	case "emaildo":
-	
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
 		
 		$email = trim($_POST['email']);
 		

@@ -5,9 +5,6 @@ $userid = aac('user')->isLogin();
 switch($ts){
 	//添加评论
 	case "do":
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
 		
 		$authcode = strtolower($_POST['authcode']);
 		

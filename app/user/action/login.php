@@ -22,10 +22,6 @@ switch($ts){
 
         $ad = intval($_POST['ad']);
 		
-		if($_POST['token'] != $_SESSION['token']) {
-			getJson('非法操作！',$js);
-		}
-		
 		/*禁止以下IP用户登陆或注册*/
 		$arrIp = aac('system')->antiIp();
 		if(in_array(getIp(),$arrIp)){

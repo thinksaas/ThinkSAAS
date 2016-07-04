@@ -7,10 +7,7 @@ $userid = aac ( 'user' )->isLogin ();
 switch ($ts) {
 	
 	case "do" :
-		
-		if ($_POST ['token'] != $_SESSION ['token']) {
-			tsNotice ( '非法操作！' );
-		}
+
 		
 		$articleid = intval ( $_POST ['articleid'] );
 		$content = tsClean ( $_POST ['content'] );

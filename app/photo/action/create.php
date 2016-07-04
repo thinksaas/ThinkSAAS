@@ -18,11 +18,6 @@ switch($ts){
 		break;
 		
 	case "do":
-	
-	
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
 		
 		//用户是否登录
 		$userid = aac('user')->isLogin();

@@ -131,10 +131,6 @@ switch($ts){
 	
 	case "edit_do":
 	
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
-	
 		//用户是否登录
 		$userid = aac('user')->isLogin();
 	

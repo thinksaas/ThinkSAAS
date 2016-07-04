@@ -45,9 +45,7 @@ switch ($ts) {
 	//编辑小组基本信息
 	case "edit_base":
 	
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
+
 		$groupid = intval($_POST['groupid']);
 		
 		$strGroup = $new['group']->find('group',array(
@@ -280,9 +278,7 @@ switch ($ts) {
 	//回复评论
 	case "recomment":
 	
-		if($_POST['token'] != $_SESSION['token']) {
-			echo 1;exit;
-		}
+
 		
 		$referid = intval($_POST['referid']);
 		$topicid = intval($_POST['topicid']);

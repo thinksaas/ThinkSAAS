@@ -21,9 +21,7 @@ switch ($ts) {
 		break;
 
 	case "do" :
-		if ($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
+
 
 		$cateid = intval($_POST['cateid']);
 		$title = trim($_POST['title']);

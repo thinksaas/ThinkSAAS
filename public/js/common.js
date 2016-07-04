@@ -25,15 +25,20 @@ $(document).ready(function(){
 
 //签到
 function qianDao(){
-	$.post(siteUrl+'index.php?app=user&ac=signin',function(rs){
-	
-		if(rs==1){
-			tsNotice('签到成功！');
-		}else{
-			tsNotice('签到失败！');
-		}
-	
-	})
+    if(siteUid==0){
+        tsNotice('请登录后再签到！');
+        return false;
+    }else{
+        $.post(siteUrl+'index.php?app=user&ac=signin',function(rs){
+            if(rs==1){
+                $.get(siteUrl+'index.php?app=user&ac=signin&ts=ajax',function(rs){
+                    $("#qiandao").html(rs);
+                })
+            }else{
+                tsNotice('签到失败！');
+            }
+        })
+    }
 }
 
 /*!刷新验证码*/

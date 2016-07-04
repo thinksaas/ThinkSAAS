@@ -1,5 +1,4 @@
 <?php
-
 defined('IN_TS') or die('Access Denied.');
 return array(
     'name' => '文章',
@@ -14,4 +13,5 @@ return array(
     'issql' => '1',
     'issystem' => '1',
     'isappnav' => '1',
+    'ismy'=>'1'
 );

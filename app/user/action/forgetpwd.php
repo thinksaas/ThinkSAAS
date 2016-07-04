@@ -15,12 +15,7 @@ switch($ts){
 	case "do":
 		
 		$js = intval($_GET['js']);
-		
-		
-	
-		if($_POST['token'] != $_SESSION['token']) {
-			getJson('非法操作！',$js);
-		}
+
 	
 		$email	= trim($_POST['email']);
 
