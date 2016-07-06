@@ -13,10 +13,11 @@
 
 <tr><td>APP关键词：</td><td><input style="width:300px;" name="option[appkey]" value="{$strOption[appkey]}" /></td></tr>
 
+<tr><td>普通用户发布 :</td><td><input {if $strOption[ispost]=='0'}checked="select"{/if} name="option[ispost]" type="radio" value="0" />允许 <input {if $strOption[ispost]=='1'}checked="select"{/if} name="option[ispost]" type="radio" value="1" />不允许(只有管理员可以发布)</td></tr>
+
 <tr><td>是否审核：</td><td><input type="radio" name="option[isaudit]" value="0" {if $strOption['isaudit']=='0'}checked{/if}  />不审核 <input type="radio" name="option[isaudit]" value="1" {if $strOption['isaudit']=='1'}checked{/if} />审核</td></tr>
 
 <tr><td></td><td>
-<input type="hidden" name="token" value="{$_SESSION['token']}" />
 <input type="submit" value="提交修改" /></td></tr>
 </table>
 </form>

@@ -9,9 +9,19 @@ if(aac('user')->isPublisher()==false) tsNotice('不好意思，你还没有权�
 switch($ts){
 
 	case "":
+
+        if($TS_APP['ispost'] == 0 || $TS_USER['isadmin']==1){
+
+            $title = '创建资料库';
+            include template('create');
+
+        }else{
+
+            tsNotice('系统不允许普通用户创建资料库！');
+
+        }
 	
-		$title = '创建资料库';
-		include template('create');
+
 	
 		break;
 		

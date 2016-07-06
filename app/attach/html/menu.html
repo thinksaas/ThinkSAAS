@@ -1,4 +1,8 @@
 <ul class="nav nav-tabs" role="tablist">
 <li role="presentation" {if $ac=='index'}class="active"{/if}><a href="{tsUrl('attach')}">最新资料库</a></li>
+
+{if $TS_APP['ispost']==0 || $TS_USER['isadmin']==1}
 <li role="presentation" {if $ac=='create'}class="active"{/if}><a href="{tsUrl('attach','create')}">创建新资料库</a></li>
+{/if}
+
 </ul>

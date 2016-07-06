@@ -43,6 +43,8 @@ h3,h4,h5,h6 {
     padding-left:10px;
 }
 
+.panel-heading{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+
 .btn-fat{padding-left:30px;padding-right:30px;}
 
 .clear {
