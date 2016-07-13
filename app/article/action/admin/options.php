@@ -39,7 +39,7 @@ switch($ts){
 		}
 		
 		fileWrite('article_options.php','data',$arrOption);
-		$tsMySqlCache->set('article_options',$arrOption);
+		$GLOBALS['tsMySqlCache']->set('article_options',$arrOption);
 		
 		qiMsg('修改成功！');
 	

@@ -32,7 +32,7 @@
   <div class="form-group">
     <label>类型</label>
     
-<select name="typeid">
+<select name="typeid" class="form-control">
 <option {if $strTopic[typeid]=='0'}selected="select"{/if} value="0">请选择</option>
 {loop $arrGroupType $key $item}
 <option {if $item[typeid]==$strTopic[typeid]}selected="select"{/if} value="{$item[typeid]}">{$item[typename]}</option>

@@ -1,10 +1,11 @@
 //实例化编辑器
 var options = {
-	toolbars:[['Bold','link','unlink']],
+	toolbars:[],
 	initialFrameWidth:'100%',
 	initialFrameHeight:100,
 	focus:false,
     elementPathEnabled:false,
-    wordCount:false
+    wordCount:false,
+    catchRemoteImageEnable:false
 };
 var ue = UE.getEditor('tseditor', options);
