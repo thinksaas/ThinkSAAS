@@ -66,10 +66,23 @@ class MySql {
 	 */
 	function query($sql) {
 
-        $this->arrSql = $sql;
+        $start_time = microtime(true);
+        $this->result = mysqli_query ( $this->conn,$sql );
+        $end_time = microtime(true);
+        $total_time = $end_time-$start_time;
+        $this->queryCount ++;
 
-		$this->result = mysqli_query ( $this->conn,$sql );
-		$this->queryCount ++;
+        $run_time = number_format($total_time, 6);
+
+        //记录慢sql
+        if($GLOBALS['TS_CF']['slowsqllogs'] && $run_time>$GLOBALS['TS_CF']['slowsqllogs']){
+            $log = "TIME:" . date ( 'Y-m-d :H:i:s' ) . "\n";
+            $log .= "SQL:" . $sql . "\n";
+            $log .= "RUN_TIME:" . $run_time . "\n";
+            $log .= "REQUEST_URI:" . $_SERVER['REQUEST_URI'] . "\n";
+            $log .= "--------------------------------------\n";
+            logging ( date ( 'Ymd' ) . '-mysqli-slow.txt', $log );
+        }
 		
 		// 记录SQL错误日志并继续执行
 		if (! $this->result) {
@@ -89,6 +102,8 @@ class MySql {
 			$log .= "--------------------------------------\n";
 			logging ( date ( 'Ymd' ) . '-mysqli.txt', $log );
 		}
+
+
 		
 		return $this->result;
 	}
