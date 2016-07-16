@@ -35,7 +35,7 @@
 
 <div class="content">{if $item['gaiyao']}{$item['gaiyao']}{else}暂无概要{/if} (<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">查看全文</a>)</div>
 
-<div class="cate tar">({$item['count_recommend']})推荐  ({$item['count_comment']})评论</div>
+<div class="cate tar">{$item['count_view']}阅读 |   {$item['count_comment']}评论</div>
 <div class="clear"></div>
 </li>
 {/loop}
@@ -54,17 +54,20 @@
 <div class="col-md-4">
 
 
+    <a class="btn btn-info btn-block btn-lg" href="{tsUrl('article','add')}">
+        <span class="glyphicon glyphicon-plus-sign"></span> 写文章</a>
+    <p></p>
+
 
   <div class="panel panel-default">
-    <div class="panel-heading">文章分类</div>
+    <div class="panel-heading">分类</div>
     <div class="panel-body">
 
 
   {loop $arrCate $key $item}
-  <a class="btn btn-link" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
+  <a class="btn {if $item['cateid']==$cateid}btn-success{else}btn-link{/if}" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
   {/loop}
-  <a class="btn btn-link" href="{tsUrl('article','tags')}">标签</a>
-  <a class="btn btn-link" href="{tsUrl('article','add')}">写文章</a>
+
 
 </div>
 

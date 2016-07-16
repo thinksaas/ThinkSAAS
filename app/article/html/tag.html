@@ -1,15 +1,21 @@
 {template header}
 
-<div class="midder">
-<div class="mc">
+<div class="container">
 
-{template menu}
+    <ol class="breadcrumb">
+        <li><a href="{SITE_URL}">首页</a></li>
+        <li><a href="{tsUrl('article')}">文章</a></li>
+        <li><a href="{tsUrl('article','tags')}">标签</a></li>
+        <li class="active">{$strTag['tagname']}</li>
+    </ol>
 
-<h1>{$strTag['tagname']}</h1>
-
-<div class="cleft">
+<div class="row">
 
 
+<div class="col-md-8">
+
+    <div class="panel panel-default">
+        <div class="panel-body">
 
 <div class="clist">
 <ul>
@@ -31,13 +37,15 @@
 
 <div class="page">{$pageUrl}</div>
 </div>
+</div>
+</div>
 
 
-<div class="cright">
+<div class="col-md-4">
 
-<div class="bbox">
-<div class="btitle">热门标签</div>
-<div class="bc">
+    <div class="panel panel-default">
+        <div class="panel-heading">热门标签</div>
+        <div class="panel-body">
 <div class="tags">
 {loop $arrTag $key $item}
 <a href="{tsUrl('article','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>

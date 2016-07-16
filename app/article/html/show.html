@@ -1,9 +1,5 @@
 {template header}
 {php doAction('tseditor','mini')}
-<style>
-    .article_show_content{}
-    .article_show_content img{max-width: 100%;}
-</style>
 <div class="container">
 
     <ol class="breadcrumb">
@@ -66,17 +62,15 @@
                         {php doAction('gobad','468')}
                     </div>
 
-                    <div class="tar">
-                        <a class="btn" href="javascript:void('0');"
-                           onclick="recommend('{$strArticle['articleid']}');">{$strArticle['count_recommend']}推荐</a>
-                        <a class="btn" href="">{$strArticle['count_comment']}评论</a>
+                    <div class="tar c9">
+                        {$strArticle['count_view']}阅读 | {$strArticle['count_comment']}评论
                     </div>
 
                     {if $TS_USER[isadmin]==1}
                     <div class="tar pd100">
-                        <a href="{SITE_URL}index.php?app=article&ac=edit&articleid={$strArticle[articleid]}">修改</a>
+                        <a class="btn btn-default btn-sm" href="{SITE_URL}index.php?app=article&ac=edit&articleid={$strArticle[articleid]}">修改</a>
 
-                        <a href="{SITE_URL}index.php?app=article&ac=delete&articleid={$strArticle[articleid]}&token={$_SESSION['token']}">删除</a>
+                        <a class="btn btn-default btn-sm" href="{SITE_URL}index.php?app=article&ac=delete&articleid={$strArticle[articleid]}&token={$_SESSION['token']}">删除</a>
 
                     </div>
                     {/if}
@@ -135,6 +129,7 @@
                               onSubmit="return submitonce(this)" id="formMini">
 							<textarea style="width: 100%;" type="text" id="tseditor"
                                       name="content"></textarea>
+                            <br />
                             <p>
                                 <input type="hidden" name="articleid"
                                        value="{$strArticle[articleid]}" /> <input type="hidden"
@@ -174,6 +169,10 @@
 
         <div class="col-md-4">
 
+            <a class="btn btn-info btn-block btn-lg" href="{tsUrl('article','add')}">
+                <span class="glyphicon glyphicon-plus-sign"></span> 写文章</a>
+            <p></p>
+
             {php doAction('gobad','topic_right_top')}
 
 
@@ -184,8 +183,6 @@
                     {loop $arrCate $key $item}
                     <a class="btn btn-link" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
                     {/loop}
-                    <a class="btn btn-link" href="{tsUrl('article','tags')}">标签</a>
-                    <a class="btn btn-link" href="{tsUrl('article','add')}">写文章</a>
 
 
                 </div>

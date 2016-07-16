@@ -1,10 +1,15 @@
 {template header}
 
-<div class="midder">
+<div class="container">
 
-<div class="mc">
+    <ol class="breadcrumb">
+        <li><a href="{SITE_URL}">首页</a></li>
+        <li><a href="{tsUrl('article')}">文章</a></li>
+        <li class="active">标签</li>
+    </ol>
 
-{template menu}
+    <div class="panel panel-default">
+        <div class="panel-body">
 
 <div class="tags">
 {loop $arrTag $key $item}
@@ -19,6 +24,7 @@
 
 
 
+</div>
 </div>
 </div>
 
