@@ -243,7 +243,7 @@ switch($ts){
 	
 		$albumid = intval($_POST['albumid']);
 		
-		$albumface = trim($_POST['albumface']);
+		$albumface = intval($_POST['albumface']);
 		
 		$arrPhotoId = $_POST['photoid'];
 		$arrPhotoDesc = $_POST['photodesc'];
@@ -277,11 +277,17 @@ switch($ts){
 	
 		//更新相册封面
 		if($albumface){
+
+            $strPhoto = $new['photo']->find('photo',array(
+                'photoid'=>$albumface,
+            ));
+
 			$new['photo']->update('photo_album',array(
 				'userid'=>$userid,
 				'albumid'=>$albumid,
 			),array(
-				'albumface'=>$albumface,
+                'path'=>$strPhoto['path'],
+				'albumface'=>$strPhoto['photourl'],
 			));
 		}
 		

@@ -68,6 +68,7 @@ switch($ts){
 
 
         //签名中禁止写URL,Email
+        /*
         if(filter_var($signed, FILTER_SANITIZE_URL) || filter_var($signed, FILTER_VALIDATE_EMAIL)){
             tsNotice('签名不合法！请修改后再提交！');
         }
@@ -75,6 +76,7 @@ switch($ts){
         if(filter_var($about, FILTER_SANITIZE_URL) || filter_var($about, FILTER_VALIDATE_EMAIL)){
             tsNotice('个人介绍不合法！请修改后再提交！');
         }
+        */
 
 
 		

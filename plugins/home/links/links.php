@@ -10,7 +10,7 @@ function links_html(){
 	}
 	
 	echo '<div class="clear"></div>';
-	echo '<div class="panel panel-default">';
+	echo '<div class="panel panel-default hidden-xs">';
 	echo '<div class="panel-heading">友情链接</div>';
 	echo '<div class="panel-body links">';
 	foreach($arrLink as $item){
