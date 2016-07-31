@@ -2269,6 +2269,4 @@ function getTextPhotos($text,$num=0){
     }else{
         return $arrPhoto;
     }
-
-
 }
