@@ -40,6 +40,26 @@ switch($ts){
 		
 		fileWrite('article_options.php','data',$arrOption);
 		$GLOBALS['tsMySqlCache']->set('article_options',$arrOption);
+
+
+
+        //更新APP导航名称
+        if($arrOption['appname']){
+            $appkey = 'article';
+            $appname = $arrOption['appname'];
+            $arrNav = include 'data/system_appnav.php';
+            if(is_array($arrNav)){
+                $arrNav[$appkey] = $appname;
+            }else{
+                $arrNav = array(
+                    $appkey=>$appname,
+                );
+            }
+            fileWrite('system_appnav.php','data',$arrNav);
+            $GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
+        }
+
+
 		
 		qiMsg('修改成功！');
 	
