@@ -10,8 +10,8 @@
         <a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}" class="thumbnail">
             <img src="{if $item[albumface] == ''}{SITE_URL}app/photo/skins/default/photo_album.png{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" alt="{$item['albumname']}">
         </a>
-        <p>{$item['albumname']}</p>
-        <p>{$item['count_photo']} 张图片</p>
+        <p><a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}">{$item['albumname']}</a></p>
+        <p class="c9">{$item['count_photo']} 张图片</p>
     </div>
         {/loop}
     </div>

@@ -159,12 +159,19 @@
     <div class="panel panel-default">
         <div class="panel-heading">成员 <small><a href="{tsUrl('group','user',array('id'=>$strGroup['groupid']))}">更多</a></small></div>
         <div class="panel-body">
-{loop $arrGroupUser $key $item}
-<dl class="obu">
-<dt><a href="{tsUrl('user','space',array('id'=>$item[userid]))}" rel="face" uid="{$item['userid']}"><img class="img-circle" src="{$item[face]}" width="48" height="48" alt="{$item[username]}" title="{$item[username]}" /></a></dt>
-<dd>{$item[username]}</dd>
-</dl>
-{/loop}
+
+
+
+            <div class="row">
+                {loop $arrGroupUser $key $item}
+                <div class="col-md-3 tac">
+                    <a href="{tsUrl('user','space',array('id'=>$item[userid]))}" rel="face" uid="{$item['userid']}"><img class="img-circle" src="{$item[face]}" width="48" height="48" alt="{$item[username]}" title="{$item[username]}" /></a>
+                    <div class="username pd100"><a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[username]}</a></div>
+                </div>
+                {/loop}
+            </div>
+
+
 </div>
 </div>
 
