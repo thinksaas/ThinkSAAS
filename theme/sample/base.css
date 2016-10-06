@@ -45,6 +45,8 @@ h3,h4,h5,h6 {
 
 .carousel-control.left, .carousel-control.right{background: none;}
 
+.panel-default{border:none;border-radius: 0px;}
+
 .wto{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 
 .btn-fat{padding-left:30px;padding-right:30px;}
@@ -120,7 +122,6 @@ h3,h4,h5,h6 {
 
 .appnav .select {
 	background: #dddddd;
-	border-radius: 5px;
     color:#555555;
 }
 

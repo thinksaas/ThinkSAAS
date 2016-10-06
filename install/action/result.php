@@ -92,8 +92,7 @@ if ($db) {
 	}
 	
 	fileWrite ( 'system_options.php', 'data', $arrOption );
-	$tsMySqlCache->set ( 'system_options', $arrOption );
-	$tsMySqlCache->file();
+    $tsMySqlCache->set ( 'system_options', $arrOption );
 	
 	// 生成配置文件
 	$fp = fopen ( THINKDATA . '/config.inc.php', 'w' );
