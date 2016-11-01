@@ -188,3 +188,8 @@ $(function(){
         }
     })
 })
+
+//删除提示
+function deltip(){
+    return confirm('确定删除吗?')
+}

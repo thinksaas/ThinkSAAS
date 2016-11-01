@@ -59,7 +59,7 @@ switch ($ts) {
             'addtime' => date('Y-m-d H:i:s')
         ));
 
-		// 上传帖子图片开始
+		// 上传图片开始
 		$arrUpload = tsUpload($_FILES['photo'], $articleid, 'article', array('jpg', 'gif', 'png', 'jpeg'));
 		if ($arrUpload) {
 			$new['article'] -> update('article', array(
@@ -69,7 +69,7 @@ switch ($ts) {
                 'photo' => $arrUpload['url']
             ));
 		}
-		// 上传帖子图片结束
+		// 上传图片结束
 
 		// 处理标签
 		aac('tag') -> addTag('article', 'articleid', $articleid, $tag);
