@@ -1635,6 +1635,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
   `ip` varchar(16) NOT NULL DEFAULT '' COMMENT '登陆IP',
   `address` char(64) NOT NULL DEFAULT '',
   `comefrom` tinyint(1) NOT NULL DEFAULT '0' COMMENT '注册来自0web1手机客户端',
+  `allscore` int(11) NOT NULL DEFAULT '0' COMMENT '所有获得的总积分',
   `count_score` int(11) NOT NULL DEFAULT '0' COMMENT '统计积分',
   `count_follow` int(11) NOT NULL DEFAULT '0' COMMENT '统计用户跟随的',
   `count_followed` int(11) NOT NULL DEFAULT '0' COMMENT '统计用户被跟随的',
