@@ -6,6 +6,7 @@ body {
 }
 
 
+
 h1 {
 	color: #494949;
 	font-size: 16px;
@@ -45,7 +46,19 @@ h3,h4,h5,h6 {
 
 .carousel-control.left, .carousel-control.right{background: none;}
 
-.panel-default{border:none;border-radius: 0px;}
+.thumbnail{
+    border: none;
+    border-radius:0px;
+    padding:0px;
+}
+
+.breadcrumb{border-radius:0px;}
+
+.panel-default{
+    border-radius:0px;
+    box-shadow:none;
+    border:none;
+}
 
 .wto{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 
@@ -57,13 +70,37 @@ h3,h4,h5,h6 {
 	line-height: 0
 }
 
-
+/***字体大小***/
 .f12 {
 	font-size: 12px
 }
 
 .f14 {
 	font-size: 14px
+}
+
+.fs12 {
+    font-size: 12px
+}
+
+.fs14 {
+    font-size: 14px
+}
+
+.fs16{
+    font-size: 16px;
+}
+
+.fs18{
+    font-size: 18px;
+}
+
+.fs20 {
+    font-size: 20px;
+}
+
+.fs24{
+    font-size: 24px;
 }
 
 
@@ -377,18 +414,7 @@ color:#999
 	line-height: 30px
 }
 
-.fs12 {
-	font-size: 12px
-}
 
-.fs14 {
-	font-size: 14px
-}
-
-.fs20 {
-	font-size: 20px;
-	color: #333
-}
 
 .br {
 	border-right: solid 1px #eee
@@ -589,7 +615,19 @@ color:#999
 	overflow: hidden
 }
 
-.facelist .username{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;text-align: center;}
+
+.facelist .username{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+    padding:5px 0;
+}
+
+.facelist .username a{
+    color:#999999;
+    font-size: 14px;
+}
 
 .of {
 	overflow: hidden
