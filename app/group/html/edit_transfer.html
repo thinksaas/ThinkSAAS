@@ -1,0 +1,46 @@
+{template header}
+
+<div class="container">
+
+
+    <ol class="breadcrumb">
+        <li><a href="{SITE_URL}">首页</a></li>
+        <li><a href="{tsUrl('group')}">小组</a></li>
+        <li><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
+        <li class="active">小组设置</li>
+    </ol>
+
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+
+            {template edit_xbar}
+
+
+            <form class="form-horizontal" role="form" method="post" action="{SITE_URL}index.php?app=group&ac=edit&ts=transferdo&groupid={$strGroup['groupid']}">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">转让给谁？</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="touserid" class="form-control" placeholder="接收人的用户ID">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-6">
+                        <button type="submit" class="btn btn-success">确定转让</button>
+                    </div>
+                </div>
+
+            </form>
+
+
+
+
+        </div>
+    </div>
+
+</div>
+{template footer}

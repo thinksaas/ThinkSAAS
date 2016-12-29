@@ -213,6 +213,39 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 			break;
 
 
+        //小组转让
+        case "transfer":
+
+
+            $title = '小组转让';
+            include template('edit_transfer');
+            break;
+
+        case "transferdo":
+
+
+            $touserid = intval($_POST['touserid']);
+
+            $strTouser = $new['group']->find('group_user',array(
+                'userid'=>$touserid,
+                'groupid'=>$groupid,
+            ));
+
+            if($strTouser==''){
+                tsNotice('用户还没有加入本小组，只能转让给本小组成员');
+            }
+
+            $new['group']->update('group',array(
+                'groupid'=>$groupid,
+            ),array(
+                'userid'=>$touserid,
+            ));
+
+            tsNotice('小组转让成功！');
+
+            break;
+
+
 
 
 			

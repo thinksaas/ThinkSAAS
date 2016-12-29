@@ -31,8 +31,12 @@ h2 span {
 
 h3,h4,h5,h6 {
 	font-weight: normal;
-	font-size: 14px
+	font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
+
+/****此处bootstrap样式重写开始****/
 
 .row {
     margin-right: -10px;
@@ -60,6 +64,21 @@ h3,h4,h5,h6 {
     border:none;
 }
 
+
+
+.list-group-item:first-child {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.list-group-item:last-child {
+    margin-bottom: 0;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+/****此处bootstrap样式重写结束****/
+
 .wto{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 
 .btn-fat{padding-left:30px;padding-right:30px;}
@@ -69,6 +88,8 @@ h3,h4,h5,h6 {
 	font-size: 0;
 	line-height: 0
 }
+
+
 
 /***字体大小***/
 .f12 {
@@ -128,7 +149,39 @@ h3,h4,h5,h6 {
 .header .navbar-toggle{border: 1px solid #fff;}
 .header .navbar-toggle .icon-bar{background:#fff}
 
-.navbar-form .form-control{width:180px;}
+
+/*顶部搜索*/
+.navbar-form{
+    margin-top: 11px;
+}
+
+.navbar-form .form-control {
+    height: 30px;
+    width: 100px;
+    border-radius: 20px;
+    line-height: 28px;
+    padding: 0 24px 0 12px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    border-color: #fff;
+}
+
+.navbar-form .form-group {
+    position: relative;
+}
+
+.navbar-form .button {
+    position: absolute;
+    right: 2px;
+    top: 6px;
+    border: none;
+    background: none;
+}
+
+
+
 
 .appnav {
 	width: 100%;
@@ -579,9 +632,13 @@ color:#999
 	width: 100%
 }
 
+
+
 .c9 {
 	color: #999
 }
+
+
 
 .lh25 {
 	line-height: 25px

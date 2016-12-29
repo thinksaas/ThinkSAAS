@@ -111,22 +111,13 @@
 
         </ul>
 
-
-        <form id="searchto" class="navbar-form navbar-left hidden-xs form-inline" role="search" method="get" action="{SITE_URL}index.php">
+        <form id="searchto" class="navbar-form navbar-left hidden-xs" role="search" method="get" action="{SITE_URL}index.php">
             <div class="form-group">
-
-                <div class="input-group">
-                    <input type="hidden" name="app" value="search" />
-                    <input type="hidden" name="ac" value="s" />
-                    <input type="text" class="form-control" name="kw" placeholder="小组 话题 文章" style="width:180px;" />
-
-                    <a href="javascript:void('0')" class="input-group-addon search_click" onclick="searchon()"><span class="glyphicon glyphicon-search"></span></a>
-
-                </div>
+                <input type="hidden" name="app" value="search" />
+                <input type="hidden" name="ac" value="s" />
+                <input type="text" class="form-control js-search" name="kw" placeholder="搜索" />
+                <button class="button glyphicon glyphicon-search" onclick="searchon()"></button>
             </div>
-            <!--
-          <button type="submit" class="btn btn-default">搜索</button>
-          -->
         </form>
 
 
