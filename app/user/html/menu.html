@@ -29,7 +29,7 @@
 
                 <div>加入：{php echo date('Y-m-d',$strUser[addtime])} </div>
 
-                <div class="sex">性别：{if $strUser[sex]=='0'}保密{elseif $strUser[sex]=='1'}男{else}女{/if}</div>
+                <div class="sex">性别：{$strUser['sex']}</div>
 
                 <div class="city">居住地：{$strUser['province']} {$strUser['city']}</div>
 

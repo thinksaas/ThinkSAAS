@@ -247,6 +247,12 @@ switch($ts){
 		
 		$arrPhotoId = $_POST['photoid'];
 		$arrPhotoDesc = $_POST['photodesc'];
+
+
+        if(is_array($arrPhotoId)==false || is_array($arrPhotoDesc)==false){
+            tsNotice('非法操作');
+        }
+
 		
 		if($TS_USER['isadmin']==0){
 		
