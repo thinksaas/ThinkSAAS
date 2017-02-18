@@ -40,9 +40,28 @@ switch($ts){
 		}
 		
 		fileWrite('attach_options.php','data',$arrOption);
-		$tsMySqlCache->set('attach_options',$arrOption);
-		
-		qiMsg('修改成功！');
+		$GLOBALS['tsMySqlCache']->set('attach_options',$arrOption);
+
+
+
+        //更新APP导航名称
+        if($arrOption['appname']){
+            $appkey = 'attach';
+            $appname = $arrOption['appname'];
+            $arrNav = include 'data/system_appnav.php';
+            if(is_array($arrNav)){
+                $arrNav[$appkey] = $appname;
+            }else{
+                $arrNav = array(
+                    $appkey=>$appname,
+                );
+            }
+            fileWrite('system_appnav.php','data',$arrNav);
+            $GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
+        }
+
+
+        qiMsg('修改成功！');
 	
 		break;
 }
