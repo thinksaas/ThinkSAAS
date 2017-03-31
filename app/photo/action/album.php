@@ -268,6 +268,7 @@ switch($ts){
 		
 		foreach($arrPhotoDesc as $key=>$item){
 
+            $item = str_replace('../','',$item);
             $item = str_replace('/','',$item);
 
 			if($item){
