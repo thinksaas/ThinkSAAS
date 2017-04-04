@@ -7,8 +7,10 @@ defined('IN_TS') or die('Access Denied.');
  * @Email:thinksaas@qq.com
  * @site:www.thinksaas.cn
  */
-if ('5' != substr(PHP_VERSION, 0, 1)) {
-    exit("ThinkSAAS运行环境要求PHP5！");
+header('Content-Type: text/html; charset=UTF-8');
+
+if (substr(PHP_VERSION, 0, 3)<5.3) {
+    exit("ThinkSAAS运行环境要求PHP5.3以上！");
 }
 
 //核心配置文件 $TS_CF 系统配置变量
@@ -24,8 +26,6 @@ if ($TS_CF['debug']) {
 } else {
     error_reporting(0);
 }
-
-@set_magic_quotes_runtime(0);
 
 //ini_set("memory_limit","120M");
 
@@ -74,9 +74,6 @@ session_start();
 if ($TS_CF['memcache'] && extension_loaded('memcache')) {
     $TS_MC = Memcache::connect($TS_CF['memcache']['host'], $TS_CF['memcache']['port']);
 }
-
-//处理html编码
-header('Content-Type: text/html; charset=UTF-8');
 //安装专用变量
 $install = isset($_GET['install']) ? $_GET['install'] : 'index';
 
@@ -365,7 +362,7 @@ if (is_file('app/' . $TS_URL['app'] . '/class.' . $TS_URL['app'] . '.php')) {
         include_once 'app/'.$TS_URL['app'].'/action.'.$TS_URL['app'].'.php';
         $appAction = $TS_URL['app'].'Action';
         $newAction = new $appAction($db);
-        $newAction->$TS_URL['ac']();
+        $newAction->$ac();
     }else{
         //面向目录和文件的逻辑加载写法
         include 'app.php';

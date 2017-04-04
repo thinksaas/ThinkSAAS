@@ -93,7 +93,7 @@ if ($db) {
 	}
 	
 	fileWrite ( 'system_options.php', 'data', $arrOption );
-    $tsMySqlCache->set ( 'system_options', $arrOption );
+    $GLOBALS['tsMySqlCache']->set ( 'system_options', $arrOption );
 
 
 

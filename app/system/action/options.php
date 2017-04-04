@@ -13,10 +13,7 @@ switch($ts){
 		}
 
 		//时区和语言
-		$arrTime = fileRead('data/system_timezone.php');
-		if($arrTime==''){
-			$arrTime = $tsMySqlCache->get('system_timezone');
-		}
+		$arrTime = getArrTimezone();
 		
 		$arrTheme	= tsScanDir('theme');
 

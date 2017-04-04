@@ -6,7 +6,7 @@
 
 ## 开发环境
 
-* php >= 5.3
+* php >= 5.3 (支持php7)
 * MySQL >= 5.0
 * Apache / Nginx
 * Windows / Linux
@@ -38,7 +38,6 @@
 * 唠叨模块(weibo)
 * 搜索模块(search)
 * 同城模块(location)
-* 积分兑换(redeem)
 * 文章(article)
 * 我的社区(my)
 * 支持QQ登录，微博登录，豆瓣登录

@@ -72,13 +72,13 @@ return array(
 	 */
 	'info' => array(
 		'name' => 'ThinkSAAS', 
-		'version' => '2.4',
+		'version' => '2.5',
 		'url' => 'http://www.thinksaas.cn/', 
 		'email' => 'jun.qiu@thinksaas.cn', 
 		'powered' => 'Powered by ThinkSAAS',
 		'copyright' => 'ThinkSAAS',
 		'copyurl' => 'http://www.thinksaas.cn/',
-		'year' => '2011 - 2016',
+		'year' => '2011 - 2017',
 		'author' => '邱君',
 	),
 	

@@ -17,7 +17,7 @@ PHP5.3及以上版本，MySQL5.0及以上版本
 请保证以下目录和目录下所有文件的可写权限(777)
 cache
 data
-logs
+tslogs
 plugins
 upgrade
 uploadfile
