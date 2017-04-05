@@ -1,5 +1,4 @@
 {template header}
-{php doAction('tseditor','mt')}
 <div class="container">
 
     <ol class="breadcrumb">
@@ -33,7 +32,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">介绍：</label>
     <div class="col-sm-10">
-     <textarea id="tseditor" name="groupdesc">{$strGroup[groupdesc]}</textarea>
+     <textarea style="min-height:100px;" class="form-control" name="groupdesc">{$strGroup[groupdesc]}</textarea>
     </div>
   </div>
   
