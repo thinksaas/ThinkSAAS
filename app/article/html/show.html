@@ -75,6 +75,21 @@
                     </div>
                     {/if}
 
+
+
+                    <nav>
+                        <ul class="pager">
+                            {if $strUp}
+                            <li><a href="{tsUrl('article','show',array('id'=>$strUp['articleid']))}">上一篇：{$strUp['title']}</a></li>
+                            {/if}
+                            {if $strNext}
+                            <li><a href="{tsUrl('article','show',array('id'=>$strNext['articleid']))}">下一篇：{$strNext['title']}</a></li>
+                            {/if}
+                        </ul>
+                    </nav>
+
+
+
                 </div>
             </div>
 

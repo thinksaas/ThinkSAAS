@@ -32,6 +32,15 @@ $strArticle ['cate'] = $new ['article']->find ( 'article_cate', array (
 		'cateid' => $strArticle ['cateid'] 
 ) );
 
+
+
+// 上一篇
+$strUp = $new['article']->find('article', "`articleid`< '$articleid'", 'articleid,title','articleid desc');
+// 下一篇
+$strNext = $new['article']->find('article', "`articleid`> '$articleid'", 'articleid,title','articleid asc');
+
+
+
 // 获取评论
 $page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : 1;
 $url = tsUrl ( 'article', 'show', array (
