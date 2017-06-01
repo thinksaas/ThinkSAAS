@@ -29,9 +29,9 @@
   <div class="form-group">
     <label>分类：</label>
     
-<select id="cateid" name="cateid">
+<select class="form-control" id="cateid" name="cateid">
 {loop $arrCate $key $item}
-<option value="{$item['cateid']}" {if $item['cateid']==$strArticle['ceteid']}selected{/if}>{$item['catename']}</option>
+<option value="{$item['cateid']}" {if $item['cateid']==$strArticle['cateid']}selected{/if}>{$item['catename']}</option>
 {/loop}
 </select>
 	
@@ -58,7 +58,9 @@
     <label>封面图片：</label>
 	
 	{if $strArticle['photo']}
-	<img src="{php echo tsXimg($strArticle['photo'],'article',180,140,$strArticle['path'],'1')}" /><br />
+       <p>
+	<img src="{php echo tsXimg($strArticle['photo'],'article',180,140,$strArticle['path'],'1')}" />
+       </p>
 	{/if}
     <input name="photo" type="file">
   </div>
