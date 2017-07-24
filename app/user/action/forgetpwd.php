@@ -6,6 +6,11 @@ switch($ts){
 
 	case "":
 
+        if ($GLOBALS['TS_USER']){
+            header('Location: '.SITE_URL);
+            exit;
+        }
+
 		$title = '找回登陆密码';
 		include template("forgetpwd");
 

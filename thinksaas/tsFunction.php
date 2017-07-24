@@ -2200,7 +2200,7 @@ function GetUrlToDomain($domain) {
     $domain = $arrDomain['path'];
 
     $re_domain = '';
-    $domain_postfix_cn_array = array('com', 'net', 'org', 'gov', 'edu', 'com.cn', 'cn','cc','me','tv','la','net.cn','org.cn','top','wang','hk','co','pw','ren','asia','biz','gov.cn','tw','com.tw','us','tel','info','website','host','io','press','mobi');
+    $domain_postfix_cn_array = array('com', 'net', 'org', 'gov', 'edu', 'com.cn', 'cn','cc','me','tv','la','net.cn','org.cn','top','wang','hk','co','pw','ren','asia','biz','gov.cn','tw','com.tw','us','tel','info','website','host','io','press','mobi','wiki','io');
 
     $domain = str_replace('http://','',$domain);
     $domain = str_replace('https://','',$domain);

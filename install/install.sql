@@ -1239,7 +1239,7 @@ CREATE TABLE IF NOT EXISTS `ts_message` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '发送用户ID',
   `touserid` int(11) NOT NULL DEFAULT '0' COMMENT '接收消息的用户ID',
   `content` text NOT NULL COMMENT '内容',
-  `tourl` varchar(64) NOT NULL DEFAULT '' COMMENT '消息跳转地址',
+  `tourl` varchar(255) NOT NULL DEFAULT '' COMMENT '消息跳转地址',
   `isread` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已读',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
   PRIMARY KEY (`messageid`),
