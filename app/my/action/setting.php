@@ -16,7 +16,7 @@ switch($ts){
 		$phone = t($_POST['phone']);
 		$blog = t($_POST['blog']);
 		$about = t($_POST['about']);
-		$sex = intval($_POST['sex']);
+		$sex = t($_POST['sex']);
 
 		if($TS_USER == '') {
 		
