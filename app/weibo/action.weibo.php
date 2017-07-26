@@ -335,7 +335,11 @@ class weiboAction extends weibo{
             include 'app/'.$GLOBALS['TS_URL']['app'].'/admin.'.$GLOBALS['TS_URL']['app'].'.php';
             $appAdmin = $GLOBALS['TS_URL']['app'].'Admin';
             $newAdmin = new $appAdmin($GLOBALS['db']);
-            $newAdmin->$GLOBALS['TS_URL']['mg']();
+            #$newAdmin->$GLOBALS['TS_URL']['mg']();
+
+            $amg = $GLOBALS['TS_URL']['mg'];
+            $newAdmin->$amg();
+
         }else{
             ts404();
         }
