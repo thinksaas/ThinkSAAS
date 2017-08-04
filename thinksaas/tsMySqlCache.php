@@ -16,7 +16,7 @@ class tsMySqlCache extends tsApp {
 		
 		//return mb_unserialize ( substr ( $result, 10 ) );
 	}
-	public function set($name, $value, $life_time) {
+	public function set($name, $value, $life_time=0) {
 		$value = (time () + $life_time) . serialize ( $value );
 		if ($this->findCount ( 'cache', array (
 				'cachename' => $name 
