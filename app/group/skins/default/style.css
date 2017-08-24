@@ -252,8 +252,8 @@ a.a_rec_btn:link, a.a_rec_btn:visited, a.a_rec_btn:hover, a.a_rec_btn:active {
 }
 
 .topic-content img{max-width:100%;}
-.topic-content .topic-view{font-size:14px;line-height:30px;overflow: hidden;word-wrap: break-word;word-break: normal;}
-
+.topic-content .topic-view{font-size:16px;line-height:30px;overflow: hidden;word-wrap: break-word;word-break: normal;}
+.topic-content .topic-view p{font-size:16px;}
 .topic-content .topic-view pre{line-height:normal;}
 
 .topic-content .topic-view table{border:#CCCCCC 1px solid;}
@@ -262,14 +262,6 @@ a.a_rec_btn:link, a.a_rec_btn:visited, a.a_rec_btn:hover, a.a_rec_btn:active {
 .cmen {overflow: hidden;width: 63px;}
 .cmen a {overflow: hidden;float: left;width: 20px;height: 20px;}
 
-
-.mp3player
-{
-	width:auto;
-	border:1px dashed #66873E; padding:5px;
-	margin:5px;
-	background:url(mp3.png) no-repeat right bottom;
-}
 
 .color-green {
     color: #006600;

@@ -32,6 +32,15 @@ class weiboAction extends weibo{
         $pageUrl = pagination($weiboNum, 20, $page, $url);
 
 
+        #热门唠叨
+        $arrHotWeibo = $this->findAll('weibo',null,'count_comment desc',null,10);
+
+        foreach($arrHotWeibo as $key=>$item){
+            $arrHotWeibo[$key]['content'] = tsDecode($item['content']);
+            $arrHotWeibo[$key]['user'] = aac('user')->getOneUser($item['userid']);
+        }
+
+
         $title = '唠叨';
         include template('index');
     }

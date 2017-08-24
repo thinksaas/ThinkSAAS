@@ -58,20 +58,23 @@ function doUpload() {
 <ul>
 {loop $arrWeibo $key $item}
 <li class="mbtl">
-<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="img-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="img-rounded" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
 </li>
 <li class="mbtr">
-<div class="author"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> {$item['addtime']}</div>
+    <div class="author"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> <span class="fs12 c9">{$item['addtime']}</span></div>
 <div class="title"><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item[title]}</a></div>
 <div class="content">
 {if $item[photo]}<a target="_blank" href="{SITE_URL}uploadfile/weibo/{$item[photo]}"><img src="{php echo tsXimg($item['photo'],'weibo',240,'',$item['path'])}" /></a>{/if}
 {$item[content]}
 </div>
-<p style="text-align:right;">
+<p class="tar fs12">
 
 <a href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}">{if $item['count_comment'] > '0'}({$item['count_comment']}){/if}回复</a>
 
 {if $GLOBALS['TS_USER']['isadmin'] == 1}
+
+    <span class="c9">|</span>
+
 <a href="{tsUrl('weibo','deleteweibo',array('weiboid'=>$item['weiboid']))}">删除</a>
 {/if}
 
@@ -101,6 +104,34 @@ function doUpload() {
     <!--广告位-->
     {php doAction('gobad','300')}
 
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">热门唠叨</div>
+        <div class="panel-body">
+
+            <div class="weilist">
+                <ul>
+                    {loop $arrHotWeibo $key $item}
+                    <li>
+                        <span class="portrait"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img align="absmiddle" class="SmallPortrait img-rounded" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}"></a></span>
+                        <span class="body">
+<span class="user"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a>：</span><span class="log">{$item['content']}</span>
+{if $item[photo]}
+<div style="padding:5px 0;"><a target="_blank" href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}"><img src="{php echo tsXimg($item['photo'],'weibo',240,'',$item['path'])}" width="120" alt="{$item['user']['username']}的唠叨图片" /></a>
+</div>
+{/if}
+<span class="time">{php echo getTime(strtotime($item['addtime']),time())} (<a href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}">{$item['count_comment']}评</a>)
+</span>
+</span>
+                        <div class="clear"></div>
+                    </li>
+                    {/loop}
+                </ul>
+            </div>
+
+        </div>
+    </div>
 
 
 </div>

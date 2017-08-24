@@ -18,3 +18,5 @@
 
 .article_show_content{}
 .article_show_content img{max-width: 100%;}
+
+.article_show_content p{word-break: break-all;}

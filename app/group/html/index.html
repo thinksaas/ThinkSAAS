@@ -78,11 +78,11 @@
                 <ul>
                     {loop $arrTopic $key $item}
                     <li>
-                        <h3><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}" target="_blank">{$item['title']}</a></h3>
+                        <h3><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></h3>
 
 
                         <div class="info">
-                            <div class="left">来自：<a title="{$item['group']['groupname']}" target="_blank" href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['group']['groupname']}</a>小组</div>
+                            <div class="left">来自：<a title="{$item['group']['groupname']}" href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['group']['groupname']}</a>小组</div>
                             <div class="right">{$item['count_comment']}评论</div>
                         </div>
 
@@ -104,7 +104,7 @@
                 <ul>
                     {loop $arrNewGroup $key $item}
                    <li>
-                       <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> ({$item[count_user]}成员)
+                       <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span class="c9 fs12">({$item[count_user]}成员)</span>
                    </li>
                     {/loop}
                 </ul>

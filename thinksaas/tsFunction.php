@@ -907,7 +907,7 @@ function reurl() {
 	$rurl = substr($_SERVER['REQUEST_URI'], strlen($scriptName[0]));
 	//过滤掉网站目录剩下的就是URL部分
 
-	if (strpos($rurl, 'index.php?') === false) {
+	if (strpos($rurl, 'index.php?') === false  || strpos ( $rurl, '?openid=' ) == true  || strpos ( $rurl, '?from=' ) == true){
 
 		if (preg_match('/index.php/i', $rurl)) {
 			$rurl = str_replace('index.php', '', $rurl);
@@ -1075,6 +1075,7 @@ function reurl() {
 				foreach ($params as $p => $v) {
 					switch ($p) {
 						case 0 :
+                            if($v=='?from=singlemessage' || $v=='?from=groupmessage' || $v=='?from=timeline') $v='home';
 							$_GET['app'] = $v;
 							break;
 						case 1 :

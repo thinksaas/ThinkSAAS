@@ -24,23 +24,21 @@ function feedback_css(){
     padding: 1px 0;
     position: fixed;
     right: 0;
-    width: 20px;
+    width: 30px;
+    text-align:center;
 }
 .feedback-box:hover {
     background-color: #558BC6;
-    border-right: 1px solid #BFD6E6;
+    
     opacity: 1;
 }
 .feedback-box:hover a {
     border-left-color: #558BC6;
 }
 .feedback-box a {
-    background: url("'.SITE_URL.'plugins/pubs/feedback/feed-back.png") no-repeat 3px 85px;
-    border-left: 1px solid #83ACC6;
     color: #FFFFFF !important;
     display: block;
-    margin-left: -1px;
-    padding: 4px 4px 24px;
+    padding: 5px;
     text-decoration: none;
 }</style>';
 }

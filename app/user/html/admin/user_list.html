@@ -37,7 +37,7 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
 
     <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=view&userid={$item[userid]}">[明细]</a>
 
-    <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isenable&&userid={$item[userid]}">
+    <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isenable&&userid={$item[userid]}&page={$page}">
 
 {if $item[isenable]=='0'}[停用]{else}<font color="red">[启用]</font>{/if}</a>
 

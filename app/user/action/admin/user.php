@@ -55,6 +55,9 @@ defined('IN_TS') or die('Access Denied.');
 		case "isenable":
 		
 			$userid = intval($_GET['userid']);
+
+			$page = intval($_GET['page']);
+
 			$strUser = $new['user']->find('user_info',array(
 				'userid'=>$userid,
 			));
@@ -111,7 +114,9 @@ defined('IN_TS') or die('Access Denied.');
 				));
 			}
 			
-			qiMsg('操作成功！');
+			#qiMsg('操作成功！');
+
+            header('Location: '.SITE_URL.'index.php?app=user&ac=admin&mg=user&ts=list&page='.$page);
 			
 			break;
 		
