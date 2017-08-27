@@ -87,12 +87,14 @@ class weiboAction extends weibo{
 
 
         //feed开始
+        /*
         $feed_template = '<span class="pl">说：</span><div class="quote"><span class="inq">{content}</span> <span><a class="j a_saying_reply" href="{link}" rev="unfold">回应</a></span></div>';
         $feed_data = array(
             'link'	=> tsurl('weibo','show',array('id'=>$weiboid)),
             'content'	=> cututf8(t($content),'0','50'),
         );
         aac('feed')->add($userid,$feed_template,$feed_data);
+        */
         //feed结束
 
 

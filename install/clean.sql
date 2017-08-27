@@ -8,7 +8,6 @@ TRUNCATE `ts_article_recommend`;
 TRUNCATE `ts_attach`;
 TRUNCATE `ts_attach_album`;
 TRUNCATE `ts_editor`;
-TRUNCATE `ts_feed`;
 TRUNCATE `ts_group`;
 TRUNCATE `ts_group_album`;
 TRUNCATE `ts_group_album_topic`;
