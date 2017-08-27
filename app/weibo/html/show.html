@@ -20,12 +20,16 @@
             <div class="weibo_show">
    <ul>
 <li class="mbtl">
-<a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}"><img class="img-circle" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="48" /></a>
+<a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}"><img class="img-rounded" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="48" /></a>
 </li>
 <li class="mbtr">
-<div class="author"><a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}">{$strWeibo[user][username]}</a> {$strWeibo[addtime]}</div>
-<div class="content">
-{if $strWeibo[photo]}<a target="_blank" href="{SITE_URL}uploadfile/weibo/{$strWeibo[photo]}"><img src="{php echo tsXimg($strWeibo['photo'],'weibo',240,'',$strWeibo['path'])}" /></a>{/if}
+    <div class="author"><a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}">{$strWeibo[user][username]}</a> <span class="fs12 c9">{$strWeibo[addtime]}</span></div>
+<div class="content pd100">
+    {if $strWeibo[photo]}
+    <a target="_blank" href="{SITE_URL}uploadfile/weibo/{$strWeibo[photo]}">
+        <img src="{php echo tsXimg($strWeibo['photo'],'weibo',240,'',$strWeibo['path'])}" />
+    </a>
+    {/if}
 {$strWeibo[content]}
 </div>
 <p style="text-align:right;">
@@ -103,7 +107,7 @@
 
 
     <div class="panel panel-default">
-        <div class="panel-heading">相关唠叨</div>
+        <div class="panel-heading">更多{$strWeibo['user']['username']}的唠叨</div>
         <div class="panel-body">
 
 
@@ -129,12 +133,12 @@
 
     <div class="facebox">
 <div class="face">
-<a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}" rel="face" uid="$strWeibo[user][userid]"><img class="img-circle" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="48"></a>
+<a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}" rel="face" uid="$strWeibo[user][userid]"><img class="img-rounded" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="48"></a>
 </div>
 
 <div class="info">
 <h3><a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}">{$strWeibo[user][username]}</a></h3>
-<div><a class="btn btn-success btn-sm" href="javascript:void('0')" onclick="follow('{$strWeibo['user']['userid']}','{$_SESSION['token']}');">关注</a></div>
+<div><a class="btn btn-success btn-sm br0" href="javascript:void('0')" onclick="follow('{$strWeibo['user']['userid']}','{$_SESSION['token']}');">关注</a></div>
 </div>
     </div>
 

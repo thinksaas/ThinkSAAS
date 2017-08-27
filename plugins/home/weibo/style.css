@@ -7,7 +7,7 @@
 	width:100%;
     position: relative;
 	overflow:hidden;
-    border-radius: 5px;
+    border-radius: 0px;
 }
 .weiform textarea {
     background: none repeat scroll 0 0 #FFFFFF;

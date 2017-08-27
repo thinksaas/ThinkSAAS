@@ -142,6 +142,14 @@ class weiboAction extends weibo{
             'userid'=>$strWeibo['userid'],
         ),'addtime desc',null,20);
 
+
+        foreach($arrWeibo as $key=>$item){
+            if($item['content']==''){
+                $arrWeibo[$key]['content'] = $strWeibo['user']['username'].'的唠叨('.$item['weiboid'].')';
+            }
+        }
+
+
         $weiboNum = $this->findCount('weibo',array(
             'userid'=>$strWeibo['userid'],
         ));
@@ -158,7 +166,13 @@ class weiboAction extends weibo{
 
 
 
-        $title = cututf8(t(tsDecode($strWeibo['content'])),0,100,false);
+
+
+        if($strWeibo['content']==''){
+            $title = $strWeibo['user']['username'].'的唠叨('.$strWeibo['weiboid'].')';
+        }else{
+            $title = cututf8(t(tsDecode($strWeibo['content'])),0,100,false);
+        }
 
         include template('show');
     }

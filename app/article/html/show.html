@@ -33,12 +33,12 @@
 
                     <div class="media mb20">
 
-                        <a class="pull-left" href="{tsUrl('user','space',array('id'=>$strArticle[user][userid]))}"><img class="media-object img-circle" title="{$strArticle[user][username]}" alt="{$strArticle[user][username]}" src="{$strArticle[user][face]}" width="48" height="48"></a>
+                        <a class="pull-left" href="{tsUrl('user','space',array('id'=>$strArticle[user][userid]))}"><img class="media-object img-rounded" title="{$strArticle[user][username]}" alt="{$strArticle[user][username]}" src="{$strArticle[user][face]}" width="48" height="48"></a>
 
 
                         <div class="media-body">
                             <h4 class="media-heading"><a href="{tsUrl('user','space',array('id'=>$strArticle[userid]))}">{$strArticle[user][username]}</a></h4>
-                            <p class="c9">发表于 {$strArticle[addtime]}</p>
+                            <p class="c9 fs12">发表于 {$strArticle[addtime]}</p>
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
                         {php doAction('gobad','468')}
                     </div>
 
-                    <div class="tar c9">
+                    <div class="tar c9 fs12">
                         {$strArticle['count_view']}阅读 | {$strArticle['count_comment']}评论
                     </div>
 
@@ -184,7 +184,7 @@
 
         <div class="col-md-4">
 
-            <a class="btn btn-info btn-block btn-lg" href="{tsUrl('article','add')}">
+            <a class="btn btn-info btn-block btn-lg br0" href="{tsUrl('article','add')}">
                 <span class="glyphicon glyphicon-plus-sign"></span> 写文章</a>
             <p></p>
 
