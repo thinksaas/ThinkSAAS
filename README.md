@@ -6,7 +6,7 @@
 
 ## 开发环境
 
-* php >= 5.3 (支持php7)
+* php >= 5.4 (支持php7)
 * MySQL >= 5.0
 * Apache / Nginx
 * Windows / Linux
@@ -31,7 +31,6 @@
 * 小组模块(group)
 * 相册模块(photo)
 * 资料模块(attach)
-* 动态模块(feed)
 * 标签模块(tag)
 * 邮件模块(mail)
 * 消息模块(message)

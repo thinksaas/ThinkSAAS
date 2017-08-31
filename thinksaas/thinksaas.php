@@ -9,8 +9,8 @@ defined('IN_TS') or die('Access Denied.');
  */
 header('Content-Type: text/html; charset=UTF-8');
 
-if (substr(PHP_VERSION, 0, 3)<5.3) {
-    exit("ThinkSAAS运行环境要求PHP5.3以上！");
+if (substr(PHP_VERSION, 0, 3)<5.4) {
+    exit("ThinkSAAS运行环境要求PHP5.4或者更高！");
 }
 
 //核心配置文件 $TS_CF 系统配置变量
@@ -18,11 +18,7 @@ $TS_CF = include THINKROOT . '/thinksaas/config.php';
 
 // 如果是调试模式，打开警告输出
 if ($TS_CF['debug']) {
-    if (substr(PHP_VERSION, 0, 3) == "5.3") {
-        error_reporting(~E_WARNING & ~E_NOTICE & E_ALL & ~E_DEPRECATED);
-    } else {
-        error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-    }
+    error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 } else {
     error_reporting(0);
 }
