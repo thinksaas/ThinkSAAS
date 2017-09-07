@@ -358,6 +358,9 @@ if (is_file('app/' . $TS_URL['app'] . '/class.' . $TS_URL['app'] . '.php')) {
         include_once 'app/'.$TS_URL['app'].'/action.'.$TS_URL['app'].'.php';
         $appAction = $TS_URL['app'].'Action';
         $newAction = new $appAction($db);
+        if(!method_exists($newAction,$ac)){
+            qiMsg( '未定义'.$ac.'方法！');
+        }
         $newAction->$ac();
     }else{
         //面向目录和文件的逻辑加载写法
