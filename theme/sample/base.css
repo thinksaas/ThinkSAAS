@@ -690,76 +690,7 @@ color:#999
 	overflow: hidden
 }
 
-/*!feed*/
-.feed ul, .feed ul li{list-style: none;margin: 0;padding: 0;}
 
-.feed .mbtl {
-    float: left;
-    margin: 8px 7px 0 0;
-    padding: 0;
-    width: 55px;
-}
-.feed .mbtr {
-    border-bottom: 1px solid #EEEEEE;
-    margin: 5px 0;
-    min-height: 55px;
-    overflow: hidden;
-    padding: 5px 0;
-}
-.feed .pl {
-    color: #666666;
-    line-height: 1.5;
-}
-.feed .broadsmr {
-    color: #999999;
-    padding: 5px 24px;
-}
-.feed .indentrec {
-    color: #333333;
-    line-height: 1.6em;
-    margin-left: 24px;
-}
-
-.feed .quote {
-    background: url("quotel.gif") no-repeat scroll left 4px transparent;
-    margin: 8px 0 0 26px;
-    overflow: hidden;
-    padding: 0 24px 5px 15px;
-    width: auto;
-    word-wrap: break-word;
-	line-height:23px;
-
-}
-.feed .quote .inq {
-    background: url("quoter.gif") no-repeat scroll right bottom transparent;
-	color:#999999;
-    display: inline-block;
-    padding-right: 15px;
-}
-
-.feed .broadimg {
-    border: 1px solid #DDDDDD;
-    float: right;
-    margin-left: 14px;
-}
-
-.feed .clearfix:after {
-    clear: both;
-    content: ".";
-    display: block;
-    height: 0;
-    visibility: hidden;
-}
-
-.feed .indentrec {
-    color: #333333;
-    line-height: 1.6em;
-    margin-left: 24px;
-}
-.feed .timeline-album {
-    float: left;
-    margin: 8px 12px 8px 0;
-}
 
 
 /*我的社区*/

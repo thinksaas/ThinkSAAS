@@ -147,6 +147,11 @@ switch($ts){
 			// 处理标签
 			aac ( 'tag' )->addTag ( 'group', 'groupid', $groupid, $_POST['tag'] );
 
+
+            // 对积分进行处理
+            aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
+
+
 			header("Location: ".tsUrl('group','show',array('id'=>$groupid)));
 		}
 		break;
