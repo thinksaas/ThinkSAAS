@@ -257,6 +257,7 @@ class user extends tsApp{
 		$this->delete('user',array('userid'=>$userid));
 		$this->delete('user_info',array('userid'=>$userid));
 		$this->delete('user_follow',array('userid'=>$userid));
+		$this->delete('user_open',array('userid'=>$userid));
 		$this->delete('user_follow',array('userid_follow'=>$userid));
 		$this->delete('user_gb',array('userid'=>$userid));
 		$this->delete('user_gb',array('touserid'=>$userid));
