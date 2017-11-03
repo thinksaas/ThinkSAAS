@@ -24,7 +24,7 @@
 * 适合个人和团队协作开发
 * 集群、分布式部署、各种缓存、数据库读写分离等各种针对大数据和高并发的策略都在实践中
 
-## 系统功能
+## 系统基础功能
 
 * 用户中心模块(user)
 * 系统管理模块(system)
@@ -39,7 +39,26 @@
 * 同城模块(location)
 * 文章(article)
 * 我的社区(my)
-* 支持QQ登录，微博登录，豆瓣登录
+* Email注册登录
+
+## 授权版可选功能
+* 积分兑换(redeem)
+* 活动(event)
+* 问答(ask)
+* 课程(study)
+* 投票(vote)
+* 支付宝支付(alipay)
+* API接口(api)
+* 微信登录(weixin login)
+* 微信支付(weixin pay)
+* Facebook登录(facebook login)
+* GitHub登录(github login)
+* 一键签到(连续签到)
+* 手机号登录(phone login)
+* QQ登录
+* 微博登录
+* 豆瓣登录
+* wangEditor编辑器
 
 ## 用户协议
 
