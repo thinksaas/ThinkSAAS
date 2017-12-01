@@ -11,22 +11,22 @@
 
 {template menu}
 
-{loop $arrAlbum $key $item}
-<div class="box albumlst">
-<a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}" class="album_photo"><img src="{if $item[albumface] == ''}{SITE_URL}app/{$app}/skins/{$skin}/photo_album.png{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" width="170" alt="{$item['albumname']}" /></a>
-<div class="albumlst_r">
-<p class="pd05"><a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}">{$item[albumname]}</a></p>
-<p class="pd05">
-{$item[count_photo]}张照片&nbsp;
-{$item[addtime]}创建<br>
-</p>
+    <div class="row">
+      {loop $arrAlbum $key $item}
+      <div class="col-xs-6 col-md-2">
+        <a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}" class="thumbnail">
+          <img src="{if $item[albumface] == ''}{SITE_URL}app/{$app}/skins/{$skin}/photo_album.png{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" alt="{$item[albumname]}" width="170" height="170">
+        </a>
 
-</div>
-</div>
-{if is_int(($key+1)/5)}
-<div class="clear"></div>
-{/if}
-{/loop}
+        <div class="caption">
+          <h3>{$item[albumname]}</h3>
+          <p class="c9 fs12"> {$item[count_photo]}张照片&nbsp;
+            <br />{$item[addtime]} 创建</p>
+        </div>
+
+      </div>
+      {/loop}
+    </div>
 
 
 <div class="page">{$pageUrl}</div>

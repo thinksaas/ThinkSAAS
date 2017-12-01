@@ -33,7 +33,7 @@
       </div>
 
 
-<div>
+<div class="tac fs12 c9" style="padding-bottom: 10px;">
     &gt; <a href="{tsUrl('photo','album',array('id'=>$strAlbum[albumid]))}">返回相册</a>第{$nowPage}张 / 共{$conutPage}张
  
 {if $nowPage >1}
@@ -61,21 +61,30 @@
 </div>
 
 
-<div>
+<div class="tac pd100">
 {$strPhoto[photoname]}  {$strPhoto[photodesc]}
-{if $TS_USER[userid] == $strPhoto[userid] || $TS_USER[isadmin]==1}<a href="{tsUrl('photo','edit',array('photoid'=>$strPhoto['photoid']))}">修改</a>{/if}
+
 </div>
 
 
-<div class="c9">
+<div class="c9 fs12">
     {$strPhoto[count_view]}人浏览　
 上传于{$strPhoto[addtime]}
 
 <a class="thickbox" target="_blank" href="{SITE_URL}uploadfile/photo/{$strPhoto[photourl]}">查看原图</a>
 
-　{if $TS_USER[userid] == $strPhoto[userid] || $TS_USER[isadmin]==1}&gt;&nbsp;<a title="删除这张照片" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$strPhoto[photoid]}">删除照片</a>{/if}
+　
 </div>
 
+
+      <div class="tar c9 fs12">
+          {if $TS_USER[userid] == $strPhoto[userid] || $TS_USER[isadmin]==1}<a href="{tsUrl('photo','edit',array('photoid'=>$strPhoto['photoid']))}">修改</a> |
+
+          <a title="删除这张照片" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$strPhoto[photoid]}">删除照片</a>
+
+
+          {/if}
+      </div>
 
 
 
