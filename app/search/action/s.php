@@ -44,7 +44,7 @@ switch($ts){
 			}
 		}
 		
-		$all_num = $db->once_num_rows("select groupid as id,'group' as type from ".dbprefix."group where `groupname` like '%$kw%' union select topicid as id,'topic' as type from ".dbprefix."group_topic WHERE `title` like '%$kw%' union select userid as id,'user' as type from ".dbprefix."user_info where username like '%$kw%' union select articleid as id,'article' as type from ".dbprefix."article where `title` like '%$kw%'");
+		$all_num = $db->once_num_rows("select groupid as id,'group' as type from ".dbprefix."group where `groupname` like '%$kw%' union select topicid as id,'topic' as type from ".dbprefix."group_topic WHERE `title` like '%$kw%' union select userid as id,'user' as type from ".dbprefix."user_info where username like '%$kw%' union select articleid as id,'article' as type from ".dbprefix."article where `title` like '%$kw%' and `isaudit`='0'");
 		
 		$pageUrl = pagination($all_num, 10, $page, $url);
 		
@@ -111,9 +111,9 @@ switch($ts){
 		$url = tsUrl('search','s',array('ts'=>'article','kw'=>$kw,'page'=>''));
 		$lstart = $page*10-10;
 	
-		$arrArticle = $db->fetch_all_assoc("select * from ".dbprefix."article WHERE `title` like '%$kw%' order by addtime desc limit $lstart,10");
+		$arrArticle = $db->fetch_all_assoc("select * from ".dbprefix."article WHERE `title` like '%$kw%' and `isaudit`='0' order by addtime desc limit $lstart,10");
 		
-		$articleNum = $db->once_num_rows("select * from ".dbprefix."article WHERE `title` like '%$kw%'");
+		$articleNum = $db->once_num_rows("select * from ".dbprefix."article WHERE `title` like '%$kw%' and `isaudit`='0'");
 		
 		$pageUrl = pagination($articleNum, 10, $page, $url);
 		
