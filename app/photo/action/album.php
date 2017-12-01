@@ -287,6 +287,7 @@ switch($ts){
 		}
 	
 		//更新相册封面
+        if (preg_match('#(..(\\|/)){2,}#sim', $albumface) != false) { die('request error');} #针对阿里云误报只能添加下
 		if($albumface){
 
             $strPhoto = $new['photo']->find('photo',array(

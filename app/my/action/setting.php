@@ -91,6 +91,9 @@ switch($ts){
 			'about' => $about,
 		));
 
+		#更新session用户名
+        $_SESSION['tsuser']['username'] = $username;
+
 		tsNotice("基本资料更新成功！");
 	
 		break;

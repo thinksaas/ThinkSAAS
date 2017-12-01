@@ -98,7 +98,7 @@ if($strTopic['tags']){
 	$sitekey = $strTopic['title'];
 }
 //标题
-$title = $strTopic['title'];
+$title = $strTopic['title'].'_'.$strGroup['groupname'];
 
 
 // 评论列表开始

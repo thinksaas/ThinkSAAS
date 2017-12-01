@@ -60,10 +60,11 @@ switch ($ts) {
 		if ($userid == $strArticle ['userid'] || $TS_USER ['isadmin'] == 1) {
 			
 			$new ['article']->delete ( 'article_comment', array (
-					
 					'commentid' => $commentid 
-			)
-			 );
+			));
+
+            //处理积分
+            aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts'],$strComment['userid']);
 			
 			tsNotice ( '删除成功' );
 		} else {

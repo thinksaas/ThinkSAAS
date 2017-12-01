@@ -27,9 +27,7 @@
 
 <span style="float:right;">
 {php echo getTime($item[uptime],time())}
-
 <a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
-
 {if $item[count_comment]>0}<a class="rank" style="color:#FFFFFF;" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a>{/if}
 </span>
 </div>
