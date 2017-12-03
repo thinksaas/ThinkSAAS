@@ -68,10 +68,10 @@ CREATE TABLE IF NOT EXISTS `ts_anti_user` (
 
 CREATE TABLE IF NOT EXISTS `ts_anti_word` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `word` char(32) NOT NULL DEFAULT '' COMMENT '垃圾词',
+  `word` char(32) NOT NULL DEFAULT '' COMMENT '敏感词',
   `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='垃圾词' AUTO_INCREMENT=535 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='敏感词' AUTO_INCREMENT=535 ;
 
 --
 -- 转存表中的数据 `ts_anti_word`
@@ -1728,29 +1728,38 @@ INSERT INTO `ts_user_role` (`roleid`, `rolename`, `score_start`, `score_end`) VA
 --
 
 CREATE TABLE IF NOT EXISTS `ts_user_score` (
-  `scoreid` int(11) NOT NULL AUTO_INCREMENT COMMENT '积分ID',
+  `scoreid` int(11) NOT NULL COMMENT '积分ID',
   `scorekey` char(32) NOT NULL DEFAULT '' COMMENT '积分key',
   `scorename` char(64) NOT NULL DEFAULT '' COMMENT '积分名称',
   `app` char(32) NOT NULL DEFAULT '' COMMENT 'APP',
   `action` char(32) NOT NULL DEFAULT '' COMMENT 'ACTION',
+  `mg` char(32) NOT NULL DEFAULT '' COMMENT 'MG',
   `ts` char(32) NOT NULL DEFAULT '' COMMENT 'TS',
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '积分数',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0加积分1减积分',
-  PRIMARY KEY (`scoreid`),
-  UNIQUE KEY `app` (`app`,`action`,`ts`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户积分设置表' AUTO_INCREMENT=7 ;
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0加积分1减积分'
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='用户积分设置表';
 
 --
 -- 转存表中的数据 `ts_user_score`
 --
 
-INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`, `ts`, `score`, `status`) VALUES
-(1, 'user_register', '用户注册', 'user', 'register', 'do', 10, 0),
-(2, 'user_login', '用户登陆', 'user', 'login', 'do', 5, 0),
-(3, 'group_topic_add', '用户小组发帖', 'group', 'add', 'do', 10, 0),
-(4, 'group_topic_comment', '用户小组帖子评论', 'group', 'comment', 'do', 5, 0),
-(5, 'attach_upload', '资料上传', 'attach', 'upload', 'do', 10, 0),
-(6, 'user_signin', '用户签到', 'user', 'signin', '', 5, 0);
+INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`, `mg`, `ts`, `score`, `status`) VALUES
+  (1, 'user_register', '用户注册', 'user', 'register', '', 'do', 10, 0),
+  (2, 'user_login', '用户登陆', 'user', 'login', '', 'do', 5, 0),
+  (3, 'group_topic_add', '用户小组发帖', 'group', 'add', '', 'do', 10, 0),
+  (4, 'group_topic_comment', '用户小组帖子评论', 'group', 'comment', '', 'do', 5, 0),
+  (5, 'attach_upload', '资料上传', 'attach', 'upload', '', 'do', 10, 0),
+  (6, 'user_signin', '用户签到', 'user', 'signin', '', '', 5, 0),
+  (7, 'group_topic_delete', '删除帖子', 'group', 'do', '', 'deltopic', 5, 1),
+  (8, 'article_add', '发布文章', 'article', 'add', '', 'do', 5, 0),
+  (9, 'article_delete', '删除文章', 'article', 'delete', '', '', 5, 1),
+  (11, 'article_admin_post_isaudit0', '后台文章审核通过', 'article', 'admin', 'post', 'isaudit0', 5, 0),
+  (12, 'article_admin_post_isaudit1', '后台文章审核不通过', 'article', 'admin', 'post', 'isaudit1', 5, 1),
+  (13, 'ask_admin_topic_isaudit0', '后台问题审核通过', 'ask', 'admin', 'topic', 'isaudit0', 5, 0),
+  (14, 'ask_admin_topic_isaudit1', '后台问题审核不通过', 'ask', 'admin', 'topic', 'isaudit1', 5, 1),
+  (15, 'ask_new_do', '前台发布问题', 'ask', 'new', '', 'do', 5, 0),
+  (16, 'ask_ajax_ask2commentid', '前台问题采纳', 'ask', 'ajax', '', 'ask2commentid', 5, 0),
+  (17, 'article_admin_post_delete', '后台文章删除', 'article', 'admin', 'post', 'delete', 5, 1);
 
 -- --------------------------------------------------------
 
