@@ -204,12 +204,13 @@ class user extends tsApp{
 	}
 	
 	//处理积分
-	function doScore($app,$ac,$ts='',$uid=0){
+	function doScore($app,$ac,$ts='',$uid=0,$mg=''){
 		$userid = intval($_SESSION['tsuser']['userid']);
 		if($uid) $userid=$uid;
 		$strScore = $this->find('user_score',array(
 			'app'=>$app,
 			'action'=>$ac,
+			'mg'=>$mg,
 			'ts'=>$ts,
 		));
 		

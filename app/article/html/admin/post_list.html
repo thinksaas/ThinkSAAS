@@ -15,13 +15,17 @@
 <!--{loop $arrArticle $key $item}-->
 <tr><td>{$item['articleid']}</td><td>{$item['userid']}</td><td><a target="_blank" href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{php echo htmlspecialchars($item[title])}</a></td><td>
 
-<a href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=isaudit&articleid={$item['articleid']}">
+
+
+
 {if $item['isaudit']==0}
-取消审核
-{else}
-<font color="red">审核</font>
+<a href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=isaudit1&articleid={$item['articleid']}">取消审核</a>
 {/if}
-</a>
+
+{if $item['isaudit']==1}
+<a href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=isaudit0&articleid={$item['articleid']}"><font color="red">审核</font></a>
+{/if}
+
 
 <a href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=isrecommend&articleid={$item['articleid']}">{if $item['isrecommend']==1}
 取消推荐

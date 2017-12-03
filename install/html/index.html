@@ -60,11 +60,30 @@ p, li, dd, dt {
 <li>表名前缀（若您希望在一个数据表中安装多个 ThinkSAAS）</li>
 </ol>
 
-<!-- <p>出于各种原因，自动创建文件可能失败，但本向导只是助您在配置文件中写如数据库信息。此时，您只需用文本编辑器打开 config.sample.php，填入您的信息，另存为 config.inc.php 即可。</p> -->
+<p>PHP环境必要组件检测</p>
+<table>
+    <thead>
+    <tr><th>PHP组件</th><th>检测结果</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>dom</td><td><?php if($e_dom){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>mbstring</td><td><?php if($e_mbstring){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>gd</td><td><?php if($e_gd){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>mysql</td><td><?php if($e_mysql){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>mysqli</td><td><?php if($e_mysqli){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>openssl</td><td><?php if($e_openssl){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>session</td><td><?php if($e_session){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>SimpleXML</td><td><?php if($e_SimpleXML){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>mcrypt</td><td><?php if($e_mcrypt){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>json</td><td><?php if($e_json){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>iconv</td><td><?php if($e_iconv){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    </tbody>
+</table>
+
 
 <p>大多数的互联网主机服务提供商都向您提供了数据库的信息。若您不知道这些信息，您需要先询问好，再进行安装。若您已准备好 …</p>
 
-<?php if($f_cache==0 || $f_data==0 || $f_plugins==0 || $f_uploadfile==0 || $f_tslogs==0 || $f_upgrade==0){ ?>
+<?php if($f_cache==0 || $f_data==0 || $f_plugins==0 || $f_uploadfile==0 || $f_tslogs==0 || $f_upgrade==0 || $f_ueditor==0){ ?>
 
 <p>检测到以下目录不可写</p>
 <p>
@@ -74,6 +93,7 @@ p, li, dd, dt {
 <?php if($f_uploadfile==0){ ?>uploadfile<?php } ?><br />
 <?php if($f_tslogs==0){ ?>tslogs<?php } ?><br />
 <?php if($f_upgrade==0){ ?>upgrade<?php } ?><br />
+<?php if($f_ueditor==0){ ?>ueditor<?php } ?><br />
 </p>
 
 <p>请将不可写的目录设置为可写(777)权限。</p>

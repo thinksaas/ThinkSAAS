@@ -24,6 +24,11 @@ if ($strArticle ['userid'] == $userid || $TS_USER ['isadmin'] == 1) {
     $new ['article']->delete ( 'article_recommend', array (
         'articleid' => $articleid
     ) );
+
+
+    // 对积分进行处理
+    aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle ['userid']);
+
 }
 
 tsNotice('删除成功','点击返回文章首页',tsUrl ( 'article' ));
