@@ -28,7 +28,7 @@
 //检测是否有升级
 function upfile(version){
 	$(".uplog").html('<img src="public/images/loading.gif" />升级进行中，时间可能有点长，请不要关闭浏览器')
-	$.getJSON("http://www.thinksaas.cn/index.php?app=upcenter&ac=find&version="+version+"&callback=?", function(rs){
+	$.getJSON("https://www.thinksaas.cn/index.php?app=upcenter&ac=find&version="+version+"&callback=?", function(rs){
 		if(rs){
 			$.get('index.php?app=system&ac=update&ts=threedo',{'upversion':rs.upversion},function(rss){
 				if(rss=='0'){

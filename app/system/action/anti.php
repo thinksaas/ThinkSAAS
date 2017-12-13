@@ -194,5 +194,30 @@ switch($ts){
 		break;
 
 
+    #内容举报
+    case "report":
+
+        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        $url = SITE_URL.'index.php?app=system&ac=anti&ts=report&page=';
+        $lstart = $page*20-20;
+        $arrReport = $new['system']->findAll('anti_report',null,'addtime desc',null,$lstart.',20');
+        $reportNum = $new['system']->findCount('anti_report');
+        $pageUrl = pagination($reportNum, 20, $page, $url);
+
+        include template('anti_report');
+        break;
+    #内容举报删除
+    case "reportdelete":
+
+        $reportid = intval($_GET['reportid']);
+
+        $new['system']->delete('anti_report',array(
+           'reportid'=>$reportid,
+        ));
+
+        qiMsg('删除成功！');
+        break;
+
+
 		
 }

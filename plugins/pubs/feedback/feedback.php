@@ -8,9 +8,7 @@ function feedback_html(){
 		$code = $tsMySqlCache->get('plugins_pubs_feedback');
 	}
 	
-	echo '<div class="feedback-box">
-'.stripslashes($code).'
-</div>';
+	echo '<div class="feedback-box">'.stripslashes($code).'<div class="jubao"><a href="'.tsUrl('home','report').'">举报</a></div></div>';
 }
 
 addAction('pub_footer','feedback_html');
@@ -27,20 +25,17 @@ function feedback_css(){
     width: 30px;
     text-align:center;
 }
-.feedback-box:hover {
-    background-color: #558BC6;
-    
-    opacity: 1;
-}
-.feedback-box:hover a {
-    border-left-color: #558BC6;
-}
+
 .feedback-box a {
     color: #FFFFFF !important;
     display: block;
     padding: 5px;
     text-decoration: none;
-}</style>';
+}
+.feedback-box .jubao{overflow: hidden;}
+.feedback-box .jubao a{padding:0px;float: left;width:100%;text-align: center;background: #336699;font-size: 12px;}
+.feedback-box .jubao a:hover{background:#ff6600;}
+</style>';
 }
 
 addAction('pub_header_top','feedback_css');

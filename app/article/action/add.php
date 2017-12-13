@@ -41,6 +41,18 @@ switch ($ts) {
 		if ($title == '' || $content == '')
 			tsNotice("标题和内容都不能为空！");
 
+        $isTitle = $new['article']->findCount('article',array(
+            'title'=>$title,
+        ));
+
+        if($isTitle){
+            tsNotice("相同标题的文章已经存在！");
+        }
+
+        if($gaiyao){
+            $gaiyao = cututf8($gaiyao,0,100);
+        }
+
 		//1审核后显示0不审核
 		if ($TS_APP['isaudit'] == 1) {
 			$isaudit = 1;

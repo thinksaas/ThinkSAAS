@@ -22,7 +22,7 @@
 //检测是否有升级
 function upsql(version){
 	$('#upgrade').html('<img src="public/images/loading.gif" />');
-	$.getJSON("http://www.thinksaas.cn/index.php?app=upcenter&ac=find&version="+version+"&callback=?", function(rs){
+	$.getJSON("https://www.thinksaas.cn/index.php?app=upcenter&ac=find&version="+version+"&callback=?", function(rs){
 		if(rs){
 			$.post('index.php?app=system&ac=update&ts=twodo',{'upsql':rs.upsql},function(rss){
 				if(rss=='1'){

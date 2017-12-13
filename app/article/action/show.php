@@ -16,7 +16,7 @@ if ($articleid == 0 || $strArticle == '') {
 }
 
 // 是否审核
-if ($strArticle ['isaudit'] == 1) {
+if ($strArticle ['isaudit'] == 1 && $TS_USER['isadmin']==0 && $TS_USER['userid']!=$strArticle['userid']) {
 	tsNotice ( '内容审核中...' );
 }
 

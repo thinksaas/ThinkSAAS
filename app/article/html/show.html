@@ -66,11 +66,11 @@
                         {$strArticle['count_view']}阅读 | {$strArticle['count_comment']}评论
                     </div>
 
-                    {if $TS_USER[isadmin]==1}
+                    {if $TS_USER[isadmin]==1 || $TS_USER['userid']==$strArticle['userid']}
                     <div class="tar pd100">
                         <a class="btn btn-default btn-sm" href="{SITE_URL}index.php?app=article&ac=edit&articleid={$strArticle[articleid]}">修改</a>
 
-                        <a class="btn btn-default btn-sm" href="{SITE_URL}index.php?app=article&ac=delete&articleid={$strArticle[articleid]}&token={$_SESSION['token']}">删除</a>
+                        <a onclick="return confirm('确定删除?')" class="btn btn-default btn-sm" href="{SITE_URL}index.php?app=article&ac=delete&articleid={$strArticle[articleid]}&token={$_SESSION['token']}">删除</a>
 
                     </div>
                     {/if}

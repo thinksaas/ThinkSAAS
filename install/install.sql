@@ -16,7 +16,7 @@ SET time_zone = "+00:00";
 --
 
 
-DROP TABLE IF EXISTS `ts_anti_email`, `ts_anti_ip`, `ts_anti_user`, `ts_anti_word`, `ts_article`, `ts_article_cate`, `ts_article_comment`, `ts_article_options`, `ts_article_recommend`, `ts_attach`, `ts_attach_album`, `ts_attach_options`, `ts_cache`, `ts_editor`, `ts_group`, `ts_group_album`, `ts_group_album_topic`, `ts_group_cate`, `ts_group_options`, `ts_group_topic`, `ts_group_topic_add`, `ts_group_topic_collect`, `ts_group_topic_comment`, `ts_group_topic_edit`, `ts_group_topic_type`, `ts_group_user`, `ts_group_user_isaudit`, `ts_home_info`, `ts_location`, `ts_mail_options`, `ts_message`, `ts_photo`, `ts_photo_album`, `ts_photo_comment`, `ts_photo_options`, `ts_session`, `ts_slide`, `ts_system_options`, `ts_tag`, `ts_tag_article_index`, `ts_tag_group_index`, `ts_tag_photo_index`, `ts_tag_topic_index`, `ts_tag_user_index`, `ts_task`, `ts_task_user`, `ts_user`, `ts_user_follow`, `ts_user_gb`, `ts_user_group`, `ts_user_info`, `ts_user_invites`, `ts_user_open`, `ts_user_options`, `ts_user_role`, `ts_user_score`, `ts_user_score_log`, `ts_weibo`, `ts_weibo_comment`, `ts_weibo_options`;
+DROP TABLE IF EXISTS `ts_anti_email`, `ts_anti_ip`, `ts_anti_report`, `ts_anti_user`, `ts_anti_word`, `ts_article`, `ts_article_cate`, `ts_article_comment`, `ts_article_options`, `ts_article_recommend`, `ts_attach`, `ts_attach_album`, `ts_attach_options`, `ts_cache`, `ts_editor`, `ts_group`, `ts_group_album`, `ts_group_album_topic`, `ts_group_cate`, `ts_group_options`, `ts_group_topic`, `ts_group_topic_add`, `ts_group_topic_collect`, `ts_group_topic_comment`, `ts_group_topic_edit`, `ts_group_topic_type`, `ts_group_user`, `ts_group_user_isaudit`, `ts_home_info`, `ts_location`, `ts_mail_options`, `ts_message`, `ts_photo`, `ts_photo_album`, `ts_photo_comment`, `ts_photo_options`, `ts_session`, `ts_slide`, `ts_system_options`, `ts_tag`, `ts_tag_article_index`, `ts_tag_group_index`, `ts_tag_photo_index`, `ts_tag_topic_index`, `ts_tag_user_index`, `ts_task`, `ts_task_user`, `ts_user`, `ts_user_follow`, `ts_user_gb`, `ts_user_group`, `ts_user_info`, `ts_user_invites`, `ts_user_open`, `ts_user_options`, `ts_user_role`, `ts_user_score`, `ts_user_score_log`, `ts_weibo`, `ts_weibo_comment`, `ts_weibo_options`;
 
 
 -- --------------------------------------------------------
@@ -45,6 +45,20 @@ CREATE TABLE IF NOT EXISTS `ts_anti_ip` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ip` (`ip`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='垃圾IP' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ts_anti_report`
+--
+
+CREATE TABLE IF NOT EXISTS `ts_anti_report` (
+  `reportid` int(11) NOT NULL AUTO_INCREMENT COMMENT '举报ID',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '举报链接',
+  `content` varchar(255) NOT NULL DEFAULT '' COMMENT '举报内容',
+  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '时间',
+  PRIMARY KEY (`reportid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='内容举报' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
