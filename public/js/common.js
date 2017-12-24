@@ -16,15 +16,6 @@ function tsNotice(msg,title){
 	//return false;
 }
 
-$(document).ready(function(){   
-    //menu
-    $('.topnav').hover(function(){  
-        $(this).addClass("subhover").find('ul.subnav').stop(true, true).slideDown();
-        }, function(){  
-        $(this).removeClass("subhover").find('ul.subnav').stop(true, true).slideUp();  
-        });
-});
-
 //签到
 function qianDao(){
     if(siteUid==0){
@@ -195,3 +186,15 @@ $(function(){
 function deltip(){
     return confirm('确定删除吗?')
 }
+
+
+$(document).ready(function () {
+    //响应式导航条效果
+    $('.ts-top-nav .navbar-toggle').click(function() {
+        if ($(this).parents('.ts-top-nav').find('.navbar-collapse').hasClass('active')) {
+            $(this).parents('.ts-top-nav').find('.navbar-collapse').removeClass('active');
+        } else {
+            $(this).parents('.ts-top-nav').find('.navbar-collapse').addClass('active');
+        }
+    });
+});

@@ -26,8 +26,11 @@ if ($strArticle ['userid'] == $userid || $TS_USER ['isadmin'] == 1) {
     ) );
 
 
-    // 对积分进行处理
-    aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle ['userid']);
+    if($strArticle['isaudit']==0){
+        // 对积分进行处理
+        aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle ['userid']);
+    }
+
 
 }
 

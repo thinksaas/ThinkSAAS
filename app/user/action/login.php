@@ -40,9 +40,8 @@ switch($ts){
 
 
 
-
+        /*
         if($GLOBALS['TS_SITE']['ucenter']){
-
             require_once THINKAPP . '/ucenter/basic/conf/uc_config.php'; //引入应用的Uceter配置信息
             require_once THINKAPP . '/ucenter/uc_client/client.php';
             require_once THINKAPP . '/ucenter/basic/common/function.php';
@@ -50,8 +49,8 @@ switch($ts){
             if ($ucInfo[0] <= 0) {
                 getJson ( show_log_error ( $ucInfo[0] ), $js );
             }
-
         }
+        */
 
 
 

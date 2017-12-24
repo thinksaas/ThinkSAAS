@@ -84,32 +84,38 @@
 
 <nav class="navbar navbar-blue header" role="navigation">
     <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
 
 
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-user">
-                <span class="sr-only">用户信息/登录等</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-
-            <a class="navbar-brand" href="{SITE_URL}"><img title="{$GLOBALS['TS_SITE'][site_title]}" src="{SITE_URL}uploadfile/logo/{$GLOBALS['TS_SITE'][logo]}" alt="{$GLOBALS['TS_SITE'][site_title]}" width="190" height="40" /></a>
-
-
+        <div class="ts-logo hidden-xs">
+            <a href="{SITE_URL}"><img title="{$GLOBALS['TS_SITE'][site_title]}" src="{SITE_URL}uploadfile/logo/{$GLOBALS['TS_SITE'][logo]}" alt="{$GLOBALS['TS_SITE'][site_title]}" width="190" height="40" /></a>
         </div>
 
 
 
 
 
-        <ul class="nav navbar-nav hidden-xs">
-            <li class="active"><a href="{SITE_URL}">首页</a></li>
-            {php doAction('pub_header_nav')}
 
-        </ul>
+
+
+        <div class="ts-top-nav navbar">
+            <div class="navbar-header">
+                <button class="navbar-toggle pull-left">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse" style="z-index: 1000">
+                <ul class="nav navbar-nav">
+
+                    <li class="active"><a href="{SITE_URL}">首页</a></li>
+                    {php doAction('pub_header_nav')}
+
+
+                </ul>
+            </nav>
+        </div>
+
 
         <form id="searchto" class="navbar-form navbar-left hidden-xs" role="search" method="get" action="{SITE_URL}index.php">
             <div class="form-group">
@@ -121,24 +127,21 @@
         </form>
 
 
-        <ul class="nav navbar-nav navbar-right navbar-collapse collapse" id="header-user">
 
-            {if $GLOBALS['TS_USER']==''}
-            <li><a href="{tsUrl('user','login')}">登录</a></li>
-            <li><a href="{tsUrl('user','register')}">注册</a></li>
-            {else}
 
-            <li><a href="{tsUrl('my')}">我的社区</a></li>
 
-            <li><a href="{tsUrl('message','my')}"><span class="badge" id="newmsg">0</span>  消息</a></li>
+        <div class="ts-user-nav">
 
-            <li class="dropdown" style="width:200px;text-align:right;">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img class="img-circle" src="{if $GLOBALS['TS_USER']['face']==""}{SITE_URL}public/images/user_normal.jpg{else}{php echo tsXimg($GLOBALS['TS_USER']['face'],'user','120','120',$GLOBALS['TS_USER'][path],'1')}{/if}" width="24" height="24" align="absmiddle" alt="{$GLOBALS['TS_USER']['username']}" />
-                    {$GLOBALS['TS_USER'][username]}
+            {if $GLOBALS['TS_USER']}
 
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
+            <a style="color:#fff" href="#" class="ts-user-nav-dropdown">
+                {$GLOBALS['TS_USER'][username]}
+                <img alt="{$GLOBALS['TS_USER'][username]}" src="{if $GLOBALS['TS_USER']['face']==""}{SITE_URL}public/images/user_normal.jpg{else}{php echo tsXimg($GLOBALS['TS_USER']['face'],'user','120','120',$GLOBALS['TS_USER'][path],'1')}{/if}">
+            </a>
+
+            <div class="ts-dropdown dropdown-list pull-right">
+                <ul class="ts-dropdown-list">
+                    <li><a href="{tsUrl('my')}" >我的社区</a></li>
                     <li><a href="{tsUrl('my','setting',array('ts'=>'base'))}" >设置</a></li>
                     {if $GLOBALS['TS_SITE']['isinvite']=='1'}
                     <li>
@@ -153,14 +156,25 @@
                     {/if}
                     <li><a href="{tsUrl('user','login',array(ts=>out))}">退出</a></li>
                 </ul>
-            </li>
+            </div>
+
+
+            {else}
+
+            <a class="btn btn-normal btn-primary" href="{tsUrl('user','login')}">登录</a>
+            <a class="btn btn-normal btn-success" href="{tsUrl('user','register')}">注册</a>
+
             {/if}
 
-        </ul>
+        </div>
 
+        {if $GLOBALS['TS_USER']}
+        <div class="fr" style="margin-right: 20px;">
+        <a style="height:52px;line-height: 52px;color:#ffffff;" href="{tsUrl('message','my')}"><span class="badge" id="newmsg">0</span>  消息</a>
+        </div>
+        {/if}
 
-
-    </div><!-- /.container-fluid -->
+    </div>
 </nav>
 
 <div class="appnav">

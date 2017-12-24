@@ -65,12 +65,17 @@
 <div class="item1">
 <input type="hidden" name="cktime" value="2592000" />
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
-<button type="submit" class="btn btn-success br0">登录</button>
+<button type="submit" class="btn btn-success br0">登 录</button>
 
-{php doAction('home_login')}
+    <a class="btn btn-link c9" href="{tsUrl('user','register')}">还没有注册？</a>
 
 </div>
 </fieldset>
 </form>
+
+    <div class="pd100 tac lh30">
+        {php doAction('home_login')}
+    </div>
+
 </div>
 {/if}

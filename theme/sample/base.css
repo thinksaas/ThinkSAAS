@@ -182,6 +182,104 @@ h3,h4,h5,h6 {
 
 
 
+.ts-dropdown{display:none;position:absolute;left:0;top:105%;z-index:9999;width:100%;min-width:110px;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);}
+
+.ts-dropdown p{padding:5px 10px;margin:0;}
+.ts-dropdown .ts-dropdown-list{list-style: none;margin:0;padding:0;}
+.ts-dropdown .ts-dropdown-list li{position:relative;height:42px;line-height:42px;padding:0 10px !important;border-top: 1px solid #f0f0f0;cursor: pointer;text-align: left;font-size: 14px;}
+.ts-dropdown .ts-dropdown-list li:first-child{border-top: none;}
+.ts-dropdown .ts-dropdown-list li:hover, .ts-dropdown .ts-dropdown-list li.active{background-color: #f0f0f0;}
+.ts-dropdown .ts-dropdown-list li a{display:block;color: #666;}
+
+
+.ts-logo, .ts-top-nav{position:relative;float: left;}
+.ts-user-nav{position:relative;float: right;margin:10px 0 10px 10px;}
+
+
+.ts-logo{width:190px;height:40px;margin:0;}
+.ts-logo a{display:block;width: 190px;height: 40px;margin-top:5px;}
+
+.ts-top-nav{margin:0;border: none;}
+.ts-top-nav .collapse{visibility: visible;}
+
+.ts-top-nav > nav > ul > li > a{padding:16px;color: #fff;}
+.ts-top-nav > nav > ul > li > a.active{background: #49a5de;font-weight: bold;}
+.ts-top-nav > nav > ul > li > a:hover, .ts-top-nav > nav > ul > li > a:focus{background: #49a5de;}
+
+
+
+.ts-top-nav ul li:hover .ts-dropdown{display: block;}
+.ts-top-nav .ts-dropdown{display:none;top:100%;min-width:300px;border-top: none;border-radius: 0 0 4px 4px;}
+.ts-top-nav .ts-dropdown .more{font-size: 12px;}
+.ts-top-nav .ts-dropdown .close{display: none;}
+.ts-top-nav .ts-dropdown ul li{padding:5px 10px;border-top:1px solid #f5f5f5;}
+.ts-top-nav .ts-dropdown ul li:first-child{border-top: none;}
+.ts-top-nav .ts-dropdown ul li:hover{background: #f5faff;}
+.ts-top-nav .ts-dropdown ul li:last-child{border-radius: 0 0 4px 4px;}
+
+
+.ts-user-nav{margin:10px 0 0 10px;}
+.ts-user-nav:hover .dropdown-list{display: block;}
+.ts-user-nav img{width: 32px;height: 32px;}
+
+.ts-user-nav .ts-user-nav-dropdown{display:block;height: 42px;}
+.ts-user-nav .ts-user-nav-dropdown .badge{position: absolute;top: -8px;right: -8px;}
+.ts-user-nav .dropdown-list{top:100%;width:122px;border-top:none;border-radius: 0 0 4px 4px;}
+.ts-user-nav .dropdown-list ul li a i{vertical-align:-2px;margin-right: 5px;font-size: 16px;}
+
+.ts-user-nav > a img {
+	border-radius: 4px;
+}
+
+.ts-user-nav img {
+	width: 32px;
+	height: 32px;
+}
+
+
+/* ipad竖屏 */
+@media (max-width: 769px) {
+	/*导航条*/
+	.navbar-collapse.active{display: block;}
+	.navbar-collapse {
+		position: absolute;
+		width: 120px;
+		left: -15px;
+		background: #49a5de;
+	}
+}
+@media (min-width: 768px) {
+	.navbar-collapse {
+		position: static;
+		width: auto;
+		background: #49a5de;
+	}
+}
+
+
+/* iphone竖屏幕 */
+@media (max-width:414px) {
+	.ts-top-nav .navbar-collapse.active {left: 0;}
+
+}
+
+
+.dropzone {
+	float:left;
+	width: 200px;
+	height: 200px;
+	border: 2px dashed #ccc;
+	color: #ccc;
+	line-height: 200px;
+	text-align: center;
+}
+
+.dropzone.dragover {
+	border-color: #000000;
+	color: #000000;
+}
+
+
 
 .appnav {
 	width: 100%;
