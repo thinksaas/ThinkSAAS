@@ -21,18 +21,9 @@
 <li {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='index'}class="active"{/if}><a href="{tsUrl('my')}">我的社区</a></li>
 
 
-
-<li {if $GLOBALS['TS_URL']['app']=='group' && $GLOBALS['TS_URL']['my']=='index'}class="active"{/if}><a href="{tsUrl('group','my')}">小组</a></li>
-    
-<li {if $GLOBALS['TS_URL']['app']=='group' && $GLOBALS['TS_URL']['my']=='topic'}class="active"{/if}><a href="{tsUrl('group','my',array('my'=>'topic'))}">帖子</a></li>
-    
-    <li {if $GLOBALS['TS_URL']['app']=='article'}class="active"{/if}><a href="{tsUrl('article','my')}">文章</a></li>
-    
-<li {if $GLOBALS['TS_URL']['app']=='photo'}class="active"{/if}><a href="{tsUrl('photo','my')}">相册</a></li>
-    
-<li {if $GLOBALS['TS_URL']['app']=='attach'}class="active"{/if}><a href="{tsUrl('attach','my')}">资料</a></li>
-
-
+{loop $GLOBALS['TS_SITE'][mynav] $key $item}
+<li {if $GLOBALS['TS_URL']['app']==$key}class="active"{/if}><a href="{tsUrl($key,'my')}">我的{$item}</a></li>
+{/loop}
 
 </ul>
 

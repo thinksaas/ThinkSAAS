@@ -35,7 +35,7 @@ foreach ( $arrTagId as $item ) {
 		) );
 	}
 	
-	if ($strArticle) {
+	if ($strArticle && $strArticle['isaudit']==0) {
 		$arrArticle [] = $strArticle;
 	}
 }

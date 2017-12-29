@@ -5,8 +5,6 @@ TRUNCATE `ts_article`;
 TRUNCATE `ts_article_cate`;
 TRUNCATE `ts_article_comment`;
 TRUNCATE `ts_article_recommend`;
-TRUNCATE `ts_attach`;
-TRUNCATE `ts_attach_album`;
 TRUNCATE `ts_editor`;
 TRUNCATE `ts_group`;
 TRUNCATE `ts_group_album`;

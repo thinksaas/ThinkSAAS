@@ -8,7 +8,16 @@ $arrGroupsList = $new['my']->findAll('group_user',array(
 ),null,'groupid',12);
 
 foreach($arrGroupsList as $key=>$item){
-    $arrGroup[] = aac('group')->getOneGroup($item['groupid']);
+    $strGroup = aac('group')->getOneGroup($item['groupid']);
+    if($strGroup){
+        $arrGroup[] = $strGroup;
+    }else{
+        $new['my']->delete('group_user',array(
+            'userid'=>$strUser['userid'],
+            'groupid'=>$item['groupid'],
+        ));
+    }
+
 }
 
 //我的帖子

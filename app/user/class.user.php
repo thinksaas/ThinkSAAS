@@ -183,23 +183,38 @@ class user extends tsApp{
 	 */
 	public function delScore($userid,$scorename,$score){
 		if($userid && $scorename && $score){
-			//添加积分记录
-			$this->create('user_score_log',array(
-				'userid'=>$userid,
-				'scorename'=>$scorename,
-				'score'=>$score,
-				'status'=>1,
-				'addtime'=>time(),
-			));
+
 			//计算总积分
 			$strUser = $this->find('user_info',array(
 				'userid'=>$userid,
 			));
-			$this->update('user_info',array(
-				'userid'=>$userid,
-			),array(
-				'count_score'=>$strUser['count_score']-$score,
-			));
+
+			if($strUser['count_score']>$score){
+
+                //添加积分记录
+                $this->create('user_score_log',array(
+                    'userid'=>$userid,
+                    'scorename'=>$scorename,
+                    'score'=>$score,
+                    'status'=>1,
+                    'addtime'=>time(),
+                ));
+
+                $this->update('user_info',array(
+                    'userid'=>$userid,
+                ),array(
+                    'count_score'=>$strUser['count_score']-$score,
+                ));
+
+                return true;
+
+            }else{
+
+			    return false;
+
+            }
+
+
 		}
 	}
 	
