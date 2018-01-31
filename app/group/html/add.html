@@ -24,14 +24,14 @@
 
                         <div class="form-group">
                             <label>标题</label>
-                            <input name="title" type="text" class="form-control">
+                            <input name="title" type="text" class="form-control br0">
                         </div>
 
                         {if $arrGroupType}
                         <div class="form-group">
                             <label>类型</label>
 
-                            <select name="typeid" class="form-control">
+                            <select name="typeid" class="form-control br0">
                                 <option value="0">选择类型</option>
                                 {loop $arrGroupType $key $item}
                                 <option value="{$item[typeid]}">{$item[typename]}</option>
@@ -49,7 +49,7 @@
 
                         <div class="form-group">
                             <label>标签</label>
-                            <input name="tag" type="text" class="form-control">
+                            <input name="tag" type="text" class="form-control br0">
                         </div>
 
                         <div class="form-group">
