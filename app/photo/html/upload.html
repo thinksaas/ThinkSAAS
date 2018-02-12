@@ -1,35 +1,9 @@
 {template header}
 
-<script src="{SITE_URL}public/js/uploadify/jquery.uploadify.min.js?ver={php echo rand(0,9999)}" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="{SITE_URL}public/js/uploadify/uploadify.css">
-
-<script type="text/javascript">
-	$(function() {
-		$('#file_upload').uploadify({
-			'auto'     : true,
-			'fileTypeDesc' : 'jpeg,jpg,gif,png图片格式',
-			'fileTypeExts' : '*.jpeg;*.jpg;*.gif;*.png',
-			'buttonImage' : '{SITE_URL}public/images/upload.png',
-			'swf'      : '{SITE_URL}public/js/uploadify/uploadify.swf',
-			
-			'formData' : { 
-				'albumid':'{$albumid}',
-				'addtime':'{$addtime}',
-				'tokens':"{php echo md5('unique_salt' . $addtime)}"
-			},
-			
-			'uploader' : '{SITE_URL}index.php?app=photo&ac=upload&ts=do',
-
-			'onQueueComplete' : function(queueData) {
-				window.location = siteUrl+"index.php?app=photo&ac=album&ts=info&albumid={$albumid}&addtime={$addtime}";
-			}
-		});
-	});
-</script>
+<link href="{SITE_URL}public/js/dropzone/dropzone.css" type="text/css" rel="stylesheet" />
+<script src="{SITE_URL}public/js/dropzone/dropzone.js"></script>
 
 <div class="container">
-
-
 
 <ol class="breadcrumb">
   <li><a href="{SITE_URL}">首页</a></li>
@@ -47,11 +21,15 @@
 
 <div style="padding:0 10px;">
 
-<div class="alert alert-info">上传文件只支持：jpg，gif，png格式；上传最大支持1M的图片。上传需要浏览器必须支持<strong>Flash</strong>插件才可以。</div>
+<div class="alert alert-info">上传文件只支持：jpg，gif，png格式。</div>
 
 
-<div id="queue"></div>
-<input id="file_upload" name="file_upload" type="file" multiple="true">
+
+  <form id ="myAwesomeDropzone" style="width:100%;" action="{SITE_URL}index.php?app=photo&ac=upload&ts=do" class="dropzone">
+    <input type="hidden" name="albumid" value="{$albumid}">
+    <input type="hidden" name="addtime" value="{$addtime}"/>
+  </form>
+
 
 </div>
 
@@ -60,5 +38,22 @@
 
 
 </div>
+<script>
+    Dropzone.options.myAwesomeDropzone = {
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: 2, // MB
+        acceptedFiles:".jpg,.gif,.png,.jpeg",
+        accept: function(file, done) {
+            if (file.name == "justinbieber.jpg") {
+                done("Naha, you don't.");
+            } else {
+                done();
+            }
+        },
+        complete:function (file) {
+            window.location = siteUrl+"index.php?app=photo&ac=album&ts=info&albumid={$albumid}&addtime={$addtime}";
+        }
 
+    };
+</script>
 {template footer}

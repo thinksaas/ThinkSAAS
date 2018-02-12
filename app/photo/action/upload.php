@@ -31,20 +31,32 @@ switch($ts){
 		break;
 		
 	case "do":
-		
-		$addtime = intval($_POST['addtime']);
+
+        $userid = aac('user')->isLogin();
 		
 		$albumid = intval($_POST['albumid']);
-		
-		$verifyToken = md5('unique_salt' . $addtime);
-		
+
+		$addtime = intval($_POST['addtime']);
+
+		if($albumid==0){
+		    getJson('非法操作1！');
+        }
+
+        if($addtime==0){
+            getJson('上传时间有误！');
+        }
+
 		$strAlbum = $new['photo']->find('photo_album',array(
 			'albumid'=>$albumid,
 		));
-		
-		if($albumid==0 || $addtime==0 || $_POST['tokens'] != $verifyToken || $strAlbum==''){
-			echo 000000;exit;
-		}
+
+		if($strAlbum==''){
+            getJson('非法操作2！');
+        }
+
+        if($strAlbum['userid']!=$userid){
+            getJson('非法操作3！');
+        }
 		
 		$photoid = $new['photo']->create('photo',array(
 			'albumid'=>$strAlbum['albumid'],
@@ -54,7 +66,7 @@ switch($ts){
 		));
 		
 		//上传
-		$arrUpload = tsUpload($_FILES['Filedata'],$photoid,'photo',array('jpg','gif','png'));
+		$arrUpload = tsUpload($_FILES['file'],$photoid,'photo',array('jpg','gif','png'));
 		
 		if($arrUpload){
 
@@ -67,13 +79,28 @@ switch($ts){
 				'photourl'=>$arrUpload['url'],
 				'photosize'=>$arrUpload['size'],
 			));
-			
+
+
+			#统计相册图片数
+            $count_photo = $new['photo']->findCount('photo',array(
+                'albumid'=>$albumid,
+            ));
+
+            $new['photo']->update('photo_album',array(
+                'albumid'=>$albumid,
+            ),array(
+                'count_photo'=>$count_photo
+            ));
+
 			//对积分进行出来
 			aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts'],$strAlbum['userid']);
 			
 		}
+
+
 		
-		echo $photoid;
+		#echo $photoid;
+        getJson('上传成功！');
 	
 		break;
 	
