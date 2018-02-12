@@ -358,10 +358,11 @@ function fileRead($dfile) {
 
 /**
  * 把数组转换为,号分割的字符串
- * @param unknown $arr
+ * @param 一维数组 $arr
+ * @param 分割符号，默认,号
  * @return Ambigous <string, unknown>
  */
-function arr2str($arr) {
+function arr2str($arr,$fg=',') {
 	$str = '';
 	$count = 1;
 	if (is_array($arr)) {
@@ -369,7 +370,7 @@ function arr2str($arr) {
 			if ($count == 1) {
 				$str .= $a;
 			} else {
-				$str .= ',' . $a;
+				$str .= $fg . $a;
 			}
 			$count++;
 		}

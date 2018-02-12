@@ -122,7 +122,7 @@ switch ($ts) {
 		
 		//系统管理员删除
 		if($TS_USER['isadmin'] == '1'){
-			$new['group']->delTopic($topicid);
+			$new['group']->delTopic($topicid,$groupid);
 			
 			header('Location: '.tsUrl('group'));
 			exit;

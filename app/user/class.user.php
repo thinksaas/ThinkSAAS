@@ -154,27 +154,43 @@ class user extends tsApp{
 	 */
 	public function addScore($userid,$scorename,$score){
 		if($userid && $scorename && $score){
-			//添加积分记录
-			$this->create('user_score_log',array(
-				'userid'=>$userid,
-				'scorename'=>$scorename,
-				'score'=>$score,
-				'status'=>0,
-				'addtime'=>time(),
-			));
-			//计算总积分
-			$strUser = $this->find('user_info',array(
-				'userid'=>$userid,
-			));
 
-            $strAllScore = $this->db->once_fetch_assoc("select SUM(score) as allscore from ".dbprefix."user_score_log where `userid`='$userid' and  `status`='0'");
 
-			$this->update('user_info',array(
-				'userid'=>$userid,
-			),array(
-                'allscore'=>$strAllScore['allscore'],
-				'count_score'=>$strUser['count_score']+$score,
-			));
+		    #计算当天已经获得的积分
+            $starttime = strtotime(date('Y-m-d 00:00:01'));
+            $endtime = strtotime(date('Y-m-d 23:59:59'));
+            $strDayScore = $this->db->once_fetch_assoc("select SUM(score) as dayscore from ".dbprefix."user_score_log where `userid`='$userid' and  `status`='0' and `addtime`>='$starttime' and `addtime`<='$endtime'");
+
+            #用户每日获得积分上限
+            if($strDayScore['dayscore']<$GLOBALS['TS_SITE']['dayscoretop']){
+
+                //添加积分记录
+                $this->create('user_score_log',array(
+                    'userid'=>$userid,
+                    'scorename'=>$scorename,
+                    'score'=>$score,
+                    'status'=>0,
+                    'addtime'=>time(),
+                ));
+
+                //计算总积分
+                $strUser = $this->find('user_info',array(
+                    'userid'=>$userid,
+                ));
+
+                $strAllScore = $this->db->once_fetch_assoc("select SUM(score) as allscore from ".dbprefix."user_score_log where `userid`='$userid' and  `status`='0'");
+
+                $this->update('user_info',array(
+                    'userid'=>$userid,
+                ),array(
+                    'allscore'=>$strAllScore['allscore'],
+                    'count_score'=>$strUser['count_score']+$score,
+                ));
+
+
+            }
+
+
 		}
 	}
 	

@@ -21,7 +21,7 @@ if($strGroup['groupid'] == '') {
 }
 
 if($strGroup['isaudit'] == 1) {
-	tsNotice('内容审核中...');
+	tsNotice('小组审核中...');
 }
 
 $title = $strGroup['groupname'];

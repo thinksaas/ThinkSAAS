@@ -120,6 +120,13 @@ foreach($arrComment as $key => $item)
 	$arrTopicComment[$key]['content'] = tsDecode($item['content']);
 
 	$arrTopicComment[$key]['recomment'] = $new['group']->recomment($item['referid']);
+
+    ####评论关联附件开始####
+    if($TS_APP['istopicattach']){
+        $arrTopicComment[$key]['attach'] = $new['group']->getCommentAttach($item['commentid']);
+    }
+    ####评论关联附件结束####
+
 }
 
 $commentNum = $new['group']->findCount('group_topic_comment',array(
@@ -148,6 +155,14 @@ $newTopic = $new['group']->findAll('group_topic',array(
     'isaudit'=>'0',
 ),'addtime desc','topicid,title',10);
 
+
+
+
+####帖子关联附件APP开始####
+if($TS_APP['istopicattach']){
+    $arrAttach = $new['group']->getTopicAttach($strTopic['topicid']);
+}
+####帖子关联附件APP结束####
 
 
 $sitedesc = cututf8(t($strTopic['content']),0,100);

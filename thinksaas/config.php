@@ -78,7 +78,7 @@ return array(
 		'powered' => 'Powered by ThinkSAAS',
 		'copyright' => 'ThinkSAAS',
 		'copyurl' => 'http://www.thinksaas.cn/',
-		'year' => '2011 - 2017',
+		'year' => '2011 - 2018',
 		'author' => '邱君',
 	),
 	

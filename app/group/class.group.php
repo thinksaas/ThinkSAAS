@@ -114,30 +114,20 @@ class group extends tsApp{
 
 	
 	//删除帖子
-	public function delTopic($topicid){
-
-		$strTopic = $this->find('group_topic',array(
-			'topicid'=>$topicid,
-		));
+	public function delTopic($topicid,$groupid){
 
 		$this->delete('group_topic',array('topicid'=>$topicid));
 		$this->delete('group_topic_edit',array('topicid'=>$topicid));
 		$this->delete('group_topic_comment',array('topicid'=>$topicid));
 		$this->delete('tag_topic_index',array('topicid'=>$topicid));
 		$this->delete('group_topic_collect',array('topicid'=>$topicid));
-		
-		//删除图片
-		if($strTopic['photo']){
-			unlink('uploadfile/topic/'.$strTopic['photo']);
-		}
-		//删除文件
-		if($strTopic['attach']){
-			unlink('uploadfile/topic/'.$strTopic['attach']);
-		}
+
+		#删除帖子附件
+        $this->delete('group_topic_attach',array('topicid'=>$topicid));
 		
 		$this->delTopicComment($topicid);
 		
-		$this->countTopic($strTopic['groupid']);
+		$this->countTopic($groupid);
 		
 		return true;
 		
@@ -165,18 +155,14 @@ class group extends tsApp{
 			'commentid'=>$commentid,
 		));
 		
-		//删除图片
-		if($strComment['photo']){
-			unlink('uploadfile/comment/'.$strComment['photo']);
-		}
-		//删除文件
-		if($strComment['attach']){
-			unlink('uploadfile/comment/'.$strComment['attach']);
-		}
-		
 		$this->delete('group_topic_comment',array(
 			'commentid'=>$commentid,
 		));
+
+		#删除评论附件
+        $this->delete('group_comment_attach',array(
+            'commentid'=>$commentid,
+        ));
 		
 		return true;
 		
@@ -304,8 +290,8 @@ class group extends tsApp{
     }
 
     /*
- * 是否小组成员，被统治阶级
- */
+     * 是否小组成员，被统治阶级
+     */
     public function isGroupUser($groupid,$userid){
         $countGroupUser = $this->findCount('group_user',array(
             'groupid'=>$groupid,
@@ -316,6 +302,44 @@ class group extends tsApp{
         }else{
             return false;
         }
+    }
+
+    /**
+     * 获取帖子附件
+     */
+    public function getTopicAttach($topicid){
+        $arrAttachId = $this->findAll('group_topic_attach',array(
+            'topicid'=>$topicid,
+        ));
+        if($arrAttachId){
+            foreach ($arrAttachId as $key=>$item){
+                $arrIds[] = $item['attachid'];
+            }
+            $attachids = arr2str($arrIds);
+            $arrAttach = $this->findAll('attach',"`attachid` in ($attachids)",'addtime desc');
+        }else{
+            $arrAttach = '';
+        }
+        return $arrAttach;
+    }
+
+    /**
+     * 获取评论关联附件
+     */
+    public function getCommentAttach($commentid){
+        $arrAttachId = $this->findAll('group_comment_attach',array(
+            'commentid'=>$commentid,
+        ));
+        if($arrAttachId){
+            foreach ($arrAttachId as $key=>$item){
+                $arrIds[] = $item['attachid'];
+            }
+            $attachids = arr2str($arrIds);
+            $arrAttach = $this->findAll('attach',"`attachid` in ($attachids)",'addtime desc');
+        }else{
+            $arrAttach = '';
+        }
+        return $arrAttach;
     }
 	
 	

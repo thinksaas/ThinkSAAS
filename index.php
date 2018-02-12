@@ -15,8 +15,9 @@ define('THINKSAAS', THINKROOT . '/thinksaas');
 define('THINKINSTALL', THINKROOT . '/install');
 define('THINKPLUGIN', THINKROOT . '/plugins');
 
+//自动加载所需功能，支持composer
+require_once THINKROOT . '/vendor/autoload.php';
 // 装载ThinkSAAS核心
-
 include THINKSAAS.'/thinksaas.php';
 
 unset($GLOBALS);

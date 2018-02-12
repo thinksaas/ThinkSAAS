@@ -35,9 +35,9 @@ $strArticle ['cate'] = $new ['article']->find ( 'article_cate', array (
 
 
 // 上一篇
-$strUp = $new['article']->find('article', "`articleid`< '$articleid'", 'articleid,title','articleid desc');
+$strUp = $new['article']->find('article', "`articleid`< '$articleid' and `isaudit`='0'", 'articleid,title','articleid desc');
 // 下一篇
-$strNext = $new['article']->find('article', "`articleid`> '$articleid'", 'articleid,title','articleid asc');
+$strNext = $new['article']->find('article', "`articleid`> '$articleid' and `isaudit`='0'", 'articleid,title','articleid asc');
 
 
 

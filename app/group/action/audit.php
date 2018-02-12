@@ -63,7 +63,7 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 		case "delete":
 			$topicid = intval($_GET['topicid']);
 			
-			$new['group']->delTopic($topicid);
+			$new['group']->delTopic($topicid,$groupid);
 			
 			//统计需要审核的帖子
 			$count_topic_audit = $new['group']->findCount('group_topic',array(

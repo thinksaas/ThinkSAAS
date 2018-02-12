@@ -66,13 +66,13 @@
                 <div class="form-group">
                     <label>Email</label>
 
-                    <input name="email" type="email" class="form-control" placeholder="Email" check-type="mail">
+                    <input name="email" type="email" class="form-control br0" placeholder="Email" check-type="mail">
 
                 </div>
                 <div class="form-group">
                     <label>密码：</label>
 
-                    <input name="pwd" type="password" class="form-control" placeholder="Password" check-type="required">
+                    <input name="pwd" type="password" class="form-control br0" placeholder="Password" check-type="required">
 
                 </div>
 
@@ -80,7 +80,9 @@
                     <input type="hidden" name="cktime" value="31536000">
                     <input type="hidden" name="ad" value="1" />
                     <input type="hidden" name="token" value="{$_SESSION['token']}" />
-                    <button id="comm-submit" type="submit" class="btn btn-block btn-success btn-lg">点击登录后台</button>
+                    <button id="comm-submit" type="submit" class="btn btn-block btn-success btn-lg br0">点击登录后台</button>
+
+                    <p><a class="btn btn-link" href="">返回首页</a></p>
 
                 </div>
             </form>

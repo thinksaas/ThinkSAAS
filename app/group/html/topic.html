@@ -41,9 +41,52 @@
 
                             {$tpUrl}
 
-                            {php doAction('gobad','468')}
-
                         </div>
+
+
+
+
+
+                        {if $strTopic['iscommentshow']==1 && $isComment==0 && $strTopic['userid']!=intval($TS_USER['userid'])}
+                        {else}
+                        <!---附件处理开始--->
+                        {if $TS_APP['istopicattach']}
+
+                            {if $arrAttach}
+                            <div class="topic_attach">
+                            <ul>
+                                {loop $arrAttach $key $item}
+                                <li><a target="_blank" href="{tsUrl('attach','show',array('id'=>$item['attachid']))}">{$item['attachname']}</a> - <span class="c9 fs12">{$item['count_down']}次下载</span> - <span class="c9 fs12">需{$item['score']}积分</span></li>
+                                {/loop}
+                            </ul>
+
+                                {if $TS_USER['userid']==$strTopic['userid'] || $TS_USER['isadmin']==1}
+                                <div class="tac">
+                                    <a class="btn btn-link" href="{tsUrl('attach','select',array('topicid'=>$strTopic['topicid']))}"><span class="glyphicon glyphicon-circle-arrow-up"></span>上传/选择附件</a>
+                                </div>
+                                {/if}
+
+                            </div>
+
+                            {else}
+
+                                {if $TS_USER['userid']==$strTopic['userid'] || $TS_USER['isadmin']==1}
+                                <div class="topic_attach">
+                                    <div class="tac">
+                                        <a class="btn btn-link" href="{tsUrl('attach','select',array('topicid'=>$strTopic['topicid']))}"><span class="glyphicon glyphicon-circle-arrow-up"></span>上传/选择附件</a>
+                                    </div>
+                                </div>
+                                {/if}
+
+                            {/if}
+
+                        {/if}
+                        <!---附件处理结束--->
+                        {/if}
+
+
+
+                        <div>{php doAction('gobad','468')}</div>
 
                         {if $TS_USER[userid] == $strTopic[userid] || $TS_USER[userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[isadmin]=="1"}
                         <div class="btool">
@@ -126,6 +169,22 @@
                                     {$item[content]}
                                     {/if}
                                     </p>
+
+
+
+                                    <!---附件处理开始--->
+                                    {if $TS_APP['istopicattach']}
+                                    {if $item['attach']}
+                                    <div class="topic_attach">
+                                        <ul>
+                                            {loop $item['attach'] $akey $aitem}
+                                            <li><a target="_blank" href="{tsUrl('attach','show',array('id'=>$aitem['attachid']))}">{$aitem['attachname']}</a> - <span class="c9 fs12">{$aitem['count_down']}次下载</span> - <span class="c9 fs12">需{$aitem['score']}积分</span></li>
+                                            {/loop}
+                                        </ul>
+                                    </div>
+                                    {/if}
+                                    {/if}
+                                    <!---附件处理结束--->
 
 
 
