@@ -30,15 +30,9 @@
 <p class="username">{$item[username]}</p>
 <p>
 {if $strGroup['userid']==$TS_USER['userid'] || $TS_USER['isadmin']==1}
-
-{if $item['isadmin']==1}
-<a href="javascript:void('0');" onclick="setAdmin('{$strGroup[groupid]}','{$item['userid']}','{$_SESSION['token']}')">取消管理员</a>
-{elseif $item['isadmin']==0 && $strGroup['userid']!=$item['userid']}
-<a href="javascript:void('0');" onclick="setAdmin('{$strGroup[groupid]}','{$item['userid']}','{$_SESSION['token']}')">设为管理员</a>
-<br /><a href="javascript:void('0');" onclick="kickedGroup('{$strGroup['groupid']}','{$item['userid']}')" title="踢出">X</a>
+<a href="javascript:void('0');" onclick="kickedGroup('{$strGroup['groupid']}','{$item['userid']}')" title="踢出小组">X</a>
 {/if}
-
-{/if}</p>
+</p>
 </li>
 {/loop}
 </ul>
@@ -46,7 +40,7 @@
 </div>
 
 
-<div class="clear"></div>
+            <div class="clear"></div>
             <div class="page">{$pageUrl}</div>
 
 
@@ -86,16 +80,6 @@
                     <li>
                         <a href="{tsUrl('user','space',array('id'=>$item[userid]))}"><img class="img-circle" alt="{$item[username]}" src="{$item[face]}" width="48" height="48" /></a>
                         <p>{$item[username]}</p>
-                        <p>{if $strGroup['userid']==$TS_USER['userid'] || $TS_USER['isadmin']==1}
-
-                            <a href="javascript:void('0');" onclick="setAdmin('{$strGroup[groupid]}','{$item['userid']}','{$_SESSION['token']}')">
-                                {if $item['isadmin']==1}
-                                取消管理员
-                                {elseif $item['isadmin']==0}
-                                设为管理员
-                                {/if}
-                            </a>
-                            {/if}</p>
                     </li>
                     {/loop}
                 </ul>

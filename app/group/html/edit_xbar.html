@@ -14,6 +14,11 @@
 {if $strGroup['joinway']==2}
 <li role="presentation" {if $ts=="useraudit"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'useraudit'))}">成员审核</a></li>
 {/if}
+
+
+    <li role="presentation" {if $ts=="isadmin"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'isadmin'))}">管理员</a></li>
+
+
 </ul>
 
 <div style="height:20px;"></div>

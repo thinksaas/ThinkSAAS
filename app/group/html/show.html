@@ -30,6 +30,12 @@
     <p class="c9">
         创建于 {php echo date('Y-m-d',$strGroup[addtime])}
         组长：<a href="{tsUrl('user','space',array('id'=>$strLeader[userid]))}"  rel="face" uid="{$strLeader['userid']}">{$strLeader[username]}</a>
+        {if $arrGroupAdminUser}
+        管理员：
+        {loop $arrGroupAdminUser $key $item}
+        <a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a>
+        {/loop}
+        {/if}
     </p>
 
 </div>

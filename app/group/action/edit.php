@@ -246,6 +246,121 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
             break;
 
 
+        #小组管理员
+        case "isadmin":
+
+            $arrAdmin = $new['group']->findAll('group_user',array(
+                'groupid'=>$groupid,
+                'isadmin'=>1,
+            ));
+
+            $arrAdminUser = array();
+            if($arrAdmin){
+                foreach($arrAdmin as $key=>$item){
+                    $arrUserId[] = $item['userid'];
+                }
+                $userids = arr2str($arrUserId);
+
+                $arrAdminUser = $new['group']->findAll('user_info',"`userid` in ($userids)",'addtime desc','userid,username');
+
+            }
+
+
+            $title = '小组管理员';
+            include template('edit_isadmin');
+
+            break;
+
+        case "isadmindo":
+
+            $js = intval($_GET['js']);
+
+
+            $userid = intval($_POST['userid']);
+
+            if($userid==0){
+                getJson('用户ID输入有误！',$js);
+            }
+
+            if($userid==$strGroup['userid']){
+                getJson('用户ID不可以是组长ID！',$js);
+            }
+
+            $isGroupUser = $new['group']->findCount('group_user',array(
+                'groupid'=>$groupid,
+                'userid'=>$userid,
+            ));
+
+            if($isGroupUser==0){
+                getJson('输入用户ID不属于该小组用户！',$js);
+            }
+
+            $new['group']->update('group_user',array(
+                'groupid'=>$groupid,
+                'userid'=>$userid,
+            ),array(
+                'isadmin'=>1,
+            ));
+
+
+            //发送系统消息
+            $msg_userid = '0';
+            $msg_touserid = $userid;
+            $msg_content = '恭喜你，你成为了小组《'.$strGroup['groupname'].'》的管理员！快去看看吧';
+            $msg_tourl = tsUrl('group','show',array('id'=>$groupid));
+            aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
+
+
+            getJson('操作成功！',$js,1);
+
+            break;
+
+        #取消管理员
+        case "isadmindel":
+
+            $js = intval($_GET['js']);
+
+
+            $userid = intval($_POST['userid']);
+
+            if($userid==0){
+                getJson('用户ID输入有误！',$js);
+            }
+
+            if($userid==$strGroup['userid']){
+                getJson('用户ID不可以是组长ID！',$js);
+            }
+
+            $isGroupUser = $new['group']->findCount('group_user',array(
+                'groupid'=>$groupid,
+                'userid'=>$userid,
+            ));
+
+            if($isGroupUser==0){
+                getJson('输入用户ID不属于该小组用户！',$js);
+            }
+
+            $new['group']->update('group_user',array(
+                'groupid'=>$groupid,
+                'userid'=>$userid,
+            ),array(
+                'isadmin'=>0,
+            ));
+
+
+            //发送系统消息
+            $msg_userid = '0';
+            $msg_touserid = $userid;
+            $msg_content = '不好意思，你在小组《'.$strGroup['groupname'].'》的管理员身份被撤销了！快去看看吧';
+            $msg_tourl = tsUrl('group','show',array('id'=>$groupid));
+            aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
+
+
+            getJson('操作成功！',$js,1);
+
+            break;
+
+
 
 
 			

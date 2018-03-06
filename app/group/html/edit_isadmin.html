@@ -1,0 +1,64 @@
+{template header}
+
+<div class="container">
+
+
+    <ol class="breadcrumb">
+        <li><a href="{SITE_URL}">首页</a></li>
+        <li><a href="{tsUrl('group')}">小组</a></li>
+        <li><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
+        <li class="active">小组设置</li>
+    </ol>
+
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+
+            {template edit_xbar}
+
+
+<div class="row">
+   <div class="col-md-3"></div>
+   <div class="col-md-6">
+       <form id="comm-form" class="form-inline" role="form" method="post" action="{SITE_URL}index.php?app=group&ac=edit&ts=isadmindo&groupid={$strGroup['groupid']}">
+
+           <div class="form-group">
+               <input type="text" name="userid" class="form-control br0" placeholder="输入用户ID">
+           </div>
+
+           <button type="submit" class="btn btn-success br0">设为管理员</button>
+
+       </form>
+
+
+       <table class="table">
+
+           <thead>
+           <tr><th>ID</th><th>用户名</th><th>操作</th></tr>
+           </thead>
+
+
+           <tbody>
+           {loop $arrAdminUser $key $item}
+           <tr>
+               <td>{$item['userid']}</td>
+               <td>{$item['username']}</td>
+               <td><a class="btn btn-default btn-sm br0" href="javascript:void('0')" onclick="tsPost('index.php?app=group&ac=edit&groupid={$groupid}&ts=isadmindel&js=1',{'userid':'{$item[userid]}'})">取消</a></td>
+           </tr>
+           {/loop}
+           </tbody>
+
+       </table>
+
+
+   </div>
+   <div class="col-md-3"></div>
+</div>
+
+
+        </div>
+    </div>
+
+</div>
+{template footer}

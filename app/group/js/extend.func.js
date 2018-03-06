@@ -154,25 +154,6 @@ function topicAudit(topicid,token){
 	})
 }
 
-//设为管理员，取消管理员
-function setAdmin(groupid,userid,token){
-
-	$.post(siteUrl+'index.php?app=group&ac=user&ts=manager',{'groupid':groupid,'userid':userid,'token':token},function(rs){
-	
-		if(rs=='0'){
-
-            tsNotice('非法操作！')
-
-		}else if(rs=='1'){
-			
-			window.location.reload();
-		
-		}
-	
-	})
-	
-}
-
 //踢出小组
 function kickedGroup(groupid,userid){
 	$.post(siteUrl+'index.php?app=group&ac=kicked',{'groupid':groupid,'userid':userid},function(rs){

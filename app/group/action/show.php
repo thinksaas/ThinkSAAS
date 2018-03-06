@@ -91,7 +91,7 @@ if($strGroup['isaudit']=='1'){
 	$pageUrl = pagination($topicNum, 30, $page, $url);
 	
 	
-	//小组会员
+	//是否小组会员
 	$groupUser = $new['group']->findAll('group_user',array(
 		'groupid'=>$groupid,
 	),'addtime desc',null,8);
@@ -109,6 +109,20 @@ if($strGroup['isaudit']=='1'){
 			}
 		}
 	}
+
+	//小组管理员
+    $arrGroupAdmin = $new['group']->findAll('group_user',array(
+        'groupid'=>$groupid,
+        'isadmin'=>1,
+    ));
+    $arrGroupAdminUser = array();
+    if($arrGroupAdmin){
+        foreach($arrGroupAdmin as $key=>$item){
+            $arrGroupUserId[] = $item['userid'];
+        }
+        $groupUserIds = arr2str($arrGroupUserId);
+        $arrGroupAdminUser = $new['group']->findAll('user_info',"`userid` in ($groupUserIds)",'addtime desc','userid,username');
+    }
 	
 	//标签
 	$strGroup ['tags'] = aac ( 'tag' )->getObjTagByObjid ( 'group', 'groupid', $strGroup ['groupid'] );
