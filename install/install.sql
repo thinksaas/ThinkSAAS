@@ -764,7 +764,7 @@ INSERT INTO `ts_cache` (`cacheid`, `cachename`, `cachevalue`) VALUES
   (14, 'plugins_pubs_gobad', '1400603098a:3:{i:300;s:20:"宽度300px广告位";i:468;s:20:"宽度468px广告位";i:960;s:20:"宽度960px广告位";}'),
   (15, 'plugins_pubs_feedback', '1406109222s:52:"<a href=\\"https://www.thinksaas.cn\\">意见反馈</a>";'),
   (16, 'plugins_pubs_counter', '1516328114s:285:"<script>\r\nvar _hmt = _hmt || [];\r\n(function() {\r\n  var hm = document.createElement(\\"script\\");\r\n  hm.src = \\"https://hm.baidu.com/hm.js?5964cd4b8810fcc73c98618d475213f6\\";\r\n  var s = document.getElementsByTagName(\\"script\\")[0]; \r\n  s.parentNode.insertBefore(hm, s);\r\n})();\r\n</script>";'),
-  (18, 'plugins_home_links', '1507801521a:2:{i:0;a:2:{s:8:"linkname";s:9:"ThinkSAAS";s:7:"linkurl";s:25:"https://www.thinksaas.cn/";}i:1;a:2:{s:8:"linkname";s:12:"信阳毛尖";s:7:"linkurl";s:26:"https://www.xinyangde.com/";}}'),
+  (18, 'plugins_home_links', '1521206831a:3:{i:0;a:2:{s:8:"linkname";s:9:"ThinkSAAS";s:7:"linkurl";s:25:"https://www.thinksaas.cn/";}i:1;a:2:{s:8:"linkname";s:12:"信阳毛尖";s:7:"linkurl";s:26:"https://www.xinyangde.com/";}i:2;a:2:{s:8:"linkname";s:12:"信阳天气";s:7:"linkurl";s:26:"https://xinyangtianqi.com/";}}'),
   (17, 'plugins_pubs_navs', '1400833863a:1:{i:0;a:2:{s:7:"navname";s:9:"ThinkSAAS";s:6:"navurl";s:23:"https://www.thinksaas.cn";}}');
 
 -- --------------------------------------------------------
