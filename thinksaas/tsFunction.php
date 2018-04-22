@@ -960,6 +960,7 @@ function reurl() {
 				foreach ($params as $p => $v) {
 					switch ($p) {
 						case 0 :
+                            if($v=='?from=singlemessage' || $v=='?from=groupmessage' || $v=='?from=timeline') $v='home';
 							$_GET['app'] = $v;
 							break;
 						case 1 :

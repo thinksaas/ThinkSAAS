@@ -151,8 +151,9 @@ class user extends tsApp{
 	 * $userid 用户ID
 	 * $scorename 积分名字 
 	 * $score 积分
+	 * @issx 上线限制0限制1不限制
 	 */
-	public function addScore($userid,$scorename,$score){
+	public function addScore($userid,$scorename,$score,$issx=0){
 		if($userid && $scorename && $score){
 
 
@@ -162,7 +163,7 @@ class user extends tsApp{
             $strDayScore = $this->db->once_fetch_assoc("select SUM(score) as dayscore from ".dbprefix."user_score_log where `userid`='$userid' and  `status`='0' and `addtime`>='$starttime' and `addtime`<='$endtime'");
 
             #用户每日获得积分上限
-            if($strDayScore['dayscore']<$GLOBALS['TS_SITE']['dayscoretop']){
+            if($strDayScore['dayscore']<$GLOBALS['TS_SITE']['dayscoretop'] || $issx==1){
 
                 //添加积分记录
                 $this->create('user_score_log',array(

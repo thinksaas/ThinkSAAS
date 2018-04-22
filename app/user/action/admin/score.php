@@ -76,7 +76,7 @@ switch($ts){
 		$scorename = trim($_POST['scorename']);
 		
 		if($userid && $score && $scorename){
-			aac('user')->addScore($userid,$scorename,$score);
+			aac('user')->addScore($userid,$scorename,$score,1);
 			qiMsg('操作成功！');
 		}else{
 			qiMsg('操作失败！');
