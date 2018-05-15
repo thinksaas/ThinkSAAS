@@ -3,5 +3,14 @@
 /tslogs
 /upgrade
 /uploadfile
+/ueditor
+/vendor
 .idea
 .htaccess
+.DS_Store
+.gitignore
+CHANGELOG.TXT
+composer.json
+INSTALL.TXT
+LICENSE.TXT
+README.md
