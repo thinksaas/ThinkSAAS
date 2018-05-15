@@ -50,6 +50,11 @@
 <span><a class="btn btn-success" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">加入小组</a></span>
 {elseif $strGroup[joinway] == '2'}
 <span><a class="btn btn-success" href="javascript:void('0')" onclick="joinGroup('{$strGroup['groupid']}')">申请加入小组</a></span>
+
+    {elseif $strGroup['joinway']==3}
+
+    <span><a class="btn btn-success" href="javascript:void('0')" onclick="joinGroup('{$strGroup['groupid']}')">需要支付<font color="orange" style="font-size: 16px;">{$strGroup['price']}金币</font>加入小组</a></span>
+
 {else}
 <span>本小组禁止加入</span>
 {/if}
@@ -73,7 +78,13 @@
 </div>
 </div>
 
+    {if $strGroup['isopen']==1 && $isGroupUser==''}
 
+    <div class="alert alert-info">你需要加入小组后才可以访问帖子内容</div>
+
+    {elseif $strGroup['isopen']==1 && $isGroupUser['endtime']!='0000-00-00' && $isGroupUser['endtime']<date('Y-m-d')}
+    <div class="alert alert-info">你的组费已经到期，请联系组长续期！续期后才可以访问帖子内容。</div>
+    {else}
 
     <div class="panel panel-default" >
         <div class="panel-body" style="position: relative;">
@@ -152,7 +163,7 @@
 
 </div>
 
-
+    {/if}
 
 
 

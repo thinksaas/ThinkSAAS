@@ -19,14 +19,7 @@
 
 
       <div class="alert alert-info">
-
-          本小组帖子只有小组成员才可以浏览
-
-          {if $strGroup['joinway']==3}
-          <a class="btn btn-success" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">需要支付<font color="orange" style="font-size: 16px;">{$strGroup['price']}金币</font>加入小组</a>
-          {else}
-          <a class="btn btn-success" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">加入小组</a>
-          {/if}
+          你的组费已经到期，请联系组长续期！续期后才可以访问帖子内容。
       </div>
 
 

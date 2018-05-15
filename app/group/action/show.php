@@ -41,10 +41,10 @@ if(is_array($arrTopicTypes)){
 $strLeader = aac('user')->getOneUser($strGroup['userid']);
 
 //判断会员是否加入该小组
-$isGroupUser = 0;
+$isGroupUser = '';
 if(intval($TS_USER['userid'])){
 	$strUser = aac('user')->getOneUser(intval($TS_USER['userid']));
-	$isGroupUser = $new['group']->findCount('group_user',array(
+	$isGroupUser = $new['group']->find('group_user',array(
 		'userid'=>intval($TS_USER['userid']),
 		'groupid'=>$groupid,
 	));
@@ -56,9 +56,6 @@ if($strGroup['isaudit']=='1'){
 	$arrRecommendGroup = $new['group']->getRecommendGroup('7');
 	include template("group_isaudit");
 	
-}elseif($strGroup['isopen']=='1' && $isGroupUser=='0'){
-	//是否开放访问
-	include template("group_isopen");
 }else{
 
 	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;

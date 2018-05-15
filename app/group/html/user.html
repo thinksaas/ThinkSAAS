@@ -21,6 +21,18 @@
 
 
 
+{if $TS_USER['isadmin']==1 && $strGroup['joinway']==3 || $strGroup['userid']==$userid && $strGroup['joinway']==3}
+            <div class="pd20">
+<form id="comm-form" class="form-inline" role="form" method="post" action="{SITE_URL}index.php?app=group&ac=edit&ts=adduser&groupid={$strGroup['groupid']}">
+<div class="form-group">
+    <input type="text" name="userid" class="form-control br0" placeholder="输入用户ID">
+</div>
+<button type="submit" class="btn btn-success br0">添加成员</button>
+</form>
+            </div>
+{/if}
+
+
 <div class="facelist">
 
 <ul>

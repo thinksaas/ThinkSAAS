@@ -1833,18 +1833,21 @@ function closetags($html) {
 function tsUrlCheck($parameter) {
 	
 	$parameter = trim($parameter);
-	$arrStr = str_split($parameter);
-	$strOk = '%-_1234567890abcdefghijklmnopqrstuvwxyz';
-	foreach ($arrStr as $key => $item) {
-		if (stripos($strOk, $item) === false) {
-            //qiMsg('非法URL参数！');
-            header ( "HTTP/1.1 404 Not Found" );
-            header ( "Status: 404 Not Found" );
-            #header('Location: /');
-            exit;
-		}
-	}
-	return $parameter;
+	if($parameter){
+        $arrStr = str_split($parameter);
+        $strOk = '%-_1234567890abcdefghijklmnopqrstuvwxyz';
+        foreach ($arrStr as $key => $item) {
+            if (stripos($strOk, $item) === false) {
+                //qiMsg('非法URL参数！');
+                header ( "HTTP/1.1 404 Not Found" );
+                header ( "Status: 404 Not Found" );
+                #header('Location: /');
+                exit;
+            }
+        }
+        return $parameter;
+    }
+
 }
 
 function ludou_width_height($content) {

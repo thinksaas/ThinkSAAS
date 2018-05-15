@@ -19,6 +19,9 @@
     <li role="presentation" {if $ts=="isadmin"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'isadmin'))}">管理员</a></li>
 
 
+    <li role="presentation" {if $ts=="user"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'user'))}">成员管理</a></li>
+
+
 </ul>
 
 <div style="height:20px;"></div>

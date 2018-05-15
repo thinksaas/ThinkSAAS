@@ -80,6 +80,7 @@ switch ($ts) {
 				'groupname'	=> $groupname,
 				'groupdesc'	=> $groupdesc,
 				'joinway'		=> intval($_POST['joinway']),
+				'price'		=> intval($_POST['price']),
 				'ispost'	=> intval($_POST['ispost']),
 				'isopen'		=> intval($_POST['isopen']),
 				'ispostaudit'		=> intval($_POST['ispostaudit']),

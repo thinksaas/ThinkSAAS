@@ -7,7 +7,7 @@
 <form method="POST" action="{SITE_URL}index.php?app=group&ac=admin&mg=options&ts=do">
 <table  cellpadding="0" cellspacing="0">
 
-<tr><td width="150">APP名称：</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
+<tr><td width="200">APP名称：</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
 <tr><td>APP介绍：</td><td><textarea style="width:300px;" name="option[appdesc]">{$strOption[appdesc]}</textarea></td></tr>
 
 
@@ -29,6 +29,14 @@
         <input name="option[istopicattach]" type="radio" value="0" {if $strOption['istopicattach']=='0'}checked{/if} />不关联
 
         <input name="option[istopicattach]" type="radio" value="1" {if $strOption['istopicattach']=='1'}checked{/if} />关联 (帖子关联附件必须安装附件APP)
+
+    </td></tr>
+
+
+    <tr><td>是否开启加入小组付费功能 :</td><td>
+
+        <input {if $strOption['ispayjoin']=='0'}checked="select"{/if} name="option[ispayjoin]" type="radio" value="0" />不开启
+        <input {if $strOption['ispayjoin']=='1'}checked="select"{/if} name="option[ispayjoin]" type="radio" value="1" />开启 （开启需要安装支付模块）
 
     </td></tr>
 

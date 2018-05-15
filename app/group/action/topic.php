@@ -40,8 +40,10 @@ if(intval($TS_USER['userid'])){
 // 浏览方式
 if ($strGroup['isopen'] == '1' && $strGroupUser == '') {
 	$title = $strTopic['title'];
-	include template("topic_isopen");
-	exit;
+	include template("topic_isopen");exit;
+}elseif($strGroup['isopen'] == '1' && $strGroupUser['endtime']!='0000-00-00' && $strGroupUser['endtime'] <date('Y-m-d')){
+    $title = $strTopic['title'];
+    include template("topic_xuqi");exit;
 }
 
 

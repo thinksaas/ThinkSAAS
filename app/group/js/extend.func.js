@@ -179,3 +179,11 @@ function joinGroup(groupid){
 function exitGroup(groupid){
 	tsPost('index.php?app=group&ac=ajax&ts=exitgroup',{'groupid':groupid});
 }
+
+
+//续期
+function openXuqi(userid) {
+	$("#xuqi_userid").val(userid);
+	var html = $("#xuqi_html").html();
+	tsNotice(html);
+}

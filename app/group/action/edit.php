@@ -245,6 +245,46 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 
             break;
 
+        #添加用户
+        case "adduser":
+
+            $js = intval($_GET['js']);
+
+
+            $userid = intval($_POST['userid']);
+
+            if($userid==0){
+                getJson('用户ID输入有误！',$js);
+            }
+
+            $isGroupUser = $new['group']->findCount('group_user',array(
+                'groupid'=>$groupid,
+                'userid'=>$userid,
+            ));
+
+            if($isGroupUser>0){
+                getJson('用户已经加入小组！',$js);
+            }
+
+            $new['group']->create('group_user',array(
+                'groupid'=>$groupid,
+                'userid'=>$userid,
+                'addtime'=>time(),
+            ));
+
+
+            //发送系统消息
+            $msg_userid = '0';
+            $msg_touserid = $userid;
+            $msg_content = '恭喜你，你成为了小组《'.$strGroup['groupname'].'》的成员！快去看看吧';
+            $msg_tourl = tsUrl('group','show',array('id'=>$groupid));
+            aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
+
+
+            getJson('操作成功！',$js,1);
+
+            break;
+
 
         #小组管理员
         case "isadmin":
@@ -360,6 +400,97 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 
             break;
 
+
+        case "user":
+
+
+            $guserid = intval($_GET['guserid']);
+
+
+            $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+            $url = tsUrl('group','edit',array('ts'=>'user','groupid'=>$groupid,'page'=>''));
+
+
+            $lstart = $page*40-40;
+
+            $arr = array(
+                'groupid'=>$groupid,
+                'isadmin'=>0,
+                'isfounder'=>0,
+            );
+
+            if($guserid){
+
+                $arr = array(
+                    'userid'=>$guserid,
+                    'groupid'=>$groupid,
+                    'isadmin'=>0,
+                    'isfounder'=>0,
+                );
+
+            }
+
+            //普通用户
+            $groupUserNum = $new['group']->findCount('group_user',$arr);
+
+            $groupUser = $new['group']->findAll('group_user',$arr,'userid desc',null,$lstart.',40');
+
+            if(is_array($groupUser)){
+                foreach($groupUser as $key=>$item){
+                    $arrGroupUser[$key] = aac('user')->getOneUser($item['userid']);
+                    $arrGroupUser[$key]['endtime'] = $item['endtime'];
+                    $arrGroupUser[$key]['price'] = $item['price'];
+                }
+            }
+
+            $pageUrl = pagination($groupUserNum, 40, $page, $url);
+
+            $title = '用户管理';
+            include template('edit_user');
+            break;
+
+        case "xuqi":
+
+            $js = intval($_GET['js']);
+
+
+            $userid = intval($_POST['userid']);
+            $endtime = trim($_POST['endtime']);
+
+            if($userid==0){
+                getJson('用户ID输入有误！',$js);
+            }
+
+
+            if($endtime==''){
+                getJson('续期时间不能为空！',$js);
+            }
+
+            if($endtime<date('Y-m-d')){
+                getJson('续期时间必须大于今天！',$js);
+            }
+
+
+            $isGroupUser = $new['group']->findCount('group_user',array(
+                'groupid'=>$groupid,
+                'userid'=>$userid,
+            ));
+
+            if($isGroupUser==0){
+                getJson('续期用户不属于该小组用户！',$js);
+            }
+
+            $new['group']->update('group_user',array(
+                'groupid'=>$groupid,
+                'userid'=>$userid,
+            ),array(
+                'endtime'=>$endtime,
+            ));
+
+            getJson('操作成功！',$js,1);
+
+            break;
 
 
 

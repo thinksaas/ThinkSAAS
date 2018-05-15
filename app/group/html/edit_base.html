@@ -15,8 +15,6 @@
 
 
 
-<div class="row">
-  <div class="col-md-8">
   
 
 <form class="form-horizontal" method="post" action="{SITE_URL}index.php?app=group&ac=do&ts=edit_base">
@@ -24,21 +22,21 @@
 
   <div class="form-group">
     <label class="col-sm-2 control-label">名称：</label>
-    <div class="col-sm-10">
+    <div class="col-sm-6">
      <input  class="form-control" type="text" value="{$strGroup[groupname]}" name="groupname">
     </div>
   </div>
   
   <div class="form-group">
     <label class="col-sm-2 control-label">介绍：</label>
-    <div class="col-sm-10">
+    <div class="col-sm-6">
      <textarea style="min-height:100px;" class="form-control" name="groupdesc">{$strGroup[groupdesc]}</textarea>
     </div>
   </div>
   
     <div class="form-group">
     <label class="col-sm-2 control-label">标签：</label>
-    <div class="col-sm-10">
+    <div class="col-sm-6">
     <input  class="form-control" type="text" value="{$strGroup[tag]}" name="tag"> (多个请用英文,号分割)
     </div>
   </div>
@@ -47,7 +45,14 @@
     <div class="form-group">
     <label class="col-sm-2 control-label">加入方式：</label>
     <div class="col-sm-10">
-   <input {if $strGroup[joinway]=='0'}checked="select"{/if} name="joinway" type="radio" value="0" />自由加入(开放小组) <input {if $strGroup[joinway]=='1'}checked="select"{/if}  name="joinway" type="radio" value="1" />禁止加入(私密小组)  <input {if $strGroup[joinway]=='2'}checked="select"{/if}  name="joinway" type="radio" value="2" />申请加入(需要审核)
+        <input {if $strGroup[joinway]=='0'}checked="select"{/if} name="joinway" type="radio" value="0" />自由加入(开放小组)
+        <input {if $strGroup[joinway]=='1'}checked="select"{/if}  name="joinway" type="radio" value="1" />禁止加入(私密小组)
+        <input {if $strGroup[joinway]=='2'}checked="select"{/if}  name="joinway" type="radio" value="2" />申请加入(需要审核)
+
+        {if $TS_APP['ispayjoin']==1}
+        <input {if $strGroup[joinway]=='3'}checked="select"{/if}  name="joinway" type="radio" value="3" />付费加入 需要<input type="number" name="price" value="{if $strGroup['price']}{$strGroup['price']}{else}10{/if}" /> 金币
+        {/if}
+
     </div>
   </div>
   
@@ -90,9 +95,7 @@
 
 
   
-  </div>
-  <div class="col-md-4"></div>
-</div>
+
 
 
 
