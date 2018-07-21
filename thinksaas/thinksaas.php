@@ -15,6 +15,7 @@ if (substr(PHP_VERSION, 0, 3)<5.4) {
 
 //核心配置文件 $TS_CF 系统配置变量
 $TS_CF = include THINKROOT . '/thinksaas/config.php';
+$TS_CF['info']['version'] = include 'upgrade/version.php';#版本信息
 
 // 如果是调试模式，打开警告输出
 if ($TS_CF['debug']) {
@@ -119,6 +120,8 @@ $TS_URL = array(
     'in'=>isset($_GET['in']) ? tsUrlCheck($_GET['in']) : '',//plugin专用
     'tp'=>isset($_GET['tp']) ? tsUrlCheck($_GET['tp']) : '1',//tp 内容分页
     'page'=>isset($_GET['page']) ? tsUrlCheck($_GET['page']) : '1',//page 列表分页
+    'js'=>isset($_GET['js']) ? tsUrlCheck($_GET['js']) : '1',//输出json数据 接口专用
+    'userkey'=>isset($_REQUEST['userkey']) ? tsUrlCheck($_REQUEST['userkey']) : '',//加密用户ID，专为客户端使用
 );
 
 //下面是过渡，直到把所有的参数都改完
@@ -132,6 +135,8 @@ $plugin = $TS_URL['plugin'];
 $in = $TS_URL['in'];
 $tp = $TS_URL['tp'];
 $page = $TS_URL['page'];
+$js = $TS_URL['js'];
+$userkey = $TS_URL['userkey'];
 
 
 //APP二级域名支持，同时继续支持url原生写法

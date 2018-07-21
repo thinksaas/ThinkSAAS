@@ -28,6 +28,7 @@ $arrdb = array (
 $site_title = trim ( $_POST ['site_title'] );
 $site_subtitle = trim ( $_POST ['site_subtitle'] );
 $site_url = trim ( $_POST ['site_url'] );
+$site_pkey = trim ( $_POST ['site_pkey'] );#网站私钥
 
 // 用户信息
 $email = trim ( $_POST ['email'] );
@@ -85,6 +86,7 @@ if ($db) {
 	$db->query ( "update " . $pre . "system_options set `optionvalue`='$site_subtitle' where `optionname`='site_subtitle'" );
 	$db->query ( "update " . $pre . "system_options set `optionvalue`='$site_url' where `optionname`='site_url'" );
 	$db->query ( "update " . $pre . "system_options set `optionvalue`='$site_url' where `optionname`='link_url'" );
+	$db->query ( "update " . $pre . "system_options set `optionvalue`='$site_pkey' where `optionname`='site_pkey'" );
 
 
 	$arrOptions = $db->fetch_all_assoc ( "select * from " . $pre . "system_options" );

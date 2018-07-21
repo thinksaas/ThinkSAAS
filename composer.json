@@ -10,5 +10,6 @@
     }
   ],
   "require": {
+    "phpmailer/phpmailer": "6.0.x-dev"
   }
 }

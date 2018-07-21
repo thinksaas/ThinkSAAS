@@ -133,29 +133,35 @@ EOT;
  */
 function pagination($count, $perlogs, $page, $url ,$suffix = '') {
 
-	$urlset = $GLOBALS['TS_SITE']['site_urltype'];
-	if ($urlset == 3 && !strpos($url,'index.php')) {
-		$suffix = '.html';
-	}
+    $urlset = $GLOBALS['TS_SITE']['site_urltype'];
+    if ($urlset == 3 && !strpos($url,'index.php')) {
+        $suffix = '.html';
+    }
 
-	$pnums = @ceil($count / $perlogs);
-	$re = '';
-	for ($i = $page - 5; $i <= $page + 5 && $i <= $pnums; $i++) {
-		if ($i > 0) {
-			if ($i == $page) {
-				$re .= ' <span class="current">' . $i . '</span> ';
-			} else {
-				$re .= '<a href="' . $url . $i . $suffix . '">' . $i . '</a>';
-			}
-		}
-	}
-	if ($page > 6)
-		$re = '<a href="' . $url . '1' . $suffix . '" title="首页">&laquo;</a> ...' . $re;
-	if ($page + 5 < $pnums)
-		$re .= '... <a href="' . $url . $pnums . $suffix . '" title="尾页">&raquo;</a>';
-	if ($pnums <= 1)
-		$re = '';
-	return $re;
+    $pnums = @ceil($count / $perlogs);
+    $res = '<nav aria-label="Page navigation example"><ul class="pagination justify-content-center">';
+    $re = '';
+    for ($i = $page - 5; $i <= $page + 5 && $i <= $pnums; $i++) {
+        if ($i > 0) {
+            if ($i == $page) {
+                $re .= '<li class="page-item active"><a class="page-link">' . $i . '</a></li>';
+            } else {
+                $re .= '<li class="page-item"><a class="page-link" href="' . $url . $i . $suffix . '">' . $i . '</a></li>';
+            }
+        }
+    }
+    if ($page > 6)
+        $re = '<li class="page-item"><a class="page-link" href="' . $url . '1' . $suffix . '" title="首页">&laquo;</a></li>' . $re;
+    if ($page + 5 < $pnums)
+        $re .= '<li class="page-item"><a class="page-link" href="' . $url . $pnums . $suffix . '" title="尾页">&raquo;</a></li>';
+
+    $re .= '</ul></nav>';
+
+    $res .= $re;
+
+    if ($pnums <= 1)
+        $res = '';
+    return $res;
 }
 
 /**
@@ -600,17 +606,17 @@ function delDir($dir = '') {
 	if (!file_exists($dir))
 		return true;
 	if (!is_dir($dir) || is_link($dir))
-		return @unlink($dir);
+		return unlink($dir);
 	foreach (scandir ( $dir ) as $item) {
 		if ($item == '.' || $item == '..')
 			continue;
 		if (!delDir($dir . "/" . $item)) {
-			@chmod($dir . "/" . $item, 0777);
+			chmod($dir . "/" . $item, 0777);
 			if (!delDir($dir . "/" . $item))
 				return false;
 		};
 	}
-	return @rmdir($dir);
+	return rmdir($dir);
 }
 
 /**
@@ -1947,27 +1953,41 @@ function isMobile() {
 	return false;
 }
 
-/*
- * @data 返回的数据或者提示语
- * @status 0提示、1刷新、2跳转
- * @js判断是否是通过js方式处理的
- * @url 当status=2要跳转的url页面
+/**
+ * @param $msg          返回的数据或者提示语
+ * @param int $js       判断是否是通过json方式处理的
+ * @param int $status   状态：0不正常、1正常
+ * @param string $url   当status=2要跳转的url页面
+ * @param string $data  返回的数据
+ * @param int $isview   是否有html模版文件加载0无1有
  */
-function getJson($data, $js = 1, $status = 0, $url = '') {
-	if ($js) {
-		//header("Content-type: application/json;charset=utf-8");
-		if ($status == 2 && $url) {
-			echo json_encode(array('status' => $status, 'data' => $data, 'url' => $url, ));
-		} else {
-			echo json_encode(array('status' => $status, 'data' => $data, ));
-		}
-		exit ;
-	} elseif ($js == 0 && $status == 2 && $url) {
-		header('Location: ' . $url);
-		exit ;
-	} else {
-		tsNotice($data);
-	}
+function getJson($msg, $js = 1, $status = 1, $url = '', $data='',$isview=0) {
+    if ($js) {
+        header("Content-type: application/json;charset=utf-8");
+        if ($url) {
+            echo json_encode(array(
+                'status' => $status,
+                'msg'=>$msg,
+                'data' => $data,
+                'url' => $url,
+            ));
+        } else {
+            echo json_encode(array(
+                'status' => $status,
+                'msg'=>$msg,
+                'data' => $data,
+            ));
+        }
+        exit ;
+    }
+    if($isview==0){
+        if($js == 0 && $url) {
+            header('Location: ' . $url);
+            exit ;
+        } else {
+            tsNotice($msg);
+        }
+    }
 }
 
 /*
@@ -1975,6 +1995,12 @@ function getJson($data, $js = 1, $status = 0, $url = '') {
  * @photourl  图片绝对路径http
  * @projectid  项目ID
  * @dir	存储目录，都在uploadfile下，一般根据app名称命名
+ */
+/**
+ * @param $photourl
+ * @param $projectid
+ * @param $dir
+ * @return array
  */
 function tsUploadPhotoUrl($photourl, $projectid, $dir) {
 	$menu2 = intval($projectid / 1000);
@@ -2001,33 +2027,42 @@ function tsUploadPhotoUrl($photourl, $projectid, $dir) {
 }
 
 
-function getdomain($url) { 
-$host = strtolower ( $url ); 
-if (strpos ( $host, '/' ) !== false) { 
-$parse = @parse_url ( $host ); 
-$host = $parse ['host']; 
-} 
-$topleveldomaindb = array ('com', 'edu', 'gov', 'int', 'mil', 'net', 'org', 'biz', 'info', 'pro', 'name', 'museum', 'coop', 'aero', 'xxx', 'idv', 'mobi', 'cc', 'me','in','io','gg','co' ); 
-$str = ''; 
-foreach ( $topleveldomaindb as $v ) { 
-$str .= ($str ? '|' : '') . $v; 
-} 
+/**
+ * 获取域名的根域名
+ * @param $url
+ * @return string
+ */
+function getdomain($url) {
+    $host = strtolower ( $url );
+    if (strpos ( $host, '/' ) !== false) {
+        $parse = @parse_url ( $host );
+        $host = $parse ['host'];
+    }
+    $topleveldomaindb = array ('com', 'edu', 'gov', 'int', 'mil', 'net', 'org', 'biz', 'info', 'pro', 'name', 'museum', 'coop', 'aero', 'xxx', 'idv', 'mobi', 'cc', 'me','in','io','gg','co' );
+    $str = '';
+    foreach ( $topleveldomaindb as $v ) {
+        $str .= ($str ? '|' : '') . $v;
+    }
 
-$matchstr = "[^\.]+\.(?:(" . $str . ")|\w{2}|((" . $str . ")\.\w{2}))$"; 
-if (preg_match ( "/" . $matchstr . "/ies", $host, $matchs )) { 
-$domain = $matchs ['0']; 
-} else { 
-$domain = $host; 
-} 
-return $domain; 
-} 
+    $matchstr = "[^\.]+\.(?:(" . $str . ")|\w{2}|((" . $str . ")\.\w{2}))$";
+    if (preg_match ( "/" . $matchstr . "/ies", $host, $matchs )) {
+        $domain = $matchs ['0'];
+    } else {
+        $domain = $host;
+    }
+    return $domain;
+}
 
-/*
- * 验证手机号，支持13、15、18、17号段
- * 
+
+/**
+ * 验证手机号，支持13、15、18、17、19号段
+ *
+ * @param $phone
+ * @return bool
  */
 function isPhone($phone){
-	if(preg_match("/^13[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$|17[0-9]{1}[0-9]{8}$/",$phone)){    
+	//if(preg_match("/^13[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$|17[0-9]{1}[0-9]{8}$|19[0-9]{1}[0-9]{8}$/",$phone)){
+	if(preg_match("/^1[0-9]{10}$/",$phone)){
 		return true;
 	}else{
 		return false;
@@ -2106,7 +2141,10 @@ function dump($var, $echo = true, $label = null, $strict = true) {
 		return $output;
 }
 
-//404
+
+/**
+ * 返回404提示
+ */
 function ts404(){
     header ( "HTTP/1.1 404 Not Found" );
     header ( "Status: 404 Not Found" );
@@ -2115,14 +2153,22 @@ function ts404(){
     exit ();
 }
 
-//跳转
+
+/**
+ * URL跳转
+ *
+ * @param $url
+ */
 function tsHeaderUrl($url){
 	header('Location: '.$url);
 	exit;
 }
 
-/*
+
+/**
  * curl get 方式请求url
+ * @param $URL
+ * @return bool|mixed
  */
 function curl_get_file_contents($URL){
     $c = curl_init();

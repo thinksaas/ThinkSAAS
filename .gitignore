@@ -1,16 +1,14 @@
 /cache
 /data
 /tslogs
-/upgrade
 /uploadfile
-/ueditor
-/vendor
 .idea
 .htaccess
 .DS_Store
 .gitignore
 CHANGELOG.TXT
 composer.json
+composer.lock
 INSTALL.TXT
 LICENSE.TXT
 README.md
