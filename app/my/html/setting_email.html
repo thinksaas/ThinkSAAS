@@ -1,10 +1,10 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
 <div class="row">
 
-<div class="col-md-2">
+<div class="col-md-3">
 <div class="my_left">
 
 {php include pubTemplate("my")}
@@ -13,25 +13,25 @@
 </div>
 
 
-<div class="col-md-10">
-    <div class="panel panel-default">
-        <div class="panel-body">
+<div class="col-md-9">
+    <div class="card">
+        <div class="card-body">
 
 
 
 {template setting_menu}
 
-<div style="height:30px;"></div>
+
 
 <div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-7">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
   
 <form role="form" method="POST" action="{tsUrl('my','setting',array('ts'=>'emaildo'))}">
 
   <div class="form-group">
     <label>当前Email帐号：</label>
-	<p>{$strUser['email']}</p>
+	<div class="text-black-50">{$strUser['email']}</div>
   </div>
   
   <div class="form-group">
@@ -40,13 +40,14 @@
   </div>
   
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
-<button class="btn btn-success btn-lg" type="submit">提交修改</button>
-（修改登录帐号将需要重新验证Email）
+<button class="btn btn-sm btn-info" type="submit">提交修改</button>
+
+<div class="fs12 c9 mt-3">修改登录帐号将需要重新验证Email</div>
   
 </form>
   
   </div>
-  <div class="col-md-4"></div>
+  <div class="col-md-3"></div>
 </div>
 
 
@@ -58,4 +59,4 @@
 
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

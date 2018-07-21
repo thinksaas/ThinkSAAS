@@ -1,13 +1,16 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
-    <ol class="breadcrumb">
-        <li><a href="{SITE_URL}">首页</a></li>
-        <li><a href="{tsUrl('group')}">小组</a></li>
-        <li><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['groupname']}</a></li>
-        <li class="active">用户</li>
-    </ol>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">成员</li>
+        </ol>
+    </nav>
 
 <div class="row">
 
@@ -15,9 +18,9 @@
 
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">{$strGroup['groupname']}成员</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">{$strGroup['groupname']}成员</div>
+        <div class="card-body">
 
 
 
@@ -38,13 +41,11 @@
 <ul>
 {loop $arrGroupUser $key $item}
 <li>
-<a href="{tsUrl('user','space',array('id'=>$item[userid]))}"><img class="img-circle" alt="{$item[username]}" src="{$item[face]}" width="48" height="48" /></a>
-<p class="username">{$item[username]}</p>
-<p>
-{if $strGroup['userid']==$TS_USER['userid'] || $TS_USER['isadmin']==1}
-<a href="javascript:void('0');" onclick="kickedGroup('{$strGroup['groupid']}','{$item['userid']}')" title="踢出小组">X</a>
-{/if}
-</p>
+<a href="{tsUrl('user','space',array('id'=>$item[userid]))}">
+    <img class="rounded-circle" alt="{$item[username]}" src="{$item[face]}" width="48" height="48" />
+</a>
+<div class="title-cut text-black-50 fs12 mt-2">{$item[username]}</div>
+
 </li>
 {/loop}
 </ul>
@@ -67,13 +68,27 @@
 <div class="col-md-4">
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">{$strGroup['groupname']}组长</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">{$strGroup['groupname']}组长</div>
+        <div class="card-body">
 
 
-            <a class="nbg" href="{tsUrl('user','space',array('id'=>$strLeader[userid]))}"><img class="img-circle" alt="{$strLeader[username]}" src="{$strLeader[face]}" width="48" height="48" /></a>
-            <p>{$strLeader[username]}</p>
+
+            <div class="facelist">
+                <ul>
+
+                    <li>
+                        <a class="nbg" href="{tsUrl('user','space',array('id'=>$strLeader[userid]))}">
+                            <img class="rounded-circle" alt="{$strLeader[username]}" src="{$strLeader[face]}" width="48" height="48" /></a>
+                        <div class="text-black-50 fs12 mt-2">{$strLeader[username]}</div>
+                    </li>
+
+                </ul>
+            </div>
+
+
+
+
         </div>
     </div>
 
@@ -81,17 +96,17 @@
 
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">{$strGroup['groupname']}管理员</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">{$strGroup['groupname']}管理员</div>
+        <div class="card-body">
 
 {if $arrAdmin}
             <div class="facelist">
                 <ul>
                     {loop $arrAdmin $key $item}
                     <li>
-                        <a href="{tsUrl('user','space',array('id'=>$item[userid]))}"><img class="img-circle" alt="{$item[username]}" src="{$item[face]}" width="48" height="48" /></a>
-                        <p>{$item[username]}</p>
+                        <a href="{tsUrl('user','space',array('id'=>$item[userid]))}"><img class="rounded-circle" alt="{$item[username]}" src="{$item[face]}" width="48" height="48" /></a>
+                        <div class="title-cut fs12 text-black-50 mt-2">{$item[username]}</div>
                     </li>
                     {/loop}
                 </ul>
@@ -116,4 +131,4 @@
 </div>
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

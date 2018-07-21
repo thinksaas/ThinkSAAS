@@ -1,10 +1,14 @@
-{template header}
+{php include pubTemplate("header")}
 <div class="container">
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li class="active">小组</li>
-</ol>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item active" aria-current="page">小组</li>
+        </ol>
+    </nav>
+
 
 <div class="row">
 
@@ -12,33 +16,36 @@
 
 
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 
 
-<ul class="nav nav-pills">
-  <li role="presentation" {if $cateid==0}class="active"{/if}><a href="{tsUrl('group')}">全部</a></li>
-{loop $arrGroupCate $key $item}
-  <li role="presentation" {if $cateid==$item['cateid']}class="active"{/if}><a href="{tsUrl('group','index',array('cateid'=>$item['cateid']))}">{$item['catename']}</a></li>
-{/loop}
-</ul>
+            <div class="mb-3">
+                <a class="btn btn-sm {if $cateid==0}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group')}">全部</a>
+                {loop $arrGroupCate $key $item}
+                <a class="btn btn-sm {if $cateid==$item['cateid']}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','index',array('cateid'=>$item['cateid']))}">{$item['catename']}</a>
+                {/loop}
+
+            </div>
 
 
+            <hr />
 
 
-            <div class="row" style="margin-top: 20px;">
+            <div class="row">
                 {loop $arrGroup $key $item}
                 <div class="col-md-6">
 
                     <div class="sub-item">
                         <div class="pic">
                             <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">
-                                <img class="img-rounded" src="{if $item[photo]}{php echo tsXimg($item['photo'],'group','120','120',$item['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" alt="{$item[groupname]}" />
+                                <img class="rounded" src="{if $item[photo]}{php echo tsXimg($item['photo'],'group','120','120',$item['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" alt="{$item[groupname]}" />
                             </a>
 
                         </div>
                         <div class="info">
-                            <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a>  <font color="#999999">{$item[count_user]}人加入</font>
+                            <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a>
+                            <small class="text-black-50">{$item[count_user]}人加入</small>
                             <p class="content">{$item[groupdesc]}</p>
                         </div>
                     </div>
@@ -50,7 +57,7 @@
 
 
 
-            <div class="page">{$pageUrl}</div>
+            <div class="mt-3">{$pageUrl}</div>
 
 
 
@@ -62,23 +69,16 @@
 <div class="col-md-4">
 
 
-{if $TS_APP[iscreate]==0 || $TS_USER[isadmin]==1}
-<a class="btn btn-info btn-block btn-lg br0" href="{tsUrl('group','create')}">
-<span class="glyphicon glyphicon-plus-sign"></span> 创建小组</a>
-<p></p>
-{/if}
-
-
-    <div class="panel panel-default">
-        <div class="panel-heading">热门帖子</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">热门帖子</div>
+        <div class="card-body">
 
             <div class="group_index_right_hottopic">
 
                 <ul>
                     {loop $arrTopic $key $item}
                     <li>
-                        <h3><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></h3>
+                        <div><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></div>
 
 
                         <div class="info">
@@ -97,9 +97,9 @@
 
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">最新创建小组</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">最新创建小组</div>
+        <div class="card-body">
             <div class="commlist">
                 <ul>
                     {loop $arrNewGroup $key $item}
@@ -119,4 +119,4 @@
 </div>
 </div>
 </div>
-{template footer}
+{php include pubTemplate("footer")}

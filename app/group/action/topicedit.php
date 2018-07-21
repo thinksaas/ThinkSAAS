@@ -32,7 +32,7 @@ switch($ts){
 		));
 		
 		$strTopic['title'] = stripslashes($strTopic['title']);
-		//$strTopic['content'] = tsDecode($strTopic['content']);
+		$strTopic['content'] = tsDecode($strTopic['content']);
 		
 		$strGroup = $new['group']->find('group',array(
 			'groupid'=>$strTopic['groupid'],

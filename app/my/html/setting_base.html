@@ -1,11 +1,11 @@
-{template header}
+{php include pubTemplate("header")}
 <div class="container">
 
 
 <div class="row">
 
 
-<div class="col-md-2">
+<div class="col-md-3">
 <div class="my_left">
 
 {php include pubTemplate("my")}
@@ -13,21 +13,21 @@
 </div>
 </div>
 
-<div class="col-md-10">
+<div class="col-md-9">
 
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 
 
 
 {template setting_menu}
 
-<div style="height:30px;"></div>
+
 
 <div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-7">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
   
   
 <form role="form" method="POST" action="{tsUrl('my','setting',array('ts'=>'basedo'))}">
@@ -39,37 +39,37 @@
   
   <div class="form-group">
     <label>性别：</label>
-	<input {if $strUser['sex']=='保密'}checked="select"{/if} name="sex" type="radio" value="保密" />保密
-<input {if $strUser['sex']=='男'}checked="select"{/if} name="sex" type="radio" value="男" />男
-<input {if $strUser['sex']=='女'}checked="select"{/if} name="sex" type="radio" value="女" />女
-  </div>
-  
-  
-  <div class="form-group">
-    <label>电话：</label>
+    <div>
+      <input {if $strUser['sex']=='保密'}checked="select"{/if} name="sex" type="radio" value="保密" />保密
+      <input {if $strUser['sex']=='男'}checked="select"{/if} name="sex" type="radio" value="男" />男
+      <input {if $strUser['sex']=='女'}checked="select"{/if} name="sex" type="radio" value="女" />女
+    </div>
 
-	<input type="phone"  class="form-control" name="phone" value="{$strUser[phone]}"  />
   </div>
+
+
+  <div class="form-group">
+    <label>签名：</label>
+    <input class="form-control" name="signed" value="{$strUser[signed]}">
+  </div>
+
   
   <div class="form-group">
     <label>自我介绍：</label>
 	<textarea class="form-control" rows="3" name="about">{$strUser[about]}</textarea>
   </div>
   
-  <div class="form-group">
-    <label>签名：</label>
-<textarea class="form-control" rows="3" name="signed">{$strUser[signed]}</textarea>
-  </div>
+
 
 
 
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
-<button class="btn btn-success" type="submit">修改设置</button>
+<button class="btn btn-sm btn-info" type="submit">修改设置</button>
 </form>
   
   
   </div>
-  <div class="col-md-4"></div>
+  <div class="col-md-3"></div>
 </div>
 
 
@@ -82,4 +82,4 @@
 
 </div>
 </div>
-{template footer}
+{php include pubTemplate("footer")}

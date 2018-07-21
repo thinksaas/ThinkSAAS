@@ -54,37 +54,37 @@ class user extends tsApp{
 	//获取一个用户的信息
 	function getOneUser($userid){
 			
-			$strUser = $this->find('user_info',array(
-				'userid'=>$userid,
-			));
-			
-			if($strUser){
-			
-				$strUser['username'] = tsTitle($strUser['username']);
-				$strUser['email'] = tsTitle($strUser['email']);
-				$strUser['phone'] = tsTitle($strUser['phone']);
-				$strUser['province'] = tsTitle($strUser['province']);
-				$strUser['city'] = tsTitle($strUser['city']);
-				$strUser['signed'] = tsTitle($strUser['signed']);
-				$strUser['about'] = tsTitle($strUser['about']);
-				$strUser['address'] = tsTitle($strUser['address']);
+        $strUser = $this->find('user_info',array(
+            'userid'=>$userid,
+        ));
 
-				if($strUser['face'] && $strUser['path']){
-					$strUser['face'] = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1);
-				}elseif($strUser['face'] && $strUser['path']==''){
-					$strUser['face']	= SITE_URL.'public/images/'.$strUser['face'];
-				}else{
-					//没有头像
-					$strUser['face']	= SITE_URL.'public/images/user_large.jpg';
-				}
+        if($strUser){
 
-                $strUser['rolename'] = $this->getRole($strUser['allscore']);
+            $strUser['username'] = tsTitle($strUser['username']);
+            $strUser['email'] = tsTitle($strUser['email']);
+            $strUser['phone'] = tsTitle($strUser['phone']);
+            $strUser['province'] = tsTitle($strUser['province']);
+            $strUser['city'] = tsTitle($strUser['city']);
+            $strUser['signed'] = tsTitle($strUser['signed']);
+            $strUser['about'] = tsTitle($strUser['about']);
+            $strUser['address'] = tsTitle($strUser['address']);
 
-			}else{
-				$strUser = '';
-			}
-			
-			return $strUser;
+            if($strUser['face'] && $strUser['path']){
+                $strUser['face'] = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1);
+            }elseif($strUser['face'] && $strUser['path']==''){
+                $strUser['face']	= SITE_URL.'public/images/'.$strUser['face'];
+            }else{
+                //没有头像
+                $strUser['face']	= SITE_URL.'public/images/user_large.jpg';
+            }
+
+            $strUser['rolename'] = $this->getRole($strUser['allscore']);
+
+        }else{
+            $strUser = '';
+        }
+
+        return $strUser;
 	}
 	
 	//用户是否存在
@@ -100,14 +100,25 @@ class user extends tsApp{
 		}
 		
 	}
-	
-	//是否登录 
-	public function isLogin($type=''){
+
+
+    /**
+     * @param int $js
+     * @param string $userkey
+     * @return int
+     */
+    public function isLogin($js=0, $userkey=''){
 	
 		$userid = intval($_SESSION['tsuser']['userid']);
 
-        if($type && $userid==0){
-            getJson('你还没有登录',1);
+        if($js && $userid==0 && $userkey==''){
+            getJson('你还没有登录',$js);
+        }
+
+        #通过userkey返回userid
+        if($js && $userid==0 && $userkey){
+            $userid = $this->getUserIdByUserKey($userkey);
+            return $userid;
         }
 
 		if($userid>0){
@@ -430,6 +441,51 @@ class user extends tsApp{
         }
 
     }
+
+
+    /**
+     * 通过 userid 获取 userkey
+     * @param $userid
+     * @return bool|string
+     */
+    public function getUserKeyByUserId($userid){
+        include 'thinksaas/class.crypt.php';
+        $crypt= new crypt();
+        return $crypt->encrypt($userid,$GLOBALS['TS_SITE']['site_pkey']);
+    }
+
+    /**
+     * 通过userkey获取userid
+     * @param $userkey
+     */
+    public function getUserIdByUserKey($userkey){
+        include 'thinksaas/class.crypt.php';
+        $crypt= new crypt();
+        $userid = $crypt->decrypt($userkey,$GLOBALS['TS_SITE']['site_pkey']);
+
+        $isUser = $this->findCount('user',array(
+            'userid'=>$userid,
+        ));
+
+        if($isUser == 0){
+
+            echo json_encode(array(
+
+                'status'=> 0,
+                'msg'=> '非法操作',
+                'data'=> '',
+
+            ));
+            exit;
+
+        }else{
+
+            return $userid;
+
+        }
+    }
+
+
 	
 	//析构函数
 	public function __destruct(){

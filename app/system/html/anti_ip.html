@@ -1,4 +1,4 @@
-{template header}
+{php include pubTemplate("header_admin")}
 
 <!--main-->
 <div class="midder">
@@ -13,14 +13,16 @@ IP：<input name="ip" /><input type="submit" value="添加" />
 
 
 <div>
-<table>
+    <table class="table table-hover">
+        <thead class="thead-light">
 
-<tr class="old"><td>IP</td><td>添加时间</td><td>操作</td></tr>
-
+<tr><th>IP</th><th>添加时间</th><th>操作</th></tr>
+        </thead>
+        <tbody class="fs12 c9">
 {loop $arrIp $key $item}
-<tr class="odd"><td>{$item['ip']}</td><td>{$item['addtime']}</td><td><a href="{SITE_URL}index.php?app=system&ac=anti&ts=ipdel&id={$item['id']}">删除</a></td></tr>
+<tr class="odd"><td>{$item['ip']}</td><td>{$item['addtime']}</td><td><a href="{SITE_URL}index.php?app=system&ac=anti&ts=ipdel&id={$item['id']}"><i class="far fa-trash-alt"></i> 删除</a></td></tr>
 {/loop}
-
+        </tbody>
 </table>
 
 </div>
@@ -28,4 +30,4 @@ IP：<input name="ip" /><input type="submit" value="添加" />
 
 </div>
 
-{template footer}
+{php include pubTemplate("footer_admin")}

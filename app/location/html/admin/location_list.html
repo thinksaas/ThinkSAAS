@@ -1,28 +1,36 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 <!--main-->
 <div class="midder">
 
 {php include template("admin/menu");}
 
-<table  cellpadding="0" cellspacing="0">
-<tr class="old"><td>ID</td><td>名称</td><td>排序</td><td>操作</td></tr>
+<table class="table table-hover">
+
+    <thead class="thead-light">
+    <tr><th>ID</th><th>名称</th><th>排序</th><th>操作</th></tr>
+    </thead>
 
 
-{loop $arrLocation $key $item}
+    <tbody>
+    {loop $arrLocation $key $item}
 
-<tr class="odd"><td>{$item[locationid]}</td><td>{$item[title]}</td>
+    <tr class="odd"><td>{$item[locationid]}</td><td>{$item[title]}</td>
 
-<td>{$item[orderid]}</td>
+        <td>{$item[orderid]}</td>
 
-<td>
-
-
-
-<a href="{SITE_URL}index.php?app=location&ac=admin&mg=location&ts=edit&locationid={$item[locationid]}">[修改]</a> <a href="{SITE_URL}index.php?app=location&ac=admin&mg=location&ts=delete&locationid={$item['locationid']}" onclick="return confirm('确定删除?')">[删除]</a></td></tr>
+        <td>
 
 
-{/loop}
+
+            <a href="{SITE_URL}index.php?app=location&ac=admin&mg=location&ts=edit&locationid={$item[locationid]}">[修改]</a> <a href="{SITE_URL}index.php?app=location&ac=admin&mg=location&ts=delete&locationid={$item['locationid']}" onclick="return confirm('确定删除?')">[删除]</a></td></tr>
+
+
+    {/loop}
+    </tbody>
+
+
+
 </table>
 
 </div>
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

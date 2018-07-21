@@ -1,4 +1,4 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
@@ -10,8 +10,8 @@
         <div class="col-md-8">
 
 
-            <div class="panel panel-default">
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-body">
 
 
                     <div class="s_menu">
@@ -24,8 +24,9 @@
 
 
 
-                    <div style="overflow: hidden;">
+                    <div class="clearfix">
                         <form method="GET" action="{SITE_URL}index.php">
+                            <div class="input-group w-auto">
                             <input type="hidden" name="app" value="search" />
                             <input type="hidden" name="ac" value="s" />
 
@@ -40,11 +41,17 @@
                             {else}
                             {/if}
 
-                            <input style="float: left;width:70%" class="form-control" name="kw" x-webkit-speech />
-                            <button style="float: left;margin-left:10px;max-width: 20%;" class="btn btn-success" type="submit">搜索</button>
+                            <input class="form-control" name="kw" placeholder="请输入关键词" />
 
+                                <div class="input-group-append">
+                            <button class="btn btn-outline-info" type="submit"><i class="fas fa-search"></i> 搜索</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
+
+
+                    <div class="c9 mt-3 ml-3 fs12">标题模糊搜索</div>
 
 
                 </div>
@@ -63,4 +70,4 @@
 </div>
 
 
-{template footer}
+{php include pubTemplate("footer")}

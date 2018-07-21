@@ -1,4 +1,4 @@
-{template header}
+{php include pubTemplate("header_admin")}
 
 <!--main-->
 <div class="midder">
@@ -7,9 +7,10 @@
 
 <div>
 
-<h2>远程提交敏感词语</h2>
+<h6>远程提交敏感词语</h6>
 <p>如果你发现有敏感词语，请通过下面输入远程提交给ThinkSAAS，我们将建立强大的敏感词云存储库。</p>
-<table>
+<table class="table table-hover">
+    <tbody class="fs12">
 <tr>
 <td width="100">敏感词：</td><td>
 
@@ -20,7 +21,7 @@
 </tr>
 
 <tr><td>其他操作：</td><td><a href="{SITE_URL}index.php?app=system&ac=spam&ts=get">一键更新云敏感词库到本地>></a></td></tr>
-
+    </tbody>
 </table>
 
 </div>
@@ -44,4 +45,4 @@ function postword(){
 	}
 }
 </script>
-{template footer}
+{php include pubTemplate("footer_admin")}

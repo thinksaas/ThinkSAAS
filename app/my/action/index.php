@@ -17,8 +17,12 @@ foreach($arrGroupsList as $key=>$item){
             'groupid'=>$item['groupid'],
         ));
     }
-
 }
+
+#加入的小组数
+$joinGroupNum = $new['my']->findCount('group_user',array(
+    'userid'=>$strUser['userid'],
+));
 
 //我的帖子
 $arrTopic = $new['my']->findAll('group_topic',array(
@@ -30,12 +34,6 @@ $arrTopic = $new['my']->findAll('group_topic',array(
 $arrArticle = $new ['my']->findAll ( 'article', array (
     'userid' => $strUser['userid'],
 ), 'addtime desc', null, 10 );
-
-
-//我的资料
-$arrAttach = $new['my']->findAll('attach_album',array(
-    'userid'=>$strUser['userid'],
-),'addtime desc',null,8);
 
 
 

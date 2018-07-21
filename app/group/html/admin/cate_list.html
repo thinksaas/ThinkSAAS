@@ -1,16 +1,22 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 <!--main-->
 <div class="midder">
 
 {php include template("admin/menu");}
 
-<table  cellpadding="0" cellspacing="0">
-<tr class="old"><td>分类ID</td><td>分类名字</td><td>操作</td></tr>
+<table class="table table-hover">
 
+
+    <thead class="thead-light fs14">
+    <tr><th>分类ID</th><th>分类名字</th><th>操作</th></tr>
+    </thead>
+
+
+    <tbody class="fs12">
 
 {loop $arrCatess $key $item}
 
-<tr class="odd"><td>{$item[cateid]}</td><td>I、{$item[catename]}</td>
+<tr><td>{$item[cateid]}</td><td>I、{$item[catename]}</td>
 
 <td>
 
@@ -43,7 +49,10 @@
 
 
 {/loop}
+
+    </tbody>
+
 </table>
 
 </div>
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

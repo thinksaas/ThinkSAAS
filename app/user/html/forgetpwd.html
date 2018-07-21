@@ -1,4 +1,4 @@
-{template header}
+{php include pubTemplate("header")}
 <div class="midder">
 <div class="mc">
 
@@ -10,14 +10,16 @@
 
 
 
-      <div class="panel panel-default">
-          <div class="panel-body" style="padding: 15px 30px 30px;">
+      <div class="card">
+          <div class="card-body" style="padding: 15px 30px 30px;">
 
 
 
-              <div class="page-header">
-                  <h1>忘记密码</h1>
+              <div class="fs24">
+                  忘记密码
               </div>
+
+              <hr />
 
               <form id="comm-form" method="post" action="{SITE_URL}index.php?app=user&ac=forgetpwd&ts=do" role="form">
 
@@ -55,4 +57,4 @@
 </div>
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

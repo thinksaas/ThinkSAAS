@@ -1,15 +1,17 @@
-{template header}
+{php include pubTemplate("header")}
 <div class="container">
 
-    <ol class="breadcrumb">
-        <li><a href="{SITE_URL}">首页</a></li>
-        <li><a href="{tsUrl('group')}">小组</a></li>
-        <li><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
-        <li class="active">发布帖子</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">发布帖子</li>
+        </ol>
+    </nav>
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 
 
             <div class="row">
@@ -24,14 +26,14 @@
 
                         <div class="form-group">
                             <label>标题</label>
-                            <input name="title" type="text" class="form-control br0">
+                            <input name="title" type="text" class="form-control">
                         </div>
 
                         {if $arrGroupType}
                         <div class="form-group">
                             <label>类型</label>
 
-                            <select name="typeid" class="form-control br0">
+                            <select name="typeid" class="form-control">
                                 <option value="0">选择类型</option>
                                 {loop $arrGroupType $key $item}
                                 <option value="{$item[typeid]}">{$item[typename]}</option>
@@ -44,12 +46,15 @@
 
                         <div class="form-group">
                             <label>内容</label>
-                            <textarea name="content" id="tseditor"></textarea>
+                            <div id="tseditor"></div>
+                            <div style="display: none;">
+                                <textarea name="content"></textarea>
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label>标签</label>
-                            <input name="tag" type="text" class="form-control br0">
+                            <input name="tag" type="text" class="form-control">
                         </div>
 
                         <div class="form-group">
@@ -72,8 +77,12 @@
                         <div class="form-group">
                             <label>验证码</label>
 
-                            <input name="authcode" />
-                            <img align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
+                            <div class="offset-0">
+                                <input class="form-control form-control-sm w-auto float-left mr-1" name="authcode" />
+                                <img class="mt-1" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
+
+                            </div>
+
 
                         </div>
                         {/if}
@@ -83,9 +92,9 @@
 
 
 
-                        <button class="btn btn-success" type="submit">点击发布</button>
+                        <button class="btn btn-sm btn-info" type="submit">点击发布</button>
 
-                        <a class="btn btn-default" href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回小组</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回小组</a>
 
                         <p></p>
 
@@ -111,4 +120,4 @@
 
 </div>
 {php doAction('tseditor')}
-{template footer}
+{php include pubTemplate("footer")}

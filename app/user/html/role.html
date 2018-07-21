@@ -1,28 +1,30 @@
-{template header}
-<!--main-->
+{php include pubTemplate("header")}
+
 <div class="container">
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li><a href="{tsUrl('user')}">用户</a></li>
-  <li class="active">角色</li>
-</ol>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+      <li class="breadcrumb-item"><a href="{tsUrl('user')}">用户</a></li>
+      <li class="breadcrumb-item active" aria-current="page">角色</li>
+    </ol>
+  </nav>
 
-<div class="panel panel-default">
-  <div class="panel-body">
+<div class="card">
+  <div class="card-body">
 
 
 
 <table class="table">
 
-<thead>
+<thead class="thead-light">
 <tr><th>角色名称</th><th>开始积分</th><th>结束积分</th><th>权限</th></tr>
 </thead>
 
 
 <tbody>
 {loop $arrRole $key $item}
-<tr><td>{$item['rolename']}</td><td>{$item['score_start']}</td><td>{$item['score_end']}</td><td></td></tr>
+<tr><td>{$item['rolename']}</td><td>{$item['score_start']}</td><td>{$item['score_end']}</td><td>即将开放</td></tr>
 {/loop}
 </tbody>
 
@@ -34,4 +36,4 @@
 
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

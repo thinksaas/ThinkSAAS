@@ -1,11 +1,10 @@
 /*最新CSS*/
-.group_show{overflow:hidden;padding-bottom: 10px;border-bottom: solid 1px #dddddd}
+.group_show{overflow:hidden;padding: 50px 20px 20px 20px;border-bottom: solid 1px #dddddd;background: url('group.jpg');background-repeat: no-repeat;background-size: 100% 100%;}
 .group_show .face{float:left;}
 .group_show .face img{}
 .group_show .title{float:left;margin-left:20px;}
-.group_show .title h1{font-size:24px;margin:0;padding:0;font-weight: 500}
 .group_show .title p{color:#999;margin: 0;margin-top: 6px;}
-.group_show .join{float:right;margin-left:20px;color:#999;}
+.group_show .join{float:right;margin-left:20px;color:#fff;}
 /*最新CSS*/
 
 
@@ -152,10 +151,10 @@
 
 
 /*帖子列表*/
-.topic_list{overflow:hidden;margin-top: 10px;border-top: solid 1px #dddddd}
+.topic_list{overflow:hidden;}
 .topic_list ul, .topic_list ul li{list-style: none;margin:0;padding:0;}
 .topic_list ul{overflow:hidden;}
-.topic_list ul li{overflow:hidden;padding:15px 0;display: block;border-bottom: 1px dashed #999999;}
+.topic_list ul li{overflow:hidden;padding:15px 0;display: block;border-bottom: 1px dashed #ccc;}
 
 .topic_list .userimg{float:left;width:38px;overflow:hidden;}
 
@@ -239,7 +238,7 @@
 .categroup ul li img{float:left;padding:0 10px 0 0;}
 
 /*帖子页*/
-.thumbnail{overflow:hidden;}
+
 .newtopic{}
 .newtopic ul, .newtopic ul li{list-style: none;margin:0;padding:0;}
 .newtopic ul{}
@@ -248,14 +247,14 @@
 .title2{float:right;border: 1px solid #DDDDDD;border-bottom:none;margin-top:10px;}
 .title2 li{width:150px;border-bottom: 1px solid #DDDDDD;font-size:12px;padding:5px;line-height: 15px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 
-.btool{background:#F5F5F5;
-    border-bottom: 1px solid #EEEEEE;
+.btool{
+    border-top: 1px solid #EEEEEE;
     font-size: 12px;
-    padding: 5px;
+    padding: 10px 10px 0 10px;
     text-align: right;}
-.btool a{margin-left:10px;padding:0px;}
+.btool a{margin-left:10px;padding:0px;color:#999999}
 
-.bltool{font-size:12px;text-align:left;padding:2px 0;}
+
 .bltool a{margin-right:10px;padding:0px;}
 .after-view{font-size:14px;}
 

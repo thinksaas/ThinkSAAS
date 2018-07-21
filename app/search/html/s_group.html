@@ -1,26 +1,26 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 {template s_menu}
 <div class="s_top">获得约 {$group_num} 条结果</div>
 
 {loop $arrGroup $key $item}
 <div class="result">
 <div class="content">
-<h3><span>[小组] </span>&nbsp;<a  href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{tsTitle($item[groupname])}</a></h3>
+<div><span class="c9">[小组] </span>&nbsp;<a  href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{tsTitle($item[groupname])}</a></div>
 <div class="info">创建于 {php echo date('Y-m-d',$item[addtime])} &nbsp; <a href="#">{$item[count_user]} 人</a></div>
 <p>{php echo tsCutContent($item[groupdesc])}</p>
 </div>
 </div>
 {/loop}
 
-<div class="page">{$pageUrl}</div>
+<div class="mt-3">{$pageUrl}</div>
 </div>
 </div>
 
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

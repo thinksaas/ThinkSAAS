@@ -1,14 +1,20 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li class="active">创建新专辑</li>
-</ol>
 
-<div class="panel panel-default">
-  <div class="panel-body">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+      <li class="breadcrumb-item"><a href="{tsUrl('photo')}">相册</a></li>
+      <li class="breadcrumb-item active" aria-current="page">创建新相册</li>
+    </ol>
+  </nav>
+
+
+
+<div class="card">
+  <div class="card-body">
 
 {template menu}
 
@@ -33,7 +39,8 @@
 
 
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
-<button class="btn btn-success" type="submit">创建相册</button> <a href="{tsUrl('photo','album',array(ts=>user,userid=>$userid))}">返回我的相册</a>
+<button class="btn btn-sm btn-info" type="submit">创建相册</button>
+  <a class="btn btn-sm text-black-50" href="{tsUrl('photo','user',array('id'=>$userid))}">返回我的相册</a>
 </form>
 
 <p>
@@ -55,4 +62,4 @@
 
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

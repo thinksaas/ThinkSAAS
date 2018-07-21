@@ -1,4 +1,4 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 
 
 <div class="midder">
@@ -7,23 +7,35 @@
 
 <div class="page">{$pageUrl}</div>
 
-<table>
-<tr class="old">
-<td width="100">messageid</td><td>userid</td><td>touserid</td><td>content</td><td>addtime</td> <td>操作</td>
-</tr>
+<table class="table table-hover">
+
+
+    <thead class="thead-light">
+
+    <tr>
+        <th>messageid</th><th>userid</th><th>touserid</th><th>content</th><th>addtime</th> <th>操作</th>
+    </tr>
+
+    </thead>
+
+<tbody>
 
 {loop $arrMsg $key $item}
 <tr><td>{$item['messageid']}</td><td>{$item['userid']}</td><td>{$item['touserid']}</td><td>{$item['content']}</td>
-<td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+    <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
 
-<td>
+    <td>
 
-<a onclick="return  confirm('确定删除吗？')" href="{SITE_URL}index.php?app=message&ac=admin&mg=msg&ts=delete&page={$page}&messageid={$item['messageid']}">删除</a>
-</td></tr>
+        <a onclick="return  confirm('确定删除吗？')" href="{SITE_URL}index.php?app=message&ac=admin&mg=msg&ts=delete&page={$page}&messageid={$item['messageid']}">删除</a>
+    </td></tr>
 {/loop}
+
+</tbody>
+
+
 
 </table>
 
 </div>
 
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

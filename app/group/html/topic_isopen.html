@@ -1,20 +1,22 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
 
 
-    <ol class="breadcrumb">
-        <li><a href="{SITE_URL}">首页</a></li>
-        <li><a href="{tsUrl('group')}">小组</a></li>
-        <li><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['groupname']}</a></li>
-        <li class="active">{$strTopic[title]}</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['groupname']}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{$strTopic[title]}</li>
+        </ol>
+    </nav>
 
 
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 
 
 
@@ -37,4 +39,4 @@
 
 
 </div>
-{template footer}
+{php include pubTemplate("footer")}

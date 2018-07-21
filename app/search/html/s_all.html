@@ -1,10 +1,10 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 {template s_menu}
 
 <div class="s_top">获得约 {$all_num} 条结果</div>
@@ -12,7 +12,7 @@
 {loop $arrGroup $key $item}
 <div class="result">
 <div class="content">
-<h3><span>[小组] </span>&nbsp;<a  href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{tsTitle($item[groupname])}</a></h3>
+<div><span class="c9">[小组] </span>&nbsp;<a  href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{tsTitle($item[groupname])}</a></div>
 <div class="info">创建于 {php echo date('Y-m-d',$item[addtime])} &nbsp; <a href="#">{$item[count_user]} 人</a></div>
 <p>{php echo tsCutContent($item[groupdesc])}</p>
 </div>
@@ -22,7 +22,7 @@
 {loop $arrTopic $key $item}
 <div class="result">
 <div class="content">
-<h3><span>[话题] </span>&nbsp;<a  href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{tsTitle($item[title])}</a></h3>
+<div><span class="c9">[话题] </span>&nbsp;<a  href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{tsTitle($item[title])}</a></div>
 <div class="info">发表于 {php echo date('Y-m-d',$item[addtime])} &nbsp; <a href="#">{$item[count_comment]} 回复</a></div>
 <p></p>
 </div>
@@ -32,7 +32,7 @@
 {loop $arrUser $key $item}
 <div class="result">
 <div class="content">
-<h3><span>[用户] </span>&nbsp;<a  href="{tsUrl('user','space',array('id'=>$item[userid]))}">{tsTitle($item[username])}</a></h3>
+<div><span class="c9">[用户] </span>&nbsp;<a  href="{tsUrl('user','space',array('id'=>$item[userid]))}">{tsTitle($item[username])}</a></div>
 <div class="info">{php echo date('Y-m-d',$item[addtime])} 加入&nbsp; <a href="#">{$item[count_followed]} 人关注</a></div>
 <p>{$item[signed]}</p>
 </div>
@@ -43,7 +43,7 @@
 {loop $arrArticle $key $item}
 <div class="result">
 <div class="content">
-<h3><span>[文章] </span>&nbsp;<a  href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{tsTitle($item[title])}</a></h3>
+<div><span class="c9">[文章] </span>&nbsp;<a  href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{tsTitle($item[title])}</a></div>
 <div class="info">发表于 {$item[addtime]} &nbsp; <a href="#">{$item[count_comment]} 回复</a></div>
 <p></p>
 </div>
@@ -51,10 +51,10 @@
 {/loop}
 
 
-<div class="page">{$pageUrl}</div>
+<div class="mt-3">{$pageUrl}</div>
 </div>
 </div>
 
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

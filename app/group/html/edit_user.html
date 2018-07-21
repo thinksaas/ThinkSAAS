@@ -1,18 +1,20 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
 
-    <ol class="breadcrumb">
-        <li><a href="{SITE_URL}">首页</a></li>
-        <li><a href="{tsUrl('group')}">小组</a></li>
-        <li><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
-        <li class="active">小组设置</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">小组设置</li>
+        </ol>
+    </nav>
 
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 
 
             {template edit_xbar}
@@ -31,21 +33,21 @@
                         <input type="hidden" name="groupid" value="{$groupid}" />
 
                         <div class="form-group">
-                            <input type="text" name="guserid" class="form-control br0" placeholder="输入用户ID">
+                            <input type="text" name="guserid" class="form-control form-control-sm" placeholder="输入用户ID">
                         </div>
 
-                        <button type="submit" class="btn btn-success br0">搜索</button>
+                        <button type="submit" class="btn btn-sm btn-info ml-1">搜索</button>
 
                     </form>
 
 
-                    <div class="alert alert-info">
+                    <div class="alert alert-info mt-3">
                         * 有效期等于0000-00-00 即为永久
                     </div>
 
 
-                    <table class="table">
-                        <thead>
+                    <table class="table table-bordered mt-3">
+                        <thead class="thead-light">
                         <tr><th>用户ID</th><th>用户名</th><th>有效期</th><th class="tar">操作</th></tr>
                         </thead>
 
@@ -86,4 +88,4 @@
     </form>
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

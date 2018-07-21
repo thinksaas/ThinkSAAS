@@ -1,10 +1,10 @@
-{template header}
+{php include pubTemplate("header")}
 <div class="container">
 
 
 <div class="row">
 
-<div class="col-md-2">
+<div class="col-md-3">
 <div class="my_left">
 
 {php include pubTemplate("my")}
@@ -14,14 +14,14 @@
 
 
 
-<div class="col-md-10">
+<div class="col-md-9">
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 {template menu}
 
 
-<div class="newmsg">
+<div class="newmsg fs13">
 <ul>
 {loop $arrMsg $key $item}
 <li>{if $item['userid']}<img src="{$item['user']['face']}" width="16" align="absmiddle" /> {$item['user']['username']}：{$item['content']} <a href="{tsUrl('message','user',array('touserid'=>$item['userid']))}">[回复]</a>{else}系统消息：<a href="{tsUrl('message','system')}">[查看]</a>{/if}</li>
@@ -37,4 +37,4 @@
 </div>
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

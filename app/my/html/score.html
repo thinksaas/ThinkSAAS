@@ -1,11 +1,11 @@
-{template header}
+{php include pubTemplate("header")}
 <div class="container">
 
 
 <div class="row">
 
 
-<div class="col-md-2">
+<div class="col-md-3">
 <div class="my_left">
 
 {php include pubTemplate("my")}
@@ -13,20 +13,28 @@
 </div>
 </div>
 
-<div class="col-md-10">
+<div class="col-md-9">
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">我的积分</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">我的积分</div>
+        <div class="card-body">
 
 
 
 <table class="table">
-<tr bgcolor="#f0f0f0"><td>名称</td><td>积分</td><td>状态</td><td>时间</td></tr>
-{loop $arrScore $key $item}
-<tr><td>{$item['scorename']}</td><td>{$item['score']}</td><td>{if $item['status']==0}+{else}-{/if}</td><td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td></tr>
-{/loop}
+
+    <thead class="thead-light">
+    <tr><th>名称</th><th>积分</th><th>状态</th><th>时间</th></tr>
+    </thead>
+
+    <tbody class="text-secondary">
+    {loop $arrScore $key $item}
+    <tr><td>{$item['scorename']}</td><td>{$item['score']}</td><td>{if $item['status']==0}+{else}-{/if}</td><td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td></tr>
+    {/loop}
+    </tbody>
+
+
 </table>
 
 <div class="clear"></div>
@@ -45,4 +53,4 @@
 </div>
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

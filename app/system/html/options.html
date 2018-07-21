@@ -1,4 +1,4 @@
-{template header}
+{php include pubTemplate("header_admin")}
 <script src="public/js/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="{SITE_URL}public/js/jquery.upload.v2.js"></script>
 
@@ -23,9 +23,10 @@
 {template menu}
 <form method="POST" action="index.php?app=system&ac=options&ts=do">
 
-<h2>常规选项</h2>
+<h6>常规选项</h6>
 
-<table  cellpadding="0" cellspacing="0">
+<table class="table table-hover">
+    <tbody>
 <tr><td width="150">网站标题：</td><td><input type="text" style="width:300px;" name="option[site_title]" value="{$strOption[site_title]}" /></td></tr>
 <tr><td>副标题：</td><td><input type="text" style="width:300px;" name="option[site_subtitle]" value="{$strOption[site_subtitle]}" /> (例如：又一个ThinkSAAS社区小组)</td></tr>
 
@@ -37,9 +38,11 @@
 
 <tr><td>固定地址:</td><td><input type="text" style="width:300px;" name="option[link_url]" value="{$strOption[link_url]}" />(例如：http://www.thinksaas.cn/，必须以/结尾，主要用于采用固定链接的URL)</td></tr>
 
+    <tr><td>网站私钥:</td><td><input id="sitepkey" type="text" style="width:300px;" name="option[site_pkey]" value="{$strOption[site_pkey]}" /> <a href="javascript:void(0)" onclick="reSitePkey('{php echo md5(rand())}')">重新生成</a> <span style="color: red;">(非常重要，切勿泄漏)</span></td></tr>
+
 <tr><td>网站Logo:</td><td>
 <div id="logo"><img src="{SITE_URL}uploadfile/logo/{$strOption['logo']}" width="190" height="40" /></div>
-<input type="button" value="点击上传" id="upload" />(支持png,gif,jpg格式，宽度190px高度40px)</td></tr>
+<input type="button" value="点击上传" id="upload" />(支持png,gif,jpg格式，宽度285px高度60px)</td></tr>
 
 <tr><td>电子邮件 :</td><td><input type="text" style="width:300px;" name="option[site_email]" value="{$strOption[site_email]}" /></td></tr>
 
@@ -73,13 +76,15 @@
 </select>
 </td>
 </tr>
+    </tbody>
 </table>
 
 
 
-<h2>内容设定</h2>
+<h6>内容设定</h6>
 
-    <table>
+    <table class="table table-hover">
+        <tbody>
 
 
 
@@ -106,12 +111,14 @@
 
 
         <tr><td ></td><td></td></tr>
+        </tbody>
     </table>
 
 
-<h2>系统主题</h2>
+<h6>系统主题</h6>
 
-<table>
+    <table class="table table-hover">
+        <tbody>
 <tr>
 <td  width="150">选择主题：</td>
 
@@ -131,12 +138,14 @@
 
 </td>
 </tr>
+        </tbody>
 </table>
 
 
-<h2>链接形式</h2>
+<h6>链接形式</h6>
 
-<table>
+    <table class="table table-hover">
+        <tbody>
     <tr>
 	<td  width="150">形式1：</td><td><input type="radio" {if $strOption[site_urltype]==1}checked="select"{/if} name="option[site_urltype]" value="1" /> index.php?app=group&ac=topic&id=1</td></tr>
     <tr><td>形式2：</td><td><input type="radio" {if $strOption[site_urltype]==2}checked="select"{/if} name="option[site_urltype]" value="2" /> index.php/group/topic/id-1</td></tr>
@@ -147,12 +156,13 @@
 <tr><td>形式7：</td><td><input type="radio" {if $strOption[site_urltype]==7}checked="select"{/if} name="option[site_urltype]" value="7" /> group/topic/1/ (暂只支持apache环境的rewrite，非apache环境勿动)</td></tr>
 
 
-
+</tbody>
 </table>
 
 
-<h2>其他选项</h2>
-<table>
+<h6>其他选项</h6>
+    <table class="table table-hover">
+        <tbody>
 
 <tr><td width="150">图片上传大小：</td><td><input name="option[photo_size]" value="$strOption['photo_size']" />M (请填写数字，例如2)</td></tr>
 <tr><td>图片上传格式：</td><td><input name="option[photo_type]" value="$strOption['photo_type']" />(请以英文逗号分割，例如：jpg,gif,png)</td></tr>
@@ -166,12 +176,16 @@
 
 
 
-<tr><td></td><td><input type="submit" value="提交修改" /></td></tr>
-
+<tr><td></td><td><input type="submit" class="btn btn-primary" value="提交修改" /></td></tr>
+        </tbody>
 </table>
 
 
 </form>
 </div>
-
-{template footer}
+<script>
+    function reSitePkey(value) {
+        $("#sitepkey").val(value);
+    }
+</script>
+{php include pubTemplate("footer_admin")}

@@ -20,6 +20,10 @@ class weiboMy extends weibo{
             'userid'=>$strUser['userid'],
         ),'uptime desc',null,$lstart.',20');
 
+        foreach($arrWeibo as $key=>$item){
+            $arrWeibo[$key]['content'] = tsDecode($item['content']);
+        }
+
         $weiboNum = $this->findCount('weibo',array(
             'userid'=>$strUser['userid'],
         ));

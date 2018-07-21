@@ -13,5 +13,5 @@ return array(
 	'issql' => '1',
 	'issystem' => '1',
 	'isappnav'	=> '1',
-    'ismy'=>'1',
+    'ismy'=>'0',
 );

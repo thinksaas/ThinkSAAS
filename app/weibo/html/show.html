@@ -1,28 +1,32 @@
-{template header}
+{php include pubTemplate("header")}
 
 
 <div class="container">
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li><a href="{tsUrl('weibo')}">唠叨</a></li>
-  <li class="active">{php echo cututf8($title,0,20)}</li>
-</ol>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('weibo')}">唠叨</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{php echo cututf8($title,0,20)}</li>
+        </ol>
+    </nav>
+
 
 <div class="row">
 
 <div class="col-md-8">
 
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 
             <div class="weibo_show">
    <ul>
 <li class="mbtl">
-<a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}"><img class="img-rounded" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="48" /></a>
+<a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}"><img class="rounded-circle" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="36" /></a>
 </li>
-<li class="mbtr">
+<li class="mbtr rounded">
     <div class="author"><a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}">{$strWeibo[user][username]}</a> <span class="fs12 c9">{$strWeibo[addtime]}</span></div>
 <div class="content pd100">
     {if $strWeibo[photo]}
@@ -32,12 +36,11 @@
     {/if}
 {$strWeibo[content]}
 </div>
-<p style="text-align:right;">
+<div class="text-right fs12">
 {if $GLOBALS['TS_USER']['isadmin'] == 1}
-<a href="{tsUrl('weibo','deleteweibo',array('weiboid'=>$strWeibo['weiboid']))}">删除</a>
+<a onclick="return confirm('确定删除?')" href="{tsUrl('weibo','deleteweibo',array('weiboid'=>$strWeibo['weiboid']))}"><i class="far fa-trash-alt"></i> 删除</a>
 {/if}
-
-</p>
+</div>
 </li>
    </ul>
             </div>
@@ -48,16 +51,16 @@
 
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">回复({$strWeibo['count_comment']})</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">回复({$strWeibo['count_comment']})</div>
+        <div class="card-body">
 
 <div  class="comment">
 <ul>
 {loop $arrComment $key $item}
 <li class="clearfix">
 <div class="user-face">
-<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="img-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="rounded-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="36" /></a>
 </div>
 <div class="reply-doc">
 <h4>
@@ -66,9 +69,8 @@
 </h4>
 <p>{$item[content]}</p>
 {if $GLOBALS['TS_USER'][user][userid] == $item[userid] || $GLOBALS['TS_USER']['isadmin']==1}
-<div class="group_banned">
-<span><a class="j a_confirm_link" href="{tsUrl('weibo','deletecomment',array('commentid'=>$item['commentid']))}" rel="nofollow">删除</a>
-</span>
+<div class="text-right fs12">
+<a onclick="return confirm('确定删除?')" href="{tsUrl('weibo','deletecomment',array('commentid'=>$item['commentid']))}" rel="nofollow"><i class="far fa-trash-alt"></i> 删除</a>
 </div>
 {/if}
 </div>
@@ -90,7 +92,7 @@
 <div style="padding:5px 0;">
 <input type="hidden" name="weiboid" value="{$strWeibo['weiboid']}" />
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
-<button  class="btn btn-success"  type="submit">回复</button>
+<button  class="btn btn-sm btn-info"  type="submit">回复</button>
 </div>
 </form>
 
@@ -106,9 +108,9 @@
 
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">更多{$strWeibo['user']['username']}的唠叨</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">更多{$strWeibo['user']['username']}的唠叨</div>
+        <div class="card-body">
 
 
             <div class="commlist">
@@ -128,17 +130,17 @@
 
 <div class="col-md-4">
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 
     <div class="facebox">
 <div class="face">
-<a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}" rel="face" uid="$strWeibo[user][userid]"><img class="img-rounded" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="48"></a>
+<a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}" rel="face" uid="$strWeibo[user][userid]"><img class="rounded-circle" title="{$strWeibo[user][username]}" alt="{$strWeibo[user][username]}" src="{$strWeibo[user][face]}" width="36"></a>
 </div>
 
 <div class="info">
-<h3><a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}">{$strWeibo[user][username]}</a></h3>
-<div><a class="btn btn-success btn-sm br0" href="javascript:void('0')" onclick="follow('{$strWeibo['user']['userid']}','{$_SESSION['token']}');">关注</a></div>
+<div><a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}">{$strWeibo[user][username]}</a></div>
+<div><a class="btn btn-outline-info btn-sm" href="javascript:void('0')" onclick="follow('{$strWeibo['user']['userid']}','{$_SESSION['token']}');">关注</a></div>
 </div>
     </div>
 
@@ -158,4 +160,4 @@
 </div>
 
 
-{template footer}
+{php include pubTemplate("footer")}

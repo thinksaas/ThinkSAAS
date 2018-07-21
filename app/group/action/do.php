@@ -6,101 +6,9 @@ $userid = aac('user')->isLogin();
 
 switch ($ts) {
 	
-	//上传小组头像
-	
-	case "photo":
-		
-		$groupid = intval($_POST['groupid']);
 
-        if($new['group']->isGroupCreater($groupid,$userid)==false){
-            tsNotice("非法操作！");
-        }
-		
-		//上传
-		$arrUpload = tsUpload($_FILES['picfile'],$groupid,'group',array('jpg','gif','png'));
-		
-		if($arrUpload){
-
-			$new['group']->update('group',array(
-				'groupid'=>$groupid,
-			),array(
-				'path'=>$arrUpload['path'],
-				'photo'=>$arrUpload['url'],
-			));
-			
-			tsDimg($arrUpload['url'],'group','48','48',$arrUpload['path']);
-			tsDimg($arrUpload['url'],'group','16','16',$arrUpload['path']);
-			tsDimg($arrUpload['url'],'group','32','32',$arrUpload['path']);
-			tsDimg($arrUpload['url'],'group','24','24',$arrUpload['path']);
-			tsDimg($arrUpload['url'],'group','120','120',$arrUpload['path']);
-			
-			tsNotice("小组图标修改成功！");
-			
-		}else{
-			tsNotice("上传出问题啦！");
-		}
-		
-		break;
-	
-	//编辑小组基本信息
-	case "edit_base":
 	
 
-		$groupid = intval($_POST['groupid']);
-		
-		$strGroup = $new['group']->find('group',array(
-			'groupid'=>$groupid,
-		));
-		
-		if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
-		
-			$groupname = trim($_POST['groupname']);
-			$groupdesc = trim($_POST['groupdesc']);
-		
-			if($groupname=='' || $groupdesc=='') tsNotice("小组名称和介绍都不能为空！");
-			
-			//过滤内容开始
-            if($TS_USER['isadmin']!=1){
-                aac('system')->antiWord($groupname);
-                aac('system')->antiWord($groupdesc);
-            }
-
-			//过滤内容结束
-			
-			$isgroupname = $new['group']->findCount('group',array(
-				'groupname'=>$groupname,
-			));
-			
-			if($isgroupname > 0 && $strGroup['groupname']!=$groupname) tsNotice('小组名称已经存在！');
-			
-			
-			$new['group']->update('group',array(
-				'groupid'=>$groupid,
-			),array(
-				'groupname'	=> $groupname,
-				'groupdesc'	=> $groupdesc,
-				'joinway'		=> intval($_POST['joinway']),
-				'price'		=> intval($_POST['price']),
-				'ispost'	=> intval($_POST['ispost']),
-				'isopen'		=> intval($_POST['isopen']),
-				'ispostaudit'		=> intval($_POST['ispostaudit']),
-			));
-			
-			// 处理标签
-			if ($_POST ['tag']) {
-				aac ( 'tag' )->delIndextag ( 'group', 'groupid', $groupid );
-				aac ( 'tag' )->addTag ( 'group', 'groupid', $groupid, $_POST ['tag'] );
-			}
-			
-			tsNotice('基本信息修改成功！');
-		
-		}else{
-			
-			tsNotice('非法操作！');
-			
-		}
-		
-		break;
 		
 	//删除帖子
 	case "deltopic":
@@ -276,64 +184,7 @@ switch ($ts) {
 		
 
 			
-	//回复评论
-	case "recomment":
-	
 
-		
-		$referid = intval($_POST['referid']);
-		$topicid = intval($_POST['topicid']);
-		$content = tsClean($_POST['content']);
-		
-		$new['group']->create('group_topic_comment',array(
-			'referid'=>$referid,
-			'topicid'=>$topicid,
-			'userid'=>$userid,
-			'content'=>$content,
-			'addtime'=>time(),
-		));
-		
-		
-		//统计评论数
-		$count_comment = $new['group']->findCount('group_topic_comment',array(
-			'topicid'=>$topicid,
-		));
-		
-		//更新帖子最后回应时间和评论数
-		$new['group']->update('group_topic',array(
-			'topicid'=>$topicid,
-		),array(
-			'count_comment'=>$count_comment,
-			'uptime'=>time(),
-		));
-		
-		$strTopic = $new['group']->find('group_topic',array(
-			'topicid'=>$topicid,
-		));
-		
-		$strComment = $new['group']->find('group_topic_comment',array(
-			'commentid'=>$referid,
-		));
-		
-		if($topicid && $strTopic['userid'] != $TS_USER['userid']){
-			$msg_userid = '0';
-			$msg_touserid = $strTopic['userid'];
-			$msg_content = '你的帖子：《'.$strTopic['title'].'》新增一条评论，快去看看给个回复吧^_^ ';
-            $msg_tourl = tsUrl('group','topic',array('id'=>$topicid));
-			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
-		}
-		
-		if($referid && $strComment['userid'] != $TS_USER['userid']){
-			$msg_userid = '0';
-			$msg_touserid = $strComment['userid'];
-			$msg_content = '有人评论了你在帖子：《'.$strTopic['title'].'》中的回复，快去看看给个回复吧^_^ ';
-            $msg_tourl = tsUrl('group','topic',array('id'=>$topicid));
-			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
-		}
-		
-		echo 0;exit;
-		
-		break;
 
 
 	

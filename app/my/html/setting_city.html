@@ -1,4 +1,4 @@
-{template header}
+{php include pubTemplate("header")}
 <script type="text/javascript" src="{SITE_URL}public/js/city/jquery.cityselect.js"></script>
 <script type="text/javascript">
 var city1 = "{$strUser['province']}";
@@ -18,7 +18,7 @@ $(function(){
 <div class="container">
 <div class="row">
 
-<div class="col-md-2">
+<div class="col-md-3">
 <div class="my_left">
 
 {php include pubTemplate("my")}
@@ -26,20 +26,20 @@ $(function(){
 </div>
 </div>
 
-<div class="col-md-10">
-    <div class="panel panel-default">
-        <div class="panel-body">
+<div class="col-md-9">
+    <div class="card">
+        <div class="card-body">
 
 
 
 {template setting_menu}
 
 
-<div style="height:30px;"></div>
+
 
 <div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-7">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
   
 <form role="form" method="POST" action="{tsUrl('my','setting',array('ts'=>'citydo'))}">
 
@@ -53,12 +53,12 @@ $(function(){
 	
   </div>
   
-  <button class="btn btn-success" type="submit">提交修改</button>
+  <button class="btn btn-sm btn-info" type="submit">提交修改</button>
  
 </form>
   
   </div>
-  <div class="col-md-4"></div>
+  <div class="col-md-3"></div>
 </div>
 
 
@@ -72,4 +72,4 @@ $(function(){
 
 
 </div>
-{template footer}
+{php include pubTemplate("footer")}

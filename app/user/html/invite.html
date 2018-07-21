@@ -1,12 +1,12 @@
-{template header}
+{php include pubTemplate("header")}
 <!--main-->
 <div class="container">
 
-    <div class="panel panel-default">
+    <div class="card">
 
-        <div class="panel-heading">{$TS_SITE[site_title]}邀请码</div>
+        <div class="card-header">{$TS_SITE[site_title]}邀请码</div>
 
-        <div class="panel-body">
+        <div class="card-body">
 <div class="alert alert-info">物质匮乏，一码难求，今日您仅剩下 <span style="font-size:24px;color:#FF6600">{$codeNum}</span> 个邀请码</div>
 
 {if $codeNum=='0'}
@@ -29,4 +29,4 @@
 
 
 </div>
-{template footer}
+{php include pubTemplate("footer")}

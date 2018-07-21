@@ -20,6 +20,8 @@ if ($strArticle ['isaudit'] == 1 && $TS_USER['isadmin']==0 && $TS_USER['userid']
 	tsNotice ( '内容审核中...' );
 }
 
+$cateid = $strArticle['cateid'];
+
 $strArticle['title'] = tsTitle($strArticle['title']);
 
 $tpUrl = tpPage($strArticle['content'],'article','show',array('id'=>$strArticle['articleid']));

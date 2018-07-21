@@ -1,15 +1,20 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li><a href="{tsUrl('group')}">小组</a></li>
-  <li class="active">创建小组</li>
-</ol>
 
-<div class="panel panel-default">
-  <div class="panel-body">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+      <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+      <li class="breadcrumb-item active" aria-current="page">创建小组</li>
+    </ol>
+  </nav>
+
+
+
+<div class="card">
+  <div class="card-body">
 
 <div class="row">
 <div class="col-md-2"></div>
@@ -29,16 +34,16 @@
   
   <div class="form-group">
     <label>小组图标</label>
-    <input name="photo" type="file">
+    <div><input name="photo" type="file"></div>
   </div>
   
   <div class="form-group">
     <label>小组标签</label>
-    <input name="tag" type="text" class="form-control">
+   <input name="tag" type="text" class="form-control">
   </div>
 
   <input type="hidden" name="token" value="{$_SESSION['token']}" />
-  <button type="submit" class="btn btn-success">创建小组</button>
+  <button type="submit" class="btn btn-sm btn-info">创建小组</button>
 </form>
 </div>
 <div class="col-md-2"></div>
@@ -51,4 +56,4 @@
 
 
 </div>
-{template footer}
+{php include pubTemplate("footer")}

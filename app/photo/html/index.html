@@ -1,30 +1,32 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li class="active">相册</li>
-</ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item active" aria-current="page">相册</li>
+        </ol>
+    </nav>
 
-<div class="panel panel-default">
-  <div class="panel-body">
+<div class="card">
+  <div class="card-body">
   
 {template menu}
 
 
 <div class="row">
 {loop $arrAlbum $key $item}
-  <div class="col-xs-6 col-md-2">
-    <a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}" class="thumbnail">
-      <img src="{if $item[albumface] == ''}{SITE_URL}app/{$app}/skins/{$skin}/photo_album.png{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" alt="{$item[albumname]}" width="170" height="170">
+  <div class="col-4 col-md-2 mb-3">
+    <a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}">
+      <img class="mw100" src="{if $item[albumface] == ''}{SITE_URL}app/{$app}/skins/{$skin}/photo_album.png{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" alt="{$item[albumname]}">
     </a>
 	
  <div class="caption">
-        <h3>{$item[albumname]}</h3>
-        <p class="c9 fs12"> {$item[count_photo]}张照片&nbsp;
-           <br />{$item[addtime]} 创建</p>
+        <div class="title-cut mt-2">{$item[albumname]}</div>
+        <div class="c9 fs12"> {$item[count_photo]}张图片</div>
+     <div class="fs12 c9">{php echo date('Y-m-d',strtotime($item['addtime']))} 创建</div>
       </div>
 	
   </div>
@@ -40,4 +42,4 @@
 </div>
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

@@ -1,4 +1,4 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 
 <!--main-->
 <div class="midder">
@@ -7,32 +7,43 @@
 
 <div class="page">{$pageUrl}</div>
 
-<table>
+<table class="table table-hover">
 
 
-<tr class="old"><td>ID</td><td>UserID</td><td>Content</td><td>操作</td></tr>
-
-{loop $arrWeibo $key $item}
-<tr class="odd"><td>{$item['weiboid']}</td><td>{$item['userid']}</td><td>{php echo tsDecode($item['content'])}</td><td width="150">
-
-
-<a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=weibo&ts=isaudit&weiboid={$item['weiboid']}">
-{if $item['isaudit']==0}
-[取消审核]
-{else}
-<font color="red">[审核]</font>
-{/if}
-</a>
+    <thead class="thead-light">
+    <tr><th>ID</th><th>UserID</th><th>Content</th><th>操作</th></tr>
+    </thead>
 
 
-<a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=deleteweibo&weiboid={$item['weiboid']}">[删除]</a>
+
+    <tbody>
+
+    {loop $arrWeibo $key $item}
+    <tr><td>{$item['weiboid']}</td><td>{$item['userid']}</td><td>{php echo tsDecode($item['content'])}</td><td>
 
 
-</td></tr>
-{/loop}
+        <a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=weibo&ts=isaudit&weiboid={$item['weiboid']}">
+            {if $item['isaudit']==0}
+            [取消审核]
+            {else}
+            <font color="red">[审核]</font>
+            {/if}
+        </a>
+
+
+        <a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=deleteweibo&weiboid={$item['weiboid']}">[删除]</a>
+
+
+    </td></tr>
+    {/loop}
+
+    </tbody>
+
+
+
 
 </table>
 
 </div>
 
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

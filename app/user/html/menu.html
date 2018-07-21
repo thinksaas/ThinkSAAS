@@ -1,69 +1,59 @@
-
-<div class="panel panel-default">
-    <div class="panel-body">
-
-
-        <div class="page-header">
-            <h1>{$strUser['username']} <small>{$strUser['signed']}</small></h1>
-        </div>
-
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+        <li class="breadcrumb-item"><a href="{tsUrl('user')}">用户</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{$strUser['username']}</li>
+    </ol>
+</nav>
 
 
-        <div class="user_space_userinfo">
-            <div class="photo">
-
-                <img class="img-rounded" title="{$strUser[username]}" alt="{$strUser[username]}" src="{$strUser[face]}" width="90">
+<div class="card">
+    <div class="card-body">
 
 
-                {if $strUser[userid] == $TS_USER[userid]}
-                <div class="fs12 tac">
-                    [<a href="{tsUrl('my','setting',array(ts=>base))}">修改基本信息</a>]
+
+        <div class="row">
+            <div class="col-md-8">
+
+
+                <div class="media">
+                    <img class="mr-3 rounded-circle" src="{$strUser[face]}" alt="{$strUser[username]}" width="56">
+                    <div class="media-body">
+
+                        <h1 class="h4 fw400">{$strUser['username']} <a href="{tsUrl('user','verify')}">{if $strUser['isverify']==1}<img src="{SITE_URL}public/images/rz1.png" alt="通过Email认证" title="通过Email认证" align="absmiddle" width="20" />{else}<img src="{SITE_URL}public/images/rz2.png" alt="未通过Email认证" title="未通过Email认证" align="absmiddle" width="20" />{/if}</a>
+
+                            {if $strUser['isrenzheng']==1}
+                            <img src="{SITE_URL}public/images/renzheng1.png" width="20" alt="通过人工认证" title="通过人工认证" />
+                            {else}
+                            <img src="{SITE_URL}public/images/renzheng2.png" width="20" alt="未通过人工认证" title="未通过人工认证" />
+                            {/if}</h1>
+
+
+                        <div class="text-black-50">
+                            {if $strUser['signed']}{$strUser['signed']}{else}懒的都不写签名{/if}
+                        </div>
+
+
+
+                    </div>
                 </div>
-                {/if}
+
+
 
             </div>
-            <div class="info fs12">
-
-                <div>UID：{$strUser[userid]} </div>
+            <div class="col-md-4">
 
 
-                <div>加入：{php echo date('Y-m-d',$strUser[addtime])} </div>
-
-                <div class="sex">性别：{$strUser['sex']}</div>
-
-                <div class="city">居住地：{$strUser['province']} {$strUser['city']}</div>
-
-                <div class="">博客：{$strUser['blog']}</div>
-
-                <div class="about">关于我：{$strUser['about']}</div>
-
-
-                <div>
-
-                    <a href="{tsUrl('user','verify')}">{if $strUser['isverify']==1}<img src="{SITE_URL}public/images/rz1.png" alt="通过Email认证" title="通过Email认证" align="absmiddle" width="20" />{else}<img src="{SITE_URL}public/images/rz2.png" alt="未通过Email认证" title="未通过Email认证" align="absmiddle" width="20" />{/if}</a>
-
-                    {if $strUser['isrenzheng']==1}
-                    <img src="{SITE_URL}public/images/renzheng1.png" width="20" alt="通过人工认证" title="通过人工认证" />
-                    {else}
-                    <img src="{SITE_URL}public/images/renzheng2.png" width="20" alt="未通过人工认证" title="未通过人工认证" />
-                    {/if}
-
-                </div>
-
-
-
-
-                <div style="text-align:right;">
+                <div class="mt-2 text-right">
                     {if $strUser[userid] != $TS_USER[userid]}
                     {if $strUser[isfollow]}
-                    <a class="btn btn-default btn-sm" href="javascript:void('0');" onclick="unfollow('{$strUser['userid']}','{$_SESSION['token']}');">取消关注</a>
+                    <a class="btn btn-outline-secondary btn-sm" href="javascript:void('0');" onclick="unfollow('{$strUser['userid']}','{$_SESSION['token']}');">取消关注</a>
                     {else}
-                    <a class="btn btn-success btn-sm" href="javascript:void('0')" onclick="follow('{$strUser['userid']}','{$_SESSION['token']}');">关注</a>
+                    <a class="btn btn-info btn-sm" href="javascript:void('0')" onclick="follow('{$strUser['userid']}','{$_SESSION['token']}');">关注</a>
                     {/if}
-                    <a href="{tsUrl('user','message',array(ts=>add,touserid=>$strUser[userid]))}" rel="nofollow" class="btn btn-default btn-sm">发消息</a>
+                    <a href="{tsUrl('user','message',array(ts=>add,touserid=>$strUser[userid]))}" rel="nofollow" class="btn btn-outline-secondary btn-sm">发消息</a>
                     {/if}
                 </div>
-
 
 
             </div>
@@ -75,15 +65,26 @@
 
 
 
-        <div class="clear" style="height:20px;"></div>
 
 
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" {if $ac=='space'}class="active"{/if}><a href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">首页</a></li>
-            <li role="presentation" {if $ac=='topic'}class="active"{/if}><a href="{tsUrl('user','topic',array('id'=>$strUser['userid']))}">帖子</a></li>
-            <li role="presentation" {if $ac=='group'}class="active"{/if}><a href="{tsUrl('user','group',array('id'=>$strUser['userid']))}">小组</a></li>
-            <li role="presentation" {if $ac=='guestbook'}class="active"{/if}><a href="{tsUrl('user','guestbook',array('id'=>$strUser['userid']))}">留言</a></li>
-        </ul>
+
+
+
+
+
+        <div class="border-top pt-3 mt-3">
+            <a class="btn btn-sm {if $ac=='space'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">关于</a>
+            <a class="btn btn-sm {if $ac=='topic'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('user','topic',array('id'=>$strUser['userid']))}">帖子</a>
+            <a class="btn btn-sm {if $ac=='group'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('user','group',array('id'=>$strUser['userid']))}">小组</a>
+            <a class="btn btn-sm {if $ac=='guestbook'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('user','guestbook',array('id'=>$strUser['userid']))}">留言</a>
+
+
+            <a class="btn btn-sm {if $ac=='followed'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('user','followed',array('id'=>$strUser['userid']))}">粉丝</a>
+
+
+            <a class="btn btn-sm {if $ac=='follow'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('user','follow',array('id'=>$strUser['userid']))}">关注</a>
+
+        </div>
 
 
 

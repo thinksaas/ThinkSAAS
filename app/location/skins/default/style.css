@@ -4,7 +4,7 @@
 .location_list ul li{float:left;padding:20px;width:420px;}
 .location_list ul li .photo{float:left;width:100px;}
 .location_list ul li .info{margin-left:100px;}
-.location_list ul li .info .title{font-size:14px;}
+
 .location_list ul li .info .content{line-height:25px;font-size:12px;color:#999}
 
 
@@ -35,9 +35,9 @@
 }
 .weilist ul  li .portrait img {
     background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #CCCCCC;
+
     height: 32px;
-    padding: 1px;
+
     width: 32px;
 }
 .weilist ul li .body {
@@ -47,11 +47,11 @@
     width: 230px;
 }
 .weilist ul li .user a {
-    color: #6CABE1;
+
 }
 
 .weilist ul li .log {
-    color: #666666;
+    color: #999;
     word-break: break-all;
 }
 .weilist ul li .time {

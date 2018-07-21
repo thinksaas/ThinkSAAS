@@ -1,22 +1,22 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
 
-    <div class="bbox">
-        <div class="btitle">全部同城</div>
-        <div class="bc">
+    <div class="card">
+        <div class="card-header">全部同城</div>
+        <div class="card-body">
 
             <div class="location_list">
                 <ul>
                     {loop $arrLocation $key $item}
                     <li>
-                        <div class="photo"><img src="{if $item['photo']}{php echo tsXimg($item['photo'],'location','120','120',$item['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" width="90" height="90" alt="{$item['title']}" /></div>
+                        <div class="photo"><img class="rounded" src="{if $item['photo']}{php echo tsXimg($item['photo'],'location','120','120',$item['path'],1)}{else}{SITE_URL}public/images/location.jpg{/if}" width="90" height="90" alt="{$item['title']}" /></div>
                         <div class="info">
-                            <div class="title">{$item['title']}</div>
+                            <div class="fs18">{$item['title']}</div>
                             <div class="content">{$item['content']}</div>
 
-                            <div><a class="btn btn-success" href="{tsUrl('location','show',array('id'=>$item['locationid']))}">访问</a></div>
+                            <div><a class="btn btn-sm btn-info" href="{tsUrl('location','show',array('id'=>$item['locationid']))}">访问</a></div>
 
                         </div>
                     </li>
@@ -30,4 +30,4 @@
 
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

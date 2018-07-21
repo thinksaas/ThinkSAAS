@@ -1,20 +1,23 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
+
+
+    {template menu}
 
 <div class="row">
 <div class="col-md-8">
 
-    {template menu}
-    <div class="panel panel-default">
-        <div class="panel-body">
+
+    <div class="card">
+        <div class="card-body">
 
 
 {loop $arrGroupList $key $item}
 <div class="sub-item">
 <div class="pic">
 <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">
-<img class="img-rounded" src="{$item[photo]}" alt="{$item[groupname]}" />
+<img class="rounded" src="{$item[photo]}" alt="{$item[groupname]}" />
 </a>
 
 
@@ -36,4 +39,4 @@
 
 </div>
 </div>
-{template footer}
+{php include pubTemplate("footer")}

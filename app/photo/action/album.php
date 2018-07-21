@@ -47,11 +47,9 @@ switch($ts){
 		
 		$pageUrl = pagination($photoNum, 20, $page, $url);
 		
-		if($TS_USER['userid'] == $strAlbum['userid']){
-			$title = '我的相册-'.$strAlbum['albumname'];
-		}else{
-			$title = $strUser['username'].'的相册-'.$strAlbum['albumname'];
-		}
+
+		$title = $strAlbum['albumname'];
+
 		
 		include template("album");
 		
@@ -62,45 +60,6 @@ switch($ts){
 		));
 		
 		
-		break;
-
-	//我的相册/用户相册
-	case "user":
-		$userid = intval($_GET['userid']);
-		
-		if($userid == 0) header("Location: ".SITE_URL."index.php");
-		
-		$strUser = aac('user')->getOneUser($userid);
-		
-		$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
-		
-		$url = tsUrl('photo','album',array('ts'=>'user','userid'=>$userid,'page'=>''));
-		
-		$lstart = $page*6-6;
-		
-		$arrAlbum = $new['photo']->findAll('photo_album',array(
-			'userid'=>$userid,
-		),'albumid desc',null,$lstart.',6');
-		
-		foreach($arrAlbum as $key=>$item){
-			$arrAlbum[$key]['albumname'] = stripslashes($item['albumname']);
-			$arrAlbum[$key]['albumdesc'] = stripslashes($item['albumdesc']);
-		}
-		
-		$albumNum = $new['photo']->findCount('photo_album',array(
-		
-			'userid'=>$userid,
-		
-		));
-		
-		$pageUrl = pagination($albumNum, 6, $page, $url);
-		
-		if($TS_USER['userid'] == $userid){
-			$title = '我的相册';
-		}else{
-			$title = $strUser['username'].'的相册';
-		}
-		include template("album_user");
 		break;
 
 		
@@ -129,7 +88,7 @@ switch($ts){
 		
 		break;
 	
-	case "edit_do":
+	case "editdo":
 	
 		//用户是否登录
 		$userid = aac('user')->isLogin();

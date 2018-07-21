@@ -1,15 +1,17 @@
-{template header}
+{php include pubTemplate("header")}
 <div class="container">
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li><a href="{tsUrl('article')}">文章</a></li>
-  <li class="active">写文章</li>
-</ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('article')}">文章</a></li>
+            <li class="breadcrumb-item active" aria-current="page">写文章</li>
+        </ol>
+    </nav>
 
 
-<div class="panel panel-default">
-  <div class="panel-body">
+<div class="card">
+  <div class="card-body">
 
 
 <div class="row">
@@ -38,7 +40,10 @@
 
   <div class="form-group">
     <label>内容：</label>
-<textarea name="content" id="tseditor"></textarea>
+      <div id="tseditor"></div>
+      <div style="display: none;">
+          <textarea name="content"></textarea>
+      </div>
   </div>
 
 
@@ -54,13 +59,21 @@
 
    <div class="form-group">
     <label>封面图片：</label>
-    <input name="photo" type="file">
+
+       <div class="custom-file">
+           <input type="file" name="photo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png">
+           <label class="custom-file-label c9" for="customFile">支持jpg,png格式；大小640*400px</label>
+       </div>
+
   </div>
+
+
+
   
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
-<button class="btn btn-success" type="submit">发布文章</button>
+<button class="btn btn-sm btn-info" type="submit">发布文章</button>
 
-    <a class="btn btn-default" href="{tsUrl('article')}">取消发布</a>
+    <a class="btn btn-sm btn-outline-secondary" href="{tsUrl('article')}">取消发布</a>
   
 </form>
 
@@ -80,4 +93,4 @@
 
 </div>
 {php doAction('tseditor')}
-{template footer}
+{php include pubTemplate("footer")}

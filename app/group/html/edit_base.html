@@ -1,15 +1,19 @@
-{template header}
+{php include pubTemplate("header")}
 <div class="container">
 
-    <ol class="breadcrumb">
-        <li><a href="{SITE_URL}">首页</a></li>
-        <li><a href="{tsUrl('group')}">小组</a></li>
-        <li><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
-        <li class="active">小组设置</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">小组设置</li>
+        </ol>
+    </nav>
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+
+
+    <div class="card">
+        <div class="card-body">
 
 {template edit_xbar}
 
@@ -17,7 +21,7 @@
 
   
 
-<form class="form-horizontal" method="post" action="{SITE_URL}index.php?app=group&ac=do&ts=edit_base">
+<form class="form-horizontal" method="post" action="{SITE_URL}index.php?app=group&ac=edit&ts=basedo&groupid={$groupid}">
 
 
   <div class="form-group">
@@ -46,11 +50,11 @@
     <label class="col-sm-2 control-label">加入方式：</label>
     <div class="col-sm-10">
         <input {if $strGroup[joinway]=='0'}checked="select"{/if} name="joinway" type="radio" value="0" />自由加入(开放小组)
-        <input {if $strGroup[joinway]=='1'}checked="select"{/if}  name="joinway" type="radio" value="1" />禁止加入(私密小组)
-        <input {if $strGroup[joinway]=='2'}checked="select"{/if}  name="joinway" type="radio" value="2" />申请加入(需要审核)
+        <br /><input {if $strGroup[joinway]=='1'}checked="select"{/if}  name="joinway" type="radio" value="1" />禁止加入(私密小组)
+        <br /><input {if $strGroup[joinway]=='2'}checked="select"{/if}  name="joinway" type="radio" value="2" />申请加入(需要审核)
 
         {if $TS_APP['ispayjoin']==1}
-        <input {if $strGroup[joinway]=='3'}checked="select"{/if}  name="joinway" type="radio" value="3" />付费加入 需要<input type="number" name="price" value="{if $strGroup['price']}{$strGroup['price']}{else}10{/if}" /> 金币
+        <br /><input {if $strGroup[joinway]=='3'}checked="select"{/if}  name="joinway" type="radio" value="3" />付费加入 需要<input type="number" name="price" value="{if $strGroup['price']}{$strGroup['price']}{else}10{/if}" /> 金币
         {/if}
 
     </div>
@@ -82,13 +86,15 @@
   
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
+
+        <hr />
 	
-	<input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
+
 	
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
-      <button type="submit" class="btn btn-success">提交修改</button>
+      <button type="submit" class="btn btn-sm btn-info">提交修改</button>
 
-        <a class="btn btn-default" href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回小组</a>
+        <a class="btn btn-sm text-black-50" href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回小组</a>
     </div>
   </div>
 </form>
@@ -104,4 +110,4 @@
 
 
 </div>
-{template footer}
+{php include pubTemplate("footer")}

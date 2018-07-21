@@ -1,12 +1,16 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li><a href="{tsUrl('article')}">文章</a></li>
-  <li class="active">{$strCate['catename']}</li>
-</ol>
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+      <li class="breadcrumb-item"><a href="{tsUrl('article')}">文章</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{$strCate['catename']}</li>
+    </ol>
+  </nav>
+
 
 <div class="row">
 
@@ -15,9 +19,9 @@
 <div class="col-md-8">
 
 
-  <div class="panel panel-default">
-    <div class="panel-heading">{$strCate['catename']}</div>
-    <div class="panel-body">
+  <div class="card">
+    <div class="card-header">{$strCate['catename']}</div>
+    <div class="card-body">
 
 <div class="clist">
 <ul>
@@ -42,7 +46,7 @@
 </ul>
 </div>
 
-<div class="page">{$pageUrl}</div>
+<div class="mt-4">{$pageUrl}</div>
 </div>
 </div>
 
@@ -54,18 +58,17 @@
 <div class="col-md-4">
 
 
-    <a class="btn btn-info btn-block btn-lg br0" href="{tsUrl('article','add')}">
-        <span class="glyphicon glyphicon-plus-sign"></span> 写文章</a>
-    <p></p>
+  <div class="mb-3">
+    <a class="btn btn-info btn-block btn-lg" href="{tsUrl('article','add')}">写文章</a>
+  </div>
 
-
-  <div class="panel panel-default">
-    <div class="panel-heading">分类</div>
-    <div class="panel-body">
+  <div class="card">
+    <div class="card-header">分类</div>
+    <div class="card-body">
 
 
   {loop $arrCate $key $item}
-  <a class="btn {if $item['cateid']==$cateid}btn-success{else}btn-link{/if} br0" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
+  <a class="btn {if $item['cateid']==$cateid}btn-outline-primary{else}btn-link{/if}" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
   {/loop}
 
 
@@ -74,9 +77,9 @@
 </div>
 
 
-  <div class="panel panel-default">
-    <div class="panel-heading">推荐阅读</div>
-    <div class="panel-body">
+  <div class="card">
+    <div class="card-header">推荐阅读</div>
+    <div class="card-body">
 <div class="commlist">
 <ul>
 {loop $arrRecommend $key $item}
@@ -87,9 +90,9 @@
 </div>
 </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">一周热门</div>
-    <div class="panel-body">
+  <div class="card">
+    <div class="card-header">一周热门</div>
+    <div class="card-body">
 <div class="commlist">
 <ul>
 {loop $arrHot7 $key $item}
@@ -100,9 +103,9 @@
 </div>
 </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">一月热门</div>
-    <div class="panel-body">
+  <div class="card">
+    <div class="card-header">一月热门</div>
+    <div class="card-body">
 <div class="commlist">
 <ul>
 {loop $arrHot30 $key $item}
@@ -127,4 +130,4 @@
 </div>
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

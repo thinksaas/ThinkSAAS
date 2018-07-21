@@ -1,16 +1,18 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
-    <ol class="breadcrumb">
-        <li><a href="{SITE_URL}">首页</a></li>
-        <li><a href="{tsUrl('group')}">小组</a></li>
-        <li><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
-        <li class="active">小组设置</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">小组设置</li>
+        </ol>
+    </nav>
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 {template edit_xbar}
 
 
@@ -20,22 +22,22 @@
 
 
 <form class="form-inline" method="POST" action="{tsUrl('group','edit',array('ts'=>'typeadd','groupid'=>$groupid))}">
-  <div class="form-group">
-    <label class="sr-only">添加帖子分类：</label>
-    <input name="typename" class="form-control" placeholder="添加帖子分类">
-  </div>
+
+
+    <input style="width: 50%" name="typename" class="form-control form-control-sm" placeholder="添加帖子分类">
+
 
 <input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
-  <button type="submit" class="btn btn-success">添加帖子分类</button>
+  <button type="submit" class="btn btn-sm btn-info ml-1">添加</button>
 
-    <a class="btn btn-default" href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回小组</a>
+    <a class="btn btn-sm btn-outline-secondary ml-1" href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回小组</a>
 
 </form>
 
 
 
-<table class="table">
-<thead>
+<table class="table table-bordered mt-3">
+<thead class="thead-light">
 <tr>
 <th>类型</th><th>操作</th>
 </tr>
@@ -48,7 +50,7 @@
 <tr>
 <td>
 
-        <input class="form-control" name="typename" value="{$item[typename]}" />
+        <input class="form-control form-control-sm" name="typename" value="{$item[typename]}" />
 
 
 
@@ -56,9 +58,9 @@
 
 </td><td>
     <input type="hidden" name="typeid" value="{$item['typeid']}">
-    <input type="submit" class="btn btn-default" value="修改" />
+    <input type="submit" class="btn btn-sm btn-outline-secondary" value="修改" />
 
-    <a class="btn btn-default" href="{tsUrl('group','edit',array('ts'=>'typedelete','groupid'=>$groupid,'typeid'=>$item['typeid']))}" >删除</a></td>
+    <a class="btn btn-sm" href="{tsUrl('group','edit',array('ts'=>'typedelete','groupid'=>$groupid,'typeid'=>$item['typeid']))}" >删除</a></td>
 </tr>
 </form>
 {/loop}
@@ -76,4 +78,4 @@
 </div>
 
 </div>
-{template footer}
+{php include pubTemplate("footer")}

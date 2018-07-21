@@ -1,27 +1,20 @@
-<ul class="nav nav-tabs" role="tablist">
-<li role="presentation" {if $ts=="base"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'base'))}">基本信息</a></li>
 
-<li role="presentation" {if $ts=="icon"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'icon'))}">小组图标</a></li>
-
-<li role="presentation" {if $ts=="type"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'type'))}">帖子分类</a></li>
-
-<li role="presentation" {if $ts=="cate"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'cate'))}">小组分类</a></li>
-
-
-<li role="presentation" {if $ts=="transfer"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'transfer'))}">小组转让</a></li>
+<div class="mb-3">
+    <a class="btn btn-sm {if $ts=="base"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'base'))}">基本信息</a>
+    <a class="btn btn-sm {if $ts=="icon"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'icon'))}">小组图标</a>
+    <a class="btn btn-sm {if $ts=="type"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'type'))}">帖子分类</a>
+    <a class="btn btn-sm {if $ts=="cate"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'cate'))}">小组分类</a>
+    <a class="btn btn-sm {if $ts=="transfer"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'transfer'))}">小组转让</a>
 
 
-{if $strGroup['joinway']==2}
-<li role="presentation" {if $ts=="useraudit"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'useraudit'))}">成员审核</a></li>
-{/if}
+    {if $strGroup['joinway']==2}
+    <a class="btn btn-sm {if $ts=="useraudit"}btn-outline-secondary{else}text-secondary{/if} href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'useraudit'))}">成员审核</a>
+    {/if}
+
+    <a class="btn btn-sm {if $ts=="isadmin"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'isadmin'))}">管理员</a>
+    <a class="btn btn-sm {if $ts=="user"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'user'))}">成员</a>
+
+</div>
 
 
-    <li role="presentation" {if $ts=="isadmin"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'isadmin'))}">管理员</a></li>
-
-
-    <li role="presentation" {if $ts=="user"}class="active"{/if}><a href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'user'))}">成员管理</a></li>
-
-
-</ul>
-
-<div style="height:20px;"></div>
+<hr />

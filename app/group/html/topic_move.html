@@ -1,9 +1,9 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card-body">
+        <div class="card-body">
 <h1>移动帖子：{$strTopic[title]}</h1>
 <form method="POST" action="{SITE_URL}index.php?app=group&ac=topicmove&ts=do">
 <p>选择小组：
@@ -28,4 +28,4 @@
 </div>
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

@@ -1,37 +1,50 @@
-{template header}
+{php include pubTemplate("header")}
 
 <link href="{SITE_URL}public/js/dropzone/dropzone.css" type="text/css" rel="stylesheet" />
 <script src="{SITE_URL}public/js/dropzone/dropzone.js"></script>
 
 <div class="container">
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li><a href="{tsUrl('photo')}">相册</a></li>
-  <li class="active">上传图片</li>
-</ol>
 
 
-<div class="panel panel-default">
-  <div class="panel-body">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+      <li class="breadcrumb-item"><a href="{tsUrl('photo')}">相册</a></li>
+      <li class="breadcrumb-item"><a href="{tsUrl('photo','album',array('id'=>$strAlbum['albumid']))}">{$strAlbum['albumname']}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">上传图片</li>
+    </ol>
+  </nav>
 
-{template menu}
 
-<h1>上传照片 - {$strAlbum[albumname]}</h1>
+<div class="card">
+  <div class="card-body">
 
-<div style="padding:0 10px;">
+
+
 
 <div class="alert alert-info">上传文件只支持：jpg，gif，png格式。</div>
 
 
 
-  <form id ="myAwesomeDropzone" style="width:100%;" action="{SITE_URL}index.php?app=photo&ac=upload&ts=do" class="dropzone">
+  <form id ="myAwesomeDropzone" style="width:100%;border:dashed;" action="{SITE_URL}index.php?app=photo&ac=upload&ts=do" class="dropzone">
     <input type="hidden" name="albumid" value="{$albumid}">
     <input type="hidden" name="addtime" value="{$addtime}"/>
   </form>
 
 
-</div>
+
+
+
+    <div class="clear"></div>
+
+
+    <div class="mt-3">
+
+      <a class="btn btn-sm btn-outline-secondary" href="{tsUrl('photo','album',array('id'=>$strAlbum['albumid']))}">返回相册</a>
+
+    </div>
+
 
 </div>
 </div>
@@ -56,4 +69,4 @@
 
     };
 </script>
-{template footer}
+{php include pubTemplate("footer")}

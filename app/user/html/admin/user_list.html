@@ -1,4 +1,4 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 <div class="midder">
 
 {php include template("admin/menu");}
@@ -19,50 +19,70 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
 
 <div class="page">{$pageUrl}</div>
 
-<table  cellpadding="0" cellspacing="0">
-<tr class="old"><td width="60">UID</td><td width="200">Email</td><td width="100">姓名</td><td>注册时间</td><td>登录IP</td><td>来自</td><td>验证Email</td><td>操作</td></tr>
-{loop $arrAllUser $key $item}
-<tr class="odd"><td>{$item[userid]}</td><td>{$item[email]}</td><td>{$item[username]}</td><td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td>
-
-<td>{$item['ip']}</td>
-<td>{$item['comefrom']}</td>
-<td>{if $item['isverify']==1}已验证{else}<font color="red">未验证</a>{/if}</td>
-<td>
+<table class="table table-hover">
 
 
-    <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isrenzheng&&userid={$item[userid]}">
-        {if $item[isrenzheng]=='0'}[手工认证]{else}<font color="green">[取消认证]</font>{/if}
-    </a>
+    <thead class="thead-light">
 
+    <tr><th>UID</th><th>Email</th><th>姓名</th><th>注册时间</th><th>登录IP</th><th>来自</th><th>验证Email</th><th>操作</th></tr>
 
-    <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=view&userid={$item[userid]}">[明细]</a>
-
-    <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isenable&&userid={$item[userid]}&page={$page}">
-
-{if $item[isenable]=='0'}[停用]{else}<font color="red">[启用]</font>{/if}</a>
-
-<a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=pwd&userid={$item[userid]}">[修改密码]</a>
-
-
-<a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=face&userid={$item[userid]}">[清除头像]</a>
+    </thead>
 
 
 
-    {if $TS_USER['userid']==1 && $item['userid']!=1}
-<a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=deldata&userid={$item[userid]}">[删除]</a>
- <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=admin&userid={$item['userid']}&token={$_SESSION['token']}">
- {if $item['isadmin']==0}
- [设为管理员]
- {elseif $item['isadmin']==1}
-  <font color="red">[取消管理员]</font>
- {/if}
- </a>
-    {/if}
+    <tbody>
 
-</td>
-</tr>
-{/loop}
+    {loop $arrAllUser $key $item}
+    <tr class="odd"><td>{$item[userid]}</td><td>{$item[email]}</td><td>{$item[username]}</td><td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td>
+
+        <td>{$item['ip']}</td>
+        <td>{$item['comefrom']}</td>
+        <td>{if $item['isverify']==1}已验证{else}<font color="red">未验证</a>{/if}</td>
+        <td>
+
+
+            <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isrenzheng&&userid={$item[userid]}">
+                {if $item[isrenzheng]=='0'}[手工认证]{else}<font color="green">[取消认证]</font>{/if}
+            </a>
+
+
+            <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=view&userid={$item[userid]}">[明细]</a>
+
+            <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isenable&&userid={$item[userid]}&page={$page}">
+
+                {if $item[isenable]=='0'}[停用]{else}<font color="red">[启用]</font>{/if}</a>
+
+            <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=pwd&userid={$item[userid]}">[修改密码]</a>
+
+
+            <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=face&userid={$item[userid]}">[清除头像]</a>
+
+
+
+            {if $TS_USER['userid']==1 && $item['userid']!=1}
+            <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=deldata&userid={$item[userid]}">[删除]</a>
+            <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=admin&userid={$item['userid']}&token={$_SESSION['token']}">
+                {if $item['isadmin']==0}
+                [设为管理员]
+                {elseif $item['isadmin']==1}
+                <font color="red">[取消管理员]</font>
+                {/if}
+            </a>
+            {/if}
+
+        </td>
+    </tr>
+    {/loop}
+
+    </tbody>
+
+
+
+
+
+
+
 </table>
 
 </div>
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

@@ -10,14 +10,18 @@ switch($ts){
 		$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
 		$url = tsUrl('user','guestbook',array('id'=>$strUser['userid'],'page'=>''));
 		$lstart = $page*20-20;
-		
-		$arrGuestsList = $new['user']->findAll('user_gb',array(
+
+        $arrGuestList = $new['user']->findAll('user_gb',array(
 			'touserid'=>$strUser['userid'],
 		),'addtime desc',null,$lstart.',20');
 
-		foreach($arrGuestsList as $key=>$item){
-			$arrGuestList[] = $item;
+		foreach($arrGuestList as $key=>$item){
 			$arrGuestList[$key]['user']=$new['user']->getOneUser($item['userid']);
+
+			$arrGuestList[$key]['reply'] = $new['user']->find('user_gb',array(
+			    'reid'=>$item['id'],
+            ));
+
 		}
 		
 		$guestNum = $new['user']->findCount('user_gb',array(
@@ -93,7 +97,7 @@ switch($ts){
 		$msg_userid = '0';
 		$msg_touserid = $touserid;
 		$msg_content = '有人在你的留言板上留言了哦，快去看看吧！';
-        $msg_tourl = tsUrl('user','space',array('id'=>$touserid));
+        $msg_tourl = tsUrl('user','guestbook',array('id'=>$touserid));
 		aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 		tsNotice('回复成功！');
 		break;

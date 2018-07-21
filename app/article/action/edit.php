@@ -22,7 +22,7 @@ switch ($ts) {
 		if ($strArticle ['userid'] == $userid || $TS_USER ['isadmin'] == 1) {
 		
 			$strArticle['title'] = stripslashes($strArticle['title']);
-			//$strArticle['content'] = tsDecode($strArticle['content']);
+			$strArticle['content'] = tsDecode($strArticle['content']);
 			
 			// 找出TAG
 			$arrTags = aac ( 'tag' )->getObjTagByObjid ( 'article', 'articleid', $articleid );

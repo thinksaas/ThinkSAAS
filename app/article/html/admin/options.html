@@ -1,11 +1,11 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 
 <div class="midder">
 
 {php include template("admin/menu");}
 
     <form  method="POST" action="index.php?app=article&ac=admin&mg=options&ts=do">
-        <table>
+        <table class="table table-hover">
             <tr><td width="150">APP名称：</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
 
             <tr><td>APP介绍：</td><td><textarea style="width:300px;" name="option[appdesc]">{$strOption[appdesc]}</textarea></td></tr>
@@ -18,11 +18,11 @@
 
             <tr><td></td><td>
 
-                <input type="submit" value="提交修改" /></td>
+                <input class="btn btn-primary" type="submit" value="提交修改" /></td>
             </tr>
         </table>
     </form>
 
 </div>
 
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

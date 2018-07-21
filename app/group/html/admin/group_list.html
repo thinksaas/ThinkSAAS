@@ -1,4 +1,4 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 
 
 <div class="midder">
@@ -7,17 +7,25 @@
 
 <div class="page">{$pageUrl}</div>
 
-<table  cellpadding="0" cellspacing="0">
-<tr class="old">
-    <td width="20">ID</td>
-    <td width="100">小组名字</td>
-    <td width="200">小组介绍</td>
-    <td>帖子统计</td>
-    <td>成员统计</td>
-    <td>创建时间</td>
-    <td>操作</td></tr>
+<table class="table table-hover">
+
+    <thead class="thead-light fs14">
+    <tr>
+        <th>ID</th>
+        <th>小组名字</th>
+        <th>小组介绍</th>
+        <th>帖子统计</th>
+        <th>成员统计</th>
+        <th>创建时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+
+
+    <tbody class="fs12">
+
 {loop $arrAllGroup $key $item}
-<tr class="odd">
+<tr>
     <td>{$item[groupid]}</td>
     <td><a href="{tsUrl('group','show',array('id'=>$item['groupid']))}" target="_blank">[{$item[groupname]}]</a></td>
     <td>{php echo cututf8(t($item[groupdesc]),0,20)}</td><td>{$item[count_topic]}</td>
@@ -50,7 +58,10 @@
 
         <a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=del&groupid={$item[groupid]}">[删除]</a></td></tr>
 {/loop}
+
+    </tbody>
+
 </table>
 
 </div>
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

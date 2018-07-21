@@ -1,4 +1,4 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 
 <!--main-->
 <div class="midder">
@@ -7,12 +7,20 @@
 
 <div class="page">{$pageUrl}</div>
 
-<table>
-<tr class="old">
-<td width="100">ID</td><td>userid</td><td>title</td> <td>操作</td>
-</tr>
+<table class="table table-hover">
 
-<!--{loop $arrArticle $key $item}-->
+
+    <thead class="thead-light fs14">
+    <tr>
+        <th>ID</th><th>用户ID</th><th>标题</th> <th>操作</th>
+    </tr>
+    </thead>
+
+<tbody class="fs12">
+
+
+
+{loop $arrArticle $key $item}
 <tr><td>{$item['articleid']}</td><td>{$item['userid']}</td><td><a target="_blank" href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{php echo htmlspecialchars($item[title])}</a></td><td>
 
 
@@ -35,10 +43,10 @@
 
 <a onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=delete&articleid={$item['articleid']}">删除</a>
 </td></tr>
-<!--{/loop}-->
-
+{/loop}
+</tbody>
 </table>
 
 </div>
 
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

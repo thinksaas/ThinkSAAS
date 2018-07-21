@@ -1,10 +1,10 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 <!--main-->
 <div class="midder">
 {php include template("admin/menu");}
 
 <form method="POST" action="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=edit_do">
-<table  cellpadding="0" cellspacing="0">
+<table  class="table table-hover">
 <tr><td width="100">分类名称：</td><td><input name="catename" value="{$strCate[catename]}" /></td></tr>
 
 <tr><td>排序ID：</td><td><input name="orderid" value="{$strCate[orderid]}" /></td></tr>
@@ -12,10 +12,10 @@
 <tr><td></td><td>
 <input type="hidden" name="cateid" value="{$strCate[cateid]}" />
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
-<input type="submit" value="修改分类" />
+<input class="btn btn-primary" type="submit" value="修改分类" />
 </td></tr>
 </table>
 </form>
 
 </div>
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

@@ -136,10 +136,10 @@ switch($ts){
 	//执行上传头像
 	case "facedo":
 	
-		if($_FILES['picfile']){
+		if($_FILES['photo']){
 			
 			//上传
-			$arrUpload = tsUpload($_FILES['picfile'],$userid,'user',array('jpg','gif','png'));
+			$arrUpload = tsUpload($_FILES['photo'],$userid,'user',array('jpg','gif','png'));
 			
 			if($arrUpload){
 

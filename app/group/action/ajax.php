@@ -131,7 +131,7 @@ switch($ts){
 			'count_user'=>$count_user,
 		));
 		
-		getJson('加入成功！',1,1);
+		getJson('加入成功！',1,1,tsUrl('group','show',array('id'=>$groupid)));
 		
 		break;
 		
@@ -169,8 +169,8 @@ switch($ts){
 		),array(
 			'count_user'=>$count_user,
 		));
-	
-		getJson('退出成功！',1,1);
+
+        getJson('加入成功！',1,1,tsUrl('group','show',array('id'=>$groupid)));
 
 		break;
 		

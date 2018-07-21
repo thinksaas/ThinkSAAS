@@ -1,11 +1,11 @@
-{template header}
+{php include pubTemplate("header")}
 <div class="container">
 
 
 <div class="row">
 
 
-<div class="col-md-2">
+<div class="col-md-3">
 <div class="my_left">
 
 {php include pubTemplate("my")}
@@ -13,20 +13,20 @@
 </div>
 </div>
 
-<div class="col-md-10">
-    <div class="panel panel-default">
-        <div class="panel-body">
+<div class="col-md-9">
+    <div class="card">
+        <div class="card-body">
 
 
 
 {template setting_menu}
 
-<div style="height:30px;"></div>
+
 
 
 <div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-7">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
   
 {if $TS_SITE['isface']=='1' && $strUser['face'] == SITE_URL.'public/images/user_normal.jpg'}
 <div class="alert alert-info" role="alert">提示：你需要上传头像才可以正常使用网站！</div>
@@ -36,23 +36,22 @@
 <form role="form" method="post" action="{tsUrl('my','setting',array('ts'=>'facedo'))}"  enctype="multipart/form-data">
 
   <div class="form-group">
-    <label>当前头像</label>
 	<p><img alt="{$strUser['username']}" src="{$strUser[face]}?v={php echo rand();}" width="120" /></p>
   </div>
   
   <div class="form-group">
-    <label>选择本地头像</label>
-	<p><input type="file" name="picfile" /></p>
+    <label>选择图片</label>
+	<p><input type="file" name="photo" /></p>
   </div>
   
-  <input class="btn btn-success btn-lg" type="submit" value="上传头像" />
+  <input class="btn btn-sm btn-info" type="submit" value="上传头像" />
   
 
   
 </form>
   
   </div>
-  <div class="col-md-4"></div>
+  <div class="col-md-3"></div>
 </div>
 
 
@@ -66,4 +65,4 @@
 
 </div>
 </div>
-{template footer}
+{php include pubTemplate("footer")}

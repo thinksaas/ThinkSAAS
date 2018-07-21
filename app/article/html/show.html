@@ -1,19 +1,27 @@
-{template header}
-
+{php include pubTemplate("header")}
 <div class="container">
 
-    <ol class="breadcrumb">
-        <li><a href="{SITE_URL}">首页</a></li>
-        <li><a href="{tsUrl('article')}">文章</a></li>
 
-        {if $strArticle['cate']}
-        <li>{if $strArticle['cate']}<a href="{tsUrl('article','cate',array('id'=>$strArticle['cate']['cateid']))}">{$strArticle['cate']['catename']}</a>{/if}</li>
-        {/if}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('article')}">文章</a></li>
+            {if $strArticle['cate']}
+            <li class="breadcrumb-item">{if $strArticle['cate']}<a href="{tsUrl('article','cate',array('id'=>$strArticle['cate']['cateid']))}">{$strArticle['cate']['catename']}</a>{/if}</li>
+            {/if}
+            <li class="breadcrumb-item active" aria-current="page">{$strArticle[title]}</li>
+        </ol>
+    </nav>
 
 
+    <div class="mb-3">
+        <a class="btn btn-sm {if $cateid=='0'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('article')}">全部</a>
+        {loop $arrCate $key $item}
+        <a class="btn btn-sm {if $cateid==$item['cateid']}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
+        {/loop}
+    </div>
 
-        <li class="active">{$strArticle[title]}</li>
-    </ol>
+
 
     <div class="row">
 
@@ -23,29 +31,29 @@
 
         <div class="col-md-8">
 
-            <div class="panel panel-default">
-                <div class="panel-body">
-
-                    <div class="page-header">
-                        <h1>{$strArticle[title]}</h1>
-                    </div>
+            <div class="card">
+                <div class="card-body">
 
 
-                    <div class="media mb20">
+                    <h1 class="h3 pb-3 fw400">{$strArticle[title]}</h1>
 
-                        <a class="pull-left" href="{tsUrl('user','space',array('id'=>$strArticle[user][userid]))}"><img class="media-object img-rounded" title="{$strArticle[user][username]}" alt="{$strArticle[user][username]}" src="{$strArticle[user][face]}" width="48" height="48"></a>
+
+
+                    <div class="media mt-3 mb-3">
+
+                        <a class="mr-3" href="{tsUrl('user','space',array('id'=>$strArticle[user][userid]))}"><img class="media-object rounded-circle" title="{$strArticle[user][username]}" alt="{$strArticle[user][username]}" src="{$strArticle[user][face]}" width="36" height="36"></a>
 
 
                         <div class="media-body">
-                            <h4 class="media-heading"><a href="{tsUrl('user','space',array('id'=>$strArticle[userid]))}">{$strArticle[user][username]}</a></h4>
-                            <p class="c9 fs12">发表于 {$strArticle[addtime]}</p>
+                            <div><a href="{tsUrl('user','space',array('id'=>$strArticle[userid]))}">{$strArticle[user][username]}</a></div>
+                            <div class="c9 fs12">发表于 {$strArticle[addtime]}</div>
                         </div>
                     </div>
 
                     {if $strArticle['tags']}
-                    <div class="tags">
-                        {loop $strArticle[tags] $key $item} <a
-                            href="{tsUrl('article','tag',array('id'=>$item['tagname']))}">{$item[tagname]}</a>
+                    <div class="mb-3 mt-3">
+                        {loop $strArticle[tags] $key $item}
+                        <a class="badge badge-secondary fw300 mr-2" href="{tsUrl('article','tag',array('id'=>$item['tagname']))}">{$item[tagname]}</a>
                         {/loop}
                     </div>
                     <div class="clear"></div>
@@ -53,40 +61,57 @@
 
 
 
-                    <div class="article_show_content fs14 lh30">
+                    <div class="article_show_content lh30">
                         {php doAction('gobad','content_top')}
                         {$strArticle[content]}
 
                         {$tpUrl}
 
-                        {php doAction('gobad','468')}
-                    </div>
-
-                    <div class="tar c9 fs12">
-                        {$strArticle['count_view']}阅读 | {$strArticle['count_comment']}评论
-                    </div>
-
-                    {if $TS_USER[isadmin]==1 || $TS_USER['userid']==$strArticle['userid']}
-                    <div class="tar pd100">
-                        <a class="btn btn-default btn-sm" href="{SITE_URL}index.php?app=article&ac=edit&articleid={$strArticle[articleid]}">修改</a>
-
-                        <a onclick="return confirm('确定删除?')" class="btn btn-default btn-sm" href="{SITE_URL}index.php?app=article&ac=delete&articleid={$strArticle[articleid]}&token={$_SESSION['token']}">删除</a>
+                        <div class="fs12 c9">{php doAction('gobad','468')}</div>
 
                     </div>
-                    {/if}
 
 
 
-                    <nav>
-                        <ul class="pager">
+                    <div class="of mt-3">
+
+
+                        <div class="float-left c9 fw300 pt-1">
+
+                            <i class="far fa-eye"></i> {$strArticle['count_view']}
+
+                            <i class="far fa-comment ml-3"></i> {$strArticle['count_comment']}
+
+                        </div>
+
+
+                        {if $TS_USER[isadmin]==1 || $TS_USER['userid']==$strArticle['userid']}
+                        <div class="float-right text-right">
+
+                            <a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=edit&articleid={$strArticle[articleid]}"><i class="far fa-edit"></i> 修改</a>
+                            <a onclick="return confirm('确定删除?')" class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=delete&articleid={$strArticle[articleid]}&token={$_SESSION['token']}"><i class="far fa-trash-alt"></i> 删除</a>
+                        </div>
+                        {/if}
+
+
+                    </div>
+
+
+
+
+
+
+
+                    <hr />
+
+
                             {if $strUp}
-                            <li><a href="{tsUrl('article','show',array('id'=>$strUp['articleid']))}">上一篇：{$strUp['title']}</a></li>
+                            <div class="fs13 text-secondary">上一篇：<a class="text-secondary" href="{tsUrl('article','show',array('id'=>$strUp['articleid']))}">{$strUp['title']}</a></div>
                             {/if}
                             {if $strNext}
-                            <li><a href="{tsUrl('article','show',array('id'=>$strNext['articleid']))}">下一篇：{$strNext['title']}</a></li>
+                            <div class="fs13 text-secondary">下一篇：<a class="text-secondary" href="{tsUrl('article','show',array('id'=>$strNext['articleid']))}">{$strNext['title']}</a></div>
                             {/if}
-                        </ul>
-                    </nav>
+
 
 
 
@@ -94,9 +119,9 @@
             </div>
 
 
-            <div class="panel panel-default">
-                <div class="panel-heading">你的回应</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">你的回应</div>
+                <div class="card-body">
 
                     {if $arrComment}
                     <div class="comment">
@@ -104,23 +129,18 @@
                             {loop $arrComment $key $item}
                             <li class="clearfix">
                                 <div class="user-face">
-                                    <a
-                                            href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img
-                                            title="{$item[user][username]}" alt="{$item[user][username]}"
-                                            src="{$item[user][face]}" width="48" /></a>
+                                    <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="rounded-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
                                 </div>
                                 <div class="reply-doc">
                                     <h4>
-                                        {php echo date('Y-m-d H:i:s',$item[addtime])} <a
-                                            href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+                                        {php echo date('Y-m-d H:i:s',$item[addtime])}
+                                        <a class="c9" href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
                                     </h4>
                                     <p>{$item[content]}</p>
                                     {if $TS_USER[userid] == $strArticle[userid] ||
                                     $TS_USER['isadmin']==1}
-                                    <div class="group_banned">
-									<span><a class="j a_confirm_link"
-                                             href="{SITE_URL}index.php?app=article&ac=comment&ts=delete&commentid={$item['commentid']}"
-                                             rel="nofollow">删除</a> </span>
+                                    <div class="mb-2 text-right">
+									<a class="fs12 text-secondary" href="{SITE_URL}index.php?app=article&ac=comment&ts=delete&commentid={$item['commentid']}"><i class="far fa-trash-alt"></i> 删除</a>
                                     </div>
                                     {/if}
                                 </div>
@@ -135,23 +155,44 @@
                     <div>
                         {if intval($TS_USER[userid])==0}
                         <div class="pd20 tac">
-                            <a href="{tsUrl('user','login')}">登录</a> | <a
-                                href="{tsUrl('user','register')}">注册</a>
+                            <a href="{tsUrl('user','login')}">登录</a> | <a href="{tsUrl('user','register')}">注册</a>
                         </div>
                         {else}
-                        <form method="POST"
-                              action="{SITE_URL}index.php?app=article&ac=comment&ts=do"
-                              onSubmit="return submitonce(this)" id="formMini">
-							<textarea style="width: 100%;" type="text" id="tseditor"
-                                      name="content"></textarea>
-                            <br />
-                            <p>
-                                <input type="hidden" name="articleid"
-                                       value="{$strArticle[articleid]}" /> <input type="hidden"
-                                                                                  name="token" value="{$_SESSION['token']}" />
+                        <form method="POST" action="{SITE_URL}index.php?app=article&ac=comment&ts=do">
 
-                                <button class="btn btn-success" type="submit">回复</button>
-                            </p>
+
+                            <div class="wangeditor_toolbar" id="tseditor"></div>
+                            <div class="wangeditor_text" id="tseditor2"></div>
+							<div style="display: none"><textarea name="content"></textarea></div>
+
+
+
+                            <div class="mt-2 of">
+
+
+                                <div class="float-left">
+                                    {if $TS_SITE['isauthcode']}
+                                    验证码：<input name="authcode" />
+                                    <img align="absmiddle" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
+                                    {/if}
+
+                                </div>
+
+
+                                <div class="float-right">
+                                    <input type="hidden" name="articleid" value="{$strArticle[articleid]}" />
+                                    <input type="hidden" name="token" value="{$_SESSION['token']}" />
+
+                                    <button class="btn btn-sm btn-info" type="submit">回复</button>
+                                </div>
+
+
+
+
+                            </div>
+
+
+
                         </form>
                         {/if}
                     </div>
@@ -163,9 +204,9 @@
 
 
 
-            <div class="panel panel-default">
-                <div class="panel-heading">最新文章</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">最新文章</div>
+                <div class="card-body">
 
                     <div class="commlist">
                         <ul>
@@ -184,30 +225,11 @@
 
         <div class="col-md-4">
 
-            <a class="btn btn-info btn-block btn-lg br0" href="{tsUrl('article','add')}">
-                <span class="glyphicon glyphicon-plus-sign"></span> 写文章</a>
-            <p></p>
-
-            {php doAction('gobad','topic_right_top')}
 
 
-            <div class="panel panel-default">
-                <div class="panel-heading">文章分类</div>
-                <div class="panel-body">
-
-                    {loop $arrCate $key $item}
-                    <a class="btn btn-link" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
-                    {/loop}
-
-
-                </div>
-
-            </div>
-
-
-            <div class="panel panel-default">
-                <div class="panel-heading">一周热门</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">一周热门</div>
+                <div class="card-body">
                     <div class="commlist">
                         <ul>
                             {loop $arrHot7 $key $item}
@@ -220,9 +242,9 @@
 
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">一月热门</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">一月热门</div>
+                <div class="card-body">
                     <div class="commlist">
                         <ul>
                             {loop $arrHot30 $key $item}
@@ -244,4 +266,4 @@
     </div>
 </div>
 {php doAction('tseditor','mini')}
-{template footer}
+{php include pubTemplate("footer")}

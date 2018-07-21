@@ -8,6 +8,10 @@ switch($ts){
 	case "list":
 	
 		$arrApps = tsScanDir('plugins');
+
+		foreach($arrApps as $key=>$item){
+		    $arrAppsAbout[$item] = fileRead('app/'.$item.'/about.php');
+        }
 	
 		$apps = tsFilter($_GET['apps']);
 	

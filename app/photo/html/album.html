@@ -1,47 +1,51 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li><a href="{tsUrl('photo')}">相册</a></li>
-  <li class="active">{$strAlbum['albumname']}</li>
-</ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('photo')}">相册</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{$strAlbum['albumname']}</li>
+        </ol>
+    </nav>
 
 
-<div class="panel panel-default">
-  <div class="panel-body">
+<div class="card">
+  <div class="card-body">
   
   
-<h1>{$title}</h1>
+<h1 class="h3 fw400">{$title}</h1>
 
+<hr />
 
+      <div class="c9 fs12">
 
-      <div class="c9 fs12" style="padding-bottom: 10px;">
+          <span class="mr-2">{$strAlbum[count_view]} 人浏览</span>
 
-          {$strAlbum[count_view]} 人浏览
-
-          {$strAlbum[count_photo]}&nbsp;张照片
-          &nbsp;{$strAlbum[addtime]}&nbsp;创建
+          <span class="mr-2">{$strAlbum[count_photo]}&nbsp;张照片</span>
+          &nbsp;<span>{$strAlbum[addtime]}&nbsp;创建</span>
 
 
       </div>
 
   
 
-<div class="row">
+<div class="row mt-3">
 
 
 {if $arrPhoto}
 
 {loop $arrPhoto $key $item}
-  <div class="col-sm-6 col-md-2">
+  <div class="col-4 col-md-2 mb-3">
     <div class="thumbnail">
-      <a href="{tsUrl('photo','show',array('id'=>$item[photoid]))}"><img src="{php echo tsXimg($item[photourl],'photo',170,'170',$item[path],1)}" alt="{$strAlbum['albumname']}{$item['photoname']}" width="170" height="170"></a>
+      <a href="{tsUrl('photo','show',array('id'=>$item[photoid]))}">
+          <img class="mw100" src="{php echo tsXimg($item[photourl],'photo',170,'170',$item[path],1)}" alt="{$strAlbum['albumname']}{$item['photoname']}">
+      </a>
       <div class="caption">
         
-        <p class="c9 fs12">{$item[count_view]}浏览</p>
+        <div class="c9 fs12 mt-1">{$item[count_view]}浏览</div>
 
       </div>
     </div>
@@ -60,23 +64,28 @@
 
 <div class="page">{$pageUrl}</div>
 
-<div>{$strAlbum[albumdesc]}</div>
+<div class="text-black-50">{$strAlbum[albumdesc]}</div>
 
 
+<hr />
 
+      <div class="tar fs12 c9 mt-3">
 
-      <div class="tar fs12 c9">
-          {if $strAlbum[userid] == $TS_USER[userid] || $TS_USER[isadmin]==1}    &nbsp;&gt;&nbsp;<a href="{SITE_URL}index.php?app=photo&ac=album&ts=edit&albumid={$strAlbum[albumid]}">修改相册属性</a>
-          &nbsp;&gt;&nbsp;<a href="{SITE_URL}index.php?app=photo&ac=upload&albumid={$strAlbum[albumid]}">添加照片</a>
-          {if $strAlbum[count_photo]>'0'}&nbsp;&gt;&nbsp;<a href="{SITE_URL}index.php?app=photo&ac=album&ts=info&albumid={$strAlbum[albumid]}">批量修改</a>{/if}{/if}
-
-
-          {if $strAlbum[userid] == $TS_USER[userid] || $TS_USER[isadmin]==1}
-          &nbsp;&gt;&nbsp;<a  class="j a_confirm_link" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=album&ts=del&albumid={$strAlbum[albumid]}">删除相册</a>
+          {if $strAlbum[userid] == $TS_USER[userid] || $TS_USER[isadmin]==1}    &nbsp;
+          &gt;&nbsp;<a href="{tsUrl('photo','album',array('ts'=>'edit','albumid'=>$strAlbum['albumid']))}">修改相册</a>
+          &nbsp;&gt;&nbsp;<a href="{tsUrl('photo','upload',array('albumid'=>$strAlbum['albumid']))}">添加照片</a>
+          {if $strAlbum[count_photo]>'0'}&nbsp;
+          &gt;&nbsp;<a href="{tsUrl('photo','album',array('ts'=>'info','albumid'=>$strAlbum['albumid']))}">批量修改</a>{/if}
           {/if}
 
 
-          &nbsp;&gt;&nbsp;<a href="{tsUrl('photo','album',array(ts=>user,userid=>$strAlbum[userid]))}">返回{if $strAlbum[userid] == $TS_USER[userid]}我{else}{$strUser[username]}{/if}的相册首页</a>
+          {if $strAlbum[userid] == $TS_USER[userid] || $TS_USER[isadmin]==1}
+          &nbsp;&gt;&nbsp;<a href="{tsUrl('photo','album',array('ts'=>'del','albumid'=>$strAlbum['albumid']))}">删除相册</a>
+          {/if}
+
+
+          &nbsp;&gt;&nbsp;<a href="{tsUrl('photo','user',array('id'=>$strAlbum['userid']))}">{$strUser['username']}的相册</a>
+
       </div>
 
 
@@ -84,4 +93,4 @@
 </div>
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}
