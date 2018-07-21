@@ -1,38 +1,38 @@
+<div class="card">
+    <div class="card-body">
+
+
+
 <div class="user_info">
-<div class="photo"><img src="{$strUser['face']}" width="48" /></div>
+<div class="photo"><img class="rounded-circle" src="{$strUser['face']}" width="36" /></div>
 <div class="info">
-<div class="username"><a target="_blank" href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">{$strUser['username']}</a></div>
-<div class="rolename"><a target="_blank" class="btn btn-default btn-sm" href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">访问空间</a></div>
+<div class="username">{$strUser['username']}</div>
+<div class="text-black-50 fs12">{$strUser['count_score']} 积分</div>
 </div>
 </div>
 
-<div class="stats-mod">
-<ul class="user-stats clearfix">
-<li><a href="{tsUrl('my','score')}"><strong>{$strUser['count_score']}</strong>积分</a></li>
-<!--<li><a href="#"><strong>1</strong>T币</a></li>-->
-</ul>
-</div>
 
 
-
-<div class="menu-mod clearfix">
+<div class="menu-mod clearfix mt-3">
 <ul class="menus">
     
-<li {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='index'}class="active"{/if}><a href="{tsUrl('my')}">我的社区</a></li>
+<li><a {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='index'}class="active"{/if} href="{tsUrl('my')}">我的社区</a></li>
 
 
 {loop $GLOBALS['TS_SITE'][mynav] $key $item}
-<li {if $GLOBALS['TS_URL']['app']==$key}class="active"{/if}><a href="{tsUrl($key,'my')}">我的{$item}</a></li>
+<li><a {if $GLOBALS['TS_URL']['app']==$key}class="active"{/if} href="{tsUrl($key,'my')}">我的{$item}</a></li>
 {/loop}
 
 </ul>
 
 
+    <hr />
+
 <ul class="menus">
 
-<li {if $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='my' || $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='system'}class="active"{/if}><a href="{tsUrl('message','my')}">消息</a></li>
+<li><a {if $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='my' || $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='system'  || $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='friend'  || $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='user'}class="active"{/if} href="{tsUrl('message','my')}">消息</a></li>
     
-    <li {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='score'}class="active"{/if}><a href="{tsUrl('my','score')}">积分</a></li>
+    <li><a {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='score'}class="active"{/if} href="{tsUrl('my','score')}">积分</a></li>
 
 
 </ul>
@@ -41,10 +41,13 @@
 
 <ul class="menus">
 
-<li {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='setting'}class="active"{/if}><a href="{tsUrl('my','setting',array('ts'=>'base'))}">账户设置</a></li>
+<li><a {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='setting'}class="active"{/if} href="{tsUrl('my','setting',array('ts'=>'base'))}">账户设置</a></li>
 
 </ul>
     
     <div style="height: 30px"></div>
     
+</div>
+
+    </div>
 </div>

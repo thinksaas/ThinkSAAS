@@ -3,7 +3,7 @@ function tsNotice(msg,title){
 
     $('#myModal').modal('hide');
 
-    var chuangkou = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button> <h4 class="modal-title" id="myModalLabel">提示</h4> </div> <div class="modal-body"> </div> <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> </div> </div> </div> </div>';
+    var chuangkou = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <div class="modal-title" id="myModalLabel">提示</div> <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button> </div> <div class="modal-body"> </div> <div class="modal-footer"> <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">关闭</button> </div> </div> </div> </div>';
 
     $('body').prepend(chuangkou);
 
@@ -90,27 +90,24 @@ function unfollow(userid, token) {
 function tsPost(url,datas){
 	$.post(siteUrl+url,datas,function(rs){
 
-	    /*
-		if(rs.status==2 && rs.url){
-			window.location = rs.url;
-		}else if(rs.status==1){
-			window.location.reload();
-		}else{
-			tsNotice(rs.data);
-		}
-		*/
-        if(rs.status==2 && rs.url){
-            //window.location = rs.url;
+        if(rs.url){
+
             //再来个提示
-            tsNotice(rs.data+"<br />3秒后自动跳转...");
-            //3秒后跳转
-            setTimeout(function() {
-                window.location = rs.url;
-            },3000)
-        }else if(rs.status==1){
-            window.location.reload();
+            tsNotice(rs.msg+'<br /><span class="text-danger" id="notice_daojishi">3</span>秒后自动跳转...');
+
+            var step = 3;
+            var _res = setInterval(function() {
+
+                $('#notice_daojishi').html(step);
+                step-=1;
+                if(step <= 0){
+                    window.location = rs.url;
+                    clearInterval(_res);//清除setInterval
+                }
+            },1000);
+
         }else{
-            tsNotice(rs.data);
+            tsNotice(rs.msg);
         }
 
 
@@ -122,7 +119,6 @@ jQuery(document).ready(function(){
         //alert(event.type);
         $('button[type="submit"]').html('发送中...');
         $('button[type="submit"]').attr("disabled", true);
-
 
         $.ajax({
             cache: true,
@@ -140,27 +136,26 @@ jQuery(document).ready(function(){
 
             success: function(rs) {
 
-                if(rs.status==2 && rs.url){
-
-
-                    //window.location = rs.url;
+                if(rs.url){
 
                     //再来个提示
-                    tsNotice(rs.data+"<br />3秒后自动跳转...");
+                    tsNotice(rs.msg+'<br /><span class="text-danger" id="notice_daojishi">3</span>秒后自动跳转...');
 
-                    //3秒后跳转
-                    setTimeout(function() {
+                    var step = 3;
+                    var _res = setInterval(function() {
 
-                        window.location = rs.url;
+                        $('#notice_daojishi').html(step);
+                        step-=1;
+                        if(step <= 0){
+                            window.location = rs.url;
+                            clearInterval(_res);//清除setInterval
+                        }
+                    },1000);
 
-                    },3000)
 
 
-
-                }else if(rs.status==1){
-                    window.location.reload();
                 }else{
-                    tsNotice(rs.data);
+                    tsNotice(rs.msg);
                     $('button[type="submit"]').removeAttr("disabled");
                     $('button[type="submit"]').html('重新提交');
                 }
@@ -168,8 +163,6 @@ jQuery(document).ready(function(){
             }
         });
         return false;
-
-
     });
 
 });
@@ -199,11 +192,6 @@ $(function(){
         }
     })
 })
-
-//删除提示
-function deltip(){
-    return confirm('确定删除吗?')
-}
 
 
 $(document).ready(function () {
