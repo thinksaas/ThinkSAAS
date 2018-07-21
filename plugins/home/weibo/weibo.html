@@ -1,6 +1,7 @@
-<div class="panel panel-default weibo">
-    <div class="panel-heading">唠唠叨叨</div>
-    <div class="panel-body">
+<div class="card">
+    <div class="card-header">唠唠叨叨</div>
+    <div class="card-body">
+    <div class="weibo">
         <div class="weiform">
             <form id="comm-form" method="post" action="{SITE_URL}index.php?app=weibo&ac=add">
                 <textarea name="content" placeholder="说点啥..."></textarea>
@@ -14,7 +15,7 @@
             <ul id="weibolist">
                 {loop $arrWeibo $key $item}
                 <li>
-                    <span class="portrait"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img align="absmiddle" class="SmallPortrait img-rounded" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}"></a></span>
+                    <span class="portrait"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img align="absmiddle" class="SmallPortrait rounded-circle" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}"></a></span>
                     <span class="body">
 <span class="user"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a>：</span><span class="log">{$item['content']}</span>
 {if $item[photo]}
@@ -29,5 +30,6 @@
                 {/loop}
             </ul>
         </div>
+    </div>
     </div>
 </div>

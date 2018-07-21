@@ -57,11 +57,11 @@
     width: 230px;
 }
 .weilist ul li .user a {
-    color: #6CABE1;
+
 }
 
 .weilist ul li .log {
-    color: #666666;
+    color: #999;
     word-break: break-all;
 }
 .weilist ul li .time {

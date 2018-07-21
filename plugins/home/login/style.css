@@ -1,13 +1,7 @@
 .login {
-    font-size: 14px;
-	margin-bottom:10px;
-	background:#fafafa;
     overflow: hidden;
 }
-.login form {
-    padding: 23px 0 0 50px;
-    position: relative;
-}
+
 legend {
     display: none;
 }

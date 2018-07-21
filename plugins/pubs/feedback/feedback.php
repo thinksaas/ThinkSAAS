@@ -8,17 +8,15 @@ function feedback_html(){
 		$code = $tsMySqlCache->get('plugins_pubs_feedback');
 	}
 	
-	echo '<div class="feedback-box">'.stripslashes($code).'<div class="jubao"><a href="'.tsUrl('home','report').'">举报</a></div></div>';
+	echo '<div class="feedback-box">'.stripslashes($code).'<!--<div class="jubao"><a href="'.tsUrl('home','report').'">举报</a></div></div>-->';
 }
 
 addAction('pub_footer','feedback_html');
 
 function feedback_css(){
 	echo '<style>.feedback-box {
-    background-color: #83ACC6;
-    border-right: 1px solid #D3E3F0;
+    background-color: #49a5de;
     bottom: 60%;
-    opacity: 0.6;
     padding: 1px 0;
     position: fixed;
     right: 0;

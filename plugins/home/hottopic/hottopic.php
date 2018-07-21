@@ -2,16 +2,20 @@
 defined('IN_TS') or die('Access Denied.'); 
 function hottopic(){
 	
-	$arrHotTopics = aac('group')->getHotTopic(7);
+	$arrHotTopics = aac('group')->findAll('group_topic',array(
+	    'isaudit'=>0,
+    ),'addtime desc','topicid,title',10);
 	
-	echo '<div class="panel panel-default">';
-	echo '<div class="panel-heading">热门话题</div>';
-	echo '<div class="panel-body commlist">';
+	echo '<div class="card">';
+	echo '<div class="card-header">最新话题</div>';
+	echo '<div class="card-body">';
+	echo '<div class="commlist">';
 	echo '<ul>';
 	foreach($arrHotTopics as $key=>$item){
-		echo '<li><a href="'.tsUrl('group','topic',array('id'=>$item['topicid'])).'">'.cututf8(stripslashes($item['title']),0,20,false).'</a> ('.$item['count_view'].')</li>';
+		echo '<li><a href="'.tsUrl('group','topic',array('id'=>$item['topicid'])).'">'.cututf8(stripslashes($item['title']),0,20,false).'</a></li>';
 	}
 	echo '</ul>';
+	echo '</div>';
 	echo '</div>';
 	echo '</div>';
 	

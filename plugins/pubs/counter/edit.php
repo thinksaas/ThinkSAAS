@@ -9,8 +9,8 @@ switch($ts){
 			$code = $tsMySqlCache->get('plugins_pubs_counter');
 		}
 		$code = stripslashes($code);
-		
-		include 'edit_set.html';
+
+        include template('edit_set','counter');
 		break;
 		
 	case "do":

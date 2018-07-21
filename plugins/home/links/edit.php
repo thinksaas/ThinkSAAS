@@ -12,7 +12,7 @@ switch($ts){
 			$arrLink = $tsMySqlCache->get('plugins_home_links');
 		}
 		
-		include 'edit_set.html';
+		include template('edit_set','links');
 		break;
 		
 	case "do":

@@ -11,8 +11,8 @@ switch($ts){
 		}
 		
 		$code = stripslashes($code);
-		
-		include 'edit_set.html';
+
+        include template('edit_set','feedback');
 		break;
 		
 	case "do":

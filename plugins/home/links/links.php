@@ -8,13 +8,12 @@ function links_html(){
 	if($arrLink==''){
 		$arrLink = $tsMySqlCache->get('plugins_home_links');
 	}
-	
-	echo '<div class="clear"></div>';
-	echo '<div class="panel panel-default hidden-xs">';
-	echo '<div class="panel-heading">友情链接</div>';
-	echo '<div class="panel-body links">';
+
+	echo '<div class="card">';
+	echo '<div class="card-header">友情链接</div>';
+	echo '<div class="card-body">';
 	foreach($arrLink as $item){
-		echo '<a class="btn btn-link" target="_blank" href="'.$item['linkurl'].'">'.$item['linkname'].'</a> ';
+		echo '<a class="fs14 mr-3" target="_blank" href="'.$item['linkurl'].'">'.$item['linkname'].'</a> ';
 	}
 	echo '</div></div>';
 }

@@ -8,8 +8,8 @@ switch($ts){
 		if($arrData==''){
 			$arrData = $tsMySqlCache->get('plugins_pubs_wordad');
 		}
-		
-		include 'edit.html';
+
+        include template('edit','wordad');
 		break;
 	//执行编辑
 	case "do":

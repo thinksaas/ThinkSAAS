@@ -9,8 +9,8 @@ switch($ts){
 		if($arrNav==''){
 			$arrNav = $tsMySqlCache->get('plugins_pubs_navs');
 		}
-		
-		include 'edit_set.html';
+
+        include template('edit_set','navs');
 		break;
 		
 	case "do":

@@ -6,15 +6,15 @@ function newgroup(){
 		'isaudit'=>0,
 	),'addtime desc','groupid,groupname',10);
 	
-	echo '<div class="panel panel-default">';
-	echo '<div class="panel-heading">最新创建小组</div>';
-	echo '<div class="panel-body commlist"><ul>';
+	echo '<div class="card">';
+	echo '<div class="card-header">最新创建小组</div>';
+	echo '<div class="card-body"><div class="commlist"><ul>';
 	foreach($arrNewGroup as $key=>$item){
 	
 		echo '<li><a href="'.tsUrl('group','show',array('id'=>$item['groupid'])).'">'.$item['groupname'].'</a></li>';
 	
 	}
-	echo '</ul></div>';
+	echo '</ul></div></div>';
 	echo '</div>';
 	
 }

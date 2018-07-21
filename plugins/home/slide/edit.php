@@ -8,7 +8,7 @@ switch($ts){
 		
 
 		
-		include 'edit_set.html';
+		include template('edit_set','slide');
 		break;
 		
 	case "do":
@@ -16,11 +16,13 @@ switch($ts){
 
 		$typeid = intval($_POST['typeid']);
 		$title = trim($_POST['title']);
+		$info = trim($_POST['info']);
 		$url = trim($_POST['url']);
 		
 		$slideid = $new[$app]->create('slide',array(
             'typeid'=>$typeid,
 			'title'=>$title,
+			'info'=>$info,
 			'url'=>$url,
 			'addtime'=>time(),
 		));
@@ -50,8 +52,8 @@ switch($ts){
 			'slideid'=>$slideid,
 		));
 		
-		
-		include 'edit_edit.html';
+
+        include template('edit_edit','slide');
 		break;
 		
 	case "editdo":
@@ -59,6 +61,7 @@ switch($ts){
 		$slideid = intval($_POST['slideid']);
 		$typeid = intval($_POST['typeid']);
 		$title = trim($_POST['title']);
+		$info = trim($_POST['info']);
 		$url = trim($_POST['url']);
 		
 		$new[$app]->update('slide',array(
@@ -66,6 +69,7 @@ switch($ts){
 		),array(
 			'typeid'=>$typeid,
 			'title'=>$title,
+			'info'=>$info,
 			'url'=>$url,
 		));
 		

@@ -1,22 +1,24 @@
-<div class="photoalbumlist panel panel-default">
-<div class="panel-heading">推荐相册
-<small><a href="{tsUrl('photo')}">更多</a></small>
+<div class="card">
+<div class="card-header">推荐相册
+<small class="float-right"><a class="text-black-50" href="{tsUrl('photo')}">更多</a></small>
 </div>
-<div class="panel-body">
+<div class="card-body">
+<div class="photoalbumlist">
 
     <div class="row">
         {loop $arrAlbum $key $item}
-    <div class="col-xs-6 col-md-2">
+    <div class="col-6 col-md-2">
         <a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}" class="thumbnail">
-            <img src="{if $item[albumface] == ''}{SITE_URL}app/photo/skins/default/photo_album.png{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" alt="{$item['albumname']}">
+            <img class="rounded mw100" src="{if $item[albumface] == ''}{SITE_URL}app/photo/skins/default/photo_album.png{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" alt="{$item['albumname']}">
         </a>
-        <p><a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}">{$item['albumname']}</a></p>
-        <p class="c9">{$item['count_photo']} 张图片</p>
+        <div class="mt-1"><a class="title-cut" href="{tsUrl('photo','album',array('id'=>$item[albumid]))}">{$item['albumname']}</a></div>
+        <div class="fs12 text-black-50">{$item['count_photo']} 张图片</div>
     </div>
         {/loop}
     </div>
 
 
 
+</div>
 </div>
 </div>
