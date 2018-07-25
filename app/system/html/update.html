@@ -32,18 +32,5 @@ function isupdate(version){
 	});   
 }
 isupdate("{$TS_CF['info']['version']}");
-
-$(document).ready(function(){
-	$.getJSON("https://www.thinksaas.cn/index.php?app=upcenter&ac=patch&version={$TS_CF['info']['version']}&callback=?",
-	function(data){
-	    if(data){
-            $.each(data, function(i,item){
-                $("#patchlist").append("<li>["+item.uptime+"] <a target=\"_blank\" href=\""+item.upurl+"\">"+item.title+"</a></li>");
-            });
-        }
-
-	});   
-});
-
 </script>
 {php include pubTemplate("footer_admin")}

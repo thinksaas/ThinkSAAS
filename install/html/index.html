@@ -1,16 +1,7 @@
 <?php include 'header.html'; ?>
 
 <style>
-.main{
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #DFDFDF;
-    border-radius: 11px 11px 11px 11px;
-    color: #333333;
-    font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
-    margin: 2em auto;
-    padding: 1em 2em;
-    width: 700px;
-}
+
 p, li, dd, dt {
     font-size: 12px;
     line-height: 18px;
@@ -48,9 +39,17 @@ p, li, dd, dt {
 </style>
 
 <!--main-->
-<div class="midder">
+<div class="container mt-3 mb-3">
 
-<div class="main">
+<div class="card">
+<div class="card-body">
+
+
+    <div id="notice" class="alert alert-danger" style="display: none;">
+        重要：ThinkSAAS已经有最新版本发布，<a target="_blank" href="https://www.thinksaas.cn/service/down/">点击去下载</a>
+    </div>
+
+
 <p>欢迎使用 ThinkSAAS！在您开始使用前，ThinkSAAS 需要一些数据库的信息。下列信息将会被问到，请作好准备。</p>
 <ol>
 <li>数据库名</li>
@@ -61,8 +60,8 @@ p, li, dd, dt {
 </ol>
 
 <p>PHP环境必要组件检测</p>
-<table>
-    <thead>
+<table class="table table-bordered">
+    <thead class="thead-light">
     <tr><th>PHP组件</th><th>检测结果</th></tr>
     </thead>
     <tbody>
@@ -104,7 +103,18 @@ p, li, dd, dt {
 <p class="step"><a class="button" href="index.php?install=next">点击开始安装！</a></p>
 <?php } ?>
 </div>
-
 </div>
 
+</div>
+<script>
+//新版本检测
+$(document).ready(function(){
+    $.getJSON("https://www.thinksaas.cn/index.php?app=upcenter&ac=find&version=<?php echo $TS_CF['info']['version'];?>&callback=?",
+        function(data){
+            if(data){
+                $("#notice").show();
+            }
+        });
+});
+</script>
 <?php include 'footer.html'; ?>
