@@ -8,6 +8,10 @@
 // 定义网站根目录,APP目录,DATA目录，ThinkSAAS核心目录
 define('IN_TS', true);
 
+if (substr(PHP_VERSION, 0, 3)<5.4) {
+    exit("ThinkSAAS运行环境要求PHP5.4或者更高！");
+}
+
 define('THINKROOT', dirname(__FILE__));
 define('THINKAPP', THINKROOT . '/app');
 define('THINKDATA', THINKROOT . '/data');

@@ -139,7 +139,7 @@ switch($ts){
 		if($_FILES['photo']){
 			
 			//上传
-			$arrUpload = tsUpload($_FILES['photo'],$userid,'user',array('jpg','gif','png'));
+			$arrUpload = tsUpload($_FILES['photo'],$userid,'user',array('jpg','gif','png','jpeg'));
 			
 			if($arrUpload){
 

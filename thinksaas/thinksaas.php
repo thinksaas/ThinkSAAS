@@ -1,17 +1,13 @@
 <?php
-
-defined('IN_TS') or die('Access Denied.');
 /**
  * @copyright (c) ThinkSAAS All Rights Reserved
  * @code by QiuJun
  * @Email:thinksaas@qq.com
  * @site:www.thinksaas.cn
  */
-header('Content-Type: text/html; charset=UTF-8');
+defined('IN_TS') or die('Access Denied.');
 
-if (substr(PHP_VERSION, 0, 3)<5.4) {
-    exit("ThinkSAAS运行环境要求PHP5.4或者更高！");
-}
+header('Content-Type: text/html; charset=UTF-8');
 
 //核心配置文件 $TS_CF 系统配置变量
 $TS_CF = include THINKROOT . '/thinksaas/config.php';
