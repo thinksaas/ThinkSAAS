@@ -59,7 +59,7 @@ function getDefaultWhiteList() {
     s: [],
     section: [],
     small: [],
-    span: [],
+    span: ["style"],
     sub: [],
     sup: [],
     strong: [],
@@ -519,7 +519,7 @@ function parseTag(html, onTag, escapeHtml) {
     if (tagStart === false) {
       if (c === "<") {
         tagStart = currentPos;
-        continue;
+
       }
     } else {
       if (quoteStart === false) {
@@ -546,12 +546,12 @@ function parseTag(html, onTag, escapeHtml) {
         }
         if ((c === '"' || c === "'") && html.charAt(currentPos - 1) === "=") {
           quoteStart = c;
-          continue;
+
         }
       } else {
         if (c === quoteStart) {
           quoteStart = false;
-          continue;
+
         }
       }
     }
@@ -625,10 +625,10 @@ function parseAttr(html, onAttr) {
           addAttr(v);
           tmpName = false;
           lastPos = i + 1;
-          continue;
+
         } else {
           i = j - 1;
-          continue;
+
         }
       } else {
         j = findBeforeEqual(html, i - 1);
@@ -638,9 +638,9 @@ function parseAttr(html, onAttr) {
           addAttr(tmpName, v);
           tmpName = false;
           lastPos = i + 1;
-          continue;
+
         } else {
-          continue;
+
         }
       }
     }
@@ -916,7 +916,7 @@ FilterXSS.prototype.process = function(html) {
             // call `onIgnoreTagAttr()`
             var ret = onIgnoreTagAttr(tag, name, value, isWhiteAttr);
             if (!isNull(ret)) return ret;
-            return;
+
           }
         });
 

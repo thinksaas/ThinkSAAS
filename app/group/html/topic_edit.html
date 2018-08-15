@@ -49,7 +49,7 @@
   <div class="form-group">
     <label>内容</label>
 
-    <div id="tseditor"><div>{$strTopic['content']}</div></div>
+    <div id="tseditor">{$strTopic['content']}</div>
 
     <div style="display: none;">
       <textarea name="content">{$strTopic['content']}</textarea>
@@ -84,7 +84,7 @@
     <label>验证码</label>
     
 <input name="authcode" />
- <img align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
+ <img align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
 	
   </div>
 {/if}
