@@ -7,8 +7,6 @@
  */
 defined('IN_TS') or die('Access Denied.');
 
-header('Content-Type: text/html; charset=UTF-8');
-
 //核心配置文件 $TS_CF 系统配置变量
 $TS_CF = include THINKROOT . '/thinksaas/config.php';
 $TS_CF['info']['version'] = include 'upgrade/version.php';#版本信息

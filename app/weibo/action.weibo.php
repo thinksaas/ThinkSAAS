@@ -378,7 +378,8 @@ class weiboAction extends weibo{
             include 'app/'.$GLOBALS['TS_URL']['app'].'/my.'.$GLOBALS['TS_URL']['app'].'.php';
             $appMy = $GLOBALS['TS_URL']['app'].'My';
             $newMy = new $appMy($GLOBALS['db']);
-            $newMy->$GLOBALS['TS_URL']['my']();
+            $myFun = $GLOBALS['TS_URL']['my'];
+            $newMy->$myFun();
         }else{
             ts404();
         }
