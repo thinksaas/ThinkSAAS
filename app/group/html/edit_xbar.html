@@ -8,7 +8,7 @@
 
 
     {if $strGroup['joinway']==2}
-    <a class="btn btn-sm {if $ts=="useraudit"}btn-outline-secondary{else}text-secondary{/if} href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'useraudit'))}">成员审核</a>
+    <a class="btn btn-sm {if $ts=="useraudit"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'useraudit'))}">成员审核</a>
     {/if}
 
     <a class="btn btn-sm {if $ts=="isadmin"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'isadmin'))}">管理员</a>

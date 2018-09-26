@@ -231,7 +231,7 @@ if ($TS_CF['logs']) {
 
 //控制访客权限
 if($TS_USER=='' && $TS_SITE['visitor'] == 1){
-    if($ac!='home' && $ac!='register' && $ac!='login' && $ac!='forgetpwd' && $ac!='resetpwd' && $app!='api'){
+    if($app!='pubs' && $ac!='home' && $ac!='register' && $ac!='login' && $ac!='forgetpwd' && $ac!='resetpwd' && $app!='api'){
         tsHeaderUrl(tsUrl('pubs','home'));
     }
 }

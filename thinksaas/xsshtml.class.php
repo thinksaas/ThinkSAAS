@@ -9,7 +9,6 @@
  * @copyright (c) Phithon All Rights Reserved
  *
  */
-
 #
 # Written by Phithon <root@leavesongs.com> in 2014 and placed in
 # the public domain.

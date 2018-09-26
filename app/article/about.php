@@ -1,4 +1,7 @@
 <?php
+/**
+ * 文章基本信息
+ */
 defined('IN_TS') or die('Access Denied.');
 return array(
     'name' => '文章',

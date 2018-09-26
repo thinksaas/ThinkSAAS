@@ -25,4 +25,10 @@ $new['group']->delete('group_user',array(
 	'groupid'=>$groupid,
 ));
 
+$new['group']->update('group',array(
+    'groupid'=>$groupid,
+),array(
+    'count_user'=>$strGroup['count_user']-1,
+));
+
 echo 2;exit;
