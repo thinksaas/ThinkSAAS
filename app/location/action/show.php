@@ -12,9 +12,11 @@ $arrArticle = $new['location']->findAll('article',array(
 	'locationid'=>$locationid,
 ),'addtime desc',null,10);
 //资料
+/*
 $arrAttach = $new['location']->findAll('attach',array(
 	'locationid'=>$locationid,
 ),'addtime desc',null,10);
+*/
 //帖子
 $arrTopic = $new['location']->findAll('group_topic',array(
 	'locationid'=>$locationid,

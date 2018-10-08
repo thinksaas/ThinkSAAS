@@ -1,13 +1,7 @@
 .login {
-    font-size: 14px;
-	height:210px;
-	margin-bottom:10px;
-	background:#fafafa
+    overflow: hidden;
 }
-.login form {
-    padding: 23px 0 0 50px;
-    position: relative;
-}
+
 legend {
     display: none;
 }
@@ -15,7 +9,7 @@ fieldset {
     border: 0 none;
     margin: 0;
     padding: 0;
-	margin-bottom: 15px;
+	margin-bottom: 0px;
 }
 fieldset legend {
     color: #666666;
@@ -44,21 +38,10 @@ label {
     color: #666666;
     float: left;
     font-size: 12px;
-    margin: 0 2px 10px 0;
+    margin: 0 2px 0px 0;
 }
 .login .item1 label {
     display: inline-block;
     margin-left: 4.5em;
     margin-top: 4px;
-}
-.bn-submit {
-    background: url("ui_nav_logo_4.png") no-repeat scroll -23px -48px transparent;
-    border: medium none;
-    color: #FFFFFF;
-    cursor: pointer;
-    font-size: 14px;
-    height: 28px;
-    line-height: 28px;
-    padding-bottom: 3px;
-    width: 80px;
 }

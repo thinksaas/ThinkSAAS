@@ -1,16 +1,16 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
     <div class="row">
 
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
 
 
 
-            <div class="panel panel-default">
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-body">
 
 
 
@@ -32,7 +32,7 @@
                             <input type="email" class="form-control" disabled value="{$strUser['email']}">
                         </div>
 
-                        <a class="btn btn-success btn-block" href="{tsUrl('user','verify',array('ts'=>'post','token'=>$_SESSION['token']))}">开始验证</a>
+                        <a class="btn btn-sm btn-info" href="{tsUrl('user','verify',array('ts'=>'post','token'=>$_SESSION['token']))}">点击发送验证</a>
 
                         <hr />
 
@@ -44,7 +44,7 @@
 
 
                         <input type="hidden" name="token" value="{$_SESSION['token']}" />
-                        <input class="btn btn-default btn-block" type="submit" value="提交修改" />
+                        <input class="btn btn-sm btn-outline-secondary" type="submit" value="提交修改" />
                     </form>
 
                     {/if}
@@ -56,9 +56,9 @@
 
 
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-3"></div>
 </div>
 
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

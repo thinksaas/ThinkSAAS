@@ -1,0 +1,66 @@
+{php include pubTemplate("header")}
+
+<div class="container">
+
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">小组设置</li>
+        </ol>
+    </nav>
+
+
+    <div class="card">
+        <div class="card-body">
+
+
+            {template edit_xbar}
+
+
+<div class="row">
+   <div class="col-md-3"></div>
+   <div class="col-md-6">
+       <form id="comm-form" class="form-inline" role="form" method="post" action="{SITE_URL}index.php?app=group&ac=edit&ts=isadmindo&groupid={$strGroup['groupid']}">
+
+           <div class="form-group">
+               <input type="text" name="userid" class="form-control form-control-sm" placeholder="输入用户ID">
+           </div>
+
+           <button type="submit" class="btn btn-sm btn-info ml-1">设为管理员</button>
+
+       </form>
+
+
+       <table class="table table-bordered mt-3">
+
+           <thead class="thead-light">
+           <tr><th>ID</th><th>用户名</th><th>操作</th></tr>
+           </thead>
+
+
+           <tbody>
+           {loop $arrAdminUser $key $item}
+           <tr>
+               <td>{$item['userid']}</td>
+               <td>{$item['username']}</td>
+               <td><a class="btn btn-outline-secondary btn-sm" href="javascript:void('0')" onclick="tsPost('index.php?app=group&ac=edit&groupid={$groupid}&ts=isadmindel&js=1',{'userid':'{$item[userid]}'})">取消</a></td>
+           </tr>
+           {/loop}
+           </tbody>
+
+       </table>
+
+
+   </div>
+   <div class="col-md-3"></div>
+</div>
+
+
+        </div>
+    </div>
+
+</div>
+{php include pubTemplate("footer")}

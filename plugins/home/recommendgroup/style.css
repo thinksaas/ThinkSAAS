@@ -1,0 +1,26 @@
+.sub-item{
+    border-bottom: 1px dashed #AAAAAA;
+    height: 72px;
+    margin: 0 2px 15px 0;
+    overflow: hidden;
+}
+.sub-item .pic {
+    float: left;
+    width: 48px;
+}
+.sub-item .info {
+    color: #666666;
+    vertical-align: top;
+    word-wrap: break-word;
+    margin-left:60px;
+}
+.sub-item .pic img {
+    height: 48px;
+    margin-bottom: -3px;
+    width: 48px;
+}
+.sub-item .info .content{font-size:12px;}
+
+.sub-item p {
+    margin: 0;
+}

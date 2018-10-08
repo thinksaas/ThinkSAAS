@@ -7,7 +7,7 @@
 	width:100%;
     position: relative;
 	overflow:hidden;
-    border-radius: 5px;
+    border-radius: 0px;
 }
 .weiform textarea {
     background: none repeat scroll 0 0 #FFFFFF;
@@ -46,7 +46,6 @@
 }
 .weilist ul  li .portrait img {
     background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #CCCCCC;
     height: 32px;
     padding: 1px;
     width: 32px;
@@ -58,11 +57,11 @@
     width: 230px;
 }
 .weilist ul li .user a {
-    color: #6CABE1;
+
 }
 
 .weilist ul li .log {
-    color: #666666;
+    color: #999;
     word-break: break-all;
 }
 .weilist ul li .time {

@@ -11,16 +11,12 @@ switch($ts){
 		
 	case "basedo":
 	
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
-	
 		$username = t($_POST['username']);
 		$signed = t($_POST['signed']);
 		$phone = t($_POST['phone']);
 		$blog = t($_POST['blog']);
 		$about = t($_POST['about']);
-		$sex = intval($_POST['sex']);
+		$sex = t($_POST['sex']);
 
 		if($TS_USER == '') {
 		
@@ -72,6 +68,7 @@ switch($ts){
 
 
         //签名中禁止写URL,Email
+        /*
         if(filter_var($signed, FILTER_SANITIZE_URL) || filter_var($signed, FILTER_VALIDATE_EMAIL)){
             tsNotice('签名不合法！请修改后再提交！');
         }
@@ -79,6 +76,7 @@ switch($ts){
         if(filter_var($about, FILTER_SANITIZE_URL) || filter_var($about, FILTER_VALIDATE_EMAIL)){
             tsNotice('个人介绍不合法！请修改后再提交！');
         }
+        */
 
 
 		
@@ -92,6 +90,9 @@ switch($ts){
 			'phone'	=> $phone,
 			'about' => $about,
 		));
+
+		#更新session用户名
+        $_SESSION['tsuser']['username'] = $username;
 
 		tsNotice("基本资料更新成功！");
 	
@@ -135,10 +136,10 @@ switch($ts){
 	//执行上传头像
 	case "facedo":
 	
-		if($_FILES['picfile']){
+		if($_FILES['photo']){
 			
 			//上传
-			$arrUpload = tsUpload($_FILES['picfile'],$userid,'user',array('jpg','gif','png'));
+			$arrUpload = tsUpload($_FILES['photo'],$userid,'user',array('jpg','gif','png','jpeg'));
 			
 			if($arrUpload){
 
@@ -224,10 +225,6 @@ switch($ts){
 		break;
 		
 	case "emaildo":
-	
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
 		
 		$email = trim($_POST['email']);
 		

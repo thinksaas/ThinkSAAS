@@ -37,6 +37,10 @@ switch ($ts) {
 			$arrArticle [] = $item;
 			$arrArticle [$key]['title'] = stripslashes($item['title']);
 			$arrArticle [$key] ['user'] = aac ( 'user' )->getOneUser ( $item ['userid'] );
+            $arrArticle [$key] ['cate'] = array(
+                'cateid'=>$strCate['cateid'],
+                'catename'=>$strCate['catename'],
+            );
 		}
 		
 		// 推荐阅读
@@ -53,7 +57,7 @@ switch ($ts) {
 		$sitekey = $strCate ['catename'];
 		$sitedesc = $strCate ['catename'] . ' - 文章';
 		
-		include template ( 'cate' );
+		include template ( 'index' );
 		
 		break;
 }

@@ -13,7 +13,6 @@ if($new['user']->isUser($userid)==false){
 }
 
 $strUser = $new['user']->getOneUser($userid);
-$strUser['rolename'] = aac('user')->getRole($strUser['count_score']);
 
 //是否关注
 if($TS_USER['userid'] != '' && $TS_USER['userid'] != $strUser['userid']){

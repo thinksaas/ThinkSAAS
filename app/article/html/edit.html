@@ -1,17 +1,19 @@
-{template header}
-{php doAction('tseditor')}
+{php include pubTemplate("header")}
 <div class="container">
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li><a href="{tsUrl('article')}">文章</a></li>
-  <li><a href="{tsUrl('article','show',array('id'=>$strArticle['articleid']))}">{$strArticle['title']}</a></li>
-  <li class="active">修改文章</li>
-</ol>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('article')}">文章</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('article','show',array('id'=>$strArticle['articleid']))}">{$strArticle['title']}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">修改文章</li>
+        </ol>
+    </nav>
 
 
-<div class="panel panel-default">
-  <div class="panel-body">
+<div class="card">
+  <div class="card-body">
 
 
 <div class="row">
@@ -29,9 +31,9 @@
   <div class="form-group">
     <label>分类：</label>
     
-<select id="cateid" name="cateid">
+<select class="form-control" id="cateid" name="cateid">
 {loop $arrCate $key $item}
-<option value="{$item['cateid']}" {if $item['cateid']==$strArticle['ceteid']}selected{/if}>{$item['catename']}</option>
+<option value="{$item['cateid']}" {if $item['cateid']==$strArticle['cateid']}selected{/if}>{$item['catename']}</option>
 {/loop}
 </select>
 	
@@ -40,7 +42,14 @@
 
   <div class="form-group">
     <label>内容：</label>
-<textarea name="content" id="tseditor">{$strArticle['content']}</textarea>
+
+      <div id="tseditor">{$strArticle['content']}</div>
+
+      <div style="display: none;">
+          <textarea  name="content">{$strArticle['content']}</textarea>
+      </div>
+
+
   </div>
 
 
@@ -58,14 +67,23 @@
     <label>封面图片：</label>
 	
 	{if $strArticle['photo']}
-	<img src="{php echo tsXimg($strArticle['photo'],'article',180,140,$strArticle['path'],'1')}" /><br />
+       <p>
+	<img  width="200" src="{php echo tsXimg($strArticle['photo'],'article',640,400,$strArticle['path'],'1')}" />
+       </p>
 	{/if}
-    <input name="photo" type="file">
+
+       <div class="custom-file">
+           <input type="file" name="photo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png">
+           <label class="custom-file-label c9" for="customFile">支持jpg,png格式；大小640*400px</label>
+       </div>
+
   </div>
   
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
 <input type="hidden" name="articleid" value="{$strArticle['articleid']}" />
-<button class="btn btn-success" type="submit">发布文章</button>
+<button class="btn btn-sm btn-info" type="submit">修改文章</button>
+
+    <a class="btn btn-outline-secondary btn-sm" href="{tsUrl('article','show',array('id'=>$strArticle['articleid']))}">返回文章</a>
   
 </form>
 
@@ -84,5 +102,5 @@
 
 
 </div>
-
-{template footer}
+{php doAction('tseditor')}
+{php include pubTemplate("footer")}

@@ -1,23 +1,26 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.4
--- http://www.phpmyadmin.net
+-- version 4.4.15.10
+-- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 2015-10-09 20:18:06
--- 服务器版本： 5.6.17
--- PHP Version: 5.5.22
+-- Generation Time: 2018-07-21 00:09:48
+-- 服务器版本： 5.5.57-log
+-- PHP Version: 5.4.45
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Database: `thinksaas_release`
+-- Database: `dev_thinksaas`
 --
 
-
-DROP TABLE IF EXISTS `ts_anti_email`, `ts_anti_ip`, `ts_anti_user`, `ts_anti_word`, `ts_article`, `ts_article_cate`, `ts_article_comment`, `ts_article_options`, `ts_article_recommend`, `ts_attach`, `ts_attach_album`, `ts_attach_options`, `ts_cache`, `ts_editor`, `ts_feed`, `ts_feed_options`, `ts_group`, `ts_group_album`, `ts_group_album_topic`, `ts_group_cate`, `ts_group_options`, `ts_group_topic`, `ts_group_topic_add`, `ts_group_topic_collect`, `ts_group_topic_comment`, `ts_group_topic_edit`, `ts_group_topic_type`, `ts_group_user`, `ts_group_user_isaudit`, `ts_home_info`, `ts_location`, `ts_mail_options`, `ts_message`, `ts_photo`, `ts_photo_album`, `ts_photo_comment`, `ts_photo_options`, `ts_redeem_cate`, `ts_redeem_goods`, `ts_redeem_options`, `ts_redeem_user`, `ts_session`, `ts_slide`, `ts_system_options`, `ts_tag`, `ts_tag_article_index`, `ts_tag_group_index`, `ts_tag_photo_index`, `ts_tag_topic_index`, `ts_tag_user_index`, `ts_task`, `ts_task_user`, `ts_user`, `ts_user_follow`, `ts_user_gb`, `ts_user_group`, `ts_user_info`, `ts_user_invites`, `ts_user_open`, `ts_user_options`, `ts_user_role`, `ts_user_score`, `ts_user_score_log`, `ts_weibo`, `ts_weibo_comment`, `ts_weibo_options`;
-
+DROP TABLE IF EXISTS `ts_anti_email`, `ts_anti_ip`, `ts_anti_report`, `ts_anti_user`, `ts_anti_word`, `ts_article`, `ts_article_cate`, `ts_article_comment`, `ts_article_options`, `ts_article_recommend`, `ts_cache`, `ts_editor`, `ts_group`, `ts_group_album`, `ts_group_album_topic`, `ts_group_cate`, `ts_group_options`, `ts_group_topic`, `ts_group_topic_collect`, `ts_group_topic_comment`, `ts_group_topic_edit`, `ts_group_topic_type`, `ts_group_user`, `ts_group_user_isaudit`, `ts_home_info`, `ts_location`, `ts_mail_options`, `ts_message`, `ts_photo`, `ts_photo_album`, `ts_photo_comment`, `ts_photo_options`, `ts_session`, `ts_slide`, `ts_system_options`, `ts_tag`, `ts_tag_article_index`, `ts_tag_group_index`, `ts_tag_photo_index`, `ts_tag_topic_index`, `ts_tag_user_index`, `ts_task`, `ts_task_user`, `ts_user`, `ts_user_follow`, `ts_user_gb`, `ts_user_group`, `ts_user_info`, `ts_user_invites`, `ts_user_open`, `ts_user_options`, `ts_user_role`, `ts_user_score`, `ts_user_score_log`, `ts_weibo`, `ts_weibo_comment`, `ts_weibo_options`;
 
 -- --------------------------------------------------------
 
@@ -26,11 +29,10 @@ DROP TABLE IF EXISTS `ts_anti_email`, `ts_anti_ip`, `ts_anti_user`, `ts_anti_wor
 --
 
 CREATE TABLE IF NOT EXISTS `ts_anti_email` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `email` char(32) NOT NULL DEFAULT '' COMMENT 'Email',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '添加时间',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='过滤Email' AUTO_INCREMENT=1 ;
+  `id` int(11) NOT NULL COMMENT '自增ID',
+  `email` varchar(64) NOT NULL DEFAULT '' COMMENT 'Email',
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='过滤Email';
 
 -- --------------------------------------------------------
 
@@ -39,12 +41,23 @@ CREATE TABLE IF NOT EXISTS `ts_anti_email` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_anti_ip` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `ip` char(32) NOT NULL DEFAULT '' COMMENT 'IP地址',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '添加时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `ip` (`ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='垃圾IP' AUTO_INCREMENT=1 ;
+  `id` int(11) NOT NULL COMMENT '自增ID',
+  `ip` varchar(64) NOT NULL DEFAULT '' COMMENT 'IP地址',
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='垃圾IP';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ts_anti_report`
+--
+
+CREATE TABLE IF NOT EXISTS `ts_anti_report` (
+  `reportid` int(11) NOT NULL COMMENT '举报ID',
+  `url` varchar(128) NOT NULL DEFAULT '' COMMENT '举报链接',
+  `content` varchar(512) NOT NULL DEFAULT '' COMMENT '举报内容',
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='内容举报';
 
 -- --------------------------------------------------------
 
@@ -53,12 +66,10 @@ CREATE TABLE IF NOT EXISTS `ts_anti_ip` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_anti_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `id` int(11) NOT NULL COMMENT '自增ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='过滤用户' AUTO_INCREMENT=1 ;
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='过滤用户';
 
 -- --------------------------------------------------------
 
@@ -67,11 +78,10 @@ CREATE TABLE IF NOT EXISTS `ts_anti_user` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_anti_word` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `word` char(32) NOT NULL DEFAULT '' COMMENT '垃圾词',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '添加时间',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='垃圾词' AUTO_INCREMENT=535 ;
+  `id` int(11) NOT NULL,
+  `word` varchar(64) NOT NULL DEFAULT '' COMMENT '敏感词',
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间'
+) ENGINE=MyISAM AUTO_INCREMENT=535 DEFAULT CHARSET=utf8 COMMENT='敏感词';
 
 --
 -- 转存表中的数据 `ts_anti_word`
@@ -620,11 +630,11 @@ INSERT INTO `ts_anti_word` (`id`, `word`, `addtime`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ts_article` (
-  `articleid` int(11) NOT NULL AUTO_INCREMENT COMMENT '文章ID',
+  `articleid` int(11) NOT NULL COMMENT '文章ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `locationid` int(11) NOT NULL DEFAULT '0' COMMENT '同城ID',
   `cateid` int(11) NOT NULL DEFAULT '0' COMMENT '分类ID',
-  `title` char(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
   `content` longtext NOT NULL COMMENT '内容',
   `tags` varchar(128) NOT NULL DEFAULT '' COMMENT '标签',
   `gaiyao` varchar(128) NOT NULL DEFAULT '' COMMENT '内容概要',
@@ -635,19 +645,8 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '统计评论数',
   `count_recommend` int(11) NOT NULL DEFAULT '0' COMMENT '统计推荐次数',
   `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '统计查看',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '时间',
-  PRIMARY KEY (`articleid`),
-  UNIQUE KEY `title_2` (`title`),
-  KEY `addtime` (`addtime`),
-  KEY `cateid` (`cateid`),
-  KEY `isrecommend` (`isrecommend`),
-  KEY `count_recommend` (`count_recommend`,`addtime`),
-  KEY `title` (`title`),
-  KEY `count_view` (`count_view`),
-  KEY `count_view_2` (`count_view`,`addtime`),
-  KEY `locationid` (`locationid`),
-  KEY `tags` (`tags`,`isaudit`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间'
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -656,11 +655,10 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_article_cate` (
-  `cateid` int(11) NOT NULL AUTO_INCREMENT COMMENT '分类ID',
-  `catename` char(16) NOT NULL DEFAULT '' COMMENT '分类名称',
-  `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
-  PRIMARY KEY (`cateid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `cateid` int(11) NOT NULL COMMENT '分类ID',
+  `catename` varchar(32) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -669,13 +667,12 @@ CREATE TABLE IF NOT EXISTS `ts_article_cate` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_article_comment` (
-  `commentid` int(11) NOT NULL AUTO_INCREMENT,
+  `commentid` int(11) NOT NULL COMMENT '自增评论ID',
   `articleid` int(11) NOT NULL DEFAULT '0' COMMENT '文章ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `content` text NOT NULL COMMENT '评论内容',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
-  PRIMARY KEY (`commentid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章评论' AUTO_INCREMENT=1 ;
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '评论时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章评论';
 
 -- --------------------------------------------------------
 
@@ -684,9 +681,8 @@ CREATE TABLE IF NOT EXISTS `ts_article_comment` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_article_options` (
-  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
-  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  UNIQUE KEY `optionname` (`optionname`)
+  `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
+  `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
 
 --
@@ -697,7 +693,8 @@ INSERT INTO `ts_article_options` (`optionname`, `optionvalue`) VALUES
 ('appname', '文章'),
 ('appdesc', '文章'),
 ('appkey', '文章'),
-('allowpost', '1');
+('allowpost', '1'),
+('isaudit', '0');
 
 -- --------------------------------------------------------
 
@@ -707,74 +704,8 @@ INSERT INTO `ts_article_options` (`optionname`, `optionvalue`) VALUES
 
 CREATE TABLE IF NOT EXISTS `ts_article_recommend` (
   `articleid` int(11) NOT NULL DEFAULT '0' COMMENT '文章ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  UNIQUE KEY `articleid` (`articleid`,`userid`),
-  KEY `articleid_2` (`articleid`),
-  KEY `userid` (`userid`)
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章推荐';
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_attach`
---
-
-CREATE TABLE IF NOT EXISTS `ts_attach` (
-  `attachid` int(11) NOT NULL AUTO_INCREMENT COMMENT '附件ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `locationid` int(11) NOT NULL DEFAULT '0' COMMENT '同城ID',
-  `albumid` int(11) NOT NULL DEFAULT '0' COMMENT '资料库ID',
-  `attachname` char(64) NOT NULL DEFAULT '' COMMENT '附件名字',
-  `attachtype` char(32) NOT NULL DEFAULT '' COMMENT '附件类型',
-  `attachurl` char(64) NOT NULL DEFAULT '' COMMENT '附件url',
-  `attachsize` char(32) NOT NULL DEFAULT '' COMMENT '附件大小',
-  `count_down` int(11) NOT NULL DEFAULT '0' COMMENT '统计下载量',
-  `isshow` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否显示',
-  `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0审核1未审核',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
-  PRIMARY KEY (`attachid`),
-  KEY `albumid` (`albumid`),
-  KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='附件' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_attach_album`
---
-
-CREATE TABLE IF NOT EXISTS `ts_attach_album` (
-  `albumid` int(11) NOT NULL AUTO_INCREMENT COMMENT '资料库ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `title` char(64) NOT NULL DEFAULT '' COMMENT '资料库名称',
-  `content` varchar(2000) NOT NULL DEFAULT '' COMMENT '资料库介绍',
-  `count_attach` int(11) NOT NULL DEFAULT '0' COMMENT '统计资料',
-  `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0审核1未审核',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '添加时间',
-  `uptime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
-  PRIMARY KEY (`albumid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='资料库' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_attach_options`
---
-
-CREATE TABLE IF NOT EXISTS `ts_attach_options` (
-  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
-  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
-
---
--- 转存表中的数据 `ts_attach_options`
---
-
-INSERT INTO `ts_attach_options` (`optionname`, `optionvalue`) VALUES
-('appname', '资料'),
-('appdesc', '资料'),
-('appkey', '资料');
 
 -- --------------------------------------------------------
 
@@ -783,41 +714,35 @@ INSERT INTO `ts_attach_options` (`optionname`, `optionvalue`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ts_cache` (
-  `cacheid` int(11) NOT NULL AUTO_INCREMENT COMMENT '缓存ID',
-  `cachename` char(32) NOT NULL DEFAULT '' COMMENT '缓存名字',
-  `cachevalue` text NOT NULL COMMENT '缓存内容',
-  PRIMARY KEY (`cacheid`),
-  UNIQUE KEY `cachename` (`cachename`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='缓存' AUTO_INCREMENT=24 ;
+  `cacheid` int(11) NOT NULL COMMENT '自增缓存ID',
+  `cachename` varchar(64) NOT NULL DEFAULT '' COMMENT '缓存名字',
+  `cachevalue` text NOT NULL COMMENT '缓存内容'
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='缓存';
 
 --
 -- 转存表中的数据 `ts_cache`
 --
 
 INSERT INTO `ts_cache` (`cacheid`, `cachename`, `cachevalue`) VALUES
-(1, 'pubs_plugins', '1430040107a:15:{i:9;s:10:"floatlayer";i:19;s:8:"customer";i:20;s:7:"counter";i:21;s:6:"douban";i:22;s:8:"feedback";i:24;s:7:"gonggao";i:25;s:5:"gotop";i:26;s:4:"navs";i:27;s:2:"qq";i:29;s:5:"weibo";i:30;s:6:"wordad";i:31;s:9:"footertip";i:32;s:8:"leftuser";i:33;s:7:"ueditor";i:34;s:5:"gobad";}'),
+(1, 'pubs_plugins', '1532102706a:16:{i:9;s:10:"floatlayer";i:19;s:8:"customer";i:20;s:7:"counter";i:21;s:6:"douban";i:22;s:8:"feedback";i:24;s:7:"gonggao";i:25;s:5:"gotop";i:26;s:4:"navs";i:27;s:2:"qq";i:29;s:5:"weibo";i:30;s:6:"wordad";i:31;s:9:"footertip";i:32;s:8:"leftuser";i:33;s:7:"ueditor";i:34;s:5:"gobad";i:35;s:10:"wangeditor";}'),
 (2, 'home_plugins', '1406904279a:13:{i:11;s:9:"newtopics";i:12;s:5:"slide";i:13;s:8:"signuser";i:14;s:14:"recommendgroup";i:15;s:3:"tag";i:16;s:8:"newtopic";i:17;s:5:"login";i:18;s:5:"weibo";i:19;s:8:"newgroup";i:20;s:7:"article";i:21;s:8:"hottopic";i:22;s:5:"photo";i:23;s:5:"links";}'),
-(3, 'system_options', '1430039089a:25:{s:10:"site_title";s:9:"ThinkSAAS";s:13:"site_subtitle";s:24:"又一个ThinkSAAS社区";s:8:"site_key";s:9:"thinksaas";s:9:"site_desc";s:9:"thinksaas";s:8:"site_url";s:31:"http://localhost/thinksaas_svn/";s:8:"link_url";s:31:"http://localhost/thinksaas_svn/";s:10:"site_email";s:15:"admin@admin.com";s:8:"site_icp";s:20:"京ICP备09050100号";s:6:"isface";s:1:"0";s:8:"isinvite";s:1:"0";s:8:"isverify";s:1:"0";s:6:"istomy";s:1:"0";s:10:"isauthcode";s:1:"0";s:6:"isgzip";s:1:"0";s:12:"isunattended";s:1:"0";s:13:"isallowdelete";s:1:"0";s:11:"isallowedit";s:1:"0";s:8:"timezone";s:14:"Asia/Hong_Kong";s:10:"site_theme";s:6:"sample";s:12:"site_urltype";s:1:"1";s:10:"photo_size";s:1:"2";s:10:"photo_type";s:16:"jpg,gif,png,jpeg";s:11:"attach_size";s:1:"2";s:11:"attach_type";s:19:"zip,rar,doc,txt,ppt";s:4:"logo";s:8:"logo.png";}'),
-(4, 'system_appnav', '1430010961a:12:{s:4:"home";s:6:"首页";s:5:"group";s:6:"小组";s:7:"article";s:6:"文章";s:5:"photo";s:6:"相册";s:4:"user";s:6:"用户";s:6:"search";s:6:"搜索";s:6:"attach";s:6:"资料";s:6:"redeem";s:12:"积分兑换";s:5:"weibo";s:6:"唠叨";s:8:"location";s:6:"同城";s:2:"my";s:12:"我的社区";s:4:"feed";s:6:"动态";}'),
+(3, 'system_options', '1532102593a:29:{s:10:"site_title";s:9:"ThinkSAAS";s:13:"site_subtitle";s:24:"又一个ThinkSAAS社区";s:8:"site_key";s:9:"thinksaas";s:9:"site_desc";s:9:"thinksaas";s:8:"site_url";s:24:"http://dev.thinksaas.cn/";s:8:"link_url";s:24:"http://dev.thinksaas.cn/";s:9:"site_pkey";s:32:"1282aeb75058638dae3e1565f7c1f51a";s:10:"site_email";s:15:"admin@admin.com";s:8:"site_icp";s:20:"京ICP备09050100号";s:6:"isface";s:1:"0";s:8:"isinvite";s:1:"0";s:8:"isverify";s:1:"0";s:6:"istomy";s:1:"0";s:10:"isauthcode";s:1:"0";s:7:"istoken";s:1:"0";s:6:"isgzip";s:1:"0";s:8:"timezone";s:14:"Asia/Hong_Kong";s:7:"visitor";s:1:"0";s:9:"publisher";s:1:"0";s:11:"isallowedit";s:1:"0";s:13:"isallowdelete";s:1:"0";s:10:"site_theme";s:6:"sample";s:12:"site_urltype";s:1:"1";s:10:"photo_size";s:1:"2";s:10:"photo_type";s:16:"jpg,gif,png,jpeg";s:11:"attach_size";s:1:"2";s:11:"attach_type";s:19:"zip,rar,doc,txt,ppt";s:11:"dayscoretop";s:2:"10";s:4:"logo";s:8:"logo.png";}'),
+(4, 'system_appnav', '1532102633a:9:{s:4:"home";s:6:"首页";s:5:"group";s:6:"小组";s:7:"article";s:6:"文章";s:5:"photo";s:6:"相册";s:5:"weibo";s:6:"唠叨";s:4:"user";s:6:"用户";s:6:"search";s:6:"搜索";s:8:"location";s:6:"同城";s:2:"my";s:12:"我的社区";}'),
 (5, 'system_anti_word', '1430039888s:5733:"国民党|邓小平|江泽民|胡锦涛|共产党|毛主席|毛泽东|中共|中国共产党|枪|弹药|枪支|氣槍|猎槍|来福|雷鸣登|五连发|平式双管|立式双管|麻醉|军用|进口|录入员|招聘兼职|1332566258|直流电阻测试仪|继电保护测试仪|串联谐振|分压器|www.hbyhdl.com|www.bd-seo.net|武汉网站优化|武汉网络推广|武汉网络营销|武汉SEO|大脚骨矫正器|379056061|拇外翻|小姐|习近平|王立军|两会|薄熙来|谷开来|唱红打黑|听党指挥|薄一波|李长春|周永康|政府|zhenfu|傻逼|zhengfu|他杀|枪杀|谋杀|起义|就义|法轮功|邪教|GCD|hege123|菲律宾|薄熙莱|小姐上门|一夜情|性爱|性息|武汉婚纱摄影|武汉婚纱照|武汉艺术照|武汉婚纱摄影工作室|www.yilongphoto.com|www.windyx.com|www.ruile.net|www.wo-niu.com.cn|www.wlzb518.com|www.wufangzhai-zongzi.com|www.hege123.com|按摩|按摩服务|cwsurf.de|出台|包夜|www.maizongzi.com|代刷|微笑网络|刷信誉|53530.cn|waimaodao.com|小 妹|上 门 服 务|小 妹 上 门|王哥|花姐|学妹|姓ˊ感ˊ少ˊ妇|丰ˊ韵ˊ熟ˊ妇|丽人岛休闲会所|越ˊ南ˊ妹|77057|饥ˊ渴ˊ熟ˊ女|饥渴熟女|性感人妻|姓感少妇|51gouku.com|51够酷|585.cc|腋臭|狐臭|兼职学生妹|湘湘|小唐|学生妹|wufangzhai-zongzi.com|冰毒|海洛因|毒品|吸毒|66dao.com|办证|赵小姐|douyapai.com|ntxz.cc|豆芽派|tdjyedu|自考招生|sinoest|身份證买卖|身份证买卖|895316992|爱游中国|上門服务|客人隐私|suoniao.com|男科医院|男性医院|包皮|包茎|男科|做爱|小妹上门|小妹服务|sm|sm女王|成熟少妇|包吹|极品校花|sinoest.com|尖锐湿疣|耳鼻喉医院|过敏性鼻炎|ibuonline.com|福彩|福彩3d|totutu.com|去黑头|东方软峰|yileee.com|新特药|fgt120.com|99spcar.com|meiti520.com|bbswuhan.com|18611314446|丰韵熟妇|越南妹|maizongzi.com|上门服务|小妹|windyx.com|wlzb518.com|wo-niu.com.cn|ruile.net|bd-seo.net|hbyhdl.com|yilongphoto.com|hege123.com|發票|开票电|开票|发票|代开发票|私募|走私车|资本运作|真人视频|造价通|移民网|药商|亚布力|雅思|新皇宝|校花聊天室|消费投资合法|西安卖肾|同城女|丝袜交友|兼职服务|草榴社区|搬家公司|代開|代开|醱票|開瞟|瞟据|瞟务|酒店住宿|13826544598|2645989872|18312006833|费发|314721888|办理假证件|394057341|费發|13533391062|13544261868|13828442144|13728999976|13662622538|897839088|vpswolf.com|vanshen.com|yapai.cc|daqiaogw.com|hfkszdm.com|jinqiaohc.com|0553rl.com|ln580.cn|qifanweb.com|qifanseo.com|qifanit.com|028zfyy.com|aitecentury.com|aite55.com|shentongkang.com|dss.so|3ja.net|sin55.com|2008ns.com|203529769|binhaijincheng.com|美女服务|18611325651|caihua.cc|51mm.com.cn|tbwtmall.net|lubaolin.com|糖尿病治疗仪|tangniaobingok.com|糖尿病|chtip.org|56156.com|07uuu.com|haoyouren.com|便秘|haoyouren|xxcun.com|iisp.com|gmwhy.com|feelyz.com|369in.com|cdtarena.com|肝硬化|youbian.com|162net.com|comnetcnn.com|2233.cn|鸡巴|119tx.com|0377521.com|028zuanji.com|dzwan.net|dodomo.net|sina.com|fobshanghai.com|芬恩|2659477099|58692026|65111117|英文SEO|仿牌SEO|外贸SEO|1550957342|pingan.com|痔疮|86889299|800002356|cqddgc.cn|股票|nyimei.com|天衣坊|宏天景秀|sugon.com|微博008|qqbct.com|qqsuncity.com|99txzq.com|88txzq.com|sdebh.cn|9501317248463|248463|飞机票|网银|火车票|无卡存款|66667959|订票|火车站|57071215|889584017|获奖查询|穫獎查詢|82425|5782|中獎|熱線|1931033|代售点|w1a2.icoc.cc|1317241334|车票改签|嘿咻|加盟|湿疹|塑胶|1817001212|4000318885|800007699|4008521119|花月婷|xpjin.com|新葡京娱乐城|eshibo68.com|tt5201314.com|TT娱乐城|娱乐城|qinzi5.com|21202|火車票|089|8369|退票|改簽|預訂|ruijintc.com|ruijintc.net|草榴|caoliu|5177game.com|cao|wgb320330.com|公關|公关|夜总会|兼职|同性恋|丝足|同志|女王|鸭子|调教|KTV|夜场|娱乐场|陪护|情感陪护|公主|LES|GAY|兼職|18611102232|男妓|妓男|女妓|cs12388.com|liketuan.com|xiunvfang.com|tmall.com|rekuai.com|gyouz.com|u95.cc|ikphp.com|12ik.com|7lo.cn|hufuin.com|fa66.com|itcpa.cn|72jz.com|网赚|ikphp|12ik|weadge.com|mfkds.com|svs123.com|dlnmd.com|nicenic.com|13311372110|58464602|bf3.cn|你妹啊|33md.co|梅毒|你妈|hywww.net|2015230140|淋病|非淋病|damazha.com|mitang.pw|六合彩|赛马|三陪|51shuaige.com|369tong.com|holde.cn|18xi.com|信息代发|推广软件|营销软件|网络推广|营销人|91renren.com|kukud.net|chuntu.cc|jinhusns.com|鼻炎|医院|153075777|hqbsns.com|jjyulecheng77g.com|senlang.net|xiyingmenyulecheng8a.com|osforce.cn|51neixun.com|你妈逼|杀人|操你妈|草泥马|税票|wanlidq.com|醫院|mrdodo.net|188123581|zhengma.com|4008166005|400|800|化妆|陈派|税务|整形|美容|隆胸|jinyuanbao.cn|xkqmj.org|baishiheyuan.com|057160989861|hiici.com|518202.com|微店|60989861|1433607382|18921182443|82835166|官方推荐|百度认证|sh419x.net|hhy021.com|ehuanka.com|柘荣太子参|buluocc.com|buluocc|szprovence.com|上海龙凤|shlf9.net|shlf9.com|shlf99.net|shlf99.com|shlf999.net|shlf999.com|aishiso.com|qhf021.com|cfg021.com|uoko.com|guizubbx.com|esosn.com|win7zhijia.cn|xtcheng.net|867590759|888xitong.com|1378206455|宜人贷|win7qjb.com|xitongcheng|onerare.com|xitong1.com|ghostxpsp3.net|windows114.com|djie.net|999ghost.com|xitongcity.com|51rgb.com|mingtaov.com|228224.com|hb7526.com|jx8091.com|drf8953.com|xpjgj9186.com|hjjb9981.com|dwj5266.com|xq81365.com|nc2787.com|wfgj7656.com|seowhy.com|ceo2351.com|fc5517.com|bg6261.com|fbgj8620.com|ylgj2523.com|zibenzaixian.com|chetips.com|51zhaoji.com|白癜风|kanshijian.com|wudan100.com|治疗|痘|南通|深圳|kongweizhi.com|foxiang86.net|taobaobaobao.com";'),
-(6, 'user_options', '1400593143a:6:{s:7:"appname";s:6:"用户";s:7:"appdesc";s:12:"用户中心";s:6:"appkey";s:6:"用户";s:8:"isenable";s:1:"0";s:7:"isgroup";s:0:"";s:7:"banuser";s:25:"官方用户|官方团队";}'),
-(7, 'mail_options', '1401554381a:8:{s:7:"appname";s:6:"邮件";s:7:"appdesc";s:15:"ThinkSAAS邮件";s:8:"isenable";s:1:"0";s:8:"mailhost";s:18:"smtp.exmail.qq.com";s:3:"ssl";s:1:"1";s:8:"mailport";s:3:"465";s:8:"mailuser";s:23:"postmaster@thinksaas.cn";s:7:"mailpwd";s:12:"1231qa2342ws";}'),
-(8, 'article_options', '1400593025a:4:{s:7:"appname";s:6:"文章";s:7:"appdesc";s:6:"文章";s:6:"appkey";s:6:"文章";s:9:"allowpost";s:1:"1";}'),
-(9, 'attach_options', '1400593032a:3:{s:7:"appname";s:6:"资料";s:7:"appdesc";s:6:"资料";s:6:"appkey";s:6:"资料";}'),
-(10, 'feed_options', '1400593039a:3:{s:7:"appname";s:6:"动态";s:7:"appdesc";s:6:"动态";s:6:"appkey";s:6:"动态";}'),
-(11, 'group_options', '1400593050a:6:{s:7:"appname";s:6:"小组";s:7:"appdesc";s:15:"ThinkSAAS小组";s:6:"appkey";s:6:"小组";s:8:"iscreate";s:1:"0";s:7:"isaudit";s:1:"0";s:7:"joinnum";s:2:"20";}'),
-(12, 'photo_options', '1400593102a:3:{s:7:"appname";s:6:"相册";s:7:"appdesc";s:6:"相册";s:6:"appkey";s:6:"相册";}'),
-(13, 'redeem_options', '1400593113a:3:{s:7:"appname";s:12:"积分兑换";s:7:"appdesc";s:12:"积分兑换";s:6:"appkey";s:12:"积分兑换";}'),
-(14, 'weibo_options', '1428933870a:3:{s:7:"appname";s:7:"唠叨1";s:7:"appdesc";s:7:"唠叨2";s:6:"appkey";s:7:"唠叨3";}'),
-(15, 'plugins_pubs_wordad', '1400602928a:4:{i:0;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告1";s:3:"url";s:23:"http://www.thinksaas.cn";}i:1;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告2";s:3:"url";s:23:"http://www.thinksaas.cn";}i:2;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告3";s:3:"url";s:23:"http://www.thinksaas.cn";}i:3;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告4";s:3:"url";s:23:"http://www.thinksaas.cn";}}'),
-(16, 'user_role', '1400602955a:17:{i:0;a:3:{s:8:"rolename";s:6:"列兵";s:11:"score_start";s:1:"0";s:9:"score_end";s:4:"5000";}i:1;a:3:{s:8:"rolename";s:6:"下士";s:11:"score_start";s:4:"5000";s:9:"score_end";s:5:"20000";}i:2;a:3:{s:8:"rolename";s:6:"中士";s:11:"score_start";s:5:"20000";s:9:"score_end";s:5:"40000";}i:3;a:3:{s:8:"rolename";s:6:"上士";s:11:"score_start";s:5:"40000";s:9:"score_end";s:5:"80000";}i:4;a:3:{s:8:"rolename";s:12:"三级准尉";s:11:"score_start";s:5:"80000";s:9:"score_end";s:6:"160000";}i:5;a:3:{s:8:"rolename";s:12:"二级准尉";s:11:"score_start";s:6:"160000";s:9:"score_end";s:6:"320000";}i:6;a:3:{s:8:"rolename";s:12:"一级准尉";s:11:"score_start";s:6:"320000";s:9:"score_end";s:6:"640000";}i:7;a:3:{s:8:"rolename";s:6:"少尉";s:11:"score_start";s:6:"640000";s:9:"score_end";s:7:"1280000";}i:8;a:3:{s:8:"rolename";s:6:"中尉";s:11:"score_start";s:7:"1280000";s:9:"score_end";s:7:"2560000";}i:9;a:3:{s:8:"rolename";s:6:"上尉";s:11:"score_start";s:7:"2560000";s:9:"score_end";s:7:"5120000";}i:10;a:3:{s:8:"rolename";s:6:"少校";s:11:"score_start";s:7:"5120000";s:9:"score_end";s:8:"10240000";}i:11;a:3:{s:8:"rolename";s:6:"中校";s:11:"score_start";s:8:"10240000";s:9:"score_end";s:8:"20480000";}i:12;a:3:{s:8:"rolename";s:6:"上校";s:11:"score_start";s:8:"20480000";s:9:"score_end";s:8:"40960000";}i:13;a:3:{s:8:"rolename";s:6:"准将";s:11:"score_start";s:8:"40960000";s:9:"score_end";s:8:"81920000";}i:14;a:3:{s:8:"rolename";s:6:"少将";s:11:"score_start";s:8:"81920000";s:9:"score_end";s:9:"123840000";}i:15;a:3:{s:8:"rolename";s:6:"中将";s:11:"score_start";s:9:"123840000";s:9:"score_end";s:9:"327680000";}i:16;a:3:{s:8:"rolename";s:6:"上将";s:11:"score_start";s:9:"327680000";s:9:"score_end";s:1:"0";}}'),
-(17, 'plugins_pubs_gobad', '1400603098a:3:{i:300;s:20:"宽度300px广告位";i:468;s:20:"宽度468px广告位";i:960;s:20:"宽度960px广告位";}'),
-(18, 'plugins_pubs_feedback', '1406109222s:52:"<a href=\\"http://www.thinksaas.cn\\">意见反馈</a>";'),
-(19, 'plugins_pubs_counter', '1403494882s:338:"<script type=\\"text/javascript\\">var cnzz_protocol = ((\\"https:\\" == document.location.protocol) ? \\" https://\\" : \\" http://\\");document.write(unescape(\\"%3Cspan id=\\''cnzz_stat_icon_5824195\\''%3E%3C/span%3E%3Cscript src=\\''\\" + cnzz_protocol + \\"s23.cnzz.com/stat.php%3Fid%3D5824195\\'' type=\\''text/javascript\\''%3E%3C/script%3E\\"));</script>";'),
-(20, 'plugins_home_links', '1400603295a:1:{i:0;a:2:{s:8:"linkname";s:9:"ThinkSAAS";s:7:"linkurl";s:23:"http://www.thinksaas.cn";}}'),
-(21, 'plugins_pubs_navs', '1400833863a:1:{i:0;a:2:{s:7:"navname";s:9:"ThinkSAAS";s:6:"navurl";s:23:"http://www.thinksaas.cn";}}'),
-(22, 'plugins_pubs_gonggao', '1401614806a:2:{s:5:"title";s:27:"ThinkSAAS2.2等你来测试";s:3:"url";s:23:"http://www.thinksaas.cn";}'),
-(23, 'group_plugins', '1401899510b:0;');
+(6, 'user_options', '1532102646a:6:{s:7:"appname";s:6:"用户";s:7:"appdesc";s:12:"用户中心";s:6:"appkey";s:6:"用户";s:8:"isenable";s:1:"0";s:7:"isgroup";s:0:"";s:7:"banuser";s:25:"官方用户|官方团队";}'),
+(7, 'mail_options', '1532102620a:8:{s:7:"appname";s:6:"邮件";s:7:"appdesc";s:15:"ThinkSAAS邮件";s:8:"isenable";s:1:"0";s:8:"mailhost";s:18:"smtp.exmail.qq.com";s:3:"ssl";s:1:"1";s:8:"mailport";s:3:"587";s:8:"mailuser";s:23:"postmaster@thinksaas.cn";s:7:"mailpwd";s:0:"";}'),
+(8, 'article_options', '1532095494a:5:{s:7:"appname";s:6:"文章";s:7:"appdesc";s:6:"文章";s:6:"appkey";s:6:"文章";s:9:"allowpost";s:1:"1";s:7:"isaudit";s:1:"0";}'),
+(9, 'group_options', '1532102579a:9:{s:7:"appname";s:6:"小组";s:7:"appdesc";s:15:"ThinkSAAS小组";s:6:"appkey";s:6:"小组";s:8:"iscreate";s:1:"0";s:7:"isaudit";s:1:"0";s:7:"joinnum";s:2:"20";s:11:"isallowpost";s:1:"0";s:13:"istopicattach";s:1:"0";s:9:"ispayjoin";s:1:"0";}'),
+(10, 'photo_options', '1532102633a:4:{s:7:"appname";s:6:"相册";s:7:"appdesc";s:6:"相册";s:6:"appkey";s:6:"相册";s:7:"isaudit";s:1:"0";}'),
+(11, 'weibo_options', '1532102652a:3:{s:7:"appname";s:6:"唠叨";s:7:"appdesc";s:6:"唠叨";s:6:"appkey";s:6:"唠叨";}'),
+(12, 'plugins_pubs_wordad', '1400602928a:4:{i:0;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告1";s:3:"url";s:23:"https://www.thinksaas.cn";}i:1;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告2";s:3:"url";s:23:"https://www.thinksaas.cn";}i:2;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告3";s:3:"url";s:23:"https://www.thinksaas.cn";}i:3;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告4";s:3:"url";s:23:"https://www.thinksaas.cn";}}'),
+(13, 'user_role', '1400602955a:17:{i:0;a:3:{s:8:"rolename";s:6:"列兵";s:11:"score_start";s:1:"0";s:9:"score_end";s:4:"5000";}i:1;a:3:{s:8:"rolename";s:6:"下士";s:11:"score_start";s:4:"5000";s:9:"score_end";s:5:"20000";}i:2;a:3:{s:8:"rolename";s:6:"中士";s:11:"score_start";s:5:"20000";s:9:"score_end";s:5:"40000";}i:3;a:3:{s:8:"rolename";s:6:"上士";s:11:"score_start";s:5:"40000";s:9:"score_end";s:5:"80000";}i:4;a:3:{s:8:"rolename";s:12:"三级准尉";s:11:"score_start";s:5:"80000";s:9:"score_end";s:6:"160000";}i:5;a:3:{s:8:"rolename";s:12:"二级准尉";s:11:"score_start";s:6:"160000";s:9:"score_end";s:6:"320000";}i:6;a:3:{s:8:"rolename";s:12:"一级准尉";s:11:"score_start";s:6:"320000";s:9:"score_end";s:6:"640000";}i:7;a:3:{s:8:"rolename";s:6:"少尉";s:11:"score_start";s:6:"640000";s:9:"score_end";s:7:"1280000";}i:8;a:3:{s:8:"rolename";s:6:"中尉";s:11:"score_start";s:7:"1280000";s:9:"score_end";s:7:"2560000";}i:9;a:3:{s:8:"rolename";s:6:"上尉";s:11:"score_start";s:7:"2560000";s:9:"score_end";s:7:"5120000";}i:10;a:3:{s:8:"rolename";s:6:"少校";s:11:"score_start";s:7:"5120000";s:9:"score_end";s:8:"10240000";}i:11;a:3:{s:8:"rolename";s:6:"中校";s:11:"score_start";s:8:"10240000";s:9:"score_end";s:8:"20480000";}i:12;a:3:{s:8:"rolename";s:6:"上校";s:11:"score_start";s:8:"20480000";s:9:"score_end";s:8:"40960000";}i:13;a:3:{s:8:"rolename";s:6:"准将";s:11:"score_start";s:8:"40960000";s:9:"score_end";s:8:"81920000";}i:14;a:3:{s:8:"rolename";s:6:"少将";s:11:"score_start";s:8:"81920000";s:9:"score_end";s:9:"123840000";}i:15;a:3:{s:8:"rolename";s:6:"中将";s:11:"score_start";s:9:"123840000";s:9:"score_end";s:9:"327680000";}i:16;a:3:{s:8:"rolename";s:6:"上将";s:11:"score_start";s:9:"327680000";s:9:"score_end";s:1:"0";}}'),
+(14, 'plugins_pubs_gobad', '1400603098a:3:{i:300;s:20:"宽度300px广告位";i:468;s:20:"宽度468px广告位";i:960;s:20:"宽度960px广告位";}'),
+(15, 'plugins_pubs_feedback', '1406109222s:52:"<a href=\\"https://www.thinksaas.cn\\">意见反馈</a>";'),
+(16, 'plugins_pubs_counter', '1516328114s:285:"<script>\r\nvar _hmt = _hmt || [];\r\n(function() {\r\n  var hm = document.createElement(\\"script\\");\r\n  hm.src = \\"https://hm.baidu.com/hm.js?5964cd4b8810fcc73c98618d475213f6\\";\r\n  var s = document.getElementsByTagName(\\"script\\")[0]; \r\n  s.parentNode.insertBefore(hm, s);\r\n})();\r\n</script>";'),
+(18, 'plugins_home_links', '1531808135a:4:{i:0;a:2:{s:8:"linkname";s:9:"ThinkSAAS";s:7:"linkurl";s:25:"https://www.thinksaas.cn/";}i:1;a:2:{s:8:"linkname";s:12:"信阳毛尖";s:7:"linkurl";s:26:"https://www.xinyangde.com/";}i:2;a:2:{s:8:"linkname";s:12:"信阳天气";s:7:"linkurl";s:26:"https://xinyangtianqi.com/";}i:3;a:2:{s:8:"linkname";s:12:"开源大全";s:7:"linkurl";s:21:"https://www.tst3.com/";}}'),
+(17, 'plugins_pubs_navs', '1532088590a:2:{i:0;a:2:{s:7:"navname";s:15:"ThinkSAAS官网";s:6:"navurl";s:25:"https://www.thinksaas.cn/";}i:1;a:2:{s:7:"navname";s:21:"付费商业版授权";s:6:"navurl";s:38:"https://www.thinksaas.cn/service/down/";}}'),
+(24, 'system_mynav', '1531722577a:5:{s:5:"group";s:6:"小组";s:7:"article";s:6:"文章";s:5:"weibo";s:6:"唠叨";s:5:"photo";s:6:"相册";s:8:"location";s:6:"同城";}');
 
 -- --------------------------------------------------------
 
@@ -826,51 +751,14 @@ INSERT INTO `ts_cache` (`cacheid`, `cachename`, `cachevalue`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ts_editor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `id` int(11) NOT NULL COMMENT '自增ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `type` char(32) NOT NULL DEFAULT 'photo' COMMENT '类型photo,file',
-  `title` char(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
   `url` char(32) NOT NULL DEFAULT '' COMMENT '图片或者文件',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='编辑器上传图片和文件' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_feed`
---
-
-CREATE TABLE IF NOT EXISTS `ts_feed` (
-  `feedid` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `template` varchar(1024) NOT NULL DEFAULT '' COMMENT '动态模板',
-  `data` varchar(1024) NOT NULL DEFAULT '' COMMENT '动态数据',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
-  PRIMARY KEY (`feedid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='全站动态' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_feed_options`
---
-
-CREATE TABLE IF NOT EXISTS `ts_feed_options` (
-  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
-  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
-
---
--- 转存表中的数据 `ts_feed_options`
---
-
-INSERT INTO `ts_feed_options` (`optionname`, `optionvalue`) VALUES
-('appname', '动态'),
-('appdesc', '动态'),
-('appkey', '动态');
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='编辑器上传图片和文件';
 
 -- --------------------------------------------------------
 
@@ -879,12 +767,12 @@ INSERT INTO `ts_feed_options` (`optionname`, `optionvalue`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ts_group` (
-  `groupid` int(11) NOT NULL AUTO_INCREMENT COMMENT '小组ID',
+  `groupid` int(11) NOT NULL COMMENT '小组ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `cateid` int(11) NOT NULL DEFAULT '0' COMMENT '分类ID',
   `cateid2` int(11) NOT NULL DEFAULT '0' COMMENT '二级分类ID',
   `cateid3` int(11) NOT NULL DEFAULT '0' COMMENT '三级分类ID',
-  `groupname` char(32) NOT NULL DEFAULT '' COMMENT '群组名字',
+  `groupname` varchar(32) NOT NULL DEFAULT '' COMMENT '群组名字',
   `groupdesc` text NOT NULL COMMENT '小组介绍',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '图标路径',
   `photo` char(32) NOT NULL DEFAULT '' COMMENT '小组图标',
@@ -893,6 +781,7 @@ CREATE TABLE IF NOT EXISTS `ts_group` (
   `count_user` int(11) NOT NULL DEFAULT '0' COMMENT '小组成员数',
   `count_topic_audit` int(11) NOT NULL DEFAULT '0' COMMENT '统计未审核帖子数',
   `joinway` tinyint(1) NOT NULL DEFAULT '0' COMMENT '加入方式',
+  `price` float(10,2) NOT NULL DEFAULT '0.00' COMMENT '加入支付金币',
   `role_leader` char(32) NOT NULL DEFAULT '组长' COMMENT '组长角色名称',
   `role_admin` char(32) NOT NULL DEFAULT '管理员' COMMENT '管理员角色名称',
   `role_user` char(32) NOT NULL DEFAULT '成员' COMMENT '成员角色名称',
@@ -903,16 +792,8 @@ CREATE TABLE IF NOT EXISTS `ts_group` (
   `ispost` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否允许会员发帖',
   `isshow` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否显示',
   `ispostaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否发帖审核',
-  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '最后更新时间',
-  PRIMARY KEY (`groupid`),
-  KEY `userid` (`userid`),
-  KEY `isshow` (`isshow`),
-  KEY `groupname` (`groupname`),
-  KEY `cateid` (`cateid`),
-  KEY `isaudit` (`isaudit`),
-  KEY `addtime` (`addtime`),
-  KEY `isrecommend` (`isrecommend`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='微群组' AUTO_INCREMENT=1 ;
+  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '最后更新时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='群组(小组)';
 
 -- --------------------------------------------------------
 
@@ -921,19 +802,15 @@ CREATE TABLE IF NOT EXISTS `ts_group` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_group_album` (
-  `albumid` int(11) NOT NULL AUTO_INCREMENT COMMENT '专辑ID',
+  `albumid` int(11) NOT NULL COMMENT '自增专辑ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
-  `albumname` char(64) NOT NULL DEFAULT '' COMMENT '专辑名字',
-  `albumdesc` varchar(2000) NOT NULL DEFAULT '' COMMENT '专辑介绍',
+  `albumname` varchar(64) NOT NULL DEFAULT '' COMMENT '专辑名字',
+  `albumdesc` text NOT NULL COMMENT '专辑介绍',
   `count_topic` int(11) NOT NULL DEFAULT '0' COMMENT '统计帖子',
   `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '审核',
-  `addtime` datetime NOT NULL COMMENT '添加时间',
-  PRIMARY KEY (`albumid`),
-  KEY `userid` (`userid`),
-  KEY `count_topic` (`count_topic`),
-  KEY `addtime` (`addtime`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组帖子专辑' AUTO_INCREMENT=1 ;
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组帖子专辑';
 
 -- --------------------------------------------------------
 
@@ -944,10 +821,8 @@ CREATE TABLE IF NOT EXISTS `ts_group_album` (
 CREATE TABLE IF NOT EXISTS `ts_group_album_topic` (
   `albumid` int(11) NOT NULL DEFAULT '0' COMMENT '专辑ID',
   `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '时间',
-  UNIQUE KEY `albumid_2` (`albumid`,`topicid`),
-  KEY `albumid` (`albumid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='专辑帖子';
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组专辑帖子关联';
 
 -- --------------------------------------------------------
 
@@ -956,14 +831,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_album_topic` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_group_cate` (
-  `cateid` int(11) NOT NULL AUTO_INCREMENT COMMENT '分类ID',
-  `catename` char(32) NOT NULL DEFAULT '' COMMENT '分类名字',
+  `cateid` int(11) NOT NULL COMMENT '自增分类ID',
+  `catename` varchar(64) NOT NULL DEFAULT '' COMMENT '分类名字',
   `referid` int(11) NOT NULL DEFAULT '0' COMMENT '上级分类ID',
   `count_group` int(11) NOT NULL DEFAULT '0' COMMENT '群组个数',
-  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '最后更新时间',
-  PRIMARY KEY (`cateid`),
-  KEY `referid` (`referid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '最后更新时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组分类';
 
 -- --------------------------------------------------------
 
@@ -972,9 +845,8 @@ CREATE TABLE IF NOT EXISTS `ts_group_cate` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_group_options` (
-  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
-  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  UNIQUE KEY `optionname` (`optionname`)
+  `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
+  `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
 
 --
@@ -987,7 +859,10 @@ INSERT INTO `ts_group_options` (`optionname`, `optionvalue`) VALUES
 ('appkey', '小组'),
 ('iscreate', '0'),
 ('isaudit', '0'),
-('joinnum', '20');
+('joinnum', '20'),
+('isallowpost', '0'),
+('istopicattach', '0'),
+('ispayjoin', '0');
 
 -- --------------------------------------------------------
 
@@ -996,12 +871,12 @@ INSERT INTO `ts_group_options` (`optionname`, `optionvalue`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ts_group_topic` (
-  `topicid` int(11) NOT NULL AUTO_INCREMENT COMMENT '话题ID',
+  `topicid` int(11) NOT NULL COMMENT '话题ID',
   `typeid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子分类ID',
   `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `locationid` int(11) NOT NULL DEFAULT '0' COMMENT '同城ID',
-  `title` char(64) NOT NULL DEFAULT '' COMMENT '帖子标题',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '帖子标题',
   `content` longtext NOT NULL COMMENT '帖子内容',
   `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '回复统计',
   `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '帖子展示数',
@@ -1014,46 +889,9 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic` (
   `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不审核1审核',
   `isdelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不删除1删除',
   `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1为推荐',
-  `addtime` int(11) DEFAULT '0' COMMENT '创建时间',
-  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`topicid`),
-  KEY `groupid` (`groupid`),
-  KEY `userid` (`userid`),
-  KEY `title` (`title`),
-  KEY `groupid_2` (`groupid`),
-  KEY `typeid` (`typeid`),
-  KEY `addtime` (`addtime`),
-  KEY `count_comment` (`count_comment`),
-  KEY `count_view` (`count_view`),
-  KEY `count_love` (`count_love`),
-  KEY `count_view_2` (`count_view`,`addtime`),
-  KEY `isshow` (`isaudit`,`uptime`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组话题' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_group_topic_add`
---
-
-CREATE TABLE IF NOT EXISTS `ts_group_topic_add` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '补贴ID',
-  `topicid` int(11) NOT NULL COMMENT '话题ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `title` char(64) NOT NULL DEFAULT '' COMMENT '帖子标题',
-  `content` text NOT NULL COMMENT '帖子内容',
-  `path` char(32) NOT NULL DEFAULT '' COMMENT '图片或者附件存储目录',
-  `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片地址',
-  `attach` char(32) NOT NULL DEFAULT '' COMMENT '附件地址',
-  `attachname` char(64) NOT NULL DEFAULT '' COMMENT '附件名字',
-  `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
-  `addtime` int(11) DEFAULT '0' COMMENT '创建时间',
-  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  KEY `userid` (`userid`),
-  KEY `title` (`title`),
-  KEY `topicid` (`topicid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组话题' AUTO_INCREMENT=1 ;
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组话题(小组帖子)';
 
 -- --------------------------------------------------------
 
@@ -1062,13 +900,10 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_add` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_group_topic_collect` (
-  `userid` int(11) NOT NULL DEFAULT '0',
-  `username` char(64) NOT NULL DEFAULT '' COMMENT '用户名',
-  `topicid` int(11) NOT NULL DEFAULT '0',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '收藏时间',
-  UNIQUE KEY `userid_2` (`userid`,`topicid`),
-  KEY `userid` (`userid`),
-  KEY `topicid` (`topicid`)
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `username` varchar(64) NOT NULL DEFAULT '' COMMENT '用户名',
+  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '收藏时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='帖子收藏';
 
 -- --------------------------------------------------------
@@ -1078,22 +913,14 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_collect` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_group_topic_comment` (
-  `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '评论ID',
-  `referid` int(11) NOT NULL DEFAULT '0',
+  `commentid` int(11) NOT NULL COMMENT '自增评论ID',
+  `referid` int(11) NOT NULL DEFAULT '0' COMMENT '上级评论ID',
   `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '话题ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `content` text NOT NULL COMMENT '回复内容',
-  `path` char(32) NOT NULL DEFAULT '' COMMENT '图片或者附件存储目录',
-  `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片地址',
-  `attach` char(32) NOT NULL DEFAULT '' COMMENT '附件地址',
-  `attachname` char(64) NOT NULL DEFAULT '' COMMENT '附件名字',
   `ispublic` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0公开1不公开（仅自己和发帖者可看）',
-  `addtime` int(11) DEFAULT '0' COMMENT '回复时间',
-  PRIMARY KEY (`commentid`),
-  KEY `topicid` (`topicid`),
-  KEY `userid` (`userid`),
-  KEY `referid` (`referid`,`topicid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='话题回复/评论' AUTO_INCREMENT=1 ;
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '回复时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='话题回复/评论';
 
 -- --------------------------------------------------------
 
@@ -1102,15 +929,13 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_comment` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_group_topic_edit` (
-  `editid` int(11) NOT NULL AUTO_INCREMENT COMMENT '编辑ID',
+  `editid` int(11) NOT NULL COMMENT '自增编辑ID',
   `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '话题ID',
-  `title` char(128) NOT NULL DEFAULT '' COMMENT '标题',
+  `title` varchar(128) NOT NULL DEFAULT '' COMMENT '标题',
   `content` text NOT NULL COMMENT '内容',
   `isupdate` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未更新1更新',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
-  PRIMARY KEY (`editid`),
-  UNIQUE KEY `topicid` (`topicid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='话题编辑' AUTO_INCREMENT=1 ;
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '修改时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='话题编辑';
 
 -- --------------------------------------------------------
 
@@ -1119,13 +944,11 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_edit` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_group_topic_type` (
-  `typeid` int(11) NOT NULL AUTO_INCREMENT COMMENT '帖子分类ID',
+  `typeid` int(11) NOT NULL COMMENT '帖子分类ID',
   `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
-  `typename` char(32) NOT NULL DEFAULT '' COMMENT '帖子分类名称',
-  `count_topic` int(11) NOT NULL DEFAULT '0' COMMENT '统计帖子',
-  PRIMARY KEY (`typeid`),
-  KEY `groupid` (`groupid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='帖子分类' AUTO_INCREMENT=1 ;
+  `typename` varchar(64) NOT NULL DEFAULT '' COMMENT '帖子分类名称',
+  `count_topic` int(11) NOT NULL DEFAULT '0' COMMENT '统计帖子'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='帖子分类';
 
 -- --------------------------------------------------------
 
@@ -1138,12 +961,8 @@ CREATE TABLE IF NOT EXISTS `ts_group_user` (
   `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '群组ID',
   `isadmin` int(11) NOT NULL DEFAULT '0' COMMENT '是否管理员',
   `isfounder` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否创始人',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '加入时间',
-  UNIQUE KEY `userid_2` (`userid`,`groupid`),
-  KEY `userid` (`userid`),
-  KEY `groupid` (`groupid`),
-  KEY `groupid_2` (`groupid`,`isadmin`,`isfounder`),
-  KEY `addtime` (`addtime`)
+  `endtime` date NOT NULL DEFAULT '1970-01-01' COMMENT '到期时间',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '加入时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='群组和用户对应关系';
 
 -- --------------------------------------------------------
@@ -1154,9 +973,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_user` (
 
 CREATE TABLE IF NOT EXISTS `ts_group_user_isaudit` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
-  UNIQUE KEY `userid` (`userid`,`groupid`),
-  KEY `groupid` (`groupid`)
+  `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用于申请加入小组的成员审核';
 
 -- --------------------------------------------------------
@@ -1166,24 +983,22 @@ CREATE TABLE IF NOT EXISTS `ts_group_user_isaudit` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_home_info` (
-  `infoid` int(11) NOT NULL AUTO_INCREMENT,
-  `infokey` char(32) NOT NULL DEFAULT '',
-  `title` char(64) NOT NULL DEFAULT '' COMMENT '标题',
-  `content` text NOT NULL COMMENT '内容',
-  PRIMARY KEY (`infoid`),
-  UNIQUE KEY `infokey` (`infokey`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  `infoid` int(11) NOT NULL COMMENT '自增ID',
+  `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `content` text NOT NULL COMMENT '内容'
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `ts_home_info`
 --
 
-INSERT INTO `ts_home_info` (`infoid`, `infokey`, `title`, `content`) VALUES
-(1, 'about', '关于我们', '关于我们'),
-(2, 'contact', '联系我们', '联系我们'),
-(3, 'agreement', '用户条款', '<p>本协议适用ThinkSAAS发布的所有程序版本和代码。</p>\r\n<p>ThinkSAAS官方指：ThinkSAAS社区，ThinkSAAS社区系统开发者邱君。</p>\r\n<p>ThinkSAAS禁止用户在使用中触犯中国法律范围内的任何法律条文。</p>\r\n<p>ThinkSAAS及其创始人邱君拥有对ThinkSAAS的所有权，任何个人，公司和组织不得以任何形式和目的侵犯ThinkSAAS的版权和著作权</p>\r\n<p>ThinkSAAS官方拥有对ThinkSAAS社区软件绝对的版权和著作权。</p>\r\n<p>ThinkSAAS商业授权全面免费，公司和个人可以用ThinkSAAS搭建任何商业应用和网站，不用再支付任何商业授权费用。</p>\r\n<p>ThinkSAAS不会监控用户网站信息，但有权通过邮件或者其他联系方式获悉用户使用情况，有权拿用户网站用作案例展示。</p>\r\n<p>在未经ThinkSAAS官方书面允许的情况下，除【自身运营】外，任何个人、公司和组织不能单方面发布和出售以ThinkSAAS为基础开发的任何互联网软件或者产品，否则将视为侵权行为，将依照中华人民共和国法律追究其法律责任。</p>\r\n<p>ThinkSAAS官方拥有对此协议的修改和不断完善。</p>\r\n<p>【自身运营】解释：即用户在使用ThinkSAAS中，不通过出售任何以ThinkSAAS为基础开发的产品，仅用作自身学习和自身商业运营的网站。</p>'),
-(4, 'privacy', '隐私申明', '隐私申明'),
-(5, 'job', '加入我们', '加入我们');
+INSERT INTO `ts_home_info` (`infoid`, `orderid`, `title`, `content`) VALUES
+	(1, 0, '关于我们', '\n&lt;p&gt;关于我们&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;\n'),
+	(2, 0, '联系我们', '\n&lt;p&gt;联系我们&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;\n'),
+	(3, 0, '用户条款', '\n&lt;p&gt;本协议适用ThinkSAAS发布的所有程序版本和代码，所有版本都将按照最新发布的【用户条款】执行。&lt;br&gt;1、ThinkSAAS官方指：ThinkSAAS社区、thinksaas.cn和ThinkSAAS社区系统开发者邱君。&lt;br&gt;2、ThinkSAAS禁止用户在使用中触犯中国法律范围内的任何法律条文。&lt;br&gt;3、ThinkSAAS、及其创始人邱君拥有对ThinkSAAS的所有权，任何个人，公司和组织不得以任何形式和目的侵犯ThinkSAAS的版权和著作权。&lt;br&gt;4、ThinkSAAS官方拥有对ThinkSAAS社区软件绝对的版权和著作权。&lt;br&gt;5、ThinkSAAS程序代码完全开源，不做任何加密处理。ThinkSAAS允许【自身运营】用户对程序代码进行二次开发，但必须遵循本条款第6、7、8和9条规定执行。&lt;br&gt;6、所有使用ThinkSAAS的用户在保留底部Powered by ThinkSAAS 文字链接或者标识的情况下，可以免费使用ThinkSAAS。&lt;br&gt;7、用户在购买ThinkSAAS商业授权后才可以去除底部Powered by ThinkSAAS 文字链接或者标识。&lt;br&gt;8、ThinkSAAS不会监控用户网站信息，但有权通过邮件或者其他联系方式获悉用户使用情况，有权拿用户网站用作案例展示。&lt;br&gt;9、在未经ThinkSAAS官方书面允许的情况下，除【自身运营】外，任何个人、公司和组织不能单方面发布和出售以ThinkSAAS为基础开发的任何互联网软件或者产品，否则将视为侵权行为，将依照中华人民共和国法律追究其法律责任。&lt;br&gt;10、公司企业等组织机构使用ThinkSAAS软件必须购买ThinkSAAS商业授权协议。&lt;br&gt;11、ThinkSAAS官方拥有对此协议的修改和不断完善。&lt;br&gt;&lt;br&gt;【自身运营】解释：即用户在使用ThinkSAAS中，不通过出售任何以ThinkSAAS为基础开发的产品，仅用作自身学习和自身商业运营的网站。&lt;br&gt;&lt;br&gt;【用户条款】网址：https://www.thinksaas.cn/home/info/key/agreement/&lt;br&gt;【官方网站】网址：https://www.thinksaas.cn/&lt;br&gt;【演示网站】网址：https://demo.thinksaas.cn/&lt;/p&gt;\n'),
+	(4, 0, '隐私声明', '\n&lt;p&gt;隐私声明&lt;/p&gt;\n'),
+	(5, 0, '加入我们', '\n&lt;p&gt;加入我们&lt;/p&gt;\n');
 
 -- --------------------------------------------------------
 
@@ -1192,14 +1007,13 @@ INSERT INTO `ts_home_info` (`infoid`, `infokey`, `title`, `content`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ts_location` (
-  `locationid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `title` char(64) NOT NULL DEFAULT '' COMMENT '标题',
-  `content` text NOT NULL COMMENT '内容介绍',
+  `locationid` int(11) NOT NULL COMMENT '自增同城ID',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `content` text NOT NULL COMMENT '同城内容介绍',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
   `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片',
-  `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
-  PRIMARY KEY (`locationid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='同城' AUTO_INCREMENT=1 ;
+  `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='同城';
 
 -- --------------------------------------------------------
 
@@ -1208,12 +1022,10 @@ CREATE TABLE IF NOT EXISTS `ts_location` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_mail_options` (
-  `optionid` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项ID',
-  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
-  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  PRIMARY KEY (`optionid`),
-  UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='配置' AUTO_INCREMENT=9 ;
+  `optionid` int(11) NOT NULL COMMENT '选项ID',
+  `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
+  `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容'
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='配置';
 
 --
 -- 转存表中的数据 `ts_mail_options`
@@ -1225,9 +1037,9 @@ INSERT INTO `ts_mail_options` (`optionid`, `optionname`, `optionvalue`) VALUES
 (3, 'isenable', '0'),
 (4, 'mailhost', 'smtp.exmail.qq.com'),
 (5, 'ssl', '1'),
-(6, 'mailport', '465'),
+(6, 'mailport', '587'),
 (7, 'mailuser', 'postmaster@thinksaas.cn'),
-(8, 'mailpwd', '123456');
+(8, 'mailpwd', '');
 
 -- --------------------------------------------------------
 
@@ -1236,17 +1048,14 @@ INSERT INTO `ts_mail_options` (`optionid`, `optionname`, `optionvalue`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ts_message` (
-  `messageid` int(11) NOT NULL AUTO_INCREMENT COMMENT '消息ID',
+  `messageid` int(11) NOT NULL COMMENT '消息ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '发送用户ID',
   `touserid` int(11) NOT NULL DEFAULT '0' COMMENT '接收消息的用户ID',
   `content` text NOT NULL COMMENT '内容',
-  `tourl` varchar(64) NOT NULL DEFAULT '' COMMENT '消息跳转地址',
+  `tourl` varchar(255) NOT NULL DEFAULT '' COMMENT '消息跳转地址',
   `isread` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已读',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
-  PRIMARY KEY (`messageid`),
-  KEY `touserid` (`touserid`,`isread`),
-  KEY `userid` (`userid`,`touserid`,`isread`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='短消息表' AUTO_INCREMENT=1 ;
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='短消息表';
 
 -- --------------------------------------------------------
 
@@ -1255,21 +1064,20 @@ CREATE TABLE IF NOT EXISTS `ts_message` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_photo` (
-  `photoid` int(11) NOT NULL AUTO_INCREMENT,
+  `photoid` int(11) NOT NULL COMMENT '自增图片ID',
   `albumid` int(11) NOT NULL DEFAULT '0' COMMENT '相册ID',
-  `userid` int(11) NOT NULL DEFAULT '0',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `locationid` int(11) NOT NULL DEFAULT '0' COMMENT '同城iD',
-  `photoname` char(64) NOT NULL DEFAULT '',
-  `phototype` char(32) NOT NULL DEFAULT '',
+  `photoname` varchar(64) NOT NULL DEFAULT '' COMMENT '图片名称',
+  `phototype` char(32) NOT NULL DEFAULT '' COMMENT '图片类型',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '图片路径',
-  `photourl` char(120) NOT NULL DEFAULT '',
-  `photosize` char(32) NOT NULL DEFAULT '',
-  `photodesc` char(120) NOT NULL DEFAULT '',
-  `count_view` int(11) NOT NULL DEFAULT '0',
+  `photourl` varchar(64) NOT NULL DEFAULT '' COMMENT '图片地址',
+  `photosize` char(32) NOT NULL DEFAULT '' COMMENT '图片大小',
+  `photodesc` char(120) NOT NULL DEFAULT '' COMMENT '图片介绍',
+  `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '统计浏览量',
   `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不推荐1推荐',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '添加时间',
-  PRIMARY KEY (`photoid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1278,22 +1086,19 @@ CREATE TABLE IF NOT EXISTS `ts_photo` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_photo_album` (
-  `albumid` int(11) NOT NULL AUTO_INCREMENT COMMENT '相册ID',
-  `userid` int(11) NOT NULL DEFAULT '0',
+  `albumid` int(11) NOT NULL COMMENT '相册ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '相册路径',
-  `albumface` char(64) NOT NULL DEFAULT '' COMMENT '相册封面',
-  `albumname` char(64) NOT NULL DEFAULT '',
-  `albumdesc` varchar(400) NOT NULL DEFAULT '' COMMENT '相册介绍',
-  `count_photo` int(11) NOT NULL DEFAULT '0',
-  `count_view` int(11) NOT NULL DEFAULT '0',
+  `albumface` varchar(64) NOT NULL DEFAULT '' COMMENT '相册封面',
+  `albumname` varchar(64) NOT NULL DEFAULT '' COMMENT '相册名称',
+  `albumdesc` varchar(512) NOT NULL DEFAULT '' COMMENT '相册介绍',
+  `count_photo` int(11) NOT NULL DEFAULT '0' COMMENT '统计图片数',
+  `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '统计浏览量',
   `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否推荐',
   `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0审核1未审核',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '添加时间',
-  `uptime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
-  PRIMARY KEY (`albumid`),
-  KEY `userid` (`userid`),
-  KEY `isrecommend` (`isrecommend`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='相册' AUTO_INCREMENT=1 ;
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
+  `uptime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '更新时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='相册';
 
 -- --------------------------------------------------------
 
@@ -1302,17 +1107,13 @@ CREATE TABLE IF NOT EXISTS `ts_photo_album` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_photo_comment` (
-  `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '评论ID',
-  `referid` int(11) NOT NULL DEFAULT '0',
+  `commentid` int(11) NOT NULL COMMENT '自增评论ID',
+  `referid` int(11) NOT NULL DEFAULT '0' COMMENT '上级评论ID',
   `photoid` int(11) NOT NULL DEFAULT '0' COMMENT '相册ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `content` char(255) NOT NULL DEFAULT '' COMMENT '回复内容',
-  `addtime` int(11) DEFAULT '0' COMMENT '回复时间',
-  PRIMARY KEY (`commentid`),
-  KEY `userid` (`userid`),
-  KEY `referid` (`referid`,`photoid`),
-  KEY `photoid` (`photoid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='图片回复/评论' AUTO_INCREMENT=1 ;
+  `content` varchar(512) NOT NULL DEFAULT '' COMMENT '回复内容',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '回复时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='图片回复/评论';
 
 -- --------------------------------------------------------
 
@@ -1321,12 +1122,10 @@ CREATE TABLE IF NOT EXISTS `ts_photo_comment` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_photo_options` (
-  `optionid` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项ID',
-  `optionname` char(16) NOT NULL DEFAULT '' COMMENT '选项名字',
-  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  PRIMARY KEY (`optionid`),
-  UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='配置' AUTO_INCREMENT=4 ;
+  `optionid` int(11) NOT NULL COMMENT '选项ID',
+  `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
+  `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容'
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='配置';
 
 --
 -- 转存表中的数据 `ts_photo_options`
@@ -1335,76 +1134,8 @@ CREATE TABLE IF NOT EXISTS `ts_photo_options` (
 INSERT INTO `ts_photo_options` (`optionid`, `optionname`, `optionvalue`) VALUES
 (1, 'appname', '相册'),
 (2, 'appdesc', '相册'),
-(3, 'appkey', '相册');
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_redeem_cate`
---
-
-CREATE TABLE IF NOT EXISTS `ts_redeem_cate` (
-  `cateid` int(11) NOT NULL AUTO_INCREMENT COMMENT '分类ID',
-  `catename` char(32) NOT NULL DEFAULT '' COMMENT '分类名称',
-  PRIMARY KEY (`cateid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='分类' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_redeem_goods`
---
-
-CREATE TABLE IF NOT EXISTS `ts_redeem_goods` (
-  `goodsid` int(11) NOT NULL AUTO_INCREMENT COMMENT '产品ID',
-  `cateid` int(11) NOT NULL DEFAULT '0' COMMENT '分类ID',
-  `title` char(64) NOT NULL DEFAULT '' COMMENT '产品标题',
-  `content` text NOT NULL COMMENT '产品介绍',
-  `nums` int(11) NOT NULL DEFAULT '0' COMMENT '数量',
-  `scores` int(11) NOT NULL DEFAULT '0' COMMENT '需要积分',
-  `return` int(11) NOT NULL DEFAULT '0' COMMENT '返还积分',
-  `endtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '结束时间',
-  `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
-  `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '添加时间',
-  PRIMARY KEY (`goodsid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='产品' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_redeem_options`
---
-
-CREATE TABLE IF NOT EXISTS `ts_redeem_options` (
-  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
-  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
-
---
--- 转存表中的数据 `ts_redeem_options`
---
-
-INSERT INTO `ts_redeem_options` (`optionname`, `optionvalue`) VALUES
-('appname', '积分兑换'),
-('appdesc', '积分兑换'),
-('appkey', '积分兑换');
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ts_redeem_user`
---
-
-CREATE TABLE IF NOT EXISTS `ts_redeem_user` (
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `goodsid` int(11) NOT NULL DEFAULT '0' COMMENT '产品ID',
-  `isreturn` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否返还0未返还1返还',
-  KEY `userid` (`userid`,`goodsid`),
-  KEY `userid_2` (`userid`),
-  KEY `goodsid` (`goodsid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户兑换了什么产品';
+(3, 'appkey', '相册'),
+(4, 'isaudit', '0');
 
 -- --------------------------------------------------------
 
@@ -1413,14 +1144,12 @@ CREATE TABLE IF NOT EXISTS `ts_redeem_user` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_session` (
-  `session` char(64) NOT NULL DEFAULT '' COMMENT 'SESSIONID',
+  `session` varchar(64) NOT NULL DEFAULT '' COMMENT 'SESSIONID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `session_expires` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '时间',
   `ip` char(32) NOT NULL DEFAULT '' COMMENT 'IP',
   `session_data` varchar(512) NOT NULL DEFAULT '' COMMENT 'SESSION数据',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
-  UNIQUE KEY `session` (`session`),
-  KEY `userid` (`userid`)
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='SESSION';
 
 -- --------------------------------------------------------
@@ -1430,22 +1159,22 @@ CREATE TABLE IF NOT EXISTS `ts_session` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_slide` (
-  `slideid` int(11) NOT NULL AUTO_INCREMENT,
+  `slideid` int(11) NOT NULL COMMENT '自增ID',
   `typeid` int(11) NOT NULL DEFAULT '0' COMMENT '类型ID默认0为web端轮播',
-  `title` char(128) NOT NULL DEFAULT '',
-  `url` char(128) NOT NULL DEFAULT '',
-  `path` char(32) NOT NULL DEFAULT '',
-  `photo` char(32) NOT NULL DEFAULT '',
-  `addtime` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`slideid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='轮播' AUTO_INCREMENT=2 ;
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `info` varchar(128) NOT NULL DEFAULT '' COMMENT '介绍',
+  `url` varchar(64) NOT NULL DEFAULT '' COMMENT '链接',
+  `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
+  `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间'
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='轮播';
 
 --
 -- 转存表中的数据 `ts_slide`
 --
 
-INSERT INTO `ts_slide` (`slideid`, `typeid`, `title`, `url`, `path`, `photo`, `addtime`) VALUES
-  (1, 0, 'ThinkSAAS开源社区', 'http://www.thinksaas.cn', '0/0', '0/0/1.jpg', 1416533676);
+INSERT INTO `ts_slide` (`slideid`, `typeid`, `title`, `info`, `url`, `path`, `photo`, `addtime`) VALUES
+(1, 0, 'ThinkSAAS开源社区', '关注官方微信，时刻获取最新版本更新通知', 'https://www.thinksaas.cn', '0/0', '0/0/1.jpg', 1416533676);
 
 -- --------------------------------------------------------
 
@@ -1454,9 +1183,8 @@ INSERT INTO `ts_slide` (`slideid`, `typeid`, `title`, `url`, `path`, `photo`, `a
 --
 
 CREATE TABLE IF NOT EXISTS `ts_system_options` (
-  `optionname` char(32) NOT NULL DEFAULT '' COMMENT '选项名字',
-  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  UNIQUE KEY `optionname` (`optionname`)
+  `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
+  `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统管理配置';
 
 --
@@ -1468,8 +1196,9 @@ INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
 ('site_subtitle', '又一个ThinkSAAS社区'),
 ('site_key', 'thinksaas'),
 ('site_desc', 'thinksaas'),
-('site_url', 'http://localhost/thinksaas_svn/'),
-('link_url', 'http://localhost/thinksaas_svn/'),
+('site_url', 'http://dev.thinksaas.cn/'),
+('link_url', 'http://dev.thinksaas.cn/'),
+('site_pkey', '1282aeb75058638dae3e1565f7c1f51a'),
 ('site_email', 'admin@admin.com'),
 ('site_icp', '京ICP备09050100号'),
 ('isface', '0'),
@@ -1477,17 +1206,20 @@ INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
 ('isverify', '0'),
 ('istomy', '0'),
 ('isauthcode', '0'),
+('istoken', '0'),
 ('isgzip', '0'),
-('isunattended', '0'),
-('isallowdelete', '0'),
-('isallowedit', '0'),
 ('timezone', 'Asia/Hong_Kong'),
+('visitor', '0'),
+('publisher', '0'),
+('isallowedit', '0'),
+('isallowdelete', '0'),
 ('site_theme', 'sample'),
 ('site_urltype', '1'),
 ('photo_size', '2'),
 ('photo_type', 'jpg,gif,png,jpeg'),
 ('attach_size', '2'),
 ('attach_type', 'zip,rar,doc,txt,ppt'),
+('dayscoretop', '10'),
 ('logo', 'logo.png');
 
 -- --------------------------------------------------------
@@ -1497,19 +1229,16 @@ INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ts_tag` (
-  `tagid` int(11) NOT NULL AUTO_INCREMENT,
-  `tagname` char(16) NOT NULL DEFAULT '',
-  `count_user` int(11) NOT NULL DEFAULT '0',
-  `count_group` int(11) NOT NULL DEFAULT '0',
-  `count_topic` int(11) NOT NULL DEFAULT '0',
-  `count_bang` int(11) NOT NULL DEFAULT '0',
-  `count_article` int(11) NOT NULL DEFAULT '0',
+  `tagid` int(11) NOT NULL COMMENT '自增ID',
+  `tagname` varchar(32) NOT NULL DEFAULT '' COMMENT '标签名称',
+  `count_user` int(11) NOT NULL DEFAULT '0' COMMENT '统计用户标签',
+  `count_group` int(11) NOT NULL DEFAULT '0' COMMENT '统计小组标签',
+  `count_topic` int(11) NOT NULL DEFAULT '0' COMMENT '统计帖子标签',
+  `count_article` int(11) NOT NULL DEFAULT '0' COMMENT '统计文章标签',
   `count_photo` int(11) NOT NULL DEFAULT '0' COMMENT '统计图片使用数',
   `isenable` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否可用',
-  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`tagid`),
-  UNIQUE KEY `tagname` (`tagname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1519,10 +1248,7 @@ CREATE TABLE IF NOT EXISTS `ts_tag` (
 
 CREATE TABLE IF NOT EXISTS `ts_tag_article_index` (
   `articleid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
-  `tagid` int(11) NOT NULL DEFAULT '0',
-  UNIQUE KEY `articleid_2` (`articleid`,`tagid`),
-  KEY `articleid` (`articleid`),
-  KEY `tagid` (`tagid`)
+  `tagid` int(11) NOT NULL DEFAULT '0' COMMENT '标签ID'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1532,11 +1258,8 @@ CREATE TABLE IF NOT EXISTS `ts_tag_article_index` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_tag_group_index` (
-  `groupid` int(11) NOT NULL DEFAULT '0',
-  `tagid` int(11) NOT NULL DEFAULT '0',
-  UNIQUE KEY `groupid_2` (`groupid`,`tagid`),
-  KEY `groupid` (`groupid`),
-  KEY `tagid` (`tagid`)
+  `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
+  `tagid` int(11) NOT NULL DEFAULT '0' COMMENT '标签ID'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1547,10 +1270,7 @@ CREATE TABLE IF NOT EXISTS `ts_tag_group_index` (
 
 CREATE TABLE IF NOT EXISTS `ts_tag_photo_index` (
   `photoid` int(11) NOT NULL DEFAULT '0' COMMENT '图片ID',
-  `tagid` int(11) NOT NULL DEFAULT '0',
-  UNIQUE KEY `photoid_2` (`photoid`,`tagid`),
-  KEY `tagid` (`tagid`),
-  KEY `photoid` (`photoid`)
+  `tagid` int(11) NOT NULL DEFAULT '0' COMMENT '标签ID'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1561,10 +1281,7 @@ CREATE TABLE IF NOT EXISTS `ts_tag_photo_index` (
 
 CREATE TABLE IF NOT EXISTS `ts_tag_topic_index` (
   `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
-  `tagid` int(11) NOT NULL DEFAULT '0',
-  UNIQUE KEY `topicid_2` (`topicid`,`tagid`),
-  KEY `topicid` (`topicid`),
-  KEY `tagid` (`tagid`)
+  `tagid` int(11) NOT NULL DEFAULT '0' COMMENT '标签ID'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1575,10 +1292,7 @@ CREATE TABLE IF NOT EXISTS `ts_tag_topic_index` (
 
 CREATE TABLE IF NOT EXISTS `ts_tag_user_index` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `tagid` int(11) NOT NULL DEFAULT '0',
-  UNIQUE KEY `userid_2` (`userid`,`tagid`),
-  KEY `userid` (`userid`),
-  KEY `tagid` (`tagid`)
+  `tagid` int(11) NOT NULL DEFAULT '0' COMMENT '标签ID'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1588,14 +1302,12 @@ CREATE TABLE IF NOT EXISTS `ts_tag_user_index` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_task` (
-  `taskid` int(11) NOT NULL AUTO_INCREMENT COMMENT '任务ID',
+  `taskid` int(11) NOT NULL COMMENT '自增任务ID',
   `taskkey` char(32) NOT NULL DEFAULT '' COMMENT '任务标识',
-  `title` char(64) NOT NULL DEFAULT '' COMMENT '任务标题',
-  `content` varchar(2000) NOT NULL DEFAULT '' COMMENT '任务介绍',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '时间',
-  PRIMARY KEY (`taskid`),
-  UNIQUE KEY `taskkey` (`taskkey`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='任务' AUTO_INCREMENT=1 ;
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '任务标题',
+  `content` text NOT NULL COMMENT '任务介绍',
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='任务';
 
 -- --------------------------------------------------------
 
@@ -1606,10 +1318,7 @@ CREATE TABLE IF NOT EXISTS `ts_task` (
 CREATE TABLE IF NOT EXISTS `ts_task_user` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `taskkey` char(32) NOT NULL DEFAULT '' COMMENT '任务key',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '时间',
-  UNIQUE KEY `userid` (`userid`,`taskkey`),
-  KEY `taskkey` (`taskkey`),
-  KEY `userid_2` (`userid`)
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户任务关联';
 
 -- --------------------------------------------------------
@@ -1619,16 +1328,13 @@ CREATE TABLE IF NOT EXISTS `ts_task_user` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_user` (
-  `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `userid` int(11) NOT NULL COMMENT '用户ID',
   `pwd` char(32) NOT NULL DEFAULT '' COMMENT '用户密码',
   `salt` char(32) NOT NULL DEFAULT '' COMMENT '加点盐',
-  `email` char(64) NOT NULL DEFAULT '' COMMENT '用户email',
+  `email` varchar(64) NOT NULL DEFAULT '' COMMENT '用户email',
   `resetpwd` char(32) NOT NULL DEFAULT '' COMMENT '重设密码',
-  `code` char(32) NOT NULL DEFAULT '' COMMENT '邮箱验证码',
-  PRIMARY KEY (`userid`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `pwd` (`pwd`,`email`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户' AUTO_INCREMENT=1 ;
+  `code` char(32) NOT NULL DEFAULT '' COMMENT '邮箱验证码'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户';
 
 -- --------------------------------------------------------
 
@@ -1639,10 +1345,7 @@ CREATE TABLE IF NOT EXISTS `ts_user` (
 CREATE TABLE IF NOT EXISTS `ts_user_follow` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `userid_follow` int(11) NOT NULL DEFAULT '0' COMMENT '被关注的用户ID',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
-  UNIQUE KEY `userid_2` (`userid`,`userid_follow`),
-  KEY `userid` (`userid`),
-  KEY `userid_follow` (`userid_follow`)
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户关注跟随';
 
 -- --------------------------------------------------------
@@ -1652,16 +1355,13 @@ CREATE TABLE IF NOT EXISTS `ts_user_follow` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_user_gb` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `reid` int(11) NOT NULL DEFAULT '0' COMMENT '回复ID',
+  `id` int(11) NOT NULL COMMENT '自增留言ID',
+  `reid` int(11) NOT NULL DEFAULT '0' COMMENT '回复留言ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '留言用户ID',
   `touserid` int(11) NOT NULL DEFAULT '0' COMMENT '被留言用户ID',
-  `content` varchar(2000) NOT NULL DEFAULT '' COMMENT '内容',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '时间',
-  PRIMARY KEY (`id`),
-  KEY `userid` (`userid`),
-  KEY `touserid` (`touserid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='留言表' AUTO_INCREMENT=1 ;
+  `content` text NOT NULL COMMENT '内容',
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='留言表';
 
 -- --------------------------------------------------------
 
@@ -1670,15 +1370,14 @@ CREATE TABLE IF NOT EXISTS `ts_user_gb` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_user_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户组ID',
+  `id` int(11) NOT NULL COMMENT '自增用户组ID',
   `groupname` char(32) NOT NULL DEFAULT '' COMMENT '用户组名字',
   `view` tinyint(1) NOT NULL DEFAULT '0' COMMENT '查看权限0有1没有',
   `delete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '删除权限',
   `edit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '修改权限',
   `create` tinyint(1) NOT NULL DEFAULT '0' COMMENT '写入权限',
-  `score` int(11) NOT NULL DEFAULT '0' COMMENT '积分挂钩',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户组' AUTO_INCREMENT=1 ;
+  `score` int(11) NOT NULL DEFAULT '0' COMMENT '积分挂钩'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户组';
 
 -- --------------------------------------------------------
 
@@ -1691,20 +1390,22 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
   `locationid` int(11) NOT NULL DEFAULT '0' COMMENT '同城ID',
   `fuserid` int(11) NOT NULL DEFAULT '0' COMMENT '来自邀请用户',
   `username` char(32) NOT NULL DEFAULT '' COMMENT '用户名',
-  `email` char(64) NOT NULL DEFAULT '',
-  `sex` tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别',
+  `email` varchar(64) NOT NULL DEFAULT '' COMMENT 'Email邮箱',
+  `sex` char(32) NOT NULL DEFAULT '女' COMMENT '性别',
   `phone` char(16) NOT NULL DEFAULT '' COMMENT '电话号码',
   `roleid` int(11) NOT NULL DEFAULT '1' COMMENT '角色ID',
-  `province` char(64) NOT NULL DEFAULT '' COMMENT '省/直辖市/自治区',
-  `city` char(65) NOT NULL DEFAULT '' COMMENT '市县区',
+  `province` varchar(64) NOT NULL DEFAULT '' COMMENT '省/直辖市/自治区',
+  `city` varchar(64) NOT NULL DEFAULT '' COMMENT '市县区',
+  `district` varchar(64) NOT NULL DEFAULT '' COMMENT '区域',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '头像路径',
   `face` char(64) NOT NULL DEFAULT '' COMMENT '会员头像',
-  `signed` char(64) NOT NULL DEFAULT '' COMMENT '签名',
+  `signed` varchar(64) NOT NULL DEFAULT '' COMMENT '签名',
   `blog` char(32) NOT NULL DEFAULT '' COMMENT '博客',
-  `about` char(255) NOT NULL DEFAULT '' COMMENT '关于我',
-  `ip` varchar(16) NOT NULL DEFAULT '' COMMENT '登陆IP',
-  `address` char(64) NOT NULL DEFAULT '',
+  `about` varchar(255) NOT NULL DEFAULT '' COMMENT '关于我',
+  `ip` char(32) NOT NULL DEFAULT '' COMMENT '登陆IP',
+  `address` varchar(64) NOT NULL DEFAULT '' COMMENT '地址',
   `comefrom` tinyint(1) NOT NULL DEFAULT '0' COMMENT '注册来自0web1手机客户端',
+  `allscore` int(11) NOT NULL DEFAULT '0' COMMENT '所有获得的总积分',
   `count_score` int(11) NOT NULL DEFAULT '0' COMMENT '统计积分',
   `count_follow` int(11) NOT NULL DEFAULT '0' COMMENT '统计用户跟随的',
   `count_followed` int(11) NOT NULL DEFAULT '0' COMMENT '统计用户被跟随的',
@@ -1719,13 +1420,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
   `autologin` char(128) NOT NULL DEFAULT '' COMMENT '自动登陆',
   `signin` int(11) NOT NULL DEFAULT '0' COMMENT '签到时间',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `uptime` int(11) DEFAULT '0' COMMENT '登陆时间',
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `userid` (`userid`),
-  UNIQUE KEY `email_2` (`email`,`autologin`),
-  KEY `fuserid` (`fuserid`),
-  KEY `isrecommend` (`isrecommend`),
-  KEY `isrenzheng` (`isrenzheng`)
+  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '登陆时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户';
 
 -- --------------------------------------------------------
@@ -1735,16 +1430,12 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_user_invites` (
-  `inviteid` int(11) NOT NULL AUTO_INCREMENT,
+  `inviteid` int(11) NOT NULL COMMENT '自增邀请ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `invitecode` char(32) NOT NULL DEFAULT '' COMMENT '邀请码',
   `isused` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否使用',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
-  PRIMARY KEY (`inviteid`),
-  UNIQUE KEY `invitecode` (`invitecode`),
-  KEY `isused` (`isused`),
-  KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户邀请码' AUTO_INCREMENT=1 ;
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户邀请码';
 
 -- --------------------------------------------------------
 
@@ -1756,11 +1447,8 @@ CREATE TABLE IF NOT EXISTS `ts_user_open` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `sitename` char(32) NOT NULL DEFAULT '' COMMENT '连接网站名称',
   `openid` char(32) NOT NULL DEFAULT '' COMMENT 'openid',
-  `access_token` char(32) NOT NULL DEFAULT '' COMMENT 'access_token',
-  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
-  UNIQUE KEY `userid_2` (`userid`,`sitename`),
-  UNIQUE KEY `sitename` (`sitename`,`openid`),
-  KEY `userid` (`userid`)
+  `access_token` varchar(64) NOT NULL DEFAULT '' COMMENT 'access_token',
+  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='第三方连接登录';
 
 -- --------------------------------------------------------
@@ -1770,9 +1458,8 @@ CREATE TABLE IF NOT EXISTS `ts_user_open` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_user_options` (
-  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
-  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  UNIQUE KEY `optionname` (`optionname`)
+  `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
+  `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
 
 --
@@ -1794,12 +1481,11 @@ INSERT INTO `ts_user_options` (`optionname`, `optionvalue`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ts_user_role` (
-  `roleid` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `roleid` int(11) NOT NULL COMMENT '自增角色ID',
   `rolename` char(32) NOT NULL DEFAULT '' COMMENT '角色名称',
   `score_start` int(11) NOT NULL DEFAULT '0' COMMENT '积分开始',
-  `score_end` int(11) NOT NULL DEFAULT '0' COMMENT '积分结束',
-  PRIMARY KEY (`roleid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='角色' AUTO_INCREMENT=18 ;
+  `score_end` int(11) NOT NULL DEFAULT '0' COMMENT '积分结束'
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='角色';
 
 --
 -- 转存表中的数据 `ts_user_role`
@@ -1831,29 +1517,38 @@ INSERT INTO `ts_user_role` (`roleid`, `rolename`, `score_start`, `score_end`) VA
 --
 
 CREATE TABLE IF NOT EXISTS `ts_user_score` (
-  `scoreid` int(11) NOT NULL AUTO_INCREMENT COMMENT '积分ID',
-  `scorekey` char(32) NOT NULL DEFAULT '' COMMENT '积分key',
-  `scorename` char(64) NOT NULL DEFAULT '' COMMENT '积分名称',
+  `scoreid` int(11) NOT NULL COMMENT '自增积分ID',
+  `scorekey` varchar(64) NOT NULL DEFAULT '' COMMENT '积分key',
+  `scorename` varchar(64) NOT NULL DEFAULT '' COMMENT '积分名称',
   `app` char(32) NOT NULL DEFAULT '' COMMENT 'APP',
   `action` char(32) NOT NULL DEFAULT '' COMMENT 'ACTION',
+  `mg` char(32) NOT NULL DEFAULT '' COMMENT 'MG',
   `ts` char(32) NOT NULL DEFAULT '' COMMENT 'TS',
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '积分数',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0加积分1减积分',
-  PRIMARY KEY (`scoreid`),
-  UNIQUE KEY `app` (`app`,`action`,`ts`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户积分设置表' AUTO_INCREMENT=7 ;
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0加积分1减积分'
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='用户积分设置表';
 
 --
 -- 转存表中的数据 `ts_user_score`
 --
 
-INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`, `ts`, `score`, `status`) VALUES
-(1, 'user_register', '用户注册', 'user', 'register', 'do', 10, 0),
-(2, 'user_login', '用户登陆', 'user', 'login', 'do', 5, 0),
-(3, 'group_topic_add', '用户小组发帖', 'group', 'add', 'do', 10, 0),
-(4, 'group_topic_comment', '用户小组帖子评论', 'group', 'comment', 'do', 5, 0),
-(5, 'attach_upload', '资料上传', 'attach', 'upload', 'do', 10, 0),
-(6, 'user_signin', '用户签到', 'user', 'signin', '', 5, 0);
+INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`, `mg`, `ts`, `score`, `status`) VALUES
+(1, 'user_register', '用户注册', 'user', 'register', '', 'do', 10, 0),
+(2, 'user_login', '用户登陆', 'user', 'login', '', 'do', 5, 0),
+(3, 'group_topic_add', '用户小组发帖', 'group', 'add', '', 'do', 10, 0),
+(4, 'group_topic_comment', '用户小组帖子评论', 'group', 'comment', '', 'do', 5, 0),
+(5, 'attach_upload', '资料上传', 'attach', 'upload', '', 'do', 10, 0),
+(6, 'user_signin', '用户签到', 'user', 'signin', '', '', 5, 0),
+(7, 'group_topic_delete', '删除帖子', 'group', 'do', '', 'deltopic', 5, 1),
+(8, 'article_add', '发布文章', 'article', 'add', '', 'do', 5, 0),
+(9, 'article_delete', '删除文章', 'article', 'delete', '', '', 5, 1),
+(11, 'article_admin_post_isaudit0', '后台文章审核通过', 'article', 'admin', 'post', 'isaudit0', 5, 0),
+(12, 'article_admin_post_isaudit1', '后台文章审核不通过', 'article', 'admin', 'post', 'isaudit1', 5, 1),
+(13, 'ask_admin_topic_isaudit0', '后台问题审核通过', 'ask', 'admin', 'topic', 'isaudit0', 5, 0),
+(14, 'ask_admin_topic_isaudit1', '后台问题审核不通过', 'ask', 'admin', 'topic', 'isaudit1', 5, 1),
+(15, 'ask_new_do', '前台发布问题', 'ask', 'new', '', 'do', 5, 0),
+(16, 'ask_ajax_ask2commentid', '前台问题采纳', 'ask', 'ajax', '', 'ask2commentid', 5, 0),
+(17, 'article_admin_post_delete', '后台文章删除', 'article', 'admin', 'post', 'delete', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -1862,15 +1557,13 @@ INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`
 --
 
 CREATE TABLE IF NOT EXISTS `ts_user_score_log` (
-  `logid` int(11) NOT NULL AUTO_INCREMENT COMMENT '积分记录ID',
+  `logid` int(11) NOT NULL COMMENT '自增积分记录ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `scorename` char(64) NOT NULL DEFAULT '' COMMENT '积分说明',
+  `scorename` varchar(64) NOT NULL DEFAULT '' COMMENT '积分说明',
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '得分',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0增加1减少',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '积分时间',
-  PRIMARY KEY (`logid`),
-  KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户积分记录' AUTO_INCREMENT=1 ;
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '积分时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户积分记录';
 
 -- --------------------------------------------------------
 
@@ -1879,19 +1572,17 @@ CREATE TABLE IF NOT EXISTS `ts_user_score_log` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_weibo` (
-  `weiboid` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) NOT NULL DEFAULT '0',
+  `weiboid` int(11) NOT NULL COMMENT '自增唠叨ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `locationid` int(11) NOT NULL DEFAULT '0' COMMENT '同城ID',
-  `content` text NOT NULL,
-  `count_comment` int(11) NOT NULL DEFAULT '0',
-  `photo` char(32) NOT NULL DEFAULT '',
-  `path` char(32) NOT NULL DEFAULT '',
+  `content` text NOT NULL COMMENT '内容',
+  `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '统计评论数',
+  `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
+  `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片',
   `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否审核',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `uptime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
-  PRIMARY KEY (`weiboid`),
-  KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
+  `uptime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '更新时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1900,17 +1591,14 @@ CREATE TABLE IF NOT EXISTS `ts_weibo` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_weibo_comment` (
-  `commentid` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) NOT NULL DEFAULT '0',
-  `touserid` int(11) NOT NULL DEFAULT '0',
+  `commentid` int(11) NOT NULL COMMENT '自增评论ID',
+  `weiboid` int(11) NOT NULL DEFAULT '0' COMMENT '唠叨ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `touserid` int(11) NOT NULL DEFAULT '0' COMMENT '回复用户ID',
   `isread` tinyint(1) NOT NULL DEFAULT '0',
-  `weiboid` int(11) NOT NULL DEFAULT '0',
-  `content` varchar(512) NOT NULL DEFAULT '',
-  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`commentid`),
-  KEY `touserid` (`touserid`,`isread`),
-  KEY `noteid` (`weiboid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `content` text NOT NULL COMMENT '内容',
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1919,9 +1607,8 @@ CREATE TABLE IF NOT EXISTS `ts_weibo_comment` (
 --
 
 CREATE TABLE IF NOT EXISTS `ts_weibo_options` (
-  `optionname` char(12) NOT NULL DEFAULT '' COMMENT '选项名字',
-  `optionvalue` char(255) NOT NULL DEFAULT '' COMMENT '选项内容',
-  UNIQUE KEY `optionname` (`optionname`)
+  `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
+  `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
 
 --
@@ -1929,6 +1616,639 @@ CREATE TABLE IF NOT EXISTS `ts_weibo_options` (
 --
 
 INSERT INTO `ts_weibo_options` (`optionname`, `optionvalue`) VALUES
-('appname', '唠叨1'),
-('appdesc', '唠叨2'),
-('appkey', '唠叨3');
+('appname', '唠叨'),
+('appdesc', '唠叨'),
+('appkey', '唠叨');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `ts_anti_email`
+--
+ALTER TABLE `ts_anti_email`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ts_anti_ip`
+--
+ALTER TABLE `ts_anti_ip`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `ip` (`ip`);
+
+--
+-- Indexes for table `ts_anti_report`
+--
+ALTER TABLE `ts_anti_report`
+  ADD PRIMARY KEY (`reportid`);
+
+--
+-- Indexes for table `ts_anti_user`
+--
+ALTER TABLE `ts_anti_user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `userid` (`userid`);
+
+--
+-- Indexes for table `ts_anti_word`
+--
+ALTER TABLE `ts_anti_word`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ts_article`
+--
+ALTER TABLE `ts_article`
+  ADD PRIMARY KEY (`articleid`),
+  ADD UNIQUE KEY `title_2` (`title`),
+  ADD KEY `addtime` (`addtime`),
+  ADD KEY `cateid` (`cateid`),
+  ADD KEY `isrecommend` (`isrecommend`),
+  ADD KEY `count_recommend` (`count_recommend`,`addtime`),
+  ADD KEY `title` (`title`),
+  ADD KEY `count_view` (`count_view`),
+  ADD KEY `count_view_2` (`count_view`,`addtime`),
+  ADD KEY `locationid` (`locationid`),
+  ADD KEY `tags` (`tags`,`isaudit`);
+
+--
+-- Indexes for table `ts_article_cate`
+--
+ALTER TABLE `ts_article_cate`
+  ADD PRIMARY KEY (`cateid`);
+
+--
+-- Indexes for table `ts_article_comment`
+--
+ALTER TABLE `ts_article_comment`
+  ADD PRIMARY KEY (`commentid`);
+
+--
+-- Indexes for table `ts_article_options`
+--
+ALTER TABLE `ts_article_options`
+  ADD UNIQUE KEY `optionname` (`optionname`);
+
+--
+-- Indexes for table `ts_article_recommend`
+--
+ALTER TABLE `ts_article_recommend`
+  ADD UNIQUE KEY `articleid` (`articleid`,`userid`),
+  ADD KEY `articleid_2` (`articleid`),
+  ADD KEY `userid` (`userid`);
+
+--
+-- Indexes for table `ts_cache`
+--
+ALTER TABLE `ts_cache`
+  ADD PRIMARY KEY (`cacheid`),
+  ADD UNIQUE KEY `cachename` (`cachename`);
+
+--
+-- Indexes for table `ts_editor`
+--
+ALTER TABLE `ts_editor`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ts_group`
+--
+ALTER TABLE `ts_group`
+  ADD PRIMARY KEY (`groupid`),
+  ADD KEY `userid` (`userid`),
+  ADD KEY `isshow` (`isshow`),
+  ADD KEY `groupname` (`groupname`),
+  ADD KEY `cateid` (`cateid`),
+  ADD KEY `isaudit` (`isaudit`),
+  ADD KEY `addtime` (`addtime`),
+  ADD KEY `isrecommend` (`isrecommend`);
+
+--
+-- Indexes for table `ts_group_album`
+--
+ALTER TABLE `ts_group_album`
+  ADD PRIMARY KEY (`albumid`),
+  ADD KEY `userid` (`userid`),
+  ADD KEY `count_topic` (`count_topic`),
+  ADD KEY `addtime` (`addtime`);
+
+--
+-- Indexes for table `ts_group_album_topic`
+--
+ALTER TABLE `ts_group_album_topic`
+  ADD UNIQUE KEY `albumid_2` (`albumid`,`topicid`),
+  ADD KEY `albumid` (`albumid`);
+
+--
+-- Indexes for table `ts_group_cate`
+--
+ALTER TABLE `ts_group_cate`
+  ADD PRIMARY KEY (`cateid`),
+  ADD KEY `referid` (`referid`);
+
+--
+-- Indexes for table `ts_group_options`
+--
+ALTER TABLE `ts_group_options`
+  ADD UNIQUE KEY `optionname` (`optionname`);
+
+--
+-- Indexes for table `ts_group_topic`
+--
+ALTER TABLE `ts_group_topic`
+  ADD PRIMARY KEY (`topicid`),
+  ADD KEY `groupid` (`groupid`),
+  ADD KEY `userid` (`userid`),
+  ADD KEY `title` (`title`),
+  ADD KEY `groupid_2` (`groupid`),
+  ADD KEY `typeid` (`typeid`),
+  ADD KEY `addtime` (`addtime`),
+  ADD KEY `count_comment` (`count_comment`),
+  ADD KEY `count_view` (`count_view`),
+  ADD KEY `count_love` (`count_love`),
+  ADD KEY `count_view_2` (`count_view`,`addtime`),
+  ADD KEY `isshow` (`isaudit`,`uptime`);
+
+--
+-- Indexes for table `ts_group_topic_collect`
+--
+ALTER TABLE `ts_group_topic_collect`
+  ADD UNIQUE KEY `userid_2` (`userid`,`topicid`),
+  ADD KEY `userid` (`userid`),
+  ADD KEY `topicid` (`topicid`);
+
+--
+-- Indexes for table `ts_group_topic_comment`
+--
+ALTER TABLE `ts_group_topic_comment`
+  ADD PRIMARY KEY (`commentid`),
+  ADD KEY `topicid` (`topicid`),
+  ADD KEY `userid` (`userid`),
+  ADD KEY `referid` (`referid`,`topicid`);
+
+--
+-- Indexes for table `ts_group_topic_edit`
+--
+ALTER TABLE `ts_group_topic_edit`
+  ADD PRIMARY KEY (`editid`),
+  ADD UNIQUE KEY `topicid` (`topicid`);
+
+--
+-- Indexes for table `ts_group_topic_type`
+--
+ALTER TABLE `ts_group_topic_type`
+  ADD PRIMARY KEY (`typeid`),
+  ADD KEY `groupid` (`groupid`);
+
+--
+-- Indexes for table `ts_group_user`
+--
+ALTER TABLE `ts_group_user`
+  ADD UNIQUE KEY `userid_2` (`userid`,`groupid`),
+  ADD KEY `userid` (`userid`),
+  ADD KEY `groupid` (`groupid`),
+  ADD KEY `groupid_2` (`groupid`,`isadmin`,`isfounder`),
+  ADD KEY `addtime` (`addtime`);
+
+--
+-- Indexes for table `ts_group_user_isaudit`
+--
+ALTER TABLE `ts_group_user_isaudit`
+  ADD UNIQUE KEY `userid` (`userid`,`groupid`),
+  ADD KEY `groupid` (`groupid`);
+
+--
+-- Indexes for table `ts_home_info`
+--
+ALTER TABLE `ts_home_info`
+  ADD PRIMARY KEY (`infoid`);
+
+--
+-- Indexes for table `ts_location`
+--
+ALTER TABLE `ts_location`
+  ADD PRIMARY KEY (`locationid`);
+
+--
+-- Indexes for table `ts_mail_options`
+--
+ALTER TABLE `ts_mail_options`
+  ADD PRIMARY KEY (`optionid`),
+  ADD UNIQUE KEY `optionname` (`optionname`);
+
+--
+-- Indexes for table `ts_message`
+--
+ALTER TABLE `ts_message`
+  ADD PRIMARY KEY (`messageid`),
+  ADD KEY `touserid` (`touserid`,`isread`),
+  ADD KEY `userid` (`userid`,`touserid`,`isread`);
+
+--
+-- Indexes for table `ts_photo`
+--
+ALTER TABLE `ts_photo`
+  ADD PRIMARY KEY (`photoid`);
+
+--
+-- Indexes for table `ts_photo_album`
+--
+ALTER TABLE `ts_photo_album`
+  ADD PRIMARY KEY (`albumid`),
+  ADD KEY `userid` (`userid`),
+  ADD KEY `isrecommend` (`isrecommend`);
+
+--
+-- Indexes for table `ts_photo_comment`
+--
+ALTER TABLE `ts_photo_comment`
+  ADD PRIMARY KEY (`commentid`),
+  ADD KEY `userid` (`userid`),
+  ADD KEY `referid` (`referid`,`photoid`),
+  ADD KEY `photoid` (`photoid`);
+
+--
+-- Indexes for table `ts_photo_options`
+--
+ALTER TABLE `ts_photo_options`
+  ADD PRIMARY KEY (`optionid`),
+  ADD UNIQUE KEY `optionname` (`optionname`);
+
+--
+-- Indexes for table `ts_session`
+--
+ALTER TABLE `ts_session`
+  ADD UNIQUE KEY `session` (`session`),
+  ADD KEY `userid` (`userid`);
+
+--
+-- Indexes for table `ts_slide`
+--
+ALTER TABLE `ts_slide`
+  ADD PRIMARY KEY (`slideid`);
+
+--
+-- Indexes for table `ts_system_options`
+--
+ALTER TABLE `ts_system_options`
+  ADD UNIQUE KEY `optionname` (`optionname`);
+
+--
+-- Indexes for table `ts_tag`
+--
+ALTER TABLE `ts_tag`
+  ADD PRIMARY KEY (`tagid`),
+  ADD UNIQUE KEY `tagname` (`tagname`);
+
+--
+-- Indexes for table `ts_tag_article_index`
+--
+ALTER TABLE `ts_tag_article_index`
+  ADD UNIQUE KEY `articleid_2` (`articleid`,`tagid`),
+  ADD KEY `articleid` (`articleid`),
+  ADD KEY `tagid` (`tagid`);
+
+--
+-- Indexes for table `ts_tag_group_index`
+--
+ALTER TABLE `ts_tag_group_index`
+  ADD UNIQUE KEY `groupid_2` (`groupid`,`tagid`),
+  ADD KEY `groupid` (`groupid`),
+  ADD KEY `tagid` (`tagid`);
+
+--
+-- Indexes for table `ts_tag_photo_index`
+--
+ALTER TABLE `ts_tag_photo_index`
+  ADD UNIQUE KEY `photoid_2` (`photoid`,`tagid`),
+  ADD KEY `tagid` (`tagid`),
+  ADD KEY `photoid` (`photoid`);
+
+--
+-- Indexes for table `ts_tag_topic_index`
+--
+ALTER TABLE `ts_tag_topic_index`
+  ADD UNIQUE KEY `topicid_2` (`topicid`,`tagid`),
+  ADD KEY `topicid` (`topicid`),
+  ADD KEY `tagid` (`tagid`);
+
+--
+-- Indexes for table `ts_tag_user_index`
+--
+ALTER TABLE `ts_tag_user_index`
+  ADD UNIQUE KEY `userid_2` (`userid`,`tagid`),
+  ADD KEY `userid` (`userid`),
+  ADD KEY `tagid` (`tagid`);
+
+--
+-- Indexes for table `ts_task`
+--
+ALTER TABLE `ts_task`
+  ADD PRIMARY KEY (`taskid`),
+  ADD UNIQUE KEY `taskkey` (`taskkey`);
+
+--
+-- Indexes for table `ts_task_user`
+--
+ALTER TABLE `ts_task_user`
+  ADD UNIQUE KEY `userid` (`userid`,`taskkey`),
+  ADD KEY `taskkey` (`taskkey`),
+  ADD KEY `userid_2` (`userid`);
+
+--
+-- Indexes for table `ts_user`
+--
+ALTER TABLE `ts_user`
+  ADD PRIMARY KEY (`userid`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `pwd` (`pwd`,`email`);
+
+--
+-- Indexes for table `ts_user_follow`
+--
+ALTER TABLE `ts_user_follow`
+  ADD UNIQUE KEY `userid_2` (`userid`,`userid_follow`),
+  ADD KEY `userid` (`userid`),
+  ADD KEY `userid_follow` (`userid_follow`);
+
+--
+-- Indexes for table `ts_user_gb`
+--
+ALTER TABLE `ts_user_gb`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userid` (`userid`),
+  ADD KEY `touserid` (`touserid`);
+
+--
+-- Indexes for table `ts_user_group`
+--
+ALTER TABLE `ts_user_group`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ts_user_info`
+--
+ALTER TABLE `ts_user_info`
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `userid` (`userid`),
+  ADD UNIQUE KEY `email_2` (`email`,`autologin`),
+  ADD KEY `fuserid` (`fuserid`),
+  ADD KEY `isrecommend` (`isrecommend`),
+  ADD KEY `isrenzheng` (`isrenzheng`);
+
+--
+-- Indexes for table `ts_user_invites`
+--
+ALTER TABLE `ts_user_invites`
+  ADD PRIMARY KEY (`inviteid`),
+  ADD UNIQUE KEY `invitecode` (`invitecode`),
+  ADD KEY `isused` (`isused`),
+  ADD KEY `userid` (`userid`);
+
+--
+-- Indexes for table `ts_user_open`
+--
+ALTER TABLE `ts_user_open`
+  ADD UNIQUE KEY `userid_2` (`userid`,`sitename`),
+  ADD UNIQUE KEY `sitename` (`sitename`,`openid`),
+  ADD KEY `userid` (`userid`);
+
+--
+-- Indexes for table `ts_user_options`
+--
+ALTER TABLE `ts_user_options`
+  ADD UNIQUE KEY `optionname` (`optionname`);
+
+--
+-- Indexes for table `ts_user_role`
+--
+ALTER TABLE `ts_user_role`
+  ADD PRIMARY KEY (`roleid`);
+
+--
+-- Indexes for table `ts_user_score`
+--
+ALTER TABLE `ts_user_score`
+  ADD PRIMARY KEY (`scoreid`);
+
+--
+-- Indexes for table `ts_user_score_log`
+--
+ALTER TABLE `ts_user_score_log`
+  ADD PRIMARY KEY (`logid`),
+  ADD KEY `userid` (`userid`);
+
+--
+-- Indexes for table `ts_weibo`
+--
+ALTER TABLE `ts_weibo`
+  ADD PRIMARY KEY (`weiboid`),
+  ADD KEY `userid` (`userid`);
+
+--
+-- Indexes for table `ts_weibo_comment`
+--
+ALTER TABLE `ts_weibo_comment`
+  ADD PRIMARY KEY (`commentid`),
+  ADD KEY `touserid` (`touserid`,`isread`),
+  ADD KEY `noteid` (`weiboid`);
+
+--
+-- Indexes for table `ts_weibo_options`
+--
+ALTER TABLE `ts_weibo_options`
+  ADD UNIQUE KEY `optionname` (`optionname`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `ts_anti_email`
+--
+ALTER TABLE `ts_anti_email`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID';
+--
+-- AUTO_INCREMENT for table `ts_anti_ip`
+--
+ALTER TABLE `ts_anti_ip`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID';
+--
+-- AUTO_INCREMENT for table `ts_anti_report`
+--
+ALTER TABLE `ts_anti_report`
+  MODIFY `reportid` int(11) NOT NULL AUTO_INCREMENT COMMENT '举报ID';
+--
+-- AUTO_INCREMENT for table `ts_anti_user`
+--
+ALTER TABLE `ts_anti_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID';
+--
+-- AUTO_INCREMENT for table `ts_anti_word`
+--
+ALTER TABLE `ts_anti_word`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=535;
+--
+-- AUTO_INCREMENT for table `ts_article`
+--
+ALTER TABLE `ts_article`
+  MODIFY `articleid` int(11) NOT NULL AUTO_INCREMENT COMMENT '文章ID',AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `ts_article_cate`
+--
+ALTER TABLE `ts_article_cate`
+  MODIFY `cateid` int(11) NOT NULL AUTO_INCREMENT COMMENT '分类ID';
+--
+-- AUTO_INCREMENT for table `ts_article_comment`
+--
+ALTER TABLE `ts_article_comment`
+  MODIFY `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增评论ID';
+--
+-- AUTO_INCREMENT for table `ts_cache`
+--
+ALTER TABLE `ts_cache`
+  MODIFY `cacheid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增缓存ID',AUTO_INCREMENT=25;
+--
+-- AUTO_INCREMENT for table `ts_editor`
+--
+ALTER TABLE `ts_editor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID';
+--
+-- AUTO_INCREMENT for table `ts_group`
+--
+ALTER TABLE `ts_group`
+  MODIFY `groupid` int(11) NOT NULL AUTO_INCREMENT COMMENT '小组ID';
+--
+-- AUTO_INCREMENT for table `ts_group_album`
+--
+ALTER TABLE `ts_group_album`
+  MODIFY `albumid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增专辑ID';
+--
+-- AUTO_INCREMENT for table `ts_group_cate`
+--
+ALTER TABLE `ts_group_cate`
+  MODIFY `cateid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增分类ID';
+--
+-- AUTO_INCREMENT for table `ts_group_topic`
+--
+ALTER TABLE `ts_group_topic`
+  MODIFY `topicid` int(11) NOT NULL AUTO_INCREMENT COMMENT '话题ID';
+--
+-- AUTO_INCREMENT for table `ts_group_topic_comment`
+--
+ALTER TABLE `ts_group_topic_comment`
+  MODIFY `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增评论ID';
+--
+-- AUTO_INCREMENT for table `ts_group_topic_edit`
+--
+ALTER TABLE `ts_group_topic_edit`
+  MODIFY `editid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增编辑ID';
+--
+-- AUTO_INCREMENT for table `ts_group_topic_type`
+--
+ALTER TABLE `ts_group_topic_type`
+  MODIFY `typeid` int(11) NOT NULL AUTO_INCREMENT COMMENT '帖子分类ID';
+--
+-- AUTO_INCREMENT for table `ts_home_info`
+--
+ALTER TABLE `ts_home_info`
+  MODIFY `infoid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `ts_location`
+--
+ALTER TABLE `ts_location`
+  MODIFY `locationid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增同城ID';
+--
+-- AUTO_INCREMENT for table `ts_mail_options`
+--
+ALTER TABLE `ts_mail_options`
+  MODIFY `optionid` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项ID',AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `ts_message`
+--
+ALTER TABLE `ts_message`
+  MODIFY `messageid` int(11) NOT NULL AUTO_INCREMENT COMMENT '消息ID';
+--
+-- AUTO_INCREMENT for table `ts_photo`
+--
+ALTER TABLE `ts_photo`
+  MODIFY `photoid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增图片ID';
+--
+-- AUTO_INCREMENT for table `ts_photo_album`
+--
+ALTER TABLE `ts_photo_album`
+  MODIFY `albumid` int(11) NOT NULL AUTO_INCREMENT COMMENT '相册ID';
+--
+-- AUTO_INCREMENT for table `ts_photo_comment`
+--
+ALTER TABLE `ts_photo_comment`
+  MODIFY `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增评论ID';
+--
+-- AUTO_INCREMENT for table `ts_photo_options`
+--
+ALTER TABLE `ts_photo_options`
+  MODIFY `optionid` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项ID',AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `ts_slide`
+--
+ALTER TABLE `ts_slide`
+  MODIFY `slideid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `ts_tag`
+--
+ALTER TABLE `ts_tag`
+  MODIFY `tagid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID';
+--
+-- AUTO_INCREMENT for table `ts_task`
+--
+ALTER TABLE `ts_task`
+  MODIFY `taskid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增任务ID';
+--
+-- AUTO_INCREMENT for table `ts_user`
+--
+ALTER TABLE `ts_user`
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID';
+--
+-- AUTO_INCREMENT for table `ts_user_gb`
+--
+ALTER TABLE `ts_user_gb`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增留言ID';
+--
+-- AUTO_INCREMENT for table `ts_user_group`
+--
+ALTER TABLE `ts_user_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增用户组ID';
+--
+-- AUTO_INCREMENT for table `ts_user_invites`
+--
+ALTER TABLE `ts_user_invites`
+  MODIFY `inviteid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增邀请ID';
+--
+-- AUTO_INCREMENT for table `ts_user_role`
+--
+ALTER TABLE `ts_user_role`
+  MODIFY `roleid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增角色ID',AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `ts_user_score`
+--
+ALTER TABLE `ts_user_score`
+  MODIFY `scoreid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增积分ID',AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `ts_user_score_log`
+--
+ALTER TABLE `ts_user_score_log`
+  MODIFY `logid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增积分记录ID';
+--
+-- AUTO_INCREMENT for table `ts_weibo`
+--
+ALTER TABLE `ts_weibo`
+  MODIFY `weiboid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增唠叨ID';
+--
+-- AUTO_INCREMENT for table `ts_weibo_comment`
+--
+ALTER TABLE `ts_weibo_comment`
+  MODIFY `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增评论ID';
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

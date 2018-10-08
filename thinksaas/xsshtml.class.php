@@ -9,7 +9,6 @@
  * @copyright (c) Phithon All Rights Reserved
  *
  */
-
 #
 # Written by Phithon <root@leavesongs.com> in 2014 and placed in
 # the public domain.
@@ -32,8 +31,8 @@ class XssHtml {
 	private $m_dom;
 	private $m_xss;
 	private $m_ok;
-	private $m_AllowAttr = array('title', 'src', 'href', 'id', 'class', 'style', 'width', 'height', 'alt', 'target', 'align','type','pluginspage','wmode','play','loop','menu','allowscriptaccess','allowfullscreen');
-	private $m_AllowTag = array('a', 'img', 'br', 'strong', 'b', 'code', 'pre', 'p', 'div', 'em', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'table', 'ul', 'ol', 'tr', 'th', 'td', 'hr', 'li', 'u','embed');
+	private $m_AllowAttr = array('title', 'src', 'href', 'id', 'class', 'style', 'width', 'height', 'alt', 'target', 'align','type','pluginspage','wmode','play','loop','menu','allowscriptaccess','allowfullscreen','frameborder','preload','data-setup','tabindex','aria-live','aria-label','aria-hidden','aria-haspopup','role','controls');
+	private $m_AllowTag = array('a', 'img', 'br', 'strong', 'b', 'code', 'pre', 'p', 'div', 'em', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'table', 'ul', 'ol', 'tr', 'th', 'td', 'hr', 'li', 'u','embed','video','audio','source');
 
 	/**
      * 构造函数

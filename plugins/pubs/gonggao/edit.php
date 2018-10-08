@@ -9,8 +9,8 @@ switch($ts){
 		if($strGonggao==''){
 			$strGonggao = $tsMySqlCache->get('plugins_pubs_gonggao');
 		}
-		
-		include 'edit_set.html';
+
+        include template('edit_set','gonggao');
 		break;
 		
 	case "do":

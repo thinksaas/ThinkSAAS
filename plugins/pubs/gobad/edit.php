@@ -11,8 +11,8 @@ switch($ts){
 			$code = $tsMySqlCache->get('plugins_pubs_gobad');
 			
 		}
-		
-		include 'edit_set.html';
+
+        include template('edit_set','gobad');
 		break;
 		
 	case "do":

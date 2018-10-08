@@ -1,0 +1,30 @@
+{php include pubTemplate("header_admin")}
+
+<!--main-->
+<div class="midder">
+    {template anti_menu}
+
+
+    <div>
+        <table class="table table-hover">
+
+            <thead class="thead-light">
+            <tr><th>ID</th><th>举报链接</th><th>举报内容</th><th>时间</th><th>操作</th></tr>
+            </thead>
+
+            <tbody>
+            {loop $arrReport $key $item}
+            <tr><td>{$item['reportid']}</td><td><a target="_blank" href="{php echo tsTitle($item['url'])}">{php echo tsTitle($item['url'])}</a></td><td>{php echo tsTitle($item['content'])}</td><td>{$item['addtime']}</td><td><a onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=system&ac=anti&ts=reportdelete&reportid={$item['reportid']}">删除</a></td></tr>
+            {/loop}
+            </tbody>
+
+
+
+        </table>
+
+    </div>
+
+
+</div>
+
+{php include pubTemplate("footer_admin")}

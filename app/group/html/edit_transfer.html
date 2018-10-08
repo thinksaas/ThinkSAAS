@@ -1,0 +1,48 @@
+{php include pubTemplate("header")}
+
+<div class="container">
+
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">小组设置</li>
+        </ol>
+    </nav>
+
+
+    <div class="card">
+        <div class="card-body">
+
+
+            {template edit_xbar}
+
+
+            <form class="form-horizontal" role="form" method="post" action="{SITE_URL}index.php?app=group&ac=edit&ts=transferdo&groupid={$strGroup['groupid']}">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">转让给谁？</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="touserid" class="form-control form-control-sm" placeholder="接收人的用户ID">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-6">
+                        <button type="submit" class="btn btn-sm btn-info">确定转让</button>
+                    </div>
+                </div>
+
+            </form>
+
+
+
+
+        </div>
+    </div>
+
+</div>
+{php include pubTemplate("footer")}

@@ -1,0 +1,15 @@
+{
+  "name": "thinksaas",
+  "description": "www.thinksaas.cn",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "qiujun",
+      "email": "thinksaas@qq.com"
+    }
+  ],
+  "require": {
+    "phpmailer/phpmailer": "v6.0.5"
+  }
+}

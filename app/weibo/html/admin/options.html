@@ -1,4 +1,4 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 
 <!--main-->
 <div class="midder">
@@ -7,7 +7,10 @@
 
 
 <form  method="POST" action="index.php?app=weibo&ac=admin&mg=optionsdo">
-<table>
+<table class="table table-hover">
+
+
+
 <tr><td width="150">APP名称：</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
 
 <tr><td>APP介绍：</td><td><textarea style="width:300px;" name="option[appdesc]">{$strOption[appdesc]}</textarea></td></tr>
@@ -16,11 +19,11 @@
 
 <tr><td></td><td>
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
-<input type="submit" value="提交修改" /></td></tr>
+<input class="btn btn-primary" type="submit" value="提交修改" /></td></tr>
 </table>
 </form>
 
 
 </div>
 
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

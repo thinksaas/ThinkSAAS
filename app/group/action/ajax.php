@@ -7,15 +7,6 @@ switch($ts){
 	
 		$topicid = intval($_POST['topicid']);
 		
-		$token = trim($_POST['token']);
-		
-	
-		if($TS_USER['isadmin']==0 || $token!=$_SESSION['token']){
-			echo 2;exit;//非法操作
-		}
-		
-		
-		
 		$strTopic = $new['group']->find('group_topic',array(
 			'topicid'=>$topicid,
 		));
@@ -78,6 +69,7 @@ switch($ts){
 				getJson('加入小组申请提交成功，请等待管理员审核后加入。');
 				
 			}
+
 			
 			//先统计用户有多少个小组了，50个封顶
 			$userGroupNum = $new['group']->findCount('group_user',array('userid'=>$userid));
@@ -90,6 +82,24 @@ switch($ts){
 			));
 			
 			if($groupUserNum > 0) getJson('你已经加入小组！');
+
+
+
+            #付费加入小组
+            if($TS_APP['ispayjoin']==1 && $strGroup['joinway']==3){
+                //启动支付帐号
+                $strUserPay = aac('pay')->getUserPay($userid);
+                if($strUserPay['over']<$strGroup['price']){
+                    getJson('支付帐号资金不足，请充值后再加入小组！');
+                }
+                //用户加入付款消费
+                aac('pay')->updatePay($userid,$strGroup['price'],1,'加入收费小组'.$strGroup['groupid']);
+
+                #组长获取加入收费收入
+                aac('pay')->updatePay($strGroup['userid'],$strGroup['price'],0,'收费小组获取'.$strGroup['groupid']);
+            }
+
+
 		
 		}
 		
@@ -121,7 +131,7 @@ switch($ts){
 			'count_user'=>$count_user,
 		));
 		
-		getJson('加入成功！',1,1);
+		getJson('加入成功！',1,1,tsUrl('group','show',array('id'=>$groupid)));
 		
 		break;
 		
@@ -159,8 +169,8 @@ switch($ts){
 		),array(
 			'count_user'=>$count_user,
 		));
-	
-		getJson('退出成功！',1,1);
+
+        getJson('加入成功！',1,1,tsUrl('group','show',array('id'=>$groupid)));
 
 		break;
 		

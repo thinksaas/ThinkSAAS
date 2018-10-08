@@ -3,10 +3,6 @@ defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 
 $userid = aac ( 'user' )->isLogin ();
 
-if ($_GET['token'] != $_SESSION['token']) {
-    tsNotice('非法操作！');
-}
-
 $articleid = intval ( $_GET ['articleid'] );
 
 $strArticle = $new ['article']->find ( 'article', array (
@@ -28,6 +24,14 @@ if ($strArticle ['userid'] == $userid || $TS_USER ['isadmin'] == 1) {
     $new ['article']->delete ( 'article_recommend', array (
         'articleid' => $articleid
     ) );
+
+
+    if($strArticle['isaudit']==0){
+        // 对积分进行处理
+        aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle ['userid']);
+    }
+
+
 }
 
 tsNotice('删除成功','点击返回文章首页',tsUrl ( 'article' ));

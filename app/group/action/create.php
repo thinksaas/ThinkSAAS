@@ -57,7 +57,7 @@ switch($ts){
 		if($TS_APP['iscreate'] == 0 || $TS_USER['isadmin']==1){
 			
 			$groupname = trim($_POST['groupname']);
-			$groupdesc = tsClean($_POST['groupdesc']);
+			$groupdesc = trim($_POST['groupdesc']);
 			
 			if($groupname=='' || $groupdesc=='') {
 				tsNotice('小组名称和介绍不能为空！');
@@ -146,6 +146,11 @@ switch($ts){
 			
 			// 处理标签
 			aac ( 'tag' )->addTag ( 'group', 'groupid', $groupid, $_POST['tag'] );
+
+
+            // 对积分进行处理
+            aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
+
 
 			header("Location: ".tsUrl('group','show',array('id'=>$groupid)));
 		}

@@ -1,5 +1,12 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
+
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+
  
 class mail extends tsApp{
 	
@@ -24,7 +31,67 @@ class mail extends tsApp{
 		if($options==''){
 			$options = $tsMySqlCache->get('mail_options');
 		}
-		date_default_timezone_set('Asia/Shanghai');
+
+
+
+        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+        try {
+            //Server settings
+            $mail->SMTPDebug = 0;                                 // Enable verbose debug output
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = $options['mailhost'];  // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = $options['mailuser'];                 // SMTP username
+            $mail->Password = $options['mailpwd'];                           // SMTP password
+
+
+            if($options['ssl']){
+                $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+            }
+
+
+            $mail->Port = $options['mailport'];                                    // TCP port to connect to
+
+            //Recipients
+            $mail->setFrom($options['mailuser'], $TS_SITE['site_title']);
+            $mail->addAddress($sendmail, '');     // Add a recipient
+            //$mail->addAddress($sendmail);               // Name is optional
+            $mail->addReplyTo($options['mailuser'], $TS_SITE['site_title']);
+
+            /*
+            $mail->addCC('cc@example.com');
+            $mail->addBCC('bcc@example.com');
+            */
+
+            //Attachments
+            /*
+            $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+            $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+            */
+
+            //Content
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = $subject;
+            $mail->Body    = $content;
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+            //echo 'Message has been sent';
+
+            return 1;
+
+        } catch (Exception $e) {
+            //echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+
+            return 0;
+        }
+
+
+
+
+		//date_default_timezone_set('Asia/Shanghai');
+
+		/*
 		require_once 'PHPMailer/PHPMailerAutoload.php';
 		$mail = new PHPMailer();
 
@@ -73,6 +140,16 @@ class mail extends tsApp{
 			return '1';
 			
 		}
+		*/
+
+
+
+
+
+
+
+
+
 	}
 	
 	

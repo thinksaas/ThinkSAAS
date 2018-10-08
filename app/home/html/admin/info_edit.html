@@ -1,10 +1,4 @@
-{php include template("admin/header");}
-
-<script>window.UEDITOR_HOME_URL = "{SITE_URL}plugins/pubs/ueditor/";</script>
-<script type="text/javascript" charset="utf-8" src="{SITE_URL}plugins/pubs/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="{SITE_URL}plugins/pubs/ueditor/ueditor.all.min.js"> </script>
-<script type="text/javascript" charset="utf-8" src="{SITE_URL}plugins/pubs/ueditor/load.js"></script>
-<script type="text/javascript" charset="utf-8" src="{SITE_URL}plugins/pubs/ueditor/lang/zh-cn/zh-cn.js"></script>
+{php include pubTemplate("header_admin")}
 
 <!--main-->
 <div class="midder">
@@ -13,32 +7,48 @@
 
 
 <form method="post" action="{SITE_URL}index.php?app=home&ac=admin&mg=info&ts=editdo">
-<table>
+<table class="table table-hover">
 
-<tr>
-<td>InfoKey:</td><td><input style="width:300px;padding:5px;" name="infokey" value="{$strInfo['infokey']}" /></td>
-</tr>
 
-<tr>
-<td>标题:</td><td><input style="width:300px;padding:5px;" name="title" value="{$strInfo['title']}" /></td>
-</tr>
+    <tbody>
 
-<tr>
-<td>内容:</td><td>
 
-<textarea id="tseditor" style="width:800px;" name="content">{$strInfo['content']}</textarea>
 
-</td>
-</tr>
+    <tr>
+        <td>标题:</td><td><input style="width:300px;padding:5px;" name="title" value="{$strInfo['title']}" /></td>
+    </tr>
 
-<tr>
-<td></td><td>
+    <tr>
+        <td>内容:</td><td>
 
-<input type="hidden" name="infoid" value="{$strInfo['infoid']}" />
-<input type="submit" value="提交" />
 
-</td>
-</tr>
+        <div id="tseditor">{$strInfo['content']}</div>
+        <div style="display: none;">
+            <textarea name="content">{$strInfo['content']}</textarea>
+        </div>
+
+
+
+    </td>
+    </tr>
+
+
+    <tr>
+        <td>排序ID:</td><td><input name="orderid" value="{$strInfo['orderid']}" /></td>
+    </tr>
+
+    <tr>
+        <td></td><td>
+
+        <input type="hidden" name="infoid" value="{$strInfo['infoid']}" />
+        <input type="submit" value="提交" />
+
+    </td>
+    </tr>
+
+    </tbody>
+
+
 
 </table>
 </form>
@@ -46,4 +56,8 @@
 
 </div>
 
-{php include template("admin/footer");}
+<script type="text/javascript" charset="utf-8" src="{SITE_URL}public/js/xss.js"></script>
+<script type="text/javascript" charset="utf-8" src="{SITE_URL}plugins/pubs/wangeditor/wangEditor.js"></script>
+<script type="text/javascript" charset="utf-8" src="{SITE_URL}plugins/pubs/wangeditor/load.js"></script>
+
+{php include pubTemplate("footer_admin")}

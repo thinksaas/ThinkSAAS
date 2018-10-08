@@ -1,4 +1,4 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 
 <!--main-->
 <div class="midder">
@@ -7,29 +7,36 @@
 
 
 
-<table>
+<table class="table table-hover">
 
-<tr class="old">
-<td>InfoID</td>
-<td>InfoKey</td>
-<td>InfoTitle</td>
-<td>调用链接</td>
-<td>操作</td>
-</tr>
+
+    <thead class="thead-light">
+    <tr>
+        <th>InfoID</th>
+        <th>标题</th>
+        <th>调用链接</th>
+        <th>排序ID</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+
+<tbody>
 
 {loop $arrInfo $key $item}
 <tr>
 <td>{$item['infoid']}</td>
-<td>{$item['infokey']}</td>
 <td>{$item['title']}</td>
-<td>{tsUrl('home','info',array('key'=>$item['infokey']))}</td>
+<td>{tsUrl('home','info',array('id'=>$item['infoid']))}</td>
+    <td>{$item['orderid']}</td>
 <td><a href="{SITE_URL}index.php?app=home&ac=admin&mg=info&ts=edit&infoid={$item['infoid']}">修改</a>  |  <a href="{SITE_URL}index.php?app=home&ac=admin&mg=info&ts=delete&infoid={$item['infoid']}">删除</a></td>
 </tr>
 {/loop}
+
+</tbody>
 
 </table>
 
 
 </div>
 
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

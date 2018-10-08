@@ -1,115 +1,42 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
 
-    <ol class="breadcrumb">
-        <li><a href="{SITE_URL}">首页</a></li>
-        <li><a href="{tsUrl('user')}">用户</a></li>
-        <li class="active">{$strUser['username']}的空间</li>
-    </ol>
+
+
+
+
+    {template menu}
+
+
+
     <div class="row">
 
         <div class="col-md-8">
 
 
-            {template menu}
+
+            <div class="card">
+                <div class="card-body">
 
 
-            <div class="panel panel-default">
-                <div class="panel-body">
-
-
-                    {loop $arrGroup $key $item}
-                    <div class="sub-item">
-                        <div class="pic">
-                            <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">
-                                <img class="img-rounded" src="{$item[photo]}" alt="{$item[groupname]}" />
-                            </a>
-
-
-
-                        </div>
-                        <div class="info">
-                            <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a>  <font color="#999999">{$item[count_user]}人加入</font>
-                            <p>{php echo t($item[groupdesc])}</p>
-                        </div>
-                    </div>
-                    {/loop}
-
+                    <dl class="row">
+                        <dt class="col-sm-2">UID：</dt><dd class="col-sm-9 text-black-50">{$strUser['userid']}</dd>
+                        <dt class="col-sm-2">性别：</dt><dd class="col-sm-9 text-black-50">{$strUser['sex']}</dd>
+                        <dt class="col-sm-2">自我介绍：</dt><dd class="col-sm-9 text-black-50">{if $strUser['about']}{$strUser['about']}{else}还没有介绍{/if}</dd>
+                        <dt class="col-sm-2">关注：</dt><dd class="col-sm-9 text-black-50"><a href="{tsUrl('user','follow',array('id'=>$strUser['userid']))}">{$strUser['count_follow']} 人</a></dd>
+                        <dt class="col-sm-2">粉丝：</dt><dd class="col-sm-9 text-black-50"><a href="{tsUrl('user','followed',array('id'=>$strUser['userid']))}">{$strUser['count_followed']} 人</a></dd>
+                        <dt class="col-sm-2">积分：</dt><dd class="col-sm-9 text-black-50">{$strUser['count_score']}</dd>
+                    </dl>
 
 
 
 
                 </div>
-
             </div>
 
 
-            <div class="panel panel-default">
-                <div class="panel-heading">留言板</div>
-                <div class="panel-body">
-
-                    {if intval($TS_USER['userid']) >0 && intval($TS_USER['userid']) != $strUser['userid']}
-                    <div class="guest">
-                        <img src="{SITE_URL}public/images/user_normal.jpg" />
-                        <form method="post" action="{SITE_URL}index.php?app=user&ac=guestbook&ts=do">
-                            <textarea class="form-control" name="content"></textarea>
-                            <div class="clear"></div>
-
-                            <input type="hidden" name="touserid" value="{$strUser['userid']}" />
-                            <input type="hidden" name="token" value="{$_SESSION['token']}" />
-
-                            <div class="pd100">
-                                <button class="btn btn-success" type="submit">添加留言</button>
-                            </div>
-
-
-                        </form>
-                    </div>
-                    {/if}
-
-                    <div id="reguest" style="display:none;">
-                        <form method="post" action="{SITE_URL}index.php?app=user&ac=guestbook&ts=redo">
-                            <textarea class="form-control" name="content"></textarea>
-                            <p>
-                                <input id="touserid" type="hidden" name="touserid" value="0" />
-                                <input id="reid" type="hidden" name="reid" value="0" />
-                                <input type="hidden" name="token" value="{$_SESSION['token']}" />
-                                <input class="btn btn-success" type="submit" value="回复" />
-                            </p>
-                        </form>
-                    </div>
-
-                    <div class="clear"></div>
-
-                    <div class="glist">
-                        <ul>
-
-                            {loop $arrGuest $key $item}
-                            <li>
-                                <a href="{tsUrl('user','space',array('id'=>$item['userid']))}" rel="face" uid="{$item['user']['userid']}">
-                                    <img class="img-circle" src="{$item['user']['face']}" alt="{$item['user']['username']}" width="48" height="48" /></a>
-
-                                <div class="content">
-
-                                    <p><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"  rel="face" uid="{$item['user']['userid']}">{$item['user']['username']}</a> {$item['addtime']}</p>
-
-                                    {$item['content']}
-
-                                    <p style="text-align:right">
-                                        {if intval($TS_USER['userid'] == $strUser['userid'])}
-                                        <a href="#reguest" onclick="reguest('{$item['userid']}','{$item['id']}')">回复</a> <a href="{tsUrl('user','guestbook',array('ts'=>'delete','gbid'=>$item['id']))}" onclick="return confirm('确定删除?')">删除</a>
-                                        {/if}
-                                    </p>
-
-                                </div>
-                            </li>
-                            {/loop}
-                        </ul>
-                    </div>
-                </div>
-            </div>
 
 
         </div>
@@ -120,4 +47,4 @@
 
     </div>
 </div>
-{template footer}
+{php include pubTemplate("footer")}

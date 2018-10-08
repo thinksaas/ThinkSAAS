@@ -1,32 +1,41 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
+
+
+    {template menu}
+
 
 <div class="row">
 
 <div class="col-md-8">
 
-    {template menu}
-
-<div class="bbox">
+<div class="card">
 
 
-<div class="bc">
+<div class="card-body">
 
 
+{if $arrUser}
 
 <div class="obss">
 
 {loop $arrUser $key $item}
 <dl class="obu"><dt><a class="nbg" href="{tsUrl('user','space',array('id'=>$item['userid']))}">
-    <img alt="{$item['username']}" title="{$item['username']}" class="img-circle" src="{$item['face']}" width="48" height="48">
+    <img alt="{$item['username']}" title="{$item['username']}" class="rounded-circle" src="{$item['face']}" width="48" height="48">
 </a></dt>
-<dd><a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[username]}</a></dd></dl>
+<dd class="title-cut text-secondary fs12 mt-1">{$item[username]}</dd></dl>
 {/loop}
 </div>
 
 <div class="clear"></div>
 <div class="page">{$pageUrl}</div>
+
+    {else}
+
+    <div class="c9 fs12">还没有关注任何人</div>
+
+    {/if}
 
 </div>
 </div>
@@ -38,4 +47,4 @@
 
 </div>
 </div>
-{template footer}
+{php include pubTemplate("footer")}

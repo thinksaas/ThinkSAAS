@@ -16,30 +16,60 @@ switch($ts){
 		include template('admin/post_list');
 		break;
 		
-	//审核
-	case "isaudit":
+	//审核通过
+	case "isaudit0":
 		
 		$articleid = intval($_GET['articleid']);
 		$strArticle = $new['article']->find('article',array(
 			'articleid'=>$articleid,
 		));
-		
-		if($strArticle['isaudit']==0){
-			$new['article']->update('article',array(
-				'articleid'=>$articleid,
-			),array(
-				'isaudit'=>1,
-			));
-		}else{
-			$new['article']->update('article',array(
-				'articleid'=>$articleid,
-			),array(
-				'isaudit'=>0,
-			));
-		}
+
+        $new['article']->update('article',array(
+            'articleid'=>$articleid,
+        ),array(
+            'isaudit'=>0,
+        ));
+
+        #发送系统消息
+        $msg_userid = '0';
+        $msg_touserid = $strArticle['userid'];
+        $msg_content = '你发布的文章审核通过，快去看看吧^_^ ';
+        $msg_url = tsUrl('article','show',array('id'=>$articleid));
+        aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_url);
+
+        #处理积分
+        aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle['userid'],$TS_URL['mg']);
 		
 		qiMsg('操作成功！');
 		break;
+
+    #审核不通过
+    case "isaudit1":
+
+        $articleid = intval($_GET['articleid']);
+        $strArticle = $new['article']->find('article',array(
+            'articleid'=>$articleid,
+        ));
+
+        $new['article']->update('article',array(
+            'articleid'=>$articleid,
+        ),array(
+            'isaudit'=>1,
+        ));
+
+        #发送系统消息
+        $msg_userid = '0';
+        $msg_touserid = $strArticle['userid'];
+        $msg_content = '你发布的文章审核未通过，快去看看吧^_^ ';
+        $msg_url = tsUrl('article','show',array('id'=>$articleid));
+        aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_url);
+
+        #处理积分
+        aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle['userid'],$TS_URL['mg']);
+
+        qiMsg('操作成功！');
+
+        break;
 		
 	//删除 
 	case "delete":
@@ -60,6 +90,9 @@ switch($ts){
 		$new['article']->delete('tag_article_index',array(
 			'articleid'=>$articleid,
 		));
+
+        #处理积分
+        aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle['userid'],$TS_URL['mg']);
 		
 		qiMsg('删除成功！');
 	

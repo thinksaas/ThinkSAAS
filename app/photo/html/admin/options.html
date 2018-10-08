@@ -1,13 +1,12 @@
-{php include template("admin/header")}
+{php include pubTemplate("header_admin")}
 
-<!--main-->
 <div class="midder">
 
 {php include template("admin/menu")}
 
 
 <form  method="POST" action="index.php?app=photo&ac=admin&mg=options&ts=do">
-<table>
+<table class="table table-hover">
 <tr><td width="150">APP名称：</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
 
 <tr><td>APP介绍：</td><td><textarea style="width:300px;" name="option[appdesc]">{$strOption[appdesc]}</textarea></td></tr>
@@ -18,13 +17,13 @@
 
 <tr><td></td><td>
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
-<input type="submit" value="提交修改" /></td></tr>
+<input class="btn btn-primary" type="submit" value="提交修改" /></td></tr>
 </table>
 </form>
 
 
-<table>
-<tr><td width="200">重新统计相册</td><td><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=count">执行</a></td></tr>
+<table class="table table-hover">
+<tr><td>重新统计相册</td><td><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=count">执行</a></td></tr>
 
 <tr><td>删除空相册</td><td><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=nophoto">执行</a></td></tr>
 </table>
@@ -32,4 +31,4 @@
 
 </div>
 
-{php include template("admin/footer")}
+{php include pubTemplate("footer_admin")}

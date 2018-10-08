@@ -6,6 +6,11 @@ switch($ts){
 
 	case "":
 
+        if ($GLOBALS['TS_USER']){
+            header('Location: '.SITE_URL);
+            exit;
+        }
+
 		$title = '找回登陆密码';
 		include template("forgetpwd");
 
@@ -15,12 +20,7 @@ switch($ts){
 	case "do":
 		
 		$js = intval($_GET['js']);
-		
-		
-	
-		if($_POST['token'] != $_SESSION['token']) {
-			getJson('非法操作！',$js);
-		}
+
 	
 		$email	= trim($_POST['email']);
 

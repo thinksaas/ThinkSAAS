@@ -1,9 +1,9 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 <div class="midder">
     {php include template("admin/menu");}
     <div>
         <form method="post" action="{SITE_URL}index.php?app=user&ac=admin&mg=score&ts=senddo">
-            <table>
+            <table class="table table-hover">
                 <tr><td>用户ID:</td><td><input type="text" name="userid" /></td></tr>
                 <tr><td>积分数:</td><td><input type="text" name="score" /></td></tr>
                 <tr><td>积分说明:</td><td><input type="text" name="scorename" /></td></tr>
@@ -12,4 +12,4 @@
         </form>
     </div>
 </div>
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

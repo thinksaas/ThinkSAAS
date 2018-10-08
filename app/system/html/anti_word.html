@@ -1,4 +1,4 @@
-{template header}
+{php include pubTemplate("header_admin")}
 
 <!--main-->
 <div class="midder">
@@ -18,13 +18,18 @@
 
 
 <div>
-<table>
+<table class="table table-hover">
+<thead class="thead-light">
+<tr><th>ID</th><th>敏感词</th><th>添加时间</th><th>操作</th></tr>
+</thead>
 
-<tr class="old"><td>ID</td><td>敏感词</td><td>添加时间</td><td>操作</td></tr>
-
+<tbody class="fs12 c9">
 {loop $arrWord $key $item}
-<tr class="odd"><td>{$item['id']}</td><td>{$item['word']}</td><td>{$item['addtime']}</td><td><a href="{SITE_URL}index.php?app=system&ac=anti&ts=worddel&id={$item['id']}">删除</a></td></tr>
+<tr><td>{$item['id']}</td><td>{$item['word']}</td><td>{$item['addtime']}</td><td><a href="{SITE_URL}index.php?app=system&ac=anti&ts=worddel&id={$item['id']}"><i class="far fa-trash-alt"></i> 删除</a></td></tr>
 {/loop}
+</tbody>
+
+
 
 </table>
 
@@ -33,4 +38,4 @@
 
 </div>
 
-{template footer}
+{php include pubTemplate("footer_admin")}

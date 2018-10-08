@@ -1,10 +1,10 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
 <div class="row">
 
-<div class="col-md-2">
+<div class="col-md-3">
 <div class="my_left">
 
 {php include pubTemplate("my")}
@@ -14,13 +14,13 @@
 
 
 
-<div class="col-md-10">
-    <div class="panel panel-default">
-        <div class="panel-body">
+<div class="col-md-9">
+    <div class="card">
+        <div class="card-body">
 
 {template menu}
 
-<div class="system">
+<div class="system fs13">
 <ul>
 {loop $arrMessage $key $item}
 <li>
@@ -48,4 +48,4 @@
 </div>
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

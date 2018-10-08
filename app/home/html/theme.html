@@ -1,13 +1,13 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
 
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">更换皮肤</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">更换皮肤</div>
+        <div class="card-body">
             <div class="tstheme">
                 <ul>
                     {loop $arrTheme $key $item}
@@ -33,4 +33,4 @@
 
 
 </div>
-{template footer}
+{php include pubTemplate("footer")}

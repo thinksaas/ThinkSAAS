@@ -1,7 +1,9 @@
 //提示
 function tsNotice(msg,title){
 
-    var chuangkou = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button> <h4 class="modal-title" id="myModalLabel">提示</h4> </div> <div class="modal-body"> </div> <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> </div> </div> </div> </div>';
+    $('#myModal').modal('hide');
+
+    var chuangkou = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <div class="modal-title" id="myModalLabel">提示</div> <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button> </div> <div class="modal-body"> </div> <div class="modal-footer"> <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">关闭</button> </div> </div> </div> </div>';
 
     $('body').prepend(chuangkou);
 
@@ -14,26 +16,22 @@ function tsNotice(msg,title){
 	//return false;
 }
 
-$(document).ready(function(){   
-    //menu
-    $('.topnav').hover(function(){  
-        $(this).addClass("subhover").find('ul.subnav').stop(true, true).slideDown();
-        }, function(){  
-        $(this).removeClass("subhover").find('ul.subnav').stop(true, true).slideUp();  
-        });
-});
-
 //签到
 function qianDao(){
-	$.post(siteUrl+'index.php?app=user&ac=signin',function(rs){
-	
-		if(rs==1){
-			tsNotice('签到成功！');
-		}else{
-			tsNotice('签到失败！');
-		}
-	
-	})
+    if(siteUid==0){
+        tsNotice('请登录后再签到！');
+        return false;
+    }else{
+        $.post(siteUrl+'index.php?app=user&ac=signin',function(rs){
+            if(rs==1){
+                $.get(siteUrl+'index.php?app=user&ac=signin&ts=ajax',function(rs){
+                    $("#qiandao").html(rs);
+                })
+            }else{
+                tsNotice('签到失败！');
+            }
+        })
+    }
 }
 
 /*!刷新验证码*/
@@ -91,13 +89,28 @@ function unfollow(userid, token) {
  */
 function tsPost(url,datas){
 	$.post(siteUrl+url,datas,function(rs){
-		if(rs.status==2 && rs.url){
-			window.location = rs.url;
-		}else if(rs.status==1){
-			window.location.reload();
-		}else{
-			tsNotice(rs.data);
-		}
+
+        if(rs.url){
+
+            //再来个提示
+            tsNotice(rs.msg+'<br /><span class="text-danger" id="notice_daojishi">3</span>秒后自动跳转...');
+
+            var step = 3;
+            var _res = setInterval(function() {
+
+                $('#notice_daojishi').html(step);
+                step-=1;
+                if(step <= 0){
+                    window.location = rs.url;
+                    clearInterval(_res);//清除setInterval
+                }
+            },1000);
+
+        }else{
+            tsNotice(rs.msg);
+        }
+
+
 	},'json')
 }
 
@@ -106,7 +119,6 @@ jQuery(document).ready(function(){
         //alert(event.type);
         $('button[type="submit"]').html('发送中...');
         $('button[type="submit"]').attr("disabled", true);
-
 
         $.ajax({
             cache: true,
@@ -124,27 +136,26 @@ jQuery(document).ready(function(){
 
             success: function(rs) {
 
-                if(rs.status==2 && rs.url){
-
-
-                    //window.location = rs.url;
+                if(rs.url){
 
                     //再来个提示
-                    tsNotice(rs.data+"<br />3秒后自动跳转...");
+                    tsNotice(rs.msg+'<br /><span class="text-danger" id="notice_daojishi">3</span>秒后自动跳转...');
 
-                    //3秒后跳转
-                    setTimeout(function() {
+                    var step = 3;
+                    var _res = setInterval(function() {
 
-                        window.location = rs.url;
+                        $('#notice_daojishi').html(step);
+                        step-=1;
+                        if(step <= 0){
+                            window.location = rs.url;
+                            clearInterval(_res);//清除setInterval
+                        }
+                    },1000);
 
-                    },3000)
 
 
-
-                }else if(rs.status==1){
-                    window.location.reload();
                 }else{
-                    tsNotice(rs.data);
+                    tsNotice(rs.msg);
                     $('button[type="submit"]').removeAttr("disabled");
                     $('button[type="submit"]').html('重新提交');
                 }
@@ -152,8 +163,6 @@ jQuery(document).ready(function(){
             }
         });
         return false;
-
-
     });
 
 });
@@ -183,3 +192,15 @@ $(function(){
         }
     })
 })
+
+
+$(document).ready(function () {
+    //响应式导航条效果
+    $('.ts-top-nav .navbar-toggle').click(function() {
+        if ($(this).parents('.ts-top-nav').find('.navbar-collapse').hasClass('active')) {
+            $(this).parents('.ts-top-nav').find('.navbar-collapse').removeClass('active');
+        } else {
+            $(this).parents('.ts-top-nav').find('.navbar-collapse').addClass('active');
+        }
+    });
+});

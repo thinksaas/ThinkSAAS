@@ -1,10 +1,10 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 <!--main-->
 <div class="midder">
 {php include template("admin/menu");}
 
 <form method="POST" action="{SITE_URL}index.php?app=location&ac=admin&mg=location&ts=editdo" enctype="multipart/form-data">
-<table  cellpadding="0" cellspacing="0">
+<table class="table table-hover">
 <tr><td width="100">名称：</td><td><input style="width:300px;" name="title" value="{$strLocation['title']}" /></td></tr>
 
 <tr><td>内容：</td><td><textarea style="width:300px;" name="content">{$strLocation['content']}</textarea></td></tr>
@@ -19,7 +19,7 @@
 <tr><td>排序ID：</td><td><input name="orderid" value="{$strLocation['orderid']}" /></td></tr>
 <tr><td></td><td>
 <input type="hidden" name="locationid" value="{$strLocation['locationid']}" />
-<input type="submit" value="修改" />
+<input class="btn btn-primary" type="submit" value="修改" />
 </td></tr>
 </table>
 </form>

@@ -1,21 +1,7 @@
 <?php include 'header.html'; ?>
 
 <style>
-.main{
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #DFDFDF;
-    border-radius: 11px 11px 11px 11px;
-    color: #333333;
-    font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
-    margin: 2em auto;
-    padding: 1em 2em;
-    width: 700px;
-}
-p, li, dd, dt {
-    font-size: 12px;
-    line-height: 18px;
-    padding-bottom: 2px;
-}
+
 .step {
     margin: 20px 0 15px;
 }
@@ -48,9 +34,17 @@ p, li, dd, dt {
 </style>
 
 <!--main-->
-<div class="midder">
+<div class="container mt-3 mb-3">
 
-<div class="main">
+<div class="card">
+<div class="card-body">
+
+
+    <div id="notice" class="alert alert-danger" style="display: none;">
+        重要：ThinkSAAS已经有最新版本发布，<a target="_blank" href="https://www.thinksaas.cn/service/down/">点击去下载</a>
+    </div>
+
+
 <p>欢迎使用 ThinkSAAS！在您开始使用前，ThinkSAAS 需要一些数据库的信息。下列信息将会被问到，请作好准备。</p>
 <ol>
 <li>数据库名</li>
@@ -60,20 +54,39 @@ p, li, dd, dt {
 <li>表名前缀（若您希望在一个数据表中安装多个 ThinkSAAS）</li>
 </ol>
 
-<!-- <p>出于各种原因，自动创建文件可能失败，但本向导只是助您在配置文件中写如数据库信息。此时，您只需用文本编辑器打开 config.sample.php，填入您的信息，另存为 config.inc.php 即可。</p> -->
+<p>PHP环境必要组件检测</p>
+<table class="table table-bordered table-sm">
+    <thead class="thead-light">
+    <tr><th>PHP组件</th><th>检测结果</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>dom</td><td><?php if($e_dom){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>mbstring</td><td><?php if($e_mbstring){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>gd</td><td><?php if($e_gd){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>mysql</td><td><?php if($e_mysql){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?> (php7版本请忽略此项)</td></tr>
+    <tr><td>mysqli</td><td><?php if($e_mysqli){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>openssl</td><td><?php if($e_openssl){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>session</td><td><?php if($e_session){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>SimpleXML</td><td><?php if($e_SimpleXML){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>mcrypt</td><td><?php if($e_mcrypt){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>json</td><td><?php if($e_json){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    <tr><td>iconv</td><td><?php if($e_iconv){echo '<span style="color:green;">支持</span>';}else{echo '<span style="color:red;">不支持</span>';}?></td></tr>
+    </tbody>
+</table>
+
 
 <p>大多数的互联网主机服务提供商都向您提供了数据库的信息。若您不知道这些信息，您需要先询问好，再进行安装。若您已准备好 …</p>
 
-<?php if($f_cache==0 || $f_data==0 || $f_plugins==0 || $f_uploadfile==0 || $f_tslogs==0 || $f_upgrade==0){ ?>
+<?php if($f_cache==0 || $f_data==0 || $f_uploadfile==0 || $f_tslogs==0 || $f_upgrade==0){ ?>
 
 <p>检测到以下目录不可写</p>
 <p>
 <?php if($f_cache==0){ ?>cache<?php } ?><br />
 <?php if($f_data==0){ ?>data<?php } ?><br />
-<?php if($f_plugins==0){ ?>plugins<?php } ?><br />
 <?php if($f_uploadfile==0){ ?>uploadfile<?php } ?><br />
 <?php if($f_tslogs==0){ ?>tslogs<?php } ?><br />
 <?php if($f_upgrade==0){ ?>upgrade<?php } ?><br />
+
 </p>
 
 <p>请将不可写的目录设置为可写(777)权限。</p>
@@ -85,7 +98,18 @@ p, li, dd, dt {
 <p class="step"><a class="button" href="index.php?install=next">点击开始安装！</a></p>
 <?php } ?>
 </div>
-
 </div>
 
+</div>
+<script>
+//新版本检测
+$(document).ready(function(){
+    $.getJSON("https://www.thinksaas.cn/index.php?app=upcenter&ac=find&version=<?php echo $TS_CF['info']['version'];?>&callback=?",
+        function(data){
+            if(data){
+                $("#notice").show();
+            }
+        });
+});
+</script>
 <?php include 'footer.html'; ?>

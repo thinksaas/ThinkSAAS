@@ -18,6 +18,7 @@ switch($ts){
 		
 		$app = trim($_POST['app']);
 		$action = trim($_POST['action']);
+		$mg = trim($_POST['mg']);
 		$ts = trim($_POST['ts']);
 		$status = intval($_POST['status']);
 		
@@ -27,6 +28,7 @@ switch($ts){
 			'score'=>$score,
 			'app'=>$app,
 			'action'=>$action,
+			'mg'=>$mg,
 			'ts'=>$ts,
 			'status'=>$status,
 		));
@@ -41,6 +43,7 @@ switch($ts){
 		$score = intval($_POST['score']);
 		$app = trim($_POST['app']);
 		$action = trim($_POST['action']);
+		$mg = trim($_POST['mg']);
 		$ts = trim($_POST['ts']);
 		$status = intval($_POST['status']);
 		
@@ -50,6 +53,7 @@ switch($ts){
 			'score'=>$score,
 			'app'=>$app,
 			'action'=>$action,
+			'mg'=>$mg,
 			'ts'=>$ts,
 			'status'=>$status,
 		));
@@ -72,7 +76,7 @@ switch($ts){
 		$scorename = trim($_POST['scorename']);
 		
 		if($userid && $score && $scorename){
-			aac('user')->addScore($userid,$scorename,$score);
+			aac('user')->addScore($userid,$scorename,$score,1);
 			qiMsg('操作成功！');
 		}else{
 			qiMsg('操作失败！');

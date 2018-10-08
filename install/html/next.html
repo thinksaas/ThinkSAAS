@@ -1,16 +1,7 @@
 <?php include 'header.html'; ?>
 
 <style>
-.main{
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #DFDFDF;
-    border-radius: 11px 11px 11px 11px;
-    color: #333333;
-    font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
-    margin: 2em auto;
-    padding: 1em 2em;
-    width: 700px;
-}
+
 p, li, dd, dt {
     font-size: 12px;
     line-height: 18px;
@@ -132,9 +123,10 @@ p, li, dd, dt {
 </style>
 
 <!--main-->
-<div class="midder">
+<div class="container mt-3 mb-3">
 
-<div class="main">
+<div class="card">
+<div class="card-body">
 
 <form action="index.php?install=result" method="post">
 	<p>请在下方输入数据库相关信息。若您不清楚，请咨询主机提供商。</p>
@@ -232,18 +224,27 @@ p, li, dd, dt {
 			<th scope="row"><label for="sql">选择连接方式：</label></th>
 			<td><select name="sql">
 			<option value="mysqli">MySQLi</option>
-			<option value="mysql">MySQL</option>
+                <!--
 			<option value="pdo_mysql">PDO_MySQL</option>
+			-->
 			</select></td>
-			<td>选择pdo_mysql需要php支持pdo_mysql扩展</td>
+			<td><!--选择pdo_mysql需要php支持pdo_mysql扩展--></td>
 		</tr>
 		
 	</tbody>
 	</table>
 	
-		<p class="step"><input type="submit" class="button" value="提交" name="submit"></p>
+		<p class="step">
+
+
+			<input type="hidden" name="site_pkey" value="<?php echo md5(rand()); ?>" />
+
+			<input type="submit" class="button" value="提交" name="submit">
+
+		</p>
 </form>
 
+</div>
 </div>
 
 </div>

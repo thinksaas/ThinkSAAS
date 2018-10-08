@@ -1,4 +1,4 @@
-{template header}
+{php include pubTemplate("header")}
 <div class="container">
 
 
@@ -6,7 +6,7 @@
     <div class="row">
 
 
-        <div class="col-md-2">
+        <div class="col-md-3">
 
             <div class="my_left">
 
@@ -15,13 +15,13 @@
             </div>
 
         </div>
-        <div class="col-md-10">
+        <div class="col-md-9">
 
 
 
-            <div class="panel panel-default">
-            <div class="panel-heading">创建的小组</div>
-            <div class="panel-body">
+            <div class="card">
+            <div class="card-header">创建的小组</div>
+            <div class="card-body">
 
 
 
@@ -31,11 +31,11 @@
                     {loop $arrCreateGroup $key $item}
                     <div class="col-sm-6 col-md-2">
                         <div class="thumbnail">
-                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img src="{$item['photo']}" alt="{$item['groupname']}" width="120" height="120"></a>
+                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img class="rounded" src="{$item['photo']}" alt="{$item['groupname']}" style="max-width: 100%;"></a>
                             <div class="caption">
-                                <h3>{php echo cututf8($item['groupname'],0,8,false)}</h3>
+                                <div class="title-cut text-center">{$item['groupname']}</div>
 
-                                <p><a href="{tsUrl('group','edit',array('ts'=>'base','groupid'=>$item['groupid']))}" class="btn btn-default btn-block" role="button">管理</a> </p>
+                                <p><a href="{tsUrl('group','edit',array('ts'=>'base','groupid'=>$item['groupid']))}" class="btn btn-outline-secondary btn-block btn-sm" role="button">管理</a> </p>
                             </div>
                         </div>
                     </div>
@@ -53,9 +53,10 @@
 
 
 
-            <div class="panel panel-default">
-                <div class="panel-heading">加入的小组</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">加入的小组</div>
+                <div class="card-body">
+                <div class="row">
 
 
 
@@ -63,20 +64,21 @@
                     {loop $arrGroup $key $item}
                     <div class="col-sm-6 col-md-2">
                         <div class="thumbnail">
-                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img src="{$item['photo']}" alt="{$item['groupname']}" width="120" height="120"></a>
+                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img src="{$item['photo']}" alt="{$item['groupname']}" class="rounded" style="max-width: 100%;"></a>
                             <div class="caption">
-                                <h3>{php echo cututf8($item['groupname'],0,6,false)}</h3>
+                                <div class="title-cut text-center">{php echo cututf8($item['groupname'],0,6,false)}</div>
 
                                 {if $strUser['userid']!=$item['userid']}
-                                <p><a class="btn btn-default btn-block" href="javascript:void('0')" onclick="exitGroup('{$item['groupid']}')">退出</a></p>
+                                <p><a class="btn btn-outline-secondary btn-block btn-sm" href="javascript:void('0')" onclick="exitGroup('{$item['groupid']}')">退出</a></p>
                                 {else}
-                                <p><a class="btn btn-default btn-block" href="{tsUrl('group','add',array('id'=>$item['groupid']))}" >发帖</a></p>
+                                <p><a class="btn btn-outline-secondary btn-block btn-sm" href="{tsUrl('group','add',array('id'=>$item['groupid']))}" >发帖</a></p>
                                 {/if}
                             </div>
                         </div>
                     </div>
                     {/loop}
 
+                </div>
                 </div>
             </div>
 
@@ -92,4 +94,4 @@
 
 
 </div>
-{template footer}
+{php include pubTemplate("footer")}

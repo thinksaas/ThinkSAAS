@@ -1,11 +1,11 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
 <div class="row">
 
 
-<div class="col-md-2">
+<div class="col-md-3">
 <div class="my_left">
 
 {php include pubTemplate("my")}
@@ -13,43 +13,45 @@
 </div>
 </div>
 
-<div class="col-md-10">
-    <div class="panel panel-default">
-        <div class="panel-body">
+<div class="col-md-9">
+    <div class="card">
+        <div class="card-body">
 
 
 
 {template setting_menu}
 
-<div style="height:30px;"></div>
+
 
 
 <div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-7">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
   
-<div class="tags">
-{loop $arrTag $key $item}
-<a>{$item[tagname]}</a>
-{/loop}
-</div>
 
-<div class="clear"></div>
+      <div>
+          {loop $arrTag $key $item}
+          <span class="badge badge-secondary mr-2 fw300 fs16">{$item[tagname]}</span>
+          {/loop}
+      </div>
 
-<div style="height:30px;"></div>
 
-<p><a class="btn btn-default btn-sm" href="javascript:void('0');" onclick="showTagFrom()">添加标签</a></p>
 
-<div id="tagFrom" style="display:none">
-<p>
-<input style="width:300px;" class="form-control" type="text" name="tags" id="tags" /></p> 
-<p>
-<button type="submit" class="btn btn-success" onClick="savaTag()">添加</button> <a href="javascript:void(0);" onClick="showTagFrom()">取消</a>
-</p>
+
+
+
+<div class="mt-3">
+
+
+    <input class="form-control float-left form-control-sm w-auto mr-1" type="text" name="tags" id="tags" />
+
+    <button class="btn btn-sm btn-info float-left" onClick="savaTag()">添加</button>
+
+
 </div>
   
   </div>
-  <div class="col-md-4"></div>
+  <div class="col-md-3"></div>
 </div>
 
 
@@ -69,8 +71,6 @@
 
 <script>
 
-/*显示标签界面*/
-function showTagFrom(){	$('#tagFrom').toggle('fast');}
 /*提交标签*/
 function savaTag(){
 	var userid = "{$strUser['userid']}";
@@ -82,4 +82,4 @@ function savaTag(){
 	
 }
 </script>
-{template footer}
+{php include pubTemplate("footer")}

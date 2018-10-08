@@ -1,20 +1,19 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 
-<div class="location">
-<div class="photo"><img src="{if $strLocation['photo']}{php echo tsXimg($strLocation['photo'],'location','120','120',$strLocation['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" width="90" height="90" alt="{$strLocation['title']}" /></div>
+<div class="location of">
+<div class="photo"><img class="rounded" src="{if $strLocation['photo']}{php echo tsXimg($strLocation['photo'],'location','120','120',$strLocation['path'],1)}{else}{SITE_URL}public/images/location.jpg{/if}" width="90" height="90" alt="{$strLocation['title']}" /></div>
 <div class="info">
-<h1>{tsTitle($strLocation['title'])}</h1>
-<p>{$strLocation['content']}</p>
+<h1 class="h3 fw400">{tsTitle($strLocation['title'])}{if $isLocationId==$strLocation['locationid']}<a class="float-right fs12 c9" href="javascript:void('0')" onclick="tsPost('index.php?app=location&ac=ajax&ts=exit',{'locationid':'{$strLocation[locationid]}'})">退出同城</a>
+    {/if}</h1>
+<p class="text-black-50">{$strLocation['content']}</p>
 
-{if $isLocationId}
-<div class="tar"><a class="btn btn-default" href="javascript:void('0')" onclick="tsPost('index.php?app=location&ac=ajax&ts=exit',{'locationid':'{$strLocation[locationid]}'})">退出同城</a></div>
-{/if}
+
 
 </div>
 </div>
@@ -25,13 +24,15 @@
 <div class="row">
 <div class="col-md-8">
 
-    <div class="panel panel-default">
-        <div class="panel-heading">同城用户</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">同城用户</div>
+        <div class="card-body">
         <div class="facelist">
 <ul>
 {loop $arrUser $key $item}
-<li><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{if $item['face']}{php echo tsXimg($item['face'],'user','120','120',$item['path'],1)}{else}{SITE_URL}public/images/user_large.jpg{/if}" alt="{$item['username']}" width="48" height="48" class="img-circle" /></a><div><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></div></li>
+<li><a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img src="{if $item['face']}{php echo tsXimg($item['face'],'user','120','120',$item['path'],1)}{else}{SITE_URL}public/images/user_large.jpg{/if}" alt="{$item['username']}" width="48" height="48" class="rounded-circle" /></a>
+    <div><a class="title-cut fs12 c9" href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></div>
+</li>
 {/loop}
 </ul>
 </div>
@@ -40,9 +41,9 @@
 </div>
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">同城图片</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">同城图片</div>
+        <div class="card-body">
 <div class="photo">
 
 <ul>
@@ -59,9 +60,9 @@
 </div>
 </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">同城帖子</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">同城帖子</div>
+        <div class="card-body">
 
 
 <div class="topic_list">
@@ -73,7 +74,7 @@
 
     <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">
 
-        <img class="img-circle" src="{$item[user][face]}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" />
+        <img class="rounded-circle" src="{$item[user][face]}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" />
     </a>
 </div>
 
@@ -121,9 +122,9 @@
 
 <div class="col-md-4">
 
-    <div class="panel panel-default">
-        <div class="panel-heading">唠唠叨叨</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">唠唠叨叨</div>
+        <div class="card-body">
 
     <div class="weilist">
 <ul id="weibo">
@@ -133,7 +134,7 @@
 
     <a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">
 
-    <img align="absmiddle" class="img-circle" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}">
+    <img class="rounded-circle" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}">
 
 </a></span>
 <span class="body">
@@ -155,9 +156,9 @@
 </div>
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">同城文章</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">同城文章</div>
+        <div class="card-body">
 <div class="commlist">
 
 <ul>
@@ -170,10 +171,10 @@
 </div>
 </div>
 
-
-    <div class="panel panel-default">
-        <div class="panel-heading">同城资料</div>
-        <div class="panel-body">
+<!--
+    <div class="card-body">
+        <div class="card-header">同城资料</div>
+        <div class="card-body">
 <div class="commlist">
 
 <ul>
@@ -185,12 +186,12 @@
 </div>
 </div>
 </div>
+-->
 
 
-
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <a href="{tsUrl('location','all')}">查看全部同城</a>
+    <div class="card">
+        <div class="card-body">
+            <a class="text-black-50 fs12" href="{tsUrl('location','all')}">查看全部同城</a>
             </div>
         </div>
 
@@ -203,4 +204,4 @@
 </div>
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

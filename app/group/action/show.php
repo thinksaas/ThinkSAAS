@@ -21,7 +21,7 @@ if($strGroup['groupid'] == '') {
 }
 
 if($strGroup['isaudit'] == 1) {
-	tsNotice('内容审核中...');
+	tsNotice('小组审核中...');
 }
 
 $title = $strGroup['groupname'];
@@ -41,10 +41,10 @@ if(is_array($arrTopicTypes)){
 $strLeader = aac('user')->getOneUser($strGroup['userid']);
 
 //判断会员是否加入该小组
-$isGroupUser = 0;
+$isGroupUser = '';
 if(intval($TS_USER['userid'])){
 	$strUser = aac('user')->getOneUser(intval($TS_USER['userid']));
-	$isGroupUser = $new['group']->findCount('group_user',array(
+	$isGroupUser = $new['group']->find('group_user',array(
 		'userid'=>intval($TS_USER['userid']),
 		'groupid'=>$groupid,
 	));
@@ -56,9 +56,6 @@ if($strGroup['isaudit']=='1'){
 	$arrRecommendGroup = $new['group']->getRecommendGroup('7');
 	include template("group_isaudit");
 	
-}elseif($strGroup['isopen']=='1' && $isGroupUser=='0'){
-	//是否开放访问
-	include template("group_isopen");
 }else{
 
 	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -91,7 +88,7 @@ if($strGroup['isaudit']=='1'){
 	$pageUrl = pagination($topicNum, 30, $page, $url);
 	
 	
-	//小组会员
+	//是否小组会员
 	$groupUser = $new['group']->findAll('group_user',array(
 		'groupid'=>$groupid,
 	),'addtime desc',null,8);
@@ -109,6 +106,20 @@ if($strGroup['isaudit']=='1'){
 			}
 		}
 	}
+
+	//小组管理员
+    $arrGroupAdmin = $new['group']->findAll('group_user',array(
+        'groupid'=>$groupid,
+        'isadmin'=>1,
+    ));
+    $arrGroupAdminUser = array();
+    if($arrGroupAdmin){
+        foreach($arrGroupAdmin as $key=>$item){
+            $arrGroupUserId[] = $item['userid'];
+        }
+        $groupUserIds = arr2str($arrGroupUserId);
+        $arrGroupAdminUser = $new['group']->findAll('user_info',"`userid` in ($groupUserIds)",'addtime desc','userid,username');
+    }
 	
 	//标签
 	$strGroup ['tags'] = aac ( 'tag' )->getObjTagByObjid ( 'group', 'groupid', $strGroup ['groupid'] );

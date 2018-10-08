@@ -21,9 +21,7 @@ switch ($ts) {
 		break;
 
 	case "do" :
-		if ($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
+
 
 		$cateid = intval($_POST['cateid']);
 		$title = trim($_POST['title']);
@@ -43,6 +41,18 @@ switch ($ts) {
 		if ($title == '' || $content == '')
 			tsNotice("标题和内容都不能为空！");
 
+        $isTitle = $new['article']->findCount('article',array(
+            'title'=>$title,
+        ));
+
+        if($isTitle){
+            tsNotice("相同标题的文章已经存在！");
+        }
+
+        if($gaiyao){
+            $gaiyao = cututf8($gaiyao,0,100);
+        }
+
 		//1审核后显示0不审核
 		if ($TS_APP['isaudit'] == 1) {
 			$isaudit = 1;
@@ -61,7 +71,7 @@ switch ($ts) {
             'addtime' => date('Y-m-d H:i:s')
         ));
 
-		// 上传帖子图片开始
+		// 上传图片开始
 		$arrUpload = tsUpload($_FILES['photo'], $articleid, 'article', array('jpg', 'gif', 'png', 'jpeg'));
 		if ($arrUpload) {
 			$new['article'] -> update('article', array(
@@ -71,13 +81,17 @@ switch ($ts) {
                 'photo' => $arrUpload['url']
             ));
 		}
-		// 上传帖子图片结束
+		// 上传图片结束
 
 		// 处理标签
 		aac('tag') -> addTag('article', 'articleid', $articleid, $tag);
 
+
 		// 对积分进行处理
-		aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
+        if($isaudit==0){
+            aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
+        }
+
 
 		header("Location: " . tsUrl('article', 'show', array('id' => $articleid)));
 

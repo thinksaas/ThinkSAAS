@@ -7,7 +7,7 @@ $dest_dir = 'uploadfile/logo';
 
 createFolders ( $dest_dir );
 
-$arrType = explode ( '.', strtolower ( $_FILES ['filedata'] ['name'] ) ); // ×ªĞ¡Ğ´Ò»ÏÂ
+$arrType = explode ( '.', strtolower ( $_FILES ['filedata'] ['name'] ) ); // è½¬å°å†™ä¸€ä¸‹
 
 $type = array_pop ( $arrType );
 
@@ -17,9 +17,9 @@ if (in_array ( $type, array('jpg','jpeg','gif','png') )) {
 	
 	$dest = $dest_dir . '/' . $name;
 	
-	// ÏÈÉ¾³ı
+	// å…ˆåˆ é™¤
 	unlink ( $dest );
-	// ºóÉÏ´«
+	// åä¸Šä¼ 
 	move_uploaded_file ( $_FILES ['filedata'] ['tmp_name'], mb_convert_encoding ( $dest, "gb2312", "UTF-8" ) );
 	
 	chmod ( $dest, 0777 );

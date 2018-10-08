@@ -1,11 +1,11 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 <!--main-->
 <div class="midder">
 
 {php include template("admin/menu");}
 
-<table  cellpadding="0" cellspacing="0">
-<tr class="old"><td width="100">字段</td><td>信息</td></tr>
+<table class="table table-hover">
+<tr><td width="100">字段</td><td>信息</td></tr>
 <tr><td>用户名：</td><td>{$strUser[username]}</td></tr>
 <tr><td>Email：</td><td>{$strUser[email]}</td></tr>
 <!--{if $strUser[signed]}--><tr><td>签名：</td><td>{$strUser[signed]}</td></tr><!--{/if}-->
@@ -19,4 +19,4 @@
 
 </div>
 
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

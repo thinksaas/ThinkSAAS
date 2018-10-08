@@ -47,7 +47,25 @@ class MySql {
 	 */
 	function query($sql) {
 		$this->arrSql [] = $sql;
+
+        $start_time = microtime(true);
 		$result = $this->conn->exec ( $sql );
+        $end_time = microtime(true);
+        $total_time = $end_time-$start_time;
+
+        $run_time = number_format($total_time, 6);
+
+        //记录慢sql
+        if($GLOBALS['TS_CF']['slowsqllogs'] && $run_time>$GLOBALS['TS_CF']['slowsqllogs']){
+            $log = "TIME:" . date ( 'Y-m-d :H:i:s' ) . "\n";
+            $log .= "SQL:" . $sql . "\n";
+            $log .= "RUN_TIME:" . $run_time . "\n";
+            $log .= "REQUEST_URI:" . $_SERVER['REQUEST_URI'] . "\n";
+            $log .= "--------------------------------------\n";
+            logging ( date ( 'Ymd' ) . '-mysqli-slow.txt', $log );
+        }
+
+
 		if (FALSE !== $result) {
 			$this->num_rows = $result;
 			return $result;

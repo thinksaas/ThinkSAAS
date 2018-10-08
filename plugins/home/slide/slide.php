@@ -10,4 +10,4 @@ function slide(){
 	include template('slide','slide');
 }
 
-addAction('home_index_left','slide');
+addAction('home_index_header','slide');

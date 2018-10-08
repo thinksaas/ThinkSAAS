@@ -17,10 +17,6 @@ switch($ts){
 	//发送验证
 	case "post":
 	
-		if($_GET['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
-	
 		$userid = aac('user')->isLogin();
 
 		$strUser = $new['user']->find('user_info',array(
@@ -80,10 +76,7 @@ switch($ts){
 	case "setemail":
 		
 		$userid = aac('user')->isLogin();
-		
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
+
 		
 		$strUser = $new['user']->getOneUser($userid);
 		
@@ -141,7 +134,7 @@ switch($ts){
 		if($_FILES['picfile']){
 			
 			//上传
-			$arrUpload = tsUpload($_FILES['picfile'],$userid,'user',array('jpg','gif','png'));
+			$arrUpload = tsUpload($_FILES['picfile'],$userid,'user',array('jpg','gif','png','jpeg'));
 			
 			if($arrUpload){
 
@@ -161,9 +154,13 @@ switch($ts){
 						'face'=>'',
 					));
 					
-					tsNotice('上传头像失败！');
-					
-				}else{ 
+				}else{
+
+
+                    #限制头像图片1M以内
+				    if($filesize>1048576){
+				        tsNotice('请选择1M以内的头像图片');
+                    }
 				
 					//更新缓存头像
 					$_SESSION['tsuser']['face'] = $arrUpload['url'];

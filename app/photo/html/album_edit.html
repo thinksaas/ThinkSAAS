@@ -1,34 +1,63 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
-    <div class="panel panel-default">
-        <div class="panel-body">
-{template menu}
-<h1>{$title}</h1>
 
-<div class="pl photitle">
-    &gt;<a href="{SITE_URL}index.php?app=photo&ac=upload&albumid={$strAlbum[albumid]}">添加照片</a> 
-    &nbsp;&gt; <a href="{SITE_URL}index.php?app=photo&ac=album&ts=info&albumid={$strAlbum[albumid]}">批量修改</a>
-    &nbsp;&gt; <a href="{tsUrl('photo','album',array('id'=>$strAlbum[albumid]))}">返回相册</a><br></div>
 
-<div style="margin:30px 0 30px 200px;">
-<form method="POST" action="{SITE_URL}index.php?app=photo&ac=album&ts=edit_do">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('photo')}">相册</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('photo','album',array('id'=>$strAlbum['albumid']))}">{$strAlbum['albumname']}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">修改相册</li>
+        </ol>
+    </nav>
 
-相册名称（必填）
-<br>
-<input style="width:300px;" name="albumname" value="{$strAlbum[albumname]}" />
-<br>
-相册介绍：
-<br>
-<textarea style="width:300px;height:100px;" name="albumdesc">{$strAlbum[albumdesc]}</textarea>
-<br>
-<br>
-<input type="hidden" name="albumid" value="{$strAlbum[albumid]}" />
 
-<input type="hidden" name="token" value="{$_SESSION['token']}" />
-<input class="btn btn-success" type="submit" value="更改我的设置" />
-</form>
+    <div class="card">
+        <div class="card-body">
+
+
+
+
+
+
+
+<div class="row">
+
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+
+        <form role="form" method="POST" action="{tsUrl('photo','album',array('ts'=>'editdo'))}">
+            <div class="form-group">
+                <label>相册名称（必填）</label>
+                <input type="text" name="albumname" value="{$strAlbum['albumname']}" class="form-control" >
+            </div>
+
+            <div class="form-group">
+                <label>相册介绍：</label>
+                <textarea class="form-control" rows="3" name="albumdesc">{$strAlbum['albumdesc']}</textarea>
+            </div>
+
+
+            <input type="hidden" name="albumid" value="{$strAlbum['albumid']}" />
+
+            <input type="hidden" name="token" value="{$_SESSION['token']}" />
+            <button class="btn btn-sm btn-info" type="submit">修改相册</button>
+            <a class="btn btn-sm text-black-50" href="{tsUrl('photo','album',array('id'=>$strAlbum['albumid']))}">返回相册</a>
+        </form>
+
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+
+
+
+
+
 </div>
 
 </div>
@@ -36,4 +65,4 @@
 </div>
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

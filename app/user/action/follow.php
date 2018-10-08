@@ -34,14 +34,7 @@ switch($ts){
 	
 		$userid = intval($TS_USER['userid']);
 		$userid_follow = intval($_GET['userid']);
-		
-		if($_GET['token'] != $_SESSION['token']) {
-			echo json_encode(array(
-				'status'=>0,
-				'msg'=>'非法操作！',
-			));
-			exit;
-		}
+
 		
 		if($userid == 0){
 			echo json_encode(array(
@@ -114,14 +107,7 @@ switch($ts){
 	
 		$userid = intval($TS_USER['userid']);
 		$userid_follow = intval($_GET['userid']);
-		
-		if($_GET['token'] != $_SESSION['token']) {
-			echo json_encode(array(
-				'status'=>0,
-				'msg'=>'非法操作！',
-			));
-			exit;
-		}
+
 		
 		if($userid == 0){
 			echo json_encode(array(

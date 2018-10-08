@@ -11,11 +11,11 @@ function tag(){
 
 	//echo '<div class="bbox">'.doAction('gobad','home_left_1').'</div>';
 	
-	echo '<div class="panel panel-default">';
-	echo '<div class="panel-heading">热门标签<small><a href="'.tsUrl('group','tags').'">更多</a></small></div>';
-	echo '<div class="panel-body tags">';
+	echo '<div class="card">';
+	echo '<div class="card-header">热门标签<small class="float-right"><a class="text-black-50" href="'.tsUrl('group','tags').'">更多</a></small></div>';
+	echo '<div class="card-body">';
 	foreach($arrTag as $key=>$item){
-		echo '<a href="'.tsUrl('group','tag',array('id'=>urlencode($item['tagname']))).'">'.$item['tagname'].'</a>';
+		echo '<a class="badge badge-secondary mr-2 fw300" href="'.tsUrl('group','tag',array('id'=>urlencode($item['tagname']))).'">'.$item['tagname'].'</a>';
 	}
 	echo '</div></div>';
 	

@@ -23,6 +23,9 @@ return array(
 	//是否开启系统日志记录功能，日志存放在根目录下tslogs目录下
 	'logs' => false,
 
+    //是否开启mysql慢sql语句记录功能，日志存放在根目录下tslogs目录下
+    'slowsqllogs'=>0,   //默认为0为不开启，例如：写0.5为执行时间大于0.5秒的，写1为执行时间大于1秒的
+
 	//是否支持app二级域名访问，比如小组group支持group.thinksaas.cn域名访问
 	//不开启请留空数组，开启写域名，比如thinksaas.cn
 	'subdomain' => array(
@@ -62,20 +65,20 @@ return array(
     'urllock'=>'',
 
 
-	/* 软件信息
+	/* ThinkSAAS软件版权信息
 	 * ThinkSAAS
 	 * 请尊重ThinkSAAS版权信息，如需去除请购买ThinkSAAS商业授权
-	 * 联系QQ:1078700473
+	 * 联系QQ:1078700473，微信:thinksaas
 	 */
 	'info' => array(
-		'name' => 'ThinkSAAS', 
-		'version' => '2.4',
-		'url' => 'http://www.thinksaas.cn/', 
-		'email' => 'jun.qiu@thinksaas.cn', 
-		'powered' => 'Powered by ThinkSAAS',
+		'name' => 'ThinkSAAS',
+		'url' => 'https://www.thinksaas.cn/',
+		'email' => 'qiujun@thinksaas.cn',
+		'qq' => '1078700473',
+		'weixin' => 'thinksaas',
 		'copyright' => 'ThinkSAAS',
 		'copyurl' => 'http://www.thinksaas.cn/',
-		'year' => '2011 - 2016',
+		'year' => '2012',#创立时间2012年
 		'author' => '邱君',
 	),
 	

@@ -1,13 +1,16 @@
-{template header}
-{php doAction('tseditor','mini')}
+{php include pubTemplate("header")}
+
 <div class="container">
 
-    <ol class="breadcrumb">
-        <li><a href="{SITE_URL}">首页</a></li>
-        <li><a href="{tsUrl('group')}">小组</a></li>
-        <li><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['groupname']}</a></li>
-        <li class="active">{$strTopic[title]}</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['groupname']}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{$strTopic[title]}</li>
+        </ol>
+    </nav>
+
 
     <div class="row">
 
@@ -15,19 +18,28 @@
 
 
 
-            <div class="panel panel-default">
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-body">
 
 
-                    <h1>{if $strTopic[typeid] !='0'}<a href="{tsUrl('group','show',array('id'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}{$strTopic[title]}</h1>
+                    <h1 class="h3 pt-0 pb-3 fw400">{if $strTopic[typeid] !='0'}<a href="{tsUrl('group','show',array('id'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}{$strTopic[title]}</h1>
 
 
-                    <div class="media mb20">
-                        <a class="pull-left" href="{tsUrl('user','space',array('id'=>$strTopic[user][userid]))}"><img class="media-object img-circle" title="{$strTopic[user][username]}" alt="{$strTopic[user][username]}" src="{$strTopic[user][face]}" width="48" height="48"></a>
+                    <div class="media mt-3 mb-3">
+                        <a class="mr-3" href="{tsUrl('user','space',array('id'=>$strTopic[user][userid]))}">
+                            <img class="media-object rounded-circle" title="{$strTopic[user][username]}" alt="{$strTopic[user][username]}" src="{$strTopic[user][face]}" width="36" height="36"></a>
                         <div class="media-body">
-                            <h4 class="media-heading"><a href="{tsUrl('user','space',array('id'=>$strTopic[userid]))}">{$strTopic[user][username]}</a></h4>
-                            <div class="c9">发表于 {php echo date('Y-m-d H:i:s',$strTopic[addtime])}</div>
+                            <div class="fs14"><a href="{tsUrl('user','space',array('id'=>$strTopic[userid]))}">{$strTopic[user][username]}</a></div>
+                            <div class="c9 fs12">{php echo date('Y-m-d H:i:s',$strTopic[addtime])}</div>
                         </div>
+                    </div>
+
+
+
+                    <div class="mb-3">
+                        {loop $strTopic[tags] $key $item}
+                        <a class="badge badge-secondary fw300 mr-2" href="{tsUrl('group','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
+                        {/loop}
                     </div>
 
 
@@ -35,18 +47,57 @@
                     <div class="topic-content">
 
                         <div class="topic-view">
-                            {php doAction('gobad','content_top')}
-
                             {$strTopic[content]}
-
                             {$tpUrl}
+                        </div>
 
-                            {php doAction('gobad','468')}
+
+
+
+
+                        {if $strTopic['iscommentshow']==1 && $isComment==0 && $strTopic['userid']!=intval($TS_USER['userid'])}
+                        {else}
+                        <!---附件处理开始--->
+                        {if $TS_APP['istopicattach']}
+
+                        {if $arrAttach}
+                        <div class="topic_attach">
+                            <ul>
+                                {loop $arrAttach $key $item}
+                                <li><a target="_blank" href="{tsUrl('attach','show',array('id'=>$item['attachid']))}">{$item['attachname']}</a> - <span class="c9 fs12">{$item['count_down']}次下载</span> - <span class="c9 fs12">需{$item['score']}积分</span></li>
+                                {/loop}
+                            </ul>
+
+                            {if $TS_USER['userid']==$strTopic['userid'] || $TS_USER['isadmin']==1}
+                            <div class="tac">
+                                <a class="btn btn-link" href="{tsUrl('attach','select',array('topicid'=>$strTopic['topicid']))}"><i class="fas fa-plus-circle"></i>上传/选择附件</a>
+                            </div>
+                            {/if}
 
                         </div>
 
+                        {else}
+
+                        {if $TS_USER['userid']==$strTopic['userid'] || $TS_USER['isadmin']==1}
+                        <div class="topic_attach">
+                            <div class="tac">
+                                <a class="btn btn-link" href="{tsUrl('attach','select',array('topicid'=>$strTopic['topicid']))}"><i class="fas fa-plus-circle"></i>上传/选择附件</a>
+                            </div>
+                        </div>
+                        {/if}
+
+                        {/if}
+
+                        {/if}
+                        <!---附件处理结束--->
+                        {/if}
+
+
+
+                        <div class="text-black-50">{php doAction('gobad','468')}</div>
+
                         {if $TS_USER[userid] == $strTopic[userid] || $TS_USER[userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[isadmin]=="1"}
-                        <div class="btool">
+                        <div class="btool mt-3">
                             {if $TS_USER[userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[isadmin]=="1"}
 
                             <a href="javascript:void('0');" onclick="topicAudit('{$strTopic['topicid']}','{$_SESSION['token']}');">{if $strTopic['isaudit']=='1'}审核{else}取消审核{/if}</a>
@@ -69,27 +120,18 @@
                     </div>
 
 
-                    <div class="clear"></div>
-
-
-                    <div class="tags">
-                        {loop $strTopic[tags] $key $item}
-                        <a rel="tag" title="" class="post-tag" href="{tsUrl('group','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
-                        {/loop}
-
-                    </div>
                     {/if}
                 </div>
             </div>
 
 
 
-            <div class="panel panel-default">
-                <div class="panel-heading">用户评论({$strTopic['count_comment']})</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">用户评论{if $strTopic['count_comment']} <small class="text-secondary">({$strTopic['count_comment']})</small>{/if}</div>
+                <div class="card-body">
 
 
-{if $arrTopicComment}
+                    {if $arrTopicComment}
                     <div class="comment">
                         <ul>
                             {loop $arrTopicComment $key $item}
@@ -97,7 +139,7 @@
 
                             <li class="clearfix" id="l_{$item[commentid]}">
                                 <div class="user-face">
-                                    <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}" rel="face" uid="$item[user][userid]"><img class="img-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
+                                    <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="rounded-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="36" /></a>
                                 </div>
 
 
@@ -106,13 +148,13 @@
 
                                 <div class="reply-doc">
                                     <h4>{php echo date('Y-m-d H:i:s',$item[addtime])}
-                                        <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}" rel="face" uid="$item[user][userid]" style="margin-left:5px; margin-right:5px;">{$item[user][username]}</a>
+                                        <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a>
                                         <i>$item[l]#</i>
                                     </h4>
 
 
                                     {if $item[referid] !='0'}
-                                    <div class="recomment"><a href="{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}"><img src="{$item[recomment][user][face]}" width="24" align="absmiddle"></a> <strong><a href="{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}" rel="face" uid="$item[recomment][user][userid]">{$item[recomment][user][username]}</a></strong>：{$item[recomment][content]}</div>
+                                    <div class="recomment rounded"><a href="{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}"><img src="{$item[recomment][user][face]}" width="24" class="rounded-circle" align="absmiddle"></a> <strong><a href="{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}" rel="face" uid="$item[recomment][user][userid]">{$item[recomment][user][username]}</a></strong>：{$item[recomment][content]}</div>
                                     {/if}
 
 
@@ -129,22 +171,47 @@
 
 
 
-                                    <div class="tar">
+
+
+                                    <!---附件处理开始--->
+                                    {if $TS_APP['istopicattach']}
+                                    {if $item['attach']}
+                                    <div class="topic_attach">
+                                        <ul>
+                                            {loop $item['attach'] $akey $aitem}
+                                            <li><a target="_blank" href="{tsUrl('attach','show',array('id'=>$aitem['attachid']))}">{$aitem['attachname']}</a> - <span class="c9 fs12">{$aitem['count_down']}次下载</span> - <span class="c9 fs12">需{$aitem['score']}积分</span></li>
+                                            {/loop}
+                                        </ul>
+                                    </div>
+                                    {/if}
+                                    {/if}
+                                    <!---附件处理结束--->
+
+
+
+
+
+
+                                    <div class="text-right pt-2 pb-2">
+
                                         {if $strGroupUser}
-                                        <span><a href="javascript:void(0)"  onclick="commentOpen({$item[commentid]},{$item[topicid]})">回复</a></span>
+                                        <a class="fs12 mr-2" href="javascript:void(0)"  onclick="commentOpen({$item[commentid]},{$item[topicid]})">回复</a>
                                         {/if}
 
                                         {if $TS_USER[userid] == $strGroup[userid] || $TS_USER[userid] == $item[userid] || $strGroupUser[isadmin]==1 || $TS_USER[isadmin]==1}
-<span><a href="{SITE_URL}index.php?app=group&ac=comment&ts=delete&commentid={$item[commentid]}&token={$_SESSION['token']}" rel="nofollow" onClick="return confirm('确定删除吗?')">删除</a>
+                                        <span><a class="fs12" href="{SITE_URL}index.php?app=group&ac=comment&ts=delete&commentid={$item[commentid]}&token={$_SESSION['token']}" rel="nofollow" onClick="return confirm('确定删除吗?')">删除</a>
 </span>
                                         {/if}
                                     </div>
 
 
-                                    <div id="rcomment_{$item[commentid]}" style="display:none">
-                                        <textarea style="width:90%;height:60px;font-size:14px;" id="recontent_{$item[commentid]}" type="text" onKeyDown="keyRecomment({$item[commentid]},{$item[topicid]},event)"></textarea>
+                                    <div class="mb-2" id="rcomment_{$item[commentid]}" style="display:none">
+                                        <textarea class="form-control-sm w-100 border-secondary" id="recontent_{$item[commentid]}" type="text" onKeyDown="keyRecomment({$item[commentid]},{$item[topicid]},event)"></textarea>
 
-                                        <p><a class="btn" href="javascript:void(0);" onClick="recomment({$item[commentid]},{$item[topicid]},'{$_SESSION['token']}')" id="recomm_btn_$item[commentid]">提交</a> <a href="javascript:void('0');" onclick="commentOpen({$item['commentid']},{$item['topicid']})">取消</a></p>
+                                        <p>
+                                            <a class="btn btn-sm btn-outline-info" href="javascript:void(0);" onClick="recomment({$item[commentid]},{$item[topicid]},'{$_SESSION['token']}')" id="recomm_btn_$item[commentid]">提交</a>
+                                            <a class="btn btn-sm btn-outline-secondary" href="javascript:void('0');" onclick="commentOpen({$item['commentid']},{$item['topicid']})">取消</a>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="clear"></div>
@@ -161,7 +228,7 @@
                         </ul>
                     </div>
                     <div class="page">{$pageUrl}</div>
-{/if}
+                    {/if}
 
 
 
@@ -169,43 +236,70 @@
 
                     <div class="commentform">
                         {if intval($TS_USER[userid])==0}
-                        <div class="tac pd20">
+                        <div class="tac pd20 fw300 text-black-50">
                             <a href="{tsUrl('user','login')}">登录</a> | <a href="{tsUrl('user','register')}">注册</a>
                         </div>
                         {elseif $strGroupUser==''}
-                        <div class="tac pd20">
-                            不是本组成员不能回应此贴哦！<a class="btn btn-success btn-sm" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">加入小组</a>
+                        <div class="tac pd20 text-secondary">
+                            不是本组成员不能回应此贴哦！
+                            <p class="mt-2"><a class="btn btn-outline-info btn-sm" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">加入小组</a></p>
+
                         </div>
                         {elseif $strTopic[iscomment] == 1 && $strTopic[userid] != $TS_USER[userid]}
-                        <div class="tac pd20">
+                        <div class="tac pd20 fw300 text-black-50">
                             本帖除作者外不允许任何人评论
                         </div>
                         {elseif $strTopic[isclose]=='1'}
-                        <div class="tac pd20">
+                        <div class="tac pd20 fw300 text-black-50">
                             该帖子已被关闭，无法评论
                         </div>
                         {else}
-                        <form method="POST" action="{SITE_URL}index.php?app=group&ac=comment&ts=do" enctype="multipart/form-data">
-                            <textarea type="text" style="width:100%;" id="tseditor" name="content"></textarea>
-                            <p>
-                                <input type="hidden" name="topicid" value="{$strTopic[topicid]}" />
-                                <input type="hidden" name="token" value="{$_SESSION['token']}" />
+                        <form id="comm-form" method="post" action="{SITE_URL}index.php?app=group&ac=comment&ts=do">
 
-                            <div class="authcode">
-                                {if $TS_SITE['isauthcode']}
-                                验证码：<input name="authcode" />
-                                <img align="absmiddle" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
-                                {/if}
+                            <div class="wangeditor_toolbar" id="tseditor"></div>
+                            <div class="wangeditor_text" id="tseditor2"></div>
+                            <div style="display: none"><textarea name="content"></textarea></div>
 
-                                是否公开：<input type="radio" name="ispublic" value="0" checked />公开 <input type="radio" name="ispublic" value="1" />不公开
+
+
+
+                            <div class="row mt-3">
+
+
+
+
+                                <div class="col-md-6">
+                                    {if $TS_SITE['isauthcode']}
+                                    <input class="form-control form-control-sm w-auto float-left" name="authcode" placeholder="输入验证码" />
+                                    <img class="mt-1 ml-1" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
+                                    {/if}
+
+
+                                </div>
+
+
+                                <div class="col-md-4">
+
+                                    <div class="mt-1">是否公开：<input type="radio" name="ispublic" value="0" checked />公开 <input type="radio" name="ispublic" value="1" />不公开</div>
+
+
+                                </div>
+
+
+                                <div class="col-md-2 text-right">
+
+
+
+                                    <input type="hidden" name="topicid" value="{$strTopic[topicid]}" />
+                                    <input type="hidden" name="token" value="{$_SESSION['token']}" />
+
+                                    <button class="btn btn-sm btn-info btn-block" type="submit">提交评论</button>
+                                </div>
 
                             </div>
 
-                            <div class="submit">
-                                <button class="btn btn-success" type="submit">提交评论</button>
-                            </div>
 
-                            </p>
+
                         </form>
                         {/if}
                     </div>
@@ -215,52 +309,52 @@
 
 
 
-<!--
-            <div class="row">
-                <div class="col-md-6">
+            <!--
+                        <div class="row">
+                            <div class="col-md-6">
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">推荐帖子</div>
-                        <div class="panel-body">
+                                <div class="card">
+                                    <div class="card-header">推荐帖子</div>
+                                    <div class="card-body">
 
-                            <div class="commlist">
-                                <ul>
-                                    {loop $arrRecommendTopic $key $item}
-                                    <li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></li>
-                                    {/loop}
-                                </ul>
+                                        <div class="commlist">
+                                            <ul>
+                                                {loop $arrRecommendTopic $key $item}
+                                                <li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></li>
+                                                {/loop}
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+
                             </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-md-6">
+                            <div class="col-md-6">
 
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">本组热门帖子</div>
-                        <div class="panel-body">
+                                <div class="card">
+                                    <div class="card-header">本组热门帖子</div>
+                                    <div class="card-body">
 
 
 
-                            <div class="commlist">
-                                <ul>
-                                    {loop $arrGroupHotTopic $key $item}
-                                    <li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></li>
-                                    {/loop}
-                                </ul>
+                                        <div class="commlist">
+                                            <ul>
+                                                {loop $arrGroupHotTopic $key $item}
+                                                <li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></li>
+                                                {/loop}
+                                            </ul>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+
                             </div>
-
-
                         </div>
-                    </div>
-
-
-
-                </div>
-            </div>
--->
+            -->
 
         </div>
 
@@ -271,9 +365,9 @@
 
 
 
-            <div class="panel panel-default">
-                <div class="panel-heading">最新帖子</div>
-                <div class="panel-body commlist">
+            <div class="card">
+                <div class="card-header">最新帖子</div>
+                <div class="card-body commlist">
                     <ul>
                         {loop $newTopic $key $item}
                         <li>
@@ -286,9 +380,9 @@
 
 
 
-            <div class="panel panel-default">
-                <div class="panel-heading">热门帖子</div>
-                <div class="panel-body commlist">
+            <div class="card">
+                <div class="card-header">热门帖子</div>
+                <div class="card-body commlist">
                     <ul>
                         {loop $arrHotTopic $key $item}
                         <li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></li>
@@ -307,4 +401,5 @@
 
     </div>
 </div>
-{template footer}
+{php doAction('tseditor','mini')}
+{php include pubTemplate("footer")}

@@ -110,7 +110,7 @@ switch($ts){
 		}
 		
 		fileWrite('system_appnav.php','data',$arrNav);
-		$tsMySqlCache->set('system_appnav',$arrNav);
+		$GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
 		
 		echo '1';
 		
@@ -126,10 +126,46 @@ switch($ts){
 		unset($arrNav[$appkey]);
 		
 		fileWrite('system_appnav.php','data',$arrNav);
-		$tsMySqlCache->set('system_appnav',$arrNav);
+		$GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
 		
 		echo '1';
 		
 		break;
+
+    //我的社区导航
+    case "mynav":
+        $appkey = trim($_POST['appkey']);
+        $appname = trim($_POST['appname']);
+
+        $arrMyNav = include 'data/system_mynav.php';
+
+        if(is_array($arrMyNav)){
+            $arrMyNav[$appkey] = $appname;
+        }else{
+            $arrMyNav = array(
+                $appkey=>$appname,
+            );
+        }
+
+        foreach($arrMyNav as $key=>$item){
+            if(!is_dir('app/'.$key)){
+                unset($arrMyNav[$key]);
+            }
+        }
+
+        fileWrite('system_mynav.php','data',$arrMyNav);
+        $GLOBALS['tsMySqlCache']->set('system_mynav',$arrMyNav);
+
+        echo '1';
+        break;
+
+    case "unmynav":
+        $appkey = trim($_POST['appkey']);
+        $arrMyNav = include 'data/system_mynav.php';
+        unset($arrMyNav[$appkey]);
+        fileWrite('system_mynav.php','data',$arrMyNav);
+        $GLOBALS['tsMySqlCache']->set('system_mynav',$arrMyNav);
+        echo '1';
+        break;
 		
 }

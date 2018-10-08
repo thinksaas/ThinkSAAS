@@ -1,30 +1,30 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
 {template s_menu}
 
 <div class="s_top">获得约 {$topic_num} 条结果</div>
 
-<!--{loop $arrTopic $key $item}-->
+{loop $arrTopic $key $item}
 <div class="result">
 <div class="pic">
 </div>
 <div class="content">
-<h3><span>[话题] </span>&nbsp;<a  href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{tsTitle($item[title])}</a></h3>
+<div><span class="c9">[话题] </span>&nbsp;<a  href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{tsTitle($item[title])}</a></div>
 <div class="info">发表于 {php echo date('Y-m-d',$item[addtime])} &nbsp; <a href="#">{$item[count_comment]} 回复</a></div>
 <p></p>
 </div>
 </div>
-<!--{/loop}-->
+{/loop}
 
 
-<div class="page">{$pageUrl}</div>
+<div class="mt-3">{$pageUrl}</div>
 </div>
 </div>
 
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

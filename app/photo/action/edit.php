@@ -34,10 +34,6 @@ switch($ts){
 		
 	case "do":
 	
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
-	
 		$photoid = intval($_POST['photoid']);
 		$photoname = tsClean($_POST['photoname']);
 		$photodesc = tsClean($_POST['photodesc']);

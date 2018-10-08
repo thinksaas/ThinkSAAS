@@ -32,6 +32,15 @@ class weiboAction extends weibo{
         $pageUrl = pagination($weiboNum, 20, $page, $url);
 
 
+        #热门唠叨
+        $arrHotWeibo = $this->findAll('weibo',null,'count_comment desc',null,10);
+
+        foreach($arrHotWeibo as $key=>$item){
+            $arrHotWeibo[$key]['content'] = tsDecode($item['content']);
+            $arrHotWeibo[$key]['user'] = aac('user')->getOneUser($item['userid']);
+        }
+
+
         $title = '唠叨';
         include template('index');
     }
@@ -52,9 +61,6 @@ class weiboAction extends weibo{
         }
 		*/
 
-        if($_POST['token'] != $_SESSION['token']) {
-            getJson('非法操作！',$js);
-        }
 
         $content = tsClean($_POST['content']);
 
@@ -81,12 +87,14 @@ class weiboAction extends weibo{
 
 
         //feed开始
+        /*
         $feed_template = '<span class="pl">说：</span><div class="quote"><span class="inq">{content}</span> <span><a class="j a_saying_reply" href="{link}" rev="unfold">回应</a></span></div>';
         $feed_data = array(
             'link'	=> tsurl('weibo','show',array('id'=>$weiboid)),
             'content'	=> cututf8(t($content),'0','50'),
         );
         aac('feed')->add($userid,$feed_template,$feed_data);
+        */
         //feed结束
 
 
@@ -136,6 +144,14 @@ class weiboAction extends weibo{
             'userid'=>$strWeibo['userid'],
         ),'addtime desc',null,20);
 
+
+        foreach($arrWeibo as $key=>$item){
+            if($item['content']==''){
+                $arrWeibo[$key]['content'] = $strWeibo['user']['username'].'的唠叨('.$item['weiboid'].')';
+            }
+        }
+
+
         $weiboNum = $this->findCount('weibo',array(
             'userid'=>$strWeibo['userid'],
         ));
@@ -152,7 +168,13 @@ class weiboAction extends weibo{
 
 
 
-        $title = cututf8(t(tsDecode($strWeibo['content'])),0,100,false);
+
+
+        if($strWeibo['content']==''){
+            $title = $strWeibo['user']['username'].'的唠叨('.$strWeibo['weiboid'].')';
+        }else{
+            $title = cututf8(t(tsDecode($strWeibo['content'])),0,100,false);
+        }
 
         include template('show');
     }
@@ -169,10 +191,6 @@ class weiboAction extends weibo{
 			echo 0;exit;//请登录
 		}
 
-
-		if($_POST['token'] != $_SESSION['token']) {
-			echo 1;exit;//非法操作
-		} 
 
 		$content = tsClean($_POST['content']);
 
@@ -213,9 +231,6 @@ class weiboAction extends weibo{
 	 * 回复唠叨，添加评论
 	 */
 	public function addcomment(){
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
 
 		//用户是否登录
 		$userid = aac('user')->isLogin();
@@ -345,7 +360,11 @@ class weiboAction extends weibo{
             include 'app/'.$GLOBALS['TS_URL']['app'].'/admin.'.$GLOBALS['TS_URL']['app'].'.php';
             $appAdmin = $GLOBALS['TS_URL']['app'].'Admin';
             $newAdmin = new $appAdmin($GLOBALS['db']);
-            $newAdmin->$GLOBALS['TS_URL']['mg']();
+            #$newAdmin->$GLOBALS['TS_URL']['mg']();
+
+            $amg = $GLOBALS['TS_URL']['mg'];
+            $newAdmin->$amg();
+
         }else{
             ts404();
         }
@@ -359,7 +378,8 @@ class weiboAction extends weibo{
             include 'app/'.$GLOBALS['TS_URL']['app'].'/my.'.$GLOBALS['TS_URL']['app'].'.php';
             $appMy = $GLOBALS['TS_URL']['app'].'My';
             $newMy = new $appMy($GLOBALS['db']);
-            $newMy->$GLOBALS['TS_URL']['my']();
+            $myFun = $GLOBALS['TS_URL']['my'];
+            $newMy->$myFun();
         }else{
             ts404();
         }

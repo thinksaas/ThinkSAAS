@@ -1,4 +1,4 @@
-{php include template("admin/header");}
+{php include pubTemplate("header_admin")}
 
 <!--main-->
 <div class="midder">
@@ -7,10 +7,19 @@
 
 <div class="page">{$pageUrl}</div>
 
-<table>
-<tr class="old"><td>ID</td><td>UserID</td><td>标题</td><td>时间</td><td>操作</td></tr>
+<table class="table table-hover">
+
+    <thead class="thead-light fs14">
+    <tr><th>ID</th><th>UserID</th><th>标题</th><th>时间</th><th>操作</th></tr>
+    </thead>
+
+
+    <tbody class="fs12">
+
+
+
 {loop $arrTopic $key $item}
-<tr class="odd"><td>{$item['topicid']}</td><td>{$item['userid']}</td><td><a target="_blank" href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></td><td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td><td>
+<tr><td>{$item['topicid']}</td><td>{$item['userid']}</td><td><a target="_blank" href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></td><td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td><td>
 
 <a href="{SITE_URL}index.php?app=group&ac=admin&mg=topic&ts=isaudit&topicid={$item['topicid']}">
 {if $item['isaudit']==0}
@@ -20,11 +29,14 @@
 {/if}
 </a>
 
-<a href="{SITE_URL}index.php?app=group&ac=admin&mg=topic&ts=delete&topicid={$item['topicid']}">删除</a>
+<a onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=group&ac=admin&mg=topic&ts=delete&topicid={$item['topicid']}&groupid={$item['groupid']}">删除</a>
 
 </td></tr>
 {/loop}
+
+    </tbody>
+
 </table>
 
 </div>
-{php include template("admin/footer");}
+{php include pubTemplate("footer_admin")}

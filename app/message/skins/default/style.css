@@ -6,13 +6,13 @@
 .leftbar ul, .leftbar ul li{list-style: none;margin:0;padding:0;}
 .leftbar ul li{line-height:23px;padding-left:10px;}
 
-.msgbox{padding:0 10px 20px 10px;overflow:hidden;}
+.msgbox{overflow:hidden;}
 .msgbox ul, .msgbox ul li{list-style: none;margin:0;padding:0;}
 .msgbox ul{}
 .msgbox ul li{width:175px;float:left;line-height:23px;padding-left:10px;}
 .mysend{background:#f5f8fa}
 
-.system{padding:0 10px;overflow:hidden;}
+.system{overflow:hidden;}
 .system ul, .system ul li{list-style: none;margin:0;padding:0;}
 .system ul{}
 .system ul li{line-height:23px;padding-left:10px;}
@@ -23,7 +23,7 @@
 
 .boxabout{line-height:23px;padding:0 10px;}
 
-.usermsg{padding:0 10px 20px 10px;overflow:hidden;}
+.usermsg{overflow:hidden;}
 .usermsg ul, .usermsg ul li{list-style: none;margin:0;padding:0;}
 .usermsg ul{}
 .usermsg ul li{line-height:23px;padding:0 10px;}

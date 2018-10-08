@@ -21,8 +21,9 @@ switch($ts){
 		
 	case "delete":
 		$topicid = intval($_GET['topicid']);
-		
-		$new['group']->delTopic($topicid);
+		$groupid = intval($_GET['groupid']);
+
+		$new['group']->delTopic($topicid,$groupid);
 
 		qiMsg('删除成功');
 		break;

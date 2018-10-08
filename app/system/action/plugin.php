@@ -1,13 +1,14 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
-
-
-
 switch($ts){
 	//插件列表
 	case "list":
 	
 		$arrApps = tsScanDir('plugins');
+
+		foreach($arrApps as $key=>$item){
+		    $arrAppsAbout[$item] = fileRead('app/'.$item.'/about.php');
+        }
 	
 		$apps = tsFilter($_GET['apps']);
 	

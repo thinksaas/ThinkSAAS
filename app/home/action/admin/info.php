@@ -6,7 +6,7 @@ switch($ts){
 	//列表 
 	case "list":
 	
-		$arrInfo = $new['home']->findAll('home_info');
+		$arrInfo = $new['home']->findAll('home_info',null,'orderid asc');
 	
 		include template('admin/info_list');
 		break;
@@ -18,16 +18,17 @@ switch($ts){
 		break;
 		
 	case "adddo":
-	
-		$infokey = trim($_POST['infokey']);
+
 		$title = trim($_POST['title']);
 		$content = tsClean($_POST['content']);
+
+		$orderid = intval($_POST['orderid']);
 		
 		$new['home']->create('home_info',array(
-		
-			'infokey'=>$infokey,
+
 			'title'=>$title,
 			'content'=>$content,
+            'orderid'=>$orderid,
 		
 		));
 		
@@ -39,6 +40,7 @@ switch($ts){
 	case "edit":
 	
 		$infoid = intval($_GET['infoid']);
+
 		$strInfo = $new['home']->find('home_info',array(
 			'infoid'=>$infoid,
 		));
@@ -53,19 +55,22 @@ switch($ts){
 	case "editdo":
 	
 		$infoid = intval($_POST['infoid']);
-		$infokey = trim($_POST['infokey']);
+
 		$title = trim($_POST['title']);
+
 		$content = tsClean($_POST['content']);
+
+        $orderid = intval($_POST['orderid']);
 		
 		$new['home']->update('home_info',array(
 		
 			'infoid'=>$infoid,
 		
 		),array(
-		
-			'infokey'=>$infokey,
+
 			'title'=>$title,
 			'content'=>$content,
+            'orderid'=>$orderid,
 		
 		));
 		
@@ -77,6 +82,7 @@ switch($ts){
 	case "delete":
 	
 		$infoid = intval($_GET['infoid']);
+
 		$new['home']->delete('home_info',array(
 			'infoid'=>$infoid,
 		));

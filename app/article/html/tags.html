@@ -1,14 +1,21 @@
-{template header}
+{php include pubTemplate("header")}
 
-<div class="midder">
+<div class="container">
 
-<div class="mc">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('article')}">文章</a></li>
+            <li class="breadcrumb-item active" aria-current="page">标签</li>
+        </ol>
+    </nav>
 
-{template menu}
+    <div class="card">
+        <div class="card-body">
 
-<div class="tags">
+<div>
 {loop $arrTag $key $item}
-<a href="{tsUrl('article','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
+<a class="badge badge-secondary mr-2 mb-2 fw300" href="{tsUrl('article','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
 {/loop}
 
 </div>
@@ -21,6 +28,7 @@
 
 </div>
 </div>
+</div>
 
 
-{template footer}
+{php include pubTemplate("footer")}

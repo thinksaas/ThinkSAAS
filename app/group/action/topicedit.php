@@ -32,7 +32,7 @@ switch($ts){
 		));
 		
 		$strTopic['title'] = stripslashes($strTopic['title']);
-		//$strTopic['content'] = tsDecode($strTopic['content']);
+		$strTopic['content'] = tsDecode($strTopic['content']);
 		
 		$strGroup = $new['group']->find('group',array(
 			'groupid'=>$strTopic['groupid'],
@@ -70,10 +70,6 @@ switch($ts){
 		
 	//编辑帖子执行	
 	case "do":
-	
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
 
 
         $authcode = strtolower ( $_POST ['authcode'] );

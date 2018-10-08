@@ -235,9 +235,7 @@ textarea {
 .photo-item {
     margin-bottom: 15px;
 }
-.photo-item .cover, .photo-item .intro {
-    display: inline-block;
-}
+
 .photo-item .cover {
 	float:left;
     margin-right: 10px;
@@ -256,14 +254,17 @@ label {
     font-family: Tahoma;
     vertical-align: middle;
 }
-.photo-item .cover, .photo-item .intro {
-    display: inline-block;
-}
+
+
+.photo-item .intro{margin-left: 110px;}
+
 .photo-item .intro textarea {
     border: 1px solid #DDDDDD;
     color: #666666;
     padding: 5px;
-    width: 424px;
+    width: 100%;
+    border-radius: 5px;
+
 }
 .photo-item .intro p {
     margin: 0;

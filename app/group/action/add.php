@@ -59,10 +59,7 @@ switch ($ts) {
 	
 	// 执行发布帖子
 	case "do" :
-		
-		if ($_POST ['token'] != $_SESSION ['token']) {
-			tsNotice ( '非法操作！' );
-		}
+
 		
 		$authcode = strtolower ( $_POST ['authcode'] );
 		

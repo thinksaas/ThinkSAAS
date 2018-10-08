@@ -54,34 +54,37 @@ class user extends tsApp{
 	//获取一个用户的信息
 	function getOneUser($userid){
 			
-			$strUser = $this->find('user_info',array(
-				'userid'=>$userid,
-			));
-			
-			if($strUser){
-			
-				$strUser['username'] = tsTitle($strUser['username']);
-				$strUser['email'] = tsTitle($strUser['email']);
-				$strUser['phone'] = tsTitle($strUser['phone']);
-				$strUser['province'] = tsTitle($strUser['province']);
-				$strUser['city'] = tsTitle($strUser['city']);
-				$strUser['signed'] = tsTitle($strUser['signed']);
-				$strUser['about'] = tsTitle($strUser['about']);
-				$strUser['address'] = tsTitle($strUser['address']);
+        $strUser = $this->find('user_info',array(
+            'userid'=>$userid,
+        ));
 
-				if($strUser['face'] && $strUser['path']){
-					$strUser['face'] = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1);
-				}elseif($strUser['face'] && $strUser['path']==''){
-					$strUser['face']	= SITE_URL.'public/images/'.$strUser['face'];
-				}else{
-					//没有头像
-					$strUser['face']	= SITE_URL.'public/images/user_large.jpg';
-				}
-			}else{
-				$strUser = '';
-			}
-			
-			return $strUser;
+        if($strUser){
+
+            $strUser['username'] = tsTitle($strUser['username']);
+            $strUser['email'] = tsTitle($strUser['email']);
+            $strUser['phone'] = tsTitle($strUser['phone']);
+            $strUser['province'] = tsTitle($strUser['province']);
+            $strUser['city'] = tsTitle($strUser['city']);
+            $strUser['signed'] = tsTitle($strUser['signed']);
+            $strUser['about'] = tsTitle($strUser['about']);
+            $strUser['address'] = tsTitle($strUser['address']);
+
+            if($strUser['face'] && $strUser['path']){
+                $strUser['face'] = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1);
+            }elseif($strUser['face'] && $strUser['path']==''){
+                $strUser['face']	= SITE_URL.'public/images/'.$strUser['face'];
+            }else{
+                //没有头像
+                $strUser['face']	= SITE_URL.'public/images/user_large.jpg';
+            }
+
+            $strUser['rolename'] = $this->getRole($strUser['allscore']);
+
+        }else{
+            $strUser = '';
+        }
+
+        return $strUser;
 	}
 	
 	//用户是否存在
@@ -97,14 +100,25 @@ class user extends tsApp{
 		}
 		
 	}
-	
-	//是否登录 
-	public function isLogin($type=''){
+
+
+    /**
+     * @param int $js
+     * @param string $userkey
+     * @return int
+     */
+    public function isLogin($js=0, $userkey=''){
 	
 		$userid = intval($_SESSION['tsuser']['userid']);
 
-        if($type && $userid==0){
-            getJson('你还没有登录',1);
+        if($js && $userid==0 && $userkey==''){
+            getJson('你还没有登录',$js);
+        }
+
+        #通过userkey返回userid
+        if($js && $userid==0 && $userkey){
+            $userid = $this->getUserIdByUserKey($userkey);
+            return $userid;
         }
 
 		if($userid>0){
@@ -148,26 +162,47 @@ class user extends tsApp{
 	 * $userid 用户ID
 	 * $scorename 积分名字 
 	 * $score 积分
+	 * @issx 上线限制0限制1不限制
 	 */
-	public function addScore($userid,$scorename,$score){
+	public function addScore($userid,$scorename,$score,$issx=0){
 		if($userid && $scorename && $score){
-			//添加积分记录
-			$this->create('user_score_log',array(
-				'userid'=>$userid,
-				'scorename'=>$scorename,
-				'score'=>$score,
-				'status'=>0,
-				'addtime'=>time(),
-			));
-			//计算总积分
-			$strUser = $this->find('user_info',array(
-				'userid'=>$userid,
-			));
-			$this->update('user_info',array(
-				'userid'=>$userid,
-			),array(
-				'count_score'=>$strUser['count_score']+$score,
-			));
+
+
+		    #计算当天已经获得的积分
+            $starttime = strtotime(date('Y-m-d 00:00:01'));
+            $endtime = strtotime(date('Y-m-d 23:59:59'));
+            $strDayScore = $this->db->once_fetch_assoc("select SUM(score) as dayscore from ".dbprefix."user_score_log where `userid`='$userid' and  `status`='0' and `addtime`>='$starttime' and `addtime`<='$endtime'");
+
+            #用户每日获得积分上限
+            if($strDayScore['dayscore']<$GLOBALS['TS_SITE']['dayscoretop'] || $issx==1){
+
+                //添加积分记录
+                $this->create('user_score_log',array(
+                    'userid'=>$userid,
+                    'scorename'=>$scorename,
+                    'score'=>$score,
+                    'status'=>0,
+                    'addtime'=>time(),
+                ));
+
+                //计算总积分
+                $strUser = $this->find('user_info',array(
+                    'userid'=>$userid,
+                ));
+
+                $strAllScore = $this->db->once_fetch_assoc("select SUM(score) as allscore from ".dbprefix."user_score_log where `userid`='$userid' and  `status`='0'");
+
+                $this->update('user_info',array(
+                    'userid'=>$userid,
+                ),array(
+                    'allscore'=>$strAllScore['allscore'],
+                    'count_score'=>$strUser['count_score']+$score,
+                ));
+
+
+            }
+
+
 		}
 	}
 	
@@ -176,33 +211,49 @@ class user extends tsApp{
 	 */
 	public function delScore($userid,$scorename,$score){
 		if($userid && $scorename && $score){
-			//添加积分记录
-			$this->create('user_score_log',array(
-				'userid'=>$userid,
-				'scorename'=>$scorename,
-				'score'=>$score,
-				'status'=>1,
-				'addtime'=>time(),
-			));
+
 			//计算总积分
 			$strUser = $this->find('user_info',array(
 				'userid'=>$userid,
 			));
-			$this->update('user_info',array(
-				'userid'=>$userid,
-			),array(
-				'count_score'=>$strUser['count_score']-$score,
-			));
+
+			if($strUser['count_score']>$score){
+
+                //添加积分记录
+                $this->create('user_score_log',array(
+                    'userid'=>$userid,
+                    'scorename'=>$scorename,
+                    'score'=>$score,
+                    'status'=>1,
+                    'addtime'=>time(),
+                ));
+
+                $this->update('user_info',array(
+                    'userid'=>$userid,
+                ),array(
+                    'count_score'=>$strUser['count_score']-$score,
+                ));
+
+                return true;
+
+            }else{
+
+			    return false;
+
+            }
+
+
 		}
 	}
 	
 	//处理积分
-	function doScore($app,$ac,$ts='',$uid=0){
+	function doScore($app,$ac,$ts='',$uid=0,$mg=''){
 		$userid = intval($_SESSION['tsuser']['userid']);
 		if($uid) $userid=$uid;
 		$strScore = $this->find('user_score',array(
 			'app'=>$app,
 			'action'=>$ac,
+			'mg'=>$mg,
 			'ts'=>$ts,
 		));
 		
@@ -315,30 +366,54 @@ class user extends tsApp{
 		setcookie("ts_email", '', time()+3600,'/');   
 		setcookie("ts_autologin", '', time()+3600,'/');
 	}
-	
-	//用户签到
-	function signin(){
-		$userid = intval($_SESSION['tsuser']['userid']);
-		$signin = intval($_SESSION['tsuser']['signin']);
-		if($userid && $signin<strtotime(date('Y-m-d 00:00:00'))){
-			$this->update('user_info',array(
-				'userid'=>$userid,
-			),array(
-				'signin'=>time(),
-			));
-			
-			//加积分
-			$this->doScore('user','signin');
-			
-			//更新signin
-			$_SESSION['tsuser']['signin'] = time();
-			
-			return true;
-			
-		}else{
-			return false;
-		}
-	}
+
+    //用户签到
+    function signin(){
+
+        $userid = intval($_SESSION['tsuser']['userid']);
+
+        $zuotian = date('Y-m-d',strtotime("-1 day"));
+
+        $jintian = date('Y-m-d');
+
+
+        $zuotianSign = $this->find('sign',array(
+            'userid'=>$userid,
+            'addtime'=>$zuotian,
+        ));
+
+        $jintianSign = $this->find('sign',array(
+            'userid'=>$userid,
+            'addtime'=>$jintian,
+        ));
+
+        if($jintianSign==''){
+
+            if($zuotianSign==''){
+                $this->create('sign',array(
+                    'userid'=>$userid,
+                    'num'=>1,
+                    'addtime'=>$jintian,
+                ));
+            }else{
+
+                $this->create('sign',array(
+                    'userid'=>$userid,
+                    'num'=>$zuotianSign['num']+1,
+                    'addtime'=>$jintian,
+                ));
+
+            }
+
+            //加积分
+            $this->doScore('user','signin');
+
+            return true;
+
+        }else{
+            return false;
+        }
+    }
 
 
     /*
@@ -366,6 +441,51 @@ class user extends tsApp{
         }
 
     }
+
+
+    /**
+     * 通过 userid 获取 userkey
+     * @param $userid
+     * @return bool|string
+     */
+    public function getUserKeyByUserId($userid){
+        include 'thinksaas/class.crypt.php';
+        $crypt= new crypt();
+        return $crypt->encrypt($userid,$GLOBALS['TS_SITE']['site_pkey']);
+    }
+
+    /**
+     * 通过userkey获取userid
+     * @param $userkey
+     */
+    public function getUserIdByUserKey($userkey){
+        include 'thinksaas/class.crypt.php';
+        $crypt= new crypt();
+        $userid = $crypt->decrypt($userkey,$GLOBALS['TS_SITE']['site_pkey']);
+
+        $isUser = $this->findCount('user',array(
+            'userid'=>$userid,
+        ));
+
+        if($isUser == 0){
+
+            echo json_encode(array(
+
+                'status'=> 0,
+                'msg'=> '非法操作',
+                'data'=> '',
+
+            ));
+            exit;
+
+        }else{
+
+            return $userid;
+
+        }
+    }
+
+
 	
 	//析构函数
 	public function __destruct(){

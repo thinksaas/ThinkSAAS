@@ -16,9 +16,11 @@ if ($articleid == 0 || $strArticle == '') {
 }
 
 // 是否审核
-if ($strArticle ['isaudit'] == 1) {
+if ($strArticle ['isaudit'] == 1 && $TS_USER['isadmin']==0 && $TS_USER['userid']!=$strArticle['userid']) {
 	tsNotice ( '内容审核中...' );
 }
+
+$cateid = $strArticle['cateid'];
 
 $strArticle['title'] = tsTitle($strArticle['title']);
 
@@ -31,6 +33,15 @@ $strArticle ['user'] = aac ( 'user' )->getOneUser ( $strArticle ['userid'] );
 $strArticle ['cate'] = $new ['article']->find ( 'article_cate', array (
 		'cateid' => $strArticle ['cateid'] 
 ) );
+
+
+
+// 上一篇
+$strUp = $new['article']->find('article', "`articleid`< '$articleid' and `isaudit`='0'", 'articleid,title','articleid desc');
+// 下一篇
+$strNext = $new['article']->find('article', "`articleid`> '$articleid' and `isaudit`='0'", 'articleid,title','articleid asc');
+
+
 
 // 获取评论
 $page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : 1;

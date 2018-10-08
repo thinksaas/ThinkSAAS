@@ -1,0 +1,35 @@
+{php include pubTemplate("header")}
+
+<div class="container">
+
+
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['groupname']}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{$strTopic[title]}</li>
+        </ol>
+    </nav>
+
+
+
+    <div class="card">
+        <div class="card-body">
+
+
+
+      <div class="alert alert-info">
+          你的组费已经到期，请联系组长续期！续期后才可以访问帖子内容。
+      </div>
+
+
+
+</div>
+</div>
+
+
+
+</div>
+{php include pubTemplate("footer")}

@@ -1,15 +1,15 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 
-$keys = tsUrlCheck($_GET['key']);
+$infoid = intval($_GET['id']);
 
 $strInfo = $new['home']->find('home_info',array(
-	'infokey'=>$keys,
+	'infoid'=>$infoid,
 ));
 
 $strInfo['content'] = nl2br(tsDecode($strInfo['content']));
 
-$arrInfo = $new['home']->findAll('home_info');
+$arrInfo = $new['home']->findAll('home_info',null,'orderid asc');
 
 $title = $strInfo['title'];
 include template('info');

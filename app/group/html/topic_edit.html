@@ -1,17 +1,20 @@
-{template header}
-{php doAction('tseditor')}
+{php include pubTemplate("header")}
 <div class="container">
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li><a href="{tsUrl('group')}">小组</a></li>
-  <li><a href="{tsUrl('group','topic',array('id'=>$strTopic['topicid']))}">{$strTopic['title']}</a></li>
-  <li class="active">编辑帖子</li>
-</ol>
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+      <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+      <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
+      <li class="breadcrumb-item"><a href="{tsUrl('group','topic',array('id'=>$strTopic['topicid']))}">{$strTopic['title']}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">编辑帖子</li>
+    </ol>
+  </nav>
 
 
-<div class="panel panel-default">
-  <div class="panel-body">
+<div class="card">
+  <div class="card-body">
 
 
 <div class="row">
@@ -32,7 +35,7 @@
   <div class="form-group">
     <label>类型</label>
     
-<select name="typeid">
+<select name="typeid" class="form-control">
 <option {if $strTopic[typeid]=='0'}selected="select"{/if} value="0">请选择</option>
 {loop $arrGroupType $key $item}
 <option {if $item[typeid]==$strTopic[typeid]}selected="select"{/if} value="{$item[typeid]}">{$item[typename]}</option>
@@ -45,7 +48,13 @@
 
   <div class="form-group">
     <label>内容</label>
-<textarea name="content" id="tseditor">{$strTopic['content']}</textarea>
+
+    <div id="tseditor">{$strTopic['content']}</div>
+
+    <div style="display: none;">
+      <textarea name="content">{$strTopic['content']}</textarea>
+    </div>
+
   </div>
   
   <div class="form-group">
@@ -75,7 +84,7 @@
     <label>验证码</label>
     
 <input name="authcode" />
- <img align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
+ <img align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
 	
   </div>
 {/if}
@@ -83,9 +92,9 @@
 	
 	<input type="hidden" name="token" value="{$_SESSION['token']}" />
 	
-	<button class="btn btn-success" type="submit">修改</button>
+	<button class="btn btn-sm btn-info" type="submit">修改帖子</button>
 	
-	<a href="{tsUrl('group','topic',array('id'=>$strTopic[topicid]))}">返回</a>
+	<a class="btn btn-sm btn-outline-secondary" href="{tsUrl('group','topic',array('id'=>$strTopic[topicid]))}">返回</a>
 <p></p>
 
 </form>
@@ -103,4 +112,5 @@
 
 
 </div>
-{template footer}
+{php doAction('tseditor')}
+{php include pubTemplate("footer")}

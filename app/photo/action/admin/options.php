@@ -40,7 +40,23 @@ switch($ts){
 		}
 		
 		fileWrite('photo_options.php','data',$arrOption);
-		$tsMySqlCache->set('photo_options',$arrOption);
+		$GLOBALS['tsMySqlCache']->set('photo_options',$arrOption);
+
+        //更新APP导航名称
+        if($arrOption['appname']){
+            $appkey = 'photo';
+            $appname = $arrOption['appname'];
+            $arrNav = include 'data/system_appnav.php';
+            if(is_array($arrNav)){
+                $arrNav[$appkey] = $appname;
+            }else{
+                $arrNav = array(
+                    $appkey=>$appname,
+                );
+            }
+            fileWrite('system_appnav.php','data',$arrNav);
+            $GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
+        }
 		
 		qiMsg('修改成功！');
 	

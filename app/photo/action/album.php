@@ -47,11 +47,9 @@ switch($ts){
 		
 		$pageUrl = pagination($photoNum, 20, $page, $url);
 		
-		if($TS_USER['userid'] == $strAlbum['userid']){
-			$title = '我的相册-'.$strAlbum['albumname'];
-		}else{
-			$title = $strUser['username'].'的相册-'.$strAlbum['albumname'];
-		}
+
+		$title = $strAlbum['albumname'];
+
 		
 		include template("album");
 		
@@ -62,45 +60,6 @@ switch($ts){
 		));
 		
 		
-		break;
-
-	//我的相册/用户相册
-	case "user":
-		$userid = intval($_GET['userid']);
-		
-		if($userid == 0) header("Location: ".SITE_URL."index.php");
-		
-		$strUser = aac('user')->getOneUser($userid);
-		
-		$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
-		
-		$url = tsUrl('photo','album',array('ts'=>'user','userid'=>$userid,'page'=>''));
-		
-		$lstart = $page*6-6;
-		
-		$arrAlbum = $new['photo']->findAll('photo_album',array(
-			'userid'=>$userid,
-		),'albumid desc',null,$lstart.',6');
-		
-		foreach($arrAlbum as $key=>$item){
-			$arrAlbum[$key]['albumname'] = stripslashes($item['albumname']);
-			$arrAlbum[$key]['albumdesc'] = stripslashes($item['albumdesc']);
-		}
-		
-		$albumNum = $new['photo']->findCount('photo_album',array(
-		
-			'userid'=>$userid,
-		
-		));
-		
-		$pageUrl = pagination($albumNum, 6, $page, $url);
-		
-		if($TS_USER['userid'] == $userid){
-			$title = '我的相册';
-		}else{
-			$title = $strUser['username'].'的相册';
-		}
-		include template("album_user");
 		break;
 
 		
@@ -129,11 +88,7 @@ switch($ts){
 		
 		break;
 	
-	case "edit_do":
-	
-		if($_POST['token'] != $_SESSION['token']) {
-			tsNotice('非法操作！');
-		}
+	case "editdo":
 	
 		//用户是否登录
 		$userid = aac('user')->isLogin();
@@ -247,10 +202,16 @@ switch($ts){
 	
 		$albumid = intval($_POST['albumid']);
 		
-		$albumface = trim($_POST['albumface']);
+		$albumface = intval($_POST['albumface']);
 		
 		$arrPhotoId = $_POST['photoid'];
 		$arrPhotoDesc = $_POST['photodesc'];
+
+
+        if(is_array($arrPhotoId)==false || is_array($arrPhotoDesc)==false){
+            tsNotice('非法操作');
+        }
+
 		
 		if($TS_USER['isadmin']==0){
 		
@@ -265,7 +226,12 @@ switch($ts){
 		}
 		
 		foreach($arrPhotoDesc as $key=>$item){
+
+            $item = str_replace('../','',$item);
+            $item = str_replace('/','',$item);
+
 			if($item){
+
 				$photoid = intval($arrPhotoId[$key]);
 				
 				$new['photo']->update('photo',array(
@@ -280,12 +246,19 @@ switch($ts){
 		}
 	
 		//更新相册封面
+        if (preg_match('#(..(\\|/)){2,}#sim', $albumface) != false) { die('request error');} #针对阿里云误报只能添加下
 		if($albumface){
+
+            $strPhoto = $new['photo']->find('photo',array(
+                'photoid'=>$albumface,
+            ));
+
 			$new['photo']->update('photo_album',array(
 				'userid'=>$userid,
 				'albumid'=>$albumid,
 			),array(
-				'albumface'=>$albumface,
+                'path'=>$strPhoto['path'],
+				'albumface'=>$strPhoto['photourl'],
 			));
 		}
 		

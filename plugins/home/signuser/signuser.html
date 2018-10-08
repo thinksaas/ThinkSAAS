@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="card-header">最新签到用户</div>
+    <div class="card-body">
+        <div class="facelist">
+            <ul>
+                {loop $arrUser $key $item}
+                <li>
+                    <a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img class="rounded-circle" src="{$item['face']}" alt="{$item['username']}" width="48" height="48" /></a>
+                    <div class="username">
+                        <a href="{tsUrl('user','space',array('id'=>$item['userid']))}" title="{$item['username']}">{$item['username']}</a>
+                    </div>
+                </li>
+                {/loop}
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,47 +1,47 @@
-{template header}
+{php include pubTemplate("header")}
 
 <div class="container">
-<div class="row">
+  <div class="row">
 
 
 
 
-<div class="col-md-3">
+    <div class="col-md-3">
 
 
-<div class="list-group">
-{loop $arrInfo $k $v}
-  <a href="{tsUrl('home','info',array('key'=>$v['infokey']))}" class="list-group-item {if $keys==$v['infokey']}active{/if}">
-{$v['title']}
-  </a>
-{/loop}
-</div>
+      <div class="list-group">
+        {loop $arrInfo $key $item}
+        <a href="{tsUrl('home','info',array('id'=>$item['infoid']))}" class="list-group-item {if $infoid==$item['infoid']}active{/if}">
+          {$item['title']}
+        </a>
+        {/loop}
+      </div>
 
 
-</div>
-<div class="col-md-9">
+    </div>
+    <div class="col-md-9">
 
 
-<div class="panel panel-default">
-  <div class="panel-body">
+      <div class="card">
+        <div class="card-body">
 
-<h1>{$strInfo['title']}</h1>
+          <h1>{$strInfo['title']}</h1>
 
-<div class="lh30 f14">
-{$strInfo[content]}
-</div>
+          <div class="lh30 f14">
+            {$strInfo[content]}
+          </div>
+
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
 
   </div>
 </div>
 
-
-
-</div>
-
-
-
-
-</div>
-</div>
-
-{template footer}
+{php include pubTemplate("footer")}

@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-header">推荐小组</div>
+    <div class="card-body">
+        <div class="row">
+            {loop $arrRecommendGroup $key $item}
+            <div class="col-md-6">
+                <div class="sub-item">
+                    <div class="pic">
+                        <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}">
+                            <img class="rounded" src="{$item['photo']}" alt="{$item['groupname']}" title="{$item['groupname']}" />
+                        </a>
+                    </div>
+                    <div class="info">
+                        <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['groupname']}</a> <span class="fs12 c9">{$item['count_user']} 成员</span>
+                        <div class="content">{php echo cututf8(t($item['groupdesc']),0,43,false)}</div>
+                    </div>
+                </div>
+            </div>
+            {/loop}
+        </div>
+    </div>
+</div>

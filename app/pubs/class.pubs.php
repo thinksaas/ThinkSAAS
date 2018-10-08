@@ -10,9 +10,6 @@ class pubs extends tsApp{
 		if($tsAppDb){
 			$db = new MySql($tsAppDb);
 		}
-	
 		parent::__construct($db);
 	}
-	
-
 }

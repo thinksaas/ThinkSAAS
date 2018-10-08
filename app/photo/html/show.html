@@ -1,20 +1,17 @@
-{template header}
-
-<style>
-    .page-header {
-        margin: 0px 0 20px;
-    }
-</style>
+{php include pubTemplate("header")}
 
 <div class="container">
 
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li><a href="{tsUrl('photo')}">相册</a></li>
-  <li><a href="{tsUrl('photo','album',array('id'=>$strAlbum['albumid']))}">{$strAlbum['albumname']}</a></li>
-  <li class="active">第{$nowPage}张</li>
-</ol>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('photo')}">相册</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('photo','album',array('id'=>$strAlbum['albumid']))}">{$strAlbum['albumname']}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">第{$nowPage}张</li>
+        </ol>
+    </nav>
 
 
 
@@ -24,17 +21,16 @@
 
 <div class="col-md-8">
 
-<div class="panel panel-default">
-  <div class="panel-body">
+<div class="card">
+  <div class="card-body">
 
 
-      <div class="page-header">
-          <h1>{$title} <small></small></h1>
-      </div>
+      <h1 class="h3 fw400">{$strAlbum['albumname']}(第{$nowPage}张)</h1>
 
+      <hr />
 
-<div>
-    &gt; <a href="{tsUrl('photo','album',array('id'=>$strAlbum[albumid]))}">返回相册</a>第{$nowPage}张 / 共{$conutPage}张
+<div class="tac fs12 c9">
+    &gt; <a class="mr-2" href="{tsUrl('photo','album',array('id'=>$strAlbum[albumid]))}">返回相册</a>第{$nowPage}张 / 共{$conutPage}张
  
 {if $nowPage >1}
 <link href="#" rel="prev">
@@ -50,7 +46,7 @@
 </div>
 
 
-<div class="tac show_photo">
+<div class="tac show_photo mt-3">
     {if $nowPage < $conutPage}
 	<a title="点击查看下一张" href="{tsUrl('photo','show',array('id'=>$next))}" class="mainphoto">
 {/if}
@@ -61,39 +57,48 @@
 </div>
 
 
-<div>
+<div class="tac pd100">
 {$strPhoto[photoname]}  {$strPhoto[photodesc]}
-{if $TS_USER[userid] == $strPhoto[userid] || $TS_USER[isadmin]==1}<a href="{tsUrl('photo','edit',array('photoid'=>$strPhoto['photoid']))}">修改</a>{/if}
+
 </div>
 
 
-<div class="c9">
+<div class="c9 fs12">
     {$strPhoto[count_view]}人浏览　
 上传于{$strPhoto[addtime]}
 
 <a class="thickbox" target="_blank" href="{SITE_URL}uploadfile/photo/{$strPhoto[photourl]}">查看原图</a>
 
-　{if $TS_USER[userid] == $strPhoto[userid] || $TS_USER[isadmin]==1}&gt;&nbsp;<a title="删除这张照片" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$strPhoto[photoid]}">删除照片</a>{/if}
+　
+</div>
+
+
+      <div class="tar c9 fs12">
+          {if $TS_USER[userid] == $strPhoto[userid] || $TS_USER[isadmin]==1}<a href="{tsUrl('photo','edit',array('photoid'=>$strPhoto['photoid']))}">修改</a> |
+
+          <a title="删除这张照片" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$strPhoto[photoid]}">删除照片</a>
+
+
+          {/if}
+      </div>
+
+
+
+
+</div>
 </div>
 
 
 
 
 
-</div>
-</div>
 
 
 
 
-
-
-
-
-
-    <div class="panel panel-default">
-        <div class="panel-heading">用户评论</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">用户评论</div>
+        <div class="card-body">
 
     <div id="comments">
 
@@ -131,7 +136,7 @@
                 <div class="tar">
 <br />
                     <input type="hidden" value="{$strPhoto[photoid]}" name="photoid">
-                    <button class="btn btn-success" type="submit">加上去</button>
+                    <button class="btn btn-sm btn-info" type="submit">加上去</button>
 
                 </div>
 
@@ -171,4 +176,4 @@
 
 </div>
 
-{template footer}
+{php include pubTemplate("footer")}

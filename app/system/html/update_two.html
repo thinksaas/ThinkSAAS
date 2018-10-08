@@ -1,6 +1,6 @@
-{template header}
+{php include pubTemplate("header_admin")}
 <!--main-->
-<div class="midder">
+<div class="container mt-3">
 
 
 
@@ -9,21 +9,22 @@
 
 <div class="uplog" id="notice"></div>
 
-<div class="upgo" style="display:none;">
-<a href="index.php?app=system&ac=update&ts=three">下一步：升级系统文件</a>
+<div class="upgo mt-3" style="display:none;">
+<a class="btn btn-primary" href="index.php?app=system&ac=update&ts=three">下一步：升级系统文件</a>
 </div>
 
 </div>
 
 
 </div>
-<script src="public/js/jquery.min.js" type="text/javascript"></script>
+
 <script>
 //检测是否有升级
 function upsql(version){
 	$('#upgrade').html('<img src="public/images/loading.gif" />');
-	$.getJSON("http://www.thinksaas.cn/index.php?app=upcenter&ac=find&version="+version+"&callback=?", function(rs){
+	$.getJSON("https://www.thinksaas.cn/index.php?app=upcenter&ac=find&version="+version+"&callback=?", function(rs){
 		if(rs){
+
 			$.post('index.php?app=system&ac=update&ts=twodo',{'upsql':rs.upsql},function(rss){
 				if(rss=='1'){
 					$("#notice").html("数据库升级完成，点击进入下一步。");
@@ -38,4 +39,4 @@ function upsql(version){
 }
 upsql('{$TS_CF[info][version]}');
 </script>
-{template footer}
+{php include pubTemplate("footer_admin")}

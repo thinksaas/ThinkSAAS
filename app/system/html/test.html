@@ -1,0 +1,31 @@
+{php include pubTemplate("header_admin")}
+
+<div class="midder">
+    {template anti_menu}
+
+    <div>
+        <form method="post" action="index.php?app=system&ac=test&ts=do" enctype="multipart/form-data">
+
+
+            <table class="table">
+                <tr>
+                    <td>选择文件</td>
+                    <td>
+                        <input type="file" name="file">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="提交"></td>
+                </tr>
+
+            </table>
+
+
+        </form>
+    </div>
+
+</div>
+
+{php include pubTemplate("footer_admin")}

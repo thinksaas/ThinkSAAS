@@ -1,6 +1,6 @@
 <?php
 // ///////////////////////////////////////////////////////////////////////
-// ThinkSAAS中文社区, Copyright (C) 2011 - 2012 ThinkSAAS.cn //
+// ThinkSAAS开源社区, Copyright (C) 2011 - 3000 ThinkSAAS.cn //
 // //////////////////////////////////////////////////////////////////////
 defined('IN_TS') or die('Access Denied.');
 class tsApp {
@@ -19,6 +19,7 @@ class tsApp {
      * 在数据表中新增一行数据
      * @table 字符，数据表
      * @param row 数组形式，数组的键是数据表中的字段名，键对应的值是需要新增的数据。
+     * @param 数组形式，数组的键是数据表中的字段名，键对应的值是需要新增的数据。 $row
      * @return bool
      */
 	public function create($table, $row) {

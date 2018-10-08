@@ -28,6 +28,7 @@ $arrdb = array (
 $site_title = trim ( $_POST ['site_title'] );
 $site_subtitle = trim ( $_POST ['site_subtitle'] );
 $site_url = trim ( $_POST ['site_url'] );
+$site_pkey = trim ( $_POST ['site_pkey'] );#网站私钥
 
 // 用户信息
 $email = trim ( $_POST ['email'] );
@@ -85,15 +86,26 @@ if ($db) {
 	$db->query ( "update " . $pre . "system_options set `optionvalue`='$site_subtitle' where `optionname`='site_subtitle'" );
 	$db->query ( "update " . $pre . "system_options set `optionvalue`='$site_url' where `optionname`='site_url'" );
 	$db->query ( "update " . $pre . "system_options set `optionvalue`='$site_url' where `optionname`='link_url'" );
-	
+	$db->query ( "update " . $pre . "system_options set `optionvalue`='$site_pkey' where `optionname`='site_pkey'" );
+
+
 	$arrOptions = $db->fetch_all_assoc ( "select * from " . $pre . "system_options" );
 	foreach ( $arrOptions as $item ) {
 		$arrOption [$item ['optionname']] = $item ['optionvalue'];
 	}
 	
 	fileWrite ( 'system_options.php', 'data', $arrOption );
-	$tsMySqlCache->set ( 'system_options', $arrOption );
-	$tsMySqlCache->file();
+    $GLOBALS['tsMySqlCache']->set ( 'system_options', $arrOption );
+
+
+
+    //读取数据库cache表，并生成本地文件
+    $arrCache = $db->fetch_all_assoc("select * from " . $pre . "cache");
+    foreach($arrCache as $key=>$item){
+        fileWrite ( $item['cachename'].'.php', 'data', $tsMySqlCache -> get($item['cachename']) );
+    }
+
+
 	
 	// 生成配置文件
 	$fp = fopen ( THINKDATA . '/config.inc.php', 'w' );

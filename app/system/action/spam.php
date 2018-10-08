@@ -12,7 +12,7 @@ switch($ts){
 		
 	case "get":
 		
-		$api = file_get_contents('http://www.thinksaas.cn/index.php?app=service&ac=spam&ts=api');
+		$api = file_get_contents('https://www.thinksaas.cn/index.php?app=service&ac=spam&ts=api');
 		
 		$arrSpam = json_decode($api,true);
 		

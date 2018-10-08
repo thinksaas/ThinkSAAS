@@ -8,41 +8,32 @@ function feedback_html(){
 		$code = $tsMySqlCache->get('plugins_pubs_feedback');
 	}
 	
-	echo '<div class="feedback-box">
-'.stripslashes($code).'
-</div>';
+	echo '<div class="feedback-box">'.stripslashes($code).'<!--<div class="jubao"><a href="'.tsUrl('home','report').'">举报</a></div></div>-->';
 }
 
 addAction('pub_footer','feedback_html');
 
 function feedback_css(){
 	echo '<style>.feedback-box {
-    background-color: #83ACC6;
-    border-right: 1px solid #D3E3F0;
+    background-color: #49a5de;
     bottom: 60%;
-    opacity: 0.6;
     padding: 1px 0;
     position: fixed;
     right: 0;
-    width: 20px;
+    width: 30px;
+    text-align:center;
 }
-.feedback-box:hover {
-    background-color: #558BC6;
-    border-right: 1px solid #BFD6E6;
-    opacity: 1;
-}
-.feedback-box:hover a {
-    border-left-color: #558BC6;
-}
+
 .feedback-box a {
-    background: url("'.SITE_URL.'plugins/pubs/feedback/feed-back.png") no-repeat 3px 85px;
-    border-left: 1px solid #83ACC6;
     color: #FFFFFF !important;
     display: block;
-    margin-left: -1px;
-    padding: 4px 4px 24px;
+    padding: 5px;
     text-decoration: none;
-}</style>';
+}
+.feedback-box .jubao{overflow: hidden;}
+.feedback-box .jubao a{padding:0px;float: left;width:100%;text-align: center;background: #336699;font-size: 12px;}
+.feedback-box .jubao a:hover{background:#ff6600;}
+</style>';
 }
 
 addAction('pub_header_top','feedback_css');

@@ -1,4 +1,4 @@
-{template header}
+{php include pubTemplate("header_admin")}
 
 <script src="public/js/jquery.min.js" type="text/javascript"></script>
 <script>
@@ -32,48 +32,97 @@ function unisappnav(appkey){
 	})
 }
 
+function ismynav(appkey,appname){
+    $.post('index.php?app=system&ac=apps&ts=mynav',{'appkey':appkey,'appname':appname},function(rs){
+        if(rs==1){
+            window.location.reload(true);
+        }
+    })
+}
+
+function unismynav(appkey){
+    $.post('index.php?app=system&ac=apps&ts=unmynav',{'appkey':appkey},function(rs){
+        if(rs==1){
+            window.location.reload(true);
+        }
+    })
+}
+
 </script>
 
 
 <div class="midder">
 
-<h2>APP管理</h2>
-
 <div class="tabnav">
 <ul>
-<li class="select"><a href="index.php?app=system&ac=apps&ts=list">APP列表</a></li>
+<li class="select"><a href="index.php?app=system&ac=apps&ts=list">应用列表</a></li>
 </ul>
 </div>
 
-<table width="100%" cellpadding="0" cellspacing="0">
-<tr class="old">
-<td width="150">APP名称</td>
-<td>版本</td>
-<td>介绍</td>
-<td>作者</td>
-<td>管理</td>
-<td>操作</td>
-</tr>
-{loop $arrApp $keys $item}
-<tr class="odd">
-<td><img src="app/{$item[name]}/icon.png" title="{$item}" align="absmiddle" />
-{$item[about][name]}({$item[name]})</td>
-<td>{$item[about][version]}
-</td>
-<td>{$item[about][desc]}</td>
-<td>{$item[about][author]}</td>
-<td>
-{if $item[about][isoption] == '1' && $item[about][isinstall]=='1'}<a href="index.php?app={$item[name]}&ac=admin&mg=options">[管理]</a>{/if} 
-</td>
-<td>
-{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] == ''}<a href="javascript:void('0');" onclick="isappnav('{$item[name]}','{$item[about][name]}');">[导航]</a>{/if}
+<table class="table table-hover">
+    <thead class="thead-light">
+    <tr>
+        <th>应用名称</th>
+        <th>版本</th>
+        <th>介绍</th>
+        <th>作者</th>
+        <th>管理</th>
+        <th>顶部导航</th>
+        <th>我的社区导航</th>
+    </tr>
+    </thead>
 
-{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] != ''}<a href="javascript:void('0');" onclick="unisappnav('{$item[name]}');">[取消导航]</a>{/if}
+    <tbody>
+{loop $arrApp $keys $item}
+<tr>
+<td>{$item[about][name]}({$item[name]})</td>
+<td class="fs12 c9">{$item[about][version]}
 </td>
+<td class="fs12 c9">{$item[about][desc]}</td>
+<td class="fs12 c9">{$item[about][author]}</td>
+<td>
+{if $item[about][isoption] == '1' && $item[about][isinstall]=='1'}
+    <a class="btn btn-sm btn-outline-info fs12" href="index.php?app={$item[name]}&ac=admin&mg=options"><i class="fas fa-tasks"></i>管理</a>
+    {/if}
+</td>
+
+
+<td>
+
+
+{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] == ''}
+    <a class="btn btn-outline-primary btn-sm fs12" href="javascript:void('0');" onclick="isappnav('{$item[name]}','{$item[about][name]}');"><i class="far fa-play-circle"></i>开启</a>
+    {/if}
+
+{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] != ''}
+    <a class="btn btn-outline-secondary btn-sm fs12" href="javascript:void('0');" onclick="unisappnav('{$item[name]}');"><i class="far fa-stop-circle"></i>取消</a>
+    {/if}
+
+
+
+</td>
+
+
+    <td>
+
+        {if $item[about]['ismy'] == '1' && $TS_SITE[mynav][$item[name]] == ''}
+        <a class="btn btn-outline-primary btn-sm fs12" href="javascript:void('0');" onclick="ismynav('{$item[name]}','{$item[about][name]}');"><i class="far fa-play-circle"></i>开启</a>
+        {/if}
+
+        {if $item[about]['ismy'] == '1' && $TS_SITE[mynav][$item[name]] != ''}
+        <a class="btn btn-outline-secondary btn-sm fs12" href="javascript:void('0');" onclick="unismynav('{$item[name]}');"><i class="far fa-stop-circle"></i>取消</a>
+        {/if}
+
+    </td>
+
+
 </tr>
 {/loop}
+    </tbody>
+
+
 </table>
 
 </div>
 
-{template footer}
+{php include pubTemplate("footer_admin")}
