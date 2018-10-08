@@ -14,7 +14,7 @@ function wangeditor($loadjs='load'){
         if($GLOBALS['TS_USER']){
 		    echo '<script type="text/javascript" charset="utf-8" src="'.SITE_URL.'public/js/xss.js"></script>';
             echo '<script type="text/javascript" charset="utf-8" src="'.SITE_URL.'plugins/pubs/wangeditor/wangEditor.js"></script>';
-            echo '<script type="text/javascript" charset="utf-8" src="'.SITE_URL.'plugins/pubs/wangeditor/'.$loadjs.'.js"></script>';
+            echo '<script type="text/javascript" charset="utf-8" src="'.SITE_URL.'plugins/pubs/wangeditor/'.$loadjs.'.js?v=20181008"></script>';
         }
 }
 

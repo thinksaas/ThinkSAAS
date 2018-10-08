@@ -32,6 +32,13 @@ editor.customConfig.onchange = function (html) {
     content.val(filterXSS(html))
 }
 
+//解决iphone中出现的问题
+editor.customConfig.onblur = function (html) {
+    // html 即编辑器中的内容
+    console.log('onblur', html)
+    content.val(filterXSS(html))
+}
+
 editor.create()
 // 初始化 textarea 的值
 content.val(editor.txt.html())
