@@ -53,7 +53,11 @@ switch($ts){
 		$userid = aac('user')->isLogin();
 	
 		$photoid	= intval($_POST['photoid']);
-		$content	= tsClean($_POST['content']);
+		$content	= trim($_POST['content']);
+
+		if($content==''){
+		    tsNotice('评论内容不能为空！');
+        }
 		
 		if($TS_USER['isadmin']==0){
 			//过滤内容开始

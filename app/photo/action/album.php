@@ -38,7 +38,7 @@ switch($ts){
 		),'photoid desc',null,$lstart.',20');
 		
 		foreach($arrPhoto as $key=>$item){
-			$arrPhoto[$key]['photodesc'] = stripslashes($item['photodesc']);
+			$arrPhoto[$key]['photodesc'] = tsTitle($item['photodesc']);
 		}
 		
 		$photoNum = $new['photo']->findCount('photo',array(

@@ -73,7 +73,7 @@ $strArticle ['tags'] = aac ( 'tag' )->getObjTagByObjid ( 'article', 'articleid',
 //最新文章
 $arrArticle = $new ['article']->findAll ( 'article', array(
     'isaudit'=>0,
-), 'addtime desc', null, 10 );
+), 'addtime desc', 'articleid,title', 10 );
 
 // 推荐阅读
 $arrRecommend = $new ['article']->getRecommendArticle ();

@@ -7,6 +7,7 @@ defined('IN_TS') or die('Access Denied.');
  * @Email:thinksaas@qq.com
  * @TIME:2010-12-18
  */
+use Intervention\Image\ImageManagerStatic as Image;
 
 /**
  * 加载某一APP类
@@ -650,38 +651,63 @@ function md10($str = '') {
  */
 function tsXimg($file, $app, $w, $h, $path = '', $c = '0') {
 
-	if (!$file) {
-		return false;
-	} else {
+    if (!$file) {
+        return false;
+    } else {
 
-		//$info = explode ( '.', $file );
-		//$name = md10 ( $file ) . '_' . $w . '_' . $h . '.' . $info [1];
+        $info = explode('/', $file);
+        $name = $info[2];
 
-		$info = explode('/', $file);
-		$name = $info[2];
+        $cpath = 'cache/' . $app . '/' . $path . '/' . md5($w . $app . $name) . '.jpg';
 
-		if ($path == '') {
-			$cpath = 'cache/' . $app . '/' . $w . '/' . $name;
-		} else {
-			$cpath = 'cache/' . $app . '/' . $path . '/' . $w . '/' . $name;
-		}
+        if (!is_file($cpath)) {
 
-		if (!is_file($cpath)) {
-			createFolders('cache/' . $app . '/' . $path . '/' . $w);
-			$dest = 'uploadfile/' . $app . '/' . $file;
-			$arrImg = getimagesize($dest);
-			if ($arrImg[0] <= $w) {
-				copy($dest, $cpath);
+            Image::configure(array('driver' => 'gd'));
 
-			} else {
-				require_once 'thinksaas/tsImage.php';
-				$resizeimage = new tsImage("$dest", $w, $h, $c, "$cpath");
-			}
-		}
+            createFolders('cache/' . $app . '/' . $path);
+            $dest = 'uploadfile/' . $app . '/' . $file;
+            $arrImg = getimagesize($dest);
 
-		return SITE_URL . $cpath;
+            $img = Image::make($dest);
 
-	}
+            if ($arrImg[0] <= $w) {
+
+                if($c){
+                    if($w && $h){
+                        $img->fit($w, $h);
+                    }elseif($w && $h==''){
+                        $img->resize($w, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        });
+                    }
+                }
+
+            } else {
+
+                if($w && $h){
+                    $img->fit($w, $h);
+                }elseif($w && $h==''){
+                    $img->resize($w, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                }
+
+            }
+
+            if($arrImg[0]>400 && $w>400){
+                #图片大于400px加水印
+                $watermark = Image::make('public/images/sy.png');
+                $img->insert($watermark, 'bottom-left',10,10);
+            }
+
+            $img->save($cpath);
+
+        }
+
+        return SITE_URL . $cpath;
+
+    }
+
 }
 
 /**
@@ -966,7 +992,7 @@ function reurl() {
 				foreach ($params as $p => $v) {
 					switch ($p) {
 						case 0 :
-                            if($v=='?from=singlemessage' || $v=='?from=groupmessage' || $v=='?from=timeline') $v='home';
+                            if($v=='?from=singlemessage' || $v=='?from=groupmessage' || $v=='?from=timeline' || $v=='?tdsourcetag=s_pctim_aiomsg' || $v=='?_wv=1031') $v='home';
 							$_GET['app'] = $v;
 							break;
 						case 1 :
@@ -1083,7 +1109,7 @@ function reurl() {
 				foreach ($params as $p => $v) {
 					switch ($p) {
 						case 0 :
-                            if($v=='?from=singlemessage' || $v=='?from=groupmessage' || $v=='?from=timeline') $v='home';
+                            if($v=='?from=singlemessage' || $v=='?from=groupmessage' || $v=='?from=timeline' || $v=='?tdsourcetag=s_pctim_aiomsg' || $v=='?_wv=1031') $v='home';
 							$_GET['app'] = $v;
 							break;
 						case 1 :
@@ -1327,8 +1353,7 @@ function delDirFile($dir) {
 function tsUpload($files, $projectid, $dir, $uptypes) {
 	
 	if ($files['size'] > 0) {
-	
-	
+
 		//上传图片大小控制
 		if(in_array('png',$uptypes) || in_array('jpg',$uptypes) || in_array('gif',$uptypes) || in_array('jpeg',$uptypes)){
 		
@@ -1342,7 +1367,6 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 			}
 		
 		}
-		
 
 		$menu2 = intval($projectid / 1000);
 
@@ -1359,7 +1383,7 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 		$arrType = explode('.', strtolower($files['name']));
 		// 转小写一下
 
-		$type = array_pop($arrType);
+		$type = end($arrType);
 
 		if (in_array($type, $uptypes)) {
 

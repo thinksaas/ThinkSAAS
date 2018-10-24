@@ -23,7 +23,7 @@ class group extends tsApp{
 
         if($strGroup){
             $strGroup['groupname'] = tsTitle($strGroup['groupname']);
-            #$strGroup['groupdesc'] = tsDecode($strGroup['groupdesc']);
+            $strGroup['groupdesc'] = tsTitle($strGroup['groupdesc']);
 
             if($strGroup['photo']){
                 $strGroup['photo'] = tsXimg($strGroup['photo'],'group',200,200,$strGroup['path'],1);

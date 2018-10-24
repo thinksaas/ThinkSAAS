@@ -65,7 +65,7 @@ class article extends tsApp {
 
         $arrArticle = $this->findAll('article', $arr, 'addtime desc', 'articleid,title', 10);
         foreach ($arrArticle as $key => $item) {
-            $arrArticle[$key]['title'] = htmlspecialchars($item['title']);
+            $arrArticle[$key]['title'] = tsTitle($item['title']);
         }
 
         return $arrArticle;

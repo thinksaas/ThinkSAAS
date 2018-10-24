@@ -211,7 +211,7 @@
                     <div class="commlist">
                         <ul>
                             {loop $arrArticle $key $item}
-                            <li><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></li>
+                            <li><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{php echo tsTitle($item['title'])}</a></li>
                             {/loop}
                         </ul>
                     </div>

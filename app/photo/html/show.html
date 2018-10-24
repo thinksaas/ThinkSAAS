@@ -50,7 +50,7 @@
     {if $nowPage < $conutPage}
 	<a title="点击查看下一张" href="{tsUrl('photo','show',array('id'=>$next))}" class="mainphoto">
 {/if}
-        <img src="{php echo tsXimg($strPhoto[photourl],'photo',600,'',$strPhoto[path])}" alt="{$strAlbum['albumname']}{$strPhoto['photoname']}" title="{$strAlbum['albumname']}{$strPhoto['photoname']}" />
+        <img src="{php echo tsXimg($strPhoto['photourl'],'photo',640,'',$strPhoto['path'])}" alt="{$strAlbum['albumname']}{$strPhoto['photoname']}" title="{$strAlbum['albumname']}{$strPhoto['photoname']}" />
 	{if $nowPage < $conutPage}
    </a>
    {/if}
@@ -106,7 +106,7 @@
             <tbody>
 
             {loop $arrComment $key $item}
-            <tr><td width="75" valign="top"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img src="{$item[user][face]}" width="48" height="48" class="pil"></a>
+            <tr><td width="75" valign="top"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img src="{$item[user][face]}" width="48" height="48" class="rounded-circle"></a>
             </td>
                 <td valign="top">
 <span class="wrap">

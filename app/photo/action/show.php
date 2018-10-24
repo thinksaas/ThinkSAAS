@@ -17,7 +17,7 @@ if($strPhoto == ''){
 }
 
 $strPhoto['photoname'] = tsTitle($strPhoto['photoname']);
-$strPhoto['photodesc'] = tsDecode($strPhoto['photodesc']);
+$strPhoto['photodesc'] = tsTitle($strPhoto['photodesc']);
 
 $albumid = $strPhoto['albumid'];
 
@@ -38,7 +38,7 @@ $strAlbum = $new['photo']->find('photo_album',array(
 ));
 
 $strAlbum['albumname'] = tsTitle($strAlbum['albumname']);
-$strAlbum['albumdesc'] = tsDecode($strAlbum['albumdesc']);
+$strAlbum['albumdesc'] = tsTitle($strAlbum['albumdesc']);
 
 $arrPhotoIds = $new['photo']->findAll('photo',array(
 
@@ -74,7 +74,7 @@ $arrComments = $new['photo']->findAll('photo_comment',array(
 foreach($arrComments as $key=>$item){
 	$arrComment[] = $item;
 	$arrComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
-	$arrComment[$key]['content'] = tsDecode($item['content']);
+	$arrComment[$key]['content'] = tsTitle($item['content']);
 }
 
 $comment_num = $new['photo']->findCount('photo_comment',array(

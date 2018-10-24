@@ -97,32 +97,7 @@ switch($ts){
 		tsNotice("基本资料更新成功！");
 	
 		break;
-		
-	case "flash":
-	
-		
-		$title = 'Flash上传头像';
-		include template('setting_flash');
-	
-		break;
-		
-	case "cut":
-		
-		$title = '裁切头像';
-		include template('setting_cut');
-	
-		break;
-		
-	case "cutdo":
-		
-		require_once 'thinksaas/tsImage.php';
-		$resizeimage = new tsImage("uploadfile/user/".$strUser['face'], 190, 190, 2,"uploadfile/user/".$strUser['face']);
-		
-		tsDimg($strUser['face'],'user','120','120',$strUser['path']);
-		
-		header('Location: '.tsUrl('my','setting',array('ts'=>'face')));
-	
-		break;
+
 		
 	case "face":
 
