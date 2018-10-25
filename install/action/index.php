@@ -22,6 +22,7 @@ $e_SimpleXML = 0;
 $e_mcrypt = 0;
 $e_json = 0;
 $e_iconv = 0;
+$e_fileinfo = 0;
 
 if(extension_loaded('dom')) $e_dom=1;#dom
 if(extension_loaded('mbstring')) $e_mbstring=1;#mbstring
@@ -34,6 +35,7 @@ if(extension_loaded('SimpleXML')) $e_SimpleXML=1;#SimpleXML
 if(extension_loaded('mcrypt')) $e_mcrypt=1;#mcrypt
 if(extension_loaded('json')) $e_json=1;#json
 if(extension_loaded('iconv')) $e_iconv=1;#iconv
+if(extension_loaded('Fileinfo')) $e_fileinfo=1;#Fileinfo
 
 
 include 'install/html/index.html';
