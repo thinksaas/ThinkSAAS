@@ -21,12 +21,9 @@
 {loop $arrTopic $key $item}
 <li>
 
-{if $item['appkey'] != 'group' && $item['appkey']!=''}
-<a target="_blank" style="color:#999999;font-size: 12px;margin-right: 5px;" class="titles-type" href="{SITE_URL}{php echo tsUrl($item['appkey'])}">[{$item['appname']}]</a>
-<a title="{$item[title]}" href="{SITE_URL}{php echo tsUrl($item['appkey'],$item['appaction'],array('id'=>$item['appid']))}">{$item[title]}</a>
-{else}
-<a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{php echo htmlspecialchars($item['title'])}</a> <i>{$item['count_comment']}</i>
-{/if}
+
+<a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{php echo tsTitle($item['title'])}</a> <i>{$item['count_comment']}</i>
+
 
 </li>
 {/loop}

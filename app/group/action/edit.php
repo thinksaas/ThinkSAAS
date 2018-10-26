@@ -15,14 +15,14 @@ if($strGroup['userid']!=$userid && $TS_USER['isadmin']==0){
     tsNotice('非法操作！');
 }
 
+$strGroup['groupname'] = tsDecode($strGroup['groupname']);
+$strGroup['groupdesc'] = tsDecode($strGroup['groupdesc']);
+
 switch($ts){
 
     //编辑小组基本信息
     case "base":
 
-
-        $strGroup['groupname'] = tsDecode($strGroup['groupname']);
-        $strGroup['groupdesc'] = tsDecode($strGroup['groupdesc']);
 
         //小组标签
         $arrTags = aac ( 'tag' )->getObjTagByObjid ( 'group', 'groupid', $groupid );

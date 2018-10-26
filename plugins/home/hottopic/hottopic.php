@@ -12,7 +12,7 @@ function hottopic(){
 	echo '<div class="commlist">';
 	echo '<ul>';
 	foreach($arrHotTopics as $key=>$item){
-		echo '<li><a href="'.tsUrl('group','topic',array('id'=>$item['topicid'])).'">'.cututf8(stripslashes($item['title']),0,20,false).'</a></li>';
+		echo '<li><a href="'.tsUrl('group','topic',array('id'=>$item['topicid'])).'">'.tsTitle($item['title']).'</a></li>';
 	}
 	echo '</ul>';
 	echo '</div>';

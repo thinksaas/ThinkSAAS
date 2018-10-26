@@ -13,8 +13,8 @@ $arrAlbum = $new['photo']->findAll('photo_album',array(
 ),'albumid desc',null,$lstart.',6');
 
 foreach($arrAlbum as $key=>$item){
-	$arrAlbum[$key]['albumname'] = tsDecode($item['albumname']);
-	$arrAlbum[$key]['albumdesc'] = tsDecode($item['albumdesc']);
+	$arrAlbum[$key]['albumname'] = tsTitle($item['albumname']);
+	$arrAlbum[$key]['albumdesc'] = tsTitle($item['albumdesc']);
 }
 
 $albumNum = $new['photo']->findCount('photo_album',array(

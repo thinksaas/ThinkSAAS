@@ -11,7 +11,7 @@ function newgroup(){
 	echo '<div class="card-body"><div class="commlist"><ul>';
 	foreach($arrNewGroup as $key=>$item){
 	
-		echo '<li><a href="'.tsUrl('group','show',array('id'=>$item['groupid'])).'">'.$item['groupname'].'</a></li>';
+		echo '<li><a href="'.tsUrl('group','show',array('id'=>$item['groupid'])).'">'.tsTitle($item['groupname']).'</a></li>';
 	
 	}
 	echo '</ul></div></div>';

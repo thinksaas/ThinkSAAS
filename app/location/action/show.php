@@ -7,6 +7,9 @@ $strLocation = $new['location']->find('location',array(
 	'locationid'=>$locationid,
 ));
 
+$strLocation['title'] = tsTitle($strLocation['title']);
+$strLocation['content'] = tsTitle($strLocation['content']);
+
 //文章
 $arrArticle = $new['location']->findAll('article',array(
 	'locationid'=>$locationid,
@@ -22,6 +25,7 @@ $arrTopic = $new['location']->findAll('group_topic',array(
 	'locationid'=>$locationid,
 ),'addtime desc',null,10);
 foreach($arrTopic as $key=>$item){
+    $arrTopic[$key]['title'] = tsTitle($item['title']);
 	$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 	$arrTopic[$key]['group'] = $new['location']->find('group',array(
 		'groupid'=>$item['groupid'],

@@ -76,6 +76,9 @@ switch($ts){
 		));
 		
 		if($strAlbum['userid'] == $userid || $TS_USER['isadmin']==1) {
+
+            $strAlbum['albumname'] = tsTitle($strAlbum['albumname']);
+            $strAlbum['albumdesc'] = tsTitle($strAlbum['albumdesc']);
 		
 			$title = '修改相册属性-'.$strAlbum['albumname'];
 			include template("album_edit");
@@ -140,6 +143,9 @@ switch($ts){
 		$strAlbum = $new['photo']->find('photo_album',array(
 			'albumid'=>$albumid,
 		));
+
+        $strAlbum['albumname'] = tsTitle($strAlbum['albumname']);
+        $strAlbum['albumdesc'] = tsTitle($strAlbum['albumdesc']);
 		
 		if($strAlbum['userid'] != $userid) {
 		
@@ -186,7 +192,8 @@ switch($ts){
 		$arrPhoto = $new['photo']->findAll('photo',$arr);
 		
 		foreach($arrPhoto as $key=>$item){
-			$arrPhoto[$key]['photodesc'] = stripslashes($item['photodesc']);
+			$arrPhoto[$key]['photoname'] = tsTitle($item['photoname']);
+			$arrPhoto[$key]['photodesc'] = tsTitle($item['photodesc']);
 		}
 		
 		

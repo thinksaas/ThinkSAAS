@@ -33,7 +33,7 @@
                         </thead>
                         <tbody>
                         {loop $arrTopic $key $item}
-                        <tr><td>{php echo date('Y-m-d',$item['addtime'])}</td><td><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></td><td>{$item['count_view']}/{$item['count_comment']}</td><td><a href="{tsUrl('group','topicedit',array('topicid'=>$item['topicid']))}">修改</a></td></tr>
+                        <tr><td>{php echo date('Y-m-d',$item['addtime'])}</td><td><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{php echo tsTitle($item['title'])}</a></td><td>{$item['count_view']}/{$item['count_comment']}</td><td><a href="{tsUrl('group','topicedit',array('topicid'=>$item['topicid']))}">修改</a></td></tr>
                         {/loop}
                         </tbody>
                     </table>

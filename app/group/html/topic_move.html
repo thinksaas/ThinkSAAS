@@ -4,12 +4,12 @@
 
     <div class="card-body">
         <div class="card-body">
-<h1>移动帖子：{$strTopic[title]}</h1>
+<h1>移动帖子：{tsTitle($strTopic['title'])}</h1>
 <form method="POST" action="{SITE_URL}index.php?app=group&ac=topicmove&ts=do">
 <p>选择小组：
 <select name="groupid">
 {loop $arrGroup $key $item}
-<option value="{$item[groupid]}">{$item[groupname]}</option>
+<option value="{$item['groupid']}">{tsTitle($item['groupname'])}</option>
 {/loop}
 </select>
 </p>

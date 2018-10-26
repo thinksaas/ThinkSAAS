@@ -228,7 +228,6 @@ class group extends tsApp{
         $arrTopic = $this->findAll('group_topic',$arr,'addtime desc','topicid,title,count_view,count_comment',10);
         foreach($arrTopic as $key=>$item){
             $arrTopic[$key]['title']=tsTitle($item['title']);
-            $arrTopic[$key]['content']=tsDecode($item['content']);
         }
 
         return $arrTopic;

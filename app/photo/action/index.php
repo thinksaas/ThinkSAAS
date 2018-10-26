@@ -12,8 +12,8 @@ $arrAlbum = $new['photo']->findAll('photo_album',array(
 ),'albumid desc',null,$lstart.',30');
 
 foreach($arrAlbum as $key=>$item){
-	$arrAlbum[$key]['albumname'] = stripslashes($item['albumname']);
-	$arrAlbum[$key]['albumdesc'] = stripslashes($item['albumdesc']);
+	$arrAlbum[$key]['albumname'] = tstitle($item['albumname']);
+	$arrAlbum[$key]['albumdesc'] = tstitle($item['albumdesc']);
 }
 
 $albumNum = $new['photo']->findCount('photo_album');

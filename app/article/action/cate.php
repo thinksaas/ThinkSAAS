@@ -18,24 +18,22 @@ switch ($ts) {
 		) );
 		$lstart = $page * 10 - 10;
 		
-		$arrArticles = $new ['article']->findAll ( 'article', array (
+		$arrArticle = $new ['article']->findAll ( 'article', array (
 				'cateid' => $cateid,
 				'isaudit' => 0 
 		)
 		, 'addtime desc', 'articleid,userid,cateid,title,gaiyao,path,photo,count_comment,count_recommend,count_view,addtime', $lstart . ',10' );
 		
 		$articleNum = $new ['article']->findCount ( 'article', array (
-				
 				'cateid' => $cateid,
 				'isaudit' => 0 
-		)
-		 );
+		    )
+        );
 		
 		$pageUrl = pagination ( $articleNum, 10, $page, $url );
 		
-		foreach ( $arrArticles as $key => $item ) {
-			$arrArticle [] = $item;
-			$arrArticle [$key]['title'] = stripslashes($item['title']);
+		foreach ( $arrArticle as $key => $item ) {
+			$arrArticle [$key]['title'] = tsTitle($item['title']);
 			$arrArticle [$key] ['user'] = aac ( 'user' )->getOneUser ( $item ['userid'] );
             $arrArticle [$key] ['cate'] = array(
                 'cateid'=>$strCate['cateid'],

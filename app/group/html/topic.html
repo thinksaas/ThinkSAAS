@@ -64,7 +64,7 @@
                         <div class="topic_attach">
                             <ul>
                                 {loop $arrAttach $key $item}
-                                <li><a target="_blank" href="{tsUrl('attach','show',array('id'=>$item['attachid']))}">{$item['attachname']}</a> - <span class="c9 fs12">{$item['count_down']}次下载</span> - <span class="c9 fs12">需{$item['score']}积分</span></li>
+                                <li><a target="_blank" href="{tsUrl('attach','show',array('id'=>$item['attachid']))}">{tsTitle($item['attachname'])}</a> - <span class="c9 fs12">{$item['count_down']}次下载</span> - <span class="c9 fs12">需{$item['score']}积分</span></li>
                                 {/loop}
                             </ul>
 
@@ -179,7 +179,7 @@
                                     <div class="topic_attach">
                                         <ul>
                                             {loop $item['attach'] $akey $aitem}
-                                            <li><a target="_blank" href="{tsUrl('attach','show',array('id'=>$aitem['attachid']))}">{$aitem['attachname']}</a> - <span class="c9 fs12">{$aitem['count_down']}次下载</span> - <span class="c9 fs12">需{$aitem['score']}积分</span></li>
+                                            <li><a target="_blank" href="{tsUrl('attach','show',array('id'=>$aitem['attachid']))}">{tsTitle($aitem['attachname'])}</a> - <span class="c9 fs12">{$aitem['count_down']}次下载</span> - <span class="c9 fs12">需{$aitem['score']}积分</span></li>
                                             {/loop}
                                         </ul>
                                     </div>
@@ -371,7 +371,7 @@
                     <ul>
                         {loop $newTopic $key $item}
                         <li>
-                            <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
+                            <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{php echo tsTitle($item[title])}</a>
                         </li>
                         {/loop}
                     </ul>
