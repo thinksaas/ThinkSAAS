@@ -2342,6 +2342,7 @@ function getTextPhotos($text,$num=0){
     preg_match_all($pattern,$text,$match);
     $arrPhoto = $match[1];
 
+
     $count = count($arrPhoto);
 
     if($count>$num && $num){

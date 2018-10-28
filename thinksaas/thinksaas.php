@@ -5,6 +5,7 @@
  * @Email:thinksaas@qq.com
  * @site:www.thinksaas.cn
  */
+
 defined('IN_TS') or die('Access Denied.');
 
 //核心配置文件 $TS_CF 系统配置变量

@@ -46,6 +46,7 @@ class tsTemplate {
 		$template = @preg_replace_callback ( "/\{php (.*?)\}/is",function( $m ){
 			return $this->stripvTag('<?php '.$m[1].'?>');
 		}, $template ); // 替换php标签
+
 		$template = @preg_replace_callback ( "/\{for (.*?)\}/is", function( $m ){
 			return $this->stripvTag('<?php for('.$m[1].') {?>');
 		}, $template ); // 替换for标签
