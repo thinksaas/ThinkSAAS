@@ -63,32 +63,23 @@ switch($ts){
 		
  	case "iswritable":
 	
+        $msg = '';
 
-		//检测几个函数是否可用
-		$f_opendir = function_exists('opendir');
-		$f_readdir = function_exists('readdir');
-		$f_copy = function_exists('copy');
+        #检测php必要函数
+        if(function_exists('opendir')==false) $msg .= 'opendir函数不可用<br />';#opendir
+        if(function_exists('readdir')==false) $msg .= 'readdir函数不可用<br />';#readdir
+        if(function_exists('copy')==false) $msg .= 'copy函数不可用<br />';#copy
 
-		$upgrade = abcefile('upgrade');
-		
-		if($f_opendir==false){
-			echo '0';exit;	//opendir函数不可用
-		}
-		
-		if($f_readdir==false){
-			echo '1';exit;	//readdir函数不可用
-		}
-		
-		if($f_copy==false){
-			echo '2';exit;	//copy函数不可用
-		}
+        #检查php必要扩展
+        if(extension_loaded('Fileinfo')==false) $msg .= 'Fileinfo扩展不可用<br />';#Fileinfo
 
-		if($upgrade){
-		    echo '3';exit;//upgrade目录不可写
-        }
-		
-		echo '4';exit;	//基本没问题
-		
+        #检测upgrade目录是否可写
+		if(abcefile('upgrade')) $msg .= 'upgrade目录不可写<br />';
+
+
+		echo $msg;
+
+
 		break;
 		
 	//第一步检测可写权限

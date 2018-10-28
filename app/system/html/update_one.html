@@ -14,7 +14,7 @@
 
 </div>
 
-<div id="rego" class="upgo" style="display:none;">
+<div id="rego" class="upgo mt-3" style="display:none;">
     <a class="btn btn-outline-primary" href="index.php?app=system&ac=update&ts=one">刷新权限</a>
 </div>
 
@@ -31,20 +31,10 @@ function iswritable(){
 
 
     $.get('index.php?app=system&ac=update&ts=iswritable',function(rs){
-        if(rs=='0'){
-            $(".uplog").html('opendir函数不可用');
+        if(rs){
+            $(".uplog").html(rs);
             $("#rego").show();
-        }else if(rs=='1'){
-            $(".uplog").html('readdir函数不可用');
-            $("#rego").show();
-        }else if(rs=='2'){
-            $(".uplog").html('copy函数不可用');
-            $("#rego").show();
-        }else if(rs=='3'){
-            $(".uplog").html('权限未通过！');
-            $(".notice").show('【提示】<br />upgrade目录不可写，请将upgrade目录设置为755可写权限。<br />如果你设置好了，请点击下面的刷新按钮');
-            $("#rego").show();
-        }else if(rs=='4'){
+        } else {
             $(".uplog").html('权限通过！');
             $("#upgo").show();
         }

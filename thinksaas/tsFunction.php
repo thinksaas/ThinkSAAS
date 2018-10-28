@@ -658,11 +658,11 @@ function tsXimg($file, $app, $w, $h, $path = '', $c = '0') {
         $info = explode('/', $file);
         $name = $info[2];
 
-        $cpath = 'cache/' . $app . '/' . $path . '/' . md5($w . $app . $name) . '.jpg';
+        $cpath = 'cache/' . $app . '/' . $path . '/' . md5($w . $h . $app . $name) . '.jpg';
 
         if (!is_file($cpath)) {
 
-            Image::configure(array('driver' => 'gd'));
+            Image::configure(array('driver' => 'gd'));//gd or imagick
 
             createFolders('cache/' . $app . '/' . $path);
             $dest = 'uploadfile/' . $app . '/' . $file;
@@ -724,7 +724,12 @@ function tsDimg($file, $app, $w, $h, $path) {
 	$info = explode('/', $file);
 	$name = $info[2];
 
-	unlink('cache/' . $app . '/' . $path . '/' . $w . '/' . $name);
+    $cpath = 'cache/' . $app . '/' . $path . '/' . md5($w . $h . $app . $name) . '.jpg';
+
+	unlink($cpath);
+
+
+
 	return true;
 }
 
