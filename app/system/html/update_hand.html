@@ -1,0 +1,45 @@
+{php include pubTemplate("header_admin")}
+<!--main-->
+<div class="container mt-3">
+
+
+
+<div class="update">
+<h1>手动升级：检测系统基本权限</h1>
+<div class="uplog"></div>
+
+<div id="upgo" class="upgo mt-3" style="display:none;">
+    <a target="_blank" class="btn btn-primary" href="https://www.thinksaas.cn/service/update/{$upid}/">手动下载升级包</a>
+</div>
+
+<div class="notice alert alert-warning mt-3" style="display:none;">
+
+</div>
+
+<div id="rego" class="upgo mt-3" style="display:none;">
+    <a class="btn btn-outline-primary" href="index.php?app=system&ac=update&ts=hand">刷新权限</a>
+</div>
+
+
+</div>
+
+
+</div>
+
+<script>
+//检测是否有升级
+function iswritable(){
+	$(".uplog").html('<img src="public/images/loading.gif" />权限检测中...')
+    $.get('index.php?app=system&ac=update&ts=iswritable',function(rs){
+        if(rs){
+            $(".uplog").html(rs);
+            $("#rego").show();
+        } else {
+            $(".uplog").html('权限通过！');
+            $("#upgo").show();
+        }
+    })
+}
+iswritable();
+</script>
+{php include pubTemplate("footer_admin")}

@@ -12,7 +12,7 @@ function isupdate(version){
 	$('#upgrade').html('<img src="public/images/loading.gif" />加载中...');
 	$.getJSON("https://www.thinksaas.cn/index.php?app=upcenter&ac=find&version="+version+"&callback=?", function(rs){
 		if(rs){
-			$('#upgrade').html('<h1>哇喔！发现新版本：'+rs.upversion+'</h1><div class="uplog">'+rs.uplog.replace(/\n|\r|(\r\n)|(\u0085)|(\u2028)|(\u2029)/g, "<br />")+'</div><div class="uptime">'+rs.uptime+'</div><div class="alert alert-warning">提示：后台升级只针对用户未做程序改动的ThinkSAAS版本，自行修改过程序的用户谨慎采用此升级方式。升级前请注意备份网站和数据库！</div><div class="mt-3 mb-3"><a id="isauto" class="btn btn-primary" href="index.php?app=system&ac=update&ts=one">点击自动升级</a> <a target="_blank" class="btn btn-secondary" href="https://www.thinksaas.cn/service/update/'+rs.upid+'/">我要手动升级</a></div>');
+			$('#upgrade').html('<h1>哇喔！发现新版本：'+rs.upversion+'</h1><div class="uplog">'+rs.uplog.replace(/\n|\r|(\r\n)|(\u0085)|(\u2028)|(\u2029)/g, "<br />")+'</div><div class="uptime">'+rs.uptime+'</div><div class="alert alert-warning">提示：后台升级只针对用户未做程序改动的ThinkSAAS版本，自行修改过程序的用户谨慎采用此升级方式。升级前请注意备份网站和数据库！</div><div class="mt-3 mb-3"><a id="isauto" class="btn btn-primary" href="index.php?app=system&ac=update&ts=one">点击自动升级</a> <a class="btn btn-primary" href="index.php?app=system&ac=update&ts=hand&upid='+rs.upid+'">我要手动升级</a></div>');
 
 			if(rs.isauto==0){
 			    $("#isauto").hide();

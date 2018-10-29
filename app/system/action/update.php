@@ -81,6 +81,15 @@ switch($ts){
 
 
 		break;
+
+    //手动升级检测
+    case "hand":
+
+        $upid = intval($_GET['upid']);
+
+        include template('update_hand');
+        break;
+
 		
 	//第一步检测可写权限
 	case "one":
