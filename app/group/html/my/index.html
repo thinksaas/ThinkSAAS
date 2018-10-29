@@ -31,7 +31,7 @@
                     {loop $arrCreateGroup $key $item}
                     <div class="col-sm-6 col-md-2">
                         <div class="thumbnail">
-                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img class="rounded" src="{$item['photo']}" alt="{$item['groupname']}" style="max-width: 100%;"></a>
+                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img class="rounded" src="{$item['photo']}" style="max-width: 100%;"></a>
                             <div class="caption">
                                 <div class="title-cut text-center">{$item['groupname']}</div>
 
@@ -69,7 +69,7 @@
                                 <div class="title-cut text-center">{php echo cututf8($item['groupname'],0,6,false)}</div>
 
                                 {if $strUser['userid']!=$item['userid']}
-                                <p><a class="btn btn-outline-secondary btn-block btn-sm" href="javascript:void('0')" onclick="exitGroup('{$item['groupid']}')">退出</a></p>
+                                <p><a class="btn btn-outline-secondary btn-block btn-sm" href="javascript:void('0')" onclick="exitGroup('{$item[';groupid;']}';)">退出</a></p>
                                 {else}
                                 <p><a class="btn btn-outline-secondary btn-block btn-sm" href="{tsUrl('group','add',array('id'=>$item['groupid']))}" >发帖</a></p>
                                 {/if}

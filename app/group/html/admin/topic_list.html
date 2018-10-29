@@ -19,7 +19,7 @@
 
 
 {loop $arrTopic $key $item}
-<tr><td>{$item['topicid']}</td><td>{$item['userid']}</td><td><a target="_blank" href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></td><td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td><td>
+<tr><td>{$item['topicid']}</td><td>{$item['userid']}</td><td><a target="_blank" href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{tsTitle($item['title'])}</a></td><td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td><td>
 
 <a href="{SITE_URL}index.php?app=group&ac=admin&mg=topic&ts=isaudit&topicid={$item['topicid']}">
 {if $item['isaudit']==0}

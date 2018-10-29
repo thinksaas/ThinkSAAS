@@ -11,14 +11,13 @@ foreach($arrGroupsList as $key=>$item){
 	$arrGroup[] = aac('group')->getOneGroup($item['groupid']);
 }
 
-
-
 //创建的小组
 $arrCreateGroup = $new['group']->findAll('group',array(
     'userid'=>$strUser['userid'],
 ));
 
 foreach($arrCreateGroup as $key=>$item){
+    $arrCreateGroup[$key]['groupname'] = tsTitle($item['groupname']);
     if($item['photo']){
         $arrCreateGroup[$key]['photo'] = tsXimg($item['photo'],'group',120,120,$item['path'],1);
     }else{
