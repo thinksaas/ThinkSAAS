@@ -27,7 +27,7 @@
 {loop $arrAllGroup $key $item}
 <tr>
     <td>{$item[groupid]}</td>
-    <td><a href="{tsUrl('group','show',array('id'=>$item['groupid']))}" target="_blank">[{$item[groupname]}]</a></td>
+    <td><a href="{tsUrl('group','show',array('id'=>$item['groupid']))}" target="_blank">[{tsTitle($item['groupname'])}]</a></td>
     <td>{php echo cututf8(t($item[groupdesc]),0,20)}</td><td>{$item[count_topic]}</td>
     <td>{$item[count_user]}</td>
     <td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td>
