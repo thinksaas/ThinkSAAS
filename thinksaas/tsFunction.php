@@ -997,7 +997,7 @@ function reurl() {
 				foreach ($params as $p => $v) {
 					switch ($p) {
 						case 0 :
-                            if($v=='?from=singlemessage' || $v=='?from=groupmessage' || $v=='?from=timeline' || $v=='?tdsourcetag=s_pctim_aiomsg' || $v=='?_wv=1031') $v='home';
+                            if($v=='?from=singlemessage' || $v=='?from=groupmessage' || $v=='?from=timeline' || $v=='?tdsourcetag=s_pctim_aiomsg' || $v=='?_wv=1031' || $v=='?tdsourcetag=s_pcqq_aiomsg') $v='home';
 							$_GET['app'] = $v;
 							break;
 						case 1 :
@@ -1114,7 +1114,7 @@ function reurl() {
 				foreach ($params as $p => $v) {
 					switch ($p) {
 						case 0 :
-                            if($v=='?from=singlemessage' || $v=='?from=groupmessage' || $v=='?from=timeline' || $v=='?tdsourcetag=s_pctim_aiomsg' || $v=='?_wv=1031') $v='home';
+                            if($v=='?from=singlemessage' || $v=='?from=groupmessage' || $v=='?from=timeline' || $v=='?tdsourcetag=s_pctim_aiomsg' || $v=='?_wv=1031' || $v=='?tdsourcetag=s_pcqq_aiomsg') $v='home';
 							$_GET['app'] = $v;
 							break;
 						case 1 :
@@ -1361,8 +1361,14 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 
 		//上传图片大小控制
 		if(in_array('png',$uptypes) || in_array('jpg',$uptypes) || in_array('gif',$uptypes) || in_array('jpeg',$uptypes)){
-		
-			if($GLOBALS['TS_SITE']['photo_size']){
+
+            $type = getImagetype($files['tmp_name']);
+
+            if(!in_array($type,$uptypes)){
+                tsNotice('非法操作');
+            }
+
+            if($GLOBALS['TS_SITE']['photo_size']){
 				$upsize = $GLOBALS['TS_SITE']['photo_size']*1048576;
 				
 				if($files ['size']>$upsize){
@@ -2424,4 +2430,37 @@ function getArrTimezone(){
         'Pacific/Auckland' => '(GMT +12:00) Auckland, Wellington',
         'Pacific/Fiji' => '(GMT +12:00) Fiji, Kamchatka, Marshall Is.',
     );
+}
+
+
+/**
+ * 判断图片上传格式是否为图片 return返回文件后缀
+ */
+function getImagetype($filename){
+    $file = fopen($filename, 'rb');
+    $bin  = fread($file, 2); //只读2字节
+    fclose($file);
+    $strInfo  = unpack('C2chars', $bin);
+    $typeCode = intval($strInfo['chars1'].$strInfo['chars2']);
+    // dd($typeCode);
+    $fileType = '';
+    switch ($typeCode) {
+        case 255216:
+            $fileType = 'jpg';
+            break;
+        case 7173:
+            $fileType = 'gif';
+            break;
+        case 6677:
+            $fileType = 'bmp';
+            break;
+        case 13780:
+            $fileType = 'png';
+            break;
+        default:
+            $fileType = '只能上传图片类型格式';
+    }
+    // if ($strInfo['chars1']=='-1' AND $strInfo['chars2']=='-40' ) return 'jpg';
+    // if ($strInfo['chars1']=='-119' AND $strInfo['chars2']=='80' ) return 'png';
+    return $fileType;
 }

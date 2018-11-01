@@ -57,6 +57,11 @@ switch($ts){
         if($strAlbum['userid']!=$userid){
             getJson('非法操作3！');
         }
+
+        $type = getImagetype($_FILES['file']['tmp_name']);
+        if(!in_array($type,array('jpg','gif','png','jpeg'))){
+            getJson('非法操作4！');
+        }
 		
 		$photoid = $new['photo']->create('photo',array(
 			'albumid'=>$strAlbum['albumid'],
@@ -66,9 +71,9 @@ switch($ts){
 		));
 		
 		//上传
-		$arrUpload = tsUpload($_FILES['file'],$photoid,'photo',array('jpg','gif','png'));
-		
-		if($arrUpload){
+		$arrUpload = tsUpload($_FILES['file'],$photoid,'photo',array('jpg','gif','png','jpeg'));
+
+		if($arrUpload && $arrUpload['path'] && $arrUpload['url']){
 
 			$new['photo']->update('photo',array(
 				'photoid'=>$photoid,
@@ -95,7 +100,13 @@ switch($ts){
 			//对积分进行出来
 			aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts'],$strAlbum['userid']);
 			
-		}
+		}else{
+
+		    $new['photo']->delete('photo',array(
+		        'photoid'=>$photoid,
+            ));
+
+        }
 
 
 		
