@@ -655,8 +655,13 @@ function tsXimg($file, $app, $w, $h, $path = '', $c = '0') {
         return false;
     } else {
 
-        $info = explode('/', $file);
-        $name = $info[2];
+        $arrInfo = explode('/', $file);
+        $name = end($arrInfo);
+
+        $arrType = explode('.',$name);
+        $type = end($arrType);
+
+
 
         $cpath = 'cache/' . $app . '/' . $path . '/' . md5($w . $h . $app . $name) . '.jpg';
 
@@ -694,11 +699,13 @@ function tsXimg($file, $app, $w, $h, $path = '', $c = '0') {
 
             }
 
-            if($arrImg[0]>400 && $w>400){
+
+            if($arrImg[0]>400 && $w>400 && in_array($type,array('jpg','jpeg','png'))){
                 #图片大于400px加水印
                 $watermark = Image::make('public/images/sy.png');
                 $img->insert($watermark, 'bottom-left',10,10);
             }
+
 
             $img->save($cpath);
 
@@ -727,8 +734,6 @@ function tsDimg($file, $app, $w, $h, $path) {
     $cpath = 'cache/' . $app . '/' . $path . '/' . md5($w . $h . $app . $name) . '.jpg';
 
 	unlink($cpath);
-
-
 
 	return true;
 }
