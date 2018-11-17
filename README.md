@@ -10,6 +10,7 @@
 * MySQL >= 5.0
 * Apache / Nginx
 * Windows / Linux
+* 建议采用lnmp或者lamp环境
 
 ## 系统特点
 
@@ -40,25 +41,6 @@
 * 文章(article)
 * 我的社区(my)
 * Email注册登录
-
-## 授权版可选功能
-* 积分兑换(redeem)
-* 活动(event)
-* 问答(ask)
-* 课程(study)
-* 投票(vote)
-* 支付宝支付(alipay)
-* API接口(api)
-* 微信登录(weixin login)
-* 微信支付(weixin pay)
-* Facebook登录(facebook login)
-* GitHub登录(github login)
-* 一键签到(连续签到)
-* 手机号登录(phone login)
-* QQ登录
-* 微博登录
-* 豆瓣登录
-* wangEditor编辑器
 
 ## 用户协议
 
