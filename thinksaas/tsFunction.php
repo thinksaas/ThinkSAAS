@@ -242,11 +242,11 @@ function getIp() {
  */
 function t($text) {
 	$text = tsDecode($text);
-	$text = @preg_replace('/\[.*?\]/is', '', $text);
+	$text = preg_replace('/\[.*?\]/is', '', $text);
 	$text = cleanJs($text);
 	// 彻底过滤空格BY QINIAO
-	$text = @preg_replace('/\s(?=\s)/', '', $text);
-	$text = @preg_replace('/[\n\r\t]/', ' ', $text);
+	$text = preg_replace('/\s(?=\s)/', '', $text);
+	$text = preg_replace('/[\n\r\t]/', ' ', $text);
 	$text = str_replace('  ', ' ', $text);
 	// $text = str_replace ( ' ', '', $text );
 	$text = str_replace('&nbsp;', '', $text);
@@ -2468,4 +2468,14 @@ function getImagetype($filename){
     // if ($strInfo['chars1']=='-1' AND $strInfo['chars2']=='-40' ) return 'jpg';
     // if ($strInfo['chars1']=='-119' AND $strInfo['chars2']=='80' ) return 'png';
     return $fileType;
+}
+
+/**
+ * 根据ID获取目录形式。例如 0/0
+ */
+function getDirPath($projectid){
+    $menu2 = intval($projectid / 1000);
+    $menu1 = intval($menu2 / 1000);
+    $path = $menu1 . '/' . $menu2;
+    return $path;
 }

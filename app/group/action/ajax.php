@@ -217,4 +217,30 @@ switch($ts){
 		}
 		
 		break;
+
+
+    /**
+     * 帖子加标注
+     */
+    case "book":
+
+        $userid = aac('user')->isLogin();
+        $topicid = intval($_POST['topicid']);
+        $book = trim($_POST['book']);
+
+        if($topicid==0 || $book==''){
+            echo 0;exit;
+        }
+
+        $new['group']->update('group_topic',array(
+            'topicid'=>$topicid,
+            'userid'=>$userid,
+        ),array(
+            'label'=>$book,
+        ));
+
+        echo 1;exit;
+
+        break;
+
 }

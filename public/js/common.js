@@ -115,7 +115,7 @@ function tsPost(url,datas){
 }
 
 jQuery(document).ready(function(){
-    $('#comm-form').live('submit', function() {
+    $('#comm-form').on('submit', function() {
         //alert(event.type);
         $('button[type="submit"]').html('发送中...');
         $('button[type="submit"]').attr("disabled", true);

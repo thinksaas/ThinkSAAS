@@ -16,14 +16,17 @@ switch($ts){
 	case "do":
 		$arrNavName = $_POST['navname'];
 		$arrNavUrl = $_POST['navurl'];
-		
+		$arrNewPage = $_POST['newpage'];
+
 		foreach($arrNavName as $key=>$item){
 			$navname = trim($item);
 			$navurl = trim($arrNavUrl[$key]);
+			$newpage = trim($arrNewPage[$key]);
 			if($navname && $navurl){
 				$arrNav[] = array(
 					'navname'	=> $navname,
 					'navurl'	=> $navurl,
+					'newpage'	=> $newpage,
 				);
 			}
 			

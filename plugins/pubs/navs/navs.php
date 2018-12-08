@@ -10,7 +10,11 @@ function navs_html(){
 	}
 
     foreach($arrNav as $item){
-        echo '<li class="nav-item active"><a class="nav-link" href="'.$item['navurl'].'">'.$item['navname'].'</a></li>';
+        echo '<li class="nav-item active"><a class="nav-link" ';
+        if($item['newpage']){
+            echo 'target="_blank"';
+        }
+        echo ' href="'.$item['navurl'].'">'.$item['navname'].'</a></li>';
     }
 }
 

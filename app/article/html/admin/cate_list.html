@@ -14,18 +14,44 @@
 
 {loop $arrCate $key $item}
 
-<tr><td>{$item[cateid]}</td><td>{$item[catename]}</td>
+<tr><td>{$item[cateid]}</td>
+
+    <td>I、{$item[catename]}</td>
 
 <td>{$item[orderid]}</td>
 
 <td>
 
+<a class="btn btn-outline-secondary btn-sm" href="index.php?app=article&ac=admin&mg=cate&ts=add&referid={$item['cateid']}">添加二级分类</a>
 
-
-<a href="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=edit&cateid={$item[cateid]}">[修改]</a>
-    <a href="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=del&cateid={$item['cateid']}" onclick="return confirm('确定删除?')">[删除]</a>
+<a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=edit&cateid={$item[cateid]}">修改</a>
+    <a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=del&cateid={$item['cateid']}" onclick="return confirm('删除会清空所有文章下的该分类，也会删除该分类下的二级分类及清空二级分类文章关联，确定删除吗?')">删除</a>
 
 </td></tr>
+
+
+
+{loop $item['twocate'] $tkey $titem}
+
+
+<tr>
+
+    <td>{$titem[cateid]}</td>
+
+    <td class="pl-5">II、{$titem[catename]}</td>
+
+    <td>{$titem[orderid]}</td>
+
+<td>
+
+<a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=edit&cateid={$titem[cateid]}">修改</a>
+<a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=del&cateid={$titem['cateid']}" onclick="return confirm('删除会清空所有文章下的该分类，也会删除该分类下的二级分类及清空二级分类文章关联，确定删除吗?')">删除</a>
+
+</td></tr>
+
+
+{/loop}
+
 
 
 {/loop}

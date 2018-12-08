@@ -21,7 +21,7 @@
 
 <div class="row">
 {loop $arrAlbum $key $item}
-  <div class="col-4 col-md-2 mb-3">
+  <div class="col-6 col-md-2 mb-3">
     <a href="{tsUrl('photo','album',array('id'=>$item[albumid]))}">
       <img class="mw100" src="{if $item[albumface] == ''}{SITE_URL}app/{$app}/skins/{$skin}/photo_album.png{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" alt="{$item[albumname]}">
     </a>

@@ -22,7 +22,7 @@
                 <div class="card-body">
 
 
-                    <h1 class="h3 pt-0 pb-3 fw400">{if $strTopic[typeid] !='0'}<a href="{tsUrl('group','show',array('id'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}{$strTopic[title]}</h1>
+                    <h1 class="h3 pt-0 pb-3 fw300">{if $strTopic['label']}<span class="badge badge-danger fw300">{tsTitle($strTopic['label'])}</span>{/if}{if $strTopic[typeid] !='0'}<a href="{tsUrl('group','show',array('id'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}{$strTopic[title]}</h1>
 
 
                     <div class="media mt-3 mb-3">
@@ -100,6 +100,10 @@
                         <div class="btool mt-3">
                             {if $TS_USER[userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[isadmin]=="1"}
 
+
+                            <a href="#" data-toggle="modal" data-target="#bookModal"><i class="far fa-bookmark"></i> 标注</a>
+
+
                             <a href="javascript:void('0');" onclick="topicAudit('{$strTopic['topicid']}','{$_SESSION['token']}');">{if $strTopic['isaudit']=='1'}审核{else}取消审核{/if}</a>
 
                             <a href="{SITE_URL}index.php?app=group&ac=do&ts=topic_istop&topicid={$strTopic[topicid]}">{if $strTopic[istop]=='0'}置顶{else}取消置顶{/if}</a>
@@ -112,7 +116,7 @@
 
                             {/if}
                             <a href="{SITE_URL}index.php?app=group&ac=topicedit&topicid={$strTopic[topicid]}">编辑</a>
-                            <a href="{SITE_URL}index.php?app=group&ac=do&ts=deltopic&topicid={$strTopic['topicid']}&token={$_SESSION['token']}" onClick="return confirm('确定删除吗?')">删除</a>
+                            <a href="{SITE_URL}index.php?app=group&ac=do&ts=deltopic&topicid={$strTopic['topicid']}&token={$_SESSION['token']}" onClick="return confirm('确定删除吗?')"><i class="far fa-trash-alt"></i> 删除</a>
 
                         </div>
                         {/if}
@@ -401,5 +405,41 @@
 
     </div>
 </div>
+
+
+
+
+<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">标注</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="book-text" class="col-form-label">请输入标注内容(最多8个字符):</label>
+                        <input type="text" value="{tsTitle($strTopic['label'])}" class="form-control" id="book-text">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="text-danger" id="book-alert"></div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="toBook('{$topicid}')">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 {php doAction('tseditor','mini')}
 {php include pubTemplate("footer")}

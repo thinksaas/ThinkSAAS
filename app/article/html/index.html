@@ -49,7 +49,7 @@
 
                     <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {$item[addtime]}</div>
 
-                    <div class="text-black-50 mt-1">{if $item['gaiyao']}{$item['gaiyao']}{else}暂无概要{/if} (<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">查看全文</a>)</div>
+                    <div class="text-black-50 mt-1">{if $item['gaiyao']}{tsTitle($item['gaiyao'])}{else}暂无概要{/if} (<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">查看全文</a>)</div>
 
 
 
@@ -136,20 +136,31 @@
 <div class="col-md-4">
 
 
+    {if $arrTwoCate}
+    <div class="card">
+        <div class="card-header">二级分类</div>
+        <div class="card-body">
+            {loop $arrTwoCate $key $item}
+            <a class="btn btn-sm {if $cateid==$item['cateid']}btn-outline-secondary{/if}" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
+            {/loop}
+        </div>
+    </div>
+    {/if}
 
 
-  <div class="card">
-    <div class="card-header">推荐阅读</div>
-    <div class="card-body">
-<div class="commlist">
-<ul>
-{loop $arrRecommend $key $item}
-<li><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></li>
-{/loop}
-</ul>
-</div>
-</div>
-</div>
+
+    <div class="card">
+        <div class="card-header">推荐阅读</div>
+        <div class="card-body">
+            <div class="commlist">
+                <ul>
+                    {loop $arrRecommend $key $item}
+                    <li><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></li>
+                    {/loop}
+                </ul>
+            </div>
+        </div>
+    </div>
 
   <div class="card">
     <div class="card-header">一周热门</div>

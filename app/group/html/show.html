@@ -165,23 +165,23 @@
 
 <div class="topic_title">
 <div class="title">
-{if $item[typeid] != 0}<a href="{tsUrl('group','show',array('id'=>$item[groupid],typeid=>$item[typeid]))}">[{$item[typename]}]</a>{/if}
 
-{if $item['appkey'] != 'group' && $item['appkey']!=''}
-<a target="_blank" style="color:#999999;font-size: 12px;margin-right: 5px;" class="titles-type" href="{SITE_URL}{php echo tsUrl($item['appkey'])}">[{$item['appname']}]</a>
-<a title="{$item[title]}" href="{SITE_URL}{php echo tsUrl($item['appkey'],$item['appaction'],array('id'=>$item['appid']))}">{$item[title]}</a>
-{else}
-<a title="{$item[title]}" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
-{/if}
+{if $item['label']}<span class="badge badge-danger fw300">{tsTitle($item['label'])}</span>{/if}
 
-{if $item[istop]=='1'}
-<img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" title="[置顶]" alt="[置顶]" /> 
+{if $item['typeid'] != 0}<a href="{tsUrl('group','show',array('id'=>$item['groupid'],typeid=>$item['typeid']))}">[{$item['typename']}]</a>{/if}
+
+
+<a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a>
+
+
+{if $item['istop']=='1'}
+<img src="{SITE_URL}public/images/ding.png" width="14" height="14" title="[置顶]" alt="[置顶]" />
 {/if} 
 
-{if $item[isposts] == '1'}
+{if $item['isposts'] == '1'}
 <img src="{SITE_URL}public/images/posts.gif" title="[精华]" alt="[精华]" />
 {/if}
-{if $item['postby']==1}<a href="{tsUrl('home','phone')}"><img align="absmiddle" alt="通过Iphone手机端发布" title="通过Iphone手机端发布" src="{SITE_URL}public/images/ios.jpg" /></a>{/if}
+
 
 </div>
 <div class="topic_info">

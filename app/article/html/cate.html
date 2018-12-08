@@ -37,7 +37,7 @@
 
 <div class="info fs12"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {$item[addtime]}</div>
 
-<div class="content">{if $item['gaiyao']}{$item['gaiyao']}{else}暂无概要{/if} (<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">查看全文</a>)</div>
+<div class="content">{if $item['gaiyao']}{tsTitle($item['gaiyao'])}{else}暂无概要{/if} (<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">查看全文</a>)</div>
 
 <div class="cate tar fs12">{$item['count_view']}阅读 |   {$item['count_comment']}评论</div>
 <div class="clear"></div>

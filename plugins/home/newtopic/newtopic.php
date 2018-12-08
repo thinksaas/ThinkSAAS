@@ -4,19 +4,16 @@ defined('IN_TS') or die('Access Denied.');
 function newtopic(){
 	global $db;
 	//最新帖子	
-	$arrTopics = aac('group')->findAll('group_topic',array(
+	$arrTopic = aac('group')->findAll('group_topic',array(
 		'isaudit'=>0,
-	),'uptime desc','topicid,userid,groupid,title,count_comment,uptime',35);
+	),'uptime desc','topicid,userid,groupid,title,label,count_comment,uptime',35);
 	
-	foreach($arrTopics as $key=>$item){
-			$arrTopic[] = $item;
+	foreach($arrTopic as $key=>$item){
 			$arrTopic[$key]['title']=tsTitle($item['title']);
 			$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
 			$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 	}
-	
-	
-	
+
 	include template('newtopic','newtopic');
 	
 }

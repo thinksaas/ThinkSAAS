@@ -38,16 +38,25 @@ class group extends tsApp{
 
     //获取推荐的小组
     function getRecommendGroup($num){
-        $arrRecommendGroups = $this->db->fetch_all_assoc("select groupid from ".dbprefix."group where isrecommend='1' limit $num");
 
-        $arrRecommendGroup = array();
 
-        if(is_array($arrRecommendGroups)){
-            foreach($arrRecommendGroups as $item){
-                $arrRecommendGroup[] = $this->getOneGroup($item['groupid']);
+        $arrGroup = $this->findAll('group',array(
+            'isrecommend'=>1,
+        ),'orderid asc','groupid,groupname,groupdesc,path,photo,count_user',$num);
+
+        foreach($arrGroup as $key=>$item){
+            $arrGroup[$key]['groupname'] = tsTitle($item['groupname']);
+            $arrGroup[$key]['groupdesc'] = tsTitle($item['groupdesc']);
+
+            if($item['photo']){
+                $arrGroup[$key]['photo'] = tsXimg($item['photo'],'group',200,200,$item['path'],1);
+            }else{
+                $arrGroup[$key]['photo'] = SITE_URL.'public/images/group.jpg';
             }
         }
-        return $arrRecommendGroup;
+
+        return $arrGroup;
+
     }
 
     //获取最新创建的小组

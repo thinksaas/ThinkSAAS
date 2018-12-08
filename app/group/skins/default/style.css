@@ -1,5 +1,5 @@
 /*最新CSS*/
-.group_show{overflow:hidden;padding: 50px 20px 20px 20px;border-bottom: solid 1px #dddddd;background: url('group.jpg');background-repeat: no-repeat;background-size: 100% 100%;}
+.group_show{overflow:hidden;padding: 50px 20px 20px 20px;border-bottom: solid 1px #dddddd;background-color:#bbb;background-image:url('group.jpg');background-repeat: no-repeat;background-size: 100% 100%;}
 .group_show .face{float:left;}
 .group_show .face img{}
 .group_show .title{float:left;margin-left:20px;}
@@ -68,6 +68,7 @@
 
 /*内容页*/
 .topic-content{width: 100%;overflow:hidden;}
+
 .topic-content .user-face{float: left;height: 48px;overflow: hidden;width: 48px;}
 
 .topic-content .topic-doc {
@@ -87,6 +88,9 @@
 
 .topic-content img{max-width:100%;}
 .topic-content .topic-view{font-size:16px;line-height:30px;overflow: hidden;word-wrap: break-word;word-break: normal;}
+
+.topic-content .topic-view a{color:#49a5de}
+
 .topic-content .topic-view p{font-size:16px;}
 
 .topic-content .topic-view table{border:#CCCCCC 1px solid;}

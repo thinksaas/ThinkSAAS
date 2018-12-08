@@ -8,9 +8,18 @@ editor.customConfig.menus = [
     'foreColor',  // 文字颜色
     'link',  // 插入链接
     'emoticon',  // 表情
+    'image',  // 插入图片
 ]
 
 editor.customConfig.zIndex = 100
+
+// 配置服务器端地址
+editor.customConfig.uploadImgServer = siteUrl+'index.php?app=pubs&ac=wangeditor&ts=photo'
+// 将图片大小限制为 2M
+editor.customConfig.uploadImgMaxSize = 2 * 1024 * 1024
+// 限制一次最多上传 5 张图片
+editor.customConfig.uploadImgMaxLength = 5
+editor.customConfig.uploadFileName = 'photo'
 
 var content = $('textarea[name="content"]')
 editor.customConfig.onchange = function (html) {

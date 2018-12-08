@@ -33,7 +33,13 @@
     
 <select class="form-control" id="cateid" name="cateid">
 {loop $arrCate $key $item}
-<option value="{$item['cateid']}" {if $item['cateid']==$strArticle['cateid']}selected{/if}>{$item['catename']}</option>
+
+    <optgroup label="{$item['catename']}">
+        {loop $item['two'] $tkey $titem}
+        <option value ="{$titem['cateid']}" {if $titem['cateid']==$strArticle['cateid']}selected{/if}>{$titem['catename']}</option>
+        {/loop}
+    </optgroup>
+
 {/loop}
 </select>
 	

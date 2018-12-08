@@ -27,21 +27,21 @@
 
 
 {if $item['isaudit']==0}
-<a href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=isaudit1&articleid={$item['articleid']}">取消审核</a>
+<a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=isaudit1&articleid={$item['articleid']}">取消审核</a>
 {/if}
 
 {if $item['isaudit']==1}
-<a href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=isaudit0&articleid={$item['articleid']}"><font color="red">审核</font></a>
+<a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=isaudit0&articleid={$item['articleid']}"><font color="red">审核</font></a>
 {/if}
 
 
-<a href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=isrecommend&articleid={$item['articleid']}">{if $item['isrecommend']==1}
+<a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=isrecommend&articleid={$item['articleid']}">{if $item['isrecommend']==1}
 取消推荐
 {else}
 推荐
 {/if}</a>
 
-<a onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=delete&articleid={$item['articleid']}">删除</a>
+<a class="btn btn-outline-secondary btn-sm" onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=delete&articleid={$item['articleid']}">删除</a>
 </td></tr>
 {/loop}
 </tbody>

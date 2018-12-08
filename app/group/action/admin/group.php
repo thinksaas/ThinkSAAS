@@ -21,6 +21,38 @@ switch($ts){
 		include template("admin/group_list");
 		
 		break;
+
+
+    //推荐的小组
+    case "recommend":
+
+        $arrGroup = $new['group']->findAll('group',array(
+            'isrecommend'=>1,
+        ),'orderid asc','groupid,orderid,groupname,isrecommend');
+
+
+        include template("admin/group_recommend");
+
+        break;
+
+
+    case "orderid":
+
+        $arrGroupid = $_POST['groupid'];
+        $arrOrderid = $_POST['orderid'];
+
+        foreach($arrGroupid as $key=>$item){
+            $new['group']->update('group',array(
+                'groupid'=>intval($item)
+            ),array(
+                'orderid'=>intval($arrOrderid[$key])
+            ));
+        }
+
+        qiMsg('修改成功！');
+
+        break;
+
 	
 	//小组编辑
 	case "edit":

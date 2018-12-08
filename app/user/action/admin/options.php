@@ -37,9 +37,27 @@ defined('IN_TS') or die('Access Denied.');
 				$arrOption[$item['optionname']] = $item['optionvalue'];
 			}
 
-			
-			fileWrite('user_options.php','data',$arrOption);
-			$tsMySqlCache->set('user_options',$arrOption);
+            fileWrite('user_options.php','data',$arrOption);
+            $GLOBALS['tsMySqlCache']->set('user_options',$arrOption);
+
+
+
+            //更新APP导航名称
+            if($arrOption['appname']){
+                $appkey = 'user';
+                $appname = $arrOption['appname'];
+                $arrNav = include 'data/system_appnav.php';
+                if(is_array($arrNav)){
+                    $arrNav[$appkey] = $appname;
+                }else{
+                    $arrNav = array(
+                        $appkey=>$appname,
+                    );
+                }
+                fileWrite('system_appnav.php','data',$arrNav);
+                $GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
+            }
+
 			
 			qiMsg("用户APP配置成功！");
 			

@@ -30,6 +30,15 @@ switch ($ts) {
 				$arrTag [] = $item ['tagname'];
 			}
 			$strArticle ['tag'] = arr2str ( $arrTag );
+
+
+
+            foreach ($arrCate as $key=>$item){
+                $arrCate[$key]['two'] = $new['article']->findAll('article_cate',array(
+                    'referid'=>$item['cateid'],
+                ));
+            }
+
 			
 			$title = '修改文章';
 			include template ( 'edit' );

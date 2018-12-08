@@ -11,6 +11,7 @@ function photo(){
 	}
 	
 	include template('photo','photo');
+
 }
 
 function photo_css(){

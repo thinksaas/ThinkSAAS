@@ -5,7 +5,15 @@ switch($ts){
 	//分类列表 
 	case "list":
 		
-		$arrCate = $new['article']->findAll('article_cate',null,'orderid desc');
+		$arrCate = $new['article']->findAll('article_cate',array(
+		    'referid'=>0,
+        ),'orderid desc');
+
+		foreach($arrCate as $key=>$item){
+		    $arrCate[$key]['twocate'] = $new['article']->findAll('article_cate',array(
+		        'referid'=>$item['cateid'],
+            ));
+        }
 
 		include template("admin/cate_list");
 		
@@ -13,16 +21,19 @@ switch($ts){
 	
 	//分类添加
 	case "add":
-	
+
+	    $referid = intval($_GET['referid']);
 
 		include template("admin/cate_add");
 		
 		break;
 		
 	case "add_do":
+
+
 		
 		$new['article']->create('article_cate',array(
-		
+		    'referid'=>intval($_POST['referid']),
 			'catename'=>trim($_POST['catename']),
 			'orderid'=>intval($_POST['orderid']),
 		
@@ -37,13 +48,38 @@ switch($ts){
 	case "del":
 		
 		$cateid = intval($_GET['cateid']);
-		$articleNum = $new['article']->findCount('article',array(
-			'cateid'=>$cateid,
-		));
-		
-		if($articleNum > 0){
-			qiMsg("此分类有文章存在，不允许删除！");
-		}
+
+
+		$strCate = $new['article']->find('article_cate',array(
+		    'cateid'=>$cateid,
+        ));
+
+		if($strCate['referid']==0){
+		    $arrCate = $new['article']->findAll('article_cate',array(
+		        'referid'=>$strCate['cateid'],
+            ));
+
+            foreach($arrCate as $key=>$item){
+                $new['article']->update('article',array(
+                    'cateid'=>$item['cateid']
+                ),array(
+                    'cateid'=>0,
+                ));
+            }
+
+            $new['article']->delete('article_cate',array(
+                'referid'=>$strCate['cateid'],
+            ));
+
+        }
+
+
+        $new['article']->update('article',array(
+            'cateid'=>$cateid
+        ),array(
+            'cateid'=>0,
+        ));
+
 		
 		$new['article']->delete('article_cate',array(
 			'cateid'=>$cateid,

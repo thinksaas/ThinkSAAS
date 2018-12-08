@@ -53,6 +53,28 @@ a:hover{text-decoration: none;color:#49a5de}
 .fw300{font-weight: 300}
 .fw400{font-weight: 400}
 
+
+blockquote {
+	display: block;
+	border-left: 8px solid #d0e5f2;
+	padding: 5px 10px;
+	margin: 10px 0;
+	line-height: 1.4;
+	font-size: 100%;
+	background-color: #f1f1f1;
+}
+
+code {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	padding: 3px 5px;
+	margin: 0 3px;
+}
+
+
 /*头部导航*/
 .header {
 	background: #49a5de;

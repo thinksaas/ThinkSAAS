@@ -16,6 +16,14 @@ switch ($ts) {
 
 		$cateid = intval($_GET['cateid']);
 
+
+        foreach ($arrCate as $key=>$item){
+            $arrCate[$key]['two'] = $new['article']->findAll('article_cate',array(
+                'referid'=>$item['cateid'],
+            ));
+        }
+
+
 		$title = '发布文章';
 		include  template('add');
 		break;
@@ -51,6 +59,8 @@ switch ($ts) {
 
         if($gaiyao){
             $gaiyao = cututf8($gaiyao,0,100);
+        }else{
+            $gaiyao = cututf8(t($_POST['content']),0,100);
         }
 
 		//1审核后显示0不审核

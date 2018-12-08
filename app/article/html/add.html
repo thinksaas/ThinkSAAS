@@ -29,9 +29,13 @@
   <div class="form-group">
     <label>分类：</label>
     
-<select id="cateid" name="cateid" class="form-control">
+<select name="cateid" class="form-control">
 {loop $arrCate $key $item}
-<option value="{$item['cateid']}">{$item['catename']}</option>
+    <optgroup label="{$item['catename']}">
+        {loop $item['two'] $tkey $titem}
+        <option value ="{$titem['cateid']}">{$titem['catename']}</option>
+        {/loop}
+    </optgroup>
 {/loop}
 </select>
 	

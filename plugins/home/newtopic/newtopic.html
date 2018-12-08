@@ -11,6 +11,8 @@
 <div class="topic_title">
 <div class="title">
 
+    {if $item['label']}<span class="badge badge-danger fw300">{tsTitle($item['label'])}</span>{/if}
+
     <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}{if $item[count_comment]>0}<span class="badge  badge-pill badge-secondary fw300 fs12">{$item[count_comment]}回复</span>{/if}</a>
 
 </div>

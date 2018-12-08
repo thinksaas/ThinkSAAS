@@ -1,0 +1,74 @@
+{php include pubTemplate("header_admin")}
+
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+
+    <form method="post" action="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=orderid">
+
+
+
+<table class="table table-hover">
+
+    <thead class="thead-light fs14">
+    <tr>
+        <th>ID</th>
+        <th>小组名字</th>
+
+        <th>排序ID(从小到大)</th>
+
+        <th>操作</th>
+    </tr>
+    </thead>
+
+
+    <tbody class="fs12">
+
+{loop $arrGroup $key $item}
+<tr>
+    <td>{$item[groupid]}</td>
+    <td><a href="{tsUrl('group','show',array('id'=>$item['groupid']))}" target="_blank">[{tsTitle($item['groupname'])}]</a></td>
+
+
+    <td>
+
+        <input type="hidden" name="groupid[]" value="{$item['groupid']}">
+        <input type="number" name="orderid[]" value="{$item['orderid']}">
+
+    </td>
+
+
+    <td>
+
+
+
+        <a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=isrecommend&groupid={$item[groupid]}">{if $item[isrecommend]=='0'}<font color="red">[推荐]</font>{else}[取消推荐]{/if}</a>
+
+
+    </td></tr>
+{/loop}
+
+    </tbody>
+
+</table>
+
+
+
+        <hr />
+
+        <div>
+
+            <button type="submit" class="btn btn-primary">修改</button>
+
+        </div>
+
+
+    </form>
+
+
+</div>
+{php include pubTemplate("footer_admin")}
