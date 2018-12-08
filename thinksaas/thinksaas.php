@@ -365,12 +365,6 @@ if (is_file('app/' . $TS_URL['app'] . '/class.' . $TS_URL['app'] . '.php')) {
         //面向目录和文件的逻辑加载写法
         include 'app.php';
     }
-
-
-    echo "\n";
-    echo '<!--Powered By ThinkSAAS'.$TS_CF['info']['version'].'-->';
-    echo "\n";
-    echo '<!--占用内存：'.format_bytes(memory_get_peak_usage()).'-->';
     
 } else {
     ts404();
