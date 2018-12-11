@@ -232,12 +232,22 @@ switch($ts){
             echo 0;exit;
         }
 
-        $new['group']->update('group_topic',array(
-            'topicid'=>$topicid,
-            'userid'=>$userid,
-        ),array(
-            'label'=>$book,
-        ));
+        if($TS_USER['isadmin']==1){
+            $new['group']->update('group_topic',array(
+                'topicid'=>$topicid,
+            ),array(
+                'label'=>$book,
+            ));
+        }else{
+            $new['group']->update('group_topic',array(
+                'topicid'=>$topicid,
+                'userid'=>$userid,
+            ),array(
+                'label'=>$book,
+            ));
+        }
+
+
 
         echo 1;exit;
 
