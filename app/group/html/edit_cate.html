@@ -3,50 +3,50 @@
 <script>
 $(document).ready(function() {
 
-//选择一级区域
-$('#cateid').change(function(){
-	$("#select2").html('<img src="'+siteUrl+'public/images/loading.gif" />');
-	var cateid = $(this).children('option:selected').val();  //弹出select的值
-	
-	if(cateid==0){
-		$("#select2").html('');
-		$("#select3").html('');
-	}else{
-		$("#select3").html('');
-		$.ajax({
-			type: "GET",
-			url:  "{SITE_URL}index.php?app=group&ac=cate&ts=two&cateid="+cateid,
-			success: function(msg){
-				$("#select2").html(msg);
-				
-				//选择二级区域
-				$('#cateid2').change(function(){
-					$("#select3").html('<img src="'+siteUrl+'public/images/loading.gif" />');
-					var cateid2 = $(this).children('option:selected').val();  //弹出select的值
-					
-					if(cateid2 == 0){
-						$("#select3").html('');
-					}else{
-					
-						//ajax
-						$.ajax({
-							type: "GET",
-							url:  "{SITE_URL}index.php?app=group&ac=cate&ts=three&cateid2="+cateid2,
-							success: function(msg){
-								$('#select3').html(msg);
-							}
-						});
-					
-					}
+    //选择一级区域
+    $('#cateid').change(function(){
+        $("#select2").html('<img src="'+siteUrl+'public/images/loading.gif" />');
+        var cateid = $(this).children('option:selected').val();  //弹出select的值
 
-				});
-				
-			}
-		});
-	
-	}
-	
-});
+        if(cateid==0){
+            $("#select2").html('');
+            $("#select3").html('');
+        }else{
+            $("#select3").html('');
+            $.ajax({
+                type: "GET",
+                url:  "{SITE_URL}index.php?app=group&ac=cate&ts=two&cateid="+cateid,
+                success: function(msg){
+                    $("#select2").html(msg);
+
+                    //选择二级区域
+                    $('#cateid2').change(function(){
+                        $("#select3").html('<img src="'+siteUrl+'public/images/loading.gif" />');
+                        var cateid2 = $(this).children('option:selected').val();  //弹出select的值
+
+                        if(cateid2 == 0){
+                            $("#select3").html('');
+                        }else{
+
+                            //ajax
+                            $.ajax({
+                                type: "GET",
+                                url:  "{SITE_URL}index.php?app=group&ac=cate&ts=three&cateid2="+cateid2,
+                                success: function(msg){
+                                    $('#select3').html(msg);
+                                }
+                            });
+
+                        }
+
+                    });
+
+                }
+            });
+
+        }
+
+    });
 
 });
 </script>

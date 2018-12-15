@@ -54,6 +54,22 @@ a:hover{text-decoration: none;color:#49a5de}
 .fw400{font-weight: 400}
 
 
+/**处理富文本内容**/
+.common-content table {
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+}
+.common-content table td, .article_show_content table th {
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	padding: 3px 5px;
+}
+.common-content table th {
+	border-bottom: 2px solid #ccc;
+	text-align: center;
+}
+
+
 blockquote {
 	display: block;
 	border-left: 8px solid #d0e5f2;
@@ -75,6 +91,9 @@ code {
 }
 
 
+
+
+
 /*头部导航*/
 .header {
 	background: #49a5de;
@@ -82,9 +101,6 @@ code {
 	border-radius: 0px;
 	margin:0;
 }
-
-
-
 
 
 .ts-dropdown{display:none;position:absolute;right:0;top:105%;z-index:9999;width:100%;min-width:110px;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);}
@@ -99,9 +115,6 @@ code {
 
 .ts-top-nav{position:relative;float: left;}
 .ts-user-nav{position:relative;float: right;}
-
-
-
 
 .ts-top-nav{margin:0;border: none;}
 .ts-top-nav .collapse{visibility: visible;}
@@ -129,11 +142,6 @@ code {
 .ts-user-nav .ts-user-nav-dropdown .badge{position: absolute;top: -8px;right: -8px;}
 .ts-user-nav .dropdown-list{top:100%;width:122px;border-top:none;border-radius: 0 0 4px 4px;}
 .ts-user-nav .dropdown-list ul li a i{vertical-align:-2px;margin-right: 5px;font-size: 16px;}
-
-
-
-
-
 
 .dropzone {
 	float:left;
@@ -177,33 +185,6 @@ code {
 .appnav a:hover{border-bottom: solid 2px #49a5de;}
 
 
-
-
-.midder {
-	width: 960px;
-	margin: 0 auto;
-	padding: 0;
-	overflow: hidden;
-	height: auto!important;
-	min-height: 400px;
-	margin-top: 10px
-}
-.midder_nominheight{min-height:0;}
-
-.midder .mc {
-	overflow: hidden;
-	display: block
-}
-
-.midder .mc .cleft {
-	float: left;
-	width: 640px
-}
-
-.midder .mc .cright {
-	float: right;
-	width: 310px
-}
 
 .footer {
 padding: 30px 0 15px 0;
@@ -380,61 +361,6 @@ margin-top: 20px;
 	border-right: solid 1px #eee
 }
 
-.bbox {
-	border: solid 1px #ddd;
-	margin-bottom: 10px;
-	overflow: hidden;
-	background: #fff
-}
-
-.bbox050{padding:0 50px 50px 50px}
-
-.bbox-nbt{border-top:none;}
-
-.bbox .bd {
-	font-size: 12px;
-	padding: 10px;
-	border-bottom: 1px solid #eee
-}
-
-.bbox .btitle {
-	font-weight: bold;
-	font-size: 12px;
-	border-bottom: solid 1px #eee;
-	background: #f5f5f5;
-	padding: 8px 5px;
-	margin: 0;
-	position: relative
-}
-
-.bbox .btitle .right {
-	font-size: 12px;
-	font-weight: normal;
-	position: absolute;
-	top: 5px;
-	right: 10px
-}
-
-.bbox .bc {
-	padding: 10px;
-	overflow: hidden;
-	clear: both
-}
-
-.rbox {
-	float: right;
-	width: 250px;
-	border-left: solid 1px #ddd
-}
-
-.rbox h2 {
-	font-weight: bold;
-	font-size: 12px;
-	border-bottom: solid 1px #eee;
-	background: #f5f5f5;
-	padding: 8px 5px;
-	margin: 0
-}
 
 .leftmenu {
 	float: left;
@@ -677,11 +603,6 @@ margin-top: 20px;
 .my_left .menu-mod .menus li a:hover{
 	background: #f8f9fa;
 }
-
-
-
-
-
 
 
 .my_right{margin-left:168px;min-height:600px;background:#fff;overflow:hidden;}

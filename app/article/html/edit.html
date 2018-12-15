@@ -1,4 +1,33 @@
 {php include pubTemplate("header")}
+
+<script>
+    $(document).ready(function() {
+
+        //选择一级区域
+        $('#cateid').change(function(){
+            $("#select2").html('<img src="'+siteUrl+'public/images/loading.gif" />');
+            var cateid = $(this).children('option:selected').val();  //弹出select的值
+
+            if(cateid==0){
+                $("#select2").html('');
+
+            }else{
+
+                $.ajax({
+                    type: "GET",
+                    url:  "{SITE_URL}index.php?app=article&ac=ajax&ts=twocate&referid="+cateid,
+                    success: function(msg){
+                        $("#select2").html(msg);
+                    }
+                });
+
+            }
+
+        });
+
+    });
+</script>
+
 <div class="container">
 
 
@@ -29,19 +58,29 @@
   </div>
 {if $arrCate}  
   <div class="form-group">
-    <label>分类：</label>
-    
-<select class="form-control" id="cateid" name="cateid">
-{loop $arrCate $key $item}
+    <label>分类：<small>（如不修改无须选择）</small></label>
 
-    <optgroup label="{$item['catename']}">
-        {loop $item['two'] $tkey $titem}
-        <option value ="{$titem['cateid']}" {if $titem['cateid']==$strArticle['cateid']}selected{/if}>{$titem['catename']}</option>
-        {/loop}
-    </optgroup>
 
-{/loop}
-</select>
+
+      <div class="row">
+          <div class="col-6 col-md-6">
+
+              <select id="cateid" name="cateid" class="form-control">
+                  <option value="0">选择一级分类</option>
+                  {loop $arrCate $key $item}
+                  <option value ="{$item['cateid']}">{$item['catename']}</option>
+                  {/loop}
+              </select>
+
+          </div>
+          <div id="select2" class="col-6 col-md-6">
+
+
+
+          </div>
+      </div>
+
+
 	
   </div>
 {/if}

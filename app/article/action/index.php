@@ -11,7 +11,7 @@ $url = tsUrl ( 'article', 'index', array (
 ) );
 $lstart = $page * 10 - 10;
 
-$arrArticles = $new ['article']->findAll ( 'article', array (
+$arrArticle = $new ['article']->findAll ( 'article', array (
 		'isaudit' => '0' 
 ), 'addtime desc', 'articleid,userid,cateid,title,gaiyao,path,photo,count_comment,count_recommend,count_view,addtime', $lstart . ',10' );
 
@@ -21,9 +21,9 @@ $articleNum = $new ['article']->findCount ( 'article', array (
 
 $pageUrl = pagination ( $articleNum, 10, $page, $url );
 
-foreach ( $arrArticles as $key => $item ) {
-	$arrArticle [] = $item;
+foreach ( $arrArticle as $key => $item ) {
 	$arrArticle [$key]['title'] = tsTitle($item['title']);
+	$arrArticle [$key]['gaiyao'] = tsTitle($item['gaiyao']);
 	$arrArticle [$key] ['user'] = aac ( 'user' )->getOneUser ( $item ['userid'] );
 	$arrArticle [$key] ['cate'] = $new ['article']->find ( 'article_cate', array (
 			'cateid' => $item ['cateid'] 

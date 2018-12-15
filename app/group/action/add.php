@@ -28,12 +28,18 @@ switch ($ts) {
 				'userid' => $userid,
 				'groupid' => $groupid 
 		) );
-		
+
+
+
+		//小组信息
 		$strGroup = $new ['group']->find ( 'group', array (
-				'groupid' => $groupid 
-		) );
-		$strGroup ['groupname'] = stripslashes ( $strGroup ['groupname'] );
-		
+            'groupid' => $groupid
+		));
+		$strGroup ['groupname'] = tsTitle( $strGroup ['groupname'] );
+		$strGroup ['groupdesc'] = tsTitle( $strGroup ['groupdesc'] );
+
+
+
 		if ($strGroup ['isaudit'] == 1) {
 			tsNotice ( '小组还未审核通过，不允许发帖！' );
 		}

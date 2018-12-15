@@ -2479,3 +2479,19 @@ function getDirPath($projectid){
     $path = $menu1 . '/' . $menu2;
     return $path;
 }
+
+/**
+ * 等比计算
+ */
+function dengBi($width,$height,$maxX=1280,$maxY=1280){
+    //计算缩放比例
+    $scale = ($maxX/$width)>($maxY/$height)?$maxY/$height:$maxX/$width;
+    //计算缩放后的尺寸
+    $sWidth = floor($width*$scale);
+    $sHeight = floor($height*$scale);
+
+    return array(
+        'w'=>$sWidth,
+        'h'=>$sHeight,
+    );
+}

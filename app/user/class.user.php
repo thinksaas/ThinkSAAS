@@ -50,6 +50,24 @@ class user extends tsApp{
 		}
 		return $arrScoreUser;
 	}
+
+    #获取简单的用户信息
+    function getSimpleUser($userid){
+
+        $strUser = $this->find('user_info',array(
+            'userid'=>$userid,
+        ),'userid,username,face,path,uptime');
+
+        if($strUser['face']){
+            $strUser['face'] = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1).'?v='.$strUser['uptime'];
+        }else{
+            //没有头像
+            $strUser['face']	= SITE_URL.'public/images/user_large.jpg';
+        }
+
+        return $strUser;
+
+    }
 	
 	//获取一个用户的信息
 	function getOneUser($userid){

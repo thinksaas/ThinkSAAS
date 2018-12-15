@@ -16,13 +16,13 @@ editor.customConfig.menus = [
     'justify',  // 对齐方式
     'quote',  // 引用
     'image',  // 插入图片
+    'table',  // 表格
     'code',  // 插入代码
     'undo',  // 撤销
     'redo'  // 重复
 ]
 
 editor.customConfig.zIndex = 100
-
 
 // 配置服务器端地址
 editor.customConfig.uploadImgServer = siteUrl+'index.php?app=pubs&ac=wangeditor&ts=photo'
@@ -31,7 +31,6 @@ editor.customConfig.uploadImgMaxSize = 2 * 1024 * 1024
 // 限制一次最多上传 5 张图片
 editor.customConfig.uploadImgMaxLength = 5
 editor.customConfig.uploadFileName = 'photo'
-
 
 var content = $('textarea[name="content"]')
 editor.customConfig.onchange = function (html) {

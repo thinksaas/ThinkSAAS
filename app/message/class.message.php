@@ -22,8 +22,9 @@ class message extends tsApp{
      * @param $touserid     接收消息的用户ID
      * @param $content      消息内容
      * @param string $tourl 消息对应的内容网址
+     * @param string $extend 消息扩展
      */
-    public function sendmsg($userid,$touserid,$content,$tourl=''){
+    public function sendmsg($userid,$touserid,$content,$tourl='',$extend=''){
 	
 		$userid = intval($userid);
 		$touserid = intval($touserid);
@@ -36,6 +37,7 @@ class message extends tsApp{
 				'touserid'	=> $touserid,
 				'content'	=> $content,
                 'tourl'=>$tourl,
+                'extend'=>$extend,
 				'addtime'	=> time(),
 			));
 			

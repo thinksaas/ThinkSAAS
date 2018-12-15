@@ -7,9 +7,10 @@ if($cateid==0){
     ts404();
 }
 
+//分类
 $strCate = $new ['article']->find ( 'article_cate', array (
     'cateid' => $cateid
-) );
+));
 
 if($strCate==''){
     ts404();
@@ -53,6 +54,7 @@ $pageUrl = pagination ( $articleNum, 10, $page, $url );
 
 foreach ( $arrArticle as $key => $item ) {
     $arrArticle [$key]['title'] = tsTitle($item['title']);
+    $arrArticle [$key]['gaiyao'] = tsTitle($item['gaiyao']);
     $arrArticle [$key] ['user'] = aac ( 'user' )->getOneUser ( $item ['userid'] );
     $arrArticle [$key] ['cate'] = array(
         'cateid'=>$strCate['cateid'],

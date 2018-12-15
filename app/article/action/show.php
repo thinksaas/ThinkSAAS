@@ -38,8 +38,10 @@ $strArticle ['cate'] = $new ['article']->find ( 'article_cate', array (
 
 // 上一篇
 $strUp = $new['article']->find('article', "`articleid`< '$articleid' and `isaudit`='0'", 'articleid,title','articleid desc');
+if($strUp) $strUp['title'] = tsTitle($strUp['title']);
 // 下一篇
 $strNext = $new['article']->find('article', "`articleid`> '$articleid' and `isaudit`='0'", 'articleid,title','articleid asc');
+if($strNext) $strNext['title'] = tsTitle($strNext['title']);
 
 
 

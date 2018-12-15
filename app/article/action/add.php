@@ -32,6 +32,10 @@ switch ($ts) {
 
 
 		$cateid = intval($_POST['cateid']);
+		$cateid2 = intval($_POST['cateid2']);
+
+		if($cateid2) $cateid = $cateid2;
+        
 		$title = trim($_POST['title']);
 		$content = tsClean($_POST['content']);
 		$gaiyao = trim($_POST['gaiyao']);
