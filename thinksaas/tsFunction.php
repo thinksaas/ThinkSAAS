@@ -626,7 +626,7 @@ function delDir($dir = '') {
  */
 function getHttpUrl() {
 	$arrUri = explode('index.php', $_SERVER['REQUEST_URI']);
-	$site_url = 'http://' . $_SERVER['HTTP_HOST'] . $arrUri[0];
+	$site_url = $_SERVER['REQUEST_SCHEME'].'://' . $_SERVER['HTTP_HOST'] . $arrUri[0];
 	return $site_url;
 }
 
