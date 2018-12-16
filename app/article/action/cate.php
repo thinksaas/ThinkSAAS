@@ -21,13 +21,26 @@ if($strCate['referid']==0){
         'referid'=>$strCate['cateid'],
     ));
 
-    foreach($arrTwoCate as $key=>$item){
-        $arrCateId[] = $item['cateid'];
+    if($arrTwoCate){
+
+        foreach($arrTwoCate as $key=>$item){
+            $arrCateId[] = $item['cateid'];
+        }
+
+        $cateids = $cateid.','.arr2str($arrCateId);
+
+        $where = "`cateid` in ($cateids) and `isaudit`=0";
+
+    }else{
+
+        $where = array(
+            'cateid'=>$cateid,
+            'isaudit'=>0,
+        );
+
     }
 
-    $cateids = $cateid.','.arr2str($arrCateId);
 
-    $where = "`cateid` in ($cateids) and `isaudit`=0";
 
 }else{
 
