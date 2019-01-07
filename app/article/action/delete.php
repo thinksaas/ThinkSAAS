@@ -15,6 +15,12 @@ if($TS_SITE['isallowdelete'] && $TS_USER ['isadmin'] == 0) tsNotice('系统不�
 
 
 if ($strArticle ['userid'] == $userid || $TS_USER ['isadmin'] == 1) {
+
+    if($strArticle['photo']){
+        unlink('uploadfile/article/'.$strArticle['photo']);
+        tsDimg($strArticle['photo'],'article','320','180',$strArticle['path']);
+    }
+
     $new ['article']->delete ( 'article', array (
         'articleid' => $articleid
     ) );
@@ -30,6 +36,9 @@ if ($strArticle ['userid'] == $userid || $TS_USER ['isadmin'] == 1) {
         // 对积分进行处理
         aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle ['userid']);
     }
+
+
+
 
 
 }

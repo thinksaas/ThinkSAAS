@@ -44,5 +44,23 @@ switch($ts){
 		qiMsg("邮件配置更新成功，并重置了缓存文件^_^");
 		
 		break;
+
+
+    case "sms":
+
+        $arrData = array(
+            'sms_appid' => trim($_POST['sms_appid']),
+            'sms_appkey' => trim($_POST['sms_appkey']),
+            'sms_tpid' => trim($_POST['sms_tpid']),
+            'sms_sign' => trim($_POST['sms_sign']),
+        );
+
+        //更新缓存
+        fileWrite('sms_options.php','data',$arrData);
+        $GLOBALS['tsMySqlCache']->set('sms_options',$arrData);
+
+        qiMsg("短信配置更新成功，并重置了缓存文件^_^");
+
+        break;
 		 
 }

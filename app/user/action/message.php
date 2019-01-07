@@ -12,9 +12,9 @@ switch($ts){
 		
 		if($userid == $touserid || !$touserid) tsNotice("Sorry！自己不能给自己发送消息的！& 对方为空!");
 		
-		$strUser = $new['user']->getOneUser($userid);
+		$strUser = $new['user']->getSimpleUser($userid);
 		
-		$strTouser = $new['user']->getOneUser($touserid);
+		$strTouser = $new['user']->getSimpleUser($touserid);
 
 		if(!$strTouser) tsNotice("Sorry！对方不存在!");
 		$title = "发送短消息";

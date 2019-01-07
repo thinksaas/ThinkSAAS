@@ -20,7 +20,7 @@ $arrMessage = $new['message']->findAll('message',"(userid='$userid' and touserid
 
 
 foreach($arrMessage as $key=>$item){
-    $arrMessage[$key]['user'] = aac('user')->getOneUser($item['userid']);
+    $arrMessage[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
     $arrMessage[$key]['content'] = tsTitle($item['content']);
 }
 

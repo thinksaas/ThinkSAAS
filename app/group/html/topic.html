@@ -47,7 +47,12 @@
                     <div class="topic-content">
 
                         <div class="topic-view common-content">
-                            {$strTopic[content]}
+                            {$strTopic['content']}
+                            {if $strTopic['photos']}
+                                {loop $strTopic['photos'] $key $item}
+                                <p class="tac"><img src="{$item}" alt="{$strTopic['title']}"></p>
+                                {/loop}
+                            {/if}
                             {$tpUrl}
                         </div>
 

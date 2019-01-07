@@ -81,7 +81,7 @@ class group extends tsApp{
 
         $strComment['content'] = tsDecode($strComment['content']);
 
-        $strComment['user'] = aac('user')->getOneUser($strComment['userid']);
+        $strComment['user'] = aac('user')->getSimpleUser($strComment['userid']);
         return $strComment;
     }
 
@@ -135,6 +135,20 @@ class group extends tsApp{
         $this->delete('group_topic_attach',array('topicid'=>$topicid));
 
         $this->delTopicComment($topicid);
+
+        #删除ts_group_topic_photo
+        $arrPhoto = $this->findAll('group_topic_photo',array(
+            'topicid'=>$topicid,
+        ));
+
+        if($arrPhoto){
+            foreach($arrPhoto as $key=>$item){
+                unlink('uploadfile/group/topic/photo/'.$item['photo']);
+                tsDimg($item['photo'],'group/topic/photo','320','320',$item['path'],1);
+                tsDimg($item['photo'],'group/topic/photo','640','',$item['path']);
+            }
+            $this->delete('group_topic_photo',array('topicid'=>$topicid));
+        }
 
         $this->countTopic($groupid);
 
@@ -204,7 +218,7 @@ class group extends tsApp{
         ),'addtime desc',null,$userNum);
 
         foreach($likeUsers as $key=>$item){
-            $strLike['user'][]=aac('user')->getOneUser($item['userid']);
+            $strLike['user'][]=aac('user')->getSimpleUser($item['userid']);
         }
 
         return $strLike;
@@ -348,6 +362,25 @@ class group extends tsApp{
             $arrAttach = '';
         }
         return $arrAttach;
+    }
+
+
+    //获取帖子图片，处理通过小程序或者客户端发的图片
+    public function getTopicPhoto($topicid,$num=null){
+        $arrPhotos = $this->findAll('group_topic_photo',array(
+            'topicid'=>$topicid,
+        ),'addtime desc',null,$num);
+
+        foreach($arrPhotos as $key=>$item){
+            if($num){
+                $arrPhoto[$key] = tsXimg($item['photo'],'group/topic/photo','320','320',$item['path'],1);
+            }else{
+                $arrPhoto[$key] = tsXimg($item['photo'],'group/topic/photo','640','',$item['path']);
+            }
+        }
+
+        return $arrPhoto;
+
     }
 
 

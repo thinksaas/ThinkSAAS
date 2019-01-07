@@ -29,7 +29,7 @@ $tpUrl = tpPage($strArticle['content'],'article','show',array('id'=>$strArticle[
 $strArticle['content'] = tsDecode($strArticle['content'],$tp);
 
 $strArticle ['tags'] = aac ( 'tag' )->getObjTagByObjid ( 'article', 'articleid', $articleid );
-$strArticle ['user'] = aac ( 'user' )->getOneUser ( $strArticle ['userid'] );
+$strArticle ['user'] = aac ( 'user' )->getSimpleUser ( $strArticle ['userid'] );
 $strArticle ['cate'] = $new ['article']->find ( 'article_cate', array (
 		'cateid' => $strArticle ['cateid'] 
 ) );
@@ -60,7 +60,7 @@ $arrComments = $new ['article']->findAll ( 'article_comment', array (
 foreach ( $arrComments as $key => $item ) {
 	$arrComment [] = $item;
 	$arrComment[$key]['content'] = tsDecode($item['content']);
-	$arrComment [$key] ['user'] = aac ( 'user' )->getOneUser ( $item ['userid'] );
+	$arrComment [$key] ['user'] = aac ( 'user' )->getSimpleUser ( $item ['userid'] );
 }
 
 $commentNum = $new ['article']->findCount ( 'article_comment', array (

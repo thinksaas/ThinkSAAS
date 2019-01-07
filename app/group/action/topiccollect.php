@@ -13,7 +13,7 @@ switch($ts){
 		
 		if(is_array($arrCollectUser)){
 			foreach($arrCollectUser as $item){
-				$strUser = aac('user')->getOneUser($item['userid']);
+				$strUser = aac('user')->getSimpleUser($item['userid']);
 				$arrUser[] = $strUser;
 			}
 		}

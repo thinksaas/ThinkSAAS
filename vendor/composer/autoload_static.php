@@ -11,6 +11,10 @@ class ComposerStaticInit2db7e2fa11a5b7e8309e5b34a51b960e
     );
 
     public static $prefixLengthsPsr4 = array (
+        'Q' => 
+        array (
+            'Qcloud\\Sms\\' => 11,
+        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
@@ -27,6 +31,10 @@ class ComposerStaticInit2db7e2fa11a5b7e8309e5b34a51b960e
     );
 
     public static $prefixDirsPsr4 = array (
+        'Qcloud\\Sms\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/qcloudsms/qcloudsms_php/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',

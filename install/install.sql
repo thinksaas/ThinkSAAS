@@ -2,7 +2,7 @@
 -- 主机:                           127.0.0.1
 -- Server version:               5.5.53 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
--- HeidiSQL 版本:                  9.5.0.5355
+-- HeidiSQL 版本:                  9.5.0.5380
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -908,6 +908,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic` (
   `title` varchar(64) NOT NULL DEFAULT '' COMMENT '帖子标题',
   `label` varchar(64) NOT NULL DEFAULT '' COMMENT '快速标注',
   `content` longtext NOT NULL COMMENT '帖子内容',
+  `gaiyao` varchar(256) NOT NULL DEFAULT '' COMMENT '内容概要',
   `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '回复统计',
   `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '帖子展示数',
   `count_love` int(11) NOT NULL DEFAULT '0' COMMENT '喜欢数',
@@ -995,6 +996,41 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_edit` (
 DELETE FROM `ts_group_topic_edit`;
 /*!40000 ALTER TABLE `ts_group_topic_edit` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_topic_edit` ENABLE KEYS */;
+
+-- Dumping structure for table thinksaas-dev.ts_group_topic_love
+DROP TABLE IF EXISTS `ts_group_topic_love`;
+CREATE TABLE IF NOT EXISTS `ts_group_topic_love` (
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
+  UNIQUE KEY `userid_topicid` (`userid`,`topicid`),
+  KEY `topicid` (`topicid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子点赞喜欢';
+
+-- Dumping data for table thinksaas-dev.ts_group_topic_love: 0 rows
+DELETE FROM `ts_group_topic_love`;
+/*!40000 ALTER TABLE `ts_group_topic_love` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_group_topic_love` ENABLE KEYS */;
+
+-- Dumping structure for table thinksaas-dev.ts_group_topic_photo
+DROP TABLE IF EXISTS `ts_group_topic_photo`;
+CREATE TABLE IF NOT EXISTS `ts_group_topic_photo` (
+  `photoid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
+  `path` varchar(50) NOT NULL DEFAULT '' COMMENT '路径',
+  `photo` varchar(50) NOT NULL DEFAULT '' COMMENT '图片',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`photoid`),
+  UNIQUE KEY `photoid` (`photoid`),
+  KEY `topicid` (`topicid`),
+  KEY `userid` (`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='帖子图片表';
+
+-- Dumping data for table thinksaas-dev.ts_group_topic_photo: 0 rows
+DELETE FROM `ts_group_topic_photo`;
+/*!40000 ALTER TABLE `ts_group_topic_photo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_group_topic_photo` ENABLE KEYS */;
 
 -- Dumping structure for table thinksaas-dev.ts_group_topic_type
 DROP TABLE IF EXISTS `ts_group_topic_type`;
@@ -1117,7 +1153,7 @@ CREATE TABLE IF NOT EXISTS `ts_message` (
   `touserid` int(11) NOT NULL DEFAULT '0' COMMENT '接收消息的用户ID',
   `content` text NOT NULL COMMENT '内容',
   `tourl` varchar(255) NOT NULL DEFAULT '' COMMENT '消息跳转地址',
-  `extend` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '消息扩展',
+  `extend` varchar(255) NOT NULL DEFAULT '' COMMENT '消息扩展',
   `isread` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已读',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
   PRIMARY KEY (`messageid`),

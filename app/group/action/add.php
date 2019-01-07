@@ -154,6 +154,9 @@ switch ($ts) {
 		/**
 		 * *****************
 		 */
+
+        $gaiyao = cututf8(t(tsDecode($content)),0,100);
+
 		
 		$topicid = $new ['group']->create ( 'group_topic', array (
 				'groupid' => $groupid,
@@ -162,6 +165,7 @@ switch ($ts) {
 				'locationid'=>aac('user')->getLocationId($userid),
 				'title' => $title,
 				'content' => $content,
+				'gaiyao'=>$gaiyao,
 				'iscomment' => $iscomment,
 				'iscommentshow' => $iscommentshow,
 				'isaudit' => $isaudit,

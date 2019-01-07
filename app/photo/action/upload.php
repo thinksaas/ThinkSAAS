@@ -71,7 +71,7 @@ switch($ts){
 		));
 		
 		//上传
-		$arrUpload = tsUpload($_FILES['file'],$photoid,'photo',array('jpg','gif','png','jpeg'));
+		$arrUpload = tsUpload($_FILES['file'],$photoid,'photo',array('jpg','png','jpeg'));
 
 		if($arrUpload && $arrUpload['path'] && $arrUpload['url']){
 
@@ -84,6 +84,11 @@ switch($ts){
 				'photourl'=>$arrUpload['url'],
 				'photosize'=>$arrUpload['size'],
 			));
+
+
+			#生成对应大小的图片
+            tsXimg($arrUpload['url'],'photo',320,320,$arrUpload['path'],1);
+            tsXimg($arrUpload['url'],'photo',640,'',$arrUpload['path']);
 
 
 			#统计相册图片数

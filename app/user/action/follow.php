@@ -20,7 +20,7 @@ switch($ts){
 
 		if(is_array($arrUsers)){
 			foreach($arrUsers as $item){
-				$arrUser[] =  $new['user']->getOneUser($item['userid_follow']);
+				$arrUser[] =  $new['user']->getSimpleUser($item['userid_follow']);
 			}
 		}
 

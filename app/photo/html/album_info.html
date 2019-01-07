@@ -32,7 +32,7 @@
                         {loop $arrPhoto $key $item}
                         <div class="photo-item">
                             <div class="cover">
-                                <a href=""><img src="{php echo tsXimg($item[photourl],'photo',100,100,$item[path])}"></a>
+                                <a href=""><img class="mw-100" src="{php echo tsXimg($item[photourl],'photo',320,320,$item[path])}"></a>
                                 <div class="choose-cover">
                                     <input type="hidden" name="photoid[]" value="{$item[photoid]}" />
 

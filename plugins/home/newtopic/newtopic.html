@@ -16,6 +16,16 @@
     <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}{if $item[count_comment]>0}<span class="badge  badge-pill badge-secondary fw300 fs12">{$item[count_comment]}回复</span>{/if}</a>
 
 </div>
+    <div class="gaiyao">
+        {$item['gaiyao']}
+    </div>
+    {if $item['photos']}
+    <div class="photo">
+        {loop $item['photos'] $pkey $pitem}
+        <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}"><img src="{$pitem}" /></a>
+        {/loop}
+    </div>
+    {/if}
 <div class="topic_info">
 <span class="float-left">
 <a class="c9" href="{tsUrl('group','show',array('id'=>$item[groupid]))}">[{$item[group][groupname]}]</a>

@@ -17,8 +17,8 @@ class system extends tsApp{
 		parent::__construct($db);
 	}
 	
-	/*
-	 *垃圾词过滤
+	/**
+	 * 垃圾词过滤
 	 * 返回true:存在垃圾词
 	 * 返回false:不存在垃圾词
 	 */

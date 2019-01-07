@@ -51,7 +51,7 @@ $pageUrl = pagination ( $articleNum, 30, $page, $url );
 foreach ( $arrArticle as $key => $item ) {
 	$arrArticle [$key] ['title'] = htmlspecialchars ( $item ['title'] );
 	$arrArticle [$key] ['content'] = cututf8 ( t ( $item ['content'] ), 0, 150 );
-	$arrArticle [$key] ['user'] = aac ( 'user' )->getOneUser ( $item ['userid'] );
+	$arrArticle [$key] ['user'] = aac ( 'user' )->getSimpleUser ( $item ['userid'] );
     $arrArticle [$key] ['cate'] = $new ['article']->find ( 'article_cate', array (
         'cateid' => $item ['cateid']
     ) );

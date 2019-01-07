@@ -19,7 +19,7 @@ class user extends tsApp{
 	function getNewUser($num){
 		$arrNewUserId = $this->findAll('user_info',null,'addtime desc','userid',$num);
 		foreach($arrNewUserId as $item){
-			$arrNewUser[] = $this->getOneUser($item['userid']);
+			$arrNewUser[] = $this->getSimpleUser($item['userid']);
 		}
 		return $arrNewUser;
 	}
@@ -28,7 +28,7 @@ class user extends tsApp{
 	function getHotUser($num){
 		$arrNewUserId = $this->findAll('user_info',null,'uptime desc','userid',$num);
 		foreach($arrNewUserId as $item){
-			$arrHotUser[] = $this->getOneUser($item['userid']);
+			$arrHotUser[] = $this->getSimpleUser($item['userid']);
 		}
 		return $arrHotUser;
 	}
@@ -37,7 +37,7 @@ class user extends tsApp{
 	public function getFollowUser($num){
 		$arrUserId = $this->findAll('user_info',null,'count_followed desc','userid',$num);
 		foreach($arrUserId as $item){
-			$arrFollowUser[] = $this->getOneUser($item['userid']);
+			$arrFollowUser[] = $this->getSimpleUser($item['userid']);
 		}
 		return $arrFollowUser;
 	}
@@ -46,7 +46,7 @@ class user extends tsApp{
 	public function getScoreUser($num){
 		$arrUserId = $this->findAll('user_info',null,'count_score desc','userid',$num);
 		foreach($arrUserId as $item){
-			$arrScoreUser[] = $this->getOneUser($item['userid']);
+			$arrScoreUser[] = $this->getSimpleUser($item['userid']);
 		}
 		return $arrScoreUser;
 	}
@@ -152,12 +152,7 @@ class user extends tsApp{
 		}
 	}
 	
-	public function getOneArea($areaid){
-	
-		$strArea = $this->find('area',array('areaid'=>$areaid));
-		return $strArea;
-	
-	}
+
 	
 	//根据用户积分获取用户角色
 	public function getRole($score){
@@ -175,7 +170,7 @@ class user extends tsApp{
 		}
 	}
 	
-	/*
+	/**
 	 * 增加积分
 	 * $userid 用户ID
 	 * $scorename 积分名字 

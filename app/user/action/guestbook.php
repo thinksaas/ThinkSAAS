@@ -16,7 +16,7 @@ switch($ts){
 		),'addtime desc',null,$lstart.',20');
 
 		foreach($arrGuestList as $key=>$item){
-			$arrGuestList[$key]['user']=$new['user']->getOneUser($item['userid']);
+			$arrGuestList[$key]['user']=$new['user']->getSimpleUser($item['userid']);
 
 			$arrGuestList[$key]['reply'] = $new['user']->find('user_gb',array(
 			    'reid'=>$item['id'],

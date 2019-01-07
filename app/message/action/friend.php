@@ -17,7 +17,7 @@ $pageUrl = pagination($userNum, 40, $page, $url);
 if(is_array($arrToUsers)){
 	foreach($arrToUsers as $key=>$item){
 		$arrToUser[] = $item;
-		$arrToUser[$key]['user'] = aac('user')->getOneUser($item['userid']);
+		$arrToUser[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 		$arrToUser[$key]['count'] = $new['message']->findCount('message',array(
 			'touserid'=>$userid,
 			'userid'=>$item['userid'],

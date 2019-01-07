@@ -1,11 +1,15 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 
-
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+use Qcloud\Sms\SmsSingleSender;
+use Qcloud\Sms\SmsMultiSender;
+use Qcloud\Sms\SmsVoiceVerifyCodeSender;
+use Qcloud\Sms\SmsVoicePromptSender;
+use Qcloud\Sms\SmsStatusPuller;
+use Qcloud\Sms\SmsMobileStatusPuller;
 
  
 class mail extends tsApp{
@@ -49,6 +53,8 @@ class mail extends tsApp{
                 $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
             }
 
+            $mail->CharSet = 'UTF-8';
+
 
             $mail->Port = $options['mailport'];                                    // TCP port to connect to
 
@@ -85,9 +91,6 @@ class mail extends tsApp{
 
             return 0;
         }
-
-
-
 
 		//date_default_timezone_set('Asia/Shanghai');
 
@@ -142,16 +145,39 @@ class mail extends tsApp{
 		}
 		*/
 
-
-
-
-
-
-
-
-
 	}
-	
+
+
+    function sendSms($phone,$text,$tpid,$type=86){
+
+        $strOption = fileRead('data/sms_options.php');
+        if($strOption==''){
+            $strOption = $GLOBALS['tsMySqlCache']->get('sms_options');
+        }
+
+        // 短信应用SDK AppID
+        $appid = $strOption['sms_appid']; // 1400开头
+        // 短信应用SDK AppKey
+        $appkey = $strOption['sms_appkey'];
+        // 短信模板ID，需要在短信应用中申请
+        $templateId = $strOption['sms_tpid'];  // NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
+        // 签名
+        $smsSign = $strOption['sms_sign']; // NOTE: 这里的签名只是示例，请使用真实的已申请的签名，签名参数使用的是`签名内容`，而不是`签名ID`
+
+        // 指定模板ID单发短信
+        try {
+            $ssender = new SmsSingleSender($appid, $appkey);
+            $params = ["$text"];
+            $result = $ssender->sendWithParam("$type", $phone, $templateId,
+                $params, $smsSign, "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
+            #$rsp = json_decode($result);
+            #echo $result;
+        } catch(\Exception $e) {
+            #echo var_dump($e);
+        }
+
+    }
+
 	
 	//析构函数
 	public function __destruct(){

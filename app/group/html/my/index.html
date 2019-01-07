@@ -29,9 +29,9 @@
                 <div class="row">
 
                     {loop $arrCreateGroup $key $item}
-                    <div class="col-sm-6 col-md-2">
+                    <div class="col-6 col-md-2">
                         <div class="thumbnail">
-                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img class="rounded" src="{$item['photo']}" style="max-width: 100%;"></a>
+                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img class="rounded mw-100" src="{$item['photo']}"></a>
                             <div class="caption">
                                 <div class="title-cut text-center">{$item['groupname']}</div>
 
@@ -62,9 +62,9 @@
 
 
                     {loop $arrGroup $key $item}
-                    <div class="col-sm-6 col-md-2">
+                    <div class="col-6 col-md-2">
                         <div class="thumbnail">
-                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img src="{$item['photo']}" alt="{$item['groupname']}" class="rounded" style="max-width: 100%;"></a>
+                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img class="rounded mw-100" src="{$item['photo']}" alt="{$item['groupname']}"></a>
                             <div class="caption">
                                 <div class="title-cut text-center">{php echo cututf8($item['groupname'],0,6,false)}</div>
 

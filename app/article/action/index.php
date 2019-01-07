@@ -24,9 +24,9 @@ $pageUrl = pagination ( $articleNum, 10, $page, $url );
 foreach ( $arrArticle as $key => $item ) {
 	$arrArticle [$key]['title'] = tsTitle($item['title']);
 	$arrArticle [$key]['gaiyao'] = tsTitle($item['gaiyao']);
-	$arrArticle [$key] ['user'] = aac ( 'user' )->getOneUser ( $item ['userid'] );
-	$arrArticle [$key] ['cate'] = $new ['article']->find ( 'article_cate', array (
-			'cateid' => $item ['cateid'] 
+	$arrArticle [$key] ['user'] = aac ( 'user' )->getSimpleUser( $item ['userid'] );
+	$arrArticle [$key] ['cate'] = $new ['article']->find( 'article_cate', array (
+        'cateid' => $item ['cateid']
 	) );
 }
 

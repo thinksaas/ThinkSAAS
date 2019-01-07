@@ -64,7 +64,7 @@ switch ($ts) {
         if($gaiyao){
             $gaiyao = cututf8($gaiyao,0,100);
         }else{
-            $gaiyao = cututf8(t($_POST['content']),0,100);
+            $gaiyao = cututf8(t(tsDecode($content)),0,100);
         }
 
 		//1审核后显示0不审核
@@ -94,6 +94,13 @@ switch ($ts) {
                 'path' => $arrUpload['path'],
                 'photo' => $arrUpload['url']
             ));
+
+
+			#生成不同尺寸的图片
+            tsXimg($arrUpload['url'],'article',320,180,$arrUpload['path'],'1');
+            tsXimg($arrUpload['url'],'article',640,'',$arrUpload['path']);
+
+
 		}
 		// 上传图片结束
 

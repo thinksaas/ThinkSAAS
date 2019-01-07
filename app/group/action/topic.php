@@ -86,9 +86,15 @@ $strTopic['content'] = @preg_replace("/\[@(.*)\:(.*)]/U","<a href='".tsUrl('user
 
 
 
+//处理通过小程序或者客户端发的图片
+$strTopic['photos'] = $new['group']->getTopicPhoto($topicid);
+
+
+
+
 // 帖子标签
 $strTopic['tags'] = aac('tag')->getObjTagByObjid('topic', 'topicid', $topicid);
-$strTopic['user'] = aac('user')->getOneUser($strTopic['userid']);
+$strTopic['user'] = aac('user')->getSimpleUser($strTopic['userid']);
 
 //把标签作为关键词
 if($strTopic['tags']){
@@ -117,7 +123,7 @@ foreach($arrComment as $key => $item)
 {
     $arrTopicComment[] = $item;
     $arrTopicComment[$key]['l'] = (($page-1) * 15) + $key + 1;
-    $arrTopicComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
+    $arrTopicComment[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 
     $arrTopicComment[$key]['content'] = tsDecode($item['content']);
 

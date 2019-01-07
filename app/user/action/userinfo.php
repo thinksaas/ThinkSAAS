@@ -31,6 +31,6 @@ $followUsers = $db->fetch_all_assoc("select userid_follow from ".dbprefix."user_
 
 if(is_array($followUsers)){
 	foreach($followUsers as $item){
-		$arrFollowUser[] =  $new['user']->getOneUser($item['userid_follow']);
+		$arrFollowUser[] =  $new['user']->getSimpleUser($item['userid_follow']);
 	}
 }

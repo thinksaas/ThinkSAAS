@@ -11,7 +11,7 @@ $userid = intval($_GET['id']);
 
 if($userid == 0) header("Location: ".SITE_URL."index.php");
 
-$strUser = aac('user')->getOneUser($userid);
+$strUser = aac('user')->getSimpleUser($userid);
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : '1';
 
@@ -24,14 +24,12 @@ $arrAlbum = $new['photo']->findAll('photo_album',array(
 ),'albumid desc',null,$lstart.',6');
 
 foreach($arrAlbum as $key=>$item){
-    $arrAlbum[$key]['albumname'] = stripslashes($item['albumname']);
-    $arrAlbum[$key]['albumdesc'] = stripslashes($item['albumdesc']);
+    $arrAlbum[$key]['albumname'] = tsTitle($item['albumname']);
+    $arrAlbum[$key]['albumdesc'] = tsTitle($item['albumdesc']);
 }
 
 $albumNum = $new['photo']->findCount('photo_album',array(
-
     'userid'=>$userid,
-
 ));
 
 $pageUrl = pagination($albumNum, 6, $page, $url);

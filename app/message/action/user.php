@@ -6,7 +6,7 @@ $userid = aac('user')->isLogin();
 $touserid= intval($_GET['touserid']);
 
 
-$strTouser = aac('user')->getOneUser($touserid);
+$strTouser = aac('user')->getSimpleUser($touserid);
 
 
 $msgCount = $new['message']->findCount('message',"(userid='$userid' and touserid='$touserid') or (userid='$touserid' and touserid='$userid')");
@@ -15,7 +15,7 @@ $arrMessage = $new['message']->findAll('message',"(userid='$userid' and touserid
 
 
 foreach($arrMessage as $key=>$item){
-    $arrMessage[$key]['user'] = aac('user')->getOneUser($item['userid']);
+    $arrMessage[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
     $arrMessage[$key]['content'] = tsTitle($item['content']);
 }
 

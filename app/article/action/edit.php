@@ -31,8 +31,6 @@ switch ($ts) {
 			}
 			$strArticle ['tag'] = arr2str ( $arrTag );
 
-
-
             foreach ($arrCate as $key=>$item){
                 $arrCate[$key]['two'] = $new['article']->findAll('article_cate',array(
                     'referid'=>$item['cateid'],
@@ -100,19 +98,22 @@ switch ($ts) {
 		$arrUpload = tsUpload ( $_FILES ['photo'], $articleid, 'article', array ('jpg','gif','png','jpeg' ) );
 		if ($arrUpload) {
 			$new ['article']->update ( 'article', array (
-					'articleid' => $articleid 
+                'articleid' => $articleid
 			), array (
-					'path' => $arrUpload ['path'],
-					'photo' => $arrUpload ['url'] 
+                'path' => $arrUpload ['path'],
+                'photo' => $arrUpload ['url']
 			) );
-			
-			tsDimg ( $arrUpload ['url'], 'article', '180', '140', $arrUpload ['path'] );
+
+            #生成不同尺寸的图片
+			tsDimg ($arrUpload ['url'], 'article', '320', '180', $arrUpload ['path']);
+			tsDimg ($arrUpload ['url'], 'article', '640', '', $arrUpload ['path']);
+            tsXimg($arrUpload['url'],'article',320,180,$arrUpload['path'],'1');
+            tsXimg($arrUpload['url'],'article',640,'',$arrUpload['path']);
+
 		}
 		// 上传帖子图片结束
 		
-		header ( "Location: " . tsUrl ( 'article', 'show', array (
-				'id' => $articleid 
-		) ) );
+		header ("Location: " . tsUrl ( 'article', 'show', array ('id' => $articleid)));
 		
 		break;
 }

@@ -281,5 +281,49 @@
             "request",
             "response"
         ]
+    },
+    {
+        "name": "qcloudsms/qcloudsms_php",
+        "version": "v0.1.4",
+        "version_normalized": "0.1.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/qcloudsms/qcloudsms_php.git",
+            "reference": "48822045772d343b93c3d505d8a187cd51153c5a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/qcloudsms/qcloudsms_php/zipball/48822045772d343b93c3d505d8a187cd51153c5a",
+            "reference": "48822045772d343b93c3d505d8a187cd51153c5a",
+            "shasum": "",
+            "mirrors": [
+                {
+                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                    "preferred": true
+                }
+            ]
+        },
+        "require-dev": {
+            "sami/sami": "dev-master"
+        },
+        "time": "2018-09-19T07:19:17+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Qcloud\\Sms\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "description": "qcloud sms php sdk",
+        "keywords": [
+            "php",
+            "qcloud",
+            "sdk",
+            "sms"
+        ]
     }
 ]

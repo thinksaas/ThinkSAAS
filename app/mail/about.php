@@ -1,9 +1,9 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 return array(
-	'name'	=> '邮件',
+	'name'	=> '邮件短信',
 	'version'	=> '1.2',
-	'desc'	=> '邮件',
+	'desc'	=> '邮件短信',
 	'url' => 'http://www.thinksaas.cn',
 	'email' => 'thinksaas@qq.com',
 	'author' => '邱君',

@@ -6,7 +6,7 @@ defined('IN_TS') or die('Access Denied.');
 
 $userid= intval($_GET['userid']);
 
-$strTouser = aac('user')->getOneUser($userid);
+$strTouser = aac('user')->getSimpleUser($userid);
 
 $title = '发送盒子';
 

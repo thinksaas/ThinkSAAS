@@ -26,7 +26,7 @@ $arrTopic = $new['location']->findAll('group_topic',array(
 ),'addtime desc',null,10);
 foreach($arrTopic as $key=>$item){
     $arrTopic[$key]['title'] = tsTitle($item['title']);
-	$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
+	$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 	$arrTopic[$key]['group'] = $new['location']->find('group',array(
 		'groupid'=>$item['groupid'],
 	));
@@ -45,7 +45,7 @@ $arrWeibo = $new['location']->findAll('weibo',array(
 	'locationid'=>$locationid,
 ),'addtime desc',null,10);
 foreach($arrWeibo as $key=>$item){
-	$arrWeibo[$key]['user'] = aac('user')->getOneUser($item['userid']);
+	$arrWeibo[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 }
 
 //是否是同城用户

@@ -26,9 +26,9 @@
 
                     <div class="row">
                         {loop $arrAlbum $key $item}
-                        <div class="col-md-3">
+                        <div class="col-6 col-md-3">
 
-                            <a target="_blank" href="{tsUrl('photo','album',array('id'=>$item[albumid]))}"><img class="mw100" src="{if $item[albumface] == ''}{SITE_URL}public/images/photo.jpg{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" /></a>
+                            <a target="_blank" href="{tsUrl('photo','album',array('id'=>$item[albumid]))}"><img class="mw-100" src="{if $item[albumface] == ''}{SITE_URL}public/images/photo.jpg{else}{php echo tsXimg($item[albumface],'photo',170,'170',$item[path],1)}{/if}" /></a>
 
 
                             <div class="caption">

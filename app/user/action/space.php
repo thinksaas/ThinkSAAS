@@ -23,7 +23,7 @@ $arrGuest = $new['user']->findAll('user_gb',array(
 
 foreach($arrGuest as $key=>$item){
 	$arrGuest[$key]['content'] = tsDecode($item['content']);
-	$arrGuest[$key]['user']=$new['user']->getOneUser($item['userid']);
+	$arrGuest[$key]['user']=$new['user']->getSimpleUser($item['userid']);
 }
 
 $title = $strUser['username'];

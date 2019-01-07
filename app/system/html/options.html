@@ -38,7 +38,7 @@
 
 <tr><td>固定地址:</td><td><input type="text" style="width:300px;" name="option[link_url]" value="{$strOption[link_url]}" />(例如：http://www.thinksaas.cn/，必须以/结尾，主要用于采用固定链接的URL)</td></tr>
 
-    <tr><td>网站私钥:</td><td><input id="sitepkey" type="text" style="width:300px;" name="option[site_pkey]" value="{$strOption[site_pkey]}" /> <a href="javascript:void(0)" onclick="reSitePkey('{php echo md5(rand())}')">重新生成</a> <span style="color: red;">(非常重要，切勿泄漏)</span></td></tr>
+    <tr><td>网站密钥:</td><td><input id="sitepkey" type="text" style="width:300px;" name="option[site_pkey]" value="{$strOption[site_pkey]}" /> <a href="javascript:void(0)" onclick="reSitePkey('{php echo md5(rand())}')">重新生成</a> <span style="color: red;">(非常重要，切勿泄漏)</span></td></tr>
 
 <tr><td>网站Logo:</td><td>
 <div id="logo"><img src="{SITE_URL}uploadfile/logo/{$strOption['logo']}" width="190" height="40" /></div>

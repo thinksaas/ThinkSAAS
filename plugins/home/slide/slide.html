@@ -12,7 +12,7 @@
 {loop $arrSlide $key $item}
     <div class="carousel-item{if $key==0} active{/if}">
       <a href="{$item['url']}" title="{$item['title']}">
-          <img class="d-block w-100" src="{SITE_URL}uploadfile/slide/{$item['photo']}" alt="{$item['title']}">
+          <img class="d-block w-100" src="{SITE_URL}uploadfile/slide/{$item['photo']}?v=201812251931" alt="{$item['title']}">
           <div class="carousel-caption d-none d-md-block text-left" style="top:80px;">
               <div class="fs36 fw300">{$item['title']}</div>
               <div class="fs24 fw300">{$item['info']}</div>

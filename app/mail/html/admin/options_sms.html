@@ -1,0 +1,36 @@
+{php include pubTemplate("header_admin")}
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<form method="POST" action="{SITE_URL}index.php?app=mail&ac=admin&mg=do&ts=options&ts=sms">
+
+
+
+    <table class="table table-hover">
+        <tr><td width="150">APPID：</td><td><input name="sms_appid" value="{$strOption['sms_appid']}" /></td></tr>
+        <tr><td>APPKEY：</td><td><input name="sms_appkey" value="{$strOption['sms_appkey']}" /></td></tr>
+        <tr><td>短信模板ID：</td><td><input name="sms_tpid" value="{$strOption['sms_tpid']}" /></td></tr>
+        <tr><td>短信签名：</td><td><input name="sms_sign" value="{$strOption['sms_sign']}" /></td></tr>
+        <tr><td></td><td>
+
+            短信接口由腾讯云提供，具体参数请去<a target="_blank" href="https://www.qcloud.com/">腾讯云</a>获取
+
+        </td></tr>
+
+
+        <tr><td width="150"></td><td><input class="btn btn-primary" type="submit" value="提 交" /> </td></tr>
+
+
+    </table>
+
+
+
+
+
+
+</form>
+</div>
+
+{php include pubTemplate("footer_admin")}

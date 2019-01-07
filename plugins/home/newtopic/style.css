@@ -17,6 +17,11 @@
 
 .topic_list .topic_title .title a{color:#343434;font-size:14px;}
 
+.topic_list .topic_title .gaiyao{color:#999999;}
+
+.topic_list .topic_title .photo{}
+.topic_list .topic_title .photo img{max-width: 25%;margin-right: 10px;}
+
 .topic_list .topic_info{overflow: hidden;font-size:12px;color:#999999;}
 
 .rank {

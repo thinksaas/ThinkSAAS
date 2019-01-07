@@ -22,7 +22,7 @@ switch($ts){
 		//小组组长信息
 		$leaderId = $strGroup['userid'];
 
-		$strLeader = aac('user')->getOneUser($leaderId);
+		$strLeader = aac('user')->getSimpleUser($leaderId);
 
 		//管理员信息
 		
@@ -35,7 +35,7 @@ switch($ts){
 
 		if(is_array($strAdmin)){
 			foreach($strAdmin as $key=>$item){
-				$arrAdmin[] = aac('user')->getOneUser($item['userid']);
+				$arrAdmin[] = aac('user')->getSimpleUser($item['userid']);
 				$arrAdmin[$key]['isadmin'] = $item['isadmin'];
 			}
 		}
@@ -67,7 +67,7 @@ switch($ts){
 
 		if(is_array($groupUser)){
 			foreach($groupUser as $key=>$item){
-				$arrGroupUser[] = aac('user')->getOneUser($item['userid']);
+				$arrGroupUser[] = aac('user')->getSimpleUser($item['userid']);
 				$arrGroupUser[$key]['isadmin'] = $item['isadmin'];
 			}
 		}

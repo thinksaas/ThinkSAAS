@@ -19,7 +19,7 @@ $pageUrl = pagination($userNum, 80, $page, $url);
 
 if(is_array($arrUsers)){
 	foreach($arrUsers as $item){
-		$arrUser[] =  $new['user']->getOneUser($item['userid']);
+		$arrUser[] =  $new['user']->getSimpleUser($item['userid']);
 	}
 }
 

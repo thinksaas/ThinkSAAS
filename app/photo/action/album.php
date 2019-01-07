@@ -31,7 +31,7 @@ switch($ts){
 		
 		$lstart = $page*20-20;
 		
-		$strUser = aac('user')->getOneUser($strAlbum['userid']);
+		$strUser = aac('user')->getSimpleUser($strAlbum['userid']);
 		
 		$arrPhoto = $new['photo']->findAll('photo',array(
 			'albumid'=>$albumid,

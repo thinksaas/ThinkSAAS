@@ -5,13 +5,12 @@
 {php include template("admin/menu");}
 
 <form method="POST" action="{SITE_URL}index.php?app=mail&ac=admin&mg=do&ts=options">
+
+
+
 <table class="table table-hover">
 
-<tr><td width="150">APP名称：</td><td><input name="appname" value="{$strOption[appname]}" /></td></tr>
-<tr><td>APP介绍：</td><td><textarea name="appdesc">{$strOption[appdesc]}</textarea></td></tr>
-<tr><td>APP是否启用:</td><td><input {if $strOption[isenable]=='0'}checked="select"{/if} name="isenable" type="radio" value="0" />启用 <input {if $strOption[isenable]=='1'}checked="select"{/if} name="isenable" type="radio" value="1" />关闭</td></tr>
-
-<tr><td>邮箱Host :</td><td><input name="mailhost" value="{$strOption[mailhost]}" /> (例如：smtp.exmail.qq.com)</td></tr>
+<tr><td width="150">邮箱Host :</td><td><input name="mailhost" value="{$strOption[mailhost]}" /> (例如：smtp.exmail.qq.com)</td></tr>
 
 <tr><td>使用ssl/tls:</td><td><input type="radio" name="ssl" value="0" {if $strOption['ssl']==0}checked{/if} />不使用 <input type="radio" name="ssl" value="1" {if $strOption['ssl']==1}checked{/if} /> 使用(使用SSL需要空间开启php_openssl扩展)</td></tr>
 
@@ -19,8 +18,16 @@
 <tr><td>邮箱用户 :</td><td><input name="mailuser" value="{$strOption[mailuser]}" /> (例如：user@qq.com)</td></tr>
 <tr><td>邮箱密码 :</td><td><input type="password" name="mailpwd" value="" /> (例如：123456)</td></tr>
 
-<tr><td></td><td><input class="btn btn-primary" type="submit" value="提 交" /> 建议使用QQ企业邮箱 <a target="_blank" href="https://exmail.qq.com/">去申请</a></td></tr>
+<tr><td></td><td>建议使用QQ企业邮箱 <a target="_blank" href="https://exmail.qq.com/">去申请</a></td></tr>
+
+
+    <tr><td width="150"></td><td><input class="btn btn-primary" type="submit" value="提 交" /> </td></tr>
+
 </table>
+
+
+
+
 </form>
 </div>
 

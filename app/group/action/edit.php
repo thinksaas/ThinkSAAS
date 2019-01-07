@@ -109,6 +109,7 @@ switch($ts){
             ));
 
             tsDimg($arrUpload['url'],'group','200','200',$arrUpload['path']);
+            tsXimg($arrUpload['url'],'group','200','200',$arrUpload['path'],1);
 
             tsNotice("小组图标修改成功！");
 
@@ -233,7 +234,7 @@ switch($ts){
             'groupid'=>$groupid,
         ));
         foreach($arrUserId as $key=>$item){
-            $arrUser[] = aac('user')->getOneUser($item['userid']);
+            $arrUser[] = aac('user')->getSimpleUser($item['userid']);
         }
 
         $title = '成员申请加入审核';
@@ -515,7 +516,7 @@ switch($ts){
 
         if(is_array($groupUser)){
             foreach($groupUser as $key=>$item){
-                $arrGroupUser[$key] = aac('user')->getOneUser($item['userid']);
+                $arrGroupUser[$key] = aac('user')->getSimpleUser($item['userid']);
                 $arrGroupUser[$key]['endtime'] = $item['endtime'];
                 $arrGroupUser[$key]['price'] = $item['price'];
             }

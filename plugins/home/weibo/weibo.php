@@ -2,10 +2,12 @@
 defined('IN_TS') or die('Access Denied.'); 
 //首页登录框
 function weibo(){
-	$arrWeibo = aac('weibo')->findAll('weibo',null,'addtime desc',null,10);
+	$arrWeibo = aac('weibo')->findAll('weibo',array(
+	    'isaudit'=>0,
+    ),'addtime desc',null,10);
 	foreach($arrWeibo as $key=>$item){
 		$arrWeibo[$key]['content'] = tsDecode($item['content']);
-		$arrWeibo[$key]['user'] = aac('user')->getOneUser($item['userid']);
+		$arrWeibo[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 	}
 	
 	include template('weibo','weibo');

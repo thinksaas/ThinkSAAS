@@ -10,7 +10,7 @@ $arrMsg = $new['message']->findAll('message',array(
 foreach($arrMsg as $key=>$item){
 	$arrMsg[$key]['content'] = tsTitle($item['content']);
 	if($item['userid']){
-		$arrMsg[$key]['user'] = aac('user')->getOneUser($item['userid']);
+		$arrMsg[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 	}
 }
 

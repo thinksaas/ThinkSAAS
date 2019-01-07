@@ -85,7 +85,7 @@ $pageUrl = pagination($topicNum, 30, $page, $url);
 foreach($arrTopics as $key=>$item){
 	$arrTopic[] = $item;
 	$arrTopic[$key]['title'] = htmlspecialchars($item['title']);
-	$arrTopic[$key]['user'] = aac('user')->getOneUser($item['userid']);
+	$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 	$arrTopic[$key]['group'] = $new['group']->getOneGroup($item['groupid']);
 }
 

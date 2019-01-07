@@ -25,7 +25,7 @@ $albumid = $strPhoto['albumid'];
 $strPhoto['tags'] = aac('tag')->getObjTagByObjid('photo', 'photoid', $strPhoto['photoid']);
 
 //用户 
-$strPhoto['user'] = aac('user')->getOneUser($strPhoto['userid']);
+$strPhoto['user'] = aac('user')->getSimpleUser($strPhoto['userid']);
 
 //相册下所有图片
 $arrPhoto = $new['photo']->findAll('photo',array(
@@ -59,7 +59,7 @@ $prev = $arrPhotoId[$nowkey - 1];
 $next = $arrPhotoId[$nowkey +1];
 
 $userid = $strAlbum['userid'];
-$strUser = aac('user')->getOneUser($userid);
+$strUser = aac('user')->getSimpleUser($userid);
 
 //评论列表 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -73,7 +73,7 @@ $arrComments = $new['photo']->findAll('photo_comment',array(
 
 foreach($arrComments as $key=>$item){
 	$arrComment[] = $item;
-	$arrComment[$key]['user'] = aac('user')->getOneUser($item['userid']);
+	$arrComment[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 	$arrComment[$key]['content'] = tsTitle($item['content']);
 }
 

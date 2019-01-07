@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Qcloud\Sms\SmsSenderUtil | API</title>
+
+            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/sami.css">
+        <script src="../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/typeahead.min.js"></script>
+        <script src="../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:Qcloud_Sms_SmsSenderUtil" data-root-path="../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../index.html">API</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../classes.html">Classes</a></li>
+                                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../traits.html">Traits</a></li>
+                    <li><a href="../../doc-index.html">Index</a></li>
+                    <li><a href="../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                        <li><a href="../../Qcloud.html">Qcloud</a></li><li class="backslash">\</li><li><a href="../../Qcloud/Sms.html">Sms</a></li><li class="backslash">\</li><li>SmsSenderUtil</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            SmsSenderUtil
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>SmsSenderUtil</strong>
+</p>
+
+        
+    
+
+            <div class="description">
+            <p>发送Util类</p>                                </div>
+    
+    
+    
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    int
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getRandom">getRandom</a>()
+        
+                                            <p>生成随机数</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_calculateSig">calculateSig</a>(string $appkey, string $random, string $curTime, array $phoneNumbers)
+        
+                                            <p>生成签名</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_calculateSigForTemplAndPhoneNumbers">calculateSigForTemplAndPhoneNumbers</a>(string $appkey, string $random, string $curTime, array $phoneNumbers)
+        
+                                            <p>生成签名</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_phoneNumbersToArray">phoneNumbersToArray</a>($nationCode, $phoneNumbers)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_calculateSigForTempl">calculateSigForTempl</a>(string $appkey, string $random, string $curTime, array $phoneNumber)
+        
+                                            <p>生成签名</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_calculateSigForPuller">calculateSigForPuller</a>(string $appkey, string $random, string $curTime)
+        
+                                            <p>生成签名</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_calculateAuth">calculateAuth</a>(string $appkey, string $random, string $curTime, array $fileSha1Sum)
+        
+                                            <p>生成上传文件授权</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_sha1sum">sha1sum</a>(string $content)
+        
+                                            <p>生成sha1sum</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_sendCurlPost">sendCurlPost</a>(string $url, array $dataObj)
+        
+                                            <p>发送请求</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_fetch">fetch</a>(string $req)
+        
+                                            <p>发送请求</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method_getRandom">
+        <div class="location">at         line 17</div>
+        <code>                    int
+    <strong>getRandom</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>生成随机数</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int</td>
+            <td>随机数结果</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_calculateSig">
+        <div class="location">at         line 31</div>
+        <code>                    string
+    <strong>calculateSig</strong>(string $appkey, string $random, string $curTime, array $phoneNumbers)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>生成签名</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$appkey</td>
+                <td>sdkappid对应的appkey</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$random</td>
+                <td>随机正整数</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$curTime</td>
+                <td>当前时间</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$phoneNumbers</td>
+                <td>手机号码</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>签名结果</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_calculateSigForTemplAndPhoneNumbers">
+        <div class="location">at         line 51</div>
+        <code>                    string
+    <strong>calculateSigForTemplAndPhoneNumbers</strong>(string $appkey, string $random, string $curTime, array $phoneNumbers)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>生成签名</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$appkey</td>
+                <td>sdkappid对应的appkey</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$random</td>
+                <td>随机正整数</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$curTime</td>
+                <td>当前时间</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$phoneNumbers</td>
+                <td>手机号码</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>签名结果</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_phoneNumbersToArray">
+        <div class="location">at         line 63</div>
+        <code>                    
+    <strong>phoneNumbersToArray</strong>($nationCode, $phoneNumbers)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$nationCode</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$phoneNumbers</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_calculateSigForTempl">
+        <div class="location">at         line 86</div>
+        <code>                    string
+    <strong>calculateSigForTempl</strong>(string $appkey, string $random, string $curTime, array $phoneNumber)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>生成签名</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$appkey</td>
+                <td>sdkappid对应的appkey</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$random</td>
+                <td>随机正整数</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$curTime</td>
+                <td>当前时间</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$phoneNumber</td>
+                <td>手机号码</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>签名结果</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_calculateSigForPuller">
+        <div class="location">at         line 102</div>
+        <code>                    string
+    <strong>calculateSigForPuller</strong>(string $appkey, string $random, string $curTime)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>生成签名</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$appkey</td>
+                <td>sdkappid对应的appkey</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$random</td>
+                <td>随机正整数</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$curTime</td>
+                <td>当前时间</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>签名结果</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_calculateAuth">
+        <div class="location">at         line 117</div>
+        <code>                    string
+    <strong>calculateAuth</strong>(string $appkey, string $random, string $curTime, array $fileSha1Sum)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>生成上传文件授权</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$appkey</td>
+                <td>sdkappid对应的appkey</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$random</td>
+                <td>随机正整数</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$curTime</td>
+                <td>当前时间</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$fileSha1Sum</td>
+                <td>文件sha1sum</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>授权结果</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_sha1sum">
+        <div class="location">at         line 129</div>
+        <code>                    string
+    <strong>sha1sum</strong>(string $content)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>生成sha1sum</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$content</td>
+                <td>内容</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>内容sha1散列值</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_sendCurlPost">
+        <div class="location">at         line 141</div>
+        <code>                    string
+    <strong>sendCurlPost</strong>(string $url, array $dataObj)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>发送请求</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$url</td>
+                <td>请求地址</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$dataObj</td>
+                <td>请求内容</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>应答json字符串</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_fetch">
+        <div class="location">at         line 178</div>
+        <code>                    string
+    <strong>fetch</strong>(string $req)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>发送请求</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$req</td>
+                <td>请求对象</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>应答json字符串</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>
