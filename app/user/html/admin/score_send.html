@@ -6,6 +6,10 @@
             <table class="table table-hover">
                 <tr><td>用户ID:</td><td><input type="text" name="userid" /></td></tr>
                 <tr><td>积分数:</td><td><input type="text" name="score" /></td></tr>
+                <tr><td>状态:</td><td>
+                    <input type="radio" name="status" value="0" checked />加
+                    <input type="radio" name="status" value="1" />减 <small>(减去的积分不可以大于用户剩余积分，否则减分操作不成功)</small>
+                </td></tr>
                 <tr><td>积分说明:</td><td><input type="text" name="scorename" /></td></tr>
                 <tr><td></td><td><input type="submit" value="执行" /></td></tr>
             </table>

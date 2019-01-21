@@ -73,10 +73,31 @@ switch($ts){
 	
 		$userid = intval($_POST['userid']);
 		$score = intval($_POST['score']);
+		$status = intval($_POST['status']);
 		$scorename = trim($_POST['scorename']);
 		
 		if($userid && $score && $scorename){
-			aac('user')->addScore($userid,$scorename,$score,1);
+
+		    $return = false;
+
+		    if($status==1){
+		        //减积分
+		        $return = $new['user']->delScore($userid,$scorename,$score);
+		        $jiajian = '减去';
+            }else{
+		        //加积分
+                $return = $new['user']->addScore($userid,$scorename,$score,1);
+                $jiajian = '增加';
+            }
+
+            if($return==true){
+		        //发送系统消息
+                $msg_userid = '0';
+                $msg_touserid = $userid;
+                $msg_content = $scorename.$jiajian.$score.'积分';
+                aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content);
+            }
+
 			qiMsg('操作成功！');
 		}else{
 			qiMsg('操作失败！');

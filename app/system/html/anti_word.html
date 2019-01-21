@@ -5,16 +5,29 @@
 {template anti_menu}
 
 
-<div>
-<form method="post" action="{SITE_URL}index.php?app=system&ac=anti&ts=worddo">
-词语：<input name="word" /><input type="submit" value="添加" />
+    <div class="row">
+        <div class="col-md-6">
 
+            <div>
+                <form method="post" action="{SITE_URL}index.php?app=system&ac=anti&ts=worddo">
+                    敏感词：<input name="word" /><input type="submit" value="添加" />
+                    <a class="btn btn-sm btn-outline-primary" href="{SITE_URL}index.php?app=system&ac=anti&ts=worddelall">一键删除所有敏感词</a> <small class="text-danger">请至少保留一个敏感词</small>
+                </form>
+            </div>
 
-    <a href="{SITE_URL}index.php?app=system&ac=anti&ts=worddelall">一键删除所有敏感词</a>
+        </div>
+        <div class="col-md-6">
 
+            <!--
+            <form method="post" action="" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <input type="submit" value="上传xml文件">  <a href="">下载xml模板文件</a>
+            </form>
+            -->
 
-</form>
-</div>
+        </div>
+    </div>
+
 
 
 <div>

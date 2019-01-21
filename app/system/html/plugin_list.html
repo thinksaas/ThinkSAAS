@@ -13,9 +13,32 @@
 </ul>
 </div>
 
+
+
+    {if $arrAppsAbout[$apps]['hook']}
+
+    <div class="mb-3">
+
+        <a class="btn btn-sm btn-outline-secondary" href="index.php?app=system&ac=plugin&ts=list&apps={$apps}">全部</a>
+
+        {loop $arrAppsAbout[$apps]['hook'] $key $item}
+        <a class="btn btn-sm btn-outline-secondary" href="index.php?app=system&ac=plugin&ts=list&apps={$apps}&hook={$key}">{$item}</a>
+        {/loop}
+
+    </div>
+
+    {/if}
+
+
+
 <table class="table table-hover">
     <thead class="thead-light">
-    <tr><th>名称</th ><th>版本</th><th>作者/介绍</th><th>操作</th></tr>
+    <tr><th>名称</th ><th>版本</th>
+
+        <th>介绍</th>
+        <th>作者</th>
+
+        <th>操作</th></tr>
     </thead>
 
     <tbody>
@@ -24,7 +47,8 @@
 <tr>
     <td>{$item[about][name]} ({$item[name]})</td>
     <td class="fs12 c9">{$item[about][version]}</td>
-    <td class="fs12 c9">{$item[about][desc]}<br />作者：<a target="_blank" href="{$item[about][author_url]}">{$item[about][author]}</a></td>
+    <td class="fs12 c9">{$item[about][desc]}</td>
+    <td class="fs12"><a target="_blank" href="{$item[about][author_url]}">{$item[about][author]}</a></td>
     <td>
 
 {if in_array($item[name],$app_plugins)}

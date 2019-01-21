@@ -79,6 +79,7 @@ blockquote {
 	font-size: 100%;
 	background-color: #f1f1f1;
 }
+blockquote p{margin-bottom: 0px;}
 
 code {
 	display: inline-block;

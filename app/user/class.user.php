@@ -14,59 +14,66 @@ class user extends tsApp{
 		
 		parent::__construct($db);
 	}
+
+    /**
+     * 获取用户头像
+     * @param $strUser
+     * @return string
+     */
+	function getUserFace($strUser){
+        if($strUser['face']){
+            $strFace = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1).'?v='.$strUser['uptime'];
+        }else{
+            $strFace = SITE_URL.'public/images/user_large.jpg';
+        }
+        return $strFace;
+    }
 	
-	//获取最新会员
+	/**
+     * 获取最新会员
+     */
 	function getNewUser($num){
-		$arrNewUserId = $this->findAll('user_info',null,'addtime desc','userid',$num);
-		foreach($arrNewUserId as $item){
-			$arrNewUser[] = $this->getSimpleUser($item['userid']);
+		$arrUser = $this->findAll('user_info',null,'addtime desc','userid,username,face,path,addtime,uptime',$num);
+		foreach($arrUser as $key=>$item){
+            $arrUser[$key]['face'] = $this->getUserFace($item);
 		}
-		return $arrNewUser;
+		return $arrUser;
 	}
 	
 	//获取活跃会员
 	function getHotUser($num){
-		$arrNewUserId = $this->findAll('user_info',null,'uptime desc','userid',$num);
-		foreach($arrNewUserId as $item){
-			$arrHotUser[] = $this->getSimpleUser($item['userid']);
-		}
-		return $arrHotUser;
+        $arrUser = $this->findAll('user_info',null,'uptime desc','userid,username,face,path,addtime,uptime',$num);
+        foreach($arrUser as $key=>$item){
+            $arrUser[$key]['face'] = $this->getUserFace($item);
+        }
+        return $arrUser;
 	}
 	
 	//最多关注的用户
 	public function getFollowUser($num){
-		$arrUserId = $this->findAll('user_info',null,'count_followed desc','userid',$num);
-		foreach($arrUserId as $item){
-			$arrFollowUser[] = $this->getSimpleUser($item['userid']);
-		}
-		return $arrFollowUser;
+        $arrUser = $this->findAll('user_info',null,'count_followed desc','userid,username,face,path,count_followed,addtime,uptime',$num);
+        foreach($arrUser as $key=>$item){
+            $arrUser[$key]['face'] = $this->getUserFace($item);
+        }
+        return $arrUser;
 	}
 	
 	//最多积分的用户
 	public function getScoreUser($num){
-		$arrUserId = $this->findAll('user_info',null,'count_score desc','userid',$num);
-		foreach($arrUserId as $item){
-			$arrScoreUser[] = $this->getSimpleUser($item['userid']);
-		}
-		return $arrScoreUser;
+        $arrUser = $this->findAll('user_info',null,'count_score desc','userid,username,face,path,count_score,addtime,uptime',$num);
+        foreach($arrUser as $key=>$item){
+            $arrUser[$key]['face'] = $this->getUserFace($item);
+        }
+        return $arrUser;
 	}
 
     #获取简单的用户信息
     function getSimpleUser($userid){
-
         $strUser = $this->find('user_info',array(
             'userid'=>$userid,
         ),'userid,username,face,path,uptime');
-
-        if($strUser['face']){
-            $strUser['face'] = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1).'?v='.$strUser['uptime'];
-        }else{
-            //没有头像
-            $strUser['face']	= SITE_URL.'public/images/user_large.jpg';
-        }
-
+        $strUser['face'] = $this->getUserFace($strUser);
         return $strUser;
-
     }
 	
 	//获取一个用户的信息
@@ -87,14 +94,7 @@ class user extends tsApp{
             $strUser['about'] = tsTitle($strUser['about']);
             $strUser['address'] = tsTitle($strUser['address']);
 
-            if($strUser['face'] && $strUser['path']){
-                $strUser['face'] = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1);
-            }elseif($strUser['face'] && $strUser['path']==''){
-                $strUser['face']	= SITE_URL.'public/images/'.$strUser['face'];
-            }else{
-                //没有头像
-                $strUser['face']	= SITE_URL.'public/images/user_large.jpg';
-            }
+            $strUser['face'] = $this->getUserFace($strUser);
 
             $strUser['rolename'] = $this->getRole($strUser['allscore']);
 
