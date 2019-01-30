@@ -71,7 +71,7 @@ class user extends tsApp{
     function getSimpleUser($userid){
         $strUser = $this->find('user_info',array(
             'userid'=>$userid,
-        ),'userid,username,face,path,uptime');
+        ),'userid,locationid,username,face,path,uptime');
         $strUser['face'] = $this->getUserFace($strUser);
         return $strUser;
     }

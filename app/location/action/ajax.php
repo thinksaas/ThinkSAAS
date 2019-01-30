@@ -50,7 +50,7 @@ switch($ts){
 			'locationid'=>$locationid,
 		));
 		
-		getJson('加入成功！',1,1);
+		getJson('加入成功！',1,2,tsUrl('location','show',array('id'=>$locationid)));
 		
 		break;
 	
