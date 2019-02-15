@@ -44,7 +44,7 @@ function searchon() {
 }
 /*!用户关注*/
 function follow(userid, token) {
-    $.getJSON(siteUrl + "index.php?app=user&ac=follow&ts=do", {
+    $.post(siteUrl + "index.php?app=user&ac=follow&ts=do", {
         "userid": userid,
         "token": token
     },
@@ -61,11 +61,11 @@ function follow(userid, token) {
                 }
             }
         }
-    })
+    },'json')
 }
 /*!取消用户关注*/
 function unfollow(userid, token) {
-    $.getJSON(siteUrl + "index.php?app=user&ac=follow&ts=un", {
+    $.post(siteUrl + "index.php?app=user&ac=follow&ts=un", {
         "userid": userid,
         "token": token
     },
@@ -78,7 +78,7 @@ function unfollow(userid, token) {
                 window.location.reload()
             }
         }
-    })
+    },'json')
 }
 
 
@@ -191,7 +191,7 @@ $(function(){
             return false;
         }
     })
-})
+});
 
 
 $(document).ready(function () {

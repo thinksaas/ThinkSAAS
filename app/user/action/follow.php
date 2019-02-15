@@ -33,7 +33,7 @@ switch($ts){
 	case "do":
 	
 		$userid = intval($TS_USER['userid']);
-		$userid_follow = intval($_GET['userid']);
+		$userid_follow = intval($_POST['userid']);
 
 		
 		if($userid == 0){
@@ -106,7 +106,7 @@ switch($ts){
 	case "un":
 	
 		$userid = intval($TS_USER['userid']);
-		$userid_follow = intval($_GET['userid']);
+		$userid_follow = intval($_POST['userid']);
 
 		
 		if($userid == 0){

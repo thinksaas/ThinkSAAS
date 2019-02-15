@@ -79,13 +79,22 @@ switch ($ts) {
 			qiMsg ( "标题和内容都不能为空！" );
 		
 		$new ['article']->update ( 'article', array (
-			'articleid' => $articleid 
+			'articleid' => $articleid,
 		), array (		
-			'cateid' => $cateid,
+			//'cateid' => $cateid,
 			'title' => $title,
 			'content' => $content ,
 			'gaiyao' => $gaiyao
 		));
+
+		#更新分类
+		if($cateid){
+            $new['article']->update('article',array(
+                'articleid' => $articleid,
+            ),array(
+                'cateid' => $cateid,
+            ));
+        }
 		
 		// 处理标签
 		$tag = trim ( $_POST ['tag'] );

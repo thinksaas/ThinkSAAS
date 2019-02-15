@@ -3,30 +3,13 @@
  * PHP 富文本XSS过滤类
  *
  * @package XssHtml
- * @version 1.0.0 
+ * @version 1.0.1
  * @link http://phith0n.github.io/XssHtml
  * @since 20140621
  * @copyright (c) Phithon All Rights Reserved
  *
+ *【2019-02-15由ThinkSAAS继续完善修正部分问题】
  */
-#
-# Written by Phithon <root@leavesongs.com> in 2014 and placed in
-# the public domain.
-#
-# phithon <root@leavesongs.com> 编写于20140621
-# From: XDSEC <www.xdsec.org> & 离别歌 <www.leavesongs.com>
-# Usage: 
-# <?php
-# require('xsshtml.class.php');
-# $html = '<html code>';
-# $xss = new XssHtml($html);
-# $html = $xss->getHtml();
-# ?\>
-# 
-# 需求：
-# PHP Version > 5.0
-# 更多使用选项见 http://phith0n.github.io/XssHtml
-
 class XssHtml {
 	private $m_dom;
 	private $m_xss;
@@ -77,11 +60,21 @@ class XssHtml {
 	}
 
 	private function __true_url($url){
+	    /*
 		if (preg_match('#^https?://.+#is', $url)) {
 			return $url;
 		}else{
 			return 'http://' . $url;
 		}
+	    */
+        $href = $url;
+        if (substr($href,0, 7) == "http://" || substr($href,0, 8) == "https://" || substr($href,0, 7) == "mailto:" || substr($href,0, 4) == "tel:" || substr($href,0, 1) == "#" || substr($href,0, 1) == "/") {
+
+            return $href;
+        }else{
+            return '';
+        }
+
 	}
 
 	private function __get_style($node){
@@ -99,17 +92,22 @@ class XssHtml {
 	private function __get_link($node, $att){
 		$link = $node->attributes->getNamedItem($att);
 		if ($link) {
-			//return $this->__true_url($link->nodeValue);
-			return $link->nodeValue;
+			return $this->__true_url($link->nodeValue);
+			//return $link->nodeValue;
 		}else{
 			return '';
 		}
 	}
 
 	private function __setAttr($dom, $attr, $val){
+	    /*
 		if (!empty($val)) {
 			$dom->setAttribute($attr, $val);
 		}
+	    */
+		if(($attr=='href' && $val=='') || ($attr && $val)){
+            $dom->setAttribute($attr, $val);
+        }
 	}
 
 	private function __set_default_attr($node, $attr, $default = '')
@@ -155,7 +153,6 @@ class XssHtml {
 	private function __node_a($node){
 		$this->__common_attr($node);
 		$href = $this->__get_link($node, 'href');
-
 		$this->__setAttr($node, 'href', $href);
 		$this->__set_default_attr($node, 'target', '_blank');
 	}
