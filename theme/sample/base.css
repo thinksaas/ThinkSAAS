@@ -637,6 +637,9 @@ margin-top: 20px;
 .wangeditor_text{height:100px;border: 1px solid #ccc;}
 
 
+/**tsalert**/
+#tsalert{position: fixed;top:0;right:0;left:0;width: 100%;}
+
 
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {

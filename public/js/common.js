@@ -1,3 +1,17 @@
+function tsAlert(content){
+    var html = '<div id="tsalert" class="alert alert-info text-center">'+content+' <span id="alert_daojishi"></span></div>';
+    $('body').append(html);
+    //倒计时
+    var step = 10;
+    var _res = setInterval(function() {
+        step-=1;
+        $('#alert_daojishi').html(step);
+        if(step <= 0){
+            $("#tsalert").detach();
+            clearInterval(_res);//清除setInterval
+        }
+    },1000);
+}
 //提示
 function tsNotice(msg,title){
 

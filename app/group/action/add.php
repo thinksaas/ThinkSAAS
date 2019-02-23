@@ -56,6 +56,16 @@ switch ($ts) {
 		$arrGroupType = $new ['group']->findAll ( 'group_topic_type', array (
 				'groupid' => $strGroup ['groupid'] 
 		) );
+
+
+
+		#加载草稿箱
+        $strDraft = $new['group']->find('draft',array(
+            'userid'=>$userid,
+            'types'=>'topic',
+        ));
+
+
 		
 		$title = '发布帖子';
 		// 包含模版
@@ -172,6 +182,14 @@ switch ($ts) {
 				'addtime' => time (),
 				'uptime' => time () 
 		) );
+
+
+		#清空草稿箱
+        $new['group']->delete('draft',array(
+            'userid'=>$userid,
+            'types'=>'topic',
+        ));
+
 		
 		// 统计用户发帖数
 		$countUserTopic = $new ['group']->findCount ( 'group_topic', array (

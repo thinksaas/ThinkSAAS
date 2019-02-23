@@ -756,6 +756,24 @@ INSERT INTO `ts_cache` (`cacheid`, `cachename`, `cachevalue`) VALUES
 	(24, 'system_mynav', '1531722577a:5:{s:5:"group";s:6:"小组";s:7:"article";s:6:"文章";s:5:"weibo";s:6:"唠叨";s:5:"photo";s:6:"相册";s:8:"location";s:6:"同城";}');
 /*!40000 ALTER TABLE `ts_cache` ENABLE KEYS */;
 
+-- Dumping structure for table thinksaas-dev.ts_draft
+DROP TABLE IF EXISTS `ts_draft`;
+CREATE TABLE IF NOT EXISTS `ts_draft` (
+  `draftid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `types` varchar(50) NOT NULL DEFAULT '' COMMENT '类型：比如帖子topic',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `content` longtext NOT NULL COMMENT '内容',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
+  PRIMARY KEY (`draftid`),
+  UNIQUE KEY `userid_types` (`userid`,`types`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='草稿箱';
+
+-- Dumping data for table thinksaas-dev.ts_draft: 0 rows
+DELETE FROM `ts_draft`;
+/*!40000 ALTER TABLE `ts_draft` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_draft` ENABLE KEYS */;
+
 -- Dumping structure for table thinksaas-dev.ts_editor
 DROP TABLE IF EXISTS `ts_editor`;
 CREATE TABLE IF NOT EXISTS `ts_editor` (

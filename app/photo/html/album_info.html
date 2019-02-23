@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="intro">
-                                <textarea style="height:50px;" name="photodesc[]">{$item[photodesc]}</textarea>
+                                <textarea style="height:50px;" name="photodesc[]">{if $addtime}{$strAlbum['albumname']}{/if}{$item[photodesc]}</textarea>
                                 <p><a class="j a_confirm_link" title="删除这张照片" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$item[photoid]}">删除照片</a></p>
                             </div>
                         </div>
