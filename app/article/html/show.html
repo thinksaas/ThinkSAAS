@@ -106,10 +106,10 @@
 
 
                             {if $strUp}
-                            <div class="fs13 text-secondary">上一篇：<a class="text-secondary" href="{tsUrl('article','show',array('id'=>$strUp['articleid']))}">{tsTitle($strUp['title'])}</a></div>
+                            <div class="fs13 text-secondary">上一篇：<a class="text-secondary" href="{tsUrl('article','show',array('id'=>$strUp['articleid']))}">{$strUp['title']}</a></div>
                             {/if}
                             {if $strNext}
-                            <div class="fs13 text-secondary">下一篇：<a class="text-secondary" href="{tsUrl('article','show',array('id'=>$strNext['articleid']))}">{tsTitle($strNext['title'])}</a></div>
+                            <div class="fs13 text-secondary">下一篇：<a class="text-secondary" href="{tsUrl('article','show',array('id'=>$strNext['articleid']))}">{$strNext['title']}</a></div>
                             {/if}
 
 
