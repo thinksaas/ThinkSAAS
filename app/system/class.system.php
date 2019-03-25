@@ -148,6 +148,21 @@ class system extends tsApp{
 		$data=array(); 
 		$this->searchDir($dir,$data); 
 		return $data; 
-	} 
+	}
+
+    /**
+     * 发布内容开放时间
+     */
+	public function pubTime(){
+	    if($GLOBALS['TS_SITE']['pubtime']){
+	        $arrHour = explode('|',$GLOBALS['TS_SITE']['pubtime']);
+	        $hour = date('H');
+	        if(in_array($hour,$arrHour)){
+	            return true;
+            }else{
+	            return false;
+            }
+        }
+    }
 
 }

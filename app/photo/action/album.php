@@ -243,6 +243,7 @@ switch($ts){
 				
 				$new['photo']->update('photo',array(
 					'photoid'=>$photoid,
+                    'userid'=>$userid,
 				),array(
 				
 					'photodesc'=>trim($item),

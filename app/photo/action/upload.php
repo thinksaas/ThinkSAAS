@@ -8,6 +8,13 @@ switch($ts){
 		//用户是否登录
 		$userid = aac('user')->isLogin();
 
+        //判断发布者状态
+        if(aac('user')->isPublisher()==false) tsNotice('不好意思，你还没有权限发布内容！');
+
+        //发布时间限制
+        if(aac('system')->pubTime()==false) tsNotice('不好意思，当前时间不允许发布内容！');
+
+
 		$albumid = intval($_GET['albumid']);
 
 		$strAlbum = $new['photo']->find('photo_album',array(
