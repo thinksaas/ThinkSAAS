@@ -68,11 +68,11 @@ class weiboAction extends weibo{
 
         $isaudit = 0;
 
-
-        //过滤内容开始
-        aac('system')->antiWord($content);
-        //过滤内容结束
-
+        if($GLOBALS['TS_USER']['isadmin']==0){
+            //过滤内容开始
+            aac('system')->antiWord($content,$js);
+            //过滤内容结束
+        }
 
         $weiboid = $this->create('weibo',array(
             'userid'=>$userid,
@@ -82,7 +82,6 @@ class weiboAction extends weibo{
             'addtime'=>date('Y-m-d H:i:s'),
             'uptime'=>date('Y-m-d H:i:s'),
         ));
-
 
         //feed开始
         /*
@@ -94,7 +93,6 @@ class weiboAction extends weibo{
         aac('feed')->add($userid,$feed_template,$feed_data);
         */
         //feed结束
-
 
         getJson('发布成功！',$js,2,tsurl('weibo','show',array('id'=>$weiboid)));
 		
