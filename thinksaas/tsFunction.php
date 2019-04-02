@@ -661,8 +661,6 @@ function tsXimg($file, $app, $w, $h, $path = '', $c = '0') {
         $arrType = explode('.',$name);
         $type = end($arrType);
 
-
-
         $cpath = 'cache/' . $app . '/' . $path . '/' . md5($w . $h . $app . $name) . '.jpg';
 
         if (!is_file($cpath)) {
@@ -673,7 +671,13 @@ function tsXimg($file, $app, $w, $h, $path = '', $c = '0') {
             $dest = 'uploadfile/' . $app . '/' . $file;
             $arrImg = getimagesize($dest);
 
-            $img = Image::make($dest);
+            try{
+                $img = Image::make($dest);
+            }catch (Exception $e){
+                //$e->getMessage();
+                return SITE_URL . 'public/images/nopic.jpg';
+                exit();
+            }
 
             if ($arrImg[0] <= $w) {
 
@@ -1416,7 +1420,23 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 
 			$filesize = filesize($dest);
 			if (intval($filesize) > 0) {
+
+                #继续验证图片
+                if(in_array('png',$uptypes) || in_array('jpg',$uptypes) || in_array('gif',$uptypes) || in_array('jpeg',$uptypes)){
+
+                    try{
+                        Image::make($dest);
+                    }catch (Exception $e){
+                        //echo 'Message: ' .$e->getMessage();
+                        unlink($dest);
+                        return false;
+                        exit();
+                    }
+
+                }
+
 				return array('name' => tsFilter($files['name']), 'path' => $path, 'url' => $path . '/' . $name, 'type' => $type, 'size' => tsFilter($files['size']));
+
 			} else {
 				return false;
 			}
