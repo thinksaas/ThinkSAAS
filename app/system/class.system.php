@@ -22,7 +22,7 @@ class system extends tsApp{
 	 * 返回true:存在垃圾词
 	 * 返回false:不存在垃圾词
 	 */
-	public function antiWord($text,$js=0){
+	public function antiWord($text,$js=0,$re=0){
 		
 		//先干掉所有空格，不管你是所有空格+全角空格
 		$text =preg_replace("/\s|　/","",$text);
@@ -49,7 +49,12 @@ class system extends tsApp{
 				preg_match("/$strWord/i",$text, $matche1);
 				if(!empty($matche1[0])){
 					//tsNotice('提示：内容中存在被禁止使用的词汇：'.$matche1[0]);
-					getJson('非法操作',$js,0);
+                    if($re==1){
+                        return false;exit;
+                    }else{
+                        getJson('非法操作',$js,0);
+                    }
+
 				}
 			}
 			
@@ -57,7 +62,11 @@ class system extends tsApp{
 			preg_match("/$strWord/i",t($text), $matche2);
 			if(!empty($matche2[0])){
 				//tsNotice('内容中存在被禁止使用的词汇：'.$matche2[0]);
-				getJson('非法操作',$js,0);
+                if($re==1){
+                    return false;exit;
+                }else{
+                    getJson('非法操作',$js,0);
+                }
 			}
 			
 			//第三过滤层，滤中文中的特殊字符
@@ -65,7 +74,11 @@ class system extends tsApp{
 			preg_match("/$strWord/i",t($text3), $matche3);
 			if(!empty($matche3[0])){
 				//tsNotice('内容中存在被禁止使用的词汇：'.$matche3[0]);
-				getJson('非法操作',$js,0);
+                if($re==1){
+                    return false;exit;
+                }else{
+                    getJson('非法操作',$js,0);
+                }
 			}
 			
 			//第四过滤层，过滤QQ号，电话，妈的，老子就不信搞不死你
@@ -73,12 +86,16 @@ class system extends tsApp{
 			preg_match("/$strWord/i",t($text4), $matche4);
 			if(!empty($matche4[0])){
 				//tsNotice('内容中存在被禁止使用的词汇：'.$matche4[0]);
-				getJson('非法操作',$js,0);
+                if($re==1){
+                    return false;exit;
+                }else{
+                    getJson('非法操作',$js,0);
+                }
 			}
 			
 		}
 		
-		return true;
+		return true;exit;
 		
 	}
 	

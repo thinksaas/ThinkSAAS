@@ -54,6 +54,9 @@ class weiboAction extends weibo{
 
         $userid = aac('user')->isLogin(1);
 
+        //判断用户是否存在
+        if(aac('user')->isUser($userid)==false) getJson('不好意思，用户不存在！',$js);
+
         //判断发布者状态
         if(aac('user')->isPublisher()==false) getJson('不好意思，你还没有权限发布内容！',$js);
 

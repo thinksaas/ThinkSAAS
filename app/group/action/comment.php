@@ -25,11 +25,8 @@ switch($ts){
 		
 		$topicid	= intval($_POST['topicid']);
 		$content	= tsClean($_POST['content']);
-
         $ispublic = intval($_POST['ispublic']);
-		
-		
-		
+
 		//过滤内容开始
 		if($TS_USER['isadmin']==0){
 			aac('system')->antiWord($content,$js);

@@ -4,6 +4,9 @@ defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 // 用户是否登录
 $userid = aac ( 'user' )->isLogin ();
 
+//判断用户是否存在
+if(aac('user')->isUser($userid)==false) tsNotice('不好意思，用户不存在！');
+
 //判断发布者状态
 if(aac('user')->isPublisher()==false) tsNotice('不好意思，你还没有权限发布内容！');
 
