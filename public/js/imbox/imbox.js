@@ -34,10 +34,10 @@ function clearNewMessageRemind() {
 	newMessageRemind.clear();
 }
 
-function evdata(userid) {
+function evdata() {
 	$.ajax({
 		type : "GET",
-		url : siteUrl + "index.php?app=message&ac=newmsg&userid=" + userid,
+		url : siteUrl + "index.php?app=message&ac=newmsg",
 		success : function (msg) {
 			if (msg == '0') {}
 			else if (msg > 0) {
@@ -48,3 +48,6 @@ function evdata(userid) {
 	});
 }
 //及时消息结束
+
+
+evdata();

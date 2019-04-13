@@ -191,18 +191,6 @@ class group extends tsApp{
 
     }
 
-    //热门帖子：一天1
-    public function hotTopics($day,$num=10){
-
-        $startTime = time()-($day*3600*60);
-        $endTime = time();
-
-        $arrTopic = $this->findAll('group_topic',"`addtime`>'$startTime' and `addtime` < '$endTime' and and `isaudit`='0'",'count_comment desc',null,$num);
-
-        return $arrTopic;
-
-    }
-
     //推荐喜欢的帖子
     public function loveTopic($topicId,$userNum){
         $strLike['num'] = $this->findCount('group_topic_collect',array(
@@ -242,7 +230,7 @@ class group extends tsApp{
 
     //热门帖子,1天，7天，30天
     public function getHotTopic($day){
-        $startTime = time()-($day*3600*60);
+        $startTime = time()-($day*3600*24);
 
         $endTime = time();
 

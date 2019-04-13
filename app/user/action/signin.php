@@ -4,6 +4,13 @@ defined('IN_TS') or die('Access Denied.');
 switch($ts){
 
     case "":
+
+        $userid = intval($GLOBALS['TS_USER']['userid']);
+
+        if($userid==0){
+            echo 2;exit;
+        }
+
         if($new['user']->signin()){
             echo 1;exit;
         }else{
@@ -14,7 +21,6 @@ switch($ts){
 
     case "ajax":
 
-        $userid = intval($_SESSION['tsuser']['userid']);
         $strSign = $new['user']->find('sign',array(
             'userid'=>$userid,
             'addtime'=>date('Y-m-d'),

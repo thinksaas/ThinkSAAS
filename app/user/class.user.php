@@ -383,7 +383,7 @@ class user extends tsApp{
     //用户签到
     function signin(){
 
-        $userid = intval($_SESSION['tsuser']['userid']);
+        $userid = intval($GLOBALS['TS_USER']['userid']);
 
         $zuotian = date('Y-m-d',strtotime("-1 day"));
 

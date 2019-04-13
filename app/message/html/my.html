@@ -20,8 +20,9 @@
         <div class="card-body">
 {template menu}
 
+            <div class="text-right"><a class="btn btn-sm btn-outline-secondary" href="{SITE_URL}index.php?app=message&ac=read">设为全部已读</a></div>
 
-<div class="newmsg fs13">
+<div class="newmsg fs13 mt-2">
 <ul>
 {loop $arrMsg $key $item}
 <li>{if $item['userid']}<img src="{$item['user']['face']}" width="16" align="absmiddle" /> {$item['user']['username']}：{$item['content']} <a href="{tsUrl('message','user',array('touserid'=>$item['userid']))}">[回复]</a>{else}系统消息：<a href="{tsUrl('message','system')}">[查看]</a>{/if}</li>

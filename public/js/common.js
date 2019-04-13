@@ -32,20 +32,17 @@ function tsNotice(msg,title){
 
 //签到
 function qianDao(){
-    if(siteUid==0){
-        tsNotice('请登录后再签到！');
-        return false;
-    }else{
-        $.post(siteUrl+'index.php?app=user&ac=signin',function(rs){
-            if(rs==1){
-                $.get(siteUrl+'index.php?app=user&ac=signin&ts=ajax',function(rs){
-                    $("#qiandao").html(rs);
-                })
-            }else{
-                tsNotice('签到失败！');
-            }
-        })
-    }
+    $.post(siteUrl+'index.php?app=user&ac=signin',function(rs){
+        if(rs==2){
+            tsNotice('请登录后再签到！');
+        }else if(rs==1){
+            $.get(siteUrl+'index.php?app=user&ac=signin&ts=ajax',function(rs){
+                $("#qiandao").html(rs);
+            })
+        }else{
+            tsNotice('签到失败！');
+        }
+    })
 }
 
 /*!刷新验证码*/

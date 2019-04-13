@@ -20,33 +20,24 @@
     {if $sitedesc}<meta name="description" content="{$sitedesc}" /> {/if}
     {/if}
     <link rel="shortcut icon" href="{SITE_URL}favicon.ico" />
-
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="{SITE_URL}public/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{SITE_URL}theme/sample/base.css?v={php echo rand();}" />
-
     {if is_file('app/'.$GLOBALS['TS_URL']['app'].'/skin/style.css')}
     <link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skin/style.css">
     {else}
     <link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skins/default/style.css">
     {/if}
-
-
     <!--新风格加载-->
     {if is_file('theme/'.$GLOBALS['tstheme'].'/style.css')}
     <link rel="stylesheet" type="text/css" href="{SITE_URL}theme/{$GLOBALS['tstheme']}/style.css" id="tsTheme" />
     {/if}
-
-
-    <script>var siteUrl = '{SITE_URL}'; //网站网址</script>
+    <script>var siteUrl = '{SITE_URL}';</script>
     <script src="{SITE_URL}public/js/jquery.min.js" type="text/javascript"></script>
-
     <!--jquery向下兼容-->
     <script src="{SITE_URL}public/js/jquery-migrate.js" type="text/javascript"></script>
-
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="{SITE_URL}public/bootstrap/js/bootstrap.min.js"></script>
-
     <!--bootstrap 前端验证-->
     <script type="text/javascript" src="{SITE_URL}public/js/bootstrap3-validation.js"></script>
 
@@ -55,17 +46,13 @@
         var urllock="$GLOBALS['TS_CF']['urllock']";if(document.domain!=urllock){top.location.href=siteUrl;}
     </script>
     {/if}
-
     <!--CSS图标-->
     <link href="{SITE_URL}public/fontawesome/css/fontawesome-all.css" rel="stylesheet">
-
     <style>
         {php doAction('pub_header_css')}
     </style>
     {php doAction('pub_header_top')}
-
     {php doAction('gobad','pub_header')}
-
 </head>
 <body>
 

@@ -22,13 +22,13 @@ class article extends tsApp {
      * @return mixed
      */
     public function getHotArticle($day, $cateid = 0) {
-        $startTime = time() - ($day * 3600 * 60);
+        $startTime = time() - ($day * 3600 * 24);
         $startTime = date('Y-m-d', $startTime);
 
         $endTime = date('Y-m-d');
 
         if ($day == 30) {
-            $endTime = date('Y-m-d', time() - (7 * 3600 * 60));
+            $endTime = date('Y-m-d', time() - (7 * 3600 * 24));
         }
 
         if ($cateid) {
