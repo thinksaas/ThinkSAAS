@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `ts_anti_email` (
   `email` varchar(64) NOT NULL DEFAULT '' COMMENT 'Email',
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='过滤Email';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='过滤Email';
 
 -- Dumping data for table thinksaas-dev.ts_anti_email: 0 rows
 DELETE FROM `ts_anti_email`;
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `ts_anti_ip` (
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ip` (`ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='垃圾IP';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='垃圾IP';
 
 -- Dumping data for table thinksaas-dev.ts_anti_ip: 0 rows
 DELETE FROM `ts_anti_ip`;
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `ts_anti_report` (
   `content` varchar(512) NOT NULL DEFAULT '' COMMENT '举报内容',
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间',
   PRIMARY KEY (`reportid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='内容举报';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='内容举报';
 
 -- Dumping data for table thinksaas-dev.ts_anti_report: 0 rows
 DELETE FROM `ts_anti_report`;
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `ts_anti_user` (
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01',
   PRIMARY KEY (`id`),
   UNIQUE KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='过滤用户';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='过滤用户';
 
 -- Dumping data for table thinksaas-dev.ts_anti_user: 0 rows
 DELETE FROM `ts_anti_user`;
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `ts_anti_word` (
   `word` varchar(64) NOT NULL DEFAULT '' COMMENT '敏感词',
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=535 DEFAULT CHARSET=utf8 COMMENT='敏感词';
+) ENGINE=MyISAM AUTO_INCREMENT=535 DEFAULT CHARSET=utf8mb4 COMMENT='敏感词';
 
 -- Dumping data for table thinksaas-dev.ts_anti_word: 534 rows
 DELETE FROM `ts_anti_word`;
@@ -649,7 +649,7 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   KEY `count_view_2` (`count_view`,`addtime`),
   KEY `locationid` (`locationid`),
   KEY `tags` (`tags`,`isaudit`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='文章';
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='文章';
 
 -- Dumping data for table thinksaas-dev.ts_article: 0 rows
 DELETE FROM `ts_article`;
@@ -664,7 +664,7 @@ CREATE TABLE IF NOT EXISTS `ts_article_cate` (
   `catename` varchar(64) NOT NULL DEFAULT '' COMMENT '分类名称',
   `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
   PRIMARY KEY (`cateid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章分类';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章分类';
 
 -- Dumping data for table thinksaas-dev.ts_article_cate: 0 rows
 DELETE FROM `ts_article_cate`;
@@ -680,7 +680,7 @@ CREATE TABLE IF NOT EXISTS `ts_article_comment` (
   `content` text NOT NULL COMMENT '评论内容',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '评论时间',
   PRIMARY KEY (`commentid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章评论';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章评论';
 
 -- Dumping data for table thinksaas-dev.ts_article_comment: 0 rows
 DELETE FROM `ts_article_comment`;
@@ -693,7 +693,7 @@ CREATE TABLE IF NOT EXISTS `ts_article_options` (
   `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
   `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容',
   UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章配置';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章配置';
 
 -- Dumping data for table thinksaas-dev.ts_article_options: 5 rows
 DELETE FROM `ts_article_options`;
@@ -714,7 +714,7 @@ CREATE TABLE IF NOT EXISTS `ts_article_recommend` (
   UNIQUE KEY `articleid` (`articleid`,`userid`),
   KEY `articleid_2` (`articleid`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章推荐';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章推荐';
 
 -- Dumping data for table thinksaas-dev.ts_article_recommend: 0 rows
 DELETE FROM `ts_article_recommend`;
@@ -729,7 +729,7 @@ CREATE TABLE IF NOT EXISTS `ts_cache` (
   `cachevalue` text NOT NULL COMMENT '缓存内容',
   PRIMARY KEY (`cacheid`),
   UNIQUE KEY `cachename` (`cachename`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='缓存';
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COMMENT='缓存';
 
 -- Dumping data for table thinksaas-dev.ts_cache: 19 rows
 DELETE FROM `ts_cache`;
@@ -767,7 +767,7 @@ CREATE TABLE IF NOT EXISTS `ts_draft` (
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
   PRIMARY KEY (`draftid`),
   UNIQUE KEY `userid_types` (`userid`,`types`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='草稿箱';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='草稿箱';
 
 -- Dumping data for table thinksaas-dev.ts_draft: 0 rows
 DELETE FROM `ts_draft`;
@@ -785,7 +785,7 @@ CREATE TABLE IF NOT EXISTS `ts_editor` (
   `url` char(32) NOT NULL DEFAULT '' COMMENT '图片或者文件',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='编辑器上传图片和文件';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='编辑器上传图片和文件';
 
 -- Dumping data for table thinksaas-dev.ts_editor: 0 rows
 DELETE FROM `ts_editor`;
@@ -831,7 +831,7 @@ CREATE TABLE IF NOT EXISTS `ts_group` (
   KEY `isaudit` (`isaudit`),
   KEY `addtime` (`addtime`),
   KEY `isrecommend` (`isrecommend`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='群组(小组)';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='群组(小组)';
 
 -- Dumping data for table thinksaas-dev.ts_group: 0 rows
 DELETE FROM `ts_group`;
@@ -853,7 +853,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_album` (
   KEY `userid` (`userid`),
   KEY `count_topic` (`count_topic`),
   KEY `addtime` (`addtime`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组帖子专辑';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组帖子专辑';
 
 -- Dumping data for table thinksaas-dev.ts_group_album: 0 rows
 DELETE FROM `ts_group_album`;
@@ -868,7 +868,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_album_topic` (
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间',
   UNIQUE KEY `albumid_2` (`albumid`,`topicid`),
   KEY `albumid` (`albumid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组专辑帖子关联';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组专辑帖子关联';
 
 -- Dumping data for table thinksaas-dev.ts_group_album_topic: 0 rows
 DELETE FROM `ts_group_album_topic`;
@@ -885,7 +885,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_cate` (
   `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '最后更新时间',
   PRIMARY KEY (`cateid`),
   KEY `referid` (`referid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组分类';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组分类';
 
 -- Dumping data for table thinksaas-dev.ts_group_cate: 0 rows
 DELETE FROM `ts_group_cate`;
@@ -898,7 +898,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_options` (
   `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
   `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容',
   UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组配置';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组配置';
 
 -- Dumping data for table thinksaas-dev.ts_group_options: 9 rows
 DELETE FROM `ts_group_options`;
@@ -952,7 +952,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic` (
   KEY `count_love` (`count_love`),
   KEY `count_view_2` (`count_view`,`addtime`),
   KEY `isshow` (`isaudit`,`uptime`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组话题(小组帖子)';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组话题(小组帖子)';
 
 -- Dumping data for table thinksaas-dev.ts_group_topic: 0 rows
 DELETE FROM `ts_group_topic`;
@@ -969,7 +969,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_collect` (
   UNIQUE KEY `userid_2` (`userid`,`topicid`),
   KEY `userid` (`userid`),
   KEY `topicid` (`topicid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='帖子收藏';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子收藏';
 
 -- Dumping data for table thinksaas-dev.ts_group_topic_collect: 0 rows
 DELETE FROM `ts_group_topic_collect`;
@@ -990,7 +990,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_comment` (
   KEY `topicid` (`topicid`),
   KEY `userid` (`userid`),
   KEY `referid` (`referid`,`topicid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='话题回复/评论';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='话题回复/评论';
 
 -- Dumping data for table thinksaas-dev.ts_group_topic_comment: 0 rows
 DELETE FROM `ts_group_topic_comment`;
@@ -1008,7 +1008,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_edit` (
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '修改时间',
   PRIMARY KEY (`editid`),
   UNIQUE KEY `topicid` (`topicid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='话题编辑';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='话题编辑';
 
 -- Dumping data for table thinksaas-dev.ts_group_topic_edit: 0 rows
 DELETE FROM `ts_group_topic_edit`;
@@ -1023,7 +1023,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_love` (
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
   UNIQUE KEY `userid_topicid` (`userid`,`topicid`),
   KEY `topicid` (`topicid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子点赞喜欢';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4mb4 COMMENT='帖子点赞喜欢';
 
 -- Dumping data for table thinksaas-dev.ts_group_topic_love: 0 rows
 DELETE FROM `ts_group_topic_love`;
@@ -1043,7 +1043,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_photo` (
   UNIQUE KEY `photoid` (`photoid`),
   KEY `topicid` (`topicid`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='帖子图片表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子图片表';
 
 -- Dumping data for table thinksaas-dev.ts_group_topic_photo: 0 rows
 DELETE FROM `ts_group_topic_photo`;
@@ -1059,7 +1059,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_type` (
   `count_topic` int(11) NOT NULL DEFAULT '0' COMMENT '统计帖子',
   PRIMARY KEY (`typeid`),
   KEY `groupid` (`groupid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='帖子分类';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子分类';
 
 -- Dumping data for table thinksaas-dev.ts_group_topic_type: 0 rows
 DELETE FROM `ts_group_topic_type`;
@@ -1080,7 +1080,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_user` (
   KEY `groupid` (`groupid`),
   KEY `groupid_2` (`groupid`,`isadmin`,`isfounder`),
   KEY `addtime` (`addtime`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='群组和用户对应关系';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='群组和用户对应关系';
 
 -- Dumping data for table thinksaas-dev.ts_group_user: 0 rows
 DELETE FROM `ts_group_user`;
@@ -1094,7 +1094,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_user_isaudit` (
   `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
   UNIQUE KEY `userid` (`userid`,`groupid`),
   KEY `groupid` (`groupid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用于申请加入小组的成员审核';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用于申请加入小组的成员审核';
 
 -- Dumping data for table thinksaas-dev.ts_group_user_isaudit: 0 rows
 DELETE FROM `ts_group_user_isaudit`;
@@ -1109,7 +1109,7 @@ CREATE TABLE IF NOT EXISTS `ts_home_info` (
   `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
   `content` text NOT NULL COMMENT '内容',
   PRIMARY KEY (`infoid`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='关于我们等信息';
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='关于我们等信息';
 
 -- Dumping data for table thinksaas-dev.ts_home_info: 5 rows
 DELETE FROM `ts_home_info`;
@@ -1132,7 +1132,7 @@ CREATE TABLE IF NOT EXISTS `ts_location` (
   `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片',
   `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
   PRIMARY KEY (`locationid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='同城';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='同城';
 
 -- Dumping data for table thinksaas-dev.ts_location: 0 rows
 DELETE FROM `ts_location`;
@@ -1147,7 +1147,7 @@ CREATE TABLE IF NOT EXISTS `ts_mail_options` (
   `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容',
   PRIMARY KEY (`optionid`),
   UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='发信邮件配置';
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='发信邮件配置';
 
 -- Dumping data for table thinksaas-dev.ts_mail_options: 8 rows
 DELETE FROM `ts_mail_options`;
@@ -1177,7 +1177,7 @@ CREATE TABLE IF NOT EXISTS `ts_message` (
   PRIMARY KEY (`messageid`),
   KEY `touserid` (`touserid`,`isread`),
   KEY `userid` (`userid`,`touserid`,`isread`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='短消息表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='短消息表';
 
 -- Dumping data for table thinksaas-dev.ts_message: 0 rows
 DELETE FROM `ts_message`;
@@ -1201,7 +1201,7 @@ CREATE TABLE IF NOT EXISTS `ts_photo` (
   `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不推荐1推荐',
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
   PRIMARY KEY (`photoid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='相册图片';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='相册图片';
 
 -- Dumping data for table thinksaas-dev.ts_photo: 0 rows
 DELETE FROM `ts_photo`;
@@ -1226,7 +1226,7 @@ CREATE TABLE IF NOT EXISTS `ts_photo_album` (
   PRIMARY KEY (`albumid`),
   KEY `userid` (`userid`),
   KEY `isrecommend` (`isrecommend`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='相册';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='相册';
 
 -- Dumping data for table thinksaas-dev.ts_photo_album: 0 rows
 DELETE FROM `ts_photo_album`;
@@ -1246,7 +1246,7 @@ CREATE TABLE IF NOT EXISTS `ts_photo_comment` (
   KEY `userid` (`userid`),
   KEY `referid` (`referid`,`photoid`),
   KEY `photoid` (`photoid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='图片回复/评论';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='图片回复/评论';
 
 -- Dumping data for table thinksaas-dev.ts_photo_comment: 0 rows
 DELETE FROM `ts_photo_comment`;
@@ -1261,7 +1261,7 @@ CREATE TABLE IF NOT EXISTS `ts_photo_options` (
   `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容',
   PRIMARY KEY (`optionid`),
   UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='配置';
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='配置';
 
 -- Dumping data for table thinksaas-dev.ts_photo_options: 4 rows
 DELETE FROM `ts_photo_options`;
@@ -1284,7 +1284,7 @@ CREATE TABLE IF NOT EXISTS `ts_session` (
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
   UNIQUE KEY `session` (`session`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='SESSION';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='SESSION';
 
 -- Dumping data for table thinksaas-dev.ts_session: 0 rows
 DELETE FROM `ts_session`;
@@ -1303,7 +1303,7 @@ CREATE TABLE IF NOT EXISTS `ts_slide` (
   `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
   PRIMARY KEY (`slideid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='轮播图';
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='轮播图';
 
 -- Dumping data for table thinksaas-dev.ts_slide: 1 rows
 DELETE FROM `ts_slide`;
@@ -1318,7 +1318,7 @@ CREATE TABLE IF NOT EXISTS `ts_system_options` (
   `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
   `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容',
   UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统管理配置';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='系统管理配置';
 
 -- Dumping data for table thinksaas-dev.ts_system_options: 29 rows
 DELETE FROM `ts_system_options`;
@@ -1369,7 +1369,7 @@ CREATE TABLE IF NOT EXISTS `ts_tag` (
   `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`tagid`),
   UNIQUE KEY `tagname` (`tagname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='标签表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='标签表';
 
 -- Dumping data for table thinksaas-dev.ts_tag: 0 rows
 DELETE FROM `ts_tag`;
@@ -1384,7 +1384,7 @@ CREATE TABLE IF NOT EXISTS `ts_tag_article_index` (
   UNIQUE KEY `articleid_2` (`articleid`,`tagid`),
   KEY `articleid` (`articleid`),
   KEY `tagid` (`tagid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章标签关联';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章标签关联';
 
 -- Dumping data for table thinksaas-dev.ts_tag_article_index: 0 rows
 DELETE FROM `ts_tag_article_index`;
@@ -1399,7 +1399,7 @@ CREATE TABLE IF NOT EXISTS `ts_tag_group_index` (
   UNIQUE KEY `groupid_2` (`groupid`,`tagid`),
   KEY `groupid` (`groupid`),
   KEY `tagid` (`tagid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='小组标签关联';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组标签关联';
 
 -- Dumping data for table thinksaas-dev.ts_tag_group_index: 0 rows
 DELETE FROM `ts_tag_group_index`;
@@ -1414,7 +1414,7 @@ CREATE TABLE IF NOT EXISTS `ts_tag_photo_index` (
   UNIQUE KEY `photoid_2` (`photoid`,`tagid`),
   KEY `tagid` (`tagid`),
   KEY `photoid` (`photoid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='相册图片标签关联';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='相册图片标签关联';
 
 -- Dumping data for table thinksaas-dev.ts_tag_photo_index: 0 rows
 DELETE FROM `ts_tag_photo_index`;
@@ -1429,7 +1429,7 @@ CREATE TABLE IF NOT EXISTS `ts_tag_topic_index` (
   UNIQUE KEY `topicid_2` (`topicid`,`tagid`),
   KEY `topicid` (`topicid`),
   KEY `tagid` (`tagid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='帖子标签关联';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子标签关联';
 
 -- Dumping data for table thinksaas-dev.ts_tag_topic_index: 0 rows
 DELETE FROM `ts_tag_topic_index`;
@@ -1444,7 +1444,7 @@ CREATE TABLE IF NOT EXISTS `ts_tag_user_index` (
   UNIQUE KEY `userid_2` (`userid`,`tagid`),
   KEY `userid` (`userid`),
   KEY `tagid` (`tagid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户标签关联';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户标签关联';
 
 -- Dumping data for table thinksaas-dev.ts_tag_user_index: 0 rows
 DELETE FROM `ts_tag_user_index`;
@@ -1461,7 +1461,7 @@ CREATE TABLE IF NOT EXISTS `ts_task` (
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间',
   PRIMARY KEY (`taskid`),
   UNIQUE KEY `taskkey` (`taskkey`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='任务';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='任务';
 
 -- Dumping data for table thinksaas-dev.ts_task: 0 rows
 DELETE FROM `ts_task`;
@@ -1477,7 +1477,7 @@ CREATE TABLE IF NOT EXISTS `ts_task_user` (
   UNIQUE KEY `userid` (`userid`,`taskkey`),
   KEY `taskkey` (`taskkey`),
   KEY `userid_2` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户任务关联';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户任务关联';
 
 -- Dumping data for table thinksaas-dev.ts_task_user: 0 rows
 DELETE FROM `ts_task_user`;
@@ -1496,7 +1496,7 @@ CREATE TABLE IF NOT EXISTS `ts_user` (
   PRIMARY KEY (`userid`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `pwd` (`pwd`,`email`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户';
 
 -- Dumping data for table thinksaas-dev.ts_user: 0 rows
 DELETE FROM `ts_user`;
@@ -1512,7 +1512,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_follow` (
   UNIQUE KEY `userid_2` (`userid`,`userid_follow`),
   KEY `userid` (`userid`),
   KEY `userid_follow` (`userid_follow`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户关注跟随';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户关注跟随';
 
 -- Dumping data for table thinksaas-dev.ts_user_follow: 0 rows
 DELETE FROM `ts_user_follow`;
@@ -1531,7 +1531,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_gb` (
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   KEY `touserid` (`touserid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='留言表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='留言表';
 
 -- Dumping data for table thinksaas-dev.ts_user_gb: 0 rows
 DELETE FROM `ts_user_gb`;
@@ -1549,7 +1549,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_group` (
   `create` tinyint(1) NOT NULL DEFAULT '0' COMMENT '写入权限',
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '积分挂钩',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户组';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户组';
 
 -- Dumping data for table thinksaas-dev.ts_user_group: 0 rows
 DELETE FROM `ts_user_group`;
@@ -1600,7 +1600,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
   KEY `fuserid` (`fuserid`),
   KEY `isrecommend` (`isrecommend`),
   KEY `isrenzheng` (`isrenzheng`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户';
 
 -- Dumping data for table thinksaas-dev.ts_user_info: 0 rows
 DELETE FROM `ts_user_info`;
@@ -1619,7 +1619,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_invites` (
   UNIQUE KEY `invitecode` (`invitecode`),
   KEY `isused` (`isused`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户邀请码';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户邀请码';
 
 -- Dumping data for table thinksaas-dev.ts_user_invites: 0 rows
 DELETE FROM `ts_user_invites`;
@@ -1637,7 +1637,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_open` (
   UNIQUE KEY `userid_2` (`userid`,`sitename`),
   UNIQUE KEY `sitename` (`sitename`,`openid`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='第三方连接登录';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='第三方连接登录';
 
 -- Dumping data for table thinksaas-dev.ts_user_open: 0 rows
 DELETE FROM `ts_user_open`;
@@ -1650,7 +1650,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_options` (
   `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
   `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容',
   UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='配置';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='配置';
 
 -- Dumping data for table thinksaas-dev.ts_user_options: 6 rows
 DELETE FROM `ts_user_options`;
@@ -1672,7 +1672,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_role` (
   `score_start` int(11) NOT NULL DEFAULT '0' COMMENT '积分开始',
   `score_end` int(11) NOT NULL DEFAULT '0' COMMENT '积分结束',
   PRIMARY KEY (`roleid`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='角色';
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COMMENT='角色';
 
 -- Dumping data for table thinksaas-dev.ts_user_role: 17 rows
 DELETE FROM `ts_user_role`;
@@ -1710,7 +1710,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_score` (
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '积分数',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0加积分1减积分',
   PRIMARY KEY (`scoreid`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='用户积分设置表';
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COMMENT='用户积分设置表';
 
 -- Dumping data for table thinksaas-dev.ts_user_score: 16 rows
 DELETE FROM `ts_user_score`;
@@ -1745,7 +1745,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_score_log` (
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '积分时间',
   PRIMARY KEY (`logid`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户积分记录';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户积分记录';
 
 -- Dumping data for table thinksaas-dev.ts_user_score_log: 0 rows
 DELETE FROM `ts_user_score_log`;
@@ -1767,7 +1767,7 @@ CREATE TABLE IF NOT EXISTS `ts_weibo` (
   `uptime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '更新时间',
   PRIMARY KEY (`weiboid`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='唠叨';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='唠叨';
 
 -- Dumping data for table thinksaas-dev.ts_weibo: 0 rows
 DELETE FROM `ts_weibo`;
@@ -1787,7 +1787,7 @@ CREATE TABLE IF NOT EXISTS `ts_weibo_comment` (
   PRIMARY KEY (`commentid`),
   KEY `touserid` (`touserid`,`isread`),
   KEY `noteid` (`weiboid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='唠叨回复';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='唠叨回复';
 
 -- Dumping data for table thinksaas-dev.ts_weibo_comment: 0 rows
 DELETE FROM `ts_weibo_comment`;
@@ -1800,7 +1800,7 @@ CREATE TABLE IF NOT EXISTS `ts_weibo_options` (
   `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
   `optionvalue` varchar(512) NOT NULL DEFAULT '' COMMENT '选项内容',
   UNIQUE KEY `optionname` (`optionname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='唠叨配置';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='唠叨配置';
 
 -- Dumping data for table thinksaas-dev.ts_weibo_options: 3 rows
 DELETE FROM `ts_weibo_options`;

@@ -23,7 +23,7 @@ class MySql {
 		$this->conn = mysqli_connect ( $DB ['host'],$DB ['user'], $DB ['pwd'] ,$DB ['name'],$DB ['port'] );
 		
 		if(mysqli_connect_errno())qiMsg('数据库链接错误/无法找到数据库 : '. mysqli_connect_error());
-		$this->query("SET NAMES UTF8");
+		$this->query("SET NAMES utf8mb4");
 		
 	}
 	
