@@ -62,11 +62,34 @@
 
                         {if $strTopic['iscommentshow']==1 && $isComment==0 && $strTopic['userid']!=intval($TS_USER['userid'])}
                         {else}
+
+                        <!---视频处理开始--->
+                        {if $TS_APP['istopicvideo']}
+                        <div class="topic_video">
+
+                            {if $arrVideo}
+                            {loop $arrVideo $key $item}
+                            <p>
+                                {if $item['siteid']==1 || $item['siteid']==2 || $item['siteid']==3}
+                                <iframe frameborder="0" src="{$item['iframe']}" allowFullScreen="true"></iframe>
+                                {/if}
+                            </p>
+                            {/loop}
+                            {/if}
+
+                            {if $TS_USER['userid']==$strTopic['userid'] || $TS_USER['isadmin']==1}
+                            <div class="text-center"><a class="btn btn-link" href="{tsUrl('video','upload',array('ts'=>'network','topicid'=>$topicid))}"> <i class="fas fa-plus-circle"></i> 插入视频</a></div>
+                            {/if}
+
+                        </div>
+                        {/if}
+
+
                         <!---附件处理开始--->
                         {if $TS_APP['istopicattach']}
 
                         {if $arrAttach}
-                        <div class="topic_attach">
+                        <div class="topic_attach mt-3">
                             <ul>
                                 {loop $arrAttach $key $item}
                                 <li><a target="_blank" href="{tsUrl('attach','show',array('id'=>$item['attachid']))}">{tsTitle($item['attachname'])}</a> - <span class="c9 fs12">{$item['count_down']}次下载</span> - <span class="c9 fs12">需{$item['score']}积分</span></li>
@@ -84,7 +107,7 @@
                         {else}
 
                         {if $TS_USER['userid']==$strTopic['userid'] || $TS_USER['isadmin']==1}
-                        <div class="topic_attach">
+                        <div class="topic_attach mt-3">
                             <div class="tac">
                                 <a class="btn btn-link" href="{tsUrl('attach','select',array('topicid'=>$strTopic['topicid']))}"><i class="fas fa-plus-circle"></i>上传/选择附件</a>
                             </div>

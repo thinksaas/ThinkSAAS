@@ -20,6 +20,10 @@ class ComposerStaticInit2db7e2fa11a5b7e8309e5b34a51b960e
             'Psr\\Http\\Message\\' => 17,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'O' => 
+        array (
+            'OSS\\' => 4,
+        ),
         'I' => 
         array (
             'Intervention\\Image\\' => 19,
@@ -42,6 +46,10 @@ class ComposerStaticInit2db7e2fa11a5b7e8309e5b34a51b960e
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'OSS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aliyuncs/oss-sdk-php/src/OSS',
         ),
         'Intervention\\Image\\' => 
         array (

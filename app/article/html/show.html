@@ -62,6 +62,31 @@
 
 
                     <div class="article_show_content lh30 common-content">
+
+
+                        <!---视频处理开始--->
+                        {if $TS_APP['isarticlevideo']}
+                        <div class="article_video">
+
+                            {if $arrVideo}
+                            {loop $arrVideo $key $item}
+                            <p>
+                                {if $item['siteid']==1 || $item['siteid']==2 || $item['siteid']==3}
+                                <iframe frameborder="0" src="{$item['iframe']}" allowFullScreen="true"></iframe>
+                                {/if}
+                            </p>
+                            {/loop}
+                            {/if}
+
+                            {if $TS_USER['userid']==$strArticle['userid'] || $TS_USER['isadmin']==1}
+                            <div class="text-center"><a class="btn btn-link" href="{tsUrl('video','upload',array('ts'=>'network','articleid'=>$articleid))}"> <i class="fas fa-plus-circle"></i> 插入视频</a></div>
+                            {/if}
+
+                        </div>
+                        {/if}
+
+
+
                         {php doAction('gobad','content_top')}
                         {$strArticle[content]}
 

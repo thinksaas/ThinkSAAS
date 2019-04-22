@@ -88,4 +88,45 @@ class article extends tsApp {
 
     }
 
+
+    /**
+     * 获取文章关联视频
+     * @param $articleid
+     * @return mixed
+     */
+    public function getArticleVideo($articleid){
+
+        $arrVideoId = $this->findAll('article_video',array(
+            'articleid'=>$articleid,
+        ));
+
+        $arrVideo = array();
+
+        if($arrVideoId){
+            foreach($arrVideoId as $key=>$item){
+                $arrId[] = $item['videoid'];
+            }
+
+            $videoid = arr2str($arrId);
+
+            $arrVideo = $this->findAll('video',"`videoid` in ($videoid)");
+
+            foreach($arrVideo as $key=>$item){
+                if($item['siteid']==1){
+                    $arrVideo[$key]['iframe'] = "//v.qq.com/txp/iframe/player.html?vid=".$item['vid'];
+                }elseif($item['siteid']==2){
+                    $arrVideo[$key]['iframe'] = "//player.youku.com/embed/".$item['vid']."==";
+                }elseif($item['siteid']==3){
+                    $arrVideo[$key]['iframe'] = "//player.bilibili.com/player.html?aid=".$item['vid']."&page=1";
+                }else{
+
+                }
+            }
+
+        }
+
+        return $arrVideo;
+
+    }
+
 }

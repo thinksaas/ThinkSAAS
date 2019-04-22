@@ -33,6 +33,15 @@
     </td></tr>
 
 
+    <tr><td>帖子是否插入视频 :</td><td>
+
+        <input name="option[istopicvideo]" type="radio" value="0" {if $strOption['istopicvideo']=='0'}checked{/if} />不插入
+
+        <input name="option[istopicvideo]" type="radio" value="1" {if $strOption['istopicvideo']=='1'}checked{/if} />插入 (帖子插入视频必须安装视频APP)
+
+    </td></tr>
+
+
     <tr><td>是否开启加入小组付费功能 :</td><td>
 
         <input {if $strOption['ispayjoin']=='0'}checked="select"{/if} name="option[ispayjoin]" type="radio" value="0" />不开启

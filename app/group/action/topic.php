@@ -173,6 +173,13 @@ if($TS_APP['istopicattach']){
 ####帖子关联附件APP结束####
 
 
+####帖子关联视频APP开始####
+if($TS_APP['istopicvideo']){
+    $arrVideo = $new['group']->getTopicVideo($strTopic['topicid']);
+}
+####帖子关联视频APP开始####
+
+
 $sitedesc = cututf8(t($strTopic['content']),0,100);
 
 include template('topic');

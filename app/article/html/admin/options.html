@@ -16,6 +16,16 @@
 
             <tr><td>文章是否审核：</td><td><input type="radio" name="option[isaudit]" value="0" {if $strOption['isaudit']=='0'}checked{/if}  />不审核 <input type="radio" name="option[isaudit]" value="1" {if $strOption['isaudit']=='1'}checked{/if} />审核</td></tr>
 
+
+            <tr><td>文章是否插入视频 :</td><td>
+
+                <input name="option[isarticlevideo]" type="radio" value="0" {if $strOption['isarticlevideo']=='0'}checked{/if} />不插入
+
+                <input name="option[isarticlevideo]" type="radio" value="1" {if $strOption['isarticlevideo']=='1'}checked{/if} />插入 (文章插入视频必须安装视频APP)
+
+            </td></tr>
+
+
             <tr><td></td><td>
 
                 <input class="btn btn-primary" type="submit" value="提交修改" /></td>

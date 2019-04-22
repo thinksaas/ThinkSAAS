@@ -35,6 +35,13 @@ $strArticle ['cate'] = $new ['article']->find ( 'article_cate', array (
 ) );
 
 
+####文章关联视频APP开始####
+if($TS_APP['isarticlevideo']){
+    $arrVideo = $new['article']->getArticleVideo($strArticle['articleid']);
+}
+####文章关联视频APP开始####
+
+
 
 // 上一篇
 $strUp = $new['article']->find('article', "`articleid`< '$articleid' and `isaudit`='0'", 'articleid,title','articleid desc');

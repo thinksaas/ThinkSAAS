@@ -282,7 +282,17 @@
     border:dashed 2px #EDCEBA;
     padding:10px;
 }
-
-.topic_attach{}
 .topic_attach ul{list-style: none;margin:0;padding: 0;}
 .topic_attach ul li{list-style: none;margin: 0;padding: 0;}
+
+/**帖子视频**/
+.topic_video{
+    background-color: #FFFFFF;
+    border:dashed 2px #66afe9;
+    padding:10px;
+}
+
+.topic_video iframe{width: 100%;height:450px;}
+@media (max-width: 575.98px) {
+    .topic_video iframe{width: 100%;height:230px;}
+}

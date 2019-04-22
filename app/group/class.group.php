@@ -352,8 +352,49 @@ class group extends tsApp{
         return $arrAttach;
     }
 
+    /**
+     * 获取帖子关联视频
+     * @param $topicid
+     * @return mixed
+     */
+    public function getTopicVideo($topicid){
 
-    //获取帖子图片，处理通过小程序或者客户端发的图片
+        $arrVideoId = $this->findAll('group_topic_video',array(
+            'topicid'=>$topicid,
+        ));
+
+        $arrVideo = array();
+
+        if($arrVideoId){
+            foreach($arrVideoId as $key=>$item){
+                $arrId[] = $item['videoid'];
+            }
+
+            $videoid = arr2str($arrId);
+
+            $arrVideo = $this->findAll('video',"`videoid` in ($videoid)");
+
+            foreach($arrVideo as $key=>$item){
+                if($item['siteid']==1){
+                    $arrVideo[$key]['iframe'] = "//v.qq.com/txp/iframe/player.html?vid=".$item['vid'];
+                }elseif($item['siteid']==2){
+                    $arrVideo[$key]['iframe'] = "//player.youku.com/embed/".$item['vid']."==";
+                }elseif($item['siteid']==3){
+                    $arrVideo[$key]['iframe'] = "//player.bilibili.com/player.html?aid=".$item['vid']."&page=1";
+                }else{
+
+                }
+            }
+
+        }
+
+        return $arrVideo;
+
+    }
+
+    /**
+     * 获取帖子图片，处理通过小程序或者客户端发的图片
+     */
     public function getTopicPhoto($topicid,$num=null){
         $arrPhotos = $this->findAll('group_topic_photo',array(
             'topicid'=>$topicid,
