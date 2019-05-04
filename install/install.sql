@@ -1184,6 +1184,15 @@ DELETE FROM `ts_message`;
 /*!40000 ALTER TABLE `ts_message` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_message` ENABLE KEYS */;
 
+-- Dumping structure for table demo_thinksaas.ts_phone_code
+DROP TABLE IF EXISTS `ts_phone_code`;
+CREATE TABLE IF NOT EXISTS `ts_phone_code` (
+  `phone` varchar(32) CHARACTER SET utf8 NOT NULL COMMENT '手机号',
+  `code` varchar(32) CHARACTER SET utf8 NOT NULL COMMENT '验证码',
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间',
+  UNIQUE KEY `phone` (`phone`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='手机号验证码';
+
 -- Dumping structure for table thinksaas-dev.ts_photo
 DROP TABLE IF EXISTS `ts_photo`;
 CREATE TABLE IF NOT EXISTS `ts_photo` (

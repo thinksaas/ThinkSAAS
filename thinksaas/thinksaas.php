@@ -7,25 +7,6 @@
  */
 defined('IN_TS') or die('Access Denied.');
 
-//核心配置文件 $TS_CF 系统配置变量
-$TS_CF = include THINKROOT . '/thinksaas/config.php';
-$TS_CF['info']['version'] = include 'upgrade/version.php';#版本信息
-
-// 如果是调试模式，打开警告输出
-if ($TS_CF['debug']) {
-    error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-} else {
-    error_reporting(0);
-}
-
-//ini_set("memory_limit","120M");
-
-ini_set('display_errors', 'on');   //正式环境关闭错误输出
-
-set_time_limit(0);
-
-ini_set('session.cookie_path', '/');
-
 //杜绝非本站域名的使用
 if($TS_CF['urllock'] && $_SERVER['SERVER_NAME']!=$TS_CF['urllock']){
     echo '404 page';exit;
