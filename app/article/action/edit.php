@@ -66,7 +66,7 @@ switch ($ts) {
 
 		$title = trim ( $_POST ['title'] );
 		$content = tsClean ( $_POST ['content'] );
-		$content2 = emptyText() ( $_POST ['content'] );
+		$content2 = emptyText ( $_POST ['content'] );
 		$gaiyao = trim ( $_POST ['gaiyao'] );
 
 		if ($TS_USER ['isadmin'] == 0) {

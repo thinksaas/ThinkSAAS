@@ -2519,7 +2519,7 @@ function dengBi($width,$height,$maxX=1280,$maxY=1280){
 /**
  * 编辑器存在有html标签的空内容
  */
-function emptyText($text){
+function emptyText($text=''){
     $text = trim($text);
     $text = str_replace('<p>','',$text);
     $text = str_replace('<br>','',$text);
