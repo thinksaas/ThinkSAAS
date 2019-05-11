@@ -16,7 +16,7 @@ editor.customConfig.zIndex = 100
 editor.customConfig.zHeight = '100px'//编辑器编辑区高度
 
 // 配置服务器端地址
-editor.customConfig.uploadImgServer = siteUrl+'index.php?app=pubs&ac=wangeditor&ts=photo'
+editor.customConfig.uploadImgServer = siteUrl+'index.php?app=pubs&ac=editor&ts=photo&js=1'
 // 将图片大小限制为 2M
 editor.customConfig.uploadImgMaxSize = 2 * 1024 * 1024
 // 限制一次最多上传 5 张图片

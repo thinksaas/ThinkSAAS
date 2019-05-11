@@ -11,6 +11,7 @@ switch($ts){
     #图片上传
     case "photo":
 
+        $js = intval($_GET['js']);
 
         $userid = aac('user')->isLogin();
 
@@ -32,14 +33,23 @@ switch($ts){
             ));
 
 
+            if($js==1){
 
-            echo json_encode(array(
-                'errno'=>0,
-                'data'=>array(
-                    0=>SITE_URL.'uploadfile/editor/'.$arrUpload['url'],
-                ),
-            ));
-            exit();
+                echo json_encode(array(
+                    'errno'=>0,
+                    'data'=>array(
+                        0=>SITE_URL.'uploadfile/editor/'.$arrUpload['url'],
+                    ),
+                ));
+                exit();
+
+            }else{
+
+                echo SITE_URL.'uploadfile/editor/'.$arrUpload['url'];
+                exit();
+
+            }
+
 
 
         }else{
