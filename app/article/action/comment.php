@@ -9,8 +9,9 @@ switch ($ts) {
 
 		$articleid = intval ( $_POST ['articleid'] );
 		$content = tsClean ( $_POST ['content'] );
-		
-		if ($content == '')
+		$content2 = emptyText() ( $_POST ['content'] );
+
+		if ($content2 == '')
 			tsNotice ( "内容不能为空！" );
 			
 			// 过滤内容开始

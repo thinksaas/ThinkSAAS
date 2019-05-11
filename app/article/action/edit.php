@@ -66,6 +66,7 @@ switch ($ts) {
 
 		$title = trim ( $_POST ['title'] );
 		$content = tsClean ( $_POST ['content'] );
+		$content2 = emptyText() ( $_POST ['content'] );
 		$gaiyao = trim ( $_POST ['gaiyao'] );
 
 		if ($TS_USER ['isadmin'] == 0) {
@@ -75,7 +76,7 @@ switch ($ts) {
 			// 过滤内容结束
 		}
 		
-		if ($title == '' || $content == '')
+		if ($title == '' || $content2 == '')
 			qiMsg ( "标题和内容都不能为空！" );
 		
 		$new ['article']->update ( 'article', array (

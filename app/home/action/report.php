@@ -11,7 +11,6 @@ switch ($ts){
     case "":
 
 
-
         $title = '举报中心';
         include template('report');
         break;
@@ -19,11 +18,20 @@ switch ($ts){
     case "do":
 
         $url = trim($_POST['url']);
-        $content = trim($_POST['content']);
+        $content = t($_POST['content']);
 
         if($url==''){
             tsNotice('举报链接不能为空');
         }
+
+        $arrUrl = explode('/',$url);
+
+        $mainUrl = $arrUrl['0'].'/';
+
+        if($mainUrl!=$GLOBALS['TS_SITE']['link_url']){
+            tsNotice('非法操作');
+        }
+
 
         $new['home']->create('anti_report',array(
             'url'=>$url,

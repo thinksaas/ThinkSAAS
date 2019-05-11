@@ -606,6 +606,7 @@ var config = {
 
     // 编辑区域的 z-index
     zIndex: 10000,
+    zHeight: '300px',
 
     // 是否开启 debug 模式（debug 模式下错误会 throw error 形式抛出）
     debug: false,
@@ -4379,6 +4380,7 @@ Editor.prototype = {
 
         var config$$1 = this.config;
         var zIndex = config$$1.zIndex;
+        var zHeight = config$$1.zHeight;	//定义编辑区域高度
 
         // 定义变量
         var $toolbarElem = void 0,
@@ -4426,6 +4428,7 @@ Editor.prototype = {
         $toolbarElem.addClass('w-e-toolbar');
         $textContainerElem.addClass('w-e-text-container');
         $textContainerElem.css('z-index', zIndex);
+        $textContainerElem.css('height', zHeight);	//定义编辑区域高度
         $textElem.addClass('w-e-text');
 
         // 添加 ID

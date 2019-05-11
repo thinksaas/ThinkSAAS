@@ -2515,3 +2515,15 @@ function dengBi($width,$height,$maxX=1280,$maxY=1280){
         'h'=>$sHeight,
     );
 }
+
+/**
+ * 编辑器存在有html标签的空内容
+ */
+function emptyText($text){
+    $text = trim($text);
+    $text = str_replace('<p>','',$text);
+    $text = str_replace('<br>','',$text);
+    $text = str_replace('</p>','',$text);
+    $text = trim($text);
+    return $text;
+}

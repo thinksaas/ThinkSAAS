@@ -88,11 +88,12 @@ switch($ts){
 		//echo br2nl($_POST['content']);exit;
 		
 		$content = tsClean($_POST['content']);
-		
+		$content2 = emptyText($_POST['content']);
+
 		$iscomment = intval($_POST['iscomment']);
 		$iscommentshow = intval($_POST['iscommentshow']);
 		
-		if($topicid == '' || $title=='' || $content=='') tsNotice("都不能为空的哦!");
+		if($topicid == '' || $title=='' || $content2=='') tsNotice("都不能为空的哦!");
 		
 		
 		if($TS_USER['isadmin']==0){

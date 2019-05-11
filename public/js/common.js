@@ -215,3 +215,45 @@ $(document).ready(function () {
         }
     });
 });
+
+
+
+function sendPhoneCode(typeid){
+    var phone = $("#myphone").val();
+    var authcode = $("#authcode").val();
+    if(phone==''){
+        tsNotice('手机号码不能为空！');
+        return false;
+    }
+    if(authcode==''){
+        tsNotice('图片验证码不能为空！');
+        return false;
+    }
+    $.post(siteUrl+'index.php?app=pubs&ac=phone',{'phone':phone,'authcode':authcode,'typeid':typeid},function(rs){
+        if(rs==0){
+            tsNotice('手机号码不能为空！');
+        }else if(rs==1){
+            tsNotice('30分钟内只能发送一次短信验证码！');
+        }else if(rs==2){
+            var step = 59;
+            $('#mybtn').val('重新发送60');
+            var _res = setInterval(function()
+            {
+                $("#mybtn").attr("disabled", true);//设置disabled属性
+                $('#mybtn').html('重新发送'+step);
+                step-=1;
+                if(step <= 0){
+                    $("#mybtn").removeAttr("disabled"); //移除disabled属性
+                    $('#mybtn').html('获取验证码');
+                    clearInterval(_res);//清除setInterval
+                }
+            },1000);
+        }else if(rs==3){
+            tsNotice('手机号已经被其他账号使用，请更换手机号！');
+        }else if(rs==4){
+            tsNotice('验证码发送失败，请联系管理员处理！');
+        }else if(rs==5){
+            tsNotice('图片验证码输入有误');
+        }
+    });
+}

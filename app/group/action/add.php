@@ -95,6 +95,7 @@ switch ($ts) {
 		$title = trim( $_POST ['title'] );
 		
 		$content =  tsClean( $_POST ['content'] );
+		$content2 =  emptyText( $_POST ['content'] );
 
 		$typeid = intval ( $_POST ['typeid'] );
 		$tag = $_POST ['tag'];
@@ -133,7 +134,7 @@ switch ($ts) {
 			$isaudit = 0;
 		}
 		
-		if ($title == '' || $content == '') {
+		if ($title == '' || $content2 == '') {
 			tsNotice ( '没有任何内容是不允许你通过滴^_^' );
 		}
 		

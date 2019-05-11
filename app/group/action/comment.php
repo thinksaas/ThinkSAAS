@@ -25,6 +25,7 @@ switch($ts){
 		
 		$topicid	= intval($_POST['topicid']);
 		$content	= tsClean($_POST['content']);
+		$content2	= emptyText($_POST['content']);//测试空内容
         $ispublic = intval($_POST['ispublic']);
 
 		//过滤内容开始
@@ -32,8 +33,8 @@ switch($ts){
 			aac('system')->antiWord($content,$js);
 		}
 		//过滤内容结束
-		
-		if($content==''){
+
+		if($content2==''){
 			getJson('没有任何内容是不允许你通过滴^_^',$js);
 		}else{
 			$commentid = $new['group']->create('group_topic_comment',array(
