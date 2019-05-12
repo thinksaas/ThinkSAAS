@@ -1,11 +1,11 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 
+$userid = intval($GLOBALS['TS_USER']['userid']);
+
 switch($ts){
 
     case "":
-
-        $userid = intval($GLOBALS['TS_USER']['userid']);
 
         if($userid==0){
             echo 2;exit;
