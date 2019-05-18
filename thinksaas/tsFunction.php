@@ -1368,25 +1368,28 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 	
 	if ($files['size'] > 0) {
 
+        $arrType = explode('.', strtolower($files['name']));
+        $type = end($arrType);
+
 		//上传图片大小控制
-		if(in_array('png',$uptypes) || in_array('jpg',$uptypes) || in_array('gif',$uptypes) || in_array('jpeg',$uptypes)){
+		if(in_array($type,array('jpg','jpeg','png','gif'))) {
 
             $type = getImagetype($files['tmp_name']);
 
-            if(!in_array($type,$uptypes)){
+            if (!in_array($type, $uptypes)) {
                 tsNotice('非法操作');
             }
 
-            if($GLOBALS['TS_SITE']['photo_size']){
-				$upsize = $GLOBALS['TS_SITE']['photo_size']*1048576;
-				
-				if($files ['size']>$upsize){
-					tsNotice('上传图片不能超过'.$GLOBALS['TS_SITE']['photo_size'].'M，请修改小点后再上传！');
-				}
-				
-			}
-		
-		}
+            if ($GLOBALS['TS_SITE']['photo_size']) {
+                $upsize = $GLOBALS['TS_SITE']['photo_size'] * 1048576;
+
+                if ($files ['size'] > $upsize) {
+                    tsNotice('上传图片不能超过' . $GLOBALS['TS_SITE']['photo_size'] . 'M，请修改小点后再上传！');
+                }
+
+            }
+
+        }
 
 		$menu2 = intval($projectid / 1000);
 
@@ -1400,10 +1403,7 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 
 		//$ext = pathinfo($files['name'],PATHINFO_EXTENSION);
 
-		$arrType = explode('.', strtolower($files['name']));
-		// 转小写一下
 
-		$type = end($arrType);
 
 		if (in_array($type, $uptypes)) {
 
@@ -1422,7 +1422,7 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 			if (intval($filesize) > 0) {
 
                 #继续验证图片
-                if(in_array('png',$uptypes) || in_array('jpg',$uptypes) || in_array('gif',$uptypes) || in_array('jpeg',$uptypes)){
+                if(in_array($type,array('jpg','jpeg','png','gif'))) {
 
                     try{
                         Image::make($dest);

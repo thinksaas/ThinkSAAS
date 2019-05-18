@@ -64,10 +64,10 @@
                         {else}
 
                         <!---视频处理开始--->
-                        {if $TS_APP['istopicvideo'] && $arrVideo}
-                        <div class="topic_video">
+                        {if $TS_APP['istopicvideo']}
 
-                            {if $arrVideo}
+                        {if $arrVideo}
+                        <div class="topic_video">
                             {loop $arrVideo $key $item}
                             <p>
                                 {if $item['siteid']==1 || $item['siteid']==2 || $item['siteid']==3}
@@ -75,14 +75,22 @@
                                 {/if}
                             </p>
                             {/loop}
-                            {/if}
-
-                            {if $TS_USER['userid']==$strTopic['userid'] || $TS_USER['isadmin']==1}
-                            <div class="text-center"><a class="btn btn-link" href="{tsUrl('video','upload',array('ts'=>'network','topicid'=>$topicid))}"> <i class="fas fa-plus-circle"></i> 插入视频</a></div>
-                            {/if}
 
                         </div>
                         {/if}
+
+
+                        {if $TS_USER['userid']==$strTopic['userid'] || $TS_USER['isadmin']==1}
+                        <div class="topic_video">
+                            <div class="text-center"><a class="btn btn-link" href="{tsUrl('video','upload',array('ts'=>'network','topicid'=>$topicid))}"> <i class="fas fa-plus-circle"></i> 插入视频</a></div>
+                        </div>
+                        {/if}
+
+
+                        {/if}
+
+
+
 
 
                         <!---附件处理开始--->

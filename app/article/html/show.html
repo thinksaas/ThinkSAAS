@@ -1,7 +1,5 @@
 {php include pubTemplate("header")}
 <div class="container">
-
-
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
@@ -13,7 +11,6 @@
         </ol>
     </nav>
 
-
     <div class="mb-3">
         <a class="btn btn-sm {if $cateid=='0'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('article')}">全部</a>
         {loop $arrCate $key $item}
@@ -21,23 +18,14 @@
         {/loop}
     </div>
 
-
-
     <div class="row">
-
-
-
-
 
         <div class="col-md-8">
 
             <div class="card">
                 <div class="card-body">
 
-
                     <h1 class="h3 pb-3 fw400">{$strArticle[title]}</h1>
-
-
 
                     <div class="media mt-3 mb-3">
 
@@ -59,33 +47,31 @@
                     <div class="clear"></div>
                     {/if}
 
-
-
                     <div class="article_show_content lh30 common-content">
-
 
                         <!---视频处理开始--->
                         {if $TS_APP['isarticlevideo']}
-                        <div class="article_video">
 
-                            {if $arrVideo}
+                        {if $arrVideo}
+                        <div class="article_video pb-0">
                             {loop $arrVideo $key $item}
-                            <p>
+                            <div>
                                 {if $item['siteid']==1 || $item['siteid']==2 || $item['siteid']==3}
                                 <iframe frameborder="0" src="{$item['iframe']}" allowFullScreen="true"></iframe>
                                 {/if}
-                            </p>
+                            </div>
                             {/loop}
-                            {/if}
-
-                            {if $TS_USER['userid']==$strArticle['userid'] || $TS_USER['isadmin']==1}
-                            <div class="text-center"><a class="btn btn-link" href="{tsUrl('video','upload',array('ts'=>'network','articleid'=>$articleid))}"> <i class="fas fa-plus-circle"></i> 插入视频</a></div>
-                            {/if}
 
                         </div>
                         {/if}
 
+                        {if $TS_USER['userid']==$strArticle['userid'] || $TS_USER['isadmin']==1}
+                        <div class="article_video">
+                            <div class="text-center"><a class="btn btn-link" href="{tsUrl('video','upload',array('ts'=>'network','articleid'=>$articleid))}"> <i class="fas fa-plus-circle"></i> 插入视频</a></div>
+                        </div>
+                        {/if}
 
+                        {/if}
 
                         {php doAction('gobad','content_top')}
                         {$strArticle[content]}
@@ -95,8 +81,6 @@
                         <div class="fs12 c9">{php doAction('gobad','468')}</div>
 
                     </div>
-
-
 
                     <div class="of mt-3">
 
@@ -109,7 +93,6 @@
 
                         </div>
 
-
                         {if $TS_USER[isadmin]==1 || $TS_USER['userid']==$strArticle['userid']}
                         <div class="float-right text-right">
 
@@ -121,21 +104,14 @@
 
                     </div>
 
-
-
-
-
-
-
                     <hr />
 
-
-                            {if $strUp}
-                            <div class="fs13 text-secondary">上一篇：<a class="text-secondary" href="{tsUrl('article','show',array('id'=>$strUp['articleid']))}">{$strUp['title']}</a></div>
-                            {/if}
-                            {if $strNext}
-                            <div class="fs13 text-secondary">下一篇：<a class="text-secondary" href="{tsUrl('article','show',array('id'=>$strNext['articleid']))}">{$strNext['title']}</a></div>
-                            {/if}
+                    {if $strUp}
+                    <div class="fs13 text-secondary">上一篇：<a class="text-secondary" href="{tsUrl('article','show',array('id'=>$strUp['articleid']))}">{$strUp['title']}</a></div>
+                    {/if}
+                    {if $strNext}
+                    <div class="fs13 text-secondary">下一篇：<a class="text-secondary" href="{tsUrl('article','show',array('id'=>$strNext['articleid']))}">{$strNext['title']}</a></div>
+                    {/if}
 
 
 
@@ -165,7 +141,7 @@
                                     {if $TS_USER[userid] == $strArticle[userid] ||
                                     $TS_USER['isadmin']==1}
                                     <div class="mb-2 text-right">
-									<a class="fs12 text-secondary" href="{SITE_URL}index.php?app=article&ac=comment&ts=delete&commentid={$item['commentid']}"><i class="far fa-trash-alt"></i> 删除</a>
+                                        <a class="fs12 text-secondary" href="{SITE_URL}index.php?app=article&ac=comment&ts=delete&commentid={$item['commentid']}"><i class="far fa-trash-alt"></i> 删除</a>
                                     </div>
                                     {/if}
                                 </div>
@@ -174,7 +150,6 @@
                     </div>
                     <div class="page">{$pageUrl}</div>
                     {/if}
-
 
 
                     <div>
@@ -188,7 +163,7 @@
 
                             <div id="tseditor"></div>
 
-							<div style="display: none"><textarea name="content"></textarea></div>
+                            <div style="display: none"><textarea name="content"></textarea></div>
 
 
 
@@ -211,12 +186,7 @@
                                     <button class="btn btn-sm btn-info" type="submit">回复</button>
                                 </div>
 
-
-
-
                             </div>
-
-
 
                         </form>
                         {/if}
@@ -225,9 +195,6 @@
 
                 </div>
             </div>
-
-
-
 
             <div class="card">
                 <div class="card-header">最新文章</div>
@@ -247,10 +214,7 @@
 
         </div>
 
-
         <div class="col-md-4">
-
-
 
             <div class="card">
                 <div class="card-header">一周热门</div>
@@ -285,8 +249,6 @@
             <!--广告位-->
             {php doAction('gobad','300')}
         </div>
-
-
 
     </div>
 </div>
