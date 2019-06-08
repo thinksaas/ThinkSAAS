@@ -1691,10 +1691,19 @@ function cleanJs($text) {
  * @param unknown $text
  * @return mixed
  */
-function tsClean($text) {
+function tsClean($text,$js=0) {
 	$text = stripslashes(trim($text));
 	//去除前后空格，并去除反斜杠
 	//$text = br2nl($text); //将br转换成/n
+
+    //处理正文图片
+    preg_match_all('/<img[^>]*src="([^"]*)"[^>]*>/i',$text, $matchs);   //主要
+    $arrImage = $matchs[1];
+    foreach($arrImage as $key=>$item){
+        if(getimagesize($item)==false){
+            getJson('内容中存在非法图片：'.$item,$js,0);
+        }
+    }
 
 	///////XSS start
 	require_once 'thinksaas/xsshtml.class.php';
@@ -1911,7 +1920,7 @@ function tsUrlCheck($parameter) {
                 exit;
             }
         }
-        return $parameter;
+        return strtolower($parameter);//转小写
     }
 
 }

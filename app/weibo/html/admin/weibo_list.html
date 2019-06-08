@@ -19,7 +19,7 @@
     <tbody>
 
     {loop $arrWeibo $key $item}
-    <tr><td>{$item['weiboid']}</td><td>{$item['userid']}</td><td>{php echo tsDecode($item['content'])}</td><td>
+    <tr><td>{$item['weiboid']}</td><td>{$item['userid']}</td><td>{$item['content']}</td><td>
 
 
         <a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=isaudit&weiboid={$item['weiboid']}">

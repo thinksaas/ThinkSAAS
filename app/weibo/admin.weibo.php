@@ -54,6 +54,9 @@ class weiboAdmin extends weibo{
         $url = SITE_URL.'index.php?app=weibo&ac=admin&mg=weibolist&page=';
         $lstart = $page*20-20;
         $arrWeibo = $this->findAll('weibo',null,'addtime desc',null,$lstart.',20');
+        foreach($arrWeibo as $key=>$item){
+            $arrWeibo[$key]['content'] = tsTitle($item['content']);
+        }
 
         $weiboNum = $this->findCount('weibo');
         $pageUrl = pagination($weiboNum, 20, $page, $url);

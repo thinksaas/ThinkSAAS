@@ -138,7 +138,7 @@
 
 </a></span>
 <span class="body">
-<span class="user"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a>：</span><span class="log">{php echo tsDecode($item['content'])}</span>
+<span class="user"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a>：</span><span class="log">{$item['content']}</span>
 {if $item[photo]}
 <div style="padding:5px 0;"><a target="_blank" href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}"><img src="{php echo tsXimg($item['photo'],'weibo',240,'',$item['path'])}" width="120" /></a>
 </div>

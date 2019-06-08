@@ -24,7 +24,7 @@ switch($ts){
 		}
 		
 		$topicid	= intval($_POST['topicid']);
-		$content	= tsClean($_POST['content']);
+		$content	= tsClean($_POST['content'],$js);
 		$content2	= emptyText($_POST['content']);//测试空内容
         $ispublic = intval($_POST['ispublic']);
 

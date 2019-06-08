@@ -33,7 +33,7 @@ $arrGroup = $new ['group']->findAll ( 'group', $arr, 'isrecommend desc,addtime a
 
 foreach ( $arrGroup as $key => $item ) {
 	$arrGroup [$key] ['groupname'] = tsTitle ( $item['groupname'] );
-	$arrGroup [$key] ['groupdesc'] = cututf8 ( t(tsDecode($item ['groupdesc'])), 0, 35 );
+	$arrGroup [$key] ['groupdesc'] = cututf8 (tsTitle($item ['groupdesc']), 0, 35 );
 }
 
 $groupNum = $new ['group']->findCount ( 'group',$arr);

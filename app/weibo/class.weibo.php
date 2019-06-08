@@ -24,25 +24,12 @@ class weibo extends tsApp{
 		));
 		
 		$strWeibo['user']=aac('user')->getOneUser($strWeibo['userid']);
-		$strWeibo['content'] = tsDecode($strWeibo['content']);
+		$strWeibo['content'] = tsTitle($strWeibo['content']);
 		
 		return $strWeibo;
 		
 	}
 	
-	//获取一条评论 
-	public function getOneComment($commentid){
-		
-		$strComment = $this->find('weibo_comment',array(
-			'commentid'=>$commentid,
-		));
-		
-		$strComment['content'] = tsDecode($strComment['content']);
-		
-		$strComment['user']=aac('user')->getOneUser($strComment['userid']);
-		
-		return $strComment;
-		
-	}
+
 	
 }

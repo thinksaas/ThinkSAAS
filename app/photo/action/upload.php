@@ -21,8 +21,8 @@ switch($ts){
 			'albumid'=>$albumid,
 		));
 		
-		$strAlbum['albumname'] = stripslashes($strAlbum['albumname']);
-		$strAlbum['albumdesc'] = stripslashes($strAlbum['albumdesc']);
+		$strAlbum['albumname'] = tsTitle($strAlbum['albumname']);
+		$strAlbum['albumdesc'] = tsTitle($strAlbum['albumdesc']);
 
 		if($userid != $strAlbum['userid']) {
 

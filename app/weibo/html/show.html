@@ -116,7 +116,7 @@
             <div class="commlist">
                 <ul>
                     {loop $arrWeibo $key $item}
-                    <li><a href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}">{php echo cututf8(t(tsDecode($item['content'])),0,50,false)}</a></li>
+                    <li><a href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}">{$item['content']}</a></li>
                     {/loop}
                 </ul>
             </div>

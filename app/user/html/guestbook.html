@@ -59,9 +59,9 @@
                                 </a>
                                 <div class="content">
                                     <p class="c9 fs12"><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['user']['username']}</a> {$item['addtime']}</p>
-                                    <div>{php echo tsDecode($item['content'])}</div>
+                                    <div>{$item['content']}</div>
                                     {if $item['reply']}
-                                    <div class="bg-light p-2 text-secondary rounded">回复：{php echo tsDecode($item['reply']['content'])}</div>
+                                    <div class="bg-light p-2 text-secondary rounded">回复：{$item['reply']['content']}</div>
                                     {/if}
 
 

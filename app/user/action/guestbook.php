@@ -16,12 +16,15 @@ switch($ts){
 		),'addtime desc',null,$lstart.',20');
 
 		foreach($arrGuestList as $key=>$item){
+            $arrGuestList[$key]['content'] = tsTitle($item['content']);
 			$arrGuestList[$key]['user']=$new['user']->getSimpleUser($item['userid']);
 
 			$arrGuestList[$key]['reply'] = $new['user']->find('user_gb',array(
 			    'reid'=>$item['id'],
             ));
-
+            if($arrGuestList[$key]['reply']){
+                $arrGuestList[$key]['reply']['content'] = tsTitle($arrGuestList[$key]['reply']['content']);
+            }
 		}
 		
 		$guestNum = $new['user']->findCount('user_gb',array(
@@ -39,7 +42,7 @@ switch($ts){
 		
 		$userid = $new['user']->isLogin();
 		$touserid = intval($_POST['touserid']);
-		$content = tsClean($_POST['content']);
+		$content = trim($_POST['content']);
 		
 		if($content == ''){
 		
@@ -73,7 +76,7 @@ switch($ts){
 		$userid = $new['user']->isLogin();
 		$touserid = intval($_POST['touserid']);
 		$reid = intval($_POST['reid']);
-		$content = tsClean($_POST['content']);
+		$content = trim($_POST['content']);
 		
 		$arrContent = explode('#',$content);
 		

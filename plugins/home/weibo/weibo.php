@@ -6,7 +6,7 @@ function weibo(){
 	    'isaudit'=>0,
     ),'addtime desc',null,10);
 	foreach($arrWeibo as $key=>$item){
-		$arrWeibo[$key]['content'] = tsDecode($item['content']);
+		$arrWeibo[$key]['content'] = tsTitle($item['content']);
 		$arrWeibo[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 	}
 	

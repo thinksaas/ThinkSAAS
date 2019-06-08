@@ -58,6 +58,9 @@
                             <div>
                                 {if $item['siteid']==1 || $item['siteid']==2 || $item['siteid']==3}
                                 <iframe frameborder="0" src="{$item['iframe']}" allowFullScreen="true"></iframe>
+                                    {if $TS_USER['userid']==$strArticle['userid'] || $TS_USER['isadmin']==1}
+                                    <div class="text-right mb-2"><a class="btn btn-outline-info btn-sm" onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=article&ac=delete&ts=video&articleid={$articleid}&videoid={$item['videoid']}">删除</a></div>
+                                    {/if}
                                 {/if}
                             </div>
                             {/loop}

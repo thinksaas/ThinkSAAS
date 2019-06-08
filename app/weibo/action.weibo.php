@@ -21,7 +21,7 @@ class weiboAction extends weibo{
         ),'uptime desc',null,$lstart.',20');
         foreach($arrWeibo as $key=>$item){
             $arrWeibo[$key]['user'] = aac('user')->getOneUser($item['userid']);
-            $arrWeibo[$key]['content'] = tsDecode($item['content']);
+            $arrWeibo[$key]['content'] = tsTitle($item['content']);
         }
 
 
@@ -36,7 +36,7 @@ class weiboAction extends weibo{
         $arrHotWeibo = $this->findAll('weibo',null,'count_comment desc',null,10);
 
         foreach($arrHotWeibo as $key=>$item){
-            $arrHotWeibo[$key]['content'] = tsDecode($item['content']);
+            $arrHotWeibo[$key]['content'] = tsTitle($item['content']);
             $arrHotWeibo[$key]['user'] = aac('user')->getOneUser($item['userid']);
         }
 
@@ -63,7 +63,7 @@ class weiboAction extends weibo{
         //发布时间限制
         if(aac('system')->pubTime()==false) getJson('不好意思，当前时间不允许发布内容！',$js);
 
-        $content = tsClean($_POST['content']);
+        $content = trim($_POST['content']);
 
         if($content == '') {
             getJson('内容不能为空',$js);
@@ -85,17 +85,6 @@ class weiboAction extends weibo{
             'addtime'=>date('Y-m-d H:i:s'),
             'uptime'=>date('Y-m-d H:i:s'),
         ));
-
-        //feed开始
-        /*
-        $feed_template = '<span class="pl">说：</span><div class="quote"><span class="inq">{content}</span> <span><a class="j a_saying_reply" href="{link}" rev="unfold">回应</a></span></div>';
-        $feed_data = array(
-            'link'	=> tsurl('weibo','show',array('id'=>$weiboid)),
-            'content'	=> cututf8(t($content),'0','50'),
-        );
-        aac('feed')->add($userid,$feed_template,$feed_data);
-        */
-        //feed结束
 
         getJson('发布成功！',$js,2,tsurl('weibo','show',array('id'=>$weiboid)));
 		
@@ -122,12 +111,13 @@ class weiboAction extends weibo{
         $url = tsUrl('weibo','show',array('id'=>$weiboid,'page'=>''));
         $lstart = $page*20-20;
 
-        $arrComments = $this->findAll('weibo_comment',array(
+        $arrComment = $this->findAll('weibo_comment',array(
             'weiboid'=>$weiboid,
-        ),'addtime desc','commentid',$lstart.',20');
+        ),'addtime desc',null,$lstart.',20');
 
-        foreach($arrComments as $key=>$item){
-            $arrComment[] = $this->getOneComment($item['commentid']);
+        foreach($arrComment as $key=>$item){
+            $arrComment[$key]['content'] = tsTitle($item['content']);
+            $arrComment[$key]['user']=aac('user')->getOneUser($item['userid']);
         }
 
         $commentNum = $this->findCount('weibo_comment',array(
@@ -143,14 +133,6 @@ class weiboAction extends weibo{
             'userid'=>$strWeibo['userid'],
         ),'addtime desc',null,20);
 
-
-        foreach($arrWeibo as $key=>$item){
-            if($item['content']==''){
-                $arrWeibo[$key]['content'] = $strWeibo['user']['username'].'的唠叨('.$item['weiboid'].')';
-            }
-        }
-
-
         $weiboNum = $this->findCount('weibo',array(
             'userid'=>$strWeibo['userid'],
         ));
@@ -165,14 +147,15 @@ class weiboAction extends weibo{
 
         }
 
-
-
+        foreach($arrWeibo as $key=>$item){
+            $arrWeibo[$key]['content'] = tsTitle($item['content']);
+        }
 
 
         if($strWeibo['content']==''){
             $title = $strWeibo['user']['username'].'的唠叨('.$strWeibo['weiboid'].')';
         }else{
-            $title = cututf8(t(tsDecode($strWeibo['content'])),0,100,false);
+            $title = cututf8($strWeibo['content'],0,100,false);
         }
 
         include template('show');
@@ -242,7 +225,7 @@ class weiboAction extends weibo{
 
 		$weiboid = intval($_POST['weiboid']);
 		$touserid = intval($_POST['touserid']);
-		$content = tsClean($_POST['content']);
+		$content = trim($_POST['content']);
 
 		if($content == ''){
 			tsNotice('内容不能为空');

@@ -45,6 +45,7 @@ $arrWeibo = $new['location']->findAll('weibo',array(
 	'locationid'=>$locationid,
 ),'addtime desc',null,10);
 foreach($arrWeibo as $key=>$item){
+    $arrWeibo[$key]['content'] = tsTitle($item['content']);
 	$arrWeibo[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 }
 
