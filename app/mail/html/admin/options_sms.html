@@ -9,13 +9,19 @@
 
 
     <table class="table table-hover">
-        <tr><td width="150">APPID：</td><td><input name="sms_appid" value="{$strOption['sms_appid']}" /></td></tr>
+        <tr><td width="150">短信平台：</td><td>
+
+            <input type="radio" name="sms_server" value="qcloud" {if $strOption['sms_server']=='qcloud'}checked{/if}>腾讯云
+            <input type="radio" name="sms_server" value="aliyun" {if $strOption['sms_server']=='aliyun'}checked{/if}>阿里云
+
+        </td></tr>
+        <tr><td>APPID：</td><td><input name="sms_appid" value="{$strOption['sms_appid']}" /></td></tr>
         <tr><td>APPKEY：</td><td><input name="sms_appkey" value="{$strOption['sms_appkey']}" /></td></tr>
         <tr><td>短信模板ID：</td><td><input name="sms_tpid" value="{$strOption['sms_tpid']}" /></td></tr>
         <tr><td>短信签名：</td><td><input name="sms_sign" value="{$strOption['sms_sign']}" /></td></tr>
         <tr><td></td><td>
 
-            短信接口由腾讯云提供，具体参数请去<a target="_blank" href="https://www.qcloud.com/">腾讯云</a>获取
+            短信接口由腾讯云和阿里云提供，腾讯云参数配置请去<a target="_blank" href="https://www.qcloud.com/">腾讯云</a>获取，阿里云参数配置请去<a target="_blank" href="https://www.aliyun.com/">阿里云</a>获取
 
         </td></tr>
 

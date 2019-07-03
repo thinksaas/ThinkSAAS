@@ -49,6 +49,7 @@ switch($ts){
     case "sms":
 
         $arrData = array(
+            'sms_server' => trim($_POST['sms_server']),
             'sms_appid' => trim($_POST['sms_appid']),
             'sms_appkey' => trim($_POST['sms_appkey']),
             'sms_tpid' => trim($_POST['sms_tpid']),
