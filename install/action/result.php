@@ -53,7 +53,7 @@ $db = new MySql ( $arrdb );
 
 $mysql_version = $db->getMysqlVersion();
 
-if(substr($mysql_version, 0, 3)<5.4){
+if(substr($mysql_version, 0, 3)<5.5){
     qiMsg('MySQL数据库版本过低，请升级MySQL到5.4以上版本，建议5.5或者5.6');
 }
 

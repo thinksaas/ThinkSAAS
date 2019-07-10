@@ -2536,3 +2536,60 @@ function emptyText($text=''){
     $text = trim($text);
     return $text;
 }
+
+
+/**
+ * 更新app导航和我的导航
+ * @param $appkey
+ * @param $appname
+ */
+function upAppNav($appkey,$appname){
+    if($appkey && $appname){
+        #更新APP导航名称
+        $arrNav = include 'data/system_appnav.php';
+        if(is_array($arrNav)){
+            $arrNav[$appkey] = $appname;
+        }else{
+            $arrNav = array(
+                $appkey=>$appname,
+            );
+        }
+        fileWrite('system_appnav.php','data',$arrNav);
+        $GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
+
+        #更新我的社区导航
+        $arrMy = include 'data/system_mynav.php';
+        if(is_array($arrMy)){
+            $arrMy[$appkey] = $appname;
+        }else{
+            $arrMy = array(
+                $appkey=>$appname,
+            );
+        }
+        fileWrite('system_mynav.php','data',$arrMy);
+        $GLOBALS['tsMySqlCache']->set('system_mynav',$arrMy);
+    }
+}
+
+/**
+ * 更新app配置选项
+ * @param $app
+ * @param array $option
+ */
+function upAppOptions($app,array $option){
+    fileWrite($app.'_options.php','data',$option);
+    $GLOBALS['tsMySqlCache']->set($app.'_options',$option);
+}
+
+/**
+ * 获取app配置选项
+ * @param $app
+ * @return mixed
+ */
+function getAppOptions($app){
+    $strOption = fileRead($app.'_options.php');
+    if($strOption==''){
+        $strOption = $GLOBALS['tsMySqlCache']->get($app.'_options');
+    }
+    return $strOption;
+}

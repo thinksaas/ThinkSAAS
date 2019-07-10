@@ -6,8 +6,8 @@
 
 ## 开发环境
 
-* php >= 5.4 (支持php7)
-* MySQL >= 5.0
+* php >= 5.5 (支持php7)
+* MySQL >= 5.5
 * Apache / Nginx
 * Windows / Linux
 * 建议采用lnmp或者lamp环境

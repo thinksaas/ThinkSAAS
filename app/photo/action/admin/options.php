@@ -2,63 +2,25 @@
 defined('IN_TS') or die('Access Denied.');
 
 switch($ts){
-	//基本配置
-	case "":
-		
-		$arrOptions = $new['photo']->findAll('photo_options');
+    //基本配置
+    case "":
+        $strOption = getAppOptions('photo');
 
-		foreach($arrOptions as $item){
-			$strOption[$item['optionname']] = stripslashes($item['optionvalue']);
-		}
-		
-		include template("admin/options");
-		
-		break;
-		
-	case "do":
-	
-		//先清空数据 
-		$db->query("TRUNCATE TABLE `".dbprefix."photo_options`");
-	
-		foreach($_POST['option'] as $key=>$item){
-			
-			$optionname = $key;
-			$optionvalue = trim($item);
-			
-			$new['photo']->create('photo_options',array(
-			
-				'optionname'=>$optionname,
-				'optionvalue'=>$optionvalue,
-			
-			));
-		
-		}
-		
-		$arrOptions = $new['photo']->findAll('photo_options',null,null,'optionname,optionvalue');
-		foreach($arrOptions as $item){
-			$arrOption[$item['optionname']] = $item['optionvalue'];
-		}
-		
-		fileWrite('photo_options.php','data',$arrOption);
-		$GLOBALS['tsMySqlCache']->set('photo_options',$arrOption);
+        include template("admin/options");
 
-        //更新APP导航名称
-        if($arrOption['appname']){
-            $appkey = 'photo';
-            $appname = $arrOption['appname'];
-            $arrNav = include 'data/system_appnav.php';
-            if(is_array($arrNav)){
-                $arrNav[$appkey] = $appname;
-            }else{
-                $arrNav = array(
-                    $appkey=>$appname,
-                );
-            }
-            fileWrite('system_appnav.php','data',$arrNav);
-            $GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
-        }
-		
-		qiMsg('修改成功！');
-	
-		break;
+        break;
+
+    case "do":
+
+        $arrOption = $_POST['option'];
+
+        #更新app配置选项
+        upAppOptions('photo',$arrOption);
+
+        #更新app导航和我的导航
+        upAppNav('photo',$arrOption['appname']);
+
+        qiMsg('修改成功！');
+
+        break;
 }

@@ -1,7 +1,7 @@
 ++++ThinkSAAS安装说明
 
 【推荐运行环境】
-PHP5.4及以上版本，MySQL5.0及以上版本
+PHP5.5及以上版本，MySQL5.5及以上版本
 推荐使用Linux + Apache或者Linux + Nginx环境的主机
 【安装说明】
 1、上传目录下所有文件到你的网站根目录下
