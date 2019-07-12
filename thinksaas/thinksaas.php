@@ -212,7 +212,7 @@ if ($TS_CF['logs']) {
 
 //控制访客权限
 if($TS_USER=='' && $TS_SITE['visitor'] == 1){
-    if($app!='pubs' && $ac!='home' && $ac!='register' && $ac!='login' && $ac!='forgetpwd' && $ac!='resetpwd' && $app!='api'){
+    if($app!='pubs' && $ac!='home' && $ac!='register' && $ac!='phone' && $ac!='login' && $ac!='forgetpwd' && $ac!='resetpwd' && $app!='api'){
         tsHeaderUrl(tsUrl('pubs','home'));
     }
 }
@@ -234,15 +234,23 @@ if ($TS_USER['isadmin'] != 1 && $TS_URL['in'] == 'edit') {
 
 //判断用户是否需要验证Email,管理员除外
 if ($TS_SITE['isverify'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
-    $verifyUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid']), ));
+    $verifyUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'isverify');
     if (intval($verifyUser['isverify']) == 0 && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
         tsHeaderUrl(tsUrl('user', 'verify'));
     }
 }
 
+//判断用户是否需要验证手机号,管理员除外
+if ($TS_SITE['isverifyphone'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
+    $verifyUserPhone = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'isverifyphone');
+    if (intval($verifyUserPhone['isverifyphone']) == 0 && $TS_URL['app'] != 'user' && $TS_URL['app'] != 'pubs' && $TS_USER['isadmin'] != 1) {
+        tsHeaderUrl(tsUrl('user', 'phone',array('ts'=>'verify')));
+    }
+}
+
 //判断用户是否上传头像,管理员除外
 if ($TS_SITE['isface'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
-    $faceUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid']), ));
+    $faceUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'face');
     if ($faceUser['face'] == '' && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
         tsHeaderUrl(tsUrl('user', 'verify', array('ts' => 'face')));
     }

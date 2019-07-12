@@ -2,60 +2,115 @@
 
 <div class="container">
 
-<div class="row">
+  <div class="row">
 
-<div class="col-md-3">
-<div class="my_left">
+    <div class="col-md-3">
+      <div class="my_left">
 
-{php include pubTemplate("my")}
+        {php include pubTemplate("my")}
 
-</div>
-</div>
+      </div>
+    </div>
 
 
-<div class="col-md-9">
-    <div class="card">
+    <div class="col-md-9">
+      <div class="card">
         <div class="card-body">
 
 
 
-{template setting_menu}
+          {template setting_menu}
 
 
 
-<div class="row">
-  <div class="col-md-3"></div>
-  <div class="col-md-6">
-  
-<form role="form" method="POST" action="{tsUrl('my','setting',array('ts'=>'emaildo'))}">
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
 
-  <div class="form-group">
-    <label>当前Email帐号：</label>
-	<div class="text-black-50">{$strUser['email']}</div>
+
+              {if $TS_SITE['regtype']=='0' || $TS_SITE['regtype']=='2'}
+              <form role="form" method="POST" action="{tsUrl('my','setting',array('ts'=>'emaildo'))}">
+
+                <div class="form-group">
+                  <label>当前Email帐号：</label>
+                  <div class="text-black-50">{$strUser['email']}</div>
+                </div>
+
+                <div class="form-group">
+                  <label>新Email帐号：</label>
+                  <input class="form-control" name="email" type="email" />
+                </div>
+
+                <input type="hidden" name="token" value="{$_SESSION['token']}" />
+                <button class="btn btn-sm btn-info" type="submit">提交修改</button>
+
+                <small class="text-black-50">(修改Email登录帐号将需要重新验证Email)</small>
+
+              </form>
+              {/if}
+
+              {if $TS_SITE['regtype']=='2'}
+              <hr />
+              {/if}
+
+
+              {if $TS_SITE['regtype']=='1' || $TS_SITE['regtype']=='2'}
+              <form id="comm-form" role="form" method="POST" action="{SITE_URL}index.php?app=user&ac=phone&ts=editphone">
+
+                <div class="form-group">
+                  <label>当前手机号：</label>
+                  <div class="text-black-50">{$strUser['phone']}</div>
+
+                </div>
+
+                <div class="form-group">
+                  <label>新手机号：</label>
+                  <input id="myphone" class="form-control" name="phone" type="number" />
+                </div>
+
+                <div class="form-group">
+                  <label>图片验证码：</label>
+
+                  <div class="d-flex flex-row">
+                    <div class="d-flex"><input  id="authcode" type="text" name="authcode" class="form-control" value=""></div>
+                    <div class="d-flex ml-1">
+
+                      <img align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;" />
+
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="form-group">
+                  <label>手机验证码：</label>
+
+                  <div class="d-flex flex-row">
+                    <div class="d-flex"><input type="text" class="form-control" name="phonecode" value=""></div>
+                    <div class="d-flex ml-1"><button onclick="sendPhoneCode(1);" id="mybtn" type="button" class="btn btn-default">获取验证码</button></div>
+                  </div>
+
+                </div>
+
+                <input type="hidden" name="token" value="{$_SESSION['token']}" />
+                <button class="btn btn-sm btn-info" type="submit">提交修改</button>
+
+
+
+              </form>
+              {/if}
+
+
+            </div>
+            <div class="col-md-3"></div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
   </div>
-  
-  <div class="form-group">
-    <label>新Email帐号：</label>
-	<input class="form-control" name="email" type="email" />
-  </div>
-  
-<input type="hidden" name="token" value="{$_SESSION['token']}" />
-<button class="btn btn-sm btn-info" type="submit">提交修改</button>
-
-<div class="fs12 c9 mt-3">修改登录帐号将需要重新验证Email</div>
-  
-</form>
-  
-  </div>
-  <div class="col-md-3"></div>
-</div>
-
-
-</div>
-</div>
-</div>
-
-</div>
 
 </div>
 

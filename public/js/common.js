@@ -251,7 +251,7 @@ function sendPhoneCode(typeid){
         }else if(rs==3){
             tsNotice('手机号已经被其他账号使用，请更换手机号！');
         }else if(rs==4){
-            tsNotice('验证码发送失败，请联系管理员处理！');
+            tsNotice('手机号不存在，你可能还没有注册！');
         }else if(rs==5){
             tsNotice('图片验证码输入有误');
         }

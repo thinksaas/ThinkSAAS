@@ -27,7 +27,7 @@
 
 <table class="table table-hover">
     <tbody>
-<tr><td width="150">网站标题：</td><td><input type="text" style="width:300px;" name="option[site_title]" value="{$strOption[site_title]}" /></td></tr>
+<tr><td width="200">网站标题：</td><td><input type="text" style="width:300px;" name="option[site_title]" value="{$strOption[site_title]}" /></td></tr>
 <tr><td>副标题：</td><td><input type="text" style="width:300px;" name="option[site_subtitle]" value="{$strOption[site_subtitle]}" /> (例如：又一个ThinkSAAS社区小组)</td></tr>
 
 <tr><td>关键词：</td><td><input type="text" style="width:300px;" name="option[site_key]" value="{$strOption[site_key]}" /> (关键词有助于SEO)</td></tr>
@@ -52,7 +52,31 @@
 
 <tr><td>是否邀请注册 :</td><td><input type="radio" {if $strOption[isinvite]=='0'}checked="select"{/if} name="option[isinvite]" value="0" />开放注册 <input type="radio" {if $strOption[isinvite]=='1'}checked="select"{/if} name="option[isinvite]" value="1" />邀请注册</td></tr>
 
+
+<tr><td>注册方式 :</td><td>
+
+    <input type="radio" {if $strOption['regtype']=='0'}checked="select"{/if} name="option[regtype]" value="0" />Email邮箱
+
+    <input type="radio" {if $strOption['regtype']=='1'}checked="select"{/if} name="option[regtype]" value="1" />手机号
+
+    <input type="radio" {if $strOption['regtype']=='2'}checked="select"{/if} name="option[regtype]" value="2" />Email邮箱+手机号
+
+    <small class="text-danger">(手机号注册需要先安装手机号注册功能)</small>
+
+</td></tr>
+
+
 <tr><td>是否验证Email :</td><td><input type="radio" {if $strOption[isverify]=='0'}checked="select"{/if} name="option[isverify]" value="0" />不验证Email <input type="radio" {if $strOption[isverify]=='1'}checked="select"{/if} name="option[isverify]" value="1" />验证Email</td></tr>
+
+
+<tr><td>是否验证手机号 :</td><td>
+
+    <input type="radio" {if $strOption[isverifyphone]=='0'}checked="select"{/if} name="option[isverifyphone]" value="0" />不验证手机号
+    <input type="radio" {if $strOption[isverifyphone]=='1'}checked="select"{/if} name="option[isverifyphone]" value="1" />验证手机号
+
+    <small class="text-danger">(手机号验证后同时可以使用手机号登录网站，注册方式中使用手机号注册的自动验证)</small>
+
+</td></tr>
 
 <tr><td>登录是否跳转 :</td><td><input type="radio" {if $strOption[istomy]=='0'}checked="select"{/if} name="option[istomy]" value="0" />不跳转 <input type="radio" {if $strOption[istomy]=='1'}checked="select"{/if} name="option[istomy]" value="1" />跳转到我的社区</td></tr>
 
@@ -85,7 +109,7 @@
 
 
 
-        <tr><td  width="150">用户访问内容权限：</td><td>
+        <tr><td  width="200">用户访问内容权限：</td><td>
             <input type="radio" name="option[visitor]" value="0" {if $strOption['visitor']=='0'}checked="select"{/if} />不需要登录
             <input type="radio" name="option[visitor]" value="1" {if $strOption['visitor']=='1'}checked="select"{/if} />需要登录
         </td></tr>
@@ -120,7 +144,7 @@
     <table class="table table-hover">
         <tbody>
 <tr>
-<td  width="150">选择主题：</td>
+<td  width="200">选择主题：</td>
 
 <td>
 
@@ -147,27 +171,27 @@
     <table class="table table-hover">
         <tbody>
     <tr>
-	<td  width="150">形式1：</td><td><input type="radio" {if $strOption[site_urltype]==1}checked="select"{/if} name="option[site_urltype]" value="1" /> index.php?app=group&ac=topic&id=1</td></tr>
+	<td  width="200">形式1：</td><td><input type="radio" {if $strOption[site_urltype]==1}checked="select"{/if} name="option[site_urltype]" value="1" /> index.php?app=group&ac=topic&id=1</td></tr>
     <tr><td>形式2：</td><td><input type="radio" {if $strOption[site_urltype]==2}checked="select"{/if} name="option[site_urltype]" value="2" /> index.php/group/topic/id-1</td></tr>
-	<tr><td>形式3：</td><td><input type="radio" {if $strOption[site_urltype]==3}checked="select"{/if} name="option[site_urltype]" value="3" /> group-topic-id-1.html (暂只支持apache环境的rewrite，非apache环境勿动)</td></tr>
-	<tr><td>形式4：</td><td><input type="radio" {if $strOption[site_urltype]==4}checked="select"{/if} name="option[site_urltype]" value="4" /> group/topic/id-1 (暂只支持apache环境的rewrite，非apache环境勿动)</td></tr>
-<tr><td>形式5：</td><td><input type="radio" {if $strOption[site_urltype]==5}checked="select"{/if} name="option[site_urltype]" value="5" /> group/topic/1 (暂只支持apache环境的rewrite，非apache环境勿动)</td></tr>
-<tr><td>形式6：</td><td><input type="radio" {if $strOption[site_urltype]==6}checked="select"{/if} name="option[site_urltype]" value="6" /> group/topic/id/1 (暂只支持apache环境的rewrite，非apache环境勿动)</td></tr>
-<tr><td>形式7：</td><td><input type="radio" {if $strOption[site_urltype]==7}checked="select"{/if} name="option[site_urltype]" value="7" /> group/topic/1/ (暂只支持apache环境的rewrite，非apache环境勿动)</td></tr>
+	<tr><td>形式3：</td><td><input type="radio" {if $strOption[site_urltype]==3}checked="select"{/if} name="option[site_urltype]" value="3" /> group-topic-id-1.html </td></tr>
+	<tr><td>形式4：</td><td><input type="radio" {if $strOption[site_urltype]==4}checked="select"{/if} name="option[site_urltype]" value="4" /> group/topic/id-1 </td></tr>
+<tr><td>形式5：</td><td><input type="radio" {if $strOption[site_urltype]==5}checked="select"{/if} name="option[site_urltype]" value="5" /> group/topic/1 </td></tr>
+<tr><td>形式6：</td><td><input type="radio" {if $strOption[site_urltype]==6}checked="select"{/if} name="option[site_urltype]" value="6" /> group/topic/id/1 </td></tr>
+<tr><td>形式7：</td><td><input type="radio" {if $strOption[site_urltype]==7}checked="select"{/if} name="option[site_urltype]" value="7" /> group/topic/1/ </td></tr>
 
 
 </tbody>
 </table>
 
 
-    <div class="alert alert-info">如果是nginx环境，请点击查看 <a target="_blank" href="https://www.thinksaas.cn/service/doc/11/">ThinkSAAS社区URL重写规则之Nginx篇</a></div>
+    <div class="alert alert-info">默认支持Apache环境的rewrite，如果是nginx环境，请点击查看 <a target="_blank" href="https://www.thinksaas.cn/service/doc/11/">ThinkSAAS社区URL重写规则之Nginx篇</a></div>
 
 
 <h6>其他选项</h6>
     <table class="table table-hover">
         <tbody>
 
-<tr><td width="150">图片上传大小：</td><td><input name="option[photo_size]" value="$strOption['photo_size']" />M (请填写数字，例如2)</td></tr>
+<tr><td width="200">图片上传大小：</td><td><input name="option[photo_size]" value="$strOption['photo_size']" />M (请填写数字，例如2)</td></tr>
 <tr><td>图片上传格式：</td><td><input name="option[photo_type]" value="$strOption['photo_type']" />(请以英文逗号分割，例如：jpg,gif,png)</td></tr>
 
 <tr><td>附件上传大小：</td><td><input name="option[attach_size]" value="$strOption['attach_size']" />M (请填写数字，例如2)</td></tr>

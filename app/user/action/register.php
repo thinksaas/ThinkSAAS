@@ -7,6 +7,11 @@ switch($ts){
 		if(intval($TS_USER['userid']) > 0) {
             header('Location: '.SITE_URL);exit;
         }
+
+        #如果网站只采用手机号注册，就跳转到手机号注册
+        if($TS_SITE['regtype']==1){
+            header('Location: '.tsUrl('user','phone'));exit;
+        }
 		
 		//邀请用户ID
 		$fuserid = intval($_GET['fuserid']);
@@ -49,6 +54,7 @@ switch($ts){
 		if($TS_SITE['isinvite']=='1'){
 		
 			$invitecode = trim($_POST['invitecode']);
+
 			if($invitecode == '') getJson('邀请码不能为空！',$js);
 
 			$codeNum = $new['user']->findCount('user_invites',array(
@@ -60,13 +66,6 @@ switch($ts){
 		
 		}
 
-		$isEmail = $new['user']->findCount('user',array(
-			'email'=>$email,
-		));
-		
-		$isUserName = $new['user']->findCount('user_info',array(
-			'username'=>$username,
-		));
 		
 		if($email=='' || $pwd=='' || $repwd=='' || $username==''){
 		
@@ -79,7 +78,12 @@ switch($ts){
 			getJson('Email邮箱输入有误',$js);
 			
 		}
-		
+
+		#判断Email是否存在
+        $isEmail = $new['user']->findCount('user',array(
+            'email'=>$email,
+        ));
+
 		if($isEmail > 0){
 			getJson('Email已经注册',$js);
 		}
@@ -92,7 +96,12 @@ switch($ts){
 		if(count_string_len($username) < 4 || count_string_len($username) > 20){
 			getJson('姓名长度必须在4和20之间',$js);
 		}
-		
+
+		#判断用户名是否存在
+        $isUserName = $new['user']->findCount('user_info',array(
+            'username'=>$username,
+        ));
+
 		if($isUserName > 0){
 			getJson('用户名已经存在，请换个用户名！',$js);
 		}
@@ -111,6 +120,7 @@ switch($ts){
 			'pwd'=>md5($salt.$pwd),
 			'salt'=>$salt,
 			'email'=>$email,
+			'phone'=>$email,
 		));
 		
 		//插入用户信息			
@@ -195,20 +205,7 @@ switch($ts){
 			));
 		}
 
-		//动态处理
-		//feed开始
-		/*
-		$feed_template = '<span class="pl">说：</span><div class="quote"><span class="inq">{content}</span> <span><a class="j a_saying_reply" href="{link}" rev="unfold">回应</a></span></div>';
-		$feed_data = array(
-			'link'	=> tsurl('weibo','show',array('id'=>$weiboid)),
-			'content'	=> cututf8(t($content),'0','50'),
-		);
-		aac('feed')->add($userid,$feed_template,$feed_data);
-		*/
-		//feed结束
 
-
-		
 		//对积分进行处理
 		aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
 		

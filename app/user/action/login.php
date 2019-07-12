@@ -38,42 +38,38 @@ switch($ts){
 		
 		if($email=='' || $pwd=='') getJson('Email和密码都不能为空！',$js);
 
+		#先判断是否是Email
+		if(valid_email($email)==true){
 
+            $strUser = $new['user']->find('user',array(
+                'email'=>$email,
+            ));
 
-        /*
-        if($GLOBALS['TS_SITE']['ucenter']){
-            require_once THINKAPP . '/ucenter/basic/conf/uc_config.php'; //引入应用的Uceter配置信息
-            require_once THINKAPP . '/ucenter/uc_client/client.php';
-            require_once THINKAPP . '/ucenter/basic/common/function.php';
-            $ucInfo = uc_user_login ( $email, $pwd, 2 );
-            if ($ucInfo[0] <= 0) {
-                getJson ( show_log_error ( $ucInfo[0] ), $js );
+            if($strUser == '') getJson('Email不存在，你可能还没有注册！',$js);
+
+        }else{
+
+		    #判断是否是手机号
+            if(isPhone($email)==true){
+
+                $strUser = $new['user']->find('user',array(
+                    'phone'=>$email,
+                ));
+
+                if($strUser == '') getJson('手机号不存在，你可能还没有注册！',$js);
+
+            }else{
+                getJson('账号不存在，你可能还没有注册！',$js);
             }
+
         }
-        */
-
-
-
-
-		$isEmail = $new['user']->findCount('user',array(
-			'email'=>$email,
-		));
-		
-		$strUser = $new['user']->find('user',array(
-			'email'=>$email,
-		));
-
-		//此处预留其他登录接口
-		
-		if($isEmail == 0) getJson('Email不存在，你可能还没有注册！',$js);
-		
 			
-		if(md5($strUser['salt'].$pwd)!==$strUser['pwd']) getJson('密码错误！',$js);	
+		if(md5($strUser['salt'].$pwd)!==$strUser['pwd']) getJson('密码错误！',$js);
 		
 		//用户信息
 		$userData = $new['user']->find('user_info',array(
-			'email'=>$email,
-		));
+			'email'=>$strUser['email'],
+		),'userid,username,path,face,isadmin,signin,uptime');
 			
 		//用户session信息
 		$sessionData = array(
@@ -109,7 +105,7 @@ switch($ts){
 		
 		//记住登录Cookie，根据用户Email和最后登录时间
 		 if($cktime != ''){   
-			 setcookie("ts_email", $userData['email'], time()+$cktime,'/');   
+			 setcookie("ts_email", $strUser['email'], time()+$cktime,'/');
 			 setcookie("ts_autologin", $autologin, time()+$cktime,'/');
 		 }
 

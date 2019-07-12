@@ -11,7 +11,7 @@ $phone = trim($_POST['phone']);
 
 $authcode = strtolower($_POST['authcode']);
 
-$typeid = intval($_POST['typeid']);
+$typeid = intval($_POST['typeid']); //判断手机号是否存在0不判断1判断存在2判断不存在
 
 if(isPhone($phone)==false){
     echo 0;exit;//手机号码输入有误
@@ -21,16 +21,26 @@ if ($authcode != $_SESSION['verify']) {
     echo 5;exit;//图片验证码输入有误
 }
 
-if($typeid==0){
-    //判断手机号是否已经存在
-    $strUserPhone = $new['pubs']->find('user_info',array(
-        'email'=>$phone,
+if($typeid==1){
+
+    $strUserPhone = $new['pubs']->find('user',array(
+        'phone'=>$phone,
     ));
 
     if($strUserPhone){
         echo 3;exit;//手机号已经存在
     }
+}elseif($typeid==2){
+
+    $strUserPhone = $new['pubs']->find('user',array(
+        'phone'=>$phone,
+    ));
+
+    if($strUserPhone==''){
+        echo 4;exit;//手机号不存在
+    }
 }
+
 
 $strPhone = $new['pubs']->find('phone_code',array(
     'phone'=>$phone,

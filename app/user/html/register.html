@@ -10,15 +10,28 @@
 
 
 
-      <div class="card">
-          <div class="card-body" style="padding: 15px 30px 30px;">
+      <div class="card border-0">
+          <div class="card-body" style="padding: 30px;">
+
+
+
+              <ul class="nav nav-tabs mb-4">
+                  {if $TS_SITE['regtype']=='0' || $TS_SITE['regtype']=='2'}
+                  <li class="nav-item">
+                      <a class="nav-link font-weight-bold active" href="{tsUrl('user','register')}">Email注册</a>
+                  </li>
+                  {/if}
+                  {if $TS_SITE['regtype']=='1' || $TS_SITE['regtype']=='2'}
+                  <li class="nav-item">
+                      <a class="nav-link font-weight-bold" href="{tsUrl('user','phone')}">手机号注册</a>
+                  </li>
+                  {/if}
+              </ul>
 
 
 
 
-              <div class="fs24">用户注册</div>
 
-              <hr />
 
               {if $TS_APP[isregister]=='2'}
               <p>系统升级中，暂时关闭用户注册！</p>
