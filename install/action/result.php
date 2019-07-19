@@ -86,7 +86,7 @@ if ($db) {
 	
 	$userid = $db->query ( "insert into " . $pre . "user (`pwd` , `salt`,`email`,`phone`) values ('" . md5 ( $salt . $password ) . "', '$salt' ,'$email','$email');" );
 	
-	$db->query ( "insert into " . $pre . "user_info (`userid`,`username`,`email`,`phone`,`isadmin`,`addtime`,`uptime`) values ('$userid','$username','$email','$email','1','" . time () . "','" . time () . "')" );
+	$db->query ( "insert into " . $pre . "user_info (`userid`,`username`,`email`,`phone`,`isadmin`,`isverify`,`isverifyphone`,`isrenzheng`,`addtime`,`uptime`) values ('$userid','$username','$email','$email','1','1','1','1','" . time () . "','" . time () . "')" );
 	
 	// 更改网站信息
 	$db->query ( "update " . $pre . "system_options set `optionvalue`='$site_title' where `optionname`='site_title'" );
