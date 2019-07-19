@@ -120,6 +120,7 @@
         <tr><td>用户发布内容权限：</td><td>
             <input type="radio" name="option[publisher]" value="0" {if $strOption['publisher']=='0'}checked="select"{/if} />注册用户
             <input type="radio" name="option[publisher]" value="isverify" {if $strOption['publisher']=='isverify'}checked="select"{/if} />仅Email验证用户
+            <input type="radio" name="option[publisher]" value="isverifyphone" {if $strOption['publisher']=='isverifyphone'}checked="select"{/if} />仅手机注册用户
             <input type="radio" name="option[publisher]" value="isrenzheng" {if $strOption['publisher']=='isrenzheng'}checked="select"{/if} />仅手工认证用户
             <input type="radio" name="option[publisher]" value="isadmin" {if $strOption['publisher']=='isadmin'}checked="select"{/if} />仅管理员
         </td></tr>

@@ -210,111 +210,118 @@ if ($TS_CF['logs']) {
     userlog($_GET, intval($TS_USER['userid']));
 }
 
-//控制访客权限
-if($TS_USER=='' && $TS_SITE['visitor'] == 1){
-    if($app!='pubs' && $ac!='home' && $ac!='register' && $ac!='phone' && $ac!='login' && $ac!='forgetpwd' && $ac!='resetpwd' && $app!='api'){
-        tsHeaderUrl(tsUrl('pubs','home'));
+//API逻辑单独处理
+if($app!='api'){
+
+    //控制访客权限
+    if($TS_USER=='' && $TS_SITE['visitor'] == 1){
+        if($app!='pubs' && $ac!='home' && $ac!='register' && $ac!='phone' && $ac!='login' && $ac!='forgetpwd' && $ac!='resetpwd'){
+            tsHeaderUrl(tsUrl('pubs','home'));
+        }
     }
-}
 
-//控制前台ADMIN访问权限
-if ($TS_URL['ac'] == 'admin' && $TS_USER['isadmin'] != 1 && $TS_URL['app'] != 'system') {
-    tsHeaderUrl(SITE_URL);
-}
-
-//控制后台访问权限
-if ($TS_USER['isadmin'] != 1 && $TS_URL['app'] == 'system' && $TS_URL['ac'] != 'login') {
-    tsHeaderUrl(SITE_URL);
-}
-
-//控制插件设置权限
-if ($TS_USER['isadmin'] != 1 && $TS_URL['in'] == 'edit') {
-    tsHeaderUrl(SITE_URL);
-}
-
-//判断用户是否需要验证Email,管理员除外
-if ($TS_SITE['isverify'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
-    $verifyUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'isverify');
-    if (intval($verifyUser['isverify']) == 0 && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
-        tsHeaderUrl(tsUrl('user', 'verify'));
+    //控制前台ADMIN访问权限
+    if ($TS_URL['ac'] == 'admin' && $TS_USER['isadmin'] != 1 && $TS_URL['app'] != 'system') {
+        tsHeaderUrl(SITE_URL);
     }
-}
 
-//判断用户是否需要验证手机号,管理员除外
-if ($TS_SITE['isverifyphone'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
-    $verifyUserPhone = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'isverifyphone');
-    if (intval($verifyUserPhone['isverifyphone']) == 0 && $TS_URL['app'] != 'user' && $TS_URL['app'] != 'pubs' && $TS_USER['isadmin'] != 1) {
-        tsHeaderUrl(tsUrl('user', 'phone',array('ts'=>'verify')));
+    //控制后台访问权限
+    if ($TS_USER['isadmin'] != 1 && $TS_URL['app'] == 'system' && $TS_URL['ac'] != 'login') {
+        tsHeaderUrl(SITE_URL);
     }
-}
 
-//判断用户是否上传头像,管理员除外
-if ($TS_SITE['isface'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
-    $faceUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'face');
-    if ($faceUser['face'] == '' && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
-        tsHeaderUrl(tsUrl('user', 'verify', array('ts' => 'face')));
+    //控制插件设置权限
+    if ($TS_USER['isadmin'] != 1 && $TS_URL['in'] == 'edit') {
+        tsHeaderUrl(SITE_URL);
     }
-}
 
-//用户自动登录
-if (intval($TS_USER['userid']) == 0 && $_COOKIE['ts_email'] && $_COOKIE['ts_autologin']) {
+    //判断用户是否需要验证Email,管理员除外
+    if ($TS_SITE['isverify'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
+        $verifyUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'isverify');
+        if (intval($verifyUser['isverify']) == 0 && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
+            tsHeaderUrl(tsUrl('user', 'verify'));
+        }
+    }
 
-    $loginUserNum = aac('user') -> findCount('user_info', array('email' => $_COOKIE['ts_email'], 'autologin' => $_COOKIE['ts_autologin'], ));
+    //判断用户是否需要验证手机号,管理员除外
+    if ($TS_SITE['isverifyphone'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
+        $verifyUserPhone = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'isverifyphone');
+        if (intval($verifyUserPhone['isverifyphone']) == 0 && $TS_URL['app'] != 'user' && $TS_URL['app'] != 'pubs' && $TS_USER['isadmin'] != 1) {
+            tsHeaderUrl(tsUrl('user', 'phone',array('ts'=>'verify')));
+        }
+    }
 
-    if ($loginUserNum > 0) {
+    //判断用户是否上传头像,管理员除外
+    if ($TS_SITE['isface'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
+        $faceUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'face');
+        if ($faceUser['face'] == '' && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
+            tsHeaderUrl(tsUrl('user', 'verify', array('ts' => 'face')));
+        }
+    }
 
-        $loginUserData = aac('user') -> find('user_info', array('email' => $_COOKIE['ts_email'], ), 'userid,username,path,face,ip,isadmin,signin,uptime');
+    //用户自动登录
+    if (intval($TS_USER['userid']) == 0 && $_COOKIE['ts_email'] && $_COOKIE['ts_autologin']) {
 
-        if ($loginUserData['ip'] != getIp() && $TS_URL['app'] != 'user' && $TS_URL['ac'] != 'login') {
-            tsHeaderUrl(tsUrl('user', 'login', array('ts' => 'out')));
+        $loginUserNum = aac('user') -> findCount('user_info', array('email' => $_COOKIE['ts_email'], 'autologin' => $_COOKIE['ts_autologin'], ));
+
+        if ($loginUserNum > 0) {
+
+            $loginUserData = aac('user') -> find('user_info', array('email' => $_COOKIE['ts_email'], ), 'userid,username,path,face,ip,isadmin,signin,uptime');
+
+            if ($loginUserData['ip'] != getIp() && $TS_URL['app'] != 'user' && $TS_URL['ac'] != 'login') {
+                tsHeaderUrl(tsUrl('user', 'login', array('ts' => 'out')));
+            }
+
+            //用户session信息
+            $_SESSION['tsuser'] = array(
+                'userid' => $loginUserData['userid'],
+                'username' => $loginUserData['username'],
+                'path' => $loginUserData['path'],
+                'face' => $loginUserData['face'],
+                'isadmin' => $loginUserData['isadmin'],
+                'signin' => $loginUserData['signin'],
+                'uptime' => $loginUserData['uptime'],
+            );
+            $TS_USER = $_SESSION['tsuser'];
+        }
+    }
+
+    $tsHooks = array();
+
+    if ($TS_URL['app'] != 'system' && $TS_URL['app'] != 'pubs') {
+        //加载公用插件
+        $public_plugins = fileRead('data/pubs_plugins.php');
+        if ($public_plugins == '') {
+            $public_plugins = $tsMySqlCache -> get('pubs_plugins');
         }
 
-        //用户session信息
-        $_SESSION['tsuser'] = array(
-			'userid' => $loginUserData['userid'], 
-			'username' => $loginUserData['username'], 
-			'path' => $loginUserData['path'], 
-			'face' => $loginUserData['face'], 
-			'isadmin' => $loginUserData['isadmin'], 
-			'signin' => $loginUserData['signin'], 
-			'uptime' => $loginUserData['uptime'], 
-		);
-        $TS_USER = $_SESSION['tsuser'];
-    }
-}
+        if ($public_plugins && is_array($public_plugins)) {
+            foreach ($public_plugins as $item) {
+                if (is_file('plugins/pubs/' . $item . '/' . $item . '.php')) {
+                    include 'plugins/pubs/' . $item . '/' . $item . '.php';
+                }
+            }
+        }
 
-$tsHooks = array();
+        //加载APP插件
+        $active_plugins = fileRead('data/' . $TS_URL['app'] . '_plugins.php');
+        if ($active_plugins == '') {
+            $active_plugins = $tsMySqlCache -> get($TS_URL['app'] . '_plugins');
+        }
 
-
-if ($TS_URL['app'] != 'system' && $TS_URL['app'] != 'pubs') {
-    //加载公用插件
-    $public_plugins = fileRead('data/pubs_plugins.php');
-    if ($public_plugins == '') {
-        $public_plugins = $tsMySqlCache -> get('pubs_plugins');
-    }
-
-    if ($public_plugins && is_array($public_plugins)) {
-        foreach ($public_plugins as $item) {
-            if (is_file('plugins/pubs/' . $item . '/' . $item . '.php')) {
-                include 'plugins/pubs/' . $item . '/' . $item . '.php';
+        if ($active_plugins && is_array($active_plugins)) {
+            foreach ($active_plugins as $item) {
+                if (is_file('plugins/' . $TS_URL['app'] . '/' . $item . '/' . $item . '.php')) {
+                    include 'plugins/' . $TS_URL['app'] . '/' . $item . '/' . $item . '.php';
+                }
             }
         }
     }
 
-    //加载APP插件
-    $active_plugins = fileRead('data/' . $TS_URL['app'] . '_plugins.php');
-    if ($active_plugins == '') {
-        $active_plugins = $tsMySqlCache -> get($TS_URL['app'] . '_plugins');
-    }
-
-    if ($active_plugins && is_array($active_plugins)) {
-        foreach ($active_plugins as $item) {
-            if (is_file('plugins/' . $TS_URL['app'] . '/' . $item . '/' . $item . '.php')) {
-                include 'plugins/' . $TS_URL['app'] . '/' . $item . '/' . $item . '.php';
-            }
-        }
-    }
 }
+
+
+
 
 //运行统计结束
 $time_end = getmicrotime();

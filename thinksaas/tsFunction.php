@@ -1700,6 +1700,9 @@ function tsClean($text,$js=0) {
     preg_match_all('/<img[^>]*src="([^"]*)"[^>]*>/i',$text, $matchs);   //主要
     $arrImage = $matchs[1];
     foreach($arrImage as $key=>$item){
+        if(substr( $item, 0, 1 )=='/'){
+            $item = substr($item,1);
+        }
         if(getimagesize($item)==false){
             getJson('内容中存在非法图片：'.$item,$js,0);
         }
