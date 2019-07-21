@@ -2,6 +2,13 @@
 //环境配置文件
 return array(
 
+    //redis配置
+    'redis'=>array(
+        'tcp'=>'tcp://127.0.0.1:6379',
+        'host'=>'127.0.0.1',
+        'port'=>'6379',
+    ),
+
 	//Memcache配置
 	'memcache' => array(
 		//'host' => '127.0.0.1',
@@ -14,8 +21,8 @@ return array(
 	//是否开启显示插件钩子
 	'hook' => false,
 
-	//是否开启数据库存取session  暂时还有点问题预留
-	'session' => false,
+	//session存取方式，默认位本地存储，支持redis存储
+	'session' => '',
 
 	//存储session文件在cache/sessions/目录下，如果IIS环境出现登陆后无法退出请将sessionpath前注释去掉，启用自定义session存储目录
 	//'sessionpath'=>'sessions',

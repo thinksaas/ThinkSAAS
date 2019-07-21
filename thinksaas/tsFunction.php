@@ -2548,29 +2548,37 @@ function emptyText($text=''){
  */
 function upAppNav($appkey,$appname){
     if($appkey && $appname){
-        #更新APP导航名称
-        $arrNav = include 'data/system_appnav.php';
-        if(is_array($arrNav)){
-            $arrNav[$appkey] = $appname;
-        }else{
-            $arrNav = array(
-                $appkey=>$appname,
-            );
-        }
-        fileWrite('system_appnav.php','data',$arrNav);
-        $GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
 
-        #更新我的社区导航
-        $arrMy = include 'data/system_mynav.php';
-        if(is_array($arrMy)){
-            $arrMy[$appkey] = $appname;
-        }else{
-            $arrMy = array(
-                $appkey=>$appname,
-            );
+        $strAbout = require_once 'app/'.$appkey.'/about.php';
+
+        if($strAbout['isappnav']==1){
+            #更新APP导航名称
+            $arrNav = include 'data/system_appnav.php';
+            if(is_array($arrNav)){
+                $arrNav[$appkey] = $appname;
+            }else{
+                $arrNav = array(
+                    $appkey=>$appname,
+                );
+            }
+            fileWrite('system_appnav.php','data',$arrNav);
+            $GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
         }
-        fileWrite('system_mynav.php','data',$arrMy);
-        $GLOBALS['tsMySqlCache']->set('system_mynav',$arrMy);
+
+        if($strAbout['ismy']==1){
+            #更新我的社区导航
+            $arrMy = include 'data/system_mynav.php';
+            if(is_array($arrMy)){
+                $arrMy[$appkey] = $appname;
+            }else{
+                $arrMy = array(
+                    $appkey=>$appname,
+                );
+            }
+            fileWrite('system_mynav.php','data',$arrMy);
+            $GLOBALS['tsMySqlCache']->set('system_mynav',$arrMy);
+        }
+
     }
 }
 

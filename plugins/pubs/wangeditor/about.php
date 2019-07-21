@@ -1,1 +1,0 @@
-<?phpdefined('IN_TS') or die('Access Denied.');return array(    'name' => 'wangeditor编辑器',    'version' => '3.0',    'desc' => '针对ThinkSAAS社区开发的wangeditor编辑器',    'url' => 'http://www.thinksaas.cn',    'email' => 'thinksaas@qq.com',    'author' => 'wangeditor',    'author_url' => 'https://www.wangeditor.com',    'isedit'	=> '0',);

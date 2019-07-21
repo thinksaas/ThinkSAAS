@@ -1,0 +1,1 @@
+<?phpdefined('IN_TS') or die('Access Denied.');return array(    'name' => 'summernote编辑器',    'version' => '0.8.11',    'desc' => '针对ThinkSAAS社区开发的summernote编辑器插件',    'url' => 'http://www.thinksaas.cn',    'email' => 'thinksaas@qq.com',    'author' => 'summernote',    'author_url' => 'http://summernote.org/',    'isedit'	=> '0',);

@@ -7,10 +7,10 @@
  */
 defined('IN_TS') or die('Access Denied.');
 
-//连接本地的 Redis 服务
+//实例化redis
 $redis = new Redis();
-$redis->connect('127.0.0.1', 6379);
-echo "Connection to server sucessfully";
-echo '<br />';
-//查看服务是否运行
+//连接
+$redis->connect($TS_CF['redis']['host'], $TS_CF['redis']['port']);
+//检测是否连接成功
 echo "Server is running: " . $redis->ping();
+// 输出结果 Server is running: +PONG

@@ -12,13 +12,17 @@ if($TS_CF['urllock'] && $_SERVER['SERVER_NAME']!=$TS_CF['urllock']){
     echo '404 page';exit;
 }
 
-//自定义session存储目录路径
-if ($TS_CF['sessionpath']) {
-    ini_set('session.save_path', THINKROOT . '/cache/sessions');
-}
-
 //加载基础函数
 include 'tsFunction.php';
+
+//安装专用变量
+$install = isset($_GET['install']) ? $_GET['install'] : 'index';
+
+//安装配置文件，数据库配置判断
+if (!is_file('data/config.inc.php')) {
+    include 'install/index.php';
+    exit;
+}
 
 //开始计算程序执行时间
 $time_start = getmicrotime();
@@ -31,29 +35,9 @@ if ($TS_CF['fileurl']['url']) {
     }
 }
 
-//数据库存储SESSION  还有点问题，暂时不要开启
-if ($TS_CF['session']) {
-    include 'tsSession.php';
-    ini_set('session.save_handler', 'user');
-    session_set_save_handler(
-            array('tsSession', 'open'), array('tsSession', 'close'), array('tsSession', 'read'), array('tsSession', 'write'), array('tsSession', 'destroy'), array('tsSession', 'gc')
-    );
-}
-
-session_start();
-
 //启动Memcache
 if ($TS_CF['memcache'] && extension_loaded('memcache')) {
     $TS_MC = Memcache::connect($TS_CF['memcache']['host'], $TS_CF['memcache']['port']);
-}
-//安装专用变量
-$install = isset($_GET['install']) ? $_GET['install'] : 'index';
-
-
-//安装配置文件，数据库配置判断
-if (!is_file('data/config.inc.php')) {
-    include 'install/index.php';
-    exit;
 }
 
 //开始处理url路由，支持APP二级域名
@@ -180,7 +164,6 @@ if (is_file('data/' . $TS_URL['app'] . '_options.php')) {
     }
 }
 
-
 //加密用户操作
 if (!isset($_SESSION['token'])) {
     $_SESSION['token'] = sha1(uniqid(mt_rand(), TRUE));
@@ -191,7 +174,6 @@ if ($_REQUEST['token'] && $TS_SITE['istoken']) {
         tsNotice('非法操作！');
     }
 }
-
 
 //定义网站URL
 define('SITE_URL', $TS_SITE['site_url']);
@@ -212,6 +194,28 @@ if ($TS_CF['logs']) {
 
 //API逻辑单独处理
 if($app!='api'){
+
+    //用户自动登录
+    if (intval($TS_USER['userid']) == 0 && $_COOKIE['ts_email'] && $_COOKIE['ts_autologin']) {
+        $loginUserNum = aac('user') -> findCount('user_info', array('email' => $_COOKIE['ts_email'], 'autologin' => $_COOKIE['ts_autologin'], ));
+        if ($loginUserNum > 0) {
+            $loginUserData = aac('user') -> find('user_info', array('email' => $_COOKIE['ts_email'], ), 'userid,username,path,face,ip,isadmin,signin,uptime');
+            if ($loginUserData['ip'] != getIp() && $TS_URL['app'] != 'user' && $TS_URL['ac'] != 'login') {
+                tsHeaderUrl(tsUrl('user', 'login', array('ts' => 'out')));
+            }
+            //用户session信息
+            $_SESSION['tsuser'] = array(
+                'userid' => $loginUserData['userid'],
+                'username' => $loginUserData['username'],
+                'path' => $loginUserData['path'],
+                'face' => $loginUserData['face'],
+                'isadmin' => $loginUserData['isadmin'],
+                'signin' => $loginUserData['signin'],
+                'uptime' => $loginUserData['uptime'],
+            );
+            $TS_USER = $_SESSION['tsuser'];
+        }
+    }
 
     //控制访客权限
     if($TS_USER=='' && $TS_SITE['visitor'] == 1){
@@ -256,33 +260,6 @@ if($app!='api'){
         $faceUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'face');
         if ($faceUser['face'] == '' && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
             tsHeaderUrl(tsUrl('user', 'verify', array('ts' => 'face')));
-        }
-    }
-
-    //用户自动登录
-    if (intval($TS_USER['userid']) == 0 && $_COOKIE['ts_email'] && $_COOKIE['ts_autologin']) {
-
-        $loginUserNum = aac('user') -> findCount('user_info', array('email' => $_COOKIE['ts_email'], 'autologin' => $_COOKIE['ts_autologin'], ));
-
-        if ($loginUserNum > 0) {
-
-            $loginUserData = aac('user') -> find('user_info', array('email' => $_COOKIE['ts_email'], ), 'userid,username,path,face,ip,isadmin,signin,uptime');
-
-            if ($loginUserData['ip'] != getIp() && $TS_URL['app'] != 'user' && $TS_URL['ac'] != 'login') {
-                tsHeaderUrl(tsUrl('user', 'login', array('ts' => 'out')));
-            }
-
-            //用户session信息
-            $_SESSION['tsuser'] = array(
-                'userid' => $loginUserData['userid'],
-                'username' => $loginUserData['username'],
-                'path' => $loginUserData['path'],
-                'face' => $loginUserData['face'],
-                'isadmin' => $loginUserData['isadmin'],
-                'signin' => $loginUserData['signin'],
-                'uptime' => $loginUserData['uptime'],
-            );
-            $TS_USER = $_SESSION['tsuser'];
         }
     }
 

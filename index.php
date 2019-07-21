@@ -12,7 +12,7 @@ define('IN_TS', true);
 header('Content-Type: text/html; charset=UTF-8');
 #php版本限制
 if (substr(PHP_VERSION, 0, 3)<5.5) {
-    exit("ThinkSAAS运行环境要求PHP5.4或者更高！");
+    exit("ThinkSAAS运行环境要求PHP5.5或者更高！");
 }
 #定义一些路径
 define('THINKROOT', dirname(__FILE__));
@@ -35,6 +35,19 @@ if ($TS_CF['debug']) {
 ini_set('display_errors', 'on');   //正式环境关闭错误输出
 set_time_limit(0);
 ini_set('session.cookie_path', '/');
+
+//自定义本地session存储目录路径
+if ($TS_CF['sessionpath']) {
+    ini_set('session.save_path', THINKROOT . '\\cache\\sessions');
+}
+
+if($TS_CF['session']=='redis'){
+    ini_set("session.save_handler","redis");
+    ini_set("session.save_path",$TS_CF['redis']['tcp']);
+}
+
+session_start();
+
 #自动加载所需功能，支持composer
 require_once THINKROOT . '/vendor/autoload.php';
 #装载ThinkSAAS核心
