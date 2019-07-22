@@ -16,7 +16,7 @@
         <tbody>
 
         {loop $arrGuestbook $key $item}
-        <tr><td>{$item['id']}</td><td>{$item['userid']}</td><td>{$item['touserid']}</td><td>{php echo tsDecode($item['content'])}</td><td>{$item['addtime']}</td><td><a onclick="return  confirm('确定删除吗？')" href="{SITE_URL}index.php?app=user&ac=admin&mg=guestbook&ts=delete&page={$page}&guestid={$item['id']}">删除</a></td></tr>
+        <tr><td>{$item['id']}</td><td>{$item['userid']}</td><td>{$item['touserid']}</td><td>{php echo tsTitle($item['content'])}</td><td>{$item['addtime']}</td><td><a onclick="return  confirm('确定删除吗？')" href="{SITE_URL}index.php?app=user&ac=admin&mg=guestbook&ts=delete&page={$page}&guestid={$item['id']}">删除</a></td></tr>
         {/loop}
 
 

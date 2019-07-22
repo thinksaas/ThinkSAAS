@@ -1489,7 +1489,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
   `username` char(32) NOT NULL DEFAULT '' COMMENT '用户名',
   `email` varchar(64) NOT NULL DEFAULT '' COMMENT 'Email邮箱',
   `sex` char(32) NOT NULL DEFAULT '女' COMMENT '性别',
-  `phone` char(16) NOT NULL DEFAULT '' COMMENT '电话号码',
+  `phone` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '电话号码',
   `roleid` int(11) NOT NULL DEFAULT '1' COMMENT '角色ID',
   `province` varchar(64) NOT NULL DEFAULT '' COMMENT '省/直辖市/自治区',
   `city` varchar(64) NOT NULL DEFAULT '' COMMENT '市县区',
