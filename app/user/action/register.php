@@ -91,11 +91,13 @@ switch($ts){
 		if($pwd != $repwd){
 			getJson('两次输入密码不正确！',$js);
 		}
-		
-		
+
 		if(count_string_len($username) < 4 || count_string_len($username) > 20){
 			getJson('姓名长度必须在4和20之间',$js);
 		}
+
+		#用户名敏感词
+        //aac ( 'system' )->antiWord ( $username,$js );
 
 		#判断用户名是否存在
         $isUserName = $new['user']->findCount('user_info',array(

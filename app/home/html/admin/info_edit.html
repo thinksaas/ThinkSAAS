@@ -1,5 +1,5 @@
 {php include pubTemplate("header_admin")}
-
+{php doAction('tseditor')}
 <!--main-->
 <div class="midder">
 
@@ -22,9 +22,9 @@
         <td>内容:</td><td>
 
 
-        <div id="tseditor">{$strInfo['content']}</div>
-        <div style="display: none;">
-            <textarea name="content">{$strInfo['content']}</textarea>
+
+        <div style="width: 700px;">
+            <textarea id="tseditor" name="content">{$strInfo['content']}</textarea>
         </div>
 
 
@@ -55,9 +55,4 @@
 
 
 </div>
-
-<script type="text/javascript" charset="utf-8" src="{SITE_URL}public/js/xss.js"></script>
-<script type="text/javascript" charset="utf-8" src="{SITE_URL}plugins/pubs/wangeditor/wangEditor.js"></script>
-<script type="text/javascript" charset="utf-8" src="{SITE_URL}plugins/pubs/wangeditor/load.js"></script>
-
 {php include pubTemplate("footer_admin")}
