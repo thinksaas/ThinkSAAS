@@ -263,7 +263,7 @@ class weiboAction extends weibo{
 		if($strWeibo['userid'] != $userid){
 			$msg_userid = '0';
 			$msg_touserid = $strWeibo['userid'];
-			$msg_content = '你的微博新增一条回复，快去看看给个回复吧^_^';
+			$msg_content = '你的唠叨新增一条回复，快去看看给个回复吧^_^';
             $msg_tourl = tsUrl('weibo','show',array('id'=>$weiboid));
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 		}
