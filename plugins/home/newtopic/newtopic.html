@@ -16,6 +16,8 @@
     <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}{if $item[count_comment]>0}<span class="badge  badge-pill badge-secondary fw300 fs12">{$item[count_comment]}回复</span>{/if}</a>
 
 </div>
+
+{if $item['group']['isopen']==0}
     <div class="gaiyao">
         {$item['gaiyao']}
     </div>
@@ -26,6 +28,9 @@
         {/loop}
     </div>
     {/if}
+{/if}
+
+
 <div class="topic_info">
 <span class="float-left">
 <a class="c9" href="{tsUrl('group','show',array('id'=>$item[groupid]))}">[{$item[group][groupname]}]</a>
