@@ -86,6 +86,14 @@ class weiboAction extends weibo{
             'uptime'=>date('Y-m-d H:i:s'),
         ));
 
+        $daytime = date('Y-m-d 00:00:01');
+        $count_weibo = $this->findCount('weibo',"`userid`='$userid' and `addtime`>'$daytime'");
+
+        #每日前三条给积分
+        if($count_weibo<4){
+            aac('user') -> doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
+        }
+
         getJson('发布成功！',$js,2,tsurl('weibo','show',array('id'=>$weiboid)));
 		
     }
@@ -267,6 +275,17 @@ class weiboAction extends weibo{
             $msg_tourl = tsUrl('weibo','show',array('id'=>$weiboid));
 			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 		}
+
+
+
+        $daytime = date('Y-m-d 00:00:01');
+        $count_comment = $this->findCount('weibo_comment',"`userid`='$userid' and `addtime`>'$daytime'");
+
+        #每日前1条给积分
+        if($count_comment<2){
+            aac('user') -> doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
+        }
+
 
 		tsHeaderUrl(tsUrl('weibo','show',array('id'=>$weiboid)));
 	}

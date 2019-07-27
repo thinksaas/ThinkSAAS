@@ -58,9 +58,6 @@ switch($ts){
 				'uptime'=>time(),
 			));
 			
-			//对积分进行处理
-			aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
-			
 			//发送系统消息(通知楼主有人回复他的帖子啦)			
 			$strTopic = $new['group']->find('group_topic',array(
 				'topicid'=>$topicid,
@@ -75,6 +72,16 @@ switch($ts){
 				aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
 				
 			}
+
+
+            $daytime = strtotime(date('Y-m-d 00:00:01'));
+            $count_comment = $new['group']->findCount('group_topic_comment',"`userid`='$userid' and `addtime`>'$daytime'");
+
+            #每日前1条给积分
+            if($count_comment<2){
+                aac('user') -> doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
+            }
+
 
 			getJson('评论成功',$js,1,tsUrl('group','topic',array('id'=>$topicid)));
 

@@ -36,9 +36,17 @@ switch ($ts) {
             'count_comment' => $count_comment
         ) );
 
-        header ( "Location: " . tsUrl ( 'article', 'show', array (
-                'id' => $articleid
-            ) ) );
+
+        $daytime = strtotime(date('Y-m-d 00:00:01'));
+        $count_comment = $new['article']->findCount('article_comment',"`userid`='$userid' and `addtime`>'$daytime'");
+
+        #每日前1条给积分
+        if($count_comment<2){
+            aac('user') -> doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
+        }
+
+
+        header ( "Location: " . tsUrl ( 'article', 'show', array ('id' => $articleid) ) );
 
         break;
 
