@@ -150,7 +150,7 @@ if (substr(PHP_VERSION, 0, 3)>=7.1 && $TS_CF['orm']) {
 include 'app/' . $TS_URL['app'] . '/config.php';
 
 //连接数据库
-include 'sql/' . $TS_DB['sql'] . '.php';
+include 'sql/mysqli.php';
 $db = new MySql($TS_DB);
 
 //加载APP数据库操作类并建立对象
