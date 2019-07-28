@@ -37,7 +37,7 @@ function aac($app) {
  * @param string $type
  * @return multitype:unknown
  */
-function array_sort($arr, $keys, $type = 'asc') {
+function array2sort($arr, $keys, $type = 'asc') {
 	$keysvalue = $new_array = array();
 	foreach ($arr as $k => $v) {
 		$keysvalue[$k] = $v[$keys];

@@ -41,7 +41,7 @@ if(intval($TS_USER['userid'])){
 if ($strGroup['isopen'] == '1' && $strGroupUser == '') {
     $title = $strTopic['title'];
     include template("topic_isopen");exit;
-}elseif($strGroup['isopen'] == '1' && $TS_APP['ispayjoin']==1 && $strGroupUser['endtime']!='0000-00-00' && $strGroupUser['endtime'] <date('Y-m-d')){
+}elseif($strGroup['isopen'] == '1' && $TS_APP['ispayjoin']==1 && $strGroupUser['endtime']!='0000-00-00' && $strGroupUser['endtime']!='1970-01-01' && $strGroupUser['endtime'] <date('Y-m-d')){
     $title = $strTopic['title'];
     include template("topic_xuqi");exit;
 }

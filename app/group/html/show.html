@@ -126,7 +126,7 @@
 
     <div class="alert alert-info">你需要加入小组后才可以访问帖子内容</div>
 
-    {elseif $strGroup['isopen']==1 && $TS_APP['ispayjoin']==1 && $isGroupUser['endtime']!='0000-00-00' && $isGroupUser['endtime']<date('Y-m-d')}
+    {elseif $strGroup['isopen']==1 && $TS_APP['ispayjoin']==1 && $isGroupUser['endtime']!='0000-00-00' && $isGroupUser['endtime']!='1970-01-01' && $isGroupUser['endtime']<date('Y-m-d')}
     <div class="alert alert-info">你的组费已经到期，请联系组长续期！续期后才可以访问帖子内容。</div>
     {else}
 

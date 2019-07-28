@@ -7,6 +7,10 @@
  */
 defined('IN_TS') or die('Access Denied.');
 
+#https://github.com/illuminate/database
+#https://packagist.org/packages/illuminate/database
+use Illuminate\Database\Capsule\Manager as Capsule;
+
 //杜绝非本站域名的使用
 if($TS_CF['urllock'] && $_SERVER['SERVER_NAME']!=$TS_CF['urllock']){
     echo '404 page';exit;
@@ -112,10 +116,35 @@ if ($TS_CF['subdomain'] && $TS_URL['app'] == 'home') {
     }
 }
 
-
-
 //数据库配置文件
 include 'data/config.inc.php';
+
+#php7.1开始支持laravel数据库操作，
+#文档参见：https://github.com/illuminate/database
+#https://laravel.com/docs/5.8/database
+if (substr(PHP_VERSION, 0, 3)>=7.1 && $TS_CF['orm']) {
+    $capsule = new Capsule;
+    $capsule->addConnection([
+        /*
+        'read' => [
+            'host' => 'localhost'
+        ],
+        'write' => [
+            'host' => 'localhost'
+        ],
+        */
+        'driver'    => 'mysql',
+        'host'      => $TS_DB['host'],
+        'database'  => $TS_DB['name'],
+        'username'  => $TS_DB['user'],
+        'password'  => $TS_DB['pwd'],
+        'charset'   => 'utf8mb4',
+        'collation' => 'utf8mb4_general_ci',
+        'prefix'    => $TS_DB['pre'],
+    ]);
+    $capsule->setAsGlobal();
+    $capsule->bootEloquent();
+}
 
 //加载APP配置文件
 include 'app/' . $TS_URL['app'] . '/config.php';
@@ -129,7 +158,6 @@ include 'thinksaas/tsApp.php';
 //MySQL数据库缓存
 include 'thinksaas/tsMySqlCache.php';
 $tsMySqlCache = new tsMySqlCache($db);
-
 
 //加载网站配置文件
 $TS_SITE = fileRead('data/system_options.php');
@@ -151,7 +179,6 @@ $TS_SITE['mynav'] = fileRead('data/system_mynav.php');
 if ($TS_SITE['mynav'] == '') {
     $TS_SITE['mynav'] = $tsMySqlCache -> get('system_mynav');
 }
-
 
 //加载APP配置
 if (is_file('data/' . $TS_URL['app'] . '_options.php')) {
@@ -297,15 +324,11 @@ if($app!='api'){
 
 }
 
-
-
-
 //运行统计结束
 $time_end = getmicrotime();
 
 $runTime = $time_end - $time_start;
 $TS_CF['runTime'] = number_format($runTime, 6);
-
 
 //定义全局变量
 global $TS_CF,$TS_SITE,$TS_APP,$TS_USER,$TS_URL,$TS_MC,$db,$tsMySqlCache,$tstheme;
@@ -313,17 +336,14 @@ global $TS_CF,$TS_SITE,$TS_APP,$TS_USER,$TS_URL,$TS_MC,$db,$tsMySqlCache,$tsthem
 //装载APP应用
 if (is_file('app/' . $TS_URL['app'] . '/class.' . $TS_URL['app'] . '.php')) {
 
-
     include_once 'app/' . $TS_URL['app'] . '/class.' . $TS_URL['app'] . '.php';
     $new[$TS_URL['app']] = new $TS_URL['app']($db);
-
 
     //在执行action之前加载
     doAction('beforeAction');
 
     //全站通用数据加载
     include 'thinksaas/common.php';
-
 
     if(is_file('app/'.$TS_URL['app'].'/action.'.$TS_URL['app'].'.php')){
         //面向对象的写法
