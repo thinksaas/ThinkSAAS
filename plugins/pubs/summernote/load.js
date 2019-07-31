@@ -11,6 +11,7 @@ $(document).ready(function() {
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
             ['insert', ['link', 'picture']],
+            ['highlight', ['highlight']],
             ['view', ['fullscreen']]
         ],
 

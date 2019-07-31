@@ -24,7 +24,7 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
 
     <thead class="thead-light">
 
-    <tr><th>UID</th><th>Email</th><th>姓名</th><th>注册时间</th><th>登录IP</th><th>来自</th><th>验证Email</th><th>操作</th></tr>
+    <tr><th>UID</th><th>Email</th><th>手机号</th><th>姓名</th><th>注册时间</th><th>登录IP</th><th>来自</th><th>验证Email</th><th>操作</th></tr>
 
     </thead>
 
@@ -33,7 +33,12 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
     <tbody>
 
     {loop $arrAllUser $key $item}
-    <tr class="odd"><td>{$item[userid]}</td><td>{$item[email]}</td><td>{$item[username]}</td><td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td>
+    <tr class="odd"><td>{$item[userid]}</td>
+
+        <td>{$item[email]}</td>
+        <td>{$item['phone']}</td>
+
+        <td>{$item[username]}</td><td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td>
 
         <td>{$item['ip']}</td>
         <td>{$item['comefrom']}</td>
