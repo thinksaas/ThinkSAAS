@@ -1134,6 +1134,7 @@ DROP TABLE IF EXISTS `ts_phone_code`;
 CREATE TABLE IF NOT EXISTS `ts_phone_code` (
   `phone` varchar(32) CHARACTER SET utf8 NOT NULL COMMENT '手机号',
   `code` varchar(32) CHARACTER SET utf8 NOT NULL COMMENT '验证码',
+  `nums` int(11) NOT NULL DEFAULT '0' COMMENT '错误次数',
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间',
   UNIQUE KEY `phone` (`phone`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='手机号验证码';
@@ -1489,7 +1490,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
   `username` char(32) NOT NULL DEFAULT '' COMMENT '用户名',
   `email` varchar(64) NOT NULL DEFAULT '' COMMENT 'Email邮箱',
   `sex` char(32) NOT NULL DEFAULT '女' COMMENT '性别',
-  `phone` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '电话号码',
+  `phone` varchar(64) NOT NULL DEFAULT '' COMMENT '电话号码',
   `roleid` int(11) NOT NULL DEFAULT '1' COMMENT '角色ID',
   `province` varchar(64) NOT NULL DEFAULT '' COMMENT '省/直辖市/自治区',
   `city` varchar(64) NOT NULL DEFAULT '' COMMENT '市县区',
