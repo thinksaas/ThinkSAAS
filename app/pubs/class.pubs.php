@@ -55,4 +55,47 @@ class pubs extends tsApp{
         return ($action != 'DECODE' ? base64_encode($code) : $code);
     }
 
+    /**
+     * @param $phone
+     * @param $code
+     * @return bool
+     */
+    public function verifyPhoneCode($phone, $code){
+        $strPhoneCode = $this->find('phone_code',array(
+            'phone'=>$phone,
+        ));
+
+        #空数据
+        if($strPhoneCode==''){
+            return false;exit;
+        }
+
+        #空验证码
+        if($strPhoneCode['code']==''){
+            return false;exit;
+        }
+
+        #手机验证码错误次数>=2
+        if($strPhoneCode['nums']>=2){
+            $this->update('phone_code',array(
+                'phone'=>$phone,
+            ),array(
+                'code'=>'',
+                'nums'=>0,
+            ));
+            return false;exit;
+        }
+
+        #手机验证码错误
+        if($strPhoneCode['code']!=$code){
+            $this->update('phone_code',array(
+                'phone'=>$phone,
+            ),array(
+                'nums'=>$strPhoneCode['nums']+1,
+            ));
+            return false;exit;
+        }
+        return true;
+    }
+
 }

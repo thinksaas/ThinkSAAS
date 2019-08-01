@@ -24,7 +24,7 @@ return array(
 	//session存取方式，默认位本地存储，支持redis存储
 	'session' => '',
 
-	//对象-关系映射(数据库操作，查询构造器，模型等)
+	//对象-关系映射(数据库操作，查询构造器，模型等。php环境低于7.1切勿开启)
 	'orm'=>false,
 
 	//存储session文件在cache/sessions/目录下，如果IIS环境出现登陆后无法退出请将sessionpath前注释去掉，启用自定义session存储目录

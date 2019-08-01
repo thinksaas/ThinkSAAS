@@ -65,6 +65,7 @@ if($strPhone){
             'phone'=>$phone,
         ),array(
             'code'=>$code,
+            'nums'=>0,
             'addtime'=>date('Y-m-d H:i:s'),
         ));
 
@@ -80,11 +81,11 @@ if($strPhone){
     $new['pubs']->create('phone_code',array(
         'phone'=>$phone,
         'code'=>$code,
+        'nums'=>0,
         'addtime'=>date('Y-m-d H:i:s'),
     ));
 
     $response = aac('mail')->sendSms($phone,$code);
-
     #var_dump($response);
 
     echo 2;exit;//发送成功
