@@ -95,11 +95,13 @@ switch ($ts) {
 		$title = trim( $_POST ['title'] );
 		
 		$content =  tsClean( $_POST ['content'] );
-		$content2 =  emptyText( $_POST ['content'] );
+		$content2 =  emptyText($_POST ['content']);
 
 		$typeid = intval ( $_POST ['typeid'] );
 		$tag = $_POST ['tag'];
-		
+
+		$score = intval($_POST ['score']);#积分
+
 		// 判断一下Title是否重复
 		$isTitle = $new ['group']->findCount ( 'group_topic', array (
 				'title' => $title 
@@ -137,6 +139,10 @@ switch ($ts) {
 		if ($title == '' || $content2 == '') {
 			tsNotice ( '没有任何内容是不允许你通过滴^_^' );
 		}
+
+		if($score<0){
+            tsNotice ( '积分填写有误！' );
+        }
 		
 		/**
 		 * ******************
@@ -183,6 +189,7 @@ switch ($ts) {
 				'title' => $title,
 				'content' => $content,
 				'gaiyao'=>$gaiyao,
+				'score'=>$score,
 				'iscomment' => $iscomment,
 				'iscommentshow' => $iscommentshow,
 				'isaudit' => $isaudit,

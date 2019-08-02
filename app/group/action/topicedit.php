@@ -90,12 +90,17 @@ switch($ts){
 		$content = tsClean($_POST['content']);
 		$content2 = emptyText($_POST['content']);
 
+        $score = intval($_POST ['score']);#积分
+
 		$iscomment = intval($_POST['iscomment']);
 		$iscommentshow = intval($_POST['iscommentshow']);
 		
 		if($topicid == '' || $title=='' || $content2=='') tsNotice("都不能为空的哦!");
-		
-		
+
+        if($score<0){
+            tsNotice ( '积分填写有误！' );
+        }
+
 		if($TS_USER['isadmin']==0){
 		
 			//过滤内容开始
@@ -126,6 +131,7 @@ switch($ts){
 				'typeid' => $typeid,
 				'title'=>$title,
 				'content'=>$content,
+				'score'=>$score,
 				'iscomment' => $iscomment,
 				'iscommentshow' => $iscommentshow,
 			));

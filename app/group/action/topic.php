@@ -180,6 +180,22 @@ if($TS_APP['istopicvideo']){
 ####帖子关联视频APP开始####
 
 
+
+//判断用户可阅读帖子：0可读1不可读
+$isread = 0;
+if($strTopic['score']>0) $isread = 1;
+if($TS_USER['userid'] && $strTopic['userid']==$TS_USER['userid']) $isread=0;
+if($TS_USER['userid'] && $strTopic['userid']!=$TS_USER['userid'] && $strTopic['score']>0){
+    $isTopicUser = $new['group']->findCount('group_topic_user',array(
+        'topicid'=>$topicid,
+        'userid'=>$TS_USER['userid'],
+    ));
+    if($isTopicUser>0) $isread=0;
+}
+if($TS_USER['isadmin']==1) $isread=0;
+
+
+
 $sitedesc = cututf8(t($strTopic['content']),0,100);
 
 include template('topic');

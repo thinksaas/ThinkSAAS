@@ -1368,6 +1368,12 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 	
 	if ($files['size'] > 0) {
 
+        $upload_max_filesize = ini_get('upload_max_filesize')*1048576;
+
+        if($upload_max_filesize<$files['size']){
+            getJson('PHP允许上传文件的最大尺寸为'.ini_get('upload_max_filesize'),1);
+        }
+
         $arrType = explode('.', strtolower($files['name']));
         $type = end($arrType);
 
@@ -1377,33 +1383,30 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
             $type = getImagetype($files['tmp_name']);
 
             if (!in_array($type, $uptypes)) {
-                tsNotice('非法操作');
+                getJson('图片错误!',1);
             }
 
             if ($GLOBALS['TS_SITE']['photo_size']) {
                 $upsize = $GLOBALS['TS_SITE']['photo_size'] * 1048576;
 
                 if ($files ['size'] > $upsize) {
-                    tsNotice('上传图片不能超过' . $GLOBALS['TS_SITE']['photo_size'] . 'M，请修改小点后再上传！');
+                    //tsNotice('上传图片不能超过' . $GLOBALS['TS_SITE']['photo_size'] . 'M，请修改小点后再上传！');
+
+                    $img = Image::make($files['tmp_name']);
+
                 }
 
             }
 
+        }else{
+
         }
 
-		$menu2 = intval($projectid / 1000);
-
-		$menu1 = intval($menu2 / 1000);
-
-		$path = $menu1 . '/' . $menu2;
-
-		$dest_dir = 'uploadfile/' . $dir . '/' . $path;
-
-		createFolders($dest_dir);
+        $path = getDirPath($projectid);
+        $dest_dir = 'uploadfile/' . $dir . '/' . $path;
+        createFolders($dest_dir);
 
 		//$ext = pathinfo($files['name'],PATHINFO_EXTENSION);
-
-
 
 		if (in_array($type, $uptypes)) {
 
@@ -1414,7 +1417,15 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 			// 先删除
 			unlink($dest);
 			// 后上传
-			move_uploaded_file($files['tmp_name'], mb_convert_encoding($dest, "gb2312", "UTF-8"));
+            if($img){
+                //处理大图统一为800宽度，高度自适应
+                $img->resize(800, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $img->save($dest);
+            }else{
+                move_uploaded_file($files['tmp_name'], mb_convert_encoding($dest, "gb2312", "UTF-8"));
+            }
 
 			chmod($dest, 0777);
 

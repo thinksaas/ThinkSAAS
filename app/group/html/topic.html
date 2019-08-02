@@ -46,6 +46,12 @@
                     {if $page == '1'}
                     <div class="topic-content">
 
+
+                        {if $isread==1}
+                        <div class="alert alert-info">查看帖子需要支付 <span class="text-danger">{$strTopic['score']}积分</span> <a class="btn btn-sm btn-success" href="javascript:void('0');" onclick="tsPost('index.php?app=group&ac=score&ts=pay',{'topicid':'{$topicid}'})">支付</a></div>
+                        {else}
+
+
                         <div class="topic-view common-content">
                             {$strTopic['content']}
                             {if $strTopic['photos']}
@@ -55,9 +61,6 @@
                             {/if}
                             {$tpUrl}
                         </div>
-
-
-
 
 
                         {if $strTopic['iscommentshow']==1 && $isComment==0 && $strTopic['userid']!=intval($TS_USER['userid'])}
@@ -157,6 +160,8 @@
                         </div>
                         {/if}
 
+
+                        {/if}
                     </div>
 
 

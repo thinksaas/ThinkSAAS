@@ -257,3 +257,11 @@ function sendPhoneCode(typeid){
         }
     });
 }
+
+function NumberCheck(t){
+    var num = t.value;
+    var re=/^\d*$/;
+    if(!re.test(num)){
+        isNaN(parseInt(num))?t.value=0:t.value=parseInt(num);
+    }
+}
