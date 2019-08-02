@@ -887,6 +887,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic` (
   `label` varchar(64) NOT NULL DEFAULT '' COMMENT '快速标注',
   `content` longtext NOT NULL COMMENT '帖子内容',
   `gaiyao` varchar(256) NOT NULL DEFAULT '' COMMENT '内容概要',
+  `score` int(11) NOT NULL DEFAULT '0' COMMENT '查看需要积分',
   `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '回复统计',
   `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '帖子展示数',
   `count_love` int(11) NOT NULL DEFAULT '0' COMMENT '喜欢数',
@@ -1010,6 +1011,20 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_type` (
 DELETE FROM `ts_group_topic_type`;
 /*!40000 ALTER TABLE `ts_group_topic_type` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_topic_type` ENABLE KEYS */;
+
+-- Dumping structure for table thinksaas_test.ts_group_topic_user
+DROP TABLE IF EXISTS `ts_group_topic_user`;
+CREATE TABLE IF NOT EXISTS `ts_group_topic_user` (
+  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
+  UNIQUE KEY `topicid_userid` (`topicid`,`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='积分帖子用户关联表';
+
+-- Dumping data for table thinksaas_test.ts_group_topic_user: 0 rows
+DELETE FROM `ts_group_topic_user`;
+/*!40000 ALTER TABLE `ts_group_topic_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_group_topic_user` ENABLE KEYS */;
 
 -- Dumping structure for table thinksaas_test.ts_group_user
 DROP TABLE IF EXISTS `ts_group_user`;
