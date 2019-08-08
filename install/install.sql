@@ -630,6 +630,7 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   `content` longtext NOT NULL COMMENT '内容',
   `tags` varchar(128) NOT NULL DEFAULT '' COMMENT '标签',
   `gaiyao` varchar(128) NOT NULL DEFAULT '' COMMENT '内容概要',
+  `score` int(11) NOT NULL DEFAULT '0' COMMENT '阅读文章所需积分',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
   `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片路径',
   `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否审核',
@@ -701,6 +702,20 @@ CREATE TABLE IF NOT EXISTS `ts_article_recommend` (
 DELETE FROM `ts_article_recommend`;
 /*!40000 ALTER TABLE `ts_article_recommend` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_article_recommend` ENABLE KEYS */;
+
+-- Dumping structure for table thinksaas_test.ts_article_user
+DROP TABLE IF EXISTS `ts_article_user`;
+CREATE TABLE IF NOT EXISTS `ts_article_user` (
+  `articleid` int(11) NOT NULL DEFAULT '0' COMMENT '文章ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
+  UNIQUE KEY `articleid_userid` (`articleid`,`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='积分文章用户关联表';
+
+-- Dumping data for table thinksaas_test.ts_article_user: 0 rows
+DELETE FROM `ts_article_user`;
+/*!40000 ALTER TABLE `ts_article_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_article_user` ENABLE KEYS */;
 
 -- Dumping structure for table thinksaas_test.ts_cache
 DROP TABLE IF EXISTS `ts_cache`;
