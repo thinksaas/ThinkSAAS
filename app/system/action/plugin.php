@@ -73,8 +73,12 @@ switch($ts){
 			qiMsg("插件停用成功！");
 			
 		}elseif($isused == '1'){
+
+            $pkey = array_search($pname,$app_plugins);
+            unset($app_plugins[$pkey]);
 		
 			array_push($app_plugins,$pname);
+
 			if(file_exists('plugins/'.$apps.'/'.$pname.'/install.sql')){
 				$sql=file_get_contents('plugins/'.$apps.'/'.$pname.'/install.sql');
 				$sql=str_replace('ts_',''.dbprefix.'',$sql);

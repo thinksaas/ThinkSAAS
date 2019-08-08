@@ -69,6 +69,8 @@ switch ($ts) {
 		$content2 = emptyText ( $_POST ['content'] );
 		$gaiyao = trim ( $_POST ['gaiyao'] );
 
+        $score = intval($_POST ['score']);#积分
+
 		if ($TS_USER ['isadmin'] == 0) {
 			// 过滤内容开始
 			aac ( 'system' )->antiWord ( $title );
@@ -78,14 +80,19 @@ switch ($ts) {
 		
 		if ($title == '' || $content2 == '')
 			qiMsg ( "标题和内容都不能为空！" );
-		
+
+        if($score<0){
+            tsNotice ( '积分填写有误！' );
+        }
+
 		$new ['article']->update ( 'article', array (
 			'articleid' => $articleid,
 		), array (		
 			//'cateid' => $cateid,
 			'title' => $title,
 			'content' => $content ,
-			'gaiyao' => $gaiyao
+			'gaiyao' => $gaiyao,
+            'score'=>$score,
 		));
 
 		#更新分类

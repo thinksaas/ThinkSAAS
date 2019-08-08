@@ -559,7 +559,7 @@ function pubTemplate($file) {
  */
 function addAction($hook, $actionFunc) {
 	global $tsHooks;
-	if (!@in_array($actionFunc, $tsHooks[$hook])) {
+	if (!in_array($actionFunc, $tsHooks[$hook])) {
 		$tsHooks[$hook][] = $actionFunc;
 	}
 

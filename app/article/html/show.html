@@ -47,6 +47,11 @@
                     <div class="clear"></div>
                     {/if}
 
+
+                    {if $isread==1}
+                    <div class="alert alert-info">查看文章需要支付 <span class="text-danger">{$strArticle['score']}积分</span> <a class="btn btn-sm btn-success" href="javascript:void('0');" onclick="tsPost('index.php?app=article&ac=score&ts=pay',{'articleid':'{$articleid}'})">支付</a></div>
+                    {else}
+
                     <div class="article_show_content lh30 common-content">
 
                         <!---视频处理开始--->
@@ -81,9 +86,12 @@
 
                         {$tpUrl}
 
-                        <div class="fs12 c9">{php doAction('gobad','468')}</div>
-
                     </div>
+                    {/if}
+
+
+                    <div class="fs12 c9">{php doAction('gobad','468')}</div>
+
 
                     <div class="of mt-3">
 

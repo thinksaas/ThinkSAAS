@@ -92,6 +92,24 @@ $arrHot7 = $new ['article']->getHotArticle ( 7);
 // 一月热门
 $arrHot30 = $new ['article']->getHotArticle ( 30);
 
+
+
+//判断用户可阅读文章：0可读1不可读
+$isread = 0;
+if($strArticle['score']>0) $isread = 1;
+if($TS_USER['userid'] && $strArticle['userid']==$TS_USER['userid']) $isread=0;
+if($TS_USER['userid'] && $strArticle['userid']!=$TS_USER['userid'] && $strArticle['score']>0){
+    $isArticleUser = $new['article']->findCount('article_user',array(
+        'articleid'=>$articleid,
+        'userid'=>$TS_USER['userid'],
+    ));
+    if($isArticleUser>0) $isread=0;
+}
+if($TS_USER['isadmin']==1) $isread=0;
+
+
+
+
 //把标签作为关键词
 if($strArticle['tags']){
 	foreach($strArticle['tags'] as $key=>$item){

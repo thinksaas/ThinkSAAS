@@ -11,7 +11,7 @@ $lstart = $page * 10 - 10;
 
 $arrArticle = $new ['article']->findAll ( 'article', array (
 		'isaudit' => '0' 
-), 'addtime desc', 'articleid,userid,cateid,title,gaiyao,path,photo,count_comment,count_recommend,count_view,addtime', $lstart . ',10' );
+), 'addtime desc', 'articleid,userid,cateid,title,gaiyao,score,path,photo,count_comment,count_recommend,count_view,addtime', $lstart . ',10' );
 
 $articleNum = $new ['article']->findCount ( 'article', array (
 		'isaudit' => '0' 

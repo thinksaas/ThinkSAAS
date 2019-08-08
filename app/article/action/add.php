@@ -49,6 +49,8 @@ switch ($ts) {
 		$tag = tsClean($_POST['tag']);
 		$addtime = date('Y-m-d H:i:s');
 
+        $score = intval($_POST ['score']);#积分
+
 		if (intval($TS_USER['isadmin']) == 0) {
 			// 过滤内容开始
 			aac('system') -> antiWord($title);
@@ -74,6 +76,10 @@ switch ($ts) {
             $gaiyao = cututf8(t(tsDecode($content)),0,100);
         }
 
+        if($score<0){
+            tsNotice ( '积分填写有误！' );
+        }
+
 		//1审核后显示0不审核
 		if ($TS_APP['isaudit'] == 1) {
 			$isaudit = 1;
@@ -88,6 +94,7 @@ switch ($ts) {
             'title' => $title,
             'content' => $content,
             'gaiyao' => $gaiyao,
+            'score'=>$score,
             'isaudit' => $isaudit,
             'addtime' => date('Y-m-d H:i:s')
         ));

@@ -196,7 +196,12 @@ if($TS_USER['isadmin']==1) $isread=0;
 
 
 
+
 $sitedesc = cututf8(t($strTopic['content']),0,100);
+
+$content = $strTopic['content'];
+#钩子
+doAction('group_topic',$content);
 
 include template('topic');
 

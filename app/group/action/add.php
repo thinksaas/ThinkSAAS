@@ -104,7 +104,7 @@ switch ($ts) {
 
 		// 判断一下Title是否重复
 		$isTitle = $new ['group']->findCount ( 'group_topic', array (
-				'title' => $title 
+		    'title' => $title
 		) );
 		
 		if ($isTitle > 0) {
