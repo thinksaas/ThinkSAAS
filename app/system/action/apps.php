@@ -20,7 +20,16 @@ switch($ts){
                     $arrApps[$key]['about']['name'] = $arrAppNav[$item];
                 }
 
+                if(is_file('app/'.$item.'/icon.png')){
+                    $arrApps[$key]['icon'] = SITE_URL.'app/'.$item.'/icon.png';
+                }else{
+                    $arrApps[$key]['icon'] = SITE_URL.'public/images/app.png';
+                }
+
 			}
+
+
+
 		}
 
 		foreach($arrApps as $item){

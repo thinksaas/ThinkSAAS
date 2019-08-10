@@ -590,6 +590,10 @@ margin-top: 20px;
 .my_left .menu-mod .menus li {
     position: relative;
 }
+.my_left .menu-mod .menus li img{
+	width: 22px;
+	height: 22px;
+}
 .my_left .menu-mod .menus li a {
     color: #555555;
     display: block;

@@ -75,7 +75,10 @@ function unismynav(appkey){
     <tbody>
 {loop $arrApp $keys $item}
 <tr>
-<td>{$item[about][name]}({$item[name]})</td>
+<td>
+    <img width="24" height="24" src="{$item['icon']}">
+    {$item[about][name]}({$item[name]})
+</td>
 <td class="fs12 c9">{$item[about][version]}
 </td>
 <td class="fs12 c9">{$item[about][desc]}</td>

@@ -23,7 +23,7 @@ padding:0;
 }
 .tabnav ul li {
     list-style: none;
-border:solid 1px #007bff;
+border:solid 1px #3A81C0;
 float:left;
 margin-right:5px;
 padding:5px 10px;
@@ -31,10 +31,10 @@ font-size:14px;
 border-bottom:none;
 }
 
-
+.tabnav a {color: #3A81C0;}
 
 .tabnav .select {
-background:#007bff;
+background:#3A81C0;
 }
 .tabnav .select a {
 color:#FFFFFF;

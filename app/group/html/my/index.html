@@ -29,13 +29,11 @@
                 <div class="row">
 
                     {loop $arrCreateGroup $key $item}
-                    <div class="col-6 col-md-2">
+                    <div class="col-6 col-md-2 mb-3">
                         <div class="thumbnail">
                             <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img class="rounded mw-100" src="{$item['photo']}"></a>
                             <div class="caption">
-                                <div class="title-cut text-center">{$item['groupname']}</div>
-
-                                <p><a href="{tsUrl('group','edit',array('ts'=>'base','groupid'=>$item['groupid']))}" class="btn btn-outline-secondary btn-block btn-sm" role="button">管理</a> </p>
+                                <div class="title-cut text-center c9">{$item['groupname']}</div>
                             </div>
                         </div>
                     </div>
@@ -62,17 +60,11 @@
 
 
                     {loop $arrGroup $key $item}
-                    <div class="col-6 col-md-2">
+                    <div class="col-6 col-md-2 mb-3">
                         <div class="thumbnail">
                             <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img class="rounded mw-100" src="{$item['photo']}" alt="{$item['groupname']}"></a>
                             <div class="caption">
-                                <div class="title-cut text-center">{php echo cututf8($item['groupname'],0,6,false)}</div>
-
-                                {if $strUser['userid']!=$item['userid']}
-                                <p><a class="btn btn-outline-secondary btn-block btn-sm" href="javascript:void('0')" onclick="exitGroup('{$item[';groupid;']}';)">退出</a></p>
-                                {else}
-                                <p><a class="btn btn-outline-secondary btn-block btn-sm" href="{tsUrl('group','add',array('id'=>$item['groupid']))}" >发帖</a></p>
-                                {/if}
+                                <div class="title-cut text-center c9">{php echo cututf8($item['groupname'],0,6,false)}</div>
                             </div>
                         </div>
                     </div>

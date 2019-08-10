@@ -16,11 +16,11 @@
 <div class="menu-mod clearfix mt-3">
 <ul class="menus">
     
-<li><a {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='index'}class="active"{/if} href="{tsUrl('my')}">我的社区</a></li>
+<li><a {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='index'}class="active"{/if} href="{tsUrl('my')}"><img src="{SITE_URL}app/my/icon.png"> 我的社区</a></li>
 
 
 {loop $GLOBALS['TS_SITE'][mynav] $key $item}
-<li><a {if $GLOBALS['TS_URL']['app']==$key}class="active"{/if} href="{tsUrl($key,'my')}">我的{$item}</a></li>
+<li><a {if $GLOBALS['TS_URL']['app']==$key}class="active"{/if} href="{tsUrl($key,'my')}"><img src="{SITE_URL}public/images/app.png"> 我的{$item}</a></li>
 {/loop}
 
 </ul>

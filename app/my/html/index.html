@@ -37,9 +37,7 @@
                     <div>
                         <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img src="{$item['photo']}" class="rounded" alt="{$item['groupname']}" style="max-width: 100%;"></a>
                         <div>
-                            <div class="title-cut text-center">{$item['groupname']}</div>
-
-                            <div class="text-center"><a href="{tsUrl('group','add',array('id'=>$item['groupid']))}" class="btn btn-sm btn-outline-secondary btn-block" role="button">发帖</a> </div>
+                            <div class="title-cut text-center c9">{$item['groupname']}</div>
                         </div>
                     </div>
                 </div>
@@ -62,7 +60,7 @@
                 </thead>
                 <tbody>
                 {loop $arrTopic $key $item}
-                <tr><td>{php echo date('Y-m-d',$item['addtime'])}</td><td><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{php echo tsTitle($item['title'])}</a></td><td>{$item['count_view']}/{$item['count_comment']}</td><td><a href="{tsUrl('group','topicedit',array('topicid'=>$item['topicid']))}">修改</a></td></tr>
+                <tr><td class="fs12 c9">{php echo date('Y-m-d',$item['addtime'])}</td><td><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{php echo tsTitle($item['title'])}</a></td><td class="fs12 c9">{$item['count_view']}/{$item['count_comment']}</td><td><a href="{tsUrl('group','topicedit',array('topicid'=>$item['topicid']))}">修改</a></td></tr>
                 {/loop}
                 </tbody>
             </table>
@@ -81,7 +79,7 @@
                 </thead>
                 <tbody>
                 {loop $arrArticle $key $item}
-                <tr><td>{php echo date('Y-m-d',strtotime($item['addtime']))}</td><td><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{tsTitle($item['title'])}</a></td><td>{$item['count_view']}/{$item['count_comment']}</td><td><a href="{tsUrl('article','edit',array('articleid'=>$item['articleid']))}">修改</a></td></tr>
+                <tr><td class="fs12 c9">{php echo date('Y-m-d',strtotime($item['addtime']))}</td><td><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{tsTitle($item['title'])}</a></td><td class="fs12 c9">{$item['count_view']}/{$item['count_comment']}</td><td><a href="{tsUrl('article','edit',array('articleid'=>$item['articleid']))}">修改</a></td></tr>
                 {/loop}
                 </tbody>
             </table>
