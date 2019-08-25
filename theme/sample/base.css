@@ -660,6 +660,8 @@ margin-top: 20px;
 		top:60px;
 		left:0px;
 	}
+
+	.ts-hide{display: none}
 }
 
 /*Small devices (landscape phones, 576px and up)*/

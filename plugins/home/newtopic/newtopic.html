@@ -15,6 +15,10 @@
 
     <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
 
+    {if $item['istop']=='1'}
+    <img src="{SITE_URL}public/images/ding.png" width="24" height="24" title="[置顶]" alt="[置顶]" />
+    {/if}
+
 </div>
 
 {if $item['group']['isopen']==0 && $item['score']==0}
@@ -35,8 +39,8 @@
         <div class="d-flex fs12 c9">
             <a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
             <span class="ml-1">{php echo getTime($item[uptime],time())}</span>
-            <span class="ml-1">发表于</span>
-            <a class="ml-1" href="{tsUrl('group','show',array('id'=>$item[groupid]))}">[{$item[group][groupname]}]</a>
+            <span class="ml-1 ts-hide">发表于</span>
+            <a class="ml-1 ts-hide" href="{tsUrl('group','show',array('id'=>$item[groupid]))}">[{$item[group][groupname]}]</a>
         </div>
         <div class="d-flex c9 fs12">
             <div><i class="far fa-comment-dots"></i> {$item['count_comment']}</div>
