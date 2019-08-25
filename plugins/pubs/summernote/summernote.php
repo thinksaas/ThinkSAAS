@@ -16,6 +16,7 @@ function summernote($loadjs='load'){
         echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/summernote-lite.js"></script>';
         echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/lang/summernote-zh-CN.js"></script>';
         echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/plugin/summernote-ext-highlight.js"></script>';
+        echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/plugin/summernote-audio.js"></script>';
         echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/' . $loadjs . '.js?v=' . rand() . '"></script>';
     }
 }

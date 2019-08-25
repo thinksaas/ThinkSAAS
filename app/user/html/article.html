@@ -1,0 +1,126 @@
+{php include pubTemplate("header")}
+
+<div class="container">
+
+
+    {template menu}
+
+    <div class="row">
+
+        <div class="col-md-8">
+
+
+
+
+
+
+
+            {loop $arrArticle $key $item}
+
+            <div class="card">
+                <div class="card-body">
+
+
+                    {if $item['photo']}
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">
+                                <img class="mw-100" src="{php echo tsXimg($item['photo'],'article',320,180,$item['path'],'1')}" />
+                            </a>
+                        </div>
+                        <div class="col-md-8">
+
+                            <div class="h5 fw400"><a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{$item[title]}</a></div>
+
+                            <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {$item[addtime]}</div>
+
+                            <div class="text-black-50 mt-1">{if $item['gaiyao']}{tsTitle($item['gaiyao'])}{else}暂无概要{/if} (<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">查看全文</a>)</div>
+
+
+
+
+
+                            <div class="of c9 mt-3 fs12">
+
+                                <div class="float-left">
+                                    分类：<a href="{tsUrl('article','cate',array('id'=>$item['cate']['cateid']))}">{$item['cate']['catename']}</a>
+                                </div>
+                                <div class="float-right">
+
+                                    <i class="far fa-eye"></i> {$item['count_view']}
+
+                                    <i class="far fa-comment ml-3"></i> {$item['count_comment']}
+
+
+                                </div>
+
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+
+                    </div>
+
+
+                    {else}
+
+                    <div class="h5 fw400"><a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{$item[title]}</a></div>
+
+                    <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {$item[addtime]}</div>
+
+                    {if $item['score']==0}
+                    <div class="text-black-50 mt-1">{if $item['gaiyao']}{$item['gaiyao']}{else}暂无概要{/if} (<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">查看全文</a>)</div>
+                    {/if}
+
+
+
+
+                    <div class="of c9 mt-3 fs12">
+
+                        <div class="float-left">
+                            分类：<a href="{tsUrl('article','cate',array('id'=>$item['cate']['cateid']))}">{$item['cate']['catename']}</a>
+                        </div>
+                        <div class="float-right">
+
+                            <i class="far fa-eye"></i> {$item['count_view']}
+
+                            <i class="far fa-comment ml-3"></i> {$item['count_comment']}
+                        </div>
+
+                    </div>
+
+
+
+                    {/if}
+
+                </div>
+            </div>
+
+            {/loop}
+
+
+            <div class="mt-4">{$pageUrl}</div>
+
+
+
+
+
+
+
+
+
+        </div>
+
+        <div class="col-md-4">
+            {template userinfo}
+        </div>
+
+    </div>
+</div>
+{php include pubTemplate("footer")}

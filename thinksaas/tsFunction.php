@@ -942,6 +942,18 @@ function tsUrl($app, $ac = '', $params = array()) {
  */
 function reurl() {
 	global $tsMySqlCache;
+
+	$arrSuffix = array(
+	    '?from=singlemessage',
+        '?from=groupmessage',
+        '?from=timeline',
+        '?tdsourcetag=s_pctim_aiomsg',
+        '?_wv=1031',
+        '?tdsourcetag=s_pcqq_aiomsg',
+        '?from=groupmessage&isappinstalled=0',
+    );
+
+
 	$options = fileRead('data/system_options.php');
 
 	if ($options == '') {
@@ -1006,7 +1018,7 @@ function reurl() {
 				foreach ($params as $p => $v) {
 					switch ($p) {
 						case 0 :
-                            if($v=='?from=singlemessage' || $v=='?from=groupmessage' || $v=='?from=timeline' || $v=='?tdsourcetag=s_pctim_aiomsg' || $v=='?_wv=1031' || $v=='?tdsourcetag=s_pcqq_aiomsg') $v='home';
+                            if(in_array($v,$arrSuffix)) $v='home';
 							$_GET['app'] = $v;
 							break;
 						case 1 :
@@ -1123,7 +1135,7 @@ function reurl() {
 				foreach ($params as $p => $v) {
 					switch ($p) {
 						case 0 :
-                            if($v=='?from=singlemessage' || $v=='?from=groupmessage' || $v=='?from=timeline' || $v=='?tdsourcetag=s_pctim_aiomsg' || $v=='?_wv=1031' || $v=='?tdsourcetag=s_pcqq_aiomsg') $v='home';
+                            if(in_array($v,$arrSuffix)) $v='home';
 							$_GET['app'] = $v;
 							break;
 						case 1 :
@@ -2615,3 +2627,6 @@ function getAppOptions($app){
     }
     return $strOption;
 }
+
+
+if(is_file('thinksaas/wxFunction.php')) include 'thinksaas/wxFunction.php'; //微信内登录

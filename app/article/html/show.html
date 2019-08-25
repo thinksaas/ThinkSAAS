@@ -81,7 +81,7 @@
 
                         {/if}
 
-                        {php doAction('gobad','content_top')}
+
                         {$strArticle[content]}
 
                         {$tpUrl}
@@ -90,7 +90,11 @@
                     {/if}
 
 
-                    <div class="fs12 c9">{php doAction('gobad','468')}</div>
+                    <!--文章内容底部插件钩子-->
+                    <div>{php doAction('article_show_footer')}</div>
+
+
+                    <div class="mt-3">{php doAction('gobad','468')}</div>
 
 
                     <div class="of mt-3">

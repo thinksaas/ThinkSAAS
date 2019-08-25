@@ -13,16 +13,16 @@
 
     {if $item['label']}<span class="badge badge-danger fw300">{tsTitle($item['label'])}</span>{/if}
 
-    <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}{if $item[count_comment]>0}<span class="badge  badge-pill badge-secondary fw300 fs12">{$item[count_comment]}回复</span>{/if}</a>
+    <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
 
 </div>
 
 {if $item['group']['isopen']==0 && $item['score']==0}
-    <div class="gaiyao">
+    <div class="gaiyao mt-2">
         {$item['gaiyao']}
     </div>
     {if $item['photos']}
-    <div class="photo">
+    <div class="photo mt-2">
         {loop $item['photos'] $pkey $pitem}
         <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}"><img src="{$pitem}" /></a>
         {/loop}
@@ -31,16 +31,20 @@
 {/if}
 
 
-<div class="topic_info">
-<span class="float-left">
-<a class="c9" href="{tsUrl('group','show',array('id'=>$item[groupid]))}">[{$item[group][groupname]}]</a>
-</span>
+    <div class="d-flex flex-row justify-content-between mt-2">
+        <div class="d-flex fs12 c9">
+            <a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+            <span class="ml-1">{php echo getTime($item[uptime],time())}</span>
+            <span class="ml-1">发表于</span>
+            <a class="ml-1" href="{tsUrl('group','show',array('id'=>$item[groupid]))}">[{$item[group][groupname]}]</a>
+        </div>
+        <div class="d-flex c9 fs12">
+            <div><i class="far fa-comment-dots"></i> {$item['count_comment']}</div>
+            <div class="ml-3"><i class="far fa-eye"></i> {$item['count_view']}</div>
+        </div>
+    </div>
 
-<span class="float-right">
-{php echo getTime($item[uptime],time())}
- <a class="text-secondary" href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
-</span>
-</div>
+
 
 </div>
 

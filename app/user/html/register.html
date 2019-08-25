@@ -76,8 +76,21 @@
 
 
 
-                      <input name="authcode" type="text" class="form-control" placeholder="" check-type="required">
-                      <img align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;" />
+                      <div class="d-flex flex-row align-items-start">
+                          <div class="d-flex flex-column">
+                              <input name="authcode" type="text" class="form-control" placeholder="" check-type="required">
+                          </div>
+                          <div class="d-flex ml-1">
+
+                              <img id="imagecode" align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;" />
+                              <a href="javascript:void('0');" onclick="changeImageCode();">点击刷新验证码</a>
+
+                          </div>
+                      </div>
+
+
+
+
 
 
 

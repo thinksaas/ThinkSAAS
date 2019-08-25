@@ -6,7 +6,7 @@ function newtopic(){
 	//最新帖子	
 	$arrTopic = aac('group')->findAll('group_topic',array(
 		'isaudit'=>0,
-	),'uptime desc','topicid,userid,groupid,title,gaiyao,score,label,count_comment,uptime',35);
+	),'uptime desc','topicid,userid,groupid,title,gaiyao,score,label,count_comment,count_view,uptime',35);
 	
 	foreach($arrTopic as $key=>$item){
 			$arrTopic[$key]['title']=tsTitle($item['title']);

@@ -44,10 +44,12 @@ switch($ts){
 		
 		
 		/*禁止以下IP用户登陆或注册*/
+        /*
 		$arrIp = aac('system')->antiIp();
 		if(in_array(getIp(),$arrIp)){
 			getJson('你的IP已被锁定，暂无法登录！',$js);
 		}
+        */
 		
 		
 		//是否开启邀请注册

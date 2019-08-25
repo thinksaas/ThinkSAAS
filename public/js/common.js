@@ -49,6 +49,12 @@ function qianDao(){
 function newgdcode(obj, url) {
     obj.src = url + "&nowtime=" + new Date().getTime()
 }
+
+function changeImageCode() {
+    var imgsrc = $("#imagecode")[0].src;
+    $("#imagecode").attr('src',imgsrc+"&nowtime=" + new Date().getTime());
+}
+
 /*!搜索点击*/
 function searchon() {
     $("#searchto").submit()

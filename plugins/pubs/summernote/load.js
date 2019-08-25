@@ -10,7 +10,7 @@ $(document).ready(function() {
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
-            ['insert', ['link', 'picture']],
+            ['insert', ['link','unlink', 'picture']],
             ['highlight', ['highlight']],
             ['view', ['fullscreen']]
         ],
