@@ -271,3 +271,15 @@ function NumberCheck(t){
         isNaN(parseInt(num))?t.value=0:t.value=parseInt(num);
     }
 }
+
+
+function imgView () {
+    var r= new FileReader();
+    f=document.getElementById('img-file').files[0];
+
+    r.readAsDataURL(f);
+    r.onload=function (e) {
+        $("#img-view").show();
+        document.getElementById('img-show').src=this.result;
+    };
+}

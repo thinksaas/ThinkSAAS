@@ -24,24 +24,6 @@
 <tr><td>是否允许用户发帖 :</td><td><input {if $strOption['isallowpost']=='1'}checked="select"{/if} name="option[isallowpost]" type="radio" value="1" />不允许 <input {if $strOption['isallowpost']=='0'}checked="select"{/if} name="option[isallowpost]" type="radio" value="0" />允许</td></tr>
 
 
-    <tr><td>帖子是否关联附件 :</td><td>
-
-        <input name="option[istopicattach]" type="radio" value="0" {if $strOption['istopicattach']=='0'}checked{/if} />不关联
-
-        <input name="option[istopicattach]" type="radio" value="1" {if $strOption['istopicattach']=='1'}checked{/if} />关联 <small class="text-danger">(帖子关联附件必须安装附件APP)</small>
-
-    </td></tr>
-
-
-    <tr><td>帖子是否插入视频 :</td><td>
-
-        <input name="option[istopicvideo]" type="radio" value="0" {if $strOption['istopicvideo']=='0'}checked{/if} />不插入
-
-        <input name="option[istopicvideo]" type="radio" value="1" {if $strOption['istopicvideo']=='1'}checked{/if} />插入 <small class="text-danger">(帖子插入视频必须安装视频APP)</small>
-
-    </td></tr>
-
-
     <tr><td>是否开启加入小组付费功能 :</td><td>
 
         <input {if $strOption['ispayjoin']=='0'}checked="select"{/if} name="option[ispayjoin]" type="radio" value="0" />不开启

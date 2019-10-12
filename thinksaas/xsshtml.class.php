@@ -15,7 +15,7 @@ class XssHtml {
 	private $m_xss;
 	private $m_ok;
 	private $m_AllowAttr = array('title', 'src', 'href', 'id', 'class', 'style', 'width', 'height', 'alt', 'target', 'align','type','pluginspage','wmode','play','loop','menu','allowscriptaccess','allowfullscreen','frameborder','preload','data-setup','tabindex','aria-live','aria-label','aria-hidden','aria-haspopup','role','controls');
-	private $m_AllowTag = array('a', 'img', 'br', 'strong', 'b', 'code', 'pre', 'p', 'div', 'em', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'table', 'ul', 'ol', 'tr', 'th', 'td', 'hr', 'li', 'u','embed','video','audio','source','blockquote');
+	private $m_AllowTag = array('a', 'img', 'br', 'strong', 'b', 'code', 'pre', 'p', 'div', 'em', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'table', 'ul', 'ol', 'tr', 'th', 'td', 'hr', 'li', 'u','video','audio','source','blockquote','iframe','embed');
 
 	/**
      * 构造函数
@@ -159,7 +159,15 @@ class XssHtml {
 
 	private function __node_embed($node){
 		$this->__common_attr($node);
-		$link = $this->__get_link($node, 'src');
+		$link = strtolower($this->__get_link($node, 'src'));
+
+
+        $arrType = explode('.',$link);
+        $type = end($arrType);
+
+        if(!in_array($type,array('swf','mp4','mp3'))) {
+            tsNotice('不支持的embed链接类型！');
+        }
 
 		$this->__setAttr($node, 'src', $link);
 		$this->__setAttr($node, 'allowscriptaccess', 'never');
@@ -167,9 +175,23 @@ class XssHtml {
 		$this->__set_default_attr($node, 'height');
 	}
 
+    private function __node_iframe($node){
+        $this->__common_attr($node);
+        $link = strtolower($this->__get_link($node, 'src'));
+
+        $url = str_replace('//','',$link);
+
+        $arrUrl = explode('/',$url);
+
+        if(!in_array($arrUrl[0],array('v.qq.com','player.youku.com','player.bilibili.com'))) {
+            tsNotice('不支持的第三方视频！');
+        }
+
+        $this->__setAttr($node, 'src', $link);
+    }
+
 	private function __node_default($node){
 		$this->__common_attr($node);
 	}
 }
-
 ?>

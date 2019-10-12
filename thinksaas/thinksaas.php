@@ -119,33 +119,6 @@ if ($TS_CF['subdomain'] && $TS_URL['app'] == 'home') {
 //数据库配置文件
 include 'data/config.inc.php';
 
-#php7.1开始支持laravel数据库操作，
-#文档参见：https://github.com/illuminate/database
-#https://laravel.com/docs/5.8/database
-if (substr(PHP_VERSION, 0, 3)>=7.1 && $TS_CF['orm']) {
-    $capsule = new Capsule;
-    $capsule->addConnection([
-        /*
-        'read' => [
-            'host' => 'localhost'
-        ],
-        'write' => [
-            'host' => 'localhost'
-        ],
-        */
-        'driver'    => 'mysql',
-        'host'      => $TS_DB['host'],
-        'database'  => $TS_DB['name'],
-        'username'  => $TS_DB['user'],
-        'password'  => $TS_DB['pwd'],
-        'charset'   => 'utf8mb4',
-        'collation' => 'utf8mb4_general_ci',
-        'prefix'    => $TS_DB['pre'],
-    ]);
-    $capsule->setAsGlobal();
-    $capsule->bootEloquent();
-}
-
 //加载APP配置文件
 include 'app/' . $TS_URL['app'] . '/config.php';
 
@@ -283,7 +256,7 @@ if($app!='api'){
     }
 
     //判断用户是否上传头像,管理员除外
-    if ($TS_SITE['isface'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
+    if ($TS_SITE['isface'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin' && $TS_URL['app'] != 'pubs') {
         $faceUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'face');
         if ($faceUser['face'] == '' && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
             tsHeaderUrl(tsUrl('user', 'verify', array('ts' => 'face')));

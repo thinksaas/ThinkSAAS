@@ -85,113 +85,46 @@
                         </div>
 
 
-                        {if $strTopic['iscommentshow']==1 && $isComment==0 && $strTopic['userid']!=intval($TS_USER['userid'])}
-                        {else}
-
-                        <!---视频处理开始--->
-                        {if $TS_APP['istopicvideo']}
-
-                        {if $arrVideo}
-                        <div class="topic_video">
-                            {loop $arrVideo $key $item}
-                            <p>
-                                {if $item['siteid']==1 || $item['siteid']==2 || $item['siteid']==3}
-                                <iframe frameborder="0" src="{$item['iframe']}" allowFullScreen="true"></iframe>
-                                {/if}
-                            </p>
-                            {/loop}
-
-                        </div>
-                        {/if}
-
-
-                        {if $TS_USER['userid']==$strTopic['userid'] || $TS_USER['isadmin']==1}
-                        <div class="topic_video">
-                            <div class="text-center"><a class="btn btn-link" href="{tsUrl('video','upload',array('ts'=>'network','topicid'=>$topicid))}"> <i class="fas fa-plus-circle"></i> 插入视频</a></div>
-                        </div>
-                        {/if}
-
-
-                        {/if}
-
-
-
-
-
-                        <!---附件处理开始--->
-                        {if $TS_APP['istopicattach']}
-
-                        {if $arrAttach}
-                        <div class="topic_attach mt-3">
-                            <ul>
-                                {loop $arrAttach $key $item}
-                                <li><a target="_blank" href="{tsUrl('attach','show',array('id'=>$item['attachid']))}">{tsTitle($item['attachname'])}</a> - <span class="c9 fs12">{$item['count_down']}次下载</span> - <span class="c9 fs12">需{$item['score']}积分</span></li>
-                                {/loop}
-                            </ul>
-
-                            {if $TS_USER['userid']==$strTopic['userid'] || $TS_USER['isadmin']==1}
-                            <div class="tac">
-                                <a class="btn btn-link" href="{tsUrl('attach','select',array('topicid'=>$strTopic['topicid']))}"><i class="fas fa-plus-circle"></i>上传/选择附件</a>
-                            </div>
-                            {/if}
-
-                        </div>
-
-                        {else}
-
-                        {if $TS_USER['userid']==$strTopic['userid'] || $TS_USER['isadmin']==1}
-                        <div class="topic_attach mt-3">
-                            <div class="tac">
-                                <a class="btn btn-link" href="{tsUrl('attach','select',array('topicid'=>$strTopic['topicid']))}"><i class="fas fa-plus-circle"></i>上传/选择附件</a>
-                            </div>
-                        </div>
-                        {/if}
-
-                        {/if}
-
-                        {/if}
-                        <!---附件处理结束--->
-                        {/if}
-
-
-                        <!--帖子内容底部插件钩子-->
-                        <div>{php doAction('group_topic_footer')}</div>
-
-                        <div class="mt-3">{php doAction('gobad','468')}</div>
-
-
-
-                        {if $TS_USER[userid] == $strTopic[userid] || $TS_USER[userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[isadmin]=="1"}
-                        <div class="btool mt-3">
-                            {if $TS_USER[userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[isadmin]=="1"}
-
-
-                            <a href="#" data-toggle="modal" data-target="#bookModal"><i class="far fa-bookmark"></i> 标注</a>
-
-
-                            <a href="javascript:void('0');" onclick="topicAudit('{$strTopic['topicid']}','{$_SESSION['token']}');">{if $strTopic['isaudit']=='1'}审核{else}取消审核{/if}</a>
-
-                            <a href="{SITE_URL}index.php?app=group&ac=do&ts=topic_istop&topicid={$strTopic[topicid]}">{if $strTopic[istop]=='0'}置顶{else}取消置顶{/if}</a>
-
-                            <a href="javascript:void('0');" onclick="tsPost('index.php?app=group&ac=ajax&ts=isrecommend&js=1',{'topicid':'{$strTopic['topicid']}'})">{if $strTopic['isrecommend']=='0'}推荐{else}取消推荐{/if}</a>
-
-                            <a href="{SITE_URL}index.php?app=group&ac=do&ts=isposts&topicid={$strTopic[topicid]}&token={$_SESSION['token']}">{if $strTopic[isposts]==0}精华{else}取消精华{/if}</a>
-
-                            <a href="{SITE_URL}index.php?app=group&ac=topicmove&topicid={$strTopic[topicid]}">移动</a>
-
-                            {/if}
-                            <a href="{SITE_URL}index.php?app=group&ac=topicedit&topicid={$strTopic[topicid]}">编辑</a>
-                            <a href="{SITE_URL}index.php?app=group&ac=do&ts=deltopic&topicid={$strTopic['topicid']}&token={$_SESSION['token']}" onClick="return confirm('确定删除吗?')"><i class="far fa-trash-alt"></i> 删除</a>
-
-                        </div>
-                        {/if}
-
 
                         {/if}
                     </div>
-
-
                     {/if}
+
+
+
+                    <!--帖子内容底部插件钩子-->
+                    <div>{php doAction('group_topic_footer')}</div>
+
+                    <div class="mt-3">{php doAction('gobad','468')}</div>
+
+
+
+                    {if $TS_USER[userid] == $strTopic[userid] || $TS_USER[userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[isadmin]=="1"}
+                    <div class="btool mt-3">
+                        {if $TS_USER[userid]==$strGroup[userid] ||$strGroupUser[isadmin]=="1" || $TS_USER[isadmin]=="1"}
+
+
+                        <a href="#" data-toggle="modal" data-target="#bookModal"><i class="far fa-bookmark"></i> 标注</a>
+
+
+                        <a href="javascript:void('0');" onclick="topicAudit('{$strTopic['topicid']}','{$_SESSION['token']}');">{if $strTopic['isaudit']=='1'}审核{else}取消审核{/if}</a>
+
+                        <a href="{SITE_URL}index.php?app=group&ac=do&ts=topic_istop&topicid={$strTopic[topicid]}">{if $strTopic[istop]=='0'}置顶{else}取消置顶{/if}</a>
+
+                        <a href="javascript:void('0');" onclick="tsPost('index.php?app=group&ac=ajax&ts=isrecommend&js=1',{'topicid':'{$strTopic['topicid']}'})">{if $strTopic['isrecommend']=='0'}推荐{else}取消推荐{/if}</a>
+
+                        <a href="{SITE_URL}index.php?app=group&ac=do&ts=isposts&topicid={$strTopic[topicid]}&token={$_SESSION['token']}">{if $strTopic[isposts]==0}精华{else}取消精华{/if}</a>
+
+                        <a href="{SITE_URL}index.php?app=group&ac=topicmove&topicid={$strTopic[topicid]}">移动</a>
+
+                        {/if}
+                        <a href="{SITE_URL}index.php?app=group&ac=topicedit&topicid={$strTopic[topicid]}">编辑</a>
+                        <a href="{SITE_URL}index.php?app=group&ac=do&ts=deltopic&topicid={$strTopic['topicid']}&token={$_SESSION['token']}" onClick="return confirm('确定删除吗?')"><i class="far fa-trash-alt"></i> 删除</a>
+
+                    </div>
+                    {/if}
+
+
                 </div>
             </div>
 
@@ -239,27 +172,6 @@
                                     {$item[content]}
                                     {/if}
                                     </p>
-
-
-
-
-
-                                    <!---附件处理开始--->
-                                    {if $TS_APP['istopicattach']}
-                                    {if $item['attach']}
-                                    <div class="topic_attach">
-                                        <ul>
-                                            {loop $item['attach'] $akey $aitem}
-                                            <li><a target="_blank" href="{tsUrl('attach','show',array('id'=>$aitem['attachid']))}">{tsTitle($aitem['attachname'])}</a> - <span class="c9 fs12">{$aitem['count_down']}次下载</span> - <span class="c9 fs12">需{$aitem['score']}积分</span></li>
-                                            {/loop}
-                                        </ul>
-                                    </div>
-                                    {/if}
-                                    {/if}
-                                    <!---附件处理结束--->
-
-
-
 
 
 

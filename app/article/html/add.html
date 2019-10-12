@@ -26,19 +26,6 @@
         });
 
     });
-
-
-    function c () {
-        var r= new FileReader();
-        f=document.getElementById('file').files[0];
-
-        r.readAsDataURL(f);
-        r.onload=function (e) {
-            $("#img-view").show();
-            document.getElementById('show').src=this.result;
-        };
-    }
-
 </script>
 
 
@@ -123,13 +110,13 @@
        </div>
        -->
 
-       <div class="custom-file" onchange="c()">
-           <input id="file" type="file" name="photo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png">
-           <label class="custom-file-label c9" for="customFile">(支持jpg,png格式；大小640*400px)</label>
+       <div class="custom-file" onchange="imgView()">
+           <input id="img-file" type="file" name="photo" class="custom-file-input" accept="image/jpeg,image/png">
+           <label class="custom-file-label c9" for="img-file">(支持jpg,png格式；大小640*400px)</label>
        </div>
 
        <div id="img-view" style="display: none;">
-           <img src="" id="show" height="200">
+           <img src="" id="img-show" height="200">
        </div>
 
   </div>

@@ -8,6 +8,8 @@ $(document).ready(function() {
         toolbar: [
             ['Insert', ['link','picture']]
         ],
+
+        lang: 'zh-CN',
 		
 		callbacks: {
 			onChange: function(contents, $editable) {

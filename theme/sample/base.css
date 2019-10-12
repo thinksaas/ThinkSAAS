@@ -647,6 +647,18 @@ margin-top: 20px;
 #tsalert{position: fixed;top:0;right:0;left:0;width: 100%;}
 
 
+/**编辑器附件**/
+.attach-down{border:2px dashed #dddddd;padding:10px;}
+/**编辑器视频**/
+.video-show{text-align: center;}
+.video-show video{max-width: 100%;}
+.video-show iframe{width: 100%;height:450px;}
+@media (max-width: 575.98px) {
+	.video-show iframe{width: 100%;height:230px;}
+}
+
+
+
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
 	.navbar-brand{display: none}

@@ -54,34 +54,6 @@
 
                     <div class="article_show_content lh30 common-content">
 
-                        <!---视频处理开始--->
-                        {if $TS_APP['isarticlevideo']}
-
-                        {if $arrVideo}
-                        <div class="article_video pb-0">
-                            {loop $arrVideo $key $item}
-                            <div>
-                                {if $item['siteid']==1 || $item['siteid']==2 || $item['siteid']==3}
-                                <iframe frameborder="0" src="{$item['iframe']}" allowFullScreen="true"></iframe>
-                                    {if $TS_USER['userid']==$strArticle['userid'] || $TS_USER['isadmin']==1}
-                                    <div class="text-right mb-2"><a class="btn btn-outline-info btn-sm" onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=article&ac=delete&ts=video&articleid={$articleid}&videoid={$item['videoid']}">删除</a></div>
-                                    {/if}
-                                {/if}
-                            </div>
-                            {/loop}
-
-                        </div>
-                        {/if}
-
-                        {if $TS_USER['userid']==$strArticle['userid'] || $TS_USER['isadmin']==1}
-                        <div class="article_video">
-                            <div class="text-center"><a class="btn btn-link" href="{tsUrl('video','upload',array('ts'=>'network','articleid'=>$articleid))}"> <i class="fas fa-plus-circle"></i> 插入视频</a></div>
-                        </div>
-                        {/if}
-
-                        {/if}
-
-
                         {$strArticle[content]}
 
                         {$tpUrl}

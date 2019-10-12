@@ -13,8 +13,6 @@
     "phpmailer/phpmailer": "v6.0.5",
     "intervention/image": "^2.4",
     "qcloudsms/qcloudsms_php": "v0.1.4",
-    "aliyuncs/oss-sdk-php": "^2.3",
-    "alibabacloud/client": "^1.5",
-    "illuminate/database": "^5.8"
+    "alibabacloud/client": "^1.5"
   }
 }
