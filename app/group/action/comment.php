@@ -124,7 +124,7 @@ switch($ts){
 
         $strTopic = $new['group']->find('group_topic',array(
             'topicid'=>$topicid,
-        ));
+        ),'topicid,userid,title');
 
         $strComment = $new['group']->find('group_topic_comment',array(
             'commentid'=>$referid,
@@ -163,7 +163,7 @@ switch($ts){
 		
 		$strTopic = $new['group']->find('group_topic',array(
 			'topicid'=>$strComment['topicid'],
-		));
+		),'topicid,userid,title,count_comment');
 		
 		$strGroup = $new['group']->find('group',array(
 			'groupid'=>$strTopic['groupid'],
@@ -172,22 +172,17 @@ switch($ts){
 		if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['isadmin']==1 || $strComment['userid']==$userid){
 			
 			$new['group']->delComment($commentid);
+
 			
-			//统计评论数
-			$count_comment = $new['group']->findCount('group_topic_comment',array(
-				'topicid'=>$strTopic['topicid'],
-			));
-			
-			//更新帖子最后回应时间和评论数			
+			//更新评论数
 			$new['group']->update('group_topic',array(
 				'topicid'=>$strTopic['topicid'],
 			),array(
-				'count_comment'=>$count_comment,
+				'count_comment'=>$strTopic['count_comment']-1,
 			));
 
             //处理积分
             aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts'],$strComment['userid']);
-			
 			
 			
 		}

@@ -68,6 +68,13 @@ switch ($ts) {
                 'commentid' => $commentid
             ));
 
+            #更新评论数
+            $new['article']->update('group_topic',array(
+                'articleid'=>$strComment['articleid'],
+            ),array(
+                'count_comment'=>$strArticle['count_comment']-1,
+            ));
+
             //处理积分
             aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts'],$strComment['userid']);
 

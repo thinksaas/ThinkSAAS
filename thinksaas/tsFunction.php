@@ -660,10 +660,16 @@ function tsXimg($file, $app, $w, $h, $path = '', $c = '0') {
 
         $arrType = explode('.',$name);
         $type = end($arrType);
+        
 
-        $cpath = 'cache/' . $app . '/' . $path . '/' . md5($w . $h . $app . $name) . '.jpg';
+        if($type!='gif'){
+            $cpath = 'cache/' . $app . '/' . $path . '/' . md5($w . $h . $app . $name) . '.jpg';
+        }else{
+            $cpath = 'uploadfile/'.$app.'/'.$file;
+        }
 
-        if (!is_file($cpath)) {
+
+        if (!is_file($cpath) && $type!='gif') {
 
             Image::configure(array('driver' => 'gd'));//gd or imagick
 
@@ -951,6 +957,9 @@ function reurl() {
         '?_wv=1031',
         '?tdsourcetag=s_pcqq_aiomsg',
         '?from=groupmessage&isappinstalled=0',
+        '?from=groupmessage&isappinstalled=1',
+        '?from=singlemessage&isappinstalled=0',
+        '?from=singlemessage&isappinstalled=1',
     );
 
 
@@ -1131,7 +1140,7 @@ function reurl() {
 			} elseif ($options['site_urltype'] == 7) {
 				// http://localhost/group/topic/1/
 				$params = explode('/', $params);
-				//var_dump($params);
+				//var_dump($params);exit;
 				foreach ($params as $p => $v) {
 					switch ($p) {
 						case 0 :
@@ -1139,6 +1148,7 @@ function reurl() {
 							$_GET['app'] = $v;
 							break;
 						case 1 :
+                            if(in_array($v,$arrSuffix)) $v='index';
 							$_GET['ac'] = $v;
 							if (empty($_GET['ac']))
 								$_GET['ac'] = 'index';

@@ -3,10 +3,18 @@
  */
 var content = $('textarea[name="content"]')
 $(document).ready(function() {
+
+    //Emoji Button
+    document.emojiButton = 'fas fa-smile'; // default: fa fa-smile-o
+    // The Emoji selector to input Unicode characters instead of images
+    document.emojiType = 'unicode'; // default: image
+    // Relative path to emojis
+    document.emojiSource = siteUrl+'plugins/pubs/summernote/plugin/tam-emoji/img';
+
     var $summernote = $('#tseditor').summernote({
         height:100,
         toolbar: [
-            ['Insert', ['link','picture']]
+            ['Insert', ['link','picture','emoji']]
         ],
 
         lang: 'zh-CN',

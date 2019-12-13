@@ -88,10 +88,8 @@
   <div class="form-group">
     <label>内容：</label>
 
-      <div id="tseditor">{$strArticle['content']}</div>
-
-      <div style="display: none;">
-          <textarea  name="content">{$strArticle['content']}</textarea>
+      <div>
+          <textarea id="tseditor"  name="content">{$strArticle['content']}</textarea>
       </div>
 
 
@@ -113,13 +111,13 @@
 	
 	{if $strArticle['photo']}
        <p>
-	<img  width="200" src="{php echo tsXimg($strArticle['photo'],'article',640,400,$strArticle['path'],'1')}" />
+	<img  width="200" src="{php echo tsXimg($strArticle['photo'],'article',640,360,$strArticle['path'],'1')}" />
        </p>
 	{/if}
 
        <div class="custom-file">
            <input type="file" name="photo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png">
-           <label class="custom-file-label c9" for="customFile">支持jpg,png格式；大小640*400px</label>
+           <label class="custom-file-label c9" for="customFile">支持jpg,png格式；大小640*360px</label>
        </div>
 
   </div>

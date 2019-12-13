@@ -6,10 +6,10 @@ switch ($ts){
     case "list":
 
         $userid = intval($_GET['userid']);
-        $articleid = intval($_GET['articleid']);
+        $topicid = intval($_GET['topicid']);
 
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $url = SITE_URL.'index.php?app=article&ac=admin&mg=comment&ts=list&page=';
+        $url = SITE_URL.'index.php?app=group&ac=admin&mg=comment&ts=list&page=';
         $lstart = $page*10-10;
 
         $where = null;
@@ -20,15 +20,15 @@ switch ($ts){
             );
         }
 
-        if($articleid){
+        if($topicid){
             $where = array(
-                'articleid'=>$articleid,
+                'topicid'=>$topicid,
             );
         }
 
-        $arrComment = $new['article']->findAll('article_comment',$where,'addtime desc',null,$lstart.',10');
+        $arrComment = $new['group']->findAll('group_topic_comment',$where,'addtime desc',null,$lstart.',10');
 
-        $commentNum = $new['article']->findCount('article_comment',$where);
+        $commentNum = $new['group']->findCount('group_topic_comment',$where);
 
         $pageUrl = pagination($commentNum, 10, $page, $url);
 
@@ -41,22 +41,28 @@ switch ($ts){
 
         $commentid = intval($_GET['commentid']);
 
-        $strComment = $new['article']->find('article_comment',array(
+        $strComment = $new['group']->find('group_topic_comment',array(
             'commentid'=>$commentid,
         ));
 
-        $new['article']->delete('article_comment',array(
+        if($strComment['referid']==0){
+            $new['group']->delete('group_topic_comment',array(
+                'referid'=>$commentid,
+            ));
+        }
+
+        $new['group']->delete('group_topic_comment',array(
             'commentid'=>$commentid,
         ));
 
         #统计评论数
-        $count_comment = $new['article']->findCount('article_comment',array(
-            'articleid'=>$strComment['articleid'],
+        $count_comment = $new['group']->findCount('group_topic_comment',array(
+            'topicid'=>$strComment['topicid'],
         ));
 
-        //更新评论数
-        $new['article']->update('article',array(
-            'articleid'=>$strComment['articleid'],
+        //更新帖子最后回应时间和评论数
+        $new['group']->update('group_topic',array(
+            'topicid'=>$strComment['topicid'],
         ),array(
             'count_comment'=>$count_comment,
         ));

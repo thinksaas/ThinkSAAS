@@ -46,9 +46,8 @@
 
                         <div class="form-group">
                             <label>内容</label>
-                            <div id="tseditor">{if $strDraft['content']}{php echo tsDecode($strDraft['content'])}{/if}</div>
-                            <div style="display: none;">
-                                <textarea name="content">{if $strDraft['content']}{php echo tsDecode($strDraft['content'])}{/if}</textarea>
+                            <div>
+                                <textarea  id="tseditor" name="content">{if $strDraft['content']}{php echo tsDecode($strDraft['content'])}{/if}</textarea>
                             </div>
                         </div>
 
