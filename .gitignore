@@ -1,9 +1,9 @@
-/app/pubs/action/api.php
 /cache
 /data
 /tslogs
 /uploadfile
 .idea
+.vscode
 .htaccess
 .DS_Store
 composer.lock

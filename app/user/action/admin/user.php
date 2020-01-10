@@ -56,6 +56,8 @@ defined('IN_TS') or die('Access Denied.');
 		
 			$userid = intval($_GET['userid']);
 
+			if($userid==1) qiMsg('无法停用该用户！');
+
 			$page = intval($_GET['page']);
 
 			$strUser = $new['user']->find('user_info',array(
@@ -161,6 +163,9 @@ defined('IN_TS') or die('Access Denied.');
 		//清空用户数据
 		case "deldata":
 			$userid = intval($_GET['userid']);
+
+			if($userid==1) qiMsg('该用户数据无法清空！');
+
 			aac('user')->toEmpty($userid);
 			qiMsg('清空数据成功！');
 			
@@ -170,6 +175,9 @@ defined('IN_TS') or die('Access Denied.');
 		case "admin":
 			
 			$userid = intval($_GET['userid']);
+
+			if($userid==1) qiMsg('该用户无法取消管理员！');
+
 			$strUser = $new['user']->find('user_info',array(
 				'userid'=>$userid,
 			));
@@ -223,7 +231,10 @@ defined('IN_TS') or die('Access Denied.');
 
         //是否手工认证
         case "isrenzheng":
-            $userid = intval($_GET['userid']);
+			$userid = intval($_GET['userid']);
+			
+			if($userid==1) qiMsg('该用户无法操作！');
+
             $strUser = $new['user']->find('user_info',array(
                 'userid'=>$userid,
             ));

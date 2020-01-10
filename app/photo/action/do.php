@@ -52,8 +52,8 @@ switch($ts){
 		//用户是否登录
 		$userid = aac('user')->isLogin();
 	
-		$photoid	= intval($_POST['photoid']);
-		$content	= trim($_POST['content']);
+		$photoid = intval($_POST['photoid']);
+		$content = trim($_POST['content']);
 
 		if($content==''){
 		    tsNotice('评论内容不能为空！');
@@ -66,10 +66,10 @@ switch($ts){
 		}
 		
 		$commentid = $new['photo']->create('photo_comment',array(
-			'photoid'			=> $photoid,
-			'userid'			=> $userid,
-			'content'	=> $content,
-			'addtime'		=> time(),
+			'photoid'=> $photoid,
+			'userid'=> $userid,
+			'content'=> $content,
+			'addtime'=> time(),
 		));
 		
 		header("Location: ".tsUrl('photo','show',array('id'=>$photoid)));
@@ -88,7 +88,7 @@ switch($ts){
 			'commentid'=>$commentid,
 		));
 		
-		$strTopic = $new['photo']->find('photo',array(
+		$strPhoto = $new['photo']->find('photo',array(
 		
 			'photoid'=>$strComment['photoid'],
 		

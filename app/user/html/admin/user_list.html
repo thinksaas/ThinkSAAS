@@ -24,7 +24,15 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
 
     <thead class="thead-light">
 
-    <tr><th>UID</th><th>Email</th><th>手机号</th><th>姓名</th><th>注册时间</th><th>登录IP</th><th>来自</th><th>验证Email</th><th>操作</th></tr>
+    <tr>
+        <th>UID</th>
+        <th>邀请ID</th>
+        <th>Email</th>
+        <th>手机号</th>
+        <th>姓名</th>
+        <th>注册时间</th>
+        <th>登录IP</th>
+        <th>来自</th><th>验证Email</th><th>操作</th></tr>
 
     </thead>
 
@@ -33,7 +41,11 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
     <tbody>
 
     {loop $arrAllUser $key $item}
-    <tr class="odd"><td>{$item[userid]}</td>
+    <tr class="odd">
+        
+        <td>{$item[userid]}</td>
+
+        <td>{$item[fuserid]}</td>
 
         <td>{$item[email]}</td>
         <td>{$item['phone']}</td>
@@ -42,7 +54,7 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
 
         <td>{$item['ip']}</td>
         <td>{$item['comefrom']}</td>
-        <td>{if $item['isverify']==1}已验证{else}<font color="red">未验证</a>{/if}</td>
+        <td>{if $item['isverify']==1}已验证{else}<font color="red">未验证</font>{/if}</td>
         <td>
 
 

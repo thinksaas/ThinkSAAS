@@ -55,7 +55,11 @@
     Dropzone.options.myAwesomeDropzone = {
         paramName: "file", // The name that will be used to transfer the file
         maxFilesize: "{$GLOBALS['TS_SITE']['photo_size']}", // MB
+        {if isMobile()}
+        acceptedFiles:"image/jpeg,image/png,image/gif",
+        {else}
         acceptedFiles:".jpg,.png,.jpeg",
+        {/if}
         dictDefaultMessage:'点击选择图片上传',
         accept: function(file, done) {
             if (file.name == "justinbieber.jpg") {
