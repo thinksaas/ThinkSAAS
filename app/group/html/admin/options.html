@@ -24,6 +24,9 @@
 <tr><td>是否允许用户发帖 :</td><td><input {if $strOption['isallowpost']=='1'}checked="select"{/if} name="option[isallowpost]" type="radio" value="1" />不允许 <input {if $strOption['isallowpost']=='0'}checked="select"{/if} name="option[isallowpost]" type="radio" value="0" />允许</td></tr>
 
 
+<tr><td>发帖是否审核 :</td><td><input {if $strOption['topicisaudit']=='0'}checked="select"{/if} name="option[topicisaudit]" type="radio" value="0" />不审核 <input {if $strOption['topicisaudit']=='1'}checked="select"{/if} name="option[topicisaudit]" type="radio" value="1" />审核</td></tr>
+
+
     <tr><td>是否开启加入小组付费功能 :</td><td>
 
         <input {if $strOption['ispayjoin']=='0'}checked="select"{/if} name="option[ispayjoin]" type="radio" value="0" />不开启

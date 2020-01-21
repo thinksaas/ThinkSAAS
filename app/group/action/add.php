@@ -135,6 +135,12 @@ switch ($ts) {
 		} else {
 			$isaudit = 0;
 		}
+
+		#应用后台设置发帖是否需要审核，只针对普通用户
+		if($TS_APP['topicisaudit']==1 && $TS_USER['isadmin']==0){
+			$isaudit = 1;
+		}
+
 		
 		if ($title == '' || $content2 == '') {
 			tsNotice ( '没有任何内容是不允许你通过滴^_^' );

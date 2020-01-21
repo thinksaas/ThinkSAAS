@@ -12,6 +12,7 @@
   "require": {
     "phpmailer/phpmailer": "v6.0.5",
     "intervention/image": "^2.4",
-    "qcloudsms/qcloudsms_php": "v0.1.4"
+    "qcloudsms/qcloudsms_php": "v0.1.4",
+    "alibabacloud/client": "^1.5"
   }
 }
