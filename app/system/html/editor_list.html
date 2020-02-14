@@ -1,0 +1,53 @@
+{php include pubTemplate("header_admin")}
+
+<div class="midder">
+    {template anti_menu}
+    
+    
+    <div class="page">{$pageUrl}</div>
+
+    <div>
+        <table class="table table-hover">
+            <thead class="thead-light">
+    
+    <tr>
+        <th>ID</th>
+        <th>UserID</th>
+        <th>type</th>
+        <th>title</th>
+        <th></th>
+        <th>addtime</th>
+        <th>操作</th>
+    </tr>
+            </thead>
+            <tbody>
+    {loop $arrEditor $key $item}
+    <tr>
+        <td>{$item['id']}</td>
+        <td>{$item['userid']}</td>
+        <td>{$item['type']}</td>
+        <td>{$item['title']}</td>
+        <td>
+
+            {if $item['type']=='photo'}
+            <a target="_blank" href="{SITE_URL}uploadfile/editor/{$item['url']}"><img src="{SITE_URL}uploadfile/editor/{$item['url']}" width="100"></a>
+            {else}
+            <a target="_blank" href="{SITE_URL}uploadfile/editor/{$item['url']}">uploadfile/editor/{$item['url']}</a>
+            {/if}
+
+        </td>
+        <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+        <td><a href="{SITE_URL}index.php?app=system&ac=editor&ts=delete&id={$item['id']}"><i class="far fa-trash-alt"></i> 删除</a></td>
+    </tr>
+    {/loop}
+            </tbody>
+    </table>
+    
+    </div>
+
+    <div class="page">{$pageUrl}</div>
+    
+    
+</div>
+
+{php include pubTemplate("footer_admin")}

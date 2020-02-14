@@ -7,10 +7,6 @@
  */
 defined('IN_TS') or die('Access Denied.');
 
-#https://github.com/illuminate/database
-#https://packagist.org/packages/illuminate/database
-use Illuminate\Database\Capsule\Manager as Capsule;
-
 //杜绝非本站域名的使用
 if($TS_CF['urllock'] && $_SERVER['SERVER_NAME']!=$TS_CF['urllock']){
     echo '404 page';exit;
@@ -219,9 +215,16 @@ if($app!='api'){
 
     //控制访客权限
     if($TS_USER=='' && $TS_SITE['visitor'] == 1){
+
+        if(!in_array($app,array('pubs','pay')) && !in_array($ac,array('info','home','register','phone','login','forgetpwd','resetpwd','wxlogin'))){
+            tsHeaderUrl(tsUrl('pubs','home'));
+        }
+
+        /*
         if($app!='pubs' && $ac!='home' && $ac!='register' && $ac!='phone' && $ac!='login' && $ac!='forgetpwd' && $ac!='resetpwd'){
             tsHeaderUrl(tsUrl('pubs','home'));
         }
+        */
     }
 
     //控制前台ADMIN访问权限

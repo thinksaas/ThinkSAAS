@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: qiniao
- * Date: 2018/6/6
- * Time: 下午7:00
- */
 defined('IN_TS') or die('Access Denied.');
 switch($ts){
 

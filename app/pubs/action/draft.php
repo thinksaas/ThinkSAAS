@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: qiujun
- * Date: 2019/2/23
- * Time: 19:18
- */
 defined('IN_TS') or die('Access Denied.');
 
 $userid = intval($TS_USER['userid']);

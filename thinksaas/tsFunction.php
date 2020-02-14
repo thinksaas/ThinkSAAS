@@ -18,14 +18,9 @@ use Intervention\Image\ImageManagerStatic as Image;
  * @return bool
  */
 function aac($app) {
-
-	$path = THINKAPP . '/' . $app . '/';
-	if (!class_exists($app)) {
-		require_once $path . 'class.' . $app . '.php';
-	}
-	if (!class_exists($app)) {
-		return false;
-	}
+	spl_autoload_register(function ($app) {
+		require_once 'app/'.$app.'/'.'class.'.$app.'.php';
+	});
 	$obj = new $app($GLOBALS['db']);
 	return $obj;
 }

@@ -2,7 +2,7 @@
 defined('IN_TS') or die('Access Denied.'); 
 
 function newtopic(){
-	global $db;
+	
 	//最新帖子	
 	$arrTopic = aac('group')->findAll('group_topic',array(
 		'isaudit'=>0,

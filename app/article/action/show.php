@@ -54,14 +54,11 @@ if($strNext) $strNext['title'] = tsTitle($strNext['title']);
 
 // 获取评论
 $page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : 1;
-$url = tsUrl ( 'article', 'show', array (
-		'id' => $articleid,
-		'page' => '' 
-) );
+$url = tsUrl ('article','show', array ('id' => $articleid,'page'=>''));
 $lstart = $page * 10 - 10;
 
 $arrComments = $new ['article']->findAll ( 'article_comment', array (
-		'articleid' => $articleid 
+	'articleid' => $articleid 
 ), 'addtime desc', null, $lstart . ',10' );
 
 foreach ( $arrComments as $key => $item ) {
