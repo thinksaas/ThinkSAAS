@@ -55,23 +55,10 @@ if($strNext) $strNext['title'] = tsTitle($strNext['title']);
 // 获取评论
 $page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : 1;
 $url = tsUrl ('article','show', array ('id' => $articleid,'page'=>''));
-$lstart = $page * 10 - 10;
-
-$arrComments = $new ['article']->findAll ( 'article_comment', array (
-	'articleid' => $articleid 
-), 'addtime desc', null, $lstart . ',10' );
-
-foreach ( $arrComments as $key => $item ) {
-	$arrComment [] = $item;
-	$arrComment[$key]['content'] = tsDecode($item['content']);
-	$arrComment [$key] ['user'] = aac ( 'user' )->getSimpleUser ( $item ['userid'] );
-}
-
-$commentNum = $new ['article']->findCount ( 'article_comment', array (
-		'articleid' => $articleid 
-) );
-
-$pageUrl = pagination ( $commentNum, 10, $page, $url );
+$lstart = $page * 15 - 15;
+$arrComment = aac('pubs')->getCommentList('article','articleid',$strArticle['articleid'],$page,$lstart,$strArticle['userid']);
+$commentNum = aac('pubs')->getCommentNum('article','articleid',$strArticle['articleid']);
+$pageUrl = pagination ( $commentNum, 15, $page, $url );
 
 // 标签
 $strArticle ['tags'] = aac ( 'tag' )->getObjTagByObjid ( 'article', 'articleid', $strArticle ['articleid'] );

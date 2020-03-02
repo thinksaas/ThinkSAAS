@@ -108,79 +108,60 @@
 
 
             <div class="card">
-                <div class="card-header">你的回应</div>
+                <div class="card-header">评论{if $strArticle['count_comment']} <small class="text-secondary">({$strArticle['count_comment']})</small>{/if}</div>
                 <div class="card-body">
 
-                    {if $arrComment}
-                    <div class="comment">
-                        <ul>
-                            {loop $arrComment $key $item}
-                            <li class="clearfix">
-                                <div class="user-face">
-                                    <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="rounded-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="48" /></a>
-                                </div>
-                                <div class="reply-doc">
-                                    <h4>
-                                        {php echo date('Y-m-d H:i:s',$item[addtime])}
-                                        <a class="c9" href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
-                                    </h4>
-                                    <p>{$item[content]}</p>
-                                    {if $TS_USER[userid] == $strArticle[userid] ||
-                                    $TS_USER['isadmin']==1}
-                                    <div class="mb-2 text-right">
-                                        <a class="fs12 text-secondary" href="{SITE_URL}index.php?app=article&ac=comment&ts=delete&commentid={$item['commentid']}"><i class="far fa-trash-alt"></i> 删除</a>
-                                    </div>
-                                    {/if}
-                                </div>
-                            </li> {/loop}
-                        </ul>
-                    </div>
-                    <div class="page">{$pageUrl}</div>
-                    {/if}
 
 
-                    <div>
+
+                    <!--评论列表-->
+                    {php include pubTemplate("comment")}
+
+
+
+
+
+                    <div class="commentform">
+                        
                         {if intval($TS_USER[userid])==0}
-                        <div class="pd20 tac">
-                            <a href="{tsUrl('user','login')}">登录</a> | <a href="{tsUrl('user','register')}">注册</a>
-                        </div>
-                        {else}
-                        <form method="POST" action="{SITE_URL}index.php?app=article&ac=comment&ts=do">
-
-
-
-                            <div><textarea id="tseditor" name="content"></textarea></div>
-
-
-
-                            <div class="mt-2 of">
-
-
-                                <div class="float-left">
-                                    {if $TS_SITE['isauthcode']}
-                                    验证码：<input name="authcode" />
-                                    <img align="absmiddle" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
-                                    {/if}
-
-                                </div>
-
-
-                                <div class="float-right">
-                                    <input type="hidden" name="articleid" value="{$strArticle[articleid]}" />
-                                    <input type="hidden" name="token" value="{$_SESSION['token']}" />
-
-                                    <button class="btn btn-sm btn-info" type="submit">回复</button>
-                                </div>
-
+                            <div class="tac pd20 fw300">
+                                <a href="{tsUrl('user','login')}">登录</a> | <a href="{tsUrl('user','register')}">注册</a>
                             </div>
+                            {else}
 
-                        </form>
-                        {/if}
+                            <form id="comm-form" method="post" action="{SITE_URL}index.php?app=pubs&ac=comment&ts=do">
+                                <div >
+                                    <textarea id="tseditor" name="content"></textarea>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        {if $TS_SITE['isauthcode']}
+                                        <input class="form-control form-control-sm w-auto float-left" name="authcode" placeholder="输入验证码" />
+                                        <img class="mt-1 ml-1" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
+                                        {/if}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mt-1">是否公开：<input type="radio" name="ispublic" value="0" checked />公开 <input type="radio" name="ispublic" value="1" />不公开</div>
+                                    </div>
+                                    <div class="col-md-2 text-right">
+                                        <input type="hidden" name="ptable" value="article">
+                                        <input type="hidden" name="pkey" value="articleid">
+                                        <input type="hidden" name="pid" value="{$strArticle[articleid]}" />
+                                        <input type="hidden" name="token" value="{$_SESSION['token']}" />
+                                        <button class="btn btn-sm btn-info btn-block" type="submit">提交评论</button>
+                                    </div>
+                                </div>
+                            </form>
+                            {/if}
+
                     </div>
-
 
                 </div>
             </div>
+
+
+
+
 
             <div class="card">
                 <div class="card-header">最新文章</div>

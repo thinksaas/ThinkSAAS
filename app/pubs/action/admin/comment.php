@@ -6,29 +6,34 @@ switch ($ts){
     case "list":
 
         $userid = intval($_GET['userid']);
-        $topicid = intval($_GET['topicid']);
+        $ptable = isset($_GET['ptable']) ? trim($_GET['ptable']) : 'group_topic';
+        $pid = intval($_GET['pid']);
 
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $url = SITE_URL.'index.php?app=group&ac=admin&mg=comment&ts=list&page=';
+        $url = SITE_URL.'index.php?app=pubs&ac=admin&mg=comment&ts=list&&page=';
         $lstart = $page*10-10;
 
-        $where = null;
+        $where = array(
+            'ptable'=>$ptable,
+        );
 
         if($userid){
             $where = array(
+                'ptable'=>$ptable,
                 'userid'=>$userid,
             );
         }
 
-        if($topicid){
+        if($pid){
             $where = array(
-                'topicid'=>$topicid,
+                'ptable'=>$ptable,
+                'pid'=>$pid,
             );
         }
 
-        $arrComment = $new['group']->findAll('group_topic_comment',$where,'addtime desc',null,$lstart.',10');
+        $arrComment = $new['pubs']->findAll('comment',$where,'addtime desc',null,$lstart.',10');
 
-        $commentNum = $new['group']->findCount('group_topic_comment',$where);
+        $commentNum = $new['pubs']->findCount('comment',$where);
 
         $pageUrl = pagination($commentNum, 10, $page, $url);
 
@@ -41,22 +46,22 @@ switch ($ts){
 
         $commentid = intval($_GET['commentid']);
 
-        $strComment = $new['group']->find('group_topic_comment',array(
+        $strComment = $new['group']->find('comment',array(
             'commentid'=>$commentid,
         ));
 
         if($strComment['referid']==0){
-            $new['group']->delete('group_topic_comment',array(
+            $new['group']->delete('comment',array(
                 'referid'=>$commentid,
             ));
         }
 
-        $new['group']->delete('group_topic_comment',array(
+        $new['group']->delete('comment',array(
             'commentid'=>$commentid,
         ));
 
         #统计评论数
-        $count_comment = $new['group']->findCount('group_topic_comment',array(
+        $count_comment = $new['group']->findCount('comment',array(
             'topicid'=>$strComment['topicid'],
         ));
 

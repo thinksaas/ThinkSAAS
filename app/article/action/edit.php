@@ -111,7 +111,7 @@ switch ($ts) {
 			aac ( 'tag' )->addTag ( 'article', 'articleid', $articleid, $tag );
 		}
 		
-		// 上传帖子图片开始
+		// 上传封面图片
 		$arrUpload = tsUpload ( $_FILES ['photo'], $articleid, 'article', array ('jpg','gif','png','jpeg' ) );
 		if ($arrUpload) {
 			$new ['article']->update ( 'article', array (
@@ -126,7 +126,6 @@ switch ($ts) {
             tsXimg($arrUpload['url'],'article',640,360,$arrUpload['path'],1);
 
 		}
-		// 上传帖子图片结束
 		
 		header ("Location: " . tsUrl ( 'article', 'show', array ('id' => $articleid)));
 		

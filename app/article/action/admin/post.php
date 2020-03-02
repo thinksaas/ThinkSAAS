@@ -86,6 +86,13 @@ switch($ts){
 		$new['article']->delete('article',array(
 			'articleid'=>$articleid,
 		));
+
+		#删除评论
+		$new['article']->delete('comment',array(
+			'ptable'=>'article',
+			'pkey'=>'articleid',
+			'pid'=>$articleid,
+		));
 		
 		$new['article']->delete('tag_article_index',array(
 			'articleid'=>$articleid,

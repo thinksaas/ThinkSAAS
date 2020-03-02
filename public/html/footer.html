@@ -12,11 +12,10 @@
 <a class="text-secondary" href="{tsUrl('home','info',array('id'=>'2'))}">联系我们</a> |
 <a class="text-secondary" href="{tsUrl('home','info',array('id'=>'3'))}">用户条款</a> |
 <a class="text-secondary" href="{tsUrl('home','info',array('id'=>'4'))}">隐私申明</a> |
-<a class="text-secondary" href="{tsUrl('home','info',array('id'=>'5'))}">加入我们</a> |
-<a class="text-secondary" href="{tsUrl('home','theme')}">更换皮肤</a>
+<a class="text-secondary" href="{tsUrl('home','info',array('id'=>'5'))}">加入我们</a>
 </p>
 <p class="fs12 text-secondary">
-       Copyright ©  {php echo date('Y')}   <a class="text-secondary" target="_blank" href="{SITE_URL}">{$GLOBALS['TS_SITE'][site_title]}</a> {$GLOBALS['TS_SITE']['site_icp']}
+       Copyright ©  {php echo date('Y')}   <a class="text-secondary" target="_blank" href="{SITE_URL}">{$GLOBALS['TS_SITE'][site_title]}</a> <a rel="nofollow" target="_blank" href="http://www.beian.miit.gov.cn/">{$GLOBALS['TS_SITE']['site_icp']}</a>
 </p>
 <p class="fs12">
     Powered by
@@ -27,9 +26,9 @@
 {if intval($GLOBALS['TS_USER']['userid'])}
 <script src="{SITE_URL}public/js/imbox/imbox.js" type="text/javascript"></script>
 {/if}
-<script src="{SITE_URL}public/js/common.js?v=20190814" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/common.js?v=20200222" type="text/javascript"></script>
 {if is_file('app/'.$GLOBALS['TS_URL']['app'].'/js/extend.func.js')}
-<script src="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/js/extend.func.js" type="text/javascript"></script>
+<script src="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/js/extend.func.js?v=20200223" type="text/javascript"></script>
 {/if}
 
 {php doAction('pub_footer')}

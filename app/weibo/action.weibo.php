@@ -21,7 +21,7 @@ class weiboAction extends weibo{
         ),'uptime desc',null,$lstart.',20');
         foreach($arrWeibo as $key=>$item){
             $arrWeibo[$key]['user'] = aac('user')->getOneUser($item['userid']);
-            $arrWeibo[$key]['content'] = tsTitle($item['content']);
+            $arrWeibo[$key]['title'] = tsTitle($item['title']);
         }
 
 
@@ -36,7 +36,7 @@ class weiboAction extends weibo{
         $arrHotWeibo = $this->findAll('weibo',null,'count_comment desc',null,10);
 
         foreach($arrHotWeibo as $key=>$item){
-            $arrHotWeibo[$key]['content'] = tsTitle($item['content']);
+            $arrHotWeibo[$key]['title'] = tsTitle($item['title']);
             $arrHotWeibo[$key]['user'] = aac('user')->getOneUser($item['userid']);
         }
 
@@ -63,9 +63,9 @@ class weiboAction extends weibo{
         //发布时间限制
         if(aac('system')->pubTime()==false) getJson('不好意思，当前时间不允许发布内容！',$js);
 
-        $content = trim($_POST['content']);
+        $title = trim($_POST['title']);
 
-        if($content == '') {
+        if($title == '') {
             getJson('内容不能为空',$js);
         }
 
@@ -73,14 +73,14 @@ class weiboAction extends weibo{
 
         if($GLOBALS['TS_USER']['isadmin']==0){
             //过滤内容开始
-            aac('system')->antiWord($content,$js);
+            aac('system')->antiWord($title,$js);
             //过滤内容结束
         }
 
         $weiboid = $this->create('weibo',array(
             'userid'=>$userid,
             'locationid'=>aac('user')->getLocationId($userid),
-            'content'=>$content,
+            'title'=>$title,
             'isaudit'=>$isaudit,
             'addtime'=>date('Y-m-d H:i:s'),
             'uptime'=>date('Y-m-d H:i:s'),
@@ -117,22 +117,10 @@ class weiboAction extends weibo{
         //comment
         $page = isset($_GET['page']) ? intval($_GET['page']) : '1';
         $url = tsUrl('weibo','show',array('id'=>$weiboid,'page'=>''));
-        $lstart = $page*20-20;
-
-        $arrComment = $this->findAll('weibo_comment',array(
-            'weiboid'=>$weiboid,
-        ),'addtime desc',null,$lstart.',20');
-
-        foreach($arrComment as $key=>$item){
-            $arrComment[$key]['content'] = tsTitle($item['content']);
-            $arrComment[$key]['user']=aac('user')->getOneUser($item['userid']);
-        }
-
-        $commentNum = $this->findCount('weibo_comment',array(
-            'weiboid'=>$weiboid,
-        ));
-
-        $pageUrl = pagination($commentNum, 20, $page, $url);
+        $lstart = $page*15-15;
+        $arrComment = aac('pubs')->getCommentList('weibo','weiboid',$strWeibo['weiboid'],$page,$lstart,$strWeibo['userid']);
+        $commentNum = aac('pubs')->getCommentNum('weibo','weiboid',$strWeibo['weiboid']);
+        $pageUrl = pagination($commentNum, 15, $page, $url);
 
 
 
@@ -156,14 +144,14 @@ class weiboAction extends weibo{
         }
 
         foreach($arrWeibo as $key=>$item){
-            $arrWeibo[$key]['content'] = tsTitle($item['content']);
+            $arrWeibo[$key]['title'] = tsTitle($item['title']);
         }
 
 
-        if($strWeibo['content']==''){
+        if($strWeibo['title']==''){
             $title = $strWeibo['user']['username'].'的唠叨('.$strWeibo['weiboid'].')';
         }else{
-            $title = cututf8($strWeibo['content'],0,100,false);
+            $title = cututf8($strWeibo['title'],0,100,false);
         }
 
         include template('show');
@@ -182,17 +170,17 @@ class weiboAction extends weibo{
 		}
 
 
-		$content = tsClean($_POST['content']);
+		$title = tsClean($_POST['title']);
 
 		if($GLOBALS['TS_USER']['isadmin']==0){
 			//过滤内容开始
-			aac('system')->antiWord($content);
+			aac('system')->antiWord($title);
 			//过滤内容结束
 		}
 
 		$weiboid = $this->create('weibo',array(
 			'userid'=>$userid,
-			'content'=>$content,
+			'title'=>$title,
 			'isaudit'=>0,
 			'addtime'=>date('Y-m-d H:i:s'),
 			'uptime'=>date('Y-m-d H:i:s'),
@@ -218,115 +206,6 @@ class weiboAction extends weibo{
 	}
 	
 	/*
-	 * 回复唠叨，添加评论
-	 */
-	public function addcomment(){
-
-		//用户是否登录
-		$userid = aac('user')->isLogin();
-
-        //判断发布者状态
-        if(aac('user')->isPublisher()==false) tsNotice('不好意思，你还没有权限发布内容！');
-
-        //发布时间限制
-        if(aac('system')->pubTime()==false) tsNotice('不好意思，当前时间不允许发布内容！');
-
-		$weiboid = intval($_POST['weiboid']);
-		$touserid = intval($_POST['touserid']);
-		$content = trim($_POST['content']);
-
-		if($content == ''){
-			tsNotice('内容不能为空');
-		}
-
-		if($GLOBALS['TS_USER']['isadmin']==0){
-			//过滤内容开始
-			aac('system')->antiWord($content);
-			//过滤内容结束
-		}
-
-		$commentid = $this->create('weibo_comment',array(
-			'userid'=>$userid,
-			'touserid'=>$touserid,
-			'weiboid'=>$weiboid,
-			'content'=>$content,
-			'addtime'=>date('Y-m-d H:i:s'),
-		));
-
-		//计算评论总数
-		$commentNum = $this->findCount('weibo_comment',array(
-			'weiboid'=>$weiboid,
-		));
-
-		$this->update('weibo',array(
-			'weiboid'=>$weiboid,
-		),array(
-			'count_comment'=>$commentNum,
-		));
-		
-		$strWeibo = $this->find('weibo',array(
-			'weiboid'=>$weiboid,
-		));
-		
-		if($strWeibo['userid'] != $userid){
-			$msg_userid = '0';
-			$msg_touserid = $strWeibo['userid'];
-			$msg_content = '你的唠叨新增一条回复，快去看看给个回复吧^_^';
-            $msg_tourl = tsUrl('weibo','show',array('id'=>$weiboid));
-			aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_tourl);
-		}
-
-
-
-        $daytime = date('Y-m-d 00:00:01');
-        $count_comment = $this->findCount('weibo_comment',"`userid`='$userid' and `addtime`>'$daytime'");
-
-        #每日前1条给积分
-        if($count_comment<2){
-            aac('user') -> doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
-        }
-
-
-		tsHeaderUrl(tsUrl('weibo','show',array('id'=>$weiboid)));
-	}
-	
-	/*
-	 * 删除评论
-	 */
-	public function deletecomment(){
-		$userid = aac('user')->isLogin();
-	
-		$commentid = intval($_GET['commentid']);
-		
-		$strComment = $this->find('weibo_comment',array(
-			'commentid'=>$commentid,
-		));
-	
-		if($GLOBALS['TS_USER']['isadmin']==1 || $strComment['userid']==$userid){
-			
-			
-			$this->delete('weibo_comment',array('commentid'=>$commentid));
-			
-			//统计
-			$count_comment = $this->findCount('weibo_comment',array(
-				'weiboid'=>$strComment['weiboid'],
-			));
-			
-			$this->update('weibo',array(
-				'weiboid'=>$strComment['weiboid'],
-			),array(
-				'count_comment'=>$count_comment,
-			));
-			
-			tsHeaderUrl(tsUrl('weibo','show',array('id'=>$strComment['weiboid'])));
-			
-			
-		}else{
-			tsNotice('非法操作！');
-		}
-	}
-	
-	/*
 	 * 删除唠叨 
 	 */
 	public function deleteweibo(){
@@ -342,9 +221,12 @@ class weiboAction extends weibo{
 			$this->delete('weibo',array(
 				'weiboid'=>$weiboid,
 			));
-			
-			$this->delete('weibo_comment',array(
-				'weiboid'=>$weiboid,
+            
+            #删除评论
+			$this->delete('comment',array(
+                'ptable'=>'weibo',
+                'pkey'=>'weiboid',
+				'pid'=>$weiboid,
 			));
 			
 			//删除图片

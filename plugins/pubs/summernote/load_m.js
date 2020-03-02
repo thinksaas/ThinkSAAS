@@ -5,8 +5,8 @@ $(document).ready(function() {
         toolbar: [
 
             ['font', ['bold', 'clear']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['insert', ['link', 'picture']]
+            //['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['picture','ts_attach','ts_video','ts_audio']]
         ],
 
         placeholder:'开始创作吧...',

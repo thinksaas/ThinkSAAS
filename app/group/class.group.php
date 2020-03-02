@@ -70,20 +70,7 @@ class group extends tsApp{
         return $arrNewGroup;
     }
 
-
-
-
-    //Refer二级循环，三级循环暂时免谈
-    function recomment($referid){
-        $strComment = $this->find('group_topic_comment',array(
-            'commentid'=>$referid,
-        ));
-
-        $strComment['content'] = tsDecode($strComment['content']);
-
-        $strComment['user'] = aac('user')->getSimpleUser($strComment['userid']);
-        return $strComment;
-    }
+    
 
 
     //是否存在帖子
@@ -126,15 +113,15 @@ class group extends tsApp{
     public function delTopic($topicid,$groupid){
 
         $this->delete('group_topic',array('topicid'=>$topicid));
-        $this->delete('group_topic_edit',array('topicid'=>$topicid));
-        $this->delete('group_topic_comment',array('topicid'=>$topicid));
         $this->delete('tag_topic_index',array('topicid'=>$topicid));
         $this->delete('group_topic_collect',array('topicid'=>$topicid));
 
-        #删除帖子附件
-        $this->delete('group_topic_attach',array('topicid'=>$topicid));
-
-        $this->delTopicComment($topicid);
+        #删除评论
+        $this->delete('comment',array(
+            'ptable'=>'group_topic',
+            'pkey'=>'topicid',
+            'pid'=>$topicid,
+        ));
 
         #删除ts_group_topic_photo
         $arrPhoto = $this->findAll('group_topic_photo',array(
@@ -151,41 +138,6 @@ class group extends tsApp{
         }
 
         $this->countTopic($groupid);
-
-        return true;
-
-    }
-
-
-
-    //删除话题评论
-    public function delTopicComment($topicid){
-        $arrComment = $this->findAll('group_topic_comment',array(
-            'topicid'=>$topicid,
-        ));
-
-        foreach($arrComment as $item){
-            $this->delComment($item['commentid']);
-        }
-
-        return true;
-
-    }
-
-    //删除评论
-    public function delComment($commentid){
-        $strComment = $this->find('group_topic_comment',array(
-            'commentid'=>$commentid,
-        ));
-
-        $this->delete('group_topic_comment',array(
-            'commentid'=>$commentid,
-        ));
-
-        #删除评论附件
-        $this->delete('group_comment_attach',array(
-            'commentid'=>$commentid,
-        ));
 
         return true;
 
@@ -284,8 +236,8 @@ class group extends tsApp{
     }
 
     /*
- * 是否小组管理员，仅次于小组组长
- */
+    * 是否小组管理员，仅次于小组组长
+    */
     public function isGroupAdmin($groupid,$userid){
         $isAdmin = $this->findCount('group_user',array(
             'userid'=>$userid,
@@ -315,84 +267,6 @@ class group extends tsApp{
     }
 
     /**
-     * 获取帖子附件
-     */
-    public function getTopicAttach($topicid){
-        $arrAttachId = $this->findAll('group_topic_attach',array(
-            'topicid'=>$topicid,
-        ));
-        if($arrAttachId){
-            foreach ($arrAttachId as $key=>$item){
-                $arrIds[] = $item['attachid'];
-            }
-            $attachids = arr2str($arrIds);
-            $arrAttach = $this->findAll('attach',"`attachid` in ($attachids)",'addtime desc');
-        }else{
-            $arrAttach = '';
-        }
-        return $arrAttach;
-    }
-
-    /**
-     * 获取评论关联附件
-     */
-    public function getCommentAttach($commentid){
-        $arrAttachId = $this->findAll('group_comment_attach',array(
-            'commentid'=>$commentid,
-        ));
-        if($arrAttachId){
-            foreach ($arrAttachId as $key=>$item){
-                $arrIds[] = $item['attachid'];
-            }
-            $attachids = arr2str($arrIds);
-            $arrAttach = $this->findAll('attach',"`attachid` in ($attachids)",'addtime desc');
-        }else{
-            $arrAttach = '';
-        }
-        return $arrAttach;
-    }
-
-    /**
-     * 获取帖子关联视频
-     * @param $topicid
-     * @return mixed
-     */
-    public function getTopicVideo($topicid){
-
-        $arrVideoId = $this->findAll('group_topic_video',array(
-            'topicid'=>$topicid,
-        ));
-
-        $arrVideo = array();
-
-        if($arrVideoId){
-            foreach($arrVideoId as $key=>$item){
-                $arrId[] = $item['videoid'];
-            }
-
-            $videoid = arr2str($arrId);
-
-            $arrVideo = $this->findAll('video',"`videoid` in ($videoid)");
-
-            foreach($arrVideo as $key=>$item){
-                if($item['siteid']==1){
-                    $arrVideo[$key]['iframe'] = "//v.qq.com/txp/iframe/player.html?vid=".$item['vid'];
-                }elseif($item['siteid']==2){
-                    $arrVideo[$key]['iframe'] = "//player.youku.com/embed/".$item['vid']."==";
-                }elseif($item['siteid']==3){
-                    $arrVideo[$key]['iframe'] = "//player.bilibili.com/player.html?aid=".$item['vid']."&page=1";
-                }else{
-
-                }
-            }
-
-        }
-
-        return $arrVideo;
-
-    }
-
-    /**
      * 获取帖子图片，处理通过小程序或者客户端发的图片
      */
     public function getTopicPhoto($topicid,$num=null){
@@ -410,6 +284,36 @@ class group extends tsApp{
 
         return $arrPhoto;
 
+    }
+
+
+    public function getProject($ptable,$pkey,$pid){
+        if($ptable && $pkey && $pid){
+
+            $strProject = $this->find($ptable,array(
+                $pkey=>$pid,
+            ));
+
+            if($ptable=='article'){
+                ########文章########
+                $strProject['title'] = tsTitle($strProject['title']);
+                $strProject['content'] = tsDecode($strProject['content']);
+                #处理正文样式和图片
+                $strProject['content'] = mobileHtml($strProject['content']);
+                if($strProject['photo']){
+                    $strProject['photo'] = tsXimg($strProject['photo'],'article',640,360,$strProject['path'],'1');
+                }
+                $topicInfo['article'] = $strProject;
+
+            }elseif($ptable=='video'){
+                ########视频########
+                $topicInfo['video'] = SITE_URL.'uploadfile/video/'.$strProject['video'];
+
+            }
+
+            return $topicInfo;
+
+        }
     }
 
 

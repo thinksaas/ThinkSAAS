@@ -76,11 +76,23 @@
 
                         <div class="topic-view common-content">
                             {$strTopic['content']}
+
+
                             {if $strTopic['photos']}
                                 {loop $strTopic['photos'] $key $item}
                                 <p class="tac"><img src="{$item}" alt="{$strTopic['title']}"></p>
                                 {/loop}
                             {/if}
+
+
+
+                            {if $strTopic['video']}
+                            <p>
+                                <video class="mw-100" controls="controls" src="{$strTopic['video']}"></video>
+                            </p>
+                            {/if}
+
+
                             {$tpUrl}
                         </div>
 
@@ -131,160 +143,60 @@
 
 
             <div class="card">
-                <div class="card-header">用户评论{if $strTopic['count_comment']} <small class="text-secondary">({$strTopic['count_comment']})</small>{/if}</div>
+                <div class="card-header">评论{if $strTopic['count_comment']} <small class="text-secondary">({$strTopic['count_comment']})</small>{/if}</div>
                 <div class="card-body">
 
 
-                    {if $arrTopicComment}
-                    <div class="comment">
-                        <ul>
-                            {loop $arrTopicComment $key $item}
 
 
-                            <li class="clearfix" id="l_{$item[commentid]}">
-                                <div class="user-face">
-                                    <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="rounded-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="36" /></a>
-                                </div>
-
-
-
-
-
-                                <div class="reply-doc">
-                                    <h4>{php echo date('Y-m-d H:i:s',$item[addtime])}
-                                        <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a>
-                                        <i>$item[l]#</i>
-                                    </h4>
-
-
-                                    {if $item[referid] !='0'}
-                                    <div class="recomment rounded"><a href="{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}"><img src="{$item[recomment][user][face]}" width="24" class="rounded-circle" align="absmiddle"></a> <strong><a href="{tsUrl('user','space',array('id'=>$item[recomment][user][userid]))}" rel="face" uid="$item[recomment][user][userid]">{$item[recomment][user][username]}</a></strong>：{$item[recomment][content]}</div>
-                                    {/if}
-
-
-
-                                    <p>
-                                        {if $item['ispublic'] && $item['userid']==$TS_USER['userid'] || $item['ispublic'] && $strTopic['userid']==$TS_USER['userid']}
-                                        {$item[content]}
-                                        {elseif  $item['ispublic'] && $item['userid']!=$TS_USER['userid'] || $item['ispublic'] && $strTopic['userid']!=$TS_USER['userid']}
-                                    <div class="alert alert-warning" role="alert">评论内容不公开显示！</div>
-                                    {else}
-                                    {$item[content]}
-                                    {/if}
-                                    </p>
-
-
-
-                                    <div class="text-right pt-2 pb-2">
-
-                                        {if $strGroupUser}
-                                        <a class="fs12 mr-2" href="javascript:void(0)"  onclick="commentOpen({$item[commentid]},{$item[topicid]})">回复</a>
-                                        {/if}
-
-                                        {if $TS_USER[userid] == $strGroup[userid] || $TS_USER[userid] == $item[userid] || $strGroupUser[isadmin]==1 || $TS_USER[isadmin]==1}
-                                        <span><a class="fs12" href="{SITE_URL}index.php?app=group&ac=comment&ts=delete&commentid={$item[commentid]}&token={$_SESSION['token']}" rel="nofollow" onClick="return confirm('确定删除吗?')">删除</a>
-</span>
-                                        {/if}
-                                    </div>
-
-
-                                    <div class="mb-2" id="rcomment_{$item[commentid]}" style="display:none">
-                                        <textarea class="form-control-sm w-100 border-secondary" id="recontent_{$item[commentid]}" type="text" onKeyDown="keyRecomment({$item[commentid]},{$item[topicid]},event)"></textarea>
-
-                                        <p>
-                                            <a class="btn btn-sm btn-outline-info" href="javascript:void(0);" onClick="recomment({$item[commentid]},{$item[topicid]},'{$_SESSION['token']}')" id="recomm_btn_$item[commentid]">提交</a>
-                                            <a class="btn btn-sm btn-outline-secondary" href="javascript:void('0');" onclick="commentOpen({$item['commentid']},{$item['topicid']})">取消</a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-
-
-
-
-                            </li>
-
-
-
-                            {/loop}
-
-                        </ul>
-                    </div>
-                    <div class="page">{$pageUrl}</div>
-                    {/if}
+                    <!--评论列表-->
+                    {php include pubTemplate("comment")}
 
 
 
 
 
                     <div class="commentform">
-                        {if intval($TS_USER[userid])==0}
-                        <div class="tac pd20 fw300 text-black-50">
-                            <a href="{tsUrl('user','login')}">登录</a> | <a href="{tsUrl('user','register')}">注册</a>
-                        </div>
-                        {elseif $strGroupUser==''}
-                        <div class="tac pd20 text-secondary">
-                            不是本组成员不能回应此贴哦！
-                            <p class="mt-2"><a class="btn btn-outline-info btn-sm" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">加入小组</a></p>
-
-                        </div>
-                        {elseif $strTopic[iscomment] == 1 && $strTopic[userid] != $TS_USER[userid]}
-                        <div class="tac pd20 fw300 text-black-50">
-                            本帖除作者外不允许任何人评论
-                        </div>
-                        {elseif $strTopic[isclose]=='1'}
-                        <div class="tac pd20 fw300 text-black-50">
-                            该帖子已被关闭，无法评论
-                        </div>
+                        
+                        {if $strTopic[iscomment] == 1}
+                        <div class="tac pd20 fw300 text-black-50">此内容暂不接受评论！</div>
                         {else}
-                        <form id="comm-form" method="post" action="{SITE_URL}index.php?app=group&ac=comment&ts=do">
 
 
-                            <div >
-                                <textarea id="tseditor" name="content"></textarea>
+                        
+                            {if intval($TS_USER[userid])==0}
+                            <div class="tac pd20 fw300">
+                                <a href="{tsUrl('user','login')}">登录</a> | <a href="{tsUrl('user','register')}">注册</a>
                             </div>
+                            {else}
 
-
-
-
-                            <div class="row mt-3">
-
-
-
-
-                                <div class="col-md-6">
-                                    {if $TS_SITE['isauthcode']}
-                                    <input class="form-control form-control-sm w-auto float-left" name="authcode" placeholder="输入验证码" />
-                                    <img class="mt-1 ml-1" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
-                                    {/if}
-
-
+                            <form id="comm-form" method="post" action="{SITE_URL}index.php?app=pubs&ac=comment&ts=do">
+                                <div >
+                                    <textarea id="tseditor" name="content"></textarea>
                                 </div>
-
-
-                                <div class="col-md-4">
-
-                                    <div class="mt-1">是否公开：<input type="radio" name="ispublic" value="0" checked />公开 <input type="radio" name="ispublic" value="1" />不公开</div>
-
-
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        {if $TS_SITE['isauthcode']}
+                                        <input class="form-control form-control-sm w-auto float-left" name="authcode" placeholder="输入验证码" />
+                                        <img class="mt-1 ml-1" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
+                                        {/if}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mt-1">是否公开：<input type="radio" name="ispublic" value="0" checked />公开 <input type="radio" name="ispublic" value="1" />不公开</div>
+                                    </div>
+                                    <div class="col-md-2 text-right">
+                                        <input type="hidden" name="ptable" value="group_topic">
+                                        <input type="hidden" name="pkey" value="topicid">
+                                        <input type="hidden" name="pid" value="{$strTopic[topicid]}" />
+                                        <input type="hidden" name="token" value="{$_SESSION['token']}" />
+                                        <button class="btn btn-sm btn-info btn-block" type="submit">提交评论</button>
+                                    </div>
                                 </div>
-
-
-                                <div class="col-md-2 text-right">
-
-
-
-                                    <input type="hidden" name="topicid" value="{$strTopic[topicid]}" />
-                                    <input type="hidden" name="token" value="{$_SESSION['token']}" />
-
-                                    <button class="btn btn-sm btn-info btn-block" type="submit">提交评论</button>
-                                </div>
-
-                            </div>
+                            </form>
+                            {/if}
 
 
 
-                        </form>
                         {/if}
                     </div>
 
@@ -418,8 +330,5 @@
         </div>
     </div>
 </div>
-
-
-
 {php doAction('tseditor','mini')}
 {php include pubTemplate("footer")}

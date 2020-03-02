@@ -1,0 +1,21 @@
+{php include pubTemplate("header_admin")}
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+    <form  method="POST" action="index.php?app=pubs&ac=admin&mg=options&ts=do">
+        <table class="table table-hover">
+
+            <tr><td width="200">手机验证码发送间隔时间：</td><td><input type="number" name="option[phone_code_send_time]" value="{$strOption['phone_code_send_time']}" /> 分钟</td></tr>
+
+            <tr><td></td><td>
+
+                <input class="btn btn-primary" type="submit" value="提交修改" /></td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+{php include pubTemplate("footer_admin")}

@@ -1,6 +1,10 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
+if($TS_SITE['isinvite']==2){
+	tsNotice('暂不开放用户注册！');
+}
+
 //用户注册
 switch($ts){
 	case "":
@@ -118,96 +122,8 @@ switch($ts){
 
 		}
 		
-		$salt = md5(rand());
 		
-		$userid = $new['user']->create('user',array(
-			'pwd'=>md5($salt.$pwd),
-			'salt'=>$salt,
-			'email'=>$email,
-			'phone'=>$email,
-		));
-		
-		//插入用户信息			
-		$new['user']->create('user_info',array(
-			'userid'			=> $userid,
-			'fuserid'	=> $fuserid,
-			'username' 	=> $username,
-			'email'		=> $email,
-			'ip'			=> getIp(),
-            'comefrom'=>'9',
-			'addtime'	=> time(),
-			'uptime'	=> time(),
-		));
-		
-		//默认加入小组
-		$isGroup = $new['user']->find('user_options',array(
-			'optionname'=>'isgroup',
-		));
-		
-		if($isGroup['optionvalue']){
-			$arrGroup = explode(',',$isGroup['optionvalue']);
-			
-			if($arrGroup){
-				foreach($arrGroup as $key=>$item){
-					$groupUserNum = $new['user']->findCount('group_user',array(
-						'userid'=>$userid,
-						'groupid'=>$item,
-					));
-					
-					if($groupUserNum == 0){
-						$new['user']->create('group_user',array(
-							'userid'=>$userid,
-							'groupid'=>$item,
-							'addtime'=>time(),
-						));
-						
-						//统计更新
-						$count_user = $new['user']->findCount('group_user',array(
-							'groupid'=>$item,
-						));
-						
-						$new['user']->update('group',array(
-							'groupid'=>$item,
-						),array(
-							'count_user'=>$count_user,
-						));
-						
-					}
-				}
-			}
-		}
-		
-		//用户信息
-		$userData = $new['user']->find('user_info',array(
-			'userid'=>$userid,
-		),'userid,username,path,face,isadmin,signin,uptime');
-		
-		//用户session信息
-		$_SESSION['tsuser']	= $userData;
-		
-		//发送消息
-		aac('message')->sendmsg(0,$userid,'亲爱的 '.$username.' ：您成功加入了 '.$TS_SITE['site_title'].'。在遵守本站的规定的同时，享受您的愉快之旅吧!');
-		
-		//注销邀请码并将关注邀请用户
-		if($TS_SITE['isinvite']=='1'){
-			
-			//邀请码信息
-			$strInviteCode = $new['user']->find('user_invites',array(
-				'invitecode'=>$invitecode,
-			));
-			
-			$new['user']->create('user_follow',array(
-				'userid'=>$userid,
-				'userid_follow'=>$strInviteCode['userid'],
-			));
-			
-			//注销
-			$new['user']->update('user_invites',array(
-				'invitecode'=>$invitecode,
-			),array(
-				'isused'=>'1',
-			));
-		}
+		$new['user']->register($email,$username,$pwd,$fuserid);
 
 
 		//对积分进行处理

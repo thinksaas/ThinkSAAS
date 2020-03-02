@@ -34,7 +34,7 @@ class weiboAdmin extends weibo{
         $lstart = $page*20-20;
         $arrWeibo = $this->findAll('weibo',null,'addtime desc',null,$lstart.',20');
         foreach($arrWeibo as $key=>$item){
-            $arrWeibo[$key]['content'] = tsTitle($item['content']);
+            $arrWeibo[$key]['title'] = tsTitle($item['title']);
         }
 
         $weiboNum = $this->findCount('weibo');
@@ -92,50 +92,12 @@ class weiboAdmin extends weibo{
             'weiboid'=>$weiboid,
         ));
 
-        $this->delete('weibo_comment',array(
-            'weiboid'=>$weiboid,
-        ));
-
-        qiMsg('删除成功！');
-    }
-
-    /**
-     * 回复列表
-     */
-    public function commentlist(){
-        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $url = SITE_URL.'index.php?app=weibo&ac=admin&mg=commentlist&page=';
-        $lstart = $page*20-20;
-        $arrComment = $this->findAll('weibo_comment',null,'addtime desc',null,$lstart.',20');
-        foreach($arrComment as $key=>$item){
-            $arrComment[$key]['content'] = tsTitle($item['content']);
-        }
-        $commentNum = $this->findCount('weibo_comment');
-        $pageUrl = pagination($commentNum, 20, $page, $url);
-
-        include template("admin/comment_list");
-    }
-
-    /**
-     * 回复删除
-     */
-    public function commentdelete(){
-        $commentid=intval($_GET['commentid']);
-        $weiboid=intval($_GET['weiboid']);
-
-        $this->delete('weibo_comment',array(
-            'commentid'=>$commentid,
-        ));
-
-        $strWeibo = $this->find('weibo',array(
-            'weiboid'=>$weiboid,
-        ));
-
-        $this->update('weibo',array(
-            'weiboid'=>$weiboid,
-        ),array(
-            'count_comment'=>$strWeibo['count_comment']-1,
-        ));
+        #删除评论
+			$this->delete('comment',array(
+                'ptable'=>'weibo',
+                'pkey'=>'weiboid',
+				'pid'=>$weiboid,
+			));
 
         qiMsg('删除成功！');
     }

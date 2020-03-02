@@ -6,14 +6,21 @@ function newtopic(){
 	//最新帖子	
 	$arrTopic = aac('group')->findAll('group_topic',array(
 		'isaudit'=>0,
-	),'istop desc,uptime desc','topicid,userid,groupid,title,gaiyao,score,label,count_comment,count_view,istop,uptime',35);
+	),'istop desc,uptime desc','topicid,ptable,pkey,pid,userid,groupid,title,gaiyao,score,label,count_comment,count_view,istop,uptime',35);
 	
 	foreach($arrTopic as $key=>$item){
+
 			$arrTopic[$key]['title']=tsTitle($item['title']);
 			$arrTopic[$key]['gaiyao']=tsTitle($item['gaiyao']);
 			$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 			$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 			$arrTopic[$key]['photos'] = aac('group')->getTopicPhoto($item['topicid'],3);
+
+
+			#应用扩展
+			$strProject = aac('group')->getProject($item['ptable'],$item['pkey'],$item['pid']);
+			$arrTopic[$key]['video'] = $strProject['video'];
+
 	}
 
 	include template('newtopic','newtopic');

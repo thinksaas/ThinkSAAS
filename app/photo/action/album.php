@@ -192,7 +192,7 @@ switch($ts){
 		$arrPhoto = $new['photo']->findAll('photo',$arr);
 		
 		foreach($arrPhoto as $key=>$item){
-			$arrPhoto[$key]['photoname'] = tsTitle($item['photoname']);
+			$arrPhoto[$key]['title'] = tsTitle($item['title']);
 			$arrPhoto[$key]['photodesc'] = tsTitle($item['photodesc']);
 		}
 		

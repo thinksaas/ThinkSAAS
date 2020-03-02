@@ -1,6 +1,10 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
+/**
+ * 图形验证码
+ */
+
 require_once('thinksaas/Image.class.php');
 
 $Image = new Image();

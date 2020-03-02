@@ -1,13 +1,13 @@
 function sendweibo(){
-	var content = $("#weibocontent").val();
+	var title = $("#weibotitle").val();
 	
-	if(content==''){
+	if(title==''){
 		tsNotice('发布内容不能为空！');return false;
 	}
 	
 	$("#weibosend").attr('disabled','disabled');
 	
-	$.post(siteUrl+'index.php?app=weibo&ac=ajax&ts=add',{'content':content},function(rs){
+	$.post(siteUrl+'index.php?app=weibo&ac=ajax&ts=add',{'title':title},function(rs){
 		if(rs==0){
 			
 			tsNotice('请登陆后再发布唠叨！');
@@ -17,7 +17,7 @@ function sendweibo(){
 			tsNotice('发布内容不能为空！');
 			
 		}else if(rs==2){
-			$("#weibocontent").val('');
+			$("#weibotitle").val('');
 			$("#weibosend").removeAttr('disabled');
 			weibolist();
 		

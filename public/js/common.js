@@ -222,8 +222,6 @@ $(document).ready(function () {
     });
 });
 
-
-
 function sendPhoneCode(typeid){
     var phone = $("#myphone").val();
     var authcode = $("#authcode").val();
@@ -236,11 +234,9 @@ function sendPhoneCode(typeid){
         return false;
     }
     $.post(siteUrl+'index.php?app=pubs&ac=phone',{'phone':phone,'authcode':authcode,'typeid':typeid},function(rs){
-        if(rs==0){
-            tsNotice('手机号码不能为空！');
-        }else if(rs==1){
-            tsNotice('30分钟内只能发送一次短信验证码！');
-        }else if(rs==2){
+        if (rs.status == 0) {
+			tsNotice(rs.msg);
+        } else if(rs.status==1) {
             var step = 59;
             $('#mybtn').val('重新发送60');
             var _res = setInterval(function()
@@ -254,14 +250,9 @@ function sendPhoneCode(typeid){
                     clearInterval(_res);//清除setInterval
                 }
             },1000);
-        }else if(rs==3){
-            tsNotice('手机号已经被其他账号使用，请更换手机号！');
-        }else if(rs==4){
-            tsNotice('手机号不存在，你可能还没有注册！');
-        }else if(rs==5){
-            tsNotice('图片验证码输入有误');
         }
-    });
+
+    },'json');
 }
 
 function NumberCheck(t){
@@ -282,4 +273,54 @@ function imgView () {
         $("#img-view").show();
         document.getElementById('img-show').src=this.result;
     };
+}
+
+
+/**
+ * 打开评论回复框
+ * @param {Number} commentid 评论ID
+ */
+function commentOpen(commentid){
+    $('#rcomment_'+commentid).toggle('fast');
+}
+/**
+ * 回复评论
+ * @param {*} rid 上级评论ID
+ * @param {*} ptable 
+ * @param {*} pkey 
+ * @param {*} pid 
+ * @param {*} touid 
+ */
+function recomment(commentid,referid,ptable,pkey,pid,touid){
+    var content = $('#recontent_'+commentid).val();
+    //console.log('#recontent_'+commentid)
+    if(content==''){
+        tsNotice('回复内容不能为空！');
+    }else{
+
+        $('#recomm_btn_'+commentid).hide();
+
+        tsPost('index.php?app=pubs&ac=comment&ts=do&js=1',{
+            ptable:ptable,
+            pkey:pkey,
+            pid:pid,
+
+            referid:referid,
+            touserid:touid,
+
+            content:content
+        })
+
+    }
+}
+
+/**
+ * 加载更多评论回复
+ * @param {*} commentid 
+ * @param {*} userid //项目用户ID
+ */
+function loadRecomment(commentid,userid){
+    $.get(siteUrl+'index.php?app=pubs&ac=ajax&ts=recomment&referid='+commentid+'&userid='+userid,function (rs) {
+        $("#recomment_"+commentid).html(rs)
+    })
 }

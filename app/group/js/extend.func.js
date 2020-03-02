@@ -1,8 +1,4 @@
-/*显示隐藏回复*/
-function commentOpen(id,gid)
-{
-    $('#rcomment_'+id).toggle('fast');
-}
+
 
 //收藏帖子(1.8改为喜欢)
 function loveTopic(tid){
@@ -48,35 +44,7 @@ function taoalbum(topicid){
     })
 }
 
-//Ctrl+Enter 回复评论
 
-function keyRecomment(rid,tid,event)
-{
-    if(event.ctrlKey == true)
-    {
-        if(event.keyCode == 13)
-            recomment(rid,tid);
-        return false;
-    }
-}
-
-//回复评论
-function recomment(rid,tid,token){
-
-    c = $('#recontent_'+rid).val();
-    if(c==''){alert('回复内容不能为空');return false;}
-    var url = siteUrl+'index.php?app=group&ac=comment&ts=recomment';
-    $('#recomm_btn_'+rid).hide();
-    $.post(url,{referid:rid,topicid:tid,content:c,'token':token} ,function(rs){
-        if(rs == 0)
-        {
-            //alert('回复成功');
-            window.location.reload();
-        }else{
-            $('#recomm_btn_'+rid).show();
-        }
-    })
-}
 
 
 

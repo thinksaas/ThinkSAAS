@@ -1,17 +1,10 @@
--- --------------------------------------------------------
--- 主机:                           127.0.0.1
--- 服务器版本:                        5.5.53 - MySQL Community Server (GPL)
--- 服务器OS:                        Win32
--- HeidiSQL 版本:                  10.2.0.5599
--- --------------------------------------------------------
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table thinksaas_test.ts_anti_email
+-- 导出  表 d_thinksaas.ts_anti_email 结构
 DROP TABLE IF EXISTS `ts_anti_email`;
 CREATE TABLE IF NOT EXISTS `ts_anti_email` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -20,12 +13,12 @@ CREATE TABLE IF NOT EXISTS `ts_anti_email` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='过滤Email';
 
--- Dumping data for table thinksaas_test.ts_anti_email: 0 rows
+-- 正在导出表  d_thinksaas.ts_anti_email 的数据：0 rows
 DELETE FROM `ts_anti_email`;
 /*!40000 ALTER TABLE `ts_anti_email` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_anti_email` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_anti_ip
+-- 导出  表 d_thinksaas.ts_anti_ip 结构
 DROP TABLE IF EXISTS `ts_anti_ip`;
 CREATE TABLE IF NOT EXISTS `ts_anti_ip` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -35,12 +28,12 @@ CREATE TABLE IF NOT EXISTS `ts_anti_ip` (
   UNIQUE KEY `ip` (`ip`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='垃圾IP';
 
--- Dumping data for table thinksaas_test.ts_anti_ip: 0 rows
+-- 正在导出表  d_thinksaas.ts_anti_ip 的数据：0 rows
 DELETE FROM `ts_anti_ip`;
 /*!40000 ALTER TABLE `ts_anti_ip` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_anti_ip` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_anti_report
+-- 导出  表 d_thinksaas.ts_anti_report 结构
 DROP TABLE IF EXISTS `ts_anti_report`;
 CREATE TABLE IF NOT EXISTS `ts_anti_report` (
   `reportid` int(11) NOT NULL AUTO_INCREMENT COMMENT '举报ID',
@@ -50,12 +43,12 @@ CREATE TABLE IF NOT EXISTS `ts_anti_report` (
   PRIMARY KEY (`reportid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='内容举报';
 
--- Dumping data for table thinksaas_test.ts_anti_report: 0 rows
+-- 正在导出表  d_thinksaas.ts_anti_report 的数据：0 rows
 DELETE FROM `ts_anti_report`;
 /*!40000 ALTER TABLE `ts_anti_report` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_anti_report` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_anti_user
+-- 导出  表 d_thinksaas.ts_anti_user 结构
 DROP TABLE IF EXISTS `ts_anti_user`;
 CREATE TABLE IF NOT EXISTS `ts_anti_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -65,12 +58,12 @@ CREATE TABLE IF NOT EXISTS `ts_anti_user` (
   UNIQUE KEY `userid` (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='过滤用户';
 
--- Dumping data for table thinksaas_test.ts_anti_user: 0 rows
+-- 正在导出表  d_thinksaas.ts_anti_user 的数据：0 rows
 DELETE FROM `ts_anti_user`;
 /*!40000 ALTER TABLE `ts_anti_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_anti_user` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_anti_word
+-- 导出  表 d_thinksaas.ts_anti_word 结构
 DROP TABLE IF EXISTS `ts_anti_word`;
 CREATE TABLE IF NOT EXISTS `ts_anti_word` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -79,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `ts_anti_word` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=535 DEFAULT CHARSET=utf8mb4 COMMENT='敏感词';
 
--- Dumping data for table thinksaas_test.ts_anti_word: 534 rows
+-- 正在导出表  d_thinksaas.ts_anti_word 的数据：534 rows
 DELETE FROM `ts_anti_word`;
 /*!40000 ALTER TABLE `ts_anti_word` DISABLE KEYS */;
 INSERT INTO `ts_anti_word` (`id`, `word`, `addtime`) VALUES
@@ -619,7 +612,7 @@ INSERT INTO `ts_anti_word` (`id`, `word`, `addtime`) VALUES
 	(534, 'taobaobaobao.com', '2015-04-26 17:18:08');
 /*!40000 ALTER TABLE `ts_anti_word` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_article
+-- 导出  表 d_thinksaas.ts_article 结构
 DROP TABLE IF EXISTS `ts_article`;
 CREATE TABLE IF NOT EXISTS `ts_article` (
   `articleid` int(11) NOT NULL AUTO_INCREMENT COMMENT '文章ID',
@@ -639,6 +632,7 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   `count_recommend` int(11) NOT NULL DEFAULT '0' COMMENT '统计推荐次数',
   `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '统计查看',
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间',
+  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`articleid`),
   UNIQUE KEY `title_2` (`title`),
   KEY `addtime` (`addtime`),
@@ -652,12 +646,12 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   KEY `tags` (`tags`,`isaudit`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='文章';
 
--- Dumping data for table thinksaas_test.ts_article: 0 rows
+-- 正在导出表  d_thinksaas.ts_article 的数据：0 rows
 DELETE FROM `ts_article`;
 /*!40000 ALTER TABLE `ts_article` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_article` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_article_cate
+-- 导出  表 d_thinksaas.ts_article_cate 结构
 DROP TABLE IF EXISTS `ts_article_cate`;
 CREATE TABLE IF NOT EXISTS `ts_article_cate` (
   `cateid` int(11) NOT NULL AUTO_INCREMENT COMMENT '分类ID',
@@ -667,28 +661,12 @@ CREATE TABLE IF NOT EXISTS `ts_article_cate` (
   PRIMARY KEY (`cateid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章分类';
 
--- Dumping data for table thinksaas_test.ts_article_cate: 0 rows
+-- 正在导出表  d_thinksaas.ts_article_cate 的数据：0 rows
 DELETE FROM `ts_article_cate`;
 /*!40000 ALTER TABLE `ts_article_cate` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_article_cate` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_article_comment
-DROP TABLE IF EXISTS `ts_article_comment`;
-CREATE TABLE IF NOT EXISTS `ts_article_comment` (
-  `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增评论ID',
-  `articleid` int(11) NOT NULL DEFAULT '0' COMMENT '文章ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `content` text NOT NULL COMMENT '评论内容',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '评论时间',
-  PRIMARY KEY (`commentid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章评论';
-
--- Dumping data for table thinksaas_test.ts_article_comment: 0 rows
-DELETE FROM `ts_article_comment`;
-/*!40000 ALTER TABLE `ts_article_comment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_article_comment` ENABLE KEYS */;
-
--- Dumping structure for table thinksaas_test.ts_article_recommend
+-- 导出  表 d_thinksaas.ts_article_recommend 结构
 DROP TABLE IF EXISTS `ts_article_recommend`;
 CREATE TABLE IF NOT EXISTS `ts_article_recommend` (
   `articleid` int(11) NOT NULL DEFAULT '0' COMMENT '文章ID',
@@ -698,12 +676,12 @@ CREATE TABLE IF NOT EXISTS `ts_article_recommend` (
   KEY `userid` (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章推荐';
 
--- Dumping data for table thinksaas_test.ts_article_recommend: 0 rows
+-- 正在导出表  d_thinksaas.ts_article_recommend 的数据：0 rows
 DELETE FROM `ts_article_recommend`;
 /*!40000 ALTER TABLE `ts_article_recommend` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_article_recommend` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_article_user
+-- 导出  表 d_thinksaas.ts_article_user 结构
 DROP TABLE IF EXISTS `ts_article_user`;
 CREATE TABLE IF NOT EXISTS `ts_article_user` (
   `articleid` int(11) NOT NULL DEFAULT '0' COMMENT '文章ID',
@@ -712,12 +690,12 @@ CREATE TABLE IF NOT EXISTS `ts_article_user` (
   UNIQUE KEY `articleid_userid` (`articleid`,`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='积分文章用户关联表';
 
--- Dumping data for table thinksaas_test.ts_article_user: 0 rows
+-- 正在导出表  d_thinksaas.ts_article_user 的数据：0 rows
 DELETE FROM `ts_article_user`;
 /*!40000 ALTER TABLE `ts_article_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_article_user` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_cache
+-- 导出  表 d_thinksaas.ts_cache 结构
 DROP TABLE IF EXISTS `ts_cache`;
 CREATE TABLE IF NOT EXISTS `ts_cache` (
   `cacheid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增缓存ID',
@@ -725,21 +703,21 @@ CREATE TABLE IF NOT EXISTS `ts_cache` (
   `cachevalue` text NOT NULL COMMENT '缓存内容',
   PRIMARY KEY (`cacheid`),
   UNIQUE KEY `cachename` (`cachename`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COMMENT='缓存';
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COMMENT='缓存';
 
--- Dumping data for table thinksaas_test.ts_cache: 19 rows
+-- 正在导出表  d_thinksaas.ts_cache 的数据：20 rows
 DELETE FROM `ts_cache`;
 /*!40000 ALTER TABLE `ts_cache` DISABLE KEYS */;
 INSERT INTO `ts_cache` (`cacheid`, `cachename`, `cachevalue`) VALUES
 	(1, 'pubs_plugins', '1563674991a:17:{i:9;s:10:"floatlayer";i:19;s:8:"customer";i:20;s:7:"counter";i:21;s:6:"douban";i:22;s:8:"feedback";i:24;s:7:"gonggao";i:25;s:5:"gotop";i:26;s:4:"navs";i:27;s:2:"qq";i:29;s:5:"weibo";i:30;s:6:"wordad";i:31;s:9:"footertip";i:32;s:8:"leftuser";i:33;s:7:"ueditor";i:34;s:5:"gobad";i:35;s:10:"wangeditor";i:36;s:10:"summernote";}'),
 	(2, 'home_plugins', '1406904279a:13:{i:11;s:9:"newtopics";i:12;s:5:"slide";i:13;s:8:"signuser";i:14;s:14:"recommendgroup";i:15;s:3:"tag";i:16;s:8:"newtopic";i:17;s:5:"login";i:18;s:5:"weibo";i:19;s:8:"newgroup";i:20;s:7:"article";i:21;s:8:"hottopic";i:22;s:5:"photo";i:23;s:5:"links";}'),
-	(3, 'system_options', '1563674974a:31:{s:10:"site_title";s:9:"ThinkSAAS";s:13:"site_subtitle";s:24:"又一个ThinkSAAS社区";s:8:"site_key";s:9:"thinksaas";s:9:"site_desc";s:9:"thinksaas";s:8:"site_url";s:17:"http://127.0.0.1/";s:8:"link_url";s:17:"http://127.0.0.1/";s:9:"site_pkey";s:32:"231182acb75cdce3350df92d900c7f91";s:10:"site_email";s:15:"admin@admin.com";s:8:"site_icp";s:20:"豫ICP备00000000号";s:6:"isface";s:1:"0";s:8:"isinvite";s:1:"0";s:7:"regtype";s:1:"0";s:8:"isverify";s:1:"0";s:13:"isverifyphone";s:1:"0";s:6:"istomy";s:1:"0";s:10:"isauthcode";s:1:"0";s:7:"istoken";s:1:"0";s:8:"timezone";s:14:"Asia/Hong_Kong";s:7:"visitor";s:1:"0";s:9:"publisher";s:1:"0";s:7:"pubtime";s:0:"";s:11:"isallowedit";s:1:"0";s:13:"isallowdelete";s:1:"0";s:10:"site_theme";s:6:"sample";s:12:"site_urltype";s:1:"1";s:10:"photo_size";s:1:"2";s:10:"photo_type";s:16:"jpg,gif,png,jpeg";s:11:"attach_size";s:1:"2";s:11:"attach_type";s:19:"zip,rar,doc,txt,ppt";s:11:"dayscoretop";s:2:"10";s:4:"logo";s:8:"logo.png";}'),
-	(4, 'system_appnav', '1562727120a:9:{s:4:"home";s:6:"首页";s:5:"group";s:6:"小组";s:7:"article";s:6:"文章";s:5:"photo";s:6:"相册";s:5:"weibo";s:6:"唠叨";s:4:"user";s:6:"用户";s:6:"search";s:6:"搜索";s:8:"location";s:6:"同城";s:2:"my";s:12:"我的社区";}'),
+	(3, 'system_options', '1583127683a:31:{s:10:"site_title";s:9:"ThinkSAAS";s:13:"site_subtitle";s:24:"又一个ThinkSAAS社区";s:8:"site_key";s:9:"thinksaas";s:9:"site_desc";s:9:"thinksaas";s:8:"site_url";s:22:"http://d.thinksaas.cn/";s:8:"link_url";s:22:"http://d.thinksaas.cn/";s:9:"site_pkey";s:32:"68f150423f3b86f78b6faa6f4757cbb1";s:10:"site_email";s:15:"admin@admin.com";s:8:"site_icp";s:20:"豫ICP备00000000号";s:6:"isface";s:1:"0";s:8:"isinvite";s:1:"0";s:7:"regtype";s:1:"0";s:8:"isverify";s:1:"0";s:13:"isverifyphone";s:1:"0";s:6:"istomy";s:1:"0";s:10:"isauthcode";s:1:"0";s:7:"istoken";s:1:"0";s:8:"timezone";s:14:"Asia/Hong_Kong";s:7:"visitor";s:1:"0";s:9:"publisher";s:1:"0";s:7:"pubtime";s:0:"";s:11:"isallowedit";s:1:"0";s:13:"isallowdelete";s:1:"0";s:10:"site_theme";s:6:"sample";s:12:"site_urltype";s:1:"1";s:10:"photo_size";s:1:"2";s:10:"photo_type";s:16:"jpg,gif,png,jpeg";s:11:"attach_size";s:1:"2";s:11:"attach_type";s:19:"zip,rar,doc,txt,ppt";s:11:"dayscoretop";s:2:"10";s:4:"logo";s:8:"logo.png";}'),
+	(4, 'system_appnav', '1583127756a:9:{s:4:"home";s:6:"首页";s:5:"group";s:6:"小组";s:7:"article";s:6:"文章";s:5:"photo";s:6:"相册";s:5:"weibo";s:6:"唠叨";s:4:"user";s:6:"用户";s:6:"search";s:6:"搜索";s:8:"location";s:6:"同城";s:2:"my";s:12:"我的社区";}'),
 	(5, 'system_anti_word', '1430039888s:5733:"国民党|邓小平|江泽民|胡锦涛|共产党|毛主席|毛泽东|中共|中国共产党|枪|弹药|枪支|氣槍|猎槍|来福|雷鸣登|五连发|平式双管|立式双管|麻醉|军用|进口|录入员|招聘兼职|1332566258|直流电阻测试仪|继电保护测试仪|串联谐振|分压器|www.hbyhdl.com|www.bd-seo.net|武汉网站优化|武汉网络推广|武汉网络营销|武汉SEO|大脚骨矫正器|379056061|拇外翻|小姐|习近平|王立军|两会|薄熙来|谷开来|唱红打黑|听党指挥|薄一波|李长春|周永康|政府|zhenfu|傻逼|zhengfu|他杀|枪杀|谋杀|起义|就义|法轮功|邪教|GCD|hege123|菲律宾|薄熙莱|小姐上门|一夜情|性爱|性息|武汉婚纱摄影|武汉婚纱照|武汉艺术照|武汉婚纱摄影工作室|www.yilongphoto.com|www.windyx.com|www.ruile.net|www.wo-niu.com.cn|www.wlzb518.com|www.wufangzhai-zongzi.com|www.hege123.com|按摩|按摩服务|cwsurf.de|出台|包夜|www.maizongzi.com|代刷|微笑网络|刷信誉|53530.cn|waimaodao.com|小 妹|上 门 服 务|小 妹 上 门|王哥|花姐|学妹|姓ˊ感ˊ少ˊ妇|丰ˊ韵ˊ熟ˊ妇|丽人岛休闲会所|越ˊ南ˊ妹|77057|饥ˊ渴ˊ熟ˊ女|饥渴熟女|性感人妻|姓感少妇|51gouku.com|51够酷|585.cc|腋臭|狐臭|兼职学生妹|湘湘|小唐|学生妹|wufangzhai-zongzi.com|冰毒|海洛因|毒品|吸毒|66dao.com|办证|赵小姐|douyapai.com|ntxz.cc|豆芽派|tdjyedu|自考招生|sinoest|身份證买卖|身份证买卖|895316992|爱游中国|上門服务|客人隐私|suoniao.com|男科医院|男性医院|包皮|包茎|男科|做爱|小妹上门|小妹服务|sm|sm女王|成熟少妇|包吹|极品校花|sinoest.com|尖锐湿疣|耳鼻喉医院|过敏性鼻炎|ibuonline.com|福彩|福彩3d|totutu.com|去黑头|东方软峰|yileee.com|新特药|fgt120.com|99spcar.com|meiti520.com|bbswuhan.com|18611314446|丰韵熟妇|越南妹|maizongzi.com|上门服务|小妹|windyx.com|wlzb518.com|wo-niu.com.cn|ruile.net|bd-seo.net|hbyhdl.com|yilongphoto.com|hege123.com|發票|开票电|开票|发票|代开发票|私募|走私车|资本运作|真人视频|造价通|移民网|药商|亚布力|雅思|新皇宝|校花聊天室|消费投资合法|西安卖肾|同城女|丝袜交友|兼职服务|草榴社区|搬家公司|代開|代开|醱票|開瞟|瞟据|瞟务|酒店住宿|13826544598|2645989872|18312006833|费发|314721888|办理假证件|394057341|费發|13533391062|13544261868|13828442144|13728999976|13662622538|897839088|vpswolf.com|vanshen.com|yapai.cc|daqiaogw.com|hfkszdm.com|jinqiaohc.com|0553rl.com|ln580.cn|qifanweb.com|qifanseo.com|qifanit.com|028zfyy.com|aitecentury.com|aite55.com|shentongkang.com|dss.so|3ja.net|sin55.com|2008ns.com|203529769|binhaijincheng.com|美女服务|18611325651|caihua.cc|51mm.com.cn|tbwtmall.net|lubaolin.com|糖尿病治疗仪|tangniaobingok.com|糖尿病|chtip.org|56156.com|07uuu.com|haoyouren.com|便秘|haoyouren|xxcun.com|iisp.com|gmwhy.com|feelyz.com|369in.com|cdtarena.com|肝硬化|youbian.com|162net.com|comnetcnn.com|2233.cn|鸡巴|119tx.com|0377521.com|028zuanji.com|dzwan.net|dodomo.net|sina.com|fobshanghai.com|芬恩|2659477099|58692026|65111117|英文SEO|仿牌SEO|外贸SEO|1550957342|pingan.com|痔疮|86889299|800002356|cqddgc.cn|股票|nyimei.com|天衣坊|宏天景秀|sugon.com|微博008|qqbct.com|qqsuncity.com|99txzq.com|88txzq.com|sdebh.cn|9501317248463|248463|飞机票|网银|火车票|无卡存款|66667959|订票|火车站|57071215|889584017|获奖查询|穫獎查詢|82425|5782|中獎|熱線|1931033|代售点|w1a2.icoc.cc|1317241334|车票改签|嘿咻|加盟|湿疹|塑胶|1817001212|4000318885|800007699|4008521119|花月婷|xpjin.com|新葡京娱乐城|eshibo68.com|tt5201314.com|TT娱乐城|娱乐城|qinzi5.com|21202|火車票|089|8369|退票|改簽|預訂|ruijintc.com|ruijintc.net|草榴|caoliu|5177game.com|cao|wgb320330.com|公關|公关|夜总会|兼职|同性恋|丝足|同志|女王|鸭子|调教|KTV|夜场|娱乐场|陪护|情感陪护|公主|LES|GAY|兼職|18611102232|男妓|妓男|女妓|cs12388.com|liketuan.com|xiunvfang.com|tmall.com|rekuai.com|gyouz.com|u95.cc|ikphp.com|12ik.com|7lo.cn|hufuin.com|fa66.com|itcpa.cn|72jz.com|网赚|ikphp|12ik|weadge.com|mfkds.com|svs123.com|dlnmd.com|nicenic.com|13311372110|58464602|bf3.cn|你妹啊|33md.co|梅毒|你妈|hywww.net|2015230140|淋病|非淋病|damazha.com|mitang.pw|六合彩|赛马|三陪|51shuaige.com|369tong.com|holde.cn|18xi.com|信息代发|推广软件|营销软件|网络推广|营销人|91renren.com|kukud.net|chuntu.cc|jinhusns.com|鼻炎|医院|153075777|hqbsns.com|jjyulecheng77g.com|senlang.net|xiyingmenyulecheng8a.com|osforce.cn|51neixun.com|你妈逼|杀人|操你妈|草泥马|税票|wanlidq.com|醫院|mrdodo.net|188123581|zhengma.com|4008166005|400|800|化妆|陈派|税务|整形|美容|隆胸|jinyuanbao.cn|xkqmj.org|baishiheyuan.com|057160989861|hiici.com|518202.com|微店|60989861|1433607382|18921182443|82835166|官方推荐|百度认证|sh419x.net|hhy021.com|ehuanka.com|柘荣太子参|buluocc.com|buluocc|szprovence.com|上海龙凤|shlf9.net|shlf9.com|shlf99.net|shlf99.com|shlf999.net|shlf999.com|aishiso.com|qhf021.com|cfg021.com|uoko.com|guizubbx.com|esosn.com|win7zhijia.cn|xtcheng.net|867590759|888xitong.com|1378206455|宜人贷|win7qjb.com|xitongcheng|onerare.com|xitong1.com|ghostxpsp3.net|windows114.com|djie.net|999ghost.com|xitongcity.com|51rgb.com|mingtaov.com|228224.com|hb7526.com|jx8091.com|drf8953.com|xpjgj9186.com|hjjb9981.com|dwj5266.com|xq81365.com|nc2787.com|wfgj7656.com|seowhy.com|ceo2351.com|fc5517.com|bg6261.com|fbgj8620.com|ylgj2523.com|zibenzaixian.com|chetips.com|51zhaoji.com|白癜风|kanshijian.com|wudan100.com|治疗|痘|南通|深圳|kongweizhi.com|foxiang86.net|taobaobaobao.com";'),
 	(6, 'user_options', '1562727056a:6:{s:7:"appname";s:6:"用户";s:7:"appdesc";s:12:"用户中心";s:6:"appkey";s:6:"用户";s:8:"isenable";s:1:"0";s:7:"isgroup";s:0:"";s:7:"banuser";s:25:"官方用户|官方团队";}'),
 	(7, 'mail_options', '1532102620a:8:{s:7:"appname";s:6:"邮件";s:7:"appdesc";s:15:"ThinkSAAS邮件";s:8:"isenable";s:1:"0";s:8:"mailhost";s:18:"smtp.exmail.qq.com";s:3:"ssl";s:1:"1";s:8:"mailport";s:3:"587";s:8:"mailuser";s:23:"postmaster@thinksaas.cn";s:7:"mailpwd";s:0:"";}'),
 	(8, 'article_options', '1562726849a:6:{s:7:"appname";s:6:"文章";s:7:"appdesc";s:6:"文章";s:6:"appkey";s:6:"文章";s:9:"allowpost";s:1:"1";s:7:"isaudit";s:1:"0";s:14:"isarticlevideo";s:1:"0";}'),
-	(9, 'group_options', '1562726894a:10:{s:7:"appname";s:6:"小组";s:7:"appdesc";s:15:"ThinkSAAS小组";s:6:"appkey";s:6:"小组";s:8:"iscreate";s:1:"0";s:7:"isaudit";s:1:"0";s:7:"joinnum";s:2:"20";s:11:"isallowpost";s:1:"0";s:13:"istopicattach";s:1:"0";s:12:"istopicvideo";s:1:"0";s:9:"ispayjoin";s:1:"0";}'),
+	(9, 'group_options', '1583127756a:9:{s:7:"appname";s:6:"小组";s:7:"appdesc";s:15:"ThinkSAAS小组";s:6:"appkey";s:6:"小组";s:8:"iscreate";s:1:"0";s:7:"isaudit";s:1:"0";s:7:"joinnum";s:2:"20";s:11:"isallowpost";s:1:"0";s:12:"topicisaudit";s:1:"0";s:9:"ispayjoin";s:1:"0";}'),
 	(10, 'photo_options', '1562727039a:4:{s:7:"appname";s:6:"相册";s:7:"appdesc";s:6:"相册";s:6:"appkey";s:6:"相册";s:7:"isaudit";s:1:"0";}'),
 	(11, 'weibo_options', '1562727120a:3:{s:7:"appname";s:6:"唠叨";s:7:"appdesc";s:6:"唠叨";s:6:"appkey";s:6:"唠叨";}'),
 	(12, 'plugins_pubs_wordad', '1400602928a:4:{i:0;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告1";s:3:"url";s:23:"https://www.thinksaas.cn";}i:1;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告2";s:3:"url";s:23:"https://www.thinksaas.cn";}i:2;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告3";s:3:"url";s:23:"https://www.thinksaas.cn";}i:3;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告4";s:3:"url";s:23:"https://www.thinksaas.cn";}}'),
@@ -749,10 +727,34 @@ INSERT INTO `ts_cache` (`cacheid`, `cachename`, `cachevalue`) VALUES
 	(16, 'plugins_pubs_counter', '1540470205s:113:"<!--统计代码-->";'),
 	(18, 'plugins_home_links', '1540469938a:2:{i:0;a:2:{s:8:"linkname";s:9:"ThinkSAAS";s:7:"linkurl";s:25:"https://www.thinksaas.cn/";}i:1;a:2:{s:8:"linkname";s:12:"开源社区";s:7:"linkurl";s:25:"https://www.thinksaas.cn/";}}'),
 	(17, 'plugins_pubs_navs', '1532088590a:2:{i:0;a:2:{s:7:"navname";s:15:"ThinkSAAS官网";s:6:"navurl";s:25:"https://www.thinksaas.cn/";}i:1;a:2:{s:7:"navname";s:21:"付费商业版授权";s:6:"navurl";s:38:"https://www.thinksaas.cn/service/down/";}}'),
-	(24, 'system_mynav', '1563675506a:5:{s:5:"group";s:6:"小组";s:7:"article";s:6:"文章";s:5:"weibo";s:6:"唠叨";s:5:"photo";s:6:"相册";s:8:"location";s:6:"同城";}');
+	(24, 'system_mynav', '1583127756a:5:{s:5:"group";s:6:"小组";s:7:"article";s:6:"文章";s:5:"weibo";s:6:"唠叨";s:5:"photo";s:6:"相册";s:8:"location";s:6:"同城";}'),
+	(25, 'pubs_options', '1583127829a:1:{s:20:"phone_code_send_time";s:1:"1";}');
 /*!40000 ALTER TABLE `ts_cache` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_draft
+-- 导出  表 d_thinksaas.ts_comment 结构
+DROP TABLE IF EXISTS `ts_comment`;
+CREATE TABLE IF NOT EXISTS `ts_comment` (
+  `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增评论ID',
+  `ptable` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表名称',
+  `pkey` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段',
+  `pid` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段值',
+  `referid` int(11) NOT NULL DEFAULT '0' COMMENT '上级评论ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `touserid` int(11) NOT NULL DEFAULT '0' COMMENT '回复用户ID',
+  `content` text NOT NULL COMMENT '回复内容',
+  `ispublic` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0公开1不公开（仅自己和发帖者可看）',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '回复时间',
+  PRIMARY KEY (`commentid`),
+  KEY `ptable_pkey_pid_referid` (`ptable`,`pkey`,`pid`,`referid`),
+  KEY `ptable_pkey_pid` (`ptable`,`pkey`,`pid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='回复/评论';
+
+-- 正在导出表  d_thinksaas.ts_comment 的数据：0 rows
+DELETE FROM `ts_comment`;
+/*!40000 ALTER TABLE `ts_comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_comment` ENABLE KEYS */;
+
+-- 导出  表 d_thinksaas.ts_draft 结构
 DROP TABLE IF EXISTS `ts_draft`;
 CREATE TABLE IF NOT EXISTS `ts_draft` (
   `draftid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -765,12 +767,12 @@ CREATE TABLE IF NOT EXISTS `ts_draft` (
   UNIQUE KEY `userid_types` (`userid`,`types`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='草稿箱';
 
--- Dumping data for table thinksaas_test.ts_draft: 0 rows
+-- 正在导出表  d_thinksaas.ts_draft 的数据：0 rows
 DELETE FROM `ts_draft`;
 /*!40000 ALTER TABLE `ts_draft` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_draft` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_editor
+-- 导出  表 d_thinksaas.ts_editor 结构
 DROP TABLE IF EXISTS `ts_editor`;
 CREATE TABLE IF NOT EXISTS `ts_editor` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -783,14 +785,14 @@ CREATE TABLE IF NOT EXISTS `ts_editor` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='编辑器上传图片和文件';
 
--- Dumping data for table thinksaas_test.ts_editor: 1 rows
+-- 正在导出表  d_thinksaas.ts_editor 的数据：1 rows
 DELETE FROM `ts_editor`;
 /*!40000 ALTER TABLE `ts_editor` DISABLE KEYS */;
 INSERT INTO `ts_editor` (`id`, `userid`, `type`, `title`, `path`, `url`, `addtime`) VALUES
 	(1, 1, 'photo', '4106d6112c28886e183a1e600f92723e.jpg', '0/0', '0/0/1.jpg', 1563675585);
 /*!40000 ALTER TABLE `ts_editor` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_group
+-- 导出  表 d_thinksaas.ts_group 结构
 DROP TABLE IF EXISTS `ts_group`;
 CREATE TABLE IF NOT EXISTS `ts_group` (
   `groupid` int(11) NOT NULL AUTO_INCREMENT COMMENT '小组ID',
@@ -831,12 +833,12 @@ CREATE TABLE IF NOT EXISTS `ts_group` (
   KEY `isrecommend` (`isrecommend`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='群组(小组)';
 
--- Dumping data for table thinksaas_test.ts_group: 0 rows
+-- 正在导出表  d_thinksaas.ts_group 的数据：0 rows
 DELETE FROM `ts_group`;
 /*!40000 ALTER TABLE `ts_group` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_group_album
+-- 导出  表 d_thinksaas.ts_group_album 结构
 DROP TABLE IF EXISTS `ts_group_album`;
 CREATE TABLE IF NOT EXISTS `ts_group_album` (
   `albumid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增专辑ID',
@@ -853,12 +855,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_album` (
   KEY `addtime` (`addtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组帖子专辑';
 
--- Dumping data for table thinksaas_test.ts_group_album: 0 rows
+-- 正在导出表  d_thinksaas.ts_group_album 的数据：0 rows
 DELETE FROM `ts_group_album`;
 /*!40000 ALTER TABLE `ts_group_album` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_album` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_group_album_topic
+-- 导出  表 d_thinksaas.ts_group_album_topic 结构
 DROP TABLE IF EXISTS `ts_group_album_topic`;
 CREATE TABLE IF NOT EXISTS `ts_group_album_topic` (
   `albumid` int(11) NOT NULL DEFAULT '0' COMMENT '专辑ID',
@@ -868,12 +870,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_album_topic` (
   KEY `albumid` (`albumid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组专辑帖子关联';
 
--- Dumping data for table thinksaas_test.ts_group_album_topic: 0 rows
+-- 正在导出表  d_thinksaas.ts_group_album_topic 的数据：0 rows
 DELETE FROM `ts_group_album_topic`;
 /*!40000 ALTER TABLE `ts_group_album_topic` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_album_topic` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_group_cate
+-- 导出  表 d_thinksaas.ts_group_cate 结构
 DROP TABLE IF EXISTS `ts_group_cate`;
 CREATE TABLE IF NOT EXISTS `ts_group_cate` (
   `cateid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增分类ID',
@@ -885,15 +887,19 @@ CREATE TABLE IF NOT EXISTS `ts_group_cate` (
   KEY `referid` (`referid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组分类';
 
--- Dumping data for table thinksaas_test.ts_group_cate: 0 rows
+-- 正在导出表  d_thinksaas.ts_group_cate 的数据：0 rows
 DELETE FROM `ts_group_cate`;
 /*!40000 ALTER TABLE `ts_group_cate` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_cate` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_group_topic
+-- 导出  表 d_thinksaas.ts_group_topic 结构
 DROP TABLE IF EXISTS `ts_group_topic`;
 CREATE TABLE IF NOT EXISTS `ts_group_topic` (
   `topicid` int(11) NOT NULL AUTO_INCREMENT COMMENT '话题ID',
+  `ptable` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表名称',
+  `pkey` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段',
+  `pid` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段值',
+  `pjson` varchar(512) NOT NULL DEFAULT '' COMMENT '应用json数据',
   `typeid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子分类ID',
   `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
@@ -930,12 +936,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic` (
   KEY `isshow` (`isaudit`,`uptime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组话题(小组帖子)';
 
--- Dumping data for table thinksaas_test.ts_group_topic: 0 rows
+-- 正在导出表  d_thinksaas.ts_group_topic 的数据：0 rows
 DELETE FROM `ts_group_topic`;
 /*!40000 ALTER TABLE `ts_group_topic` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_topic` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_group_topic_collect
+-- 导出  表 d_thinksaas.ts_group_topic_collect 结构
 DROP TABLE IF EXISTS `ts_group_topic_collect`;
 CREATE TABLE IF NOT EXISTS `ts_group_topic_collect` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
@@ -947,33 +953,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_collect` (
   KEY `topicid` (`topicid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子收藏';
 
--- Dumping data for table thinksaas_test.ts_group_topic_collect: 0 rows
+-- 正在导出表  d_thinksaas.ts_group_topic_collect 的数据：0 rows
 DELETE FROM `ts_group_topic_collect`;
 /*!40000 ALTER TABLE `ts_group_topic_collect` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_topic_collect` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_group_topic_comment
-DROP TABLE IF EXISTS `ts_group_topic_comment`;
-CREATE TABLE IF NOT EXISTS `ts_group_topic_comment` (
-  `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增评论ID',
-  `referid` int(11) NOT NULL DEFAULT '0' COMMENT '上级评论ID',
-  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '话题ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `content` text NOT NULL COMMENT '回复内容',
-  `ispublic` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0公开1不公开（仅自己和发帖者可看）',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '回复时间',
-  PRIMARY KEY (`commentid`),
-  KEY `topicid` (`topicid`),
-  KEY `userid` (`userid`),
-  KEY `referid` (`referid`,`topicid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='话题回复/评论';
-
--- Dumping data for table thinksaas_test.ts_group_topic_comment: 0 rows
-DELETE FROM `ts_group_topic_comment`;
-/*!40000 ALTER TABLE `ts_group_topic_comment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_group_topic_comment` ENABLE KEYS */;
-
--- Dumping structure for table thinksaas_test.ts_group_topic_edit
+-- 导出  表 d_thinksaas.ts_group_topic_edit 结构
 DROP TABLE IF EXISTS `ts_group_topic_edit`;
 CREATE TABLE IF NOT EXISTS `ts_group_topic_edit` (
   `editid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增编辑ID',
@@ -986,12 +971,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_edit` (
   UNIQUE KEY `topicid` (`topicid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='话题编辑';
 
--- Dumping data for table thinksaas_test.ts_group_topic_edit: 0 rows
+-- 正在导出表  d_thinksaas.ts_group_topic_edit 的数据：0 rows
 DELETE FROM `ts_group_topic_edit`;
 /*!40000 ALTER TABLE `ts_group_topic_edit` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_topic_edit` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_group_topic_photo
+-- 导出  表 d_thinksaas.ts_group_topic_photo 结构
 DROP TABLE IF EXISTS `ts_group_topic_photo`;
 CREATE TABLE IF NOT EXISTS `ts_group_topic_photo` (
   `photoid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -1006,12 +991,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_photo` (
   KEY `userid` (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子图片表';
 
--- Dumping data for table thinksaas_test.ts_group_topic_photo: 0 rows
+-- 正在导出表  d_thinksaas.ts_group_topic_photo 的数据：0 rows
 DELETE FROM `ts_group_topic_photo`;
 /*!40000 ALTER TABLE `ts_group_topic_photo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_topic_photo` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_group_topic_type
+-- 导出  表 d_thinksaas.ts_group_topic_type 结构
 DROP TABLE IF EXISTS `ts_group_topic_type`;
 CREATE TABLE IF NOT EXISTS `ts_group_topic_type` (
   `typeid` int(11) NOT NULL AUTO_INCREMENT COMMENT '帖子分类ID',
@@ -1022,12 +1007,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_type` (
   KEY `groupid` (`groupid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子分类';
 
--- Dumping data for table thinksaas_test.ts_group_topic_type: 0 rows
+-- 正在导出表  d_thinksaas.ts_group_topic_type 的数据：0 rows
 DELETE FROM `ts_group_topic_type`;
 /*!40000 ALTER TABLE `ts_group_topic_type` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_topic_type` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_group_topic_user
+-- 导出  表 d_thinksaas.ts_group_topic_user 结构
 DROP TABLE IF EXISTS `ts_group_topic_user`;
 CREATE TABLE IF NOT EXISTS `ts_group_topic_user` (
   `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
@@ -1036,12 +1021,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_user` (
   UNIQUE KEY `topicid_userid` (`topicid`,`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='积分帖子用户关联表';
 
--- Dumping data for table thinksaas_test.ts_group_topic_user: 0 rows
+-- 正在导出表  d_thinksaas.ts_group_topic_user 的数据：0 rows
 DELETE FROM `ts_group_topic_user`;
 /*!40000 ALTER TABLE `ts_group_topic_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_topic_user` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_group_user
+-- 导出  表 d_thinksaas.ts_group_user 结构
 DROP TABLE IF EXISTS `ts_group_user`;
 CREATE TABLE IF NOT EXISTS `ts_group_user` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
@@ -1057,12 +1042,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_user` (
   KEY `addtime` (`addtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='群组和用户对应关系';
 
--- Dumping data for table thinksaas_test.ts_group_user: 0 rows
+-- 正在导出表  d_thinksaas.ts_group_user 的数据：0 rows
 DELETE FROM `ts_group_user`;
 /*!40000 ALTER TABLE `ts_group_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_user` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_group_user_isaudit
+-- 导出  表 d_thinksaas.ts_group_user_isaudit 结构
 DROP TABLE IF EXISTS `ts_group_user_isaudit`;
 CREATE TABLE IF NOT EXISTS `ts_group_user_isaudit` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
@@ -1071,12 +1056,12 @@ CREATE TABLE IF NOT EXISTS `ts_group_user_isaudit` (
   KEY `groupid` (`groupid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用于申请加入小组的成员审核';
 
--- Dumping data for table thinksaas_test.ts_group_user_isaudit: 0 rows
+-- 正在导出表  d_thinksaas.ts_group_user_isaudit 的数据：0 rows
 DELETE FROM `ts_group_user_isaudit`;
 /*!40000 ALTER TABLE `ts_group_user_isaudit` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_user_isaudit` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_home_info
+-- 导出  表 d_thinksaas.ts_home_info 结构
 DROP TABLE IF EXISTS `ts_home_info`;
 CREATE TABLE IF NOT EXISTS `ts_home_info` (
   `infoid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -1086,7 +1071,7 @@ CREATE TABLE IF NOT EXISTS `ts_home_info` (
   PRIMARY KEY (`infoid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='关于我们等信息';
 
--- Dumping data for table thinksaas_test.ts_home_info: 5 rows
+-- 正在导出表  d_thinksaas.ts_home_info 的数据：5 rows
 DELETE FROM `ts_home_info`;
 /*!40000 ALTER TABLE `ts_home_info` DISABLE KEYS */;
 INSERT INTO `ts_home_info` (`infoid`, `orderid`, `title`, `content`) VALUES
@@ -1097,7 +1082,7 @@ INSERT INTO `ts_home_info` (`infoid`, `orderid`, `title`, `content`) VALUES
 	(5, 0, '加入我们', '\n&lt;p&gt;加入我们&lt;/p&gt;\n');
 /*!40000 ALTER TABLE `ts_home_info` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_location
+-- 导出  表 d_thinksaas.ts_location 结构
 DROP TABLE IF EXISTS `ts_location`;
 CREATE TABLE IF NOT EXISTS `ts_location` (
   `locationid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增同城ID',
@@ -1109,12 +1094,12 @@ CREATE TABLE IF NOT EXISTS `ts_location` (
   PRIMARY KEY (`locationid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='同城';
 
--- Dumping data for table thinksaas_test.ts_location: 0 rows
+-- 正在导出表  d_thinksaas.ts_location 的数据：0 rows
 DELETE FROM `ts_location`;
 /*!40000 ALTER TABLE `ts_location` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_location` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_mail_options
+-- 导出  表 d_thinksaas.ts_mail_options 结构
 DROP TABLE IF EXISTS `ts_mail_options`;
 CREATE TABLE IF NOT EXISTS `ts_mail_options` (
   `optionid` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项ID',
@@ -1124,7 +1109,7 @@ CREATE TABLE IF NOT EXISTS `ts_mail_options` (
   UNIQUE KEY `optionname` (`optionname`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='发信邮件配置';
 
--- Dumping data for table thinksaas_test.ts_mail_options: 8 rows
+-- 正在导出表  d_thinksaas.ts_mail_options 的数据：8 rows
 DELETE FROM `ts_mail_options`;
 /*!40000 ALTER TABLE `ts_mail_options` DISABLE KEYS */;
 INSERT INTO `ts_mail_options` (`optionid`, `optionname`, `optionvalue`) VALUES
@@ -1138,7 +1123,7 @@ INSERT INTO `ts_mail_options` (`optionid`, `optionname`, `optionvalue`) VALUES
 	(8, 'mailpwd', '');
 /*!40000 ALTER TABLE `ts_mail_options` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_message
+-- 导出  表 d_thinksaas.ts_message 结构
 DROP TABLE IF EXISTS `ts_message`;
 CREATE TABLE IF NOT EXISTS `ts_message` (
   `messageid` int(11) NOT NULL AUTO_INCREMENT COMMENT '消息ID',
@@ -1154,12 +1139,12 @@ CREATE TABLE IF NOT EXISTS `ts_message` (
   KEY `userid` (`userid`,`touserid`,`isread`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='短消息表';
 
--- Dumping data for table thinksaas_test.ts_message: 0 rows
+-- 正在导出表  d_thinksaas.ts_message 的数据：0 rows
 DELETE FROM `ts_message`;
 /*!40000 ALTER TABLE `ts_message` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_message` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_phone_code
+-- 导出  表 d_thinksaas.ts_phone_code 结构
 DROP TABLE IF EXISTS `ts_phone_code`;
 CREATE TABLE IF NOT EXISTS `ts_phone_code` (
   `phone` varchar(32) CHARACTER SET utf8 NOT NULL COMMENT '手机号',
@@ -1169,36 +1154,38 @@ CREATE TABLE IF NOT EXISTS `ts_phone_code` (
   UNIQUE KEY `phone` (`phone`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='手机号验证码';
 
--- Dumping data for table thinksaas_test.ts_phone_code: 0 rows
+-- 正在导出表  d_thinksaas.ts_phone_code 的数据：0 rows
 DELETE FROM `ts_phone_code`;
 /*!40000 ALTER TABLE `ts_phone_code` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_phone_code` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_photo
+-- 导出  表 d_thinksaas.ts_photo 结构
 DROP TABLE IF EXISTS `ts_photo`;
 CREATE TABLE IF NOT EXISTS `ts_photo` (
   `photoid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增图片ID',
   `albumid` int(11) NOT NULL DEFAULT '0' COMMENT '相册ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `locationid` int(11) NOT NULL DEFAULT '0' COMMENT '同城iD',
-  `photoname` varchar(64) NOT NULL DEFAULT '' COMMENT '图片名称',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '图片名称',
   `phototype` char(32) NOT NULL DEFAULT '' COMMENT '图片类型',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '图片路径',
   `photourl` varchar(64) NOT NULL DEFAULT '' COMMENT '图片地址',
   `photosize` char(32) NOT NULL DEFAULT '' COMMENT '图片大小',
   `photodesc` char(120) NOT NULL DEFAULT '' COMMENT '图片介绍',
   `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '统计浏览量',
+  `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '统计评论数',
   `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不推荐1推荐',
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
+  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`photoid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='相册图片';
 
--- Dumping data for table thinksaas_test.ts_photo: 0 rows
+-- 正在导出表  d_thinksaas.ts_photo 的数据：0 rows
 DELETE FROM `ts_photo`;
 /*!40000 ALTER TABLE `ts_photo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_photo` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_photo_album
+-- 导出  表 d_thinksaas.ts_photo_album 结构
 DROP TABLE IF EXISTS `ts_photo_album`;
 CREATE TABLE IF NOT EXISTS `ts_photo_album` (
   `albumid` int(11) NOT NULL AUTO_INCREMENT COMMENT '相册ID',
@@ -1218,32 +1205,12 @@ CREATE TABLE IF NOT EXISTS `ts_photo_album` (
   KEY `isrecommend` (`isrecommend`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='相册';
 
--- Dumping data for table thinksaas_test.ts_photo_album: 0 rows
+-- 正在导出表  d_thinksaas.ts_photo_album 的数据：0 rows
 DELETE FROM `ts_photo_album`;
 /*!40000 ALTER TABLE `ts_photo_album` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_photo_album` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_photo_comment
-DROP TABLE IF EXISTS `ts_photo_comment`;
-CREATE TABLE IF NOT EXISTS `ts_photo_comment` (
-  `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增评论ID',
-  `referid` int(11) NOT NULL DEFAULT '0' COMMENT '上级评论ID',
-  `photoid` int(11) NOT NULL DEFAULT '0' COMMENT '相册ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `content` varchar(512) NOT NULL DEFAULT '' COMMENT '回复内容',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '回复时间',
-  PRIMARY KEY (`commentid`),
-  KEY `userid` (`userid`),
-  KEY `referid` (`referid`,`photoid`),
-  KEY `photoid` (`photoid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='图片回复/评论';
-
--- Dumping data for table thinksaas_test.ts_photo_comment: 0 rows
-DELETE FROM `ts_photo_comment`;
-/*!40000 ALTER TABLE `ts_photo_comment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_photo_comment` ENABLE KEYS */;
-
--- Dumping structure for table thinksaas_test.ts_slide
+-- 导出  表 d_thinksaas.ts_slide 结构
 DROP TABLE IF EXISTS `ts_slide`;
 CREATE TABLE IF NOT EXISTS `ts_slide` (
   `slideid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -1257,14 +1224,14 @@ CREATE TABLE IF NOT EXISTS `ts_slide` (
   PRIMARY KEY (`slideid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='轮播图';
 
--- Dumping data for table thinksaas_test.ts_slide: 1 rows
+-- 正在导出表  d_thinksaas.ts_slide 的数据：1 rows
 DELETE FROM `ts_slide`;
 /*!40000 ALTER TABLE `ts_slide` DISABLE KEYS */;
 INSERT INTO `ts_slide` (`slideid`, `typeid`, `title`, `info`, `url`, `path`, `photo`, `addtime`) VALUES
 	(1, 0, 'ThinkSAAS开源社区', '关注官方微信，时刻获取最新版本更新通知', 'https://www.thinksaas.cn', '0/0', '0/0/1.jpg', 1416533676);
 /*!40000 ALTER TABLE `ts_slide` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_system_options
+-- 导出  表 d_thinksaas.ts_system_options 结构
 DROP TABLE IF EXISTS `ts_system_options`;
 CREATE TABLE IF NOT EXISTS `ts_system_options` (
   `optionname` varchar(32) NOT NULL DEFAULT '' COMMENT '选项名字',
@@ -1272,7 +1239,7 @@ CREATE TABLE IF NOT EXISTS `ts_system_options` (
   UNIQUE KEY `optionname` (`optionname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='系统管理配置';
 
--- Dumping data for table thinksaas_test.ts_system_options: 31 rows
+-- 正在导出表  d_thinksaas.ts_system_options 的数据：31 rows
 DELETE FROM `ts_system_options`;
 /*!40000 ALTER TABLE `ts_system_options` DISABLE KEYS */;
 INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
@@ -1309,7 +1276,7 @@ INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
 	('logo', 'logo.png');
 /*!40000 ALTER TABLE `ts_system_options` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_tag
+-- 导出  表 d_thinksaas.ts_tag 结构
 DROP TABLE IF EXISTS `ts_tag`;
 CREATE TABLE IF NOT EXISTS `ts_tag` (
   `tagid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -1325,12 +1292,12 @@ CREATE TABLE IF NOT EXISTS `ts_tag` (
   UNIQUE KEY `tagname` (`tagname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='标签表';
 
--- Dumping data for table thinksaas_test.ts_tag: 0 rows
+-- 正在导出表  d_thinksaas.ts_tag 的数据：0 rows
 DELETE FROM `ts_tag`;
 /*!40000 ALTER TABLE `ts_tag` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_tag` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_tag_article_index
+-- 导出  表 d_thinksaas.ts_tag_article_index 结构
 DROP TABLE IF EXISTS `ts_tag_article_index`;
 CREATE TABLE IF NOT EXISTS `ts_tag_article_index` (
   `articleid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
@@ -1340,12 +1307,12 @@ CREATE TABLE IF NOT EXISTS `ts_tag_article_index` (
   KEY `tagid` (`tagid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章标签关联';
 
--- Dumping data for table thinksaas_test.ts_tag_article_index: 0 rows
+-- 正在导出表  d_thinksaas.ts_tag_article_index 的数据：0 rows
 DELETE FROM `ts_tag_article_index`;
 /*!40000 ALTER TABLE `ts_tag_article_index` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_tag_article_index` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_tag_group_index
+-- 导出  表 d_thinksaas.ts_tag_group_index 结构
 DROP TABLE IF EXISTS `ts_tag_group_index`;
 CREATE TABLE IF NOT EXISTS `ts_tag_group_index` (
   `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
@@ -1355,12 +1322,12 @@ CREATE TABLE IF NOT EXISTS `ts_tag_group_index` (
   KEY `tagid` (`tagid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组标签关联';
 
--- Dumping data for table thinksaas_test.ts_tag_group_index: 0 rows
+-- 正在导出表  d_thinksaas.ts_tag_group_index 的数据：0 rows
 DELETE FROM `ts_tag_group_index`;
 /*!40000 ALTER TABLE `ts_tag_group_index` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_tag_group_index` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_tag_photo_index
+-- 导出  表 d_thinksaas.ts_tag_photo_index 结构
 DROP TABLE IF EXISTS `ts_tag_photo_index`;
 CREATE TABLE IF NOT EXISTS `ts_tag_photo_index` (
   `photoid` int(11) NOT NULL DEFAULT '0' COMMENT '图片ID',
@@ -1370,12 +1337,12 @@ CREATE TABLE IF NOT EXISTS `ts_tag_photo_index` (
   KEY `photoid` (`photoid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='相册图片标签关联';
 
--- Dumping data for table thinksaas_test.ts_tag_photo_index: 0 rows
+-- 正在导出表  d_thinksaas.ts_tag_photo_index 的数据：0 rows
 DELETE FROM `ts_tag_photo_index`;
 /*!40000 ALTER TABLE `ts_tag_photo_index` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_tag_photo_index` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_tag_topic_index
+-- 导出  表 d_thinksaas.ts_tag_topic_index 结构
 DROP TABLE IF EXISTS `ts_tag_topic_index`;
 CREATE TABLE IF NOT EXISTS `ts_tag_topic_index` (
   `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
@@ -1385,12 +1352,12 @@ CREATE TABLE IF NOT EXISTS `ts_tag_topic_index` (
   KEY `tagid` (`tagid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子标签关联';
 
--- Dumping data for table thinksaas_test.ts_tag_topic_index: 0 rows
+-- 正在导出表  d_thinksaas.ts_tag_topic_index 的数据：0 rows
 DELETE FROM `ts_tag_topic_index`;
 /*!40000 ALTER TABLE `ts_tag_topic_index` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_tag_topic_index` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_tag_user_index
+-- 导出  表 d_thinksaas.ts_tag_user_index 结构
 DROP TABLE IF EXISTS `ts_tag_user_index`;
 CREATE TABLE IF NOT EXISTS `ts_tag_user_index` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
@@ -1400,12 +1367,12 @@ CREATE TABLE IF NOT EXISTS `ts_tag_user_index` (
   KEY `tagid` (`tagid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户标签关联';
 
--- Dumping data for table thinksaas_test.ts_tag_user_index: 0 rows
+-- 正在导出表  d_thinksaas.ts_tag_user_index 的数据：0 rows
 DELETE FROM `ts_tag_user_index`;
 /*!40000 ALTER TABLE `ts_tag_user_index` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_tag_user_index` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_task
+-- 导出  表 d_thinksaas.ts_task 结构
 DROP TABLE IF EXISTS `ts_task`;
 CREATE TABLE IF NOT EXISTS `ts_task` (
   `taskid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增任务ID',
@@ -1417,12 +1384,12 @@ CREATE TABLE IF NOT EXISTS `ts_task` (
   UNIQUE KEY `taskkey` (`taskkey`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='任务';
 
--- Dumping data for table thinksaas_test.ts_task: 0 rows
+-- 正在导出表  d_thinksaas.ts_task 的数据：0 rows
 DELETE FROM `ts_task`;
 /*!40000 ALTER TABLE `ts_task` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_task` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_task_user
+-- 导出  表 d_thinksaas.ts_task_user 结构
 DROP TABLE IF EXISTS `ts_task_user`;
 CREATE TABLE IF NOT EXISTS `ts_task_user` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
@@ -1433,12 +1400,12 @@ CREATE TABLE IF NOT EXISTS `ts_task_user` (
   KEY `userid_2` (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户任务关联';
 
--- Dumping data for table thinksaas_test.ts_task_user: 0 rows
+-- 正在导出表  d_thinksaas.ts_task_user 的数据：0 rows
 DELETE FROM `ts_task_user`;
 /*!40000 ALTER TABLE `ts_task_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_task_user` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_user
+-- 导出  表 d_thinksaas.ts_user 结构
 DROP TABLE IF EXISTS `ts_user`;
 CREATE TABLE IF NOT EXISTS `ts_user` (
   `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
@@ -1453,12 +1420,12 @@ CREATE TABLE IF NOT EXISTS `ts_user` (
   UNIQUE KEY `phone` (`phone`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户';
 
--- Dumping data for table thinksaas_test.ts_user: 0 rows
+-- 正在导出表  d_thinksaas.ts_user 的数据：0 rows
 DELETE FROM `ts_user`;
 /*!40000 ALTER TABLE `ts_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_user` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_user_follow
+-- 导出  表 d_thinksaas.ts_user_follow 结构
 DROP TABLE IF EXISTS `ts_user_follow`;
 CREATE TABLE IF NOT EXISTS `ts_user_follow` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
@@ -1469,12 +1436,12 @@ CREATE TABLE IF NOT EXISTS `ts_user_follow` (
   KEY `userid_follow` (`userid_follow`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户关注跟随';
 
--- Dumping data for table thinksaas_test.ts_user_follow: 0 rows
+-- 正在导出表  d_thinksaas.ts_user_follow 的数据：0 rows
 DELETE FROM `ts_user_follow`;
 /*!40000 ALTER TABLE `ts_user_follow` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_user_follow` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_user_gb
+-- 导出  表 d_thinksaas.ts_user_gb 结构
 DROP TABLE IF EXISTS `ts_user_gb`;
 CREATE TABLE IF NOT EXISTS `ts_user_gb` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增留言ID',
@@ -1488,12 +1455,12 @@ CREATE TABLE IF NOT EXISTS `ts_user_gb` (
   KEY `touserid` (`touserid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='留言表';
 
--- Dumping data for table thinksaas_test.ts_user_gb: 0 rows
+-- 正在导出表  d_thinksaas.ts_user_gb 的数据：0 rows
 DELETE FROM `ts_user_gb`;
 /*!40000 ALTER TABLE `ts_user_gb` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_user_gb` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_user_group
+-- 导出  表 d_thinksaas.ts_user_group 结构
 DROP TABLE IF EXISTS `ts_user_group`;
 CREATE TABLE IF NOT EXISTS `ts_user_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增用户组ID',
@@ -1506,12 +1473,12 @@ CREATE TABLE IF NOT EXISTS `ts_user_group` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户组';
 
--- Dumping data for table thinksaas_test.ts_user_group: 0 rows
+-- 正在导出表  d_thinksaas.ts_user_group 的数据：0 rows
 DELETE FROM `ts_user_group`;
 /*!40000 ALTER TABLE `ts_user_group` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_user_group` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_user_info
+-- 导出  表 d_thinksaas.ts_user_info 结构
 DROP TABLE IF EXISTS `ts_user_info`;
 CREATE TABLE IF NOT EXISTS `ts_user_info` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
@@ -1558,12 +1525,12 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
   KEY `isrenzheng` (`isrenzheng`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户';
 
--- Dumping data for table thinksaas_test.ts_user_info: 0 rows
+-- 正在导出表  d_thinksaas.ts_user_info 的数据：0 rows
 DELETE FROM `ts_user_info`;
 /*!40000 ALTER TABLE `ts_user_info` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_user_info` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_user_invites
+-- 导出  表 d_thinksaas.ts_user_invites 结构
 DROP TABLE IF EXISTS `ts_user_invites`;
 CREATE TABLE IF NOT EXISTS `ts_user_invites` (
   `inviteid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增邀请ID',
@@ -1577,12 +1544,12 @@ CREATE TABLE IF NOT EXISTS `ts_user_invites` (
   KEY `userid` (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户邀请码';
 
--- Dumping data for table thinksaas_test.ts_user_invites: 0 rows
+-- 正在导出表  d_thinksaas.ts_user_invites 的数据：0 rows
 DELETE FROM `ts_user_invites`;
 /*!40000 ALTER TABLE `ts_user_invites` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_user_invites` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_user_open
+-- 导出  表 d_thinksaas.ts_user_open 结构
 DROP TABLE IF EXISTS `ts_user_open`;
 CREATE TABLE IF NOT EXISTS `ts_user_open` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
@@ -1595,12 +1562,12 @@ CREATE TABLE IF NOT EXISTS `ts_user_open` (
   KEY `userid` (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='第三方连接登录';
 
--- Dumping data for table thinksaas_test.ts_user_open: 0 rows
+-- 正在导出表  d_thinksaas.ts_user_open 的数据：0 rows
 DELETE FROM `ts_user_open`;
 /*!40000 ALTER TABLE `ts_user_open` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_user_open` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_user_role
+-- 导出  表 d_thinksaas.ts_user_role 结构
 DROP TABLE IF EXISTS `ts_user_role`;
 CREATE TABLE IF NOT EXISTS `ts_user_role` (
   `roleid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增角色ID',
@@ -1610,7 +1577,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_role` (
   PRIMARY KEY (`roleid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COMMENT='角色';
 
--- Dumping data for table thinksaas_test.ts_user_role: 17 rows
+-- 正在导出表  d_thinksaas.ts_user_role 的数据：17 rows
 DELETE FROM `ts_user_role`;
 /*!40000 ALTER TABLE `ts_user_role` DISABLE KEYS */;
 INSERT INTO `ts_user_role` (`roleid`, `rolename`, `score_start`, `score_end`) VALUES
@@ -1633,7 +1600,7 @@ INSERT INTO `ts_user_role` (`roleid`, `rolename`, `score_start`, `score_end`) VA
 	(17, '上将', 327680000, 0);
 /*!40000 ALTER TABLE `ts_user_role` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_user_score
+-- 导出  表 d_thinksaas.ts_user_score 结构
 DROP TABLE IF EXISTS `ts_user_score`;
 CREATE TABLE IF NOT EXISTS `ts_user_score` (
   `scoreid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增积分ID',
@@ -1648,7 +1615,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_score` (
   PRIMARY KEY (`scoreid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COMMENT='用户积分设置表';
 
--- Dumping data for table thinksaas_test.ts_user_score: 16 rows
+-- 正在导出表  d_thinksaas.ts_user_score 的数据：16 rows
 DELETE FROM `ts_user_score`;
 /*!40000 ALTER TABLE `ts_user_score` DISABLE KEYS */;
 INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`, `mg`, `ts`, `score`, `status`) VALUES
@@ -1670,7 +1637,7 @@ INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`
 	(17, 'article_admin_post_delete', '后台文章删除', 'article', 'admin', 'post', 'delete', 5, 1);
 /*!40000 ALTER TABLE `ts_user_score` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_user_score_log
+-- 导出  表 d_thinksaas.ts_user_score_log 结构
 DROP TABLE IF EXISTS `ts_user_score_log`;
 CREATE TABLE IF NOT EXISTS `ts_user_score_log` (
   `logid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增积分记录ID',
@@ -1683,52 +1650,32 @@ CREATE TABLE IF NOT EXISTS `ts_user_score_log` (
   KEY `userid` (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户积分记录';
 
--- Dumping data for table thinksaas_test.ts_user_score_log: 0 rows
+-- 正在导出表  d_thinksaas.ts_user_score_log 的数据：0 rows
 DELETE FROM `ts_user_score_log`;
 /*!40000 ALTER TABLE `ts_user_score_log` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_user_score_log` ENABLE KEYS */;
 
--- Dumping structure for table thinksaas_test.ts_weibo
+-- 导出  表 d_thinksaas.ts_weibo 结构
 DROP TABLE IF EXISTS `ts_weibo`;
 CREATE TABLE IF NOT EXISTS `ts_weibo` (
   `weiboid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增唠叨ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `locationid` int(11) NOT NULL DEFAULT '0' COMMENT '同城ID',
-  `content` text NOT NULL COMMENT '内容',
+  `title` varchar(256) NOT NULL DEFAULT '' COMMENT '一句话内容',
   `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '统计评论数',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
   `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片',
   `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否审核',
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
-  `uptime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '更新时间',
+  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`weiboid`),
   KEY `userid` (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='唠叨';
 
--- Dumping data for table thinksaas_test.ts_weibo: 0 rows
+-- 正在导出表  d_thinksaas.ts_weibo 的数据：0 rows
 DELETE FROM `ts_weibo`;
 /*!40000 ALTER TABLE `ts_weibo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_weibo` ENABLE KEYS */;
-
--- Dumping structure for table thinksaas_test.ts_weibo_comment
-DROP TABLE IF EXISTS `ts_weibo_comment`;
-CREATE TABLE IF NOT EXISTS `ts_weibo_comment` (
-  `commentid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增评论ID',
-  `weiboid` int(11) NOT NULL DEFAULT '0' COMMENT '唠叨ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `touserid` int(11) NOT NULL DEFAULT '0' COMMENT '回复用户ID',
-  `isread` tinyint(1) NOT NULL DEFAULT '0',
-  `content` text NOT NULL COMMENT '内容',
-  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
-  PRIMARY KEY (`commentid`),
-  KEY `touserid` (`touserid`,`isread`),
-  KEY `noteid` (`weiboid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='唠叨回复';
-
--- Dumping data for table thinksaas_test.ts_weibo_comment: 0 rows
-DELETE FROM `ts_weibo_comment`;
-/*!40000 ALTER TABLE `ts_weibo_comment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_weibo_comment` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

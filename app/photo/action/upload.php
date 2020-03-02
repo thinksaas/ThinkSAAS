@@ -85,7 +85,7 @@ switch($ts){
 			$new['photo']->update('photo',array(
 				'photoid'=>$photoid,
 			),array(
-				'photoname'=>$arrUpload['name'],
+				'title'=>$arrUpload['name'],
 				'phototype'=>$arrUpload['type'],
 				'path'=>$arrUpload['path'],
 				'photourl'=>$arrUpload['url'],

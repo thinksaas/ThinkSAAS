@@ -68,48 +68,10 @@ switch($ts){
 			
 		if(md5($strUser['salt'].$pwd)!==$strUser['pwd']) getJson('密码错误！',$js);
 		
-		//用户信息
-		$userData = $new['user']->find('user_info',array(
-			'email'=>$strUser['email'],
-		),'userid,username,path,face,isadmin,signin,uptime');
-			
-		//用户session信息
-		$sessionData = array(
-			'userid' => $userData['userid'],
-			'username'	=> $userData['username'],
-			'path'	=> $userData['path'],
-			'face'	=> $userData['face'],
-			'isadmin'	=> $userData['isadmin'],
-			'signin'=>$userData['signin'],
-			'uptime'	=> $userData['uptime'],
-		);
+		$new['user']->login($strUser['userid']);
 
-		$_SESSION['tsuser']	= $sessionData;
-		
-		//用户userid
-		$userid = $userData['userid'];
-		
-		//一天之内登录只算一次积分
-		if($userData['uptime'] < strtotime(date('Y-m-d'))){
-			//对积分进行处理
-			aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
-		}
-		
-		//更新登录时间，用作自动登录
-		$autologin = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-		$new['user']->update('user_info',array(
-			'userid'=>$userid,
-		),array(
-			'ip'=>getIp(),  //更新登录ip
-			'autologin'=>$autologin,
-			'uptime'=>time(),   //更新登录时间
-		));
-		
-		//记住登录Cookie，根据用户Email和最后登录时间
-		 if($cktime != ''){   
-			 setcookie("ts_email", $strUser['email'], time()+$cktime,'/');
-			 setcookie("ts_autologin", $autologin, time()+$cktime,'/');
-		 }
+		//对积分进行处理
+		aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
 
         if($ad==1){
             getJson('登录成功！',$js,2,SITE_URL.'index.php?app=system');

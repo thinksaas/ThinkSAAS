@@ -1,6 +1,10 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
+/**
+ * 发送手机验证码
+ */
+
 $phone = trim($_POST['phone']);
 
 $authcode = strtolower($_POST['authcode']);
@@ -8,11 +12,13 @@ $authcode = strtolower($_POST['authcode']);
 $typeid = intval($_POST['typeid']); //判断手机号是否存在0不判断1判断存在2判断不存在
 
 if(isPhone($phone)==false){
-    echo 0;exit;//手机号码输入有误
+    //echo 0;exit;//手机号码输入有误
+    getJson('手机号码输入有误',1,0);
 }
 
 if ($authcode != $_SESSION['verify']) {
-    echo 5;exit;//图片验证码输入有误
+    //echo 5;exit;//图片验证码输入有误
+    getJson('图片验证码输入有误！',1,0);
 }
 
 if($typeid==1){
@@ -22,7 +28,8 @@ if($typeid==1){
     ));
 
     if($strUserPhone){
-        echo 3;exit;//手机号已经存在
+        //echo 3;exit;//手机号已经存在
+        getJson('手机号已经存在！',1,0);
     }
 }elseif($typeid==2){
 
@@ -31,7 +38,8 @@ if($typeid==1){
     ));
 
     if($strUserPhone==''){
-        echo 4;exit;//手机号不存在
+        //echo 4;exit;//手机号不存在
+        getJson('手机号不存在！',1,0);
     }
 }
 
@@ -48,12 +56,17 @@ if($strPhone){
     $ptime = strtotime($strPhone['addtime']);
 
     $ntime = $time-$ptime;
-    $time30 = 60*30;
+
+    #短信发送间隔时间
+    $phone_code_send_time = intval($TS_APP['phone_code_send_time']);
+    if($phone_code_send_time==0) $phone_code_send_time = 30;
+
+    $time30 = 60*$phone_code_send_time;
 
     if($ntime<$time30){
-        echo 1;exit;//30分钟内只能发送一次短信验证码
+        //echo 1;exit;//30分钟内只能发送一次短信验证码
+        getJson('30分钟内只能发送一次短信验证码！',1,0);
     }else{
-
 
         $new['pubs']->update('phone_code',array(
             'phone'=>$phone,
@@ -66,7 +79,8 @@ if($strPhone){
         $response = aac('mail')->sendSms($phone,$code);
         #var_dump($response);
 
-        echo 2;exit;//发送成功
+        //echo 2;exit;//发送成功
+        getJson('发送成功！',1,1);
 
     }
 
@@ -82,6 +96,7 @@ if($strPhone){
     $response = aac('mail')->sendSms($phone,$code);
     #var_dump($response);
 
-    echo 2;exit;//发送成功
+    //echo 2;exit;//发送成功
+    getJson('发送成功！',1,1);
 
 }

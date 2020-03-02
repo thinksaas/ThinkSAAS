@@ -14,7 +14,7 @@ switch($ts){
 			'photoid'=>$photoid,
 		));
 		
-		$strPhoto['photoname'] = tsTitle($strPhoto['photoname']);
+		$strPhoto['title'] = tsTitle($strPhoto['title']);
 		$strPhoto['photodesc'] = tsTitle($strPhoto['photodesc']);
 
 		if($strPhoto['userid']==$userid || $TS_USER['isadmin']==1){
@@ -35,13 +35,13 @@ switch($ts){
 	case "do":
 	
 		$photoid = intval($_POST['photoid']);
-		$photoname = trim($_POST['photoname']);
+		$title = trim($_POST['title']);
 		$photodesc = trim($_POST['photodesc']);
 		
 		$new['photo']->update('photo',array(
 			'photoid'=>$photoid,
 		),array(
-			'photoname'=>$photoname,
+			'title'=>$title,
 			'photodesc'=>$photodesc,
 		));
 		

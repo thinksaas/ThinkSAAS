@@ -30,7 +30,7 @@
 
             <div>
                 <form method="post" class="form text-form" action="{tsUrl('weibo','add',array('ts'=>'do'))}" enctype="multipart/form-data">
-                    <textarea class="form-control" rows="2" name="content"></textarea>
+                    <textarea class="form-control" rows="2" name="title"></textarea>
                     <div style="padding:5px 0;">
 
                         <input type="hidden" name="token" value="{$_SESSION['token']}" />
@@ -54,10 +54,9 @@
                     </li>
                     <li class="mbtr rounded">
                         <div class="author"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> <span class="fs12 c9">{$item['addtime']}</span></div>
-                        <div class="title"><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item[title]}</a></div>
-                        <div class="content">
+                        <div class="title">
                             {if $item[photo]}<a target="_blank" href="{SITE_URL}uploadfile/weibo/{$item[photo]}"><img src="{php echo tsXimg($item['photo'],'weibo',240,'',$item['path'])}" /></a>{/if}
-                            {$item[content]}
+                            {$item['title']}
                         </div>
                         <p class="tar fs12">
 

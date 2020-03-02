@@ -1,5 +1,10 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
+
+/**
+ * 编辑器上传控制
+ */
+
 switch($ts){
 
     #图片上传

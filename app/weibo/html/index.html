@@ -3,11 +3,11 @@
 <script type="text/javascript" src="{SITE_URL}public/js/jquery.upload.v2.js"></script>
 <SCRIPT LANGUAGE="JavaScript">
     function doUpload() {
-        var contents = $("#content").val();
+        var titles = $("#title").val();
         $("#upload").upload({
             action: "{SITE_URL}index.php?app=weibo&ac=photo", //上传地址
             fileName: "filedata",    //文件名称。用于后台接收
-            params: {content: contents,token:'{$_SESSION["token"]}'},         //参数
+            params: {title: titles,token:'{$_SESSION["token"]}'},         //参数
             accept: ".jpg,.png,.gif",     //文件类型
             complete: function () {  //上传完成
                 window.location.reload()
@@ -41,7 +41,7 @@
 
                     <div>
                         <form id="comm-form" method="post" class="form text-form" action="{SITE_URL}index.php?app=weibo&ac=add" enctype="multipart/form-data">
-                            <textarea class="form-control" rows="2" id="content" name="content"></textarea>
+                            <textarea class="form-control" rows="2" id="title" name="title"></textarea>
 
                             <div style="padding:5px 0;">
 
@@ -65,10 +65,10 @@
                             </li>
                             <li class="mbtr rounded">
                                 <div class="author"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> <span class="fs12 c9">{$item['addtime']}</span></div>
-                                <div class="title"><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item[title]}</a></div>
-                                <div class="content">
+                                
+                                <div class="title">
                                     {if $item[photo]}<a target="_blank" href="{SITE_URL}uploadfile/weibo/{$item[photo]}"><img src="{php echo tsXimg($item['photo'],'weibo',240,'',$item['path'])}" /></a>{/if}
-                                    {$item[content]}
+                                    {$item['title']}
                                 </div>
                                 <p class="tar fs12">
 
@@ -113,7 +113,7 @@
                             <li>
                                 <span class="portrait"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img align="absmiddle" class="SmallPortrait rounded-circle" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}"></a></span>
                                 <span class="body">
-<span class="user"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a>：</span><span class="log">{$item['content']}</span>
+<span class="user"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a>：</span><span class="log">{$item['title']}</span>
 {if $item[photo]}
 <div style="padding:5px 0;"><a target="_blank" href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}"><img src="{php echo tsXimg($item['photo'],'weibo',240,'',$item['path'])}" width="120" alt="{$item['user']['username']}的唠叨图片" /></a>
 </div>

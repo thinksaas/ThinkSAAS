@@ -1,0 +1,102 @@
+{php include pubTemplate("header_admin")}
+
+<!--main-->
+<div class="midder">
+
+    {php include template("admin/menu");}
+
+    <div class="page">{$pageUrl}</div>
+
+
+    <div class="mb-3">
+
+
+        <form method="get" action="index.php">
+            <input type="hidden" name="app" value="pubs">
+            <input type="hidden" name="ac" value="admin">
+            <input type="hidden" name="mg" value="comment">
+            <input type="hidden" name="ts" value="list">
+
+            <select name="ptable">
+                <option value="group_topic" {if $ptable=='group_topic'}selected{/if}>帖子</option>
+                <option value="article" {if $ptable=='article'}selected{/if}>文章</option>
+                <option value="photo" {if $ptable=='photo'}selected{/if}>图片</option>
+                <option value="weibo" {if $ptable=='weibo'}selected{/if}>唠叨</option>
+                <option value="video" {if $ptable=='video'}selected{/if}>视频</option>
+                <option value="audio" {if $ptable=='audio'}selected{/if}>音频</option>
+                <option value="event" {if $ptable=='event'}selected{/if}>活动</option>
+                <option value="vote" {if $ptable=='vote'}selected{/if}>投票</option>
+                <option value="study_lesson" {if $ptable=='study_lesson'}selected{/if}>课时</option>
+                <option value="shop_goods" {if $ptable=='shop_goods'}selected{/if}>商品</option>
+            </select>
+
+            <input type="number" name="pid" placeholder="PID">
+
+            <input type="number" name="userid" placeholder="用户ID">
+
+
+            <input type="submit" value="搜索">
+
+            <a class="btn btn-sm btn-outline-secondary" href="index.php?app=pubs&ac=admin&mg=comment&ts=list&ptable={$ptable}">全部</a>
+
+
+        </form>
+
+
+    </div>
+
+
+    <table class="table table-hover">
+
+        <thead class="thead-light fs14">
+        <tr><th>ID</th>
+
+            <th>UserID</th>
+
+            <th>PID</th>
+
+            <th>内容</th>
+
+            <th>时间</th>
+
+            <th>操作</th></tr>
+        </thead>
+
+
+        <tbody class="fs12">
+
+
+
+        {loop $arrComment $key $item}
+        <tr>
+            <td>{$item['commentid']}</td>
+            <td>{$item['userid']}</td>
+            <td>{$item['pid']}  <a target="_blank" href="{php echo getProjectUrl($item['ptable'],$item['pid']);}">[查看内容]</a></td>
+
+
+
+
+            <td>
+
+                <div style="width: 600px;">{php echo tsDecode($item['content'])}</div>
+
+            </td>
+
+
+            <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+
+            <td>
+
+
+
+            <a onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=pubs&ac=admin&mg=comment&ts=delete&commentid={$item['commentid']}">删除</a>
+
+        </td></tr>
+        {/loop}
+
+        </tbody>
+
+    </table>
+
+</div>
+{php include pubTemplate("footer_admin")}

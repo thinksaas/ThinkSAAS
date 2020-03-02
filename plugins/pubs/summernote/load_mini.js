@@ -4,7 +4,7 @@ $(document).ready(function() {
     var $summernote = $('#tseditor').summernote({
         height:100,
         toolbar: [
-            ['Insert', ['link','picture']]
+            ['Insert', ['link','picture','ts_attach','ts_video','ts_audio']]
         ],
 
         lang: 'zh-CN',

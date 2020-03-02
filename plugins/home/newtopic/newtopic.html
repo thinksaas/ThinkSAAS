@@ -32,6 +32,13 @@
         {/loop}
     </div>
     {/if}
+
+    {if $item['video']}
+    <div>
+        <video class="mw-100" controls="controls" src="{$item['video']}"></video>
+    </div>
+    {/if}
+
 {/if}
 
 

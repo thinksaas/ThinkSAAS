@@ -25,6 +25,14 @@ switch($ts){
             'userid'=>$userid,
             'addtime'=>date('Y-m-d'),
         ));
+
+        $strScore = $new['user']->find('user_score',array(
+			'app'=>'user',
+			'action'=>'signin',
+			'mg'=>'',
+			'ts'=>'',
+		));
+
         include template('signin_ajax');
         break;
 

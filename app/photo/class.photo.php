@@ -53,6 +53,14 @@ class photo extends tsApp{
 			
 			foreach($arrPhoto as $key=>$item){
 				unlink('uploadfile/photo/'.$item['photourl']);
+
+				#删除评论
+				$this->delete ( 'comment', array (
+					'ptable'=>'photo',
+					'pkey'=>'photoid',
+					'pid'=>$item['photoid'],
+				));
+
 			}
 			
 			$this->delete('photo',array(

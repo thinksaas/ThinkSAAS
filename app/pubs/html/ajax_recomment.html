@@ -1,0 +1,55 @@
+{loop $arrRecomment $rkey $ritem}
+<div class="recomment">
+
+    <div>
+        <a href="{tsUrl('user','space',array('id'=>$ritem[user][userid]))}"><img src="{$ritem[user][face]}" width="24" height="24" class="rounded-circle" align="absmiddle"></a>
+        <a class="c9" href="{tsUrl('user','space',array('id'=>$ritem[user][userid]))}">{$ritem[user][username]}</a>
+
+        {if $ritem['iszz']}
+        <span class="text-danger">作者</span>
+        {/if}
+
+        <span class="c9 ml-3">{$ritem['datetime']}</span>
+
+        
+        <span class="float-right">
+            {if $TS_USER['userid'] && $ritem['userid']!=$TS_USER['userid']}
+            <a href="javascript:void('0');" onclick="commentOpen({$ritem[commentid]})">回复</a>
+            {/if}
+
+            {if $TS_USER['userid'] && $ritem['userid']==$TS_USER['userid']}
+            <a class="fs12 ml-2" href="{SITE_URL}index.php?app=pubs&ac=comment&ts=delete&commentid={$ritem[commentid]}" onClick="return confirm('确定删除吗?')">删除</a>
+            {/if}
+        </span>
+        
+
+        
+
+    </div>
+
+    <div style="padding-left:30px;">
+
+        {if $ritem['touserid']}
+        <span class="text-black-50">回复 <a target="_blank" class="text-info" href="{tsUrl('user','space',array('id'=>$ritem['touserid']))}">@{$ritem['touser']['username']}</a> ：</span>
+        {/if}
+        {$ritem[content]}
+
+    </div>
+
+
+
+    <!----回复的回复---->
+    <div class="mb-2" id="rcomment_{$ritem[commentid]}" style="padding-left:30px;display:none">
+        <textarea class="form-control-sm w-100 border border-secondary" id="recontent_{$ritem[commentid]}" type="text" ></textarea>
+
+        <div class="mt-1">
+            <a class="btn btn-sm btn-outline-info" href="javascript:void(0);" onClick="recomment({$ritem[commentid]},'group_topic','topicid',{$ritem[pid]},'{$ritem[userid]}')" id="recomm_btn_$ritem[commentid]">提交</a>
+            <a class="btn btn-sm btn-outline-secondary" href="javascript:void('0');" onclick="commentOpen({$ritem['commentid']}})">取消</a>
+        </div>
+    </div>
+
+
+
+
+</div>
+{/loop}

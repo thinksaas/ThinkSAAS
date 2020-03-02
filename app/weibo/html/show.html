@@ -28,13 +28,13 @@
 </li>
 <li class="mbtr rounded">
     <div class="author"><a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}">{$strWeibo[user][username]}</a> <span class="fs12 c9">{$strWeibo[addtime]}</span></div>
-<div class="content pd100">
+<div class="title pd100">
     {if $strWeibo[photo]}
     <a target="_blank" href="{SITE_URL}uploadfile/weibo/{$strWeibo[photo]}">
         <img src="{php echo tsXimg($strWeibo['photo'],'weibo',240,'',$strWeibo['path'])}" />
     </a>
     {/if}
-{$strWeibo[content]}
+{$strWeibo['title']}
 </div>
 <div class="text-right fs12">
 {if $GLOBALS['TS_USER']['isadmin'] == 1}
@@ -51,59 +51,53 @@
 
 
 
-    <div class="card">
-        <div class="card-header">回复({$strWeibo['count_comment']})</div>
-        <div class="card-body">
 
-<div  class="comment">
-<ul>
-{loop $arrComment $key $item}
-<li class="clearfix">
-<div class="user-face">
-<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="rounded-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="36" /></a>
+<div class="card">
+    <div class="card-header">评论{if $strWeibo['count_comment']} <small class="text-secondary">({$strWeibo['count_comment']})</small>{/if}</div>
+    <div class="card-body">
+
+        <!--评论列表-->
+        {php include pubTemplate("comment")}
+
+        <div class="commentform">
+            
+            {if intval($GLOBALS['TS_USER'][userid])==0}
+                <div class="tac pd20 fw300">
+                    <a href="{tsUrl('user','login')}">登录</a> | <a href="{tsUrl('user','register')}">注册</a>
+                </div>
+                {else}
+
+                <form id="comm-form" method="post" action="{SITE_URL}index.php?app=pubs&ac=comment&ts=do">
+                    <div >
+                        <textarea id="tseditor" name="content"></textarea>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            {if $GLOBALS['TS_SITE']['isauthcode']}
+                            <input class="form-control form-control-sm w-auto float-left" name="authcode" placeholder="输入验证码" />
+                            <img class="mt-1 ml-1" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
+                            {/if}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mt-1">是否公开：<input type="radio" name="ispublic" value="0" checked />公开 <input type="radio" name="ispublic" value="1" />不公开</div>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <input type="hidden" name="ptable" value="weibo">
+                            <input type="hidden" name="pkey" value="weiboid">
+                            <input type="hidden" name="pid" value="{$strWeibo[weiboid]}" />
+                            <input type="hidden" name="token" value="{$_SESSION['token']}" />
+                            <button class="btn btn-sm btn-info btn-block" type="submit">提交评论</button>
+                        </div>
+                    </div>
+                </form>
+                {/if}
+
+        </div>
+
+    </div>
 </div>
-<div class="reply-doc">
-<h4>
-{$item[addtime]} 
-<a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
-</h4>
-<p>{$item[content]}</p>
-{if $GLOBALS['TS_USER'][user][userid] == $item[userid] || $GLOBALS['TS_USER']['isadmin']==1}
-<div class="text-right fs12">
-<a onclick="return confirm('确定删除?')" href="{tsUrl('weibo','deletecomment',array('commentid'=>$item['commentid']))}" rel="nofollow"><i class="far fa-trash-alt"></i> 删除</a>
-</div>
-{/if}
-</div>
-</li>
-{/loop}
-</ul>
-</div>
 
 
-
-
-            <div class="page">{$pageUrl}</div>
-
-
-
-
-<form method="post" class="form text-form" action="{SITE_URL}index.php?app=weibo&ac=addcomment" enctype="multipart/form-data">
-<textarea class="form-control" rows="2" name="content"></textarea>
-<div style="padding:5px 0;">
-<input type="hidden" name="weiboid" value="{$strWeibo['weiboid']}" />
-<input type="hidden" name="token" value="{$_SESSION['token']}" />
-<button  class="btn btn-sm btn-info"  type="submit">回复</button>
-</div>
-</form>
-
-
-
-
-
-
-
-</div>
-</div>
 
 
 
@@ -116,7 +110,7 @@
             <div class="commlist">
                 <ul>
                     {loop $arrWeibo $key $item}
-                    <li><a href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}">{$item['content']}</a></li>
+                    <li><a href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}">{$item['title']}</a></li>
                     {/loop}
                 </ul>
             </div>
@@ -159,5 +153,5 @@
 
 </div>
 
-
+{php doAction('tseditor','mini')}
 {php include pubTemplate("footer")}

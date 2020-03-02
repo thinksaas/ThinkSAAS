@@ -21,7 +21,7 @@ class weiboMy extends weibo{
         ),'uptime desc',null,$lstart.',20');
 
         foreach($arrWeibo as $key=>$item){
-            $arrWeibo[$key]['content'] = tsTitle($item['content']);
+            $arrWeibo[$key]['title'] = tsTitle($item['title']);
         }
 
         $weiboNum = $this->findCount('weibo',array(

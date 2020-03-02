@@ -16,7 +16,7 @@ if($strPhoto == ''){
 	exit;
 }
 
-$strPhoto['photoname'] = tsTitle($strPhoto['photoname']);
+$strPhoto['title'] = tsTitle($strPhoto['title']);
 $strPhoto['photodesc'] = tsTitle($strPhoto['photodesc']);
 
 $albumid = $strPhoto['albumid'];
@@ -64,24 +64,10 @@ $strUser = aac('user')->getSimpleUser($userid);
 //评论列表 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $url = tsUrl('photo','show',array('id'=>$photoid,'page'=>''));
-
-$lstart = $page*10-10;
-
-$arrComments = $new['photo']->findAll('photo_comment',array(
-	'photoid'=>$photoid,
-),'addtime desc',null,$lstart.',10');
-
-foreach($arrComments as $key=>$item){
-	$arrComment[] = $item;
-	$arrComment[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
-	$arrComment[$key]['content'] = tsTitle($item['content']);
-}
-
-$comment_num = $new['photo']->findCount('photo_comment',array(
-	'photoid'=>$photoid,
-));
-
-$pageUrl = pagination($comment_num, 10, $page, $url);
+$lstart = $page*15-15;
+$arrComment = aac('pubs')->getCommentList('photo','photoid',$strPhoto['photoid'],$page,$lstart,$strPhoto['userid']);
+$commentNum = aac('pubs')->getCommentNum('photo','photoid',$strPhoto['photoid']);
+$pageUrl = pagination($commentNum, 15, $page, $url);
 
 
 

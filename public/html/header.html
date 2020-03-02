@@ -10,7 +10,7 @@
     <meta name="save" content="history" />
     <meta name="author" content="{$GLOBALS['TS_CF'][info][email]}" />
     <meta name="Copyright" content="{$GLOBALS['TS_CF'][info][name]}" />
-    <title>{if $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_SITE']['site_title']} - {$title}{elseif $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']!='index'}{$title} - {$GLOBALS['TS_SITE'][site_title]}{elseif  $GLOBALS['TS_URL']['app']!='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE'][site_title]}{else}{$title}_{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE'][site_title]}{/if}
+    <title>{if $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_SITE']['site_title']}{if $title} - {$title}{/if}{elseif $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']!='index'}{$title} - {$GLOBALS['TS_SITE'][site_title]}{elseif  $GLOBALS['TS_URL']['app']!='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE'][site_title]}{else}{$title}_{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE'][site_title]}{/if}
     </title>
     {if  $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']=='index'}
     <meta name="keywords" content="{$GLOBALS['TS_SITE'][site_key]}" />

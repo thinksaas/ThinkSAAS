@@ -16,7 +16,12 @@ if($strTopic==''){
     exit;
 }
 
-
+#永久性跳转到其他项目
+if($strTopic['ptable'] && $strTopic['pid']){
+    Header("HTTP/1.1 301 Moved Permanently");
+    header('Location: '.getProjectUrl($strTopic['ptable'],$strTopic['pid']));
+    exit();
+}
 
 //帖子审核 
 if($strTopic['isaudit']==1 && $GLOBALS['TS_USER']['isadmin']==0){
@@ -55,9 +60,11 @@ $tpUrl = tpPage($strTopic['content'],'group','topic',array('id'=>$topicid));
 $strTopic['content'] = tsDecode($strTopic['content'],$tp);
 
 //判断是否评论后显示帖子内容
-$isComment = $new['group']->findCount('group_topic_comment', array(
+$isComment = $new['group']->findCount('comment', array(
+    'ptable'=>'group_topic',
+    'pkey'=>'topicid',
+    'pid' => $strTopic['topicid'],
     'userid' => intval($TS_USER['userid']),
-    'topicid' => $strTopic['topicid'],
 ));
 
 if($strTopic['iscommentshow']==1 && $isComment==0 && $strTopic['userid']!=intval($TS_USER['userid'])){
@@ -91,6 +98,11 @@ $strTopic['photos'] = $new['group']->getTopicPhoto($topicid);
 
 
 
+#应用扩展
+$strProject = $new['group']->getProject($strTopic['ptable'],$strTopic['pkey'],$strTopic['pid']);
+$strTopic['video'] = $strProject['video'];
+
+
 
 // 帖子标签
 $strTopic['tags'] = aac('tag')->getObjTagByObjid('topic', 'topicid', $topicid);
@@ -112,35 +124,9 @@ $title = $strTopic['title'].'_'.$strGroup['groupname'];
 // 评论列表开始
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $url = tsUrl('group', 'topic', array('id' => $topicid, 'page' => ''));
-
 $lstart = $page * 15-15;
-
-$arrComment = $new['group']->findAll('group_topic_comment',array(
-    'topicid'=>$topicid,
-),'addtime desc',null,$lstart.',15');
-
-foreach($arrComment as $key => $item)
-{
-    $arrTopicComment[] = $item;
-    $arrTopicComment[$key]['l'] = (($page-1) * 15) + $key + 1;
-    $arrTopicComment[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
-
-    $arrTopicComment[$key]['content'] = tsDecode($item['content']);
-
-    $arrTopicComment[$key]['recomment'] = $new['group']->recomment($item['referid']);
-
-    ####评论关联附件开始####
-    if($TS_APP['istopicattach']){
-        $arrTopicComment[$key]['attach'] = $new['group']->getCommentAttach($item['commentid']);
-    }
-    ####评论关联附件结束####
-
-}
-
-$commentNum = $new['group']->findCount('group_topic_comment',array(
-    'topicid'=>$strTopic['topicid'],
-));
-
+$arrComment = aac('pubs')->getCommentList('group_topic','topicid',$strTopic['topicid'],$page,$lstart,$strTopic['userid']);
+$commentNum = aac('pubs')->getCommentNum('group_topic','topicid',$strTopic['topicid']);
 $pageUrl = pagination($commentNum, 15, $page, $url);
 // 评论列表结束
 
@@ -162,22 +148,6 @@ $arrGroupHotTopic = $new['group']->findAll('group_topic',array(
 $newTopic = $new['group']->findAll('group_topic',array(
     'isaudit'=>'0',
 ),'addtime desc','topicid,title',10);
-
-
-
-
-####帖子关联附件APP开始####
-if($TS_APP['istopicattach']){
-    $arrAttach = $new['group']->getTopicAttach($strTopic['topicid']);
-}
-####帖子关联附件APP结束####
-
-
-####帖子关联视频APP开始####
-if($TS_APP['istopicvideo']){
-    $arrVideo = $new['group']->getTopicVideo($strTopic['topicid']);
-}
-####帖子关联视频APP开始####
 
 
 

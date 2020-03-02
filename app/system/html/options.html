@@ -48,25 +48,30 @@
 
 <tr><td>ICP备案号 :</td><td><input type="text" style="width:300px;" name="option[site_icp]" value="{$strOption[site_icp]}" /> （京ICP备09050100号）</td></tr>
 
-<tr><td>是否上传头像 :</td><td><input type="radio" {if $strOption[isface]=='0'}checked="select"{/if} name="option[isface]" value="0" />不需要 <input type="radio" {if $strOption[isface]=='1'}checked="select"{/if} name="option[isface]" value="1" />需要</td></tr>
+<tr><td>是否上传头像 :</td><td>
+    <input type="radio" {if $strOption[isface]=='0'}checked="select"{/if} name="option[isface]" value="0" />不需要 
+    <input type="radio" {if $strOption[isface]=='1'}checked="select"{/if} name="option[isface]" value="1" />需要
+</td></tr>
 
-<tr><td>是否邀请注册 :</td><td><input type="radio" {if $strOption[isinvite]=='0'}checked="select"{/if} name="option[isinvite]" value="0" />开放注册 <input type="radio" {if $strOption[isinvite]=='1'}checked="select"{/if} name="option[isinvite]" value="1" />邀请注册</td></tr>
-
-
-<tr><td>注册方式 :</td><td>
-
-    <input type="radio" {if $strOption['regtype']=='0'}checked="select"{/if} name="option[regtype]" value="0" />Email邮箱
-
-    <input type="radio" {if $strOption['regtype']=='1'}checked="select"{/if} name="option[regtype]" value="1" />手机号
-
-    <input type="radio" {if $strOption['regtype']=='2'}checked="select"{/if} name="option[regtype]" value="2" />Email邮箱+手机号
-
-    <small class="text-danger">(手机号注册需要先安装手机号注册功能)</small>
-
+<tr><td>用户注册 :</td><td>
+    <input type="radio" {if $strOption[isinvite]=='0'}checked="select"{/if} name="option[isinvite]" value="0" />开放注册 
+    <input type="radio" {if $strOption[isinvite]=='1'}checked="select"{/if} name="option[isinvite]" value="1" />邀请注册
+    <input type="radio" {if $strOption[isinvite]=='2'}checked="select"{/if} name="option[isinvite]" value="2" />关闭注册
 </td></tr>
 
 
-<tr><td>是否验证Email :</td><td><input type="radio" {if $strOption[isverify]=='0'}checked="select"{/if} name="option[isverify]" value="0" />不验证Email <input type="radio" {if $strOption[isverify]=='1'}checked="select"{/if} name="option[isverify]" value="1" />验证Email</td></tr>
+<tr><td>注册方式 :</td><td>
+    <input type="radio" {if $strOption['regtype']=='0'}checked="select"{/if} name="option[regtype]" value="0" />Email邮箱
+    <input type="radio" {if $strOption['regtype']=='1'}checked="select"{/if} name="option[regtype]" value="1" />手机号
+    <input type="radio" {if $strOption['regtype']=='2'}checked="select"{/if} name="option[regtype]" value="2" />Email邮箱+手机号
+    <small class="text-danger">(手机号注册需要先安装手机号注册功能)</small>
+</td></tr>
+
+
+<tr><td>是否验证Email :</td><td>
+    <input type="radio" {if $strOption[isverify]=='0'}checked="select"{/if} name="option[isverify]" value="0" />不验证Email 
+    <input type="radio" {if $strOption[isverify]=='1'}checked="select"{/if} name="option[isverify]" value="1" />验证Email
+</td></tr>
 
 
 <tr><td>是否验证手机号 :</td><td>

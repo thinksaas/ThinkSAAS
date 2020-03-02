@@ -28,9 +28,16 @@ switch($ts){
             $new ['article']->delete ( 'article', array (
                 'articleid' => $articleid
             ) );
-            $new ['article']->delete ( 'article_comment', array (
-                'articleid' => $articleid
-            ) );
+
+
+            #删除评论
+            $new ['article']->delete ( 'comment', array (
+                'ptable'=>'article',
+                'pkey'=>'articleid',
+                'pid'=>$articleid,
+            ));
+
+
             $new ['article']->delete ( 'article_recommend', array (
                 'articleid' => $articleid
             ) );

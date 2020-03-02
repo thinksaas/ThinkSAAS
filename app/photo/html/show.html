@@ -50,7 +50,7 @@
     {if $nowPage < $conutPage}
 	<a title="点击查看下一张" href="{tsUrl('photo','show',array('id'=>$next))}" class="mainphoto">
 {/if}
-        <img src="{php echo tsXimg($strPhoto['photourl'],'photo',640,'',$strPhoto['path'])}" alt="{$strAlbum['albumname']}{$strPhoto['photoname']}" title="{$strAlbum['albumname']}{$strPhoto['photoname']}" />
+        <img src="{php echo tsXimg($strPhoto['photourl'],'photo',640,'',$strPhoto['path'])}" alt="{$strAlbum['albumname']}{$strPhoto['title']}" title="{$strAlbum['albumname']}{$strPhoto['title']}" />
 	{if $nowPage < $conutPage}
    </a>
    {/if}
@@ -58,7 +58,7 @@
 
 
 <div class="tac pd100">
-{$strPhoto[photoname]}  {$strPhoto[photodesc]}
+{$strPhoto[title]}  {$strPhoto[photodesc]}
 
 </div>
 
@@ -94,69 +94,57 @@
 
 
 
+<div class="card">
+    <div class="card-header">评论{if $strPhoto['count_comment']} <small class="text-secondary">({$strPhoto['count_comment']})</small>{/if}</div>
+    <div class="card-body">
 
 
-    <div class="card">
-        <div class="card-header">用户评论</div>
-        <div class="card-body">
 
-    <div id="comments">
 
-        <table class="wr" id="c-80243627">
-            <tbody>
-
-            {loop $arrComment $key $item}
-            <tr><td width="75" valign="top"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img src="{$item[user][face]}" width="48" height="48" class="rounded-circle"></a>
-            </td>
-                <td valign="top">
-<span class="wrap">
-<h4>{php echo date('Y-m-d H:i:s',$item[addtime])}: <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a></h4>
-</span>{$item[content]}<br>
-                    <div class="align-right">
-
-                        {if intval($TS_USER[isadmin]) == 1 || $strPhoto[userid]==$TS_USER[userid]}
-                        <span class="gact">&gt; <a class="j a_confirm_link" href="{SITE_URL}index.php?app=photo&ac=do&ts=delcomment&commentid={$item[commentid]}">删除</a></span>
-                        {/if}
-
-                    </div>
-                </td></tr>
-            {/loop}
-            </tbody>
-
-        </table>
+        <!--评论列表-->
+        {php include pubTemplate("comment")}
 
 
 
 
 
-
-            {if intval($TS_USER[userid]) > 0}
-            <form method="POST" action="{SITE_URL}index.php?app=photo&ac=do&ts=comment_do">
-                <textarea class="form-control" name="content"></textarea>
-                <div class="tar">
-<br />
-                    <input type="hidden" value="{$strPhoto[photoid]}" name="photoid">
-                    <button class="btn btn-sm btn-info" type="submit">评论</button>
-
+        <div class="commentform">
+            
+            {if intval($TS_USER[userid])==0}
+                <div class="tac pd20 fw300">
+                    <a href="{tsUrl('user','login')}">登录</a> | <a href="{tsUrl('user','register')}">注册</a>
                 </div>
+                {else}
 
-            </form>
-            {else}
+                <form id="comm-form" method="post" action="{SITE_URL}index.php?app=pubs&ac=comment&ts=do">
+                    <div >
+                        <textarea id="tseditor" name="content"></textarea>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            {if $TS_SITE['isauthcode']}
+                            <input class="form-control form-control-sm w-auto float-left" name="authcode" placeholder="输入验证码" />
+                            <img class="mt-1 ml-1" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
+                            {/if}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mt-1">是否公开：<input type="radio" name="ispublic" value="0" checked />公开 <input type="radio" name="ispublic" value="1" />不公开</div>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <input type="hidden" name="ptable" value="photo">
+                            <input type="hidden" name="pkey" value="photoid">
+                            <input type="hidden" name="pid" value="{$strPhoto['photoid']}" />
+                            <input type="hidden" name="token" value="{$_SESSION['token']}" />
+                            <button class="btn btn-sm btn-info btn-block" type="submit">提交评论</button>
+                        </div>
+                    </div>
+                </form>
+                {/if}
 
-
-
-        <hr />
-
-        <div class="text-center text-black-50">请登录后再评论哦^_^</div>
-
-
-            {/if}
-
+        </div>
 
     </div>
-    </div>
-    </div>
-
+</div>
 
 
 
@@ -182,5 +170,5 @@
 </div>
 
 </div>
-
+{php doAction('tseditor','mini')}
 {php include pubTemplate("footer")}

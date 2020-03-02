@@ -1980,38 +1980,6 @@ function ludou_width_height($content) {
 }
 
 /**
- * DZ在线中文分词
- * @param $title string 进行分词的标题
- * @param $content string 进行分词的内容
- * @param $encode string API返回的数据编码
- * @return  array 得到的关键词数组
- */
-function dz_segment($title = '', $content = '', $encode = 'utf-8') {
-	if ($title == '') {
-		return false;
-	}
-	$title = rawurlencode(strip_tags($title));
-	$content = strip_tags($content);
-	if (strlen($content) > 2400) {//在线分词服务有长度限制
-		$content = mb_substr($content, 0, 800, $encode);
-	}
-	$content = rawurlencode($content);
-	$url = 'http://keyword.discuz.com/related_kw.html?title=' . $title . '&content=' . $content . '&ics=' . $encode . '&ocs=' . $encode;
-	$xml_array = simplexml_load_file($url);
-	//将XML中的数据,读取到数组对象中
-	$result = $xml_array -> keyword -> result;
-	$data = array();
-	foreach ($result->item as $key => $value) {
-		array_push($data, (string)$value -> kw);
-	}
-	if (count($data) > 0) {
-		return $data;
-	} else {
-		return false;
-	}
-}
-
-/**
  * Convert BR tags to nl
  *
  * @param string The string to convert
@@ -2208,39 +2176,6 @@ function array2string($data, $isformdata = 1) {
 	return serialize ( $data );
 }
 
-/**
- * 浏览器友好的变量输出
- * @param mixed $var 变量
- * @param boolean $echo 是否输出 默认为True 如果为false 则返回输出字符串
- * @param string $label 标签 默认为空
- * @param boolean $strict 是否严谨 默认为true
- * @return void|string
- */
-function dump($var, $echo = true, $label = null, $strict = true) {
-	$label = ($label === null) ? '' : rtrim ( $label ) . ' ';
-	if (! $strict) {
-		if (ini_get ( 'html_errors' )) {
-			$output = print_r ( $var, true );
-			$output = '<pre>' . $label . htmlspecialchars ( $output, ENT_QUOTES ) . '</pre>';
-		} else {
-			$output = $label . print_r ( $var, true );
-		}
-	} else {
-		ob_start ();
-		var_dump ( $var );
-		$output = ob_get_clean ();
-		if (! extension_loaded ( 'xdebug' )) {
-			$output = preg_replace ( '/\]\=\>\n(\s+)/m', '] => ', $output );
-			$output = '<pre>' . $label . htmlspecialchars ( $output, ENT_QUOTES ) . '</pre>';
-		}
-	}
-	if ($echo) {
-		echo ($output);
-		return null;
-	} else
-		return $output;
-}
-
 
 /**
  * 返回404提示
@@ -2404,6 +2339,22 @@ function cleanContentImgWH($content){
     $content =  preg_replace($search1,'$1$3',$content);
     $content =  preg_replace($style,'$1$3',$content);
     return $content;
+}
+
+
+/**
+ * 将正文转换成手机端支持的html正文
+ *
+ * @param [type] $html
+ * @return void
+ */
+function mobileHtml($html){
+	$html = strip_tags($html,'<div><p><img><br>');
+	$html = preg_replace( '/(<div.*?)(style=.+?[\'|"])|((width)=[\'"]+[0-9]+[\'"]+)|((height)=[\'"]+[0-9]+[\'"]+)/i', '$1' , $html);
+	$html = preg_replace( '/(<p.*?)(style=.+?[\'|"])|((width)=[\'"]+[0-9]+[\'"]+)|((height)=[\'"]+[0-9]+[\'"]+)/i', '$1' , $html);
+	$html = preg_replace( '/(<img.*?)(style=.+?[\'|"])|((width)=[\'"]+[0-9]+[\'"]+)|((height)=[\'"]+[0-9]+[\'"]+)/i', '$1' , $html);
+	$html = str_replace('<img ','<img style="max-width:100%;height:auto" ',$html);
+	return $html;
 }
 
 
@@ -2631,6 +2582,29 @@ function getAppOptions($app){
         $strOption = $GLOBALS['tsMySqlCache']->get($app.'_options');
     }
     return $strOption;
+}
+
+/**
+ * 获取
+ *
+ * @param [type] $ptable
+ * @param [type] $pid
+ * @return void
+ */
+function getProjectUrl($ptable,$pid){
+	$arrProjectUrl = array(
+		'group_topic'=>tsUrl('group','topic',array('id'=>$pid)),//帖子
+		'article'=>tsUrl('article','show',array('id'=>$pid)),//文章
+		'photo'=>tsUrl('photo','show',array('id'=>$pid)),//图片
+		'weibo'=>tsUrl('weibo','show',array('id'=>$pid)),//唠叨
+		'video'=>tsUrl('video','show',array('id'=>$pid)),//视频
+		'audio'=>tsUrl('audio','show',array('id'=>$pid)),//音频
+		'event'=>tsUrl('event','show',array('id'=>$pid)),//活动
+		'vote'=>tsUrl('vote','show',array('id'=>$pid)),//投票
+		'study_lesson'=>tsUrl('study','lesson',array('id'=>$pid)),//课时
+		'shop_goods'=>tsUrl('shop','goods',array('id'=>$pid)),//商品
+	);
+	return $arrProjectUrl[$ptable];
 }
 
 

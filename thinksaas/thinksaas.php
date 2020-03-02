@@ -188,6 +188,11 @@ if ($TS_CF['logs']) {
     userlog($_GET, intval($TS_USER['userid']));
 }
 
+//控制前台ADMIN访问权限
+if ($TS_URL['ac'] == 'admin' && $TS_USER['isadmin'] != 1 && $TS_URL['app'] != 'system') {
+    tsHeaderUrl(SITE_URL);
+}
+
 //API逻辑单独处理
 if($app!='api'){
 
@@ -225,11 +230,6 @@ if($app!='api'){
             tsHeaderUrl(tsUrl('pubs','home'));
         }
         */
-    }
-
-    //控制前台ADMIN访问权限
-    if ($TS_URL['ac'] == 'admin' && $TS_USER['isadmin'] != 1 && $TS_URL['app'] != 'system') {
-        tsHeaderUrl(SITE_URL);
     }
 
     //控制后台访问权限

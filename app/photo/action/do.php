@@ -24,6 +24,16 @@ switch($ts){
 			$new['photo']->delete('photo',array(
 				'photoid'=>$photoid,
 			));
+
+
+			#删除评论
+            $new ['photo']->delete ( 'comment', array (
+                'ptable'=>'photo',
+                'pkey'=>'photoid',
+                'pid'=>$photoid,
+            ));
+
+
 			
 			$count_photo = $new['photo']->findCount('photo',array(
 				'albumid'=>$albumid,
@@ -45,67 +55,5 @@ switch($ts){
 		}
 		
 		break;
-	
-	//添加评论
-	case "comment_do":
-	
-		//用户是否登录
-		$userid = aac('user')->isLogin();
-	
-		$photoid = intval($_POST['photoid']);
-		$content = trim($_POST['content']);
 
-		if($content==''){
-		    tsNotice('评论内容不能为空！');
-        }
-		
-		if($TS_USER['isadmin']==0){
-			//过滤内容开始
-			aac('system')->antiWord($content);
-			//过滤内容结束
-		}
-		
-		$commentid = $new['photo']->create('photo_comment',array(
-			'photoid'=> $photoid,
-			'userid'=> $userid,
-			'content'=> $content,
-			'addtime'=> time(),
-		));
-		
-		header("Location: ".tsUrl('photo','show',array('id'=>$photoid)));
-
-		break;
-		
-	//删除评论
-	case "delcomment":
-	
-		//用户是否登录
-		$userid = aac('user')->isLogin();
-	
-		$commentid = intval($_GET['commentid']);
-		
-		$strComment = $new['photo']->find('photo_comment',array(
-			'commentid'=>$commentid,
-		));
-		
-		$strPhoto = $new['photo']->find('photo',array(
-		
-			'photoid'=>$strComment['photoid'],
-		
-		));
-
-		
-		if($userid == $strPhoto['userid'] || $TS_USER['isadmin']=='1'){
-			
-			$new['photo']->delete('photo_comment',array(
-				'commentid'=>$commentid,
-			));
-			
-			tsNotice("删除评论成功！");
-			
-		}else{
-			tsNotice("非法操作！");
-		}
-	
-		break;
 }

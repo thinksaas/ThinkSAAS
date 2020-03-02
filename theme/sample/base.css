@@ -290,10 +290,10 @@ margin-top: 20px;
 
 .comment li .reply-doc .recomment {
 	background: #f8f8f8;
-	border: 1px dashed #ddd;
 	color: #666;
 	font-size: 12px;
-	padding: 10px
+	padding: 10px;
+	border-top:1px solid #EEEEEE;
 }
 
 .comment li .group_banned {
