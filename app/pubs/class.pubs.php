@@ -285,6 +285,34 @@ class pubs extends tsApp{
     }
 
     /**
+     * 删除点赞
+     *
+     * @param [type] $ptable
+     * @param [type] $pkey
+     * @param [type] $pid
+     * @param integer $userid
+     * @return void
+     */
+    public function delLove($ptable,$pkey,$pid,$userid=0){
+        if($userid){
+            $this->delete('love',array(
+                'ptable'=>$ptable,
+                'pkey'=>$pkey,
+                'pid'=>$pid,
+                'userid'=>$userid,
+            ));
+        }else{
+            $this->delete('love',array(
+                'ptable'=>$ptable,
+                'pkey'=>$pkey,
+                'pid'=>$pid,
+            ));
+        }
+        
+        return true;
+    }
+
+    /**
      * 添加项目数据到ts_group_topic表
      *
      * @param [type] $ptable
@@ -335,6 +363,67 @@ class pubs extends tsApp{
             'title'=>$title,
             'gaiyao'=>$gaiyao,
         ));
+    }
+
+    /**
+     * 更新项目浏览数到ts_group_topic表
+     *
+     * @param [type] $ptable
+     * @param [type] $pkey
+     * @param [type] $pid
+     * @param [type] $count_view
+     * @return void
+     */
+    public function upPtableView($ptable,$pkey,$pid,$count_view){
+        $this->update('group_topic',array(
+            'ptable'=>$ptable,
+            'pkey'=>$pkey,
+            'pid'=>$pid,
+        ),array(
+            'count_view'=>$count_view,
+        ));
+    }
+
+    /**
+     * 更新项目评论数到ts_group_topic表
+     *
+     * @param [type] $ptable
+     * @param [type] $pkey
+     * @param [type] $pid
+     * @param [type] $count_comment
+     * @return void
+     */
+    public function upPtableComment($ptable,$pkey,$pid,$count_comment){
+        if($ptable!='group_topic'){
+            $this->update('group_topic',array(
+                'ptable'=>$ptable,
+                'pkey'=>$pkey,
+                'pid'=>$pid,
+            ),array(
+                'count_comment'=>$count_comment,
+            ));
+        }
+    }
+
+    /**
+     *  更新项目点赞数到ts_group_topic表
+     *
+     * @param [type] $ptable
+     * @param [type] $pkey
+     * @param [type] $pid
+     * @param [type] $count_love
+     * @return void
+     */
+    public function upPtableLove($ptable,$pkey,$pid,$count_love){
+        if($ptable!='group_topic'){
+            $this->update('group_topic',array(
+                'ptable'=>$ptable,
+                'pkey'=>$pkey,
+                'pid'=>$pid,
+            ),array(
+                'count_love'=>$count_love,
+            ));
+        }
     }
 
     /**

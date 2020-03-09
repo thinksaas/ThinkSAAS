@@ -13,13 +13,8 @@ switch ($ts) {
 		if($TS_SITE['isallowdelete'] && $TS_USER ['isadmin'] == 0) tsNotice('系统不允许用户删除内容，请联系管理员删除！');
 		
 		$topicid = intval($_GET['topicid']);
-		
-		$strTopic = $new['group']->find('group_topic',array('topicid'=>$topicid));
-		
-		$groupid = $strTopic['groupid'];
-		
-		$strGroup = $new['group']->find('group',array('groupid'=>$groupid));
-		
+		$strTopic = $new['group']->getOneTopic($topicid);
+		$strGroup = $new['group']->getOneGroup($strTopic['groupid']);
 		$strGroupUser = $new['group']->find('group_user',array(
 			'userid'=>$userid,
 			'groupid'=>$groupid,
@@ -27,11 +22,8 @@ switch ($ts) {
 		
 		//系统管理员删除
 		if($TS_USER['isadmin'] == '1'){
-			$new['group']->delTopic($topicid,$groupid);
-			
-			header('Location: '.tsUrl('group'));
-			exit;
-			
+			$new['group']->deleteTopic($strTopic);
+			tsNotice('帖子删除成功！','点击返回小组首页',tsUrl('group'));
 		}
 		
 		//其他人员删除
@@ -43,50 +35,15 @@ switch ($ts) {
 				'isdelete'=>1,
 			));
 
-
 			//处理积分
             aac('user')->doScore($GLOBALS['TS_URL']['app'],$GLOBALS['TS_URL']['ac'],$GLOBALS['TS_URL']['ts'],$strTopic['userid']);
 
-			
 			tsNotice('你的删除帖子申请已经提交！');
 			
 		}
 		
 		break;
 		
-	//收藏帖子
-	case "topic_collect":
-		
-		$topicid = intval($_POST['topicid']);
-		
-		$strTopic = $db->once_fetch_assoc("select * from ".dbprefix."group_topic where topicid='".$topicid."'");
-		
-		$collectNum = $db->once_num_rows("select * from ".dbprefix."group_topic_collect where userid='$userid' and topicid='$topicid'");
-		
-		if($userid == '0'){
-			echo 0;
-		}elseif($userid == $strTopic['userid']){
-			echo 1;
-		}elseif($collectNum > 0){
-			echo 2;
-		}else{
-			
-			$new['group']->create('group_topic_collect',array(
-				'userid'=>$userid,
-				'topicid'=>$topicid,
-				'addtime'=>time(),
-			));
-			
-			$new['group']->update('group_topic',array(
-				'topicid'=>$topicid,
-			),array(
-				'count_love'=>$strTopic['count_love']+1,
-			));
-			
-			echo 3;
-		}
-		
-		break;
 
 	//置顶帖子
 	case "topic_istop":

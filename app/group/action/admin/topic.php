@@ -51,13 +51,14 @@ switch($ts){
 		include template("admin/topic_list");
 		
 		break;
-		
+	
+	/**
+	 * 删除帖子
+	 */
 	case "delete":
 		$topicid = intval($_GET['topicid']);
-		$groupid = intval($_GET['groupid']);
-
-		$new['group']->delTopic($topicid,$groupid);
-
+		$strTopic = $new['group']->getOneTopic($topicid);
+		$new['group']->deleteTopic($strTopic);
 		qiMsg('删除成功');
 		break;
 	

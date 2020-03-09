@@ -1,7 +1,7 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-class user extends tsApp{
+class user extends tsApp {
 
 	//构造函数
 	public function __construct($db){
@@ -222,7 +222,7 @@ class user extends tsApp{
 	}
 	
 	//获取活跃会员
-	function getHotUser($num){
+	public function getHotUser($num){
         $arrUser = $this->findAll('user_info',null,'uptime desc','userid,username,face,path,addtime,uptime',$num);
         foreach($arrUser as $key=>$item){
             $arrUser[$key]['face'] = $this->getUserFace($item);
@@ -467,35 +467,27 @@ class user extends tsApp{
 			
 		}
 		
-	}
+    }
 	
-	//清空用户的一切数据
+	//删除用户一切数据
 	function toEmpty($userid){
 	
 		$strUser = $this->find('user_info',array(
 			'userid'=>$userid,
-		));
+		),'userid,email,phone,face');
 		
-		//是否存在Email
-		$isEmail = $this->findCount('anti_email',array(
-			'email'=>$strUser['email'],
-		));
-		if($strUser['email'] && $isEmail==0){
-			$this->create('anti_email',array(
-				'email'=>$strUser['email'],
-				'addtime'=>date('Y-m-d H:i:s'),
-			));
-		}
-		
-		//article
-		$this->delete('article',array('userid'=>$userid));
-		$this->delete('article_recommend',array('userid'=>$userid));
-		
-		//attach
-		$this->delete('attach',array('userid'=>$userid));
-		$this->delete('attach_album',array('userid'=>$userid));
-		
-		//user
+		#禁用用户Email账号
+        $this->replace('anti_email',array(
+            'email'=>$strUser['email'],
+        ),array(
+            'email'=>$strUser['email'],
+			'addtime'=>date('Y-m-d H:i:s'),
+        ));
+
+        #禁用用户手机号
+
+        #用户相关数据
+        unlink('uploadfile/user/'.$strUser['face']);
 		$this->delete('user',array('userid'=>$userid));
 		$this->delete('user_info',array('userid'=>$userid));
 		$this->delete('user_follow',array('userid'=>$userid));
@@ -503,16 +495,36 @@ class user extends tsApp{
 		$this->delete('user_gb',array('userid'=>$userid));
 		$this->delete('user_gb',array('touserid'=>$userid));
 		$this->delete('user_open',array('userid'=>$userid));
-		$this->delete('user_scores',array('userid'=>$userid));
 		$this->delete('user_score_log',array('userid'=>$userid));
 		
-		//group
-		$this->delete('group',array('userid'=>$userid,));
-		$this->delete('group_album',array('userid'=>$userid,));
+        #文章
+        $arrArticle = $this->findAll('article',array(
+            'userid'=>$userid,
+        ));
+        foreach($arrArticle as $key=>$item){
+            aac('article')->deleteArticle($item);
+        }
+        $this->delete('article_user',array('userid'=>$userid));
+
+        #草稿箱
+        $this->delete('draft',array('userid'=>$userid));
+
+        #编辑器上传的文件
+        $arrEditor = $this->findAll('editor',array(
+            'userid'=>$userid,
+        ));
+        foreach($arrEditor as $key=>$item){
+            unlink('uploadfile/editor/'.$item['url']);
+        }
+        $this->delete('editor',array('userid'=>$userid));
+
+        #小组
 		$this->delete('group_topic',array('userid'=>$userid));
 		$this->delete('group_user',array('userid'=>$userid));
-		$this->delete('group_topic_collect',array('userid'=>$userid));
-	
+		
+		//attach
+		$this->delete('attach',array('userid'=>$userid));
+		$this->delete('attach_album',array('userid'=>$userid));
 		
 		//message
 		$this->delete('message',array('userid'=>$userid));
@@ -528,22 +540,19 @@ class user extends tsApp{
 		//weibo
 		$this->delete('weibo',array('userid'=>$userid));
 		
-		//活动event
+		//活动ts_event
 		$this->delete('event',array('userid'=>$userid));
-		$this->delete('event_comment',array('userid'=>$userid));
 		$this->delete('event_users',array('userid'=>$userid));
 		
-		//问答ask
+        //问答ts_ask
+        $this->delete('ask',array('userid'=>$userid));
 		$this->delete('ask_comment',array('userid'=>$userid));
-		$this->delete('ask_comment_add',array('userid'=>$userid));
 		$this->delete('ask_comment_op',array('userid'=>$userid));
-		$this->delete('ask_question_add',array('userid'=>$userid));
-		$this->delete('ask_topic',array('userid'=>$userid));
-		$this->delete('ask_user_cate',array('userid'=>$userid));
-        $this->delete('ask_user_score',array('userid'=>$userid));
         
-        #删除评论
+        #删除评论ts_comment
         $this->delete('comment',array('userid'=>$userid));
+        #删除点赞ts_love
+        $this->delete('love',array('userid'=>$userid));
 		
 	}
 	

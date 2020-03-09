@@ -122,10 +122,17 @@ switch ($ts) {
 			) );
 
             #生成不同尺寸的图片
-			tsDimg ($arrUpload ['url'], 'article', '640', '360', $arrUpload ['path']);
-            tsXimg($arrUpload['url'],'article',640,360,$arrUpload['path'],1);
+			tsDimg ($arrUpload ['url'], 'article', '320', '180', $arrUpload ['path']);
+			
+			$pjson = json_encode(array(
+				tsXimg($arrUpload['url'],'article',320,180,$arrUpload['path'],1)
+			));
 
 		}
+
+		#更新ptable
+		aac('pubs')->editPtable('article','articleid',$articleid,$pjson,$title,$gaiyao);
+
 		
 		header ("Location: " . tsUrl ( 'article', 'show', array ('id' => $articleid)));
 		

@@ -106,26 +106,41 @@ class group extends tsApp{
         }
     }
 
-
-
-
-    //删除帖子
-    public function delTopic($topicid,$groupid){
-
-        $this->delete('group_topic',array('topicid'=>$topicid));
-        $this->delete('tag_topic_index',array('topicid'=>$topicid));
-        $this->delete('group_topic_collect',array('topicid'=>$topicid));
-
-        #删除评论
-        $this->delete('comment',array(
-            'ptable'=>'group_topic',
-            'pkey'=>'topicid',
-            'pid'=>$topicid,
-        ));
-
-        #删除ts_group_topic_photo
-        $arrPhoto = $this->findAll('group_topic_photo',array(
+    /**
+     * 获取一条帖子信息
+     *
+     * @param [type] $topicid
+     * @return void
+     */
+    public function getOneTopic($topicid){
+        $strTopic = $this->find('group_topic',array(
             'topicid'=>$topicid,
+        ));
+        return $strTopic;
+    }
+
+    /**
+     * 删除帖子
+     *
+     * @param array $strTopic
+     * @return void
+     */
+    public function deleteTopic($strTopic=array()){
+
+        $this->delete('group_topic',array('topicid'=>$strTopic['topicid']));
+        $this->delete('tag_topic_index',array('topicid'=>$strTopic['topicid']));
+        
+
+        #删除评论ts_comment
+        aac('pubs')->delComment('group_topic','topicid',$strTopic['topicid']);
+
+        #删除点赞ts_love
+        aac('pubs')->delLove('group_topic','topicid',$strTopic['topicid']);
+
+
+        #删除图片ts_group_topic_photo
+        $arrPhoto = $this->findAll('group_topic_photo',array(
+            'topicid'=>$strTopic['topicid'],
         ));
 
         if($arrPhoto){
@@ -134,34 +149,13 @@ class group extends tsApp{
                 tsDimg($item['photo'],'group/topic/photo','320','320',$item['path'],1);
                 tsDimg($item['photo'],'group/topic/photo','640','',$item['path']);
             }
-            $this->delete('group_topic_photo',array('topicid'=>$topicid));
+            $this->delete('group_topic_photo',array('topicid'=>$strTopic['topicid']));
         }
 
-        $this->countTopic($groupid);
+        $this->countTopic($strTopic['groupid']);
 
         return true;
 
-    }
-
-    //推荐喜欢的帖子
-    public function loveTopic($topicId,$userNum){
-        $strLike['num'] = $this->findCount('group_topic_collect',array(
-            'topicid'=>$topicId,
-        ));
-
-        $strLike['topic']=$this->find('group_topic',array(
-            'topicid'=>$topicId,
-        ));
-
-        $likeUsers = $this->findAll('group_topic_collect',array(
-            'topicid'=>$topicId,
-        ),'addtime desc',null,$userNum);
-
-        foreach($likeUsers as $key=>$item){
-            $strLike['user'][]=aac('user')->getSimpleUser($item['userid']);
-        }
-
-        return $strLike;
     }
 
     /*

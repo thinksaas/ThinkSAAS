@@ -7,3 +7,4 @@
 .htaccess
 .DS_Store
 composer.lock
+upgrade.sql

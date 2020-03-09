@@ -92,12 +92,13 @@ class weiboAdmin extends weibo{
             'weiboid'=>$weiboid,
         ));
 
-        #删除评论
-			$this->delete('comment',array(
-                'ptable'=>'weibo',
-                'pkey'=>'weiboid',
-				'pid'=>$weiboid,
-			));
+        
+        #删除评论ts_comment
+        aac('pubs')->delComment('weibo','weiboid',$strWeibo['weiboid']);
+
+        #删除点赞ts_love
+        aac('pubs')->delLove('weibo','weiboid',$strWeibo['weiboid']);
+
 
         qiMsg('删除成功！');
     }

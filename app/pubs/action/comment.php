@@ -74,13 +74,16 @@ switch($ts){
                 'pid'=>$pid,
 			));
 			
-			//更新帖子最后回应时间和评论数			
+			//更新项目最后回应时间和评论数			
 			$new['pubs']->update($ptable,array(
 				$pkey=>$pid,
 			),array(
 				'count_comment'=>$count_comment,
 				'uptime'=>time(),
-			));
+            ));
+            
+            #更新ptable评论数
+            aac('pubs')->upPtableComment($ptable,$pkey,$pid,$count_comment);
 			
 			//发送系统消息(通知楼主有人回复他的帖子啦)			
 			$strProject = $new['pubs']->find($ptable,array(

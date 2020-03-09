@@ -1,5 +1,4 @@
 <?php 
-
 defined('IN_TS') or die('Access Denied.');
 
 $userid = aac('user')->isLogin();
@@ -61,9 +60,16 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 			
 		//删除审核
 		case "delete":
+
 			$topicid = intval($_GET['topicid']);
+
+			$strTopic = $new['group']->getOneTopic($topicid);
+
+			if($strGroup['groupid']!=$groupid){
+				tsNotice('非法操作！');
+			}
 			
-			$new['group']->delTopic($topicid,$groupid);
+			$new['group']->deleteTopic($strTopic);
 			
 			//统计需要审核的帖子
 			$count_topic_audit = $new['group']->findCount('group_topic',array(
@@ -82,8 +88,6 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 				'count_topic'=>$count_topic,
 				'count_topic_audit'=>$count_topic_audit,
 			));
-			
-			tsNotice('审核成功！');
 			
 			tsNotice('删除成功！');
 			

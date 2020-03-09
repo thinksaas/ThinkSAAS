@@ -111,8 +111,12 @@ $title = $strArticle ['title'];
 include template ( 'show' );
 
 // 统计查看次数
-$new ['article']->update ( 'article', array (
-		'articleid' => $strArticle ['articleid'] 
+$count_view = $strArticle ['count_view'] + 1;
+$new ['article']->update ('article', array(
+	'articleid' => $strArticle ['articleid'] 
 ), array (
-		'count_view' => $strArticle ['count_view'] + 1 
-) );
+	'count_view' => $count_view, 
+));
+
+#更新ptable
+aac('pubs')->upPtableView('article','articleid',$articleid,$count_view);

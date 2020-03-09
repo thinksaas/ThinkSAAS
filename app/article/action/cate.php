@@ -59,7 +59,7 @@ $page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : 1;
 $url = tsUrl ( 'article', 'cate', array ('id' => $cateid, 'page' => ''));
 $lstart = $page * 10 - 10;
 
-$arrArticle = $new ['article']->findAll ( 'article',$where, 'addtime desc', 'articleid,userid,cateid,title,gaiyao,score,path,photo,count_comment,count_recommend,count_view,addtime', $lstart . ',10' );
+$arrArticle = $new ['article']->findAll ( 'article',$where, 'addtime desc', 'articleid,userid,cateid,title,gaiyao,score,path,photo,count_comment,count_love,count_view,addtime', $lstart . ',10' );
 
 $articleNum = $new ['article']->findCount ( 'article',$where);
 

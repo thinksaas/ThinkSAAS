@@ -112,7 +112,7 @@ switch ($ts) {
 
 			#生成不同尺寸的图片
             tsXimg($arrUpload['url'],'article',320,180,$arrUpload['path'],'1');
-            tsXimg($arrUpload['url'],'article',640,'',$arrUpload['path']);
+            //tsXimg($arrUpload['url'],'article',640,'',$arrUpload['path']);
 
 
 		}

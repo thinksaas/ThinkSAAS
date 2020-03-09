@@ -9,7 +9,7 @@ $lstart = $page * 20 - 20;
 
 $arrArticle = $new ['user']->findAll ( 'article', array (
     'userid' => $strUser['userid'],
-), 'addtime desc','articleid,userid,cateid,title,gaiyao,score,path,photo,count_comment,count_recommend,count_view,addtime', $lstart . ',20' );
+), 'addtime desc','articleid,userid,cateid,title,gaiyao,score,path,photo,count_comment,count_love,count_view,addtime', $lstart . ',20' );
 
 foreach($arrArticle as $key=>$item){
     $arrArticle [$key]['title'] = tsTitle($item['title']);

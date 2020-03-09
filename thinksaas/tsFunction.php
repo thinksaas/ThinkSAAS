@@ -8,12 +8,11 @@ defined('IN_TS') or die('Access Denied.');
  * @TIME:2010-12-18
  */
 use Intervention\Image\ImageManagerStatic as Image;
-
 /**
  * 加载某一APP类
  * AutoAppClass
  * @app APP名称
- * @
+ * 
  * @param $app
  * @return bool
  */

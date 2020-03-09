@@ -1,3 +1,10 @@
+-- --------------------------------------------------------
+-- 主机:                           42.51.39.186
+-- 服务器版本:                        5.5.57-log - Source distribution
+-- 服务器操作系统:                      Linux
+-- HeidiSQL 版本:                  10.3.0.5771
+-- --------------------------------------------------------
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
@@ -629,7 +636,7 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否审核',
   `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否推荐',
   `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '统计评论数',
-  `count_recommend` int(11) NOT NULL DEFAULT '0' COMMENT '统计推荐次数',
+  `count_love` int(11) NOT NULL DEFAULT '0' COMMENT '统计点赞喜欢',
   `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '统计查看',
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间',
   `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
@@ -638,7 +645,7 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   KEY `addtime` (`addtime`),
   KEY `cateid` (`cateid`),
   KEY `isrecommend` (`isrecommend`),
-  KEY `count_recommend` (`count_recommend`,`addtime`),
+  KEY `count_recommend` (`count_love`,`addtime`),
   KEY `title` (`title`),
   KEY `count_view` (`count_view`),
   KEY `count_view_2` (`count_view`,`addtime`),
@@ -665,21 +672,6 @@ CREATE TABLE IF NOT EXISTS `ts_article_cate` (
 DELETE FROM `ts_article_cate`;
 /*!40000 ALTER TABLE `ts_article_cate` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_article_cate` ENABLE KEYS */;
-
--- 导出  表 d_thinksaas.ts_article_recommend 结构
-DROP TABLE IF EXISTS `ts_article_recommend`;
-CREATE TABLE IF NOT EXISTS `ts_article_recommend` (
-  `articleid` int(11) NOT NULL DEFAULT '0' COMMENT '文章ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  UNIQUE KEY `articleid` (`articleid`,`userid`),
-  KEY `articleid_2` (`articleid`),
-  KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章推荐';
-
--- 正在导出表  d_thinksaas.ts_article_recommend 的数据：0 rows
-DELETE FROM `ts_article_recommend`;
-/*!40000 ALTER TABLE `ts_article_recommend` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_article_recommend` ENABLE KEYS */;
 
 -- 导出  表 d_thinksaas.ts_article_user 结构
 DROP TABLE IF EXISTS `ts_article_user`;
@@ -838,43 +830,6 @@ DELETE FROM `ts_group`;
 /*!40000 ALTER TABLE `ts_group` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group` ENABLE KEYS */;
 
--- 导出  表 d_thinksaas.ts_group_album 结构
-DROP TABLE IF EXISTS `ts_group_album`;
-CREATE TABLE IF NOT EXISTS `ts_group_album` (
-  `albumid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增专辑ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
-  `albumname` varchar(64) NOT NULL DEFAULT '' COMMENT '专辑名字',
-  `albumdesc` text NOT NULL COMMENT '专辑介绍',
-  `count_topic` int(11) NOT NULL DEFAULT '0' COMMENT '统计帖子',
-  `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '审核',
-  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
-  PRIMARY KEY (`albumid`),
-  KEY `userid` (`userid`),
-  KEY `count_topic` (`count_topic`),
-  KEY `addtime` (`addtime`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组帖子专辑';
-
--- 正在导出表  d_thinksaas.ts_group_album 的数据：0 rows
-DELETE FROM `ts_group_album`;
-/*!40000 ALTER TABLE `ts_group_album` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_group_album` ENABLE KEYS */;
-
--- 导出  表 d_thinksaas.ts_group_album_topic 结构
-DROP TABLE IF EXISTS `ts_group_album_topic`;
-CREATE TABLE IF NOT EXISTS `ts_group_album_topic` (
-  `albumid` int(11) NOT NULL DEFAULT '0' COMMENT '专辑ID',
-  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
-  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间',
-  UNIQUE KEY `albumid_2` (`albumid`,`topicid`),
-  KEY `albumid` (`albumid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组专辑帖子关联';
-
--- 正在导出表  d_thinksaas.ts_group_album_topic 的数据：0 rows
-DELETE FROM `ts_group_album_topic`;
-/*!40000 ALTER TABLE `ts_group_album_topic` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_group_album_topic` ENABLE KEYS */;
-
 -- 导出  表 d_thinksaas.ts_group_cate 结构
 DROP TABLE IF EXISTS `ts_group_cate`;
 CREATE TABLE IF NOT EXISTS `ts_group_cate` (
@@ -940,23 +895,6 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic` (
 DELETE FROM `ts_group_topic`;
 /*!40000 ALTER TABLE `ts_group_topic` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_topic` ENABLE KEYS */;
-
--- 导出  表 d_thinksaas.ts_group_topic_collect 结构
-DROP TABLE IF EXISTS `ts_group_topic_collect`;
-CREATE TABLE IF NOT EXISTS `ts_group_topic_collect` (
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `username` varchar(64) NOT NULL DEFAULT '' COMMENT '用户名',
-  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '收藏时间',
-  UNIQUE KEY `userid_2` (`userid`,`topicid`),
-  KEY `userid` (`userid`),
-  KEY `topicid` (`topicid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子收藏';
-
--- 正在导出表  d_thinksaas.ts_group_topic_collect 的数据：0 rows
-DELETE FROM `ts_group_topic_collect`;
-/*!40000 ALTER TABLE `ts_group_topic_collect` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_group_topic_collect` ENABLE KEYS */;
 
 -- 导出  表 d_thinksaas.ts_group_topic_edit 结构
 DROP TABLE IF EXISTS `ts_group_topic_edit`;
@@ -1099,6 +1037,23 @@ DELETE FROM `ts_location`;
 /*!40000 ALTER TABLE `ts_location` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_location` ENABLE KEYS */;
 
+-- 导出  表 d_thinksaas.ts_love 结构
+DROP TABLE IF EXISTS `ts_love`;
+CREATE TABLE IF NOT EXISTS `ts_love` (
+  `loveid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `ptable` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表名称',
+  `pkey` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段',
+  `pid` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段值',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`loveid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='点赞/喜欢表';
+
+-- 正在导出表  d_thinksaas.ts_love 的数据：~0 rows (大约)
+DELETE FROM `ts_love`;
+/*!40000 ALTER TABLE `ts_love` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_love` ENABLE KEYS */;
+
 -- 导出  表 d_thinksaas.ts_mail_options 结构
 DROP TABLE IF EXISTS `ts_mail_options`;
 CREATE TABLE IF NOT EXISTS `ts_mail_options` (
@@ -1174,6 +1129,7 @@ CREATE TABLE IF NOT EXISTS `ts_photo` (
   `photodesc` char(120) NOT NULL DEFAULT '' COMMENT '图片介绍',
   `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '统计浏览量',
   `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '统计评论数',
+  `count_love` int(11) NOT NULL DEFAULT '0' COMMENT '统计点赞喜欢数',
   `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不推荐1推荐',
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
   `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
@@ -1663,6 +1619,8 @@ CREATE TABLE IF NOT EXISTS `ts_weibo` (
   `locationid` int(11) NOT NULL DEFAULT '0' COMMENT '同城ID',
   `title` varchar(256) NOT NULL DEFAULT '' COMMENT '一句话内容',
   `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '统计评论数',
+  `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '统计阅读数',
+  `count_love` int(11) NOT NULL DEFAULT '0' COMMENT '统计点赞数',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
   `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片',
   `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否审核',
