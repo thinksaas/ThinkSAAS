@@ -1,7 +1,7 @@
 <?php
 defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 
-$articleid = intval ( $_GET ['id'] );
+$articleid = tsIntval($_GET ['id']);
 
 $strArticle = $new ['article']->find ( 'article', array (
 		'articleid' => $articleid 
@@ -53,7 +53,7 @@ if($strNext) $strNext['title'] = tsTitle($strNext['title']);
 
 
 // 获取评论
-$page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : 1;
+$page = tsIntval($_GET['page'],1);
 $url = tsUrl ('article','show', array ('id' => $articleid,'page'=>''));
 $lstart = $page * 15 - 15;
 $arrComment = aac('pubs')->getCommentList('article','articleid',$strArticle['articleid'],$page,$lstart,$strArticle['userid']);

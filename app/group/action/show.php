@@ -3,11 +3,9 @@ defined('IN_TS') or die('Access Denied.');
 
 //小组首页
 
-$groupid = intval($_GET['id']);
-
-$typeid = intval($_GET['typeid']);
-
-$isshow = intval($_GET['isshow']);
+$groupid = tsIntval($_GET['id']);
+$typeid = tsIntval($_GET['typeid']);
+$isshow = tsIntval($_GET['isshow']);
 
 //小组信息
 $strGroup = $new['group']->getOneGroup($groupid);
@@ -58,7 +56,7 @@ if($strGroup['isaudit']=='1'){
 	
 }else{
 
-	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+	$page = tsIntval($_GET['page'],1);
 	
 	$lstart = $page*30-30;
 

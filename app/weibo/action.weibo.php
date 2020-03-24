@@ -10,7 +10,7 @@ class weiboAction extends weibo{
 
         //dump($GLOBALS);
 
-        $page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+        $page = tsIntval($_GET['page'],1);
 
         $url = tsUrl('weibo','index',array('page'=>''));
 
@@ -79,7 +79,6 @@ class weiboAction extends weibo{
 
         $weiboid = $this->create('weibo',array(
             'userid'=>$userid,
-            'locationid'=>aac('user')->getLocationId($userid),
             'title'=>$title,
             'isaudit'=>$isaudit,
             'addtime'=>date('Y-m-d H:i:s'),
@@ -101,20 +100,17 @@ class weiboAction extends weibo{
 	 *展示唠叨内容
 	 */
     public function show(){
-        $weiboid = intval($_GET['id']);
-
+        $weiboid = tsIntval($_GET['id']);
         $strWeibo = $this->getOneWeibo($weiboid);
-
         if($weiboid==0 || $strWeibo==''){
             ts404();
         }
-
         if($strWeibo['isaudit']==1){
             tsNotice('内容审核中...');
         }
 
         //comment
-        $page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+        $page = tsIntval($_GET['page'],1);
         $url = tsUrl('weibo','show',array('id'=>$weiboid,'page'=>''));
         $lstart = $page*15-15;
         $arrComment = aac('pubs')->getCommentList('weibo','weiboid',$strWeibo['weiboid'],$page,$lstart,$strWeibo['userid']);

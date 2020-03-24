@@ -89,7 +89,6 @@ switch ($ts) {
 
         $articleid = $new['article'] -> create('article', array(
             'userid' => $userid,
-            'locationid' => aac('user') -> getLocationId($userid),
             'cateid' => $cateid,
             'title' => $title,
             'content' => $content,

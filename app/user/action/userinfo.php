@@ -1,6 +1,6 @@
 <?php 
-
-$userid = intval($_GET['id']);
+defined('IN_TS') or die('Access Denied.');
+$userid = tsIntval($_GET['id']);
 
 if($new['user']->isUser($userid)==false){
 

@@ -1,7 +1,7 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-$topicid = intval($_GET['id']);
+$topicid = tsIntval($_GET['id']);
 
 $strTopic = $new['group']->find('group_topic',array(
     'topicid'=>$topicid,
@@ -122,7 +122,7 @@ $title = $strTopic['title'].'_'.$strGroup['groupname'];
 
 
 // 评论列表开始
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$page = tsIntval($_GET['page'],1);
 $url = tsUrl('group', 'topic', array('id' => $topicid, 'page' => ''));
 $lstart = $page * 15-15;
 $arrComment = aac('pubs')->getCommentList('group_topic','topicid',$strTopic['topicid'],$page,$lstart,$strTopic['userid']);

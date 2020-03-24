@@ -1,7 +1,7 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-$photoid = intval($_GET['id']);
+$photoid = tsIntval($_GET['id']);
 
 $strPhoto = $new['photo']->find('photo',array(
 	'photoid'=>$photoid,
@@ -62,7 +62,7 @@ $userid = $strAlbum['userid'];
 $strUser = aac('user')->getSimpleUser($userid);
 
 //评论列表 
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$page = tsIntval($_GET['page'],1);
 $url = tsUrl('photo','show',array('id'=>$photoid,'page'=>''));
 $lstart = $page*15-15;
 $arrComment = aac('pubs')->getCommentList('photo','photoid',$strPhoto['photoid'],$page,$lstart,$strPhoto['userid']);

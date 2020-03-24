@@ -7,8 +7,8 @@ if($groupuserid==0){
 	echo 0;exit;
 }
 
-$groupid = intval($_POST['groupid']);
-$userid = intval($_POST['userid']);
+$groupid = tsIntval($_POST['groupid']);
+$userid = tsIntval($_POST['userid']);
 
 $strGroup = $new['group']->find('group',array(
 	'groupid'=>$groupid,

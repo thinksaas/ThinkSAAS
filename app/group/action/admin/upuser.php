@@ -1,5 +1,7 @@
 <?php
 defined('IN_TS') or die('Access Denied.'); 
+#凡是一切不符合自然规律逆天的功能都要彻底的被抛弃！
+exit();
 
 //将用户全部绑定到群组
 $groupid = intval($_GET['groupid']);

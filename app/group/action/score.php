@@ -11,7 +11,7 @@ switch ($ts){
 
     case "pay":
 
-        $userid = intval($TS_USER['userid']);
+        $userid = tsIntval($TS_USER['userid']);
 
         if($userid==0){
             getJson('请登录后再支付！',1,0);

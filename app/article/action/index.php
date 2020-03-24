@@ -4,7 +4,7 @@ defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 $cateid = 0;
 
 // 列表
-$page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : 1;
+$page = tsIntval($_GET['page'],1);
 $url = tsUrl ( 'article', 'index', array ('page' => '') );
 $lstart = $page * 10 - 10;
 

@@ -73,7 +73,6 @@ switch($ts){
 		$photoid = $new['photo']->create('photo',array(
 			'albumid'=>$strAlbum['albumid'],
 			'userid'=>$strAlbum['userid'],
-			'locationid'=>aac('user')->getLocationId($strAlbum['userid']),
 			'addtime'	=> date('Y-m-d H:i:s',$addtime),
 		));
 		

@@ -188,19 +188,18 @@ switch ($ts) {
 
 		
 		$topicid = $new ['group']->create ( 'group_topic', array (
-				'groupid' => $groupid,
-				'typeid' => $typeid,
-				'userid' => $userid,
-				'locationid'=>aac('user')->getLocationId($userid),
-				'title' => $title,
-				'content' => $content,
-				'gaiyao'=>$gaiyao,
-				'score'=>$score,
-				'iscomment' => $iscomment,
-				'iscommentshow' => $iscommentshow,
-				'isaudit' => $isaudit,
-				'addtime' => time (),
-				'uptime' => time () 
+			'groupid' => $groupid,
+			'typeid' => $typeid,
+			'userid' => $userid,
+			'title' => $title,
+			'content' => $content,
+			'gaiyao'=>$gaiyao,
+			'score'=>$score,
+			'iscomment' => $iscomment,
+			'iscommentshow' => $iscommentshow,
+			'isaudit' => $isaudit,
+			'addtime' => time (),
+			'uptime' => time () 
 		) );
 
 

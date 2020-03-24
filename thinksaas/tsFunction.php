@@ -643,7 +643,22 @@ function md10($str = '') {
  * @param string $c	1裁切,0不裁切
  * @return void|string
  */
-function tsXimg($file, $app, $w, $h, $path = '', $c = '0') {
+/**
+ * Undocumented function
+ *
+ * @param [type] $file		数据库里的图片url
+ * @param [type] $app 		app名称
+ * @param [type] $w 		缩略图片宽度
+ * @param [type] $h 		缩略图片高度
+ * @param string $path
+ * @param string $c 		1裁切,0不裁切
+ * @param string $sy 		水印图片
+ * @param string $position	水印位置
+ * @param integer $x		水印X轴
+ * @param integer $y		水印Y轴
+ * @return void
+ */
+function tsXimg($file, $app, $w, $h, $path = '', $c = '0',$sy='sy.png',$position='bottom-left',$x=10,$y=10) {
 
     if (!$file) {
         return false;
@@ -704,10 +719,11 @@ function tsXimg($file, $app, $w, $h, $path = '', $c = '0') {
             }
 
 
-            if($arrImg[0]>400 && $w>400 && in_array($type,array('jpg','jpeg','png'))){
-                #图片大于400px加水印
-                $watermark = Image::make('public/images/sy.png');
-                $img->insert($watermark, 'bottom-left',10,10);
+            if($arrImg[0]>320 && $w>320 && in_array($type,array('jpg','jpeg','png'))){
+				#图片大于320px加水印
+				//echo $sy;exit;
+                $watermark = Image::make('public/images/'.$sy);
+                $img->insert($watermark, $position,$x,$y);
             }
 
 
@@ -2021,6 +2037,17 @@ function isMobile() {
 }
 
 /**
+ * 判断是否微信浏览器访问
+ */
+function isWeixin(){ 
+    if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
+        return true;
+    }else{
+		return false;
+	} 
+}
+
+/**
  * @param $msg          返回的数据或者提示语
  * @param int $js       判断是否是通过json方式处理的
  * @param int $status   状态：0不正常、1正常
@@ -2604,6 +2631,34 @@ function getProjectUrl($ptable,$pid){
 		'shop_goods'=>tsUrl('shop','goods',array('id'=>$pid)),//商品
 	);
 	return $arrProjectUrl[$ptable];
+}
+
+/**
+ * 取0以上的整数，GET数字变量专用
+ *
+ * @param [type] $number
+ * @param integer $min
+ * @return void
+ */
+function tsIntval($number,$min=0){
+	#判断是否空变量
+	if(empty($number)==true){
+		$number = 0;
+	}
+	#判断是否为数字，或者判断数字中是否有小数点
+	if(is_numeric($number)==false || (is_numeric($number)==true && strpos($number,".")==true)){
+		ts404();
+	}
+	#转为整型
+	$number = intval($number);
+	#如果是负整数
+	if($number<0){
+		ts404();
+	}
+	if($number==0 && $min>0){
+		$number = $min;
+	}
+	return $number;
 }
 
 

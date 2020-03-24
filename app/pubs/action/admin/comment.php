@@ -46,32 +46,19 @@ switch ($ts){
 
         $commentid = intval($_GET['commentid']);
 
-        $strComment = $new['group']->find('comment',array(
+        $strComment = $new['pubs']->find('comment',array(
             'commentid'=>$commentid,
         ));
 
-        if($strComment['referid']==0){
-            $new['group']->delete('comment',array(
-                'referid'=>$commentid,
-            ));
-        }
+        $ptable = $strComment['ptable'];
+        $pkey = $strComment['pkey'];
+        $pid = $strComment['pid'];
 
-        $new['group']->delete('comment',array(
+        $new['pubs']->delete('comment',array(
             'commentid'=>$commentid,
         ));
 
-        #统计评论数
-        $count_comment = $new['group']->findCount('comment',array(
-            'topicid'=>$strComment['topicid'],
-        ));
-
-        //更新帖子最后回应时间和评论数
-        $new['group']->update('group_topic',array(
-            'topicid'=>$strComment['topicid'],
-        ),array(
-            'count_comment'=>$count_comment,
-        ));
-
+        $new['pubs']->delComment($ptable,$pkey,$pid,$commentid);
 
         #处理积分
         aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strComment['userid'],$TS_URL['mg']);

@@ -11,7 +11,7 @@ switch($ts){
 	
 	//编辑帖子
 	case "":
-		$topicid = intval($_GET['topicid']);
+		$topicid = tsIntval($_GET['topicid']);
 
 		if($topicid == 0){
 			header("Location: ".SITE_URL);

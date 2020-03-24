@@ -10,7 +10,7 @@ $arrGroupCate = $new['group']->findAll('group_cate',array(
 
 
 // 所有小组
-$page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : '1';
+$page = tsIntval($_GET['page'],1);
 $lstart = $page * 32 - 32;
 $url = tsUrl ( 'group', 'index', array ('page' => '') );
 $arr = array(

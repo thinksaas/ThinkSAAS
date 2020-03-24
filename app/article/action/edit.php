@@ -11,7 +11,7 @@ switch ($ts) {
 	
 	case "" :
 		
-		$articleid = intval ( $_GET ['articleid'] );
+		$articleid = tsIntval ( $_GET ['articleid'] );
 		
 		$cateid = intval ( $_GET ['cateid'] );
 		
@@ -49,7 +49,7 @@ switch ($ts) {
 	
 	case "do" :
 		
-		$articleid = intval ( $_POST ['articleid'] );
+		$articleid = tsIntval ( $_POST ['articleid'] );
 		
 		$strArticle = $new ['article']->find ( 'article', array (
 				'articleid' => $articleid 
@@ -109,6 +109,13 @@ switch ($ts) {
 		if ($tag) {
 			aac ( 'tag' )->delIndextag ( 'article', 'articleid', $articleid );
 			aac ( 'tag' )->addTag ( 'article', 'articleid', $articleid, $tag );
+		}
+
+		$pjson = '';
+		if($strArticle['photo']){
+			$pjson = json_encode(array(
+				tsXimg($strArticle['photo'],'article',320,180,$strArticle['path'],1)
+			));
 		}
 		
 		// 上传封面图片

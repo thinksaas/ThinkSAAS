@@ -119,7 +119,7 @@ class user extends tsApp {
             'email'		=> $email,
             'phone'		=> $email,
             'ip'		=> getIp(),
-            'isverifyphone'=>'1',
+            'isverifyphone'=>$isverifyphone,
 			'addtime'	=> time(),
 			'uptime'	=> time(),
 		));
@@ -252,7 +252,7 @@ class user extends tsApp {
     function getSimpleUser($userid){
         $strUser = $this->find('user_info',array(
             'userid'=>$userid,
-        ),'userid,locationid,username,face,path,uptime');
+        ),'userid,username,face,path,uptime');
         if($strUser){
             $strUser['face'] = $this->getUserFace($strUser);
             return $strUser;
@@ -556,15 +556,6 @@ class user extends tsApp {
 		
 	}
 	
-	//获取locationid
-	function getLocationId($userid){
-		$strUser = $this->find('user_info',array(
-			'userid'=>$userid,
-		),'locationid');
-		
-		return intval($strUser['locationid']);
-		
-	}
 	
 	//销毁前台session退出登陆
 	function logout(){

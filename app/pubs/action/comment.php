@@ -33,16 +33,16 @@ switch($ts){
         
         $ptable = trim($_POST['ptable']);
         $pkey = trim($_POST['pkey']);
-        $pid = intval($_POST['pid']);
+        $pid = tsIntval($_POST['pid']);
 
 
-        $referid = intval($_POST['referid']);
-        $touserid = intval($_POST['touserid']);
+        $referid = tsIntval($_POST['referid']);
+        $touserid = tsIntval($_POST['touserid']);
 
 
 		$content	= tsClean($_POST['content'],$js);
 		$content2	= emptyText($_POST['content']);//测试空内容
-        $ispublic = intval($_POST['ispublic']);
+        $ispublic = tsIntval($_POST['ispublic']);
 
 		//过滤内容开始
 		if($TS_USER['isadmin']==0){
@@ -151,7 +151,7 @@ switch($ts){
 	//删除评论
 	case "delete":
 		
-		$commentid = intval($_GET['commentid']);
+		$commentid = tsIntval($_GET['commentid']);
 		
 		$strComment = $new['pubs']->find('comment',array(
 			'commentid'=>$commentid,
@@ -160,11 +160,6 @@ switch($ts){
         $ptable = $strComment['ptable'];
         $pkey = $strComment['pkey'];
         $pid = $strComment['pid'];
-
-		$strProject = $new['pubs']->find($ptable,array(
-			$pkey=>$pid,
-		));
-
 		
 		if($TS_USER['isadmin']==1 || $strComment['userid']==$userid){
 			
@@ -172,7 +167,6 @@ switch($ts){
 
             //处理积分
             aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts'],$strComment['userid']);
-			
 			
         }
         

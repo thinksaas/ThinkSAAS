@@ -25,17 +25,24 @@
     <div class="gaiyao mt-2">
         {$item['gaiyao']}
     </div>
-    {if $item['photos']}
+
+    <!--图片-->
+    {if $item['ptable']=='' && $item['pjson']}
     <div class="photo mt-2">
-        {loop $item['photos'] $pkey $pitem}
-        <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}"><img src="{$pitem}" /></a>
+        {loop $item['pjson'] $pkey $pitem}
+        <a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}"><img src="{$pitem}" /></a>
         {/loop}
     </div>
     {/if}
 
-    {if $item['video']}
+    <!--视频-->
+    {if $item['ptable']=='video' && $item['pjson']['siteid']==0}
     <div>
-        <video class="mw-100" controls="controls" src="{$item['video']}"></video>
+        {if $item['pjson']['photo']}
+        <a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}"><img class="mw-100" src="{$item['pjson']['photo']}"></a>
+        {else}
+        <video class="mw-100" controls="controls" src="{$item['pjson']['video']}"></video>
+        {/if}
     </div>
     {/if}
 

@@ -401,6 +401,7 @@ class pubs extends tsApp{
                 'pid'=>$pid,
             ),array(
                 'count_comment'=>$count_comment,
+                'uptime'=>time(),
             ));
         }
     }

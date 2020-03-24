@@ -4,7 +4,7 @@ switch($ts){
 
 	//某一个相册
 	case "":
-		$albumid = intval($_GET['id']);
+		$albumid = tsIntval($_GET['id']);
 		$strAlbum = $new['photo']->find('photo_album',array(
 			'albumid'=>$albumid,
 		));

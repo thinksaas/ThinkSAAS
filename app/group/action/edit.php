@@ -5,7 +5,7 @@ defined('IN_TS') or die('Access Denied.');
 //用户是否登录
 $userid = aac('user')->isLogin();
 
-$groupid = intval($_GET['groupid']);
+$groupid = tsIntval($_GET['groupid']);
 
 $strGroup = $new['group']->find('group',array(
 	'groupid'=>$groupid,
