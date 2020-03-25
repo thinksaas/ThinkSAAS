@@ -10,9 +10,9 @@
     }
   ],
   "require": {
-    "phpmailer/phpmailer": "v6.0.5",
-    "intervention/image": "^2.4",
-    "qcloudsms/qcloudsms_php": "v0.1.4",
+    "phpmailer/phpmailer": "^6.1",
+    "intervention/image": "^2.5",
+    "qcloudsms/qcloudsms_php": "^0.1.4",
     "alibabacloud/client": "^1.5"
   }
 }

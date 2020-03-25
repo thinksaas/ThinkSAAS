@@ -142,7 +142,7 @@ Please make sure to read the [Contributing Guide](/CONTRIBUTING.md) before makin
 ## License
 [Apache-2.0](/LICENSE.md)
 
-Copyright 1999-2019 Alibaba Group Holding Ltd.
+Copyright (c) 2009-present, Alibaba Cloud All rights reserved.
 
 
 [SDK]: https://github.com/aliyun/openapi-sdk-php

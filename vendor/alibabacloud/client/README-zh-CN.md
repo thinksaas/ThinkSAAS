@@ -141,7 +141,7 @@ try {
 ## 许可证
 [Apache-2.0](/LICENSE.md)
 
-版权所有 1999-2019 阿里巴巴集团
+Copyright (c) 2009-present, Alibaba Cloud All rights reserved.
 
 
 [SDK]: https://github.com/aliyun/openapi-sdk-php

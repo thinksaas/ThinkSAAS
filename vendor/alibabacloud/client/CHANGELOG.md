@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.21 - 2020-02-26
+- Improved Nonce.
+- Updated Endpoints.
+
 ## 1.5.20 - 2019-12-30
 - Improved Docs.
 - Updated Endpoints.

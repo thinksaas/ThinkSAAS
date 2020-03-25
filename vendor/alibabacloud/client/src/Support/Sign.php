@@ -135,6 +135,6 @@ class Sign
      */
     public static function uuid($salt)
     {
-        return md5($salt . uniqid(md5(microtime(true)), true));
+        return md5($salt . uniqid(md5(microtime(true)), true)) . microtime();
     }
 }

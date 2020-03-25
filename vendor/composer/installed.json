@@ -58,17 +58,17 @@
     },
     {
         "name": "alibabacloud/client",
-        "version": "1.5.20",
-        "version_normalized": "1.5.20.0",
+        "version": "1.5.21",
+        "version_normalized": "1.5.21.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aliyun/openapi-sdk-php-client.git",
-            "reference": "e18c5d79072417250f6faf0c1c8ca8bd3fd73f2b"
+            "reference": "a11d68d90d50d2bde46c3a656eef5e0563c08b69"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aliyun/openapi-sdk-php-client/zipball/e18c5d79072417250f6faf0c1c8ca8bd3fd73f2b",
-            "reference": "e18c5d79072417250f6faf0c1c8ca8bd3fd73f2b",
+            "url": "https://api.github.com/repos/aliyun/openapi-sdk-php-client/zipball/a11d68d90d50d2bde46c3a656eef5e0563c08b69",
+            "reference": "a11d68d90d50d2bde46c3a656eef5e0563c08b69",
             "shasum": "",
             "mirrors": [
                 {
@@ -110,7 +110,7 @@
         "suggest": {
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2019-12-30T01:59:20+00:00",
+        "time": "2020-02-26T04:39:45+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -480,17 +480,17 @@
     },
     {
         "name": "intervention/image",
-        "version": "2.4.2",
-        "version_normalized": "2.4.2.0",
+        "version": "2.5.1",
+        "version_normalized": "2.5.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Intervention/image.git",
-            "reference": "e82d274f786e3d4b866a59b173f42e716f0783eb"
+            "reference": "abbf18d5ab8367f96b3205ca3c89fb2fa598c69e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Intervention/image/zipball/e82d274f786e3d4b866a59b173f42e716f0783eb",
-            "reference": "e82d274f786e3d4b866a59b173f42e716f0783eb",
+            "url": "https://api.github.com/repos/Intervention/image/zipball/abbf18d5ab8367f96b3205ca3c89fb2fa598c69e",
+            "reference": "abbf18d5ab8367f96b3205ca3c89fb2fa598c69e",
             "shasum": "",
             "mirrors": [
                 {
@@ -513,7 +513,7 @@
             "ext-imagick": "to use Imagick based image processing.",
             "intervention/imagecache": "Caching extension for the Intervention Image library"
         },
-        "time": "2018-05-29T14:19:03+00:00",
+        "time": "2019-11-02T09:15:47+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -623,17 +623,17 @@
     },
     {
         "name": "phpmailer/phpmailer",
-        "version": "v6.0.5",
-        "version_normalized": "6.0.5.0",
+        "version": "v6.1.5",
+        "version_normalized": "6.1.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/PHPMailer/PHPMailer.git",
-            "reference": "cb3ea134d4d3729e7857737d5f320cce9caf4d32"
+            "reference": "a8bf068f64a580302026e484ee29511f661b2ad3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/cb3ea134d4d3729e7857737d5f320cce9caf4d32",
-            "reference": "cb3ea134d4d3729e7857737d5f320cce9caf4d32",
+            "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/a8bf068f64a580302026e484ee29511f661b2ad3",
+            "reference": "a8bf068f64a580302026e484ee29511f661b2ad3",
             "shasum": "",
             "mirrors": [
                 {
@@ -648,13 +648,9 @@
             "php": ">=5.5.0"
         },
         "require-dev": {
-            "doctrine/annotations": "1.2.*",
+            "doctrine/annotations": "^1.2",
             "friendsofphp/php-cs-fixer": "^2.2",
-            "phpdocumentor/phpdocumentor": "2.*",
-            "phpunit/phpunit": "^4.8 || ^5.7",
-            "zendframework/zend-eventmanager": "3.0.*",
-            "zendframework/zend-i18n": "2.7.3",
-            "zendframework/zend-serializer": "2.7.*"
+            "phpunit/phpunit": "^4.8 || ^5.7"
         },
         "suggest": {
             "ext-mbstring": "Needed to send email in multibyte encoding charset",
@@ -664,7 +660,7 @@
             "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
             "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
         },
-        "time": "2018-03-27T13:49:45+00:00",
+        "time": "2020-03-14T14:23:48+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -674,16 +670,16 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "LGPL-2.1"
+            "LGPL-2.1-only"
         ],
         "authors": [
             {
-                "name": "Jim Jagielski",
-                "email": "jimjag@gmail.com"
-            },
-            {
                 "name": "Marcus Bointon",
                 "email": "phpmailer@synchromedia.co.uk"
+            },
+            {
+                "name": "Jim Jagielski",
+                "email": "jimjag@gmail.com"
             },
             {
                 "name": "Andy Prevost",
