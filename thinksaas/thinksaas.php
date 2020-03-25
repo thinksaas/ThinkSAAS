@@ -59,13 +59,10 @@ if ($TS_CF['subdomain']) {
     reurl();
 }
 
-//判断magic_quotes_gpc状态
-if (get_magic_quotes_gpc() == 0) {
-    $_GET = tsgpc($_GET);
-    $_POST = tsgpc($_POST);
-    $_COOKIE = tsgpc($_COOKIE);
-    //$_FILES = tsgpc ( $_FILES );
-}
+$_GET = tsgpc($_GET);
+$_POST = tsgpc($_POST);
+$_COOKIE = tsgpc($_COOKIE);
+//$_FILES = tsgpc ( $_FILES );
 
 //系统Url参数变量
 $TS_URL = array(
