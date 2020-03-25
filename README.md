@@ -29,7 +29,6 @@
 * 系统管理模块(system)
 * 小组模块(group)
 * 相册模块(photo)
-* 资料模块(attach)
 * 标签模块(tag)
 * 邮件模块(mail)
 * 消息模块(message)
