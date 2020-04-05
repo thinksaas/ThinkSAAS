@@ -1,3 +1,3 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-return 2.98;
+return 2.99;

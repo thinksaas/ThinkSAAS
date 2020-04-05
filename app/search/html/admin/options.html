@@ -1,0 +1,40 @@
+{php include pubTemplate("header_admin")}
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+    <form  method="POST" action="index.php?app=search&ac=admin&mg=options&ts=do">
+        <table class="table table-hover">
+            <tr><td width="150">APP名称：</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
+
+            <tr><td>APP介绍：</td><td><textarea style="width:300px;" name="option[appdesc]">{$strOption[appdesc]}</textarea></td></tr>
+
+            <tr><td>APP关键词：</td><td><input style="width:300px;" name="option[appkey]" value="{$strOption[appkey]}" /></td></tr>
+
+            <tr><td>默认搜索：</td><td>
+
+                <select name="option[ds]">
+                    {loop $arrSearch $key $item}
+                    <option value="{$key}" {if $strOption['ds']==$key}selected{/if}>{$item}</option>
+                    {/loop}
+                </select>
+
+            </td></tr>
+
+            {loop $arrSearch $key $item}
+            <tr><td>{$item}搜索：</td><td><input type="radio" name="option[{$key}]" value="0" {if $strOption[$key]=='0'}checked{/if}  />不开启 <input type="radio" name="option[$key]" value="1" {if $strOption[$key]=='1'}checked{/if} />开启</td></tr>
+            {/loop}
+            
+
+           
+            <tr><td></td><td>
+
+                <input class="btn btn-primary" type="submit" value="提交修改" /></td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+{php include pubTemplate("footer_admin")}

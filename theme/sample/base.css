@@ -11,6 +11,8 @@ a:hover{text-decoration: none;color:#49a5de}
 
 p{margin:0;}
 
+pre code{width:99%;}
+
 .wto{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 
 .btn-fat{padding-left:30px;padding-right:30px;}

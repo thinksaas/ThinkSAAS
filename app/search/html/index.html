@@ -15,11 +15,11 @@
 
 
                     <div class="s_menu">
-                        <a {if $ts==''}class="s_select"{/if} href="{tsUrl('search')}">全部</a> |
-                        <a {if $ts=='group'}class="s_select"{/if} href="{tsUrl('search','index',array(ts=>group))}">小组</a> |
-                        <a {if $ts=='topic'}class="s_select"{/if} href="{tsUrl('search','index',array(ts=>topic))}">帖子</a> |
-                        <a {if $ts=='user'}class="s_select"{/if} href="{tsUrl('search','index',array(ts=>user))}">用户</a> |
-                        <a {if $ts=='article'}class="s_select"{/if} href="{tsUrl('search','index',array(ts=>article))}">文章</a>
+                        搜索：
+                        {if $TS_APP['group']==1} | <a {if $ts=='group'}class="s_select"{/if} href="{tsUrl('search','index',array(ts=>group))}">小组</a>{/if}
+                        {if $TS_APP['topic']==1} | <a {if $ts=='topic'}class="s_select"{/if} href="{tsUrl('search','index',array(ts=>topic))}">帖子</a>{/if} 
+                        {if $TS_APP['user']==1} | <a {if $ts=='user'}class="s_select"{/if} href="{tsUrl('search','index',array(ts=>user))}">用户</a>{/if} 
+                        {if $TS_APP['article']==1} | <a {if $ts=='article'}class="s_select"{/if} href="{tsUrl('search','index',array(ts=>article))}">文章</a>{/if} 
                     </div>
 
 

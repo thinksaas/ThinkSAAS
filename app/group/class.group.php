@@ -11,94 +11,95 @@ class group extends tsApp{
         if($tsAppDb){
             $db = new MySql($tsAppDb);
         }
-
         parent::__construct($db);
     }
 
-    //获取一个小组
+    /**
+     * 获取一个小组
+     *
+     * @param [type] $groupid
+     * @return void
+     */
     function getOneGroup($groupid){
         $strGroup=$this->find('group',array(
             'groupid'=>$groupid,
         ));
-
         if($strGroup){
             $strGroup['groupname'] = tsTitle($strGroup['groupname']);
             $strGroup['groupdesc'] = tsTitle($strGroup['groupdesc']);
-
-            if($strGroup['photo']){
-                $strGroup['photo'] = tsXimg($strGroup['photo'],'group',200,200,$strGroup['path'],1);
-            }else{
-                $strGroup['photo'] = SITE_URL.'public/images/group.jpg';
-            }
+            $strGroup['photo'] = $this->getGroupPhoto($strGroup);
         }
-
         return $strGroup;
-
     }
 
-    //获取推荐的小组
-    function getRecommendGroup($num){
+    /**
+     * 获取小组头像
+     *
+     * @param [type] $strGroup
+     * @return void
+     */
+    function getGroupPhoto($strGroup){
+        if($strGroup['photo']){
+            $strFace = tsXimg($strGroup['photo'],'group',200,200,$strGroup['path'],1);
+        }else{
+            $strFace = SITE_URL.'public/images/group.jpg';
+        }
+        return $strFace;
+    }
 
-
+    /**
+     * 获取推荐的小组
+     *
+     * @param integer $num
+     * @return void
+     */
+    function getRecommendGroup($num=10){
         $arrGroup = $this->findAll('group',array(
             'isrecommend'=>1,
         ),'orderid asc','groupid,groupname,groupdesc,path,photo,count_user',$num);
-
         foreach($arrGroup as $key=>$item){
             $arrGroup[$key]['groupname'] = tsTitle($item['groupname']);
             $arrGroup[$key]['groupdesc'] = tsTitle($item['groupdesc']);
-
-            if($item['photo']){
-                $arrGroup[$key]['photo'] = tsXimg($item['photo'],'group',200,200,$item['path'],1);
-            }else{
-                $arrGroup[$key]['photo'] = SITE_URL.'public/images/group.jpg';
-            }
+            $arrGroup[$key]['photo'] = $this->getGroupPhoto($item);
         }
-
         return $arrGroup;
-
     }
 
-    //获取最新创建的小组
-    function getNewGroup($num){
-        $arrNewGroups = $this->db->fetch_all_assoc("select groupid from ".dbprefix."group where `isaudit`='0' order by addtime desc limit $num");
-        if(is_array($arrNewGroups)){
-            foreach($arrNewGroups as $item){
-                $arrNewGroup[] = $this->getOneGroup($item['groupid']);
-            }
+    /**
+     * 获取最新创建的小组
+     *
+     * @param integer $num
+     * @return void
+     */
+    function getNewGroup($num=10){
+        $arrGroup = $this->findAll('group',array(
+            'isaudit'=>0,
+        ),'addtime desc',null,$num);
+        foreach($arrGroup as $key=>$item){
+            $arrGroup[$key]['groupname'] = tsTitle($item['groupname']);
+            $arrGroup[$key]['groupdesc'] = tsTitle($item['groupdesc']);
+            $arrGroup[$key]['photo'] = $this->getGroupPhoto($item);
         }
-        return $arrNewGroup;
+        return $arrGroup;
     }
-
-    
-
 
     //是否存在帖子
     public function isTopic($topicid){
-
         $isTopic = $this->findCount('group_topic',array(
             'topicid'=>$topicid,
         ));
-
         if($isTopic > 0){
-
             return true;
-
         }else{
-
             return false;
-
         }
-
     }
 
     //判断是否存在小组
     function isGroup($groupid){
-
         $isGroup = $this->findCount('group',array(
             'groupid'=>$groupid,
         ));
-
         if($isGroup > 0){
             return true;
         }else{

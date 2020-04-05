@@ -16,42 +16,9 @@ if(count_string_len($kw)<2) {
 	exit;
 };
 
+if($ts=='') $ts = $TS_APP['ds'];
+
 switch($ts){
-	case "":
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$url = tsUrl('search','s',array('kw'=>$kw,'page'=>''));
-		$lstart = $page*10-10;
-		
-		$arrAlls = $db->fetch_all_assoc("select groupid as id,'group' as type from ".dbprefix."group where `groupname` like '%$kw%' union select topicid as id,'topic' as type from ".dbprefix."group_topic WHERE `title` like '%$kw%' union select userid as id,'user' as type from ".dbprefix."user_info where username like '%$kw%' union select articleid as id,'article' as type from ".dbprefix."article where `title` like '%$kw%' and `isaudit`='0' limit $lstart,10 ");
-		
-		foreach($arrAlls as $item){
-			if($item['type']=='group'){
-				$arrGroup[] = $new['search']->find('group',array(
-					'groupid'=>$item['id'],
-				));
-			}elseif($item['type']=='topic'){
-				$arrTopic[] = $new['search']->find('group_topic',array(
-					'topicid'=>$item['id'],
-				));
-			}elseif($item['type']=='user'){
-				$arrUser[] = $new['search']->find('user_info',array(
-					'userid'=>$item['id'],
-				));
-			}elseif($item['type']=='article'){
-				$arrArticle[] = $new['search']->find('article',array(
-					'articleid'=>$item['id'],
-				));
-			}
-		}
-		
-		$all_num = $db->once_num_rows("select groupid as id,'group' as type from ".dbprefix."group where `groupname` like '%$kw%' union select topicid as id,'topic' as type from ".dbprefix."group_topic WHERE `title` like '%$kw%' union select userid as id,'user' as type from ".dbprefix."user_info where username like '%$kw%' union select articleid as id,'article' as type from ".dbprefix."article where `title` like '%$kw%' and `isaudit`='0'");
-		
-		$pageUrl = pagination($all_num, 10, $page, $url);
-		
-		$title = $kw.' - 全部搜索';
-		
-		include template("s_all");
-		break;
 	
 	//小组 
 	case "group":

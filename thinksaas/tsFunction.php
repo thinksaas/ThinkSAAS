@@ -960,7 +960,9 @@ function reurl() {
 	global $tsMySqlCache;
 
 	$arrSuffix = array(
+		'?from=message',
 	    '?from=singlemessage',
+	    '?from=singlemessage&from=singlemessage',
         '?from=groupmessage',
         '?from=timeline',
         '?tdsourcetag=s_pctim_aiomsg',

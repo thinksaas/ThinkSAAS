@@ -58,7 +58,7 @@
 * 16、如用户对以上用户条款有异议或者不同意见，请另谋其他程序。
 
 * 【自身运营】解释：即用户在使用ThinkSAAS中，不通过出售任何以ThinkSAAS为基础开发的产品，仅用作自身学习和自身商业运营的网站。
-* 【用户条款】网址：https://www.thinksaas.cn/home/info/key/agreement/
+* 【用户条款】网址：https://www.thinksaas.cn/home/info/3/
 * 【官方网站】网址：https://www.thinksaas.cn/
 * 【演示网站】网址：https://demo.thinksaas.cn/
 

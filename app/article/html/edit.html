@@ -115,10 +115,14 @@
        </p>
 	{/if}
 
-       <div class="custom-file">
-           <input type="file" name="photo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png">
-           <label class="custom-file-label c9" for="customFile">支持jpg,png格式；大小640*360px</label>
-       </div>
+    <div class="custom-file" onchange="imgView()">
+        <input id="img-file" type="file" name="photo" class="custom-file-input" accept="image/jpeg,image/png">
+        <label class="custom-file-label c9" for="img-file" data-browse="封面图">(支持jpg,png格式；大小640*360px)</label>
+    </div>
+
+    <div id="img-view" style="display: none;">
+        <img src="" id="img-show" height="200">
+    </div>
 
   </div>
 
