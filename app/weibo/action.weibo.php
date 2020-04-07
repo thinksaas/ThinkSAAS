@@ -18,7 +18,7 @@ class weiboAction extends weibo{
 
         $arrWeibo = $this->findAll('weibo',array(
             'isaudit'=>0,
-        ),'uptime desc',null,$lstart.',20');
+        ),'addtime desc',null,$lstart.',20');
         foreach($arrWeibo as $key=>$item){
             $arrWeibo[$key]['user'] = aac('user')->getOneUser($item['userid']);
             $arrWeibo[$key]['title'] = tsTitle($item['title']);

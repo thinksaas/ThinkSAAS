@@ -64,6 +64,7 @@ defined('IN_TS') or die('Access Denied.');
 				'userid'=>$userid,
 			));
 			
+			if($strUser['isadmin']==1) qiMsg('管理员不能停用！');
 			
 			//禁用
 			if($strUser['isenable']==0){
