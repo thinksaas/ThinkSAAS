@@ -257,9 +257,8 @@ class user extends tsApp {
             $strUser['face'] = $this->getUserFace($strUser);
             return $strUser;
         }else{
-            $this->toEmpty($userid);
-        }
-        
+            return '';
+        } 
     }
 	
 	//获取一个用户的信息
@@ -297,7 +296,6 @@ class user extends tsApp {
 		$isUser = $this->findCount('user',array('userid'=>$userid));
 		
 		if($isUser == 0){
-			//$this->toEmpty($userid);
 			return false;
 		}else{
 			return true;
