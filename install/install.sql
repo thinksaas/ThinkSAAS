@@ -1011,6 +1011,27 @@ INSERT INTO `ts_home_info` (`infoid`, `orderid`, `title`, `content`) VALUES
 	(5, 0, '加入我们', '\n&lt;p&gt;加入我们&lt;/p&gt;\n');
 /*!40000 ALTER TABLE `ts_home_info` ENABLE KEYS */;
 
+-- 导出  表 d_thinksaas.ts_logs 结构
+DROP TABLE IF EXISTS `ts_logs`;
+CREATE TABLE IF NOT EXISTS `ts_logs` (
+  `logid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `ptable` varchar(50) NOT NULL DEFAULT '0' COMMENT '应用表名称',
+  `pkey` varchar(50) NOT NULL DEFAULT '0' COMMENT '应用表字段',
+  `pid` varchar(50) NOT NULL DEFAULT '0' COMMENT '应用表字段值',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `content` longtext NOT NULL COMMENT '内容',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态：0添加1修改2删除',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
+  PRIMARY KEY (`logid`),
+  KEY `userid` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户操作记录表';
+
+-- 正在导出表  d_thinksaas.ts_logs 的数据：~0 rows (大约)
+DELETE FROM `ts_logs`;
+/*!40000 ALTER TABLE `ts_logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_logs` ENABLE KEYS */;
+
 -- 导出  表 d_thinksaas.ts_love 结构
 DROP TABLE IF EXISTS `ts_love`;
 CREATE TABLE IF NOT EXISTS `ts_love` (

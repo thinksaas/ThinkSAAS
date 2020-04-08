@@ -99,7 +99,10 @@ switch($ts){
 		));
 
         #处理积分
-        aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle['userid'],$TS_URL['mg']);
+		aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle['userid'],$TS_URL['mg']);
+		
+		#用户记录
+		aac('pubs')->addLogs('article','articleid',$articleid,$TS_USER['userid'],$strArticle['title'],$strArticle['content'],2);
 		
 		qiMsg('删除成功！');
 	

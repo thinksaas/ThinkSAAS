@@ -77,6 +77,10 @@ switch($ts){
             aac ( 'tag' )->addTag ( 'group', 'groupid', $groupid, $_POST ['tag'] );
         }
 
+
+        #用户记录
+		aac('pubs')->addLogs('group','groupid',$groupid,$userid,$groupname,$groupdesc,1);
+
         tsNotice('基本信息修改成功！');
 
 

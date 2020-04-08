@@ -296,6 +296,9 @@ switch ($ts) {
 		// 对积分进行处理
 		aac ( 'user' )->doScore ( $TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'] );
 
+		#用户记录
+		aac('pubs')->addLogs('group_topic','topicid',$topicid,$userid,$title,$content,0);
+
 		
 		header ( "Location: " . tsUrl('group', 'topic', array ('id' => $topicid)));
 		break;

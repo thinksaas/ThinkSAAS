@@ -155,7 +155,11 @@ switch($ts){
 
 
             // 对积分进行处理
-            aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
+			aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
+			
+
+			#用户记录
+			aac('pubs')->addLogs('group','groupid',$groupid,$userid,$groupname,$groupdesc,0);
 
 
 			header("Location: ".tsUrl('group','show',array('id'=>$groupid)));

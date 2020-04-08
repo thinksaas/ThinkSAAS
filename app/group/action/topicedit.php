@@ -144,6 +144,11 @@ switch($ts){
 				aac('tag')->delIndextag('topic','topicid',$topicid);
 				aac('tag') -> addTag('topic', 'topicid', $topicid, $tag); 
 			}
+
+
+			#用户记录
+			aac('pubs')->addLogs('group_topic','topicid',$topicid,$userid,$title,$content,1);
+
 			
 			header("Location: ".tsUrl('group','topic',array('id'=>$topicid)));
 			

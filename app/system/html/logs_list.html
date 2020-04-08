@@ -1,0 +1,66 @@
+{php include pubTemplate("header_admin")}
+
+<div class="midder">
+    {template anti_menu}
+    
+    
+    <div class="page">{$pageUrl}</div>
+
+    <div>
+        <table class="table table-hover">
+            <thead class="thead-light">
+    
+    <tr>
+        <th>ID</th>
+        <th>ptable</th>
+        <th>pkey</th>
+        <th>pid</th>
+        <th>userid</th>
+        <th>title</th>
+        <th>status</th>
+        <th>addtime</th>
+        <th>操作</th>
+    </tr>
+            </thead>
+            <tbody>
+    {loop $arrLogs $key $item}
+    <tr>
+        <td>{$item['logid']}</td>
+        <td>{$item['ptable']}</td>
+        <td>{$item['pkey']}</td>
+        <td>{$item['pid']}</td>
+
+        <td>{$item['userid']}</td>
+        
+        <td>{php echo tsTitle($item['title'])}</td>
+
+        <td>
+            {if $item['status']==1}
+            修改
+            {elseif $item['status']==2}
+            删除
+            {else}
+            添加
+            {/if}
+
+        </td>
+
+        <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+        <td>
+            
+            <a href="index.php?app=system&ac=logs&ts=show&logid={$item['logid']}">详情</a>
+        
+        </td>
+    </tr>
+    {/loop}
+            </tbody>
+    </table>
+    
+    </div>
+
+    <div class="page">{$pageUrl}</div>
+    
+    
+</div>
+
+{php include pubTemplate("footer_admin")}

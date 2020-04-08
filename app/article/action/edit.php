@@ -140,6 +140,10 @@ switch ($ts) {
 		#更新ptable
 		aac('pubs')->editPtable('article','articleid',$articleid,$pjson,$title,$gaiyao);
 
+
+		#用户记录
+		aac('pubs')->addLogs('article','articleid',$articleid,$userid,$title,$content,1);
+
 		
 		header ("Location: " . tsUrl ( 'article', 'show', array ('id' => $articleid)));
 		

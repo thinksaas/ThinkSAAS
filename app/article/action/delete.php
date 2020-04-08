@@ -14,6 +14,11 @@ if($TS_SITE['isallowdelete'] && $TS_USER ['isadmin'] == 0) tsNotice('系统不�
 
 if ($strArticle ['userid'] == $userid || $TS_USER ['isadmin'] == 1) {
 
+
+    #用户记录
+	aac('pubs')->addLogs('article','articleid',$articleid,$userid,$strArticle['title'],$strArticle['content'],2);
+
+
     #删除文章
     $new['article']->deleteArticle($strArticle);
 

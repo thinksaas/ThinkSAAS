@@ -442,6 +442,31 @@ class pubs extends tsApp{
             'pid'=>$pid,
         ));
     }
+    
+    /**
+     * 用户内容添加、修改、删除记录
+     *
+     * @param [type] $ptable
+     * @param [type] $pkey
+     * @param [type] $pid
+     * @param [type] $userid
+     * @param [type] $title
+     * @param [type] $content
+     * @param [type] $status
+     * @return void
+     */
+    public function addLogs($ptable,$pkey,$pid,$userid,$title,$content,$status){
+        $this->create('logs',array(
+            'ptable'=>$ptable,
+            'pkey'=>$pkey,
+            'pid'=>$pid,
+            'userid'=>$userid,
+            'title'=>$title,
+            'content'=>$content,
+            'status'=>$status,
+            'addtime'=>time(),
+        ));
+    }
 
 
 }

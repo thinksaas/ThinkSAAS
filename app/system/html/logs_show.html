@@ -1,0 +1,31 @@
+{php include pubTemplate("header_admin")}
+
+<div class="midder">
+    {template anti_menu}
+    
+    
+    
+
+
+    <div>
+
+        <table class="table">
+            <tr><td width="100">logid</td><td>{$strLog['logid']}</td></tr>
+            <tr><td>ptable</td><td>{$strLog['ptable']}</td></tr>
+            <tr><td>pkey</td><td>{$strLog['pkey']}</td></tr>
+            <tr><td>pid</td><td>{$strLog['pid']}</td></tr>
+            <tr><td>userid</td><td>{$strLog['userid']}</td></tr>
+            <tr><td>status</td><td>{$strLog['status']}</td></tr>
+            <tr><td>addtime</td><td>{php echo date('Y-m-d H:i:s',$strLog['addtime'])}</td></tr>
+            <tr><td>title</td><td>{php echo tsTitle($strLog['title'])}</td></tr>
+            <tr><td>content</td><td>{php echo tsDecode($strLog['content'])}</td></tr>
+        </table>
+
+    </div>
+
+
+
+    
+</div>
+
+{php include pubTemplate("footer_admin")}

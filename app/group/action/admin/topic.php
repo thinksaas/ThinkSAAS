@@ -58,6 +58,10 @@ switch($ts){
 	case "delete":
 		$topicid = intval($_GET['topicid']);
 		$strTopic = $new['group']->getOneTopic($topicid);
+
+		#用户记录
+		aac('pubs')->addLogs('group_topic','topicid',$topicid,$TS_USER['userid'],$strTopic['title'],$strTopic['content'],2);
+
 		$new['group']->deleteTopic($strTopic);
 		qiMsg('删除成功');
 		break;

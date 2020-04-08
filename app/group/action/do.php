@@ -22,6 +22,10 @@ switch ($ts) {
 		
 		//系统管理员删除
 		if($TS_USER['isadmin'] == '1'){
+
+			#用户记录
+			aac('pubs')->addLogs('group_topic','topicid',$topicid,$userid,$strTopic['title'],$strTopic['content'],2);
+
 			$new['group']->deleteTopic($strTopic);
 			tsNotice('帖子删除成功！','点击返回小组首页',tsUrl('group'));
 		}
