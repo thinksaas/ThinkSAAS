@@ -1,0 +1,25 @@
+<?php 
+defined('IN_TS') or die('Access Denied.'); 
+
+function recommendarticle(){
+	
+	$arrArticle = aac('article')->findAll('article',array(
+		'isrecommend'=>1,
+		'isaudit'=>0
+	),'addtime desc','articleid,cateid,userid,title,gaiyao,path,photo,count_view,count_comment,addtime',10);
+	foreach($arrArticle as $key=>$item){
+		$arrArticle[$key]['title'] = tsTitle($item['title']);
+		$arrArticle[$key]['content'] = tsDecode($item['content']);
+		$arrArticle[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+		if($item['cateid']){
+			$arrArticle[$key]['cate'] = aac('article')->find('article_cate',array(
+				'cateid'=>$item['cateid'],
+			));
+		}
+	}
+	
+	include template('recommendarticle','recommendarticle');
+	
+}
+
+addAction('home_index_left','recommendarticle');

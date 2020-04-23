@@ -39,12 +39,12 @@
 
                 <div class="col-md-4">
                     <a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">
-                        <img class="mw-100" src="{php echo tsXimg($item['photo'],'article',320,180,$item['path'],'1')}" />
+                        <img class="mw-100" src="{php echo tsXimg($item['photo'],'article',320,180,$item['path'],'1')}?v={$item['uptime']}" />
                     </a>
                 </div>
                 <div class="col-md-8">
 
-                    <div class="h5 fw400"><a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{$item[title]}</a></div>
+                    <div class="h5 font-weight-bold"><a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{$item[title]}</a></div>
 
                     <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {$item[addtime]}</div>
 
@@ -83,7 +83,7 @@
 
             {else}
 
-            <div class="h5 fw400"><a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{$item[title]}</a></div>
+            <div class="h5 font-weight-bold"><a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{$item[title]}</a></div>
 
             <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {$item[addtime]}</div>
 

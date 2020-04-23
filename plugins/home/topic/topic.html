@@ -1,0 +1,16 @@
+<div class="card">
+<div class="card-header">最新话题</div>
+    <div class="card-body">
+        {if $arrTopic}
+        <div class="commlist">
+            <ul>
+            {loop $arrTopic $key $item}
+                <li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{tsTitle($item['title'])}</a></li>
+            {/loop}
+            </ul>
+        </div>
+        {else}
+        <div class="c9">暂无话题</div>
+        {/if}
+    </div>
+</div>

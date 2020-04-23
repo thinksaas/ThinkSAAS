@@ -1,0 +1,20 @@
+<div class="card">
+	<div class="card-header">最新创建小组</div>
+	<div class="card-body">
+        
+        {if $arrNewGroup}
+    <div class="commlist">
+        <ul>
+        {loop $arrNewGroup $key $item}
+        <li><a href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{tsTitle($item['groupname'])}</a></li>
+        {/loop}
+        </ul>
+    </div>
+    {else}
+
+    <div class="c9">暂无小组</div>
+
+    {/if}
+
+</div>
+</div>

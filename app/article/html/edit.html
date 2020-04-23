@@ -111,7 +111,7 @@
 	
 	{if $strArticle['photo']}
        <p>
-	<img  width="200" src="{php echo tsXimg($strArticle['photo'],'article',320,180,$strArticle['path'],'1')}" />
+	<img  width="200" src="{php echo tsXimg($strArticle['photo'],'article',320,180,$strArticle['path'],'1')}?v={$strArticle['uptime']}" />
        </p>
 	{/if}
 

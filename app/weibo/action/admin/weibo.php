@@ -1,61 +1,37 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-class weiboAdmin extends weibo{
+switch($ts){
 
-    /*
-     * 配置选项
-     * */
-    public function options(){
+    case "list":
 
-        $strOption = getAppOptions('weibo');
-
-        include template("admin/options");
-    }
-	
-	/*
-	 * 保存配置
-	 */
-    public function optionsdo(){
-        $arrOption = $_POST['option'];
-        #更新app配置选项
-        upAppOptions('weibo',$arrOption);
-        #更新app导航和我的导航
-        upAppNav('weibo',$arrOption['appname']);
-        qiMsg('修改成功！');
-    }
-
-    /*
-     * 唠叨列表
-     * */
-    public function weibolist(){
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $url = SITE_URL.'index.php?app=weibo&ac=admin&mg=weibolist&page=';
         $lstart = $page*20-20;
-        $arrWeibo = $this->findAll('weibo',null,'addtime desc',null,$lstart.',20');
+        $arrWeibo = $new['weibo']->findAll('weibo',null,'addtime desc',null,$lstart.',20');
         foreach($arrWeibo as $key=>$item){
             $arrWeibo[$key]['title'] = tsTitle($item['title']);
         }
 
-        $weiboNum = $this->findCount('weibo');
+        $weiboNum = $new['weibo']->findCount('weibo');
         $pageUrl = pagination($weiboNum, 20, $page, $url);
 
         include template("admin/weibo_list");
-    }
 
-    /*
-     * 审核
-     * */
-    public function isaudit(){
+    break;
+
+
+    case "isaudit":
+
         $weiboid = intval($_GET['weiboid']);
 
-        $strWeibo = $this->find('weibo',array(
+        $strWeibo = $new['weibo']->find('weibo',array(
             'weiboid'=>$weiboid,
         ));
 
         if($strWeibo['isaudit'] == 0){
 
-            $this->update('weibo',array(
+            $new['weibo']->update('weibo',array(
                 'weiboid'=>$weiboid,
             ),array(
                 'isaudit'=>1,
@@ -65,7 +41,7 @@ class weiboAdmin extends weibo{
 
         if($strWeibo['isaudit'] == 1){
 
-            $this->update('weibo',array(
+            $new['weibo']->update('weibo',array(
                 'weiboid'=>$weiboid,
             ),array(
                 'isaudit'=>0,
@@ -74,21 +50,21 @@ class weiboAdmin extends weibo{
         }
 
         qiMsg('操作成功！');
-    }
 
-    /*
-     * 删除
-     * */
-    public function deleteweibo(){
+    break;
+
+
+    case "delete":
+
         $weiboid=intval($_GET['weiboid']);
 
-        $strWeibo = $this->find('weibo',array(
+        $strWeibo = $new['weibo']->find('weibo',array(
             'weiboid'=>$weiboid,
         ));
 
         unlink('uploadfile/weibo/'.$strWeibo['photo']);
 
-        $this->delete('weibo',array(
+        $new['weibo']->delete('weibo',array(
             'weiboid'=>$weiboid,
         ));
 
@@ -101,7 +77,7 @@ class weiboAdmin extends weibo{
 
 
         qiMsg('删除成功！');
-    }
 
+    break;
 
 }

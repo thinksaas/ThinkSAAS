@@ -37,14 +37,16 @@ switch($ts){
                 echo json_encode(array(
                     'errno'=>0,
                     'data'=>array(
-                        0=>SITE_URL.'uploadfile/editor/'.$arrUpload['url'],
+                        //0=>SITE_URL.'uploadfile/editor/'.$arrUpload['url'],
+                        0=>tsXimg($arrUpload['url'],'editor','640','',$arrUpload['path']),
                     ),
                 ));
                 exit();
 
             }else{
 
-                echo SITE_URL.'uploadfile/editor/'.$arrUpload['url'];
+                //echo SITE_URL.'uploadfile/editor/'.$arrUpload['url'];
+                echo tsXimg($arrUpload['url'],'editor','640','',$arrUpload['path']);
                 exit();
 
             }

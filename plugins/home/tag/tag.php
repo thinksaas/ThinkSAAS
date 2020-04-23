@@ -22,24 +22,7 @@ function tag(){
 		$arrTag[$key]['tagname'] = tsTitle($item['tagname']);
 	}
 	
-	echo '<div class="card">';
-	echo '<div class="card-header">热门标签<small class="float-right">';
-    if($tag=='topic'){
-        echo '<a class="text-black-50" href="'.tsUrl('group','tags').'">更多</a>';
-    }elseif($tag=='article'){
-        echo '<a class="text-black-50" href="'.tsUrl('article','tags').'">更多</a>';
-    }
-	echo '</small></div>';
-	echo '<div class="card-body">';
-	foreach($arrTag as $key=>$item){
-	    if($tag=='topic'){
-            echo '<a class="badge badge-secondary mr-2 fw300" href="'.tsUrl('group','tag',array('id'=>urlencode($item['tagname']))).'">'.$item['tagname'].'</a>';
-        }elseif($tag=='article'){
-            echo '<a class="badge badge-secondary mr-2 fw300" href="'.tsUrl('article','tag',array('id'=>urlencode($item['tagname']))).'">'.$item['tagname'].'</a>';
-        }
-
-	}
-	echo '</div></div>';
+    include template('tag','tag');
 	
 }
 

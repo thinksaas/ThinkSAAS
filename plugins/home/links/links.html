@@ -1,0 +1,10 @@
+<div class="card">
+	<div class="card-header">友情链接</div>
+	<div class="card-body">
+        {if $arrLink}
+        {loop $arrLink $key $item}
+            <a class="fs14 mr-3" target="_blank" href="{$item['linkurl']}">{$item['linkname']}</a> 
+        {/loop}
+        {/if}
+    </div>
+</div>

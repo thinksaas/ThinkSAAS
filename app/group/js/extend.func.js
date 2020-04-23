@@ -70,15 +70,16 @@ function openXuqi(userid) {
 //标注
 function toBook(topicid){
     var book = $('#book-text').val();
-    if(topicid && book){
+    //if(topicid && book){
+    if(topicid){
         $.post(siteUrl+'index.php?app=group&ac=ajax&ts=book',{'topicid':topicid,'book':book},function (rs) {
             if(rs==1){
                 window.location.reload()
             }else{
-                $('#book-alert').html('标注不能为空');
+                //$('#book-alert').html('标注不能为空');
             }
         })
     }else{
-        $('#book-alert').html('标注不能为空');
+        //$('#book-alert').html('标注不能为空');
     }
 }

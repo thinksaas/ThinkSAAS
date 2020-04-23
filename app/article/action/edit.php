@@ -125,7 +125,8 @@ switch ($ts) {
                 'articleid' => $articleid
 			), array (
                 'path' => $arrUpload ['path'],
-                'photo' => $arrUpload ['url']
+				'photo' => $arrUpload ['url'],
+				'uptime'=>time(),
 			) );
 
             #生成不同尺寸的图片

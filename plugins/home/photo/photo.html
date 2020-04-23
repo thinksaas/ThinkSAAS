@@ -3,8 +3,10 @@
 <small class="float-right"><a class="text-black-50" href="{tsUrl('photo')}">更多</a></small>
 </div>
 <div class="card-body">
-<div class="photoalbumlist">
 
+
+{if $arrAlbum}
+<div class="photoalbumlist">
     <div class="row">
         {loop $arrAlbum $key $item}
     <div class="col-6 col-md-2">
@@ -16,9 +18,15 @@
     </div>
         {/loop}
     </div>
-
-
-
 </div>
+
+{else}
+
+<div class="c9">暂无推荐相册</div>
+
+{/if}
+
+
+
 </div>
 </div>

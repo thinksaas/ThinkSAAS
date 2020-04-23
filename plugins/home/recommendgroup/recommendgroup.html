@@ -1,6 +1,7 @@
 <div class="card">
     <div class="card-header">推荐小组</div>
     <div class="card-body">
+        {if $arrRecommendGroup}
         <div class="row">
             {loop $arrRecommendGroup $key $item}
             <div class="col-md-6">
@@ -11,12 +12,17 @@
                         </a>
                     </div>
                     <div class="info">
-                        <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['groupname']}</a> <span class="fs12 c9">{$item['count_user']} 成员</span>
+                        <a class="font-weight-bold" href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['groupname']}</a> <span class="fs12 c9">{$item['count_user']} 成员</span>
                         <div class="content">{php echo cututf8(t($item['groupdesc']),0,43,false)}</div>
                     </div>
                 </div>
             </div>
             {/loop}
         </div>
+        {else}
+
+        <div class="c9">暂无推荐小组</div>
+
+        {/if}
     </div>
 </div>

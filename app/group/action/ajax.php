@@ -229,9 +229,10 @@ switch($ts){
         $topicid = intval($_POST['topicid']);
         $book = trim($_POST['book']);
 
-        if($topicid==0 || $book==''){
+        //if($topicid==0 || $book==''){
+        if($topicid==0){
             echo 0;exit;
-        }
+		}
 
         if($TS_USER['isadmin']==1){
             $new['group']->update('group_topic',array(

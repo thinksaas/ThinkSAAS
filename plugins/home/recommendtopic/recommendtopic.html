@@ -2,6 +2,9 @@
 <div class="card-header">推荐话题</div>
 
 <div class="card-body">
+
+{if $arrTopic}
+
 <div class="topic_list">
 <ul>
 {loop $arrTopic $key $item}
@@ -71,6 +74,13 @@
 {/loop}
 </ul>
 </div>
+
+{else}
+
+<div class="c9">暂无推荐话题</div>
+
+{/if}
+
 </div>
 
 </div>

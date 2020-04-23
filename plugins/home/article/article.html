@@ -1,6 +1,7 @@
 <div class="card">
     <div class="card-header">最新文章</div>
     <div class="card-body">
+        {if $arrArticle}
         <div class="commlist">
             <ul>
                 {loop $arrArticle $key $item}
@@ -8,5 +9,8 @@
                 {/loop}
             </ul>
         </div>
+        {else}
+        <div class="c9">暂无文章</div>
+        {/if}
     </div>
 </div>

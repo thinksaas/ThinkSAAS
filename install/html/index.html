@@ -145,13 +145,24 @@
 </div>
 <script>
 //新版本检测
+var theAuthUrl = getLocation();
 $(document).ready(function(){
-    $.getJSON("https://www.thinksaas.cn/index.php?app=upcenter&ac=find&version=<?php echo $TS_CF['info']['version'];?>&callback=?",
+    $.getJSON("https://www.thinksaas.cn/index.php?app=upcenter&ac=find&url="+theAuthUrl+"&version=<?php echo $TS_CF['info']['version'];?>&callback=?",
         function(data){
             if(data){
                 $("#notice").show();
             }
         });
 });
+function getLocation(){
+    var arr = document.domain.split('.');
+    if(arr.length === 2){
+        return document.domain;
+    }
+    if(arr.length > 2 && arr[0] !== 'www'){
+        return arr.slice(1).join('.')
+    }
+    return arr.slice(1).join('.')
+}
 </script>
 <?php include 'footer.html'; ?>

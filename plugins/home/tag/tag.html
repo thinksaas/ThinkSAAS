@@ -1,0 +1,30 @@
+<div class="card">
+	<div class="card-header">热门标签<small class="float-right">
+    {if $tag=='topic'}
+        <a class="text-black-50" href="{tsUrl('group','tags')}">更多</a>
+    {elseif $tag=='article'}
+        <a class="text-black-50" href="{tsUrl('article','tags')}">更多</a>
+    {/if}
+    </small>
+    </div>
+	<div class="card-body">
+
+        {if $arrTag}
+
+	{loop $arrTag $key $item}
+	    {if $tag=='topic'}
+            <a class="badge badge-secondary mr-2 fw300" href="{tsUrl('group','tag',array('id'=>urlencode($item['tagname'])))}">{$item['tagname']}</a>
+        {elseif $tag=='article'}
+            <a class="badge badge-secondary mr-2 fw300" href="{tsUrl('article','tag',array('id'=>urlencode($item['tagname'])))}">{$item['tagname']}</a>
+        {/if}
+
+    {/loop}
+    
+        {else}
+
+        <div class="c9">暂无推荐标签</div>
+
+        {/if}
+
+    </div>
+</div>

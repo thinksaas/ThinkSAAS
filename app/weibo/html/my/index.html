@@ -29,7 +29,7 @@
 
 
             <div>
-                <form method="post" class="form text-form" action="{tsUrl('weibo','add',array('ts'=>'do'))}" enctype="multipart/form-data">
+                <form method="post" class="form text-form" action="{SITE_URL}index.php?app=weibo&ac=add" enctype="multipart/form-data">
                     <textarea class="form-control" rows="2" name="title"></textarea>
                     <div style="padding:5px 0;">
 
@@ -66,7 +66,7 @@
 
                             <span class="c9">|</span>
 
-                            <a href="{tsUrl('weibo','deleteweibo',array('weiboid'=>$item['weiboid']))}">删除</a>
+                            <a href="{tsUrl('weibo','delete',array('weiboid'=>$item['weiboid']))}">删除</a>
                             {/if}
 
                         </p>

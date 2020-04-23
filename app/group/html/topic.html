@@ -22,7 +22,7 @@
                 <div class="card-body">
 
 
-                    <h1 class="h3 pt-0 pb-3 fw300">{if $strTopic['label']}<span class="badge badge-danger fw300">{tsTitle($strTopic['label'])}</span>{/if}{if $strTopic[typeid] !='0'}<a href="{tsUrl('group','show',array('id'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}{$strTopic[title]}</h1>
+                    <h1 class="h5 pt-0 pb-3 font-weight-bold">{if $strTopic['label']}<span class="badge badge-danger fw300">{tsTitle($strTopic['label'])}</span>{/if}{if $strTopic[typeid] !='0'}<a href="{tsUrl('group','show',array('id'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}{$strTopic[title]}</h1>
 
 
                     <div class="d-flex flex-row justify-content-between">
