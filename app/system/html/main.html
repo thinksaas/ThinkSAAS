@@ -80,7 +80,7 @@ function getLocation(){
                 <tr><td>联系方式：</td><td>QQ:{$TS_CF['info']['qq']} 微信：{$TS_CF['info']['weixin']}</td></tr>
                 <tr><td>官方网址：</td><td><a href="{$TS_CF[info][url]}" target='_blank'>{$TS_CF[info][url]}</a></td></tr>
                 <tr><td>域名授权：</td><td><span id="authurl"></span></td></tr>
-                <tr><td>赞助我们：</td><td><a target="_blank" href="https://www.thinksaas.cn/service/donate/">赞助ThinkSAAS社区系统开发</a></td></tr>
+                <tr><td>官方社区：</td><td><a target="_blank" href="https://demo.thinksaas.cn/">https://demo.thinksaas.cn/</a></td></tr>
                 </tbody>
             </table>
                 </div>
@@ -99,8 +99,9 @@ function getLocation(){
                 <tr><td>PHP版本：</td><td>{$systemInfo[phpversion]}</td></tr>
                 <tr><td>MySQL版本：</td><td>{$systemInfo[mysql]}</td></tr>
                 <tr><td>物理路径：</td><td>$_SERVER[DOCUMENT_ROOT]</td></tr>
-                <tr><td>附件上传限制：</td><td>{$systemInfo[upload]}</td></tr>
-                <tr><td>图像处理：</td><td>{$systemInfo[gd]} </td></tr>
+                <tr><td>php附件上传限制：</td><td>{$systemInfo['upload']}</td></tr>
+                <tr><td>php内存限制：</td><td>{$systemInfo['memory']}</td></tr>
+                <tr><td>php图像处理：</td><td>{$systemInfo['gd']} </td></tr>
                 <tr><td>语言：</td><td>{$_SERVER[HTTP_ACCEPT_LANGUAGE]}</td></tr>
                 <tr><td>gzip压缩：</td><td>{if $_SERVER[HTTP_ACCEPT_ENCODING]}{$_SERVER[HTTP_ACCEPT_ENCODING]}{else}不支持{/if}</td></tr>
                 </tbody>

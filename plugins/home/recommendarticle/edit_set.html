@@ -1,0 +1,25 @@
+{php include pubTemplate("header_admin")}
+
+
+<div class="midder">
+
+<h6>文章推荐设置</h6>
+{php include pubTemplate("plugin_menu")}
+
+<form method="POST" action="{SITE_URL}index.php?app=home&ac=plugin&plugin=recommendarticle&in=edit&ts=do">
+<table class="table table-hover">
+
+<tr><td>内容获取方式：</td><td>
+
+    <input type="radio" name="isrecommend" value="0" {if $strData['isrecommend']==0}checked{/if}> 最新内容
+    <input type="radio" name="isrecommend" value="1" {if $strData['isrecommend']==1}checked{/if}> 推荐内容
+
+</td></tr>
+
+<tr><td></td><td><input type="submit" value="提交修改" /></td></tr>
+
+</table>
+</form>
+</div>
+
+{php include pubTemplate("footer_admin")}

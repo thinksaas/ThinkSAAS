@@ -102,6 +102,8 @@
 </select>
 </td>
 </tr>
+
+
     </tbody>
 </table>
 
@@ -199,6 +201,23 @@
 
 <tr><td width="200">图片上传大小：</td><td><input name="option[photo_size]" value="$strOption['photo_size']" />M (请填写数字，例如2)</td></tr>
 <tr><td>图片上传格式：</td><td><input name="option[photo_type]" value="$strOption['photo_type']" />(请以英文逗号分割，例如：jpg,gif,png)</td></tr>
+
+<tr><td>是否开启正文图片检测：</td><td>
+
+
+    <input type="radio" {if $strOption['photo_check']=='0'}checked="select"{/if} name="option[photo_check]" value="0" />不开启 
+    <input type="radio" {if $strOption['photo_check']=='1'}checked="select"{/if} name="option[photo_check]" value="1" />开启
+
+</td></tr>
+
+
+<tr><td>图片处理组件：</td><td>
+
+    <input type="radio" {if $strOption['photo_driver']=='gd'}checked="select"{/if} name="option[photo_driver]" value="gd" />gd 
+    <input type="radio" {if $strOption['photo_driver']=='imagick'}checked="select"{/if} name="option[photo_driver]" value="imagick" />imagick
+
+</td></tr>
+
 
 <tr><td>附件上传大小：</td><td><input name="option[attach_size]" value="$strOption['attach_size']" />M (请填写数字，例如2)</td></tr>
 <tr><td>附件上传格式：</td><td><input name="option[attach_type]" value="$strOption['attach_type']" />(请以英文逗号分割，例如：zip,rar,doc,txt,ppt)</td></tr>

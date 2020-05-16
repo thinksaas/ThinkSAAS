@@ -21,7 +21,7 @@ switch($ts){
         ));
 
 
-        $arrUpload = tsUpload($_FILES['photo'], $id, 'editor', array('jpg', 'gif', 'png', 'jpeg'));
+        $arrUpload = tsUpload($_FILES['photo'], $id, 'editor', array('jpg', 'gif', 'png', 'jpeg'),'sy.png');
         if ($arrUpload) {
             $new['pubs'] -> update('editor', array(
                 'id' => $id
@@ -37,16 +37,16 @@ switch($ts){
                 echo json_encode(array(
                     'errno'=>0,
                     'data'=>array(
-                        //0=>SITE_URL.'uploadfile/editor/'.$arrUpload['url'],
-                        0=>tsXimg($arrUpload['url'],'editor','640','',$arrUpload['path']),
+                        0=>SITE_URL.'uploadfile/editor/'.$arrUpload['url'],
+                        //0=>tsXimg($arrUpload['url'],'editor','640','',$arrUpload['path']),
                     ),
                 ));
                 exit();
 
             }else{
 
-                //echo SITE_URL.'uploadfile/editor/'.$arrUpload['url'];
-                echo tsXimg($arrUpload['url'],'editor','640','',$arrUpload['path']);
+                echo SITE_URL.'uploadfile/editor/'.$arrUpload['url'];
+                //echo tsXimg($arrUpload['url'],'editor','640','',$arrUpload['path']);
                 exit();
 
             }

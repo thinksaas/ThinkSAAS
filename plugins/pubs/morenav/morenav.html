@@ -1,0 +1,10 @@
+<li class="nav-item active dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      更多
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        {loop $arrNav $key $item}
+        <a class="dropdown-item" {if $item['newpage']}target="_blank"{/if} href="{$item['navurl']}">{$item['navname']}</a>
+        {/loop}
+    </div>
+  </li>

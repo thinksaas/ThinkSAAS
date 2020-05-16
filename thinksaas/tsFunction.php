@@ -680,7 +680,12 @@ function tsXimg($file, $app, $w, $h, $path = '', $c = '0',$sy='sy.png',$position
 
         if (!is_file($cpath) && $type!='gif') {
 
-            Image::configure(array('driver' => 'gd'));//gd or imagick
+			$driver = $GLOBALS['TS_SITE']['photo_driver'];
+			if($driver==''){
+				$driver = 'gd';
+			}
+
+            Image::configure(array('driver' => $driver));//gd or imagick
 
             createFolders('cache/' . $app . '/' . $path);
             $dest = 'uploadfile/' . $app . '/' . $file;
@@ -1384,21 +1389,24 @@ function iswriteable($file) {
  * @param unknown $dir
  */
 function delDirFile($dir) {
-	$arrFiles = dirList($dir, 'files');
+	$arrFiles = tsScanDir($dir, 'files');
 	foreach ($arrFiles as $item) {
 		unlink($dir . '/' . $item);
 	}
 }
 
+
 /**
  * ThinkSAAS专用上传函数
- * @param unknown $files	要上传的文件 如$_FILES['photo']
- * @param unknown $projectid	上传针对的项目id 如$userid
- * @param unknown $dir	上传到目录 如 user
- * @param unknown $uptypes	上传类型，数组 array('jpg','png','gif')
- * @return multitype:string unknown mixed |boolean	返回数组：array('name'=>'','path'=>'','url'=>'','path'=>'','size'=>'')
+ *
+ * @param [type] $files			要上传的文件 如$_FILES['photo']
+ * @param [type] $projectid		上传针对的项目id 如$userid
+ * @param [type] $dir			上传到目录 如 user
+ * @param array $uptypes		上传类型，数组 array('jpg','png','gif')
+ * @param string $sy			图片水印文件sy.png，文件请放到public/images/目录下
+ * @return void					失败返回false，成功返回数组：array('name'=>'','path'=>'','url'=>'','path'=>'','size'=>'')
  */
-function tsUpload($files, $projectid, $dir, $uptypes) {
+function tsUpload($files, $projectid, $dir, $uptypes=array(),$sy='') {
 	
 	if ($files['size'] > 0) {
 
@@ -1432,8 +1440,6 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
 
             }
 
-        }else{
-
         }
 
         $path = getDirPath($projectid);
@@ -1455,7 +1461,14 @@ function tsUpload($files, $projectid, $dir, $uptypes) {
                 //处理大图统一为800宽度，高度自适应
                 $img->resize(800, null, function ($constraint) {
                     $constraint->aspectRatio();
-                });
+				});
+				
+				#加水印
+				if($sy){
+					$watermark = Image::make('public/images/'.$sy);
+					$img->insert($watermark, 'bottom-left',10,10);
+				}
+
                 $img->save($dest);
             }else{
                 move_uploaded_file($files['tmp_name'], mb_convert_encoding($dest, "gb2312", "UTF-8"));
@@ -1741,17 +1754,19 @@ function tsClean($text,$js=0) {
 	//去除前后空格，并去除反斜杠
 	//$text = br2nl($text); //将br转换成/n
 
-    //处理正文图片
-    preg_match_all('/<img[^>]*src="([^"]*)"[^>]*>/i',$text, $matchs);   //主要
-    $arrImage = $matchs[1];
-    foreach($arrImage as $key=>$item){
-        if(substr( $item, 0, 1 )=='/'){
-            $item = substr($item,1);
-        }
-        if(getimagesize($item)==false){
-            getJson('内容中存在非法图片：'.$item,$js,0);
-        }
-    }
+	//处理正文图片
+	if($GLOBALS['TS_SITE']['photo_check']==1){
+		preg_match_all('/<img[^>]*src="([^"]*)"[^>]*>/i',$text, $matchs);   //主要
+		$arrImage = $matchs[1];
+		foreach($arrImage as $key=>$item){
+			if(substr( $item, 0, 1 )=='/'){
+				$item = substr($item,1);
+			}
+			if(getimagesize($item)==false){
+				getJson('内容中存在非法图片：'.$item,$js,0);
+			}
+		}
+	}
 
 	///////XSS start
 	require_once 'thinksaas/xsshtml.class.php';
@@ -2555,37 +2570,38 @@ function emptyText($text=''){
  */
 function upAppNav($appkey,$appname){
     if($appkey && $appname){
-
         $strAbout = require_once 'app/'.$appkey.'/about.php';
-
         if($strAbout['isappnav']==1){
             #更新APP导航名称
-            $arrNav = include 'data/system_appnav.php';
-            if(is_array($arrNav)){
-                $arrNav[$appkey] = $appname;
-            }else{
-                $arrNav = array(
-                    $appkey=>$appname,
-                );
-            }
-            fileWrite('system_appnav.php','data',$arrNav);
-            $GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
+			$arrNav = include 'data/system_appnav.php';
+			if($arrNav[$appkey]){
+				if(is_array($arrNav)){
+					$arrNav[$appkey] = $appname;
+				}else{
+					$arrNav = array(
+						$appkey=>$appname,
+					);
+				}
+				fileWrite('system_appnav.php','data',$arrNav);
+				$GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
+			}
         }
 
         if($strAbout['ismy']==1){
             #更新我的社区导航
-            $arrMy = include 'data/system_mynav.php';
-            if(is_array($arrMy)){
-                $arrMy[$appkey] = $appname;
-            }else{
-                $arrMy = array(
-                    $appkey=>$appname,
-                );
-            }
-            fileWrite('system_mynav.php','data',$arrMy);
-            $GLOBALS['tsMySqlCache']->set('system_mynav',$arrMy);
+			$arrMy = include 'data/system_mynav.php';
+			if($arrMy[$appkey]){
+				if(is_array($arrMy)){
+					$arrMy[$appkey] = $appname;
+				}else{
+					$arrMy = array(
+						$appkey=>$appname,
+					);
+				}
+				fileWrite('system_mynav.php','data',$arrMy);
+				$GLOBALS['tsMySqlCache']->set('system_mynav',$arrMy);
+			}
         }
-
     }
 }
 

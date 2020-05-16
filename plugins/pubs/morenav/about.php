@@ -1,11 +1,9 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-//插件信息
 return array(
-    'hook'=>'home_index_left', //钩子
-    'name' => '推荐话题列表',
+    'name' => '更多导航插件',
     'version' => '1.0',
-    'desc' => '推荐话题列表',
+    'desc' => '扩展网站顶部主导航更多导航链接',
     'url' => 'http://www.thinksaas.cn',
     'email' => 'thinksaas@qq.com',
     'author' => '邱君',

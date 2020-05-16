@@ -2,11 +2,24 @@
 defined('IN_TS') or die('Access Denied.'); 
 
 function recommendarticle(){
-	
-	$arrArticle = aac('article')->findAll('article',array(
-		'isrecommend'=>1,
-		'isaudit'=>0
-	),'addtime desc','articleid,cateid,userid,title,gaiyao,path,photo,count_view,count_comment,addtime',10);
+
+	$strData = fileRead('data/plugins_home_recommendarticle.php');
+	if($strData==''){
+		$strData = $GLOBALS['tsMySqlCache']->get('plugins_home_recommendarticle');
+	}
+
+	if($strData['isrecommend']==1){
+		$where = array(
+			'isrecommend'=>1,
+			'isaudit'=>0
+		);
+	}else{
+		$where = array(
+			'isaudit'=>0
+		);
+	}
+
+	$arrArticle = aac('article')->findAll('article',$where,'addtime desc','articleid,cateid,userid,title,gaiyao,path,photo,count_view,count_comment,addtime',10);
 	foreach($arrArticle as $key=>$item){
 		$arrArticle[$key]['title'] = tsTitle($item['title']);
 		$arrArticle[$key]['content'] = tsDecode($item['content']);

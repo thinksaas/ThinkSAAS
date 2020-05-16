@@ -468,5 +468,26 @@ class pubs extends tsApp{
         ));
     }
 
+    /**
+     * 更新项目推荐
+     *
+     * @param [type] $ptable
+     * @param [type] $pkey
+     * @param [type] $pid
+     * @param integer $isrecommend 1推荐0不推荐
+     * @return void
+     */
+    public function upPtableRecommend($ptable,$pkey,$pid,$isrecommend=1){
+        if($ptable!='group_topic'){
+            $this->update('group_topic',array(
+                'ptable'=>$ptable,
+                'pkey'=>$pkey,
+                'pid'=>$pid,
+            ),array(
+                'isrecommend'=>$isrecommend,
+            ));
+        }
+    }
+
 
 }

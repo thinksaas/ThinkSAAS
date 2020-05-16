@@ -117,18 +117,19 @@ switch($ts){
 		));
 		
 		if($strArticle['isrecommend']==0){
-			$new['article']->update('article',array(
-				'articleid'=>$articleid,
-			),array(
-				'isrecommend'=>1,
-			));
+			$isrecommend = 1;
 		}else{
-			$new['article']->update('article',array(
-				'articleid'=>$articleid,
-			),array(
-				'isrecommend'=>0,
-			));
+			$isrecommend = 0;
 		}
+
+		$new['article']->update('article',array(
+			'articleid'=>$articleid,
+		),array(
+			'isrecommend'=>$isrecommend,
+		));
+
+		#更新项目推荐
+		aac('pubs')->upPtableRecommend('article','articleid',$articleid,$isrecommend);
 		
 		qiMsg('操作成功！');
 		break;

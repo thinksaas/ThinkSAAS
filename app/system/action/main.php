@@ -14,7 +14,8 @@ $systemInfo = array(
 	'mysql'	=> $db->getMysqlVersion(),
 	'os' =>$os[0] .''.$os[1].' '.$os[3],
 	'gd'=>$gd,
-	'upload' =>'表单允许'.ini_get('post_max_size').',上传总大小'.ini_get('upload_max_filesize')
+	'upload' =>'表单允许 (post_max_size) '.ini_get('post_max_size').',上传总大小 (upload_max_filesize) '.ini_get('upload_max_filesize'),
+	'memory'=> 'memory_limit '.ini_get('memory_limit'),
 );
 
 //获取域名

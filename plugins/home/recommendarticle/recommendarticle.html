@@ -5,7 +5,7 @@
         {if $arrArticle}
 {loop $arrArticle $key $item}
             {if $item['photo']}
-            <div class="row">
+            <div class="row border-bottom mb-3 pb-3">
 
                 <div class="col-md-4">
                     <a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">

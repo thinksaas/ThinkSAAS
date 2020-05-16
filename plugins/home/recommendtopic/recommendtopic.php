@@ -2,12 +2,25 @@
 defined('IN_TS') or die('Access Denied.'); 
 
 function recommendtopic(){
+
+	$strData = fileRead('data/plugins_home_recommendtopic.php');
+	if($strData==''){
+		$strData = $GLOBALS['tsMySqlCache']->get('plugins_home_recommendtopic');
+	}
+
+	if($strData['isrecommend']==1){
+		$where = array(
+			'isrecommend'=>1,
+			'isaudit'=>0
+		);
+	}else{
+		$where = array(
+			'isaudit'=>0
+		);
+	}
 	
 	//推荐帖子	
-	$arrTopic = aac('group')->findAll('group_topic',array(
-		'isrecommend'=>1,
-		'isaudit'=>0,
-	),'istop desc,uptime desc','topicid,ptable,pkey,pid,pjson,userid,groupid,title,gaiyao,score,label,count_comment,count_view,istop,uptime',35);
+	$arrTopic = aac('group')->findAll('group_topic',$where,'istop desc,uptime desc','topicid,ptable,pkey,pid,pjson,userid,groupid,title,gaiyao,score,label,count_comment,count_view,istop,uptime',35);
 	
 	foreach($arrTopic as $key=>$item){
 		$arrTopic[$key]['title']=tsTitle($item['title']);

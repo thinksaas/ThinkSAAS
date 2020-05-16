@@ -10,5 +10,5 @@ return array(
     'email' => 'thinksaas@qq.com',
     'author' => '邱君',
     'author_url' => 'https://www.thinksaas.cn',
-    'isedit'	=> '0',
+    'isedit'	=> '1',
 );
