@@ -58,11 +58,10 @@ switch($ts){
 		
 		if(intval($TS_USER['isadmin'])==0){
 			//过滤内容开始
-			aac('system')->antiWord($username);
-			aac('system')->antiWord($signed);
-			aac('system')->antiWord($phone);
-			//aac('system')->antiWord($blog);
-			aac('system')->antiWord($about);
+			$username = antiWord($username);
+			$signed = antiWord($signed);
+			$phone = antiWord($phone);
+			$about = antiWord($about);
 			//过滤内容结束
 		}
 

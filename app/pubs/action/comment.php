@@ -46,7 +46,7 @@ switch($ts){
 
 		//过滤内容开始
 		if($TS_USER['isadmin']==0){
-			aac('system')->antiWord($content,$js);
+			$content = antiWord($content);
 		}
 		//过滤内容结束
 

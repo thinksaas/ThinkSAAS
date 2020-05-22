@@ -71,8 +71,8 @@ switch($ts){
 			
 			//过滤内容开始
 			if($TS_USER['isadmin']!=1){
-				aac('system')->antiWord($groupname);
-				aac('system')->antiWord($groupdesc);
+				$groupname = antiWord($groupname);
+				$groupdesc = antiWord($groupdesc);
 			}
 			//过滤内容结束
 			

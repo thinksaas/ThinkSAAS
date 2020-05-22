@@ -119,11 +119,11 @@ switch ($ts) {
 		if ($strGroup ['isaudit'] == 1) {
 			tsNotice ( '小组还未审核通过，不允许发帖！' );
 		}
-		
+
 		if ($TS_USER ['isadmin'] == 0) {
-			aac ( 'system' )->antiWord ( $title );
-			aac ( 'system' )->antiWord ( $content );
-			aac ( 'system' )->antiWord ( $tag );
+			$title = antiWord ( $title );
+			$content = antiWord ( $content );
+			$tag = antiWord ( $tag );
 		}
 		
 		$iscomment = intval ( $_POST ['iscomment'] );

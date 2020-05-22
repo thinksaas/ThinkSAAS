@@ -41,8 +41,8 @@ switch($ts){
 		
 		if($TS_USER['isadmin']==0){
 			//过滤内容开始
-			aac('system')->antiWord($albumname);
-			aac('system')->antiWord($albumdesc);
+			$albumname = antiWord($albumname);
+			$albumdesc = antiWord($albumdesc);
 			//过滤内容结束
 		}
 		

@@ -27,7 +27,7 @@ switch($ts){
 
         if($GLOBALS['TS_USER']['isadmin']==0){
             //过滤内容开始
-            aac('system')->antiWord($title,$js);
+            $title = antiWord($title);
             //过滤内容结束
         }
 
@@ -63,7 +63,7 @@ switch($ts){
 
 		if($GLOBALS['TS_USER']['isadmin']==0){
 			//过滤内容开始
-			aac('system')->antiWord($title);
+			$title = antiWord($title);
 			//过滤内容结束
 		}
 

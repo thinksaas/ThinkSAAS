@@ -8,3 +8,4 @@
 .DS_Store
 composer.lock
 upgrade.sql
+upgrade.txt

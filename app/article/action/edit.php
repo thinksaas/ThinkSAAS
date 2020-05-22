@@ -73,8 +73,8 @@ switch ($ts) {
 
 		if ($TS_USER ['isadmin'] == 0) {
 			// 过滤内容开始
-			aac ( 'system' )->antiWord ( $title );
-			aac ( 'system' )->antiWord ( $content );
+			$title = antiWord ( $title );
+			$content = antiWord ( $content );
 			// 过滤内容结束
 		}
 		

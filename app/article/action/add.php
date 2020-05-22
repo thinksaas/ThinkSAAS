@@ -53,9 +53,9 @@ switch ($ts) {
 
 		if (intval($TS_USER['isadmin']) == 0) {
 			// 过滤内容开始
-			aac('system') -> antiWord($title);
-			aac('system') -> antiWord($content);
-			aac('system') -> antiWord($tag);
+			$title = antiWord($title);
+			$content = antiWord($content);
+			$tag = antiWord($tag);
 			// 过滤内容结束
 		}
 

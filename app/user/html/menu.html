@@ -51,7 +51,7 @@
                     {else}
                     <a class="btn btn-info btn-sm" href="javascript:void('0')" onclick="follow('{$strUser['userid']}','{$_SESSION['token']}');">关注</a>
                     {/if}
-                    <a href="{tsUrl('user','message',array(ts=>add,touserid=>$strUser[userid]))}" rel="nofollow" class="btn btn-outline-secondary btn-sm">发消息</a>
+                    <a href="{tsUrl('user','guestbook',array('id'=>$strUser[userid]))}" class="btn btn-outline-secondary btn-sm">给TA留言</a>
                     {/if}
                 </div>
 

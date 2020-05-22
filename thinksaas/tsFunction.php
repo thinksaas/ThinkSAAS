@@ -1833,6 +1833,22 @@ function tsCutContent($text, $length = 50) {
 	return $text;
 }
 
+/**
+ * 敏感词直接替换成**
+ *
+ * @param [type] $text
+ * @return void
+ */
+function antiWord($text){
+	$strWord = fileRead('system_anti_word.php');
+    if($strWord==''){
+        $strWord = $GLOBALS['tsMySqlCache']->get('system_anti_word');
+	}
+	$arrWord = explode('|',$strWord);
+	$arrWords = array_combine($arrWord, array_fill(0, count($arrWord), '**'));
+	return strtr($text, $arrWords);
+}
+
 /*
  * tpCount()
  */

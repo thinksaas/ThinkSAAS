@@ -267,7 +267,7 @@ class group extends tsApp{
     public function getTopicPhoto($topicid,$num=null){
         $arrPhotos = $this->findAll('group_topic_photo',array(
             'topicid'=>$topicid,
-        ),'addtime desc',null,$num);
+        ),'orderid asc',null,$num);
 
         foreach($arrPhotos as $key=>$item){
             if($num){

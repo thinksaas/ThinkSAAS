@@ -103,7 +103,7 @@ switch($ts){
 		}
 
 		#用户名敏感词
-        //aac ( 'system' )->antiWord ( $username,$js );
+        $username = antiWord ($username);
 
 		#判断用户名是否存在
         $isUserName = $new['user']->findCount('user_info',array(
@@ -115,11 +115,9 @@ switch($ts){
 		}
 		
 		if($TS_SITE['isauthcode']){
-
             if ($authcode != $_SESSION['verify']) {
                 getJson('验证码输入有误，请重新输入！', $js);
             }
-
 		}
 		
 		

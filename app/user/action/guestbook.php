@@ -50,7 +50,7 @@ switch($ts){
 		
 		}
 		
-		aac('system')->antiWord($content);
+		$content = antiWord($content);
 		
 		$new['user']->create('user_gb',array(
 			'userid'=>$userid,
@@ -86,7 +86,7 @@ switch($ts){
 			tsNotice('留言不能为空！');
 		}
 		
-		aac('system')->antiWord($content);
+		$content = antiWord($content);
 		
 		$new['user']->create('user_gb',array(
 			'userid'=>$userid,
