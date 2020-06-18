@@ -1,0 +1,75 @@
+{php include pubTemplate("header")}
+
+<!--main-->
+<div class="container">
+
+
+
+    <div class="card">
+        <div class="card-header">发送短消息</div>
+        <div class="card-body">
+
+
+
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+
+
+
+
+                    <form id="comm-form" class="form-horizontal" method="POST" action="{SITE_URL}index.php?app=user&ac=message&ts=do">
+
+                        <div class="form-group">
+                            <label>收件人：</label>
+                            <div >
+                                <div style="padding-top: 7px;">
+                                    <img alt="{$strTouser[username]}" class="m_sub_img" src="{$strTouser[face]}" width="16" align="absmiddle" /> {$strTouser['username']}
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>消息内容：</label>
+                            <div>
+
+                                <textarea class="form-control" name="content"></textarea>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+
+                                <input type="hidden" name="touserid" value="{$strTouser[userid]}" />
+
+                                <input type="hidden" name="token" value="{$_SESSION['token']}" />
+
+                                <button type="submit" class="btn btn-sm btn-info">点击发送</button>
+
+                                <a class="btn btn-sm btn-light" href="{tsUrl('user','space',array('id'=>$strTouser['userid']))}">返回</a>
+
+                            </div>
+                        </div>
+                    </form>
+
+
+
+
+
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+</div>
+
+{php include pubTemplate("footer")}
