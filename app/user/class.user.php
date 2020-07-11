@@ -81,7 +81,7 @@ class user extends tsApp {
      * @param integer $fuserid
      * @return void
      */
-    public function register($email,$username='',$pwd='',$fuserid=0){
+    public function register($email,$username='',$pwd='',$fuserid=0,$invitecode=''){
 
         $salt = md5(rand());
         
@@ -125,27 +125,20 @@ class user extends tsApp {
 		));
 		
 		//默认加入小组
-		$isGroup = $this->find('user_options',array(
-			'optionname'=>'isgroup',
-		));
-		
-		if($isGroup['optionvalue']){
-			$arrGroup = explode(',',$isGroup['optionvalue']);
-			
+		if($GLOBALS['TS_APP']['isgroup']){
+			$arrGroup = explode(',',$GLOBALS['TS_APP']['isgroup']);
 			if($arrGroup){
 				foreach($arrGroup as $key=>$item){
 					$groupUserNum = $this->findCount('group_user',array(
 						'userid'=>$userid,
 						'groupid'=>$item,
 					));
-					
 					if($groupUserNum == 0){
 						$this->create('group_user',array(
 							'userid'=>$userid,
 							'groupid'=>$item,
 							'addtime'=>time(),
 						));
-						
 						//统计更新
 						$count_user = $this->findCount('group_user',array(
 							'groupid'=>$item,
@@ -156,7 +149,6 @@ class user extends tsApp {
 						),array(
 							'count_user'=>$count_user,
 						));
-						
 					}
 				}
 			}
@@ -174,7 +166,7 @@ class user extends tsApp {
 		aac('message')->sendmsg(0,$userid,'亲爱的 '.$username.' ：您成功加入了 '.$GLOBALS['TS_SITE']['site_title'].'。在遵守本站的规定的同时，享受您的愉快之旅吧!');
 		
 		//注销邀请码并将关注邀请用户
-		if($$GLOBALS['TS_SITE']['isinvite']=='1'){
+		if($GLOBALS['TS_SITE']['isinvite']=='1' && $invitecode){
 			
 			//邀请码信息
 			$strInviteCode = $this->find('user_invites',array(

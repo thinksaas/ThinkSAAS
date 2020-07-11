@@ -914,6 +914,7 @@ CREATE TABLE IF NOT EXISTS `ts_group_topic_photo` (
   `photoid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
+  `orderid` INT(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
   `path` varchar(50) NOT NULL DEFAULT '' COMMENT '路径',
   `photo` varchar(50) NOT NULL DEFAULT '' COMMENT '图片',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',

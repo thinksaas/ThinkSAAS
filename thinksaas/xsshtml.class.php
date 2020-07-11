@@ -159,7 +159,8 @@ class XssHtml {
 
 	private function __node_embed($node){
 		$this->__common_attr($node);
-		$link = strtolower($this->__get_link($node, 'src'));
+		//$link = strtolower($this->__get_link($node, 'src'));
+		$link = $this->__get_link($node, 'src');
 
 
         $arrType = explode('.',$link);
@@ -177,7 +178,8 @@ class XssHtml {
 
     private function __node_iframe($node){
         $this->__common_attr($node);
-        $link = strtolower($this->__get_link($node, 'src'));
+        //$link = strtolower($this->__get_link($node, 'src'));
+        $link = $this->__get_link($node, 'src');
 
         $url = str_replace('//','',$link);
 

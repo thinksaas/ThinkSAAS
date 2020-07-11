@@ -121,7 +121,7 @@ switch($ts){
 		}
 		
 		
-		$new['user']->register($email,$username,$pwd,$fuserid);
+		$new['user']->register($email,$username,$pwd,$fuserid,$invitecode);
 
 
 		//对积分进行处理

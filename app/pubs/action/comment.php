@@ -29,10 +29,17 @@ switch($ts){
 				getJson ( "验证码输入有误，请重新输入！" ,$js,0);
 			}
 		}
-		
         
         $ptable = trim($_POST['ptable']);
+        if(!preg_match("/^[a-z_]*$/i", $ptable)){
+            getJson('非法操作！',$js);
+        }
+
         $pkey = trim($_POST['pkey']);
+        if(!preg_match("/^[a-z_]*$/i", $pkey)){
+            getJson('非法操作！',$js);
+        }
+
         $pid = tsIntval($_POST['pid']);
 
 
