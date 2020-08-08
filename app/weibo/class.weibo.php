@@ -29,6 +29,23 @@ class weibo extends tsApp{
 		return $strWeibo;
 		
 	}
+
+	/**
+     * 获取微博图片
+     */
+    public function getWeiboPhoto($weiboid,$num=null){
+        $arrPhotos = $this->findAll('weibo_photo',array(
+            'weiboid'=>$weiboid,
+        ),'orderid asc',null,$num);
+        foreach($arrPhotos as $key=>$item){
+            if($num){
+                $arrPhoto[$key] = tsXimg($item['photo'],'weibo/photo','200','200',$item['path'],1);
+            }else{
+                $arrPhoto[$key] = tsXimg($item['photo'],'weibo/photo','640','',$item['path']);
+            }
+        }
+        return $arrPhoto;
+    }
 	
 
 	

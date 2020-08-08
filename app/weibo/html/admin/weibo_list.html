@@ -19,7 +19,17 @@
     <tbody>
 
     {loop $arrWeibo $key $item}
-    <tr><td>{$item['weiboid']}</td><td>{$item['userid']}</td><td>{$item['title']}</td><td>
+    <tr><td>{$item['weiboid']}</td><td>{$item['userid']}</td><td>{$item['title']}
+
+        {if $item['photo']}
+        <div>
+            {loop $item['photo'] $pkey $pitem}
+            <img height="100" src="{SITE_URL}uploadfile/weibo/photo/{$pitem['photo']}">
+            {/loop}
+        </div>
+        {/if}
+
+    </td><td>
 
 
         <a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=weibo&ts=isaudit&weiboid={$item['weiboid']}">

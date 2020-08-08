@@ -38,6 +38,14 @@ switch($ts){
             'addtime'=>date('Y-m-d H:i:s'),
         ));
 
+        #绑定图片
+        $new['weibo']->update('weibo_photo',array(
+            'userid'=>$userid,
+            'weiboid'=>0,
+        ),array(
+            'weiboid'=>$weiboid,
+        ));
+
         $daytime = date('Y-m-d 00:00:01');
         $count_weibo = $new['weibo']->findCount('weibo',"`userid`='$userid' and `addtime`>'$daytime'");
 
@@ -47,51 +55,6 @@ switch($ts){
         }
 
         getJson('发布成功！',$js,2,tsurl('weibo','show',array('id'=>$weiboid)));
-
-    break;
-
-    case "photo":
-
-        $userid = intval($GLOBALS['TS_USER']['userid']);
-
-		if($userid==0){
-			echo 0;exit;//请登录
-		}
-
-
-		$title = tsClean($_POST['title']);
-
-		if($GLOBALS['TS_USER']['isadmin']==0){
-			//过滤内容开始
-			$title = antiWord($title);
-			//过滤内容结束
-		}
-
-		$weiboid = $new['weibo']->create('weibo',array(
-			'userid'=>$userid,
-			'title'=>$title,
-			'isaudit'=>0,
-			'addtime'=>date('Y-m-d H:i:s'),
-			'uptime'=>date('Y-m-d H:i:s'),
-		));
-
-		// 上传图片开始
-		$arrUpload = tsUpload ( $_FILES ['filedata'], $weiboid, 'weibo', array ('jpg','gif','png','jpeg' ) );
-		if ($arrUpload) {
-			$new['weibo']->update ( 'weibo', array (
-					'weiboid' => $weiboid 
-			), array (
-					'path' => $arrUpload ['path'],
-					'photo' => $arrUpload ['url'] 
-			) );
-			
-			echo 3;exit;
-			
-		}else{
-			
-			echo 2;exit;
-
-		}
 
     break;
 

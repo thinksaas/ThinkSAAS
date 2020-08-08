@@ -10,7 +10,12 @@ if($strWeibo['isaudit']==1){
     tsNotice('内容审核中...');
 }
 
-//comment
+#图片
+$arrPhoto = $new['weibo']->findAll('weibo_photo',array(
+    'weiboid'=>$weiboid,
+));
+
+#评论
 $page = tsIntval($_GET['page'],1);
 $url = tsUrl('weibo','show',array('id'=>$weiboid,'page'=>''));
 $lstart = $page*15-15;

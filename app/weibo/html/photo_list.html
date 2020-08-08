@@ -1,0 +1,6 @@
+{loop $arrPhoto $key $item}
+<div class="photo-box">
+   <img src="{php echo tsXimg($item['photo'],'weibo/photo','200','200',$item['path'],1)}">
+   <a href="javascript:void('0');" onclick="delPhoto('{$item[photoid]}')">X</a> 
+</div>
+{/loop}

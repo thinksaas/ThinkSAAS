@@ -268,7 +268,6 @@ class group extends tsApp{
         $arrPhotos = $this->findAll('group_topic_photo',array(
             'topicid'=>$topicid,
         ),'orderid asc',null,$num);
-
         foreach($arrPhotos as $key=>$item){
             if($num){
                 $arrPhoto[$key] = tsXimg($item['photo'],'group/topic/photo','320','320',$item['path'],1);
@@ -276,9 +275,7 @@ class group extends tsApp{
                 $arrPhoto[$key] = tsXimg($item['photo'],'group/topic/photo','640','',$item['path']);
             }
         }
-
         return $arrPhoto;
-
     }
 
 

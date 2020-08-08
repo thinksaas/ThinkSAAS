@@ -39,9 +39,10 @@
     border-bottom: 1px dashed #DDDDDD;
     margin: 0 0 5px;
     padding: 0 0 8px;
+    display: flex;
 }
 .weilist ul li .portrait {
-    float: left;
+    
     padding-top: 3px;
     width: 45px;
 }
@@ -52,10 +53,9 @@
     width: 32px;
 }
 .weilist ul li .body {
-    float: left;
+    flex:1;
     font-size: 9pt;
     overflow: hidden;
-    width: 230px;
 }
 .weilist ul li .user a {
 

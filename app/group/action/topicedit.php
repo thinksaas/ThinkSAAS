@@ -125,12 +125,15 @@ switch($ts){
 		
 		if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['isadmin']==1 || $strGroupUser['isadmin']==1){
 
+			$gaiyao = cututf8(t(tsDecode($content)),0,100);
+
 			$new['group']->update('group_topic',array(
 				'topicid'=>$topicid,
 			),array(
 				'typeid' => $typeid,
 				'title'=>$title,
 				'content'=>$content,
+				'gaiyao'=>$gaiyao,
 				'score'=>$score,
 				'iscomment' => $iscomment,
 				'iscommentshow' => $iscommentshow,

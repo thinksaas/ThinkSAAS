@@ -8,6 +8,7 @@ function weibo(){
 	foreach($arrWeibo as $key=>$item){
 		$arrWeibo[$key]['title'] = tsTitle($item['title']);
 		$arrWeibo[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+		$arrWeibo[$key]['photo'] = aac('weibo')->getWeiboPhoto($item['weiboid'],4);
 	}
 	
 	include template('weibo','weibo');

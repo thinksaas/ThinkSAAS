@@ -34,9 +34,9 @@
     border-bottom: 1px dashed #DDDDDD;
     margin: 0 0 5px;
     padding: 0 0 8px;
+    display: flex;
 }
 .weilist ul li .portrait {
-    float: left;
     padding-top: 3px;
     width: 45px;
 }
@@ -47,10 +47,10 @@
     width: 32px;
 }
 .weilist ul li .body {
-    float: left;
+    flex:1;
     font-size: 9pt;
     overflow: hidden;
-    width: 230px;
+    
 }
 .weilist ul li .user a {
     color: #6CABE1;
@@ -69,3 +69,9 @@
     color: #9A9A9A;
     text-decoration: none;
 }
+
+
+.weibo-add-photo{display: flex;}
+.weibo-add-photo .photo-box{width: 12%;position: relative;margin-right: 10px;}
+.weibo-add-photo .photo-box img{width: 100%;border-radius: 10px;}
+.weibo-add-photo .photo-box a{position: absolute;top:5px;right:5px;background-color: #FFFFFF;font-size: 10px;padding:0 3px;}

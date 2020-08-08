@@ -28,14 +28,22 @@
 </li>
 <li class="mbtr rounded">
     <div class="author"><a href="{tsUrl('user','space',array('id'=>$strWeibo[user][userid]))}">{$strWeibo[user][username]}</a> <span class="fs12 c9">{$strWeibo[addtime]}</span></div>
-<div class="title pd100">
-    {if $strWeibo[photo]}
-    <a target="_blank" href="{SITE_URL}uploadfile/weibo/{$strWeibo[photo]}">
-        <img src="{php echo tsXimg($strWeibo['photo'],'weibo',240,'',$strWeibo['path'])}" />
-    </a>
-    {/if}
+<div class="fs16 pt-2 pb-2">
 {$strWeibo['title']}
 </div>
+
+{if $arrPhoto}
+<div>
+    {loop $arrPhoto $key $item}
+    <p>
+        <a target="_blank" href="{SITE_URL}uploadfile/weibo/photo/{$item['photo']}">
+            <img src="{php echo tsXimg($item['photo'],'weibo/photo',640,'',$item['path'])}" />
+        </a>
+    </p>
+    {/loop}
+</div>
+{/if}
+
 <div class="text-right fs12">
 {if $GLOBALS['TS_USER']['isadmin'] == 1}
 <a onclick="return confirm('确定删除?')" href="{tsUrl('weibo','delete',array('weiboid'=>$strWeibo['weiboid']))}"><i class="far fa-trash-alt"></i> 删除</a>

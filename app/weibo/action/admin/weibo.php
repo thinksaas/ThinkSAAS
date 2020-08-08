@@ -6,11 +6,14 @@ switch($ts){
     case "list":
 
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $url = SITE_URL.'index.php?app=weibo&ac=admin&mg=weibolist&page=';
+        $url = SITE_URL.'index.php?app=weibo&ac=admin&mg=weibo&ts=list&page=';
         $lstart = $page*20-20;
         $arrWeibo = $new['weibo']->findAll('weibo',null,'addtime desc',null,$lstart.',20');
         foreach($arrWeibo as $key=>$item){
             $arrWeibo[$key]['title'] = tsTitle($item['title']);
+            $arrWeibo[$key]['photo'] = $new['weibo']->findAll('weibo_photo',array(
+                'weiboid'=>$item['weiboid'],
+            ));
         }
 
         $weiboNum = $new['weibo']->findCount('weibo');
@@ -62,9 +65,19 @@ switch($ts){
             'weiboid'=>$weiboid,
         ));
 
-        unlink('uploadfile/weibo/'.$strWeibo['photo']);
+        $arrPhoto = $new['weibo']->findAll('weibo_photo',array(
+            'weiboid'=>$weiboid,
+        ));
+
+        foreach($arrPhoto as $key=>$item){
+            unlink('uploadfile/weibo/photo/'.$item['photo']);
+        }
 
         $new['weibo']->delete('weibo',array(
+            'weiboid'=>$weiboid,
+        ));
+
+        $new['weibo']->delete('weibo_photo',array(
             'weiboid'=>$weiboid,
         ));
 
