@@ -1635,6 +1635,27 @@ DELETE FROM `ts_weibo`;
 /*!40000 ALTER TABLE `ts_weibo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_weibo` ENABLE KEYS */;
 
+-- 导出  表 d_thinksaas.ts_weibo_photo 结构
+DROP TABLE IF EXISTS `ts_weibo_photo`;
+CREATE TABLE IF NOT EXISTS `ts_weibo_photo` (
+  `photoid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `weiboid` int(11) NOT NULL DEFAULT '0' COMMENT '微博ID',
+  `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
+  `path` varchar(50) NOT NULL DEFAULT '' COMMENT '路径',
+  `photo` varchar(50) NOT NULL DEFAULT '' COMMENT '图片',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`photoid`) USING BTREE,
+  UNIQUE KEY `photoid` (`photoid`) USING BTREE,
+  KEY `weiboid` (`weiboid`) USING BTREE,
+  KEY `userid` (`userid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='微博图片表';
+
+-- 正在导出表  d_thinksaas.ts_weibo_photo 的数据：0 rows
+DELETE FROM `ts_weibo_photo`;
+/*!40000 ALTER TABLE `ts_weibo_photo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_weibo_photo` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
