@@ -6,8 +6,8 @@ ThinkSAAS可以帮你快速开发和搭建与众不同的交流社区。
 
 ## 开发环境
 
-php >= 5.5 (支持php7)  
-MySQL >= 5.5  
+php >= 5.5 (支持php7，建议php7.2)  
+MySQL >= 5.5 (建议mysql5.6，不支持mysql8) 
 Apache / Nginx  
 Windows / Linux  
 建议采用lnmp或者lamp环境  
@@ -15,12 +15,13 @@ Windows / Linux
 ## 系统特点
 
 开发简单，php新手也可以开发强大功能  
-单一入口  
-扩展强大，支持应用扩展和插件扩展  
+单一入口
+扩展强大，支持应用扩展和插件扩展，支持http api接口扩展
 APP可单独配置独立数据库  
 多端自适应，集成bootstrap  
 底层加载速度快，抗压和并发能力强  
 支持composer方式安装php第三方扩展库  
+系统稳定、功能模块化、二次开发简单，持续升级
 适合个人和团队协作开发  
 
 ## 系统基础功能
@@ -28,13 +29,15 @@ APP可单独配置独立数据库
 用户中心模块(user)  
 系统管理模块(system)  
 小组模块(group)  
+话题模块(topic)  
+文章模块(article)  
 相册模块(photo)  
 标签模块(tag)  
 邮件模块(mail)  
 消息模块(message)  
 唠叨模块(weibo)  
 搜索模块(search)  
-文章(article)  
+
 我的社区(my)  
 Email注册登录  
 
