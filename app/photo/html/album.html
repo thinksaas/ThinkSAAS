@@ -37,27 +37,27 @@
 
 {if $arrPhoto}
 
-{loop $arrPhoto $key $item}
-  <div class="col-4 col-md-2 mb-3">
-    <div class="thumbnail">
-      <a href="{tsUrl('photo','show',array('id'=>$item[photoid]))}">
-          <img class="mw100" src="{php echo tsXimg($item[photourl],'photo',320,'320',$item[path],1)}" alt="{$strAlbum['albumname']}{$item['title']}">
-      </a>
-      <div class="caption">
-        
-        <div class="c9 fs12 mt-1">{$item[count_view]}浏览</div>
+  {loop $arrPhoto $key $item}
+    <div class="col-4 col-md-2 mb-3">
+      <div class="thumbnail">
+        <a href="{tsUrl('photo','show',array('id'=>$item[photoid]))}">
+            <img class="mw100" src="{php echo tsXimg($item[photourl],'photo',320,'320',$item[path],1)}" alt="{$strAlbum['albumname']}{$item['title']}">
+        </a>
+        <div class="caption">
+          
+          <div class="c9 fs12 mt-1">{$item[count_view]}浏览</div>
 
+        </div>
       </div>
     </div>
-  </div>
-{/loop}
+  {/loop}
 
 {else}
-<br>
-<div class="pl">这个相册现在还没有照片
-{if $strAlbum[userid] == $TS_USER[userid]}, 你可以<a href="{SITE_URL}index.php?app=photo&ac=upload&albumid={$strAlbum[albumid]}">添加照片</a>{/if}
-</div>
-<br>
+
+  <div class="p-3">这个相册现在还没有照片
+  {if $strAlbum[userid] == $TS_USER[userid]}, 你可以 <a class="btn btn-sm btn-outline-info" href="{SITE_URL}index.php?app=photo&ac=upload&albumid={$strAlbum[albumid]}">添加照片</a>{/if}
+  </div>
+
 {/if}
 </div>
 

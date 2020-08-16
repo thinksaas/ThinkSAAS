@@ -25,7 +25,7 @@ if($strGroup['isaudit'] == 1) {
 $title = $strGroup['groupname'];
 
 //小组帖子分类
-$arrTopicTypes = $new['group']->findAll('group_topic_type',array(
+$arrTopicTypes = $new['group']->findAll('topic_type',array(
 	'groupid'=>$groupid,
 ));
 
@@ -68,20 +68,20 @@ if($strGroup['isaudit']=='1'){
 		$url = tsUrl('group','show',array('id'=>$groupid,'page'=>''));
 	}
 	
-	$arrTopics = $new['group']->findAll('group_topic',"`groupid`='$groupid' ".$andType." and `isaudit`='0'",'istop desc,uptime desc',null,$lstart.',30');
+	$arrTopics = $new['group']->findAll('topic',"`groupid`='$groupid' ".$andType." and `isaudit`='0'",'istop desc,uptime desc',null,$lstart.',30');
 	
 	if( is_array($arrTopics)){
 		foreach($arrTopics as $key=>$item){
 			$arrTopic[] = $item;
 			$arrTopic[$key]['title'] = tsTitle($item['title']);
-			$arrTopic[$key]['content'] = tsDecode($item['content']);
+			$arrTopic[$key]['gaiyao'] = tsTitle($item['gaiyao']);
 			$arrTopic[$key]['typename'] = $arrTopicType[$item['typeid']]['typename'];
 			$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 			$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);
 		}
 	}
 	
-	$topicNum = $new['group']->findCount('group_topic',"`groupid`='$groupid' ".$andType);
+	$topicNum = $new['group']->findCount('topic',"`groupid`='$groupid' ".$andType);
 	
 	$pageUrl = pagination($topicNum, 30, $page, $url);
 	

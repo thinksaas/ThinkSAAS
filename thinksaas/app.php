@@ -15,7 +15,6 @@ if (is_file('app/' . $TS_URL['app'] . '/action/' . $TS_URL['ac'] . '.php')) {
 
 	include 'app/' . $TS_URL['app'] . '/action/' . $TS_URL['ac'] . '.php';
 
-
 } else {
 	ts404();
 }

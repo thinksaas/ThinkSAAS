@@ -55,9 +55,9 @@ switch($ts){
 		if($TS_USER['isadmin']==0){
 			$content = antiWord($content);
 		}
-		//过滤内容结束
+        //过滤内容结束
 
-		if($ptable=='' || $pkey=='' || $pid=='' || $content2==''){
+		if($ptable=='' || $pkey=='' || $pid=='' || $content2=='' || $content==''){
 			getJson('没有任何内容是不允许你通过滴^_^',$js);
 		}else{
 			$commentid = $new['pubs']->create('comment',array(
@@ -177,13 +177,10 @@ switch($ts){
 			
         }
         
-        $arrProjectUrl = array(
-            'group_topic'=>tsUrl('group','topic',array('id'=>$pid)),
-            'article'=>tsUrl('article','show',array('id'=>$pid)),
-        );
+
 		
 		//跳转回到详情页
-		header("Location: ".$arrProjectUrl[$ptable]);
+		header("Location: ".getProjectUrl($ptable,$pid));
 		
 		break;
 }

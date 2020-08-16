@@ -2,39 +2,6 @@
 defined('IN_TS') or die('Access Denied.');
 
 switch($ts){
-
-	//帖子审核
-	case "topicaudit":
-	
-		$topicid = intval($_POST['topicid']);
-		
-		$strTopic = $new['group']->find('group_topic',array(
-			'topicid'=>$topicid,
-		));
-		
-		if($strTopic['isaudit']==0){
-			$new['group']->update('group_topic',array(
-				'topicid'=>$topicid,
-			),array(
-				'isaudit'=>1,
-			));
-			
-			echo 0;exit;
-			
-		}
-		
-		if($strTopic['isaudit']==1){
-			$new['group']->update('group_topic',array(
-				'topicid'=>$topicid,
-			),array(
-				'isaudit'=>0,
-			));
-			
-			echo 1;exit;
-			
-		}
-		
-		break;
 		
 	//加入小组
 	case "joingroup":
@@ -175,84 +142,6 @@ switch($ts){
 
 		break;
 		
-	//帖子推荐
-	case "isrecommend":
 	
-		$js = intval($_GET['js']);
-		
-		$topicid = intval($_POST['topicid']);
-		
-		if($TS_USER['isadmin']==1 && $topicid){
-		
-			$strTopic = $new['group']->find('group_topic',array(
-				'topicid'=>$topicid,
-			));
-			
-			if($strTopic['isrecommend']==1){
-				$new['group']->update('group_topic',array(
-					'topicid'=>$topicid,
-				),array(
-					'isrecommend'=>0,
-				));
-				
-				getJson('取消推荐成功！',$js);
-				
-			}
-			
-			if($strTopic['isrecommend']==0){
-				$new['group']->update('group_topic',array(
-					'topicid'=>$topicid,
-				),array(
-					'isrecommend'=>1,
-				));
-				
-				getJson('推荐成功！',$js);
-				
-			}
-			
-		
-		}else{
-		
-			getJson('非法操作',$js);
-		
-		}
-		
-		break;
-
-
-    /**
-     * 帖子加标注
-     */
-    case "book":
-
-        $userid = aac('user')->isLogin();
-        $topicid = intval($_POST['topicid']);
-        $book = trim($_POST['book']);
-
-        //if($topicid==0 || $book==''){
-        if($topicid==0){
-            echo 0;exit;
-		}
-
-        if($TS_USER['isadmin']==1){
-            $new['group']->update('group_topic',array(
-                'topicid'=>$topicid,
-            ),array(
-                'label'=>$book,
-            ));
-        }else{
-            $new['group']->update('group_topic',array(
-                'topicid'=>$topicid,
-                'userid'=>$userid,
-            ),array(
-                'label'=>$book,
-            ));
-        }
-
-
-
-        echo 1;exit;
-
-        break;
 
 }

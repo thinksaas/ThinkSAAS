@@ -44,9 +44,9 @@ switch($ts){
 		$url = tsUrl('search','s',array('ts'=>'topic','kw'=>$kw,'page'=>''));
 		$lstart = $page*10-10;
 	
-		$arrTopic = $db->fetch_all_assoc("select * from ".dbprefix."group_topic WHERE `title` like '%$kw%' order by topicid desc limit $lstart,10");
+		$arrTopic = $db->fetch_all_assoc("select * from ".dbprefix."topic WHERE `title` like '%$kw%' order by topicid desc limit $lstart,10");
 		
-		$topic_num = $db->once_num_rows("select * from ".dbprefix."group_topic WHERE title like '%$kw%'");
+		$topic_num = $db->once_num_rows("select * from ".dbprefix."topic WHERE title like '%$kw%'");
 		
 		$pageUrl = pagination($topic_num, 10, $page, $url);
 		

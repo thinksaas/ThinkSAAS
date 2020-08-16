@@ -43,7 +43,7 @@
         <textarea class="form-control-sm w-100 border border-secondary" id="recontent_{$ritem[commentid]}" type="text" ></textarea>
 
         <div class="mt-1">
-            <a class="btn btn-sm btn-outline-info" href="javascript:void(0);" onClick="recomment({$ritem[commentid]},'group_topic','topicid',{$ritem[pid]},'{$ritem[userid]}')" id="recomm_btn_$ritem[commentid]">提交</a>
+            <a class="btn btn-sm btn-outline-info" href="javascript:void(0);" onClick="recomment({$ritem[commentid]},'topic','topicid',{$ritem[pid]},'{$ritem[userid]}')" id="recomm_btn_$ritem[commentid]">提交</a>
             <a class="btn btn-sm btn-outline-secondary" href="javascript:void('0');" onclick="commentOpen({$ritem['commentid']}})">取消</a>
         </div>
     </div>

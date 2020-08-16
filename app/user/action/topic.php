@@ -7,11 +7,11 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : '1';
 $url = tsUrl('user','topic',array('id'=>$strUser['userid'],'page'=>''));
 $lstart = $page*30-30;
 
-$arrTopic = $new['user']->findAll('group_topic',array(
+$arrTopic = $new['user']->findAll('topic',array(
 	'userid'=>$strUser['userid'],
 ),'addtime desc',null,$lstart.',30');
 
-$topicNum = $new['user']->findCount('group_topic',array(
+$topicNum = $new['user']->findCount('topic',array(
 	'userid'=>$strUser['userid'],
 ));
 $pageUrl = pagination($topicNum, 30, $page, $url);

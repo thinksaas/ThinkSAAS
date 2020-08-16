@@ -10,11 +10,11 @@
 <a target="_blank" style="color:#999999;font-size: 12px;margin-right: 5px;" class="titles-type" href="{SITE_URL}{php echo tsUrl($item['appkey'])}">[{$item['appname']}]</a>
 <a title="{$item[title]}" href="{SITE_URL}{php echo tsUrl($item['appkey'],$item['appaction'],array('id'=>$item['appid']))}">{$item[title]}</a>
 {else}
-<a title="{$item[title]}" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
+<a title="{$item[title]}" href="{tsUrl('topic','show',array('id'=>$item[topicid]))}">{$item[title]}</a>
 {/if}
 
 {if $item[istop]=='1'}
-<img src="{SITE_URL}app/{$app}/skins/{$skin}/headtopic_1.gif" title="[置顶]" alt="[置顶]" />
+<img src="{SITE_URL}app/{$app}/skin/headtopic_1.gif" title="[置顶]" alt="[置顶]" />
 {/if}
 {if $item[isposts] == '1'}
 <img src="{SITE_URL}public/images/posts.gif" align="absmiddle" title="[精华]" alt="[精华]" />
@@ -36,7 +36,7 @@
 
 <a href="{tsUrl('user','space',array('id'=>$item[userid]))}" rel="face" uid="$item[userid]">{$item[user][username]}</a>
 
-{if $item[count_comment]>0}<a class="rank" style="color:#FFFFFF;" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a>{/if}
+{if $item[count_comment]>0}<a class="rank" style="color:#FFFFFF;" href="{tsUrl('topic','show',array('id'=>$item[topicid]))}">{$item[count_comment]}</a>{/if}
 </span>
 </div>
 </div>

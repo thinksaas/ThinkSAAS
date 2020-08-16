@@ -16,7 +16,7 @@
 
     {if $item['label']}<span class="badge badge-danger fw300">{tsTitle($item['label'])}</span>{/if}
 
-    <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[title]}</a>
+    <a href="{tsUrl('topic','show',array('id'=>$item[topicid]))}">{$item[title]}</a>
 
     {if $item['istop']=='1'}
     <img src="{SITE_URL}public/images/ding.png" width="24" height="24" title="[置顶]" alt="[置顶]" />
@@ -33,7 +33,7 @@
     {if $item['ptable']=='' && $item['pjson']}
     <div class="photo mt-2">
         {loop $item['pjson'] $pkey $pitem}
-        <a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}"><img src="{$pitem}" /></a>
+        <a href="{tsUrl('topic','show',array('id'=>$item['topicid']))}"><img src="{$pitem}" /></a>
         {/loop}
     </div>
     {/if}
@@ -42,7 +42,7 @@
     {if $item['ptable']=='video' && $item['pjson']['siteid']==0}
     <div>
         {if $item['pjson']['photo']}
-        <a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}"><img class="mw-100" src="{$item['pjson']['photo']}"></a>
+        <a href="{tsUrl('topic','show',array('id'=>$item['topicid']))}"><img class="mw-100" src="{$item['pjson']['photo']}"></a>
         {else}
         <video class="mw-100" controls="controls" src="{$item['pjson']['video']}"></video>
         {/if}

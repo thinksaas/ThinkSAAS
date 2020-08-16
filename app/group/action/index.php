@@ -54,14 +54,6 @@ if ($TS_USER ['userid']) {
 // 最新10个小组
 $arrNewGroup = $new ['group']->getNewGroup ( '10' );
 
-// 热门帖子
-$arrTopics = $new ['group']->findAll ( 'group_topic', null, 'count_comment desc', 'groupid,topicid,title,count_comment', 10 );
-foreach ( $arrTopics as $key => $item ) {
-	$arrTopic [] = $item;
-	$arrTopic [$key] ['group'] = $new ['group']->getOneGroup ( $item ['groupid'] );
-	$arrTopic [$key] ['title'] = tsTitle ( $item ['title'] );
-}
-
 $title = '小组';
 if($strCate){
     $title = $strCate['catename'];

@@ -75,33 +75,6 @@
 <div class="col-md-4">
 
 
-    <div class="card">
-        <div class="card-header">热门帖子</div>
-        <div class="card-body">
-
-            <div class="group_index_right_hottopic">
-
-                <ul>
-                    {loop $arrTopic $key $item}
-                    <li>
-                        <div><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></div>
-
-
-                        <div class="info">
-                            <div class="left">来自：<a title="{$item['group']['groupname']}" href="{tsUrl('group','show',array('id'=>$item['groupid']))}">{$item['group']['groupname']}</a>小组</div>
-                            <div class="right">{$item['count_comment']}评论</div>
-                        </div>
-
-                    </li>
-                    {/loop}
-                </ul>
-            </div>
-
-
-</div>
-</div>
-
-
 
     <div class="card">
         <div class="card-header">最新创建小组</div>

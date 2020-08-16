@@ -12,7 +12,7 @@
 <div class="commlist">
 <ul>
 {loop $arrTopicList $key $item}
-<li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{php echo htmlspecialchars($item['title'])}</a> <i>{$item['count_comment']}</i></li>
+<li><a href="{tsUrl('topic','show',array('id'=>$item['topicid']))}">{php echo htmlspecialchars($item['title'])}</a> <i>{$item['count_comment']}</i></li>
 {/loop}
 </ul>
 </div>

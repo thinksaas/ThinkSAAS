@@ -45,7 +45,7 @@ switch($ts){
 			'infoid'=>$infoid,
 		));
 		
-		$strInfo['content'] = tsDecode($strInfo['content']);
+		//$strInfo['content'] = tsDecode($strInfo['content']);
 	
 	
 		include template('admin/info_edit');

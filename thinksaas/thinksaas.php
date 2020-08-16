@@ -116,7 +116,7 @@ include 'data/config.inc.php';
 include 'app/' . $TS_URL['app'] . '/config.php';
 
 //连接数据库
-include 'sql/mysqli.php';
+include 'mysqli.php';
 $db = new MySql($TS_DB);
 
 //加载APP数据库操作类并建立对象
@@ -191,7 +191,23 @@ if ($TS_URL['ac'] == 'admin' && $TS_USER['isadmin'] != 1 && $TS_URL['app'] != 's
 }
 
 //API逻辑单独处理
-if($app!='api'){
+if($app=='api' || $ac=='api'){
+
+    //处理跨域
+    $origin = isset($_SERVER['HTTP_ORIGIN'])? $_SERVER['HTTP_ORIGIN'] : '';
+    $allow_origin = array(
+        $TS_SITE['link_url'],
+        'https://h5.thinksaas.cn',
+        'https://www.qiniao.com',
+        'https://www.thinksaas.cn',
+        'http://localhost:8080',
+    );
+    if(in_array($origin, $allow_origin)){
+        header('Access-Control-Allow-Origin:'.$origin);
+    }
+    header('Access-Control-Allow-Headers: X-Requested-With');
+
+}else{
 
     //用户自动登录
     if (intval($TS_USER['userid']) == 0 && $_COOKIE['ts_email'] && $_COOKIE['ts_autologin']) {
@@ -217,16 +233,9 @@ if($app!='api'){
 
     //控制访客权限
     if($TS_USER=='' && $TS_SITE['visitor'] == 1){
-
         if(!in_array($app,array('pubs','pay')) && !in_array($ac,array('info','home','register','phone','login','forgetpwd','resetpwd','wxlogin'))){
             tsHeaderUrl(tsUrl('pubs','home'));
         }
-
-        /*
-        if($app!='pubs' && $ac!='home' && $ac!='register' && $ac!='phone' && $ac!='login' && $ac!='forgetpwd' && $ac!='resetpwd'){
-            tsHeaderUrl(tsUrl('pubs','home'));
-        }
-        */
     }
 
     //控制后台访问权限

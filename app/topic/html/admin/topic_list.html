@@ -1,0 +1,111 @@
+{php include pubTemplate("header_admin")}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+
+
+    <div class="mb-3">
+
+
+        <form method="get" action="index.php">
+            <input type="hidden" name="app" value="topic">
+            <input type="hidden" name="ac" value="admin">
+            <input type="hidden" name="mg" value="topic">
+            <input type="hidden" name="ts" value="list">
+
+            <input type="number" name="topicid" placeholder="帖子ID">
+            <input type="text" name="title" placeholder="标题模糊">
+
+            <input type="submit" value="搜索">
+
+
+
+            <a class="btn btn-sm btn-outline-secondary" href="index.php?app=topic&ac=admin&mg=topic&ts=list">全部</a>
+            <a class="btn btn-sm btn-outline-secondary" href="index.php?app=topic&ac=admin&mg=topic&ts=list&isrecommend=1">推荐</a>
+            <a class="btn btn-sm btn-outline-secondary" href="index.php?app=topic&ac=admin&mg=topic&ts=list&istop=1">置顶</a>
+
+
+
+        </form>
+
+
+    </div>
+
+
+
+<table class="table table-hover">
+
+    <thead class="thead-light fs14">
+    <tr>
+        <th>帖子ID</th>
+        <th>用户ID</th>
+        <th>圈子ID</th>
+        <th>标题</th>
+        <th>时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+
+
+    <tbody class="fs12">
+
+
+
+{loop $arrTopic $key $item}
+<tr>
+    <td>{$item['topicid']}</td>
+    <td>{$item['userid']}</td>
+    <td>{$item['groupid']}</td>
+    <td><a target="_blank" href="{tsUrl('topic','show',array('id'=>$item['topicid']))}">{tsTitle($item['title'])}</a></td>
+    <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+    <td>
+
+
+
+    <a href="{SITE_URL}index.php?app=topic&ac=admin&mg=topic&ts=isrecommend&topicid={$item['topicid']}">
+        {if $item['isrecommend']==0}
+        推荐
+        {else}
+        <font color="green">取消推荐</a>
+    {/if}
+    </a>
+
+    |
+
+<a href="{SITE_URL}index.php?app=topic&ac=admin&mg=topic&ts=isaudit&topicid={$item['topicid']}">
+{if $item['isaudit']==0}
+已审核
+{else}
+<font color="red">未审核</a>
+{/if}
+</a>
+
+     |
+
+
+
+    <a href="{SITE_URL}index.php?app=topic&ac=admin&mg=topic&ts=istop&topicid={$item['topicid']}">
+        {if $item['istop']==0}
+        置顶
+        {else}
+        <font color="green">取消置顶</a>
+    {/if}
+    </a>
+
+    ｜ <a target="_blank" href="{SITE_URL}index.php?app=topic&ac=topicmove&topicid={$item['topicid']}">移动</a>
+    | <a onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=topic&ac=admin&mg=topic&ts=delete&topicid={$item['topicid']}&groupid={$item['groupid']}">删除</a>
+
+</td></tr>
+{/loop}
+
+    </tbody>
+
+</table>
+
+</div>
+{php include pubTemplate("footer_admin")}

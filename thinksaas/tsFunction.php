@@ -2653,7 +2653,7 @@ function getAppOptions($app){
  */
 function getProjectUrl($ptable,$pid){
 	$arrProjectUrl = array(
-		'group_topic'=>tsUrl('group','topic',array('id'=>$pid)),//帖子
+		'topic'=>tsUrl('topic','show',array('id'=>$pid)),//帖子
 		'article'=>tsUrl('article','show',array('id'=>$pid)),//文章
 		'photo'=>tsUrl('photo','show',array('id'=>$pid)),//图片
 		'weibo'=>tsUrl('weibo','show',array('id'=>$pid)),//唠叨
@@ -2663,6 +2663,8 @@ function getProjectUrl($ptable,$pid){
 		'vote'=>tsUrl('vote','show',array('id'=>$pid)),//投票
 		'study_lesson'=>tsUrl('study','lesson',array('id'=>$pid)),//课时
 		'shop_goods'=>tsUrl('shop','goods',array('id'=>$pid)),//商品
+		'review'=>tsUrl('review','show',array('id'=>$pid)),//点评1
+		'review_comment'=>tsUrl('review','comment',array('id'=>$pid)),//点评2
 	);
 	return $arrProjectUrl[$ptable];
 }

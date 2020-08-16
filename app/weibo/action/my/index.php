@@ -1,8 +1,6 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-$strUser = aac('user')->getOneUser($GLOBALS['TS_USER']['userid']);
-
 $page = isset($_GET['page']) ? intval($_GET['page']) : '1';
 
 $url = tsUrl('weibo','my',array('my'=>'index','page'=>''));

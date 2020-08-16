@@ -82,7 +82,7 @@ switch($ts){
 			qiMsg("默认小组不能删除！");
 		}
 		
-		$topicNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group_topic where `groupid`='$groupid'");
+		$topicNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."topic where `groupid`='$groupid'");
 		
 		if($topicNum['count(*)'] > 0){
 			qiMsg("本小组还有帖子，不允许删除。");

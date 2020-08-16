@@ -25,7 +25,7 @@ $joinGroupNum = $new['my']->findCount('group_user',array(
 ));
 
 //我的帖子
-$arrTopic = $new['my']->findAll('group_topic',array(
+$arrTopic = $new['my']->findAll('topic',array(
     'userid'=>$strUser['userid'],
 ),'addtime desc',null,10);
 

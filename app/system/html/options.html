@@ -179,13 +179,13 @@
     <table class="table table-hover">
         <tbody>
     <tr>
-	<td  width="200">形式1：</td><td><input type="radio" {if $strOption[site_urltype]==1}checked="select"{/if} name="option[site_urltype]" value="1" /> index.php?app=group&ac=topic&id=1</td></tr>
-    <tr><td>形式2：</td><td><input type="radio" {if $strOption[site_urltype]==2}checked="select"{/if} name="option[site_urltype]" value="2" /> index.php/group/topic/id-1</td></tr>
-	<tr><td>形式3：</td><td><input type="radio" {if $strOption[site_urltype]==3}checked="select"{/if} name="option[site_urltype]" value="3" /> group-topic-id-1.html </td></tr>
-	<tr><td>形式4：</td><td><input type="radio" {if $strOption[site_urltype]==4}checked="select"{/if} name="option[site_urltype]" value="4" /> group/topic/id-1 </td></tr>
-<tr><td>形式5：</td><td><input type="radio" {if $strOption[site_urltype]==5}checked="select"{/if} name="option[site_urltype]" value="5" /> group/topic/1 </td></tr>
-<tr><td>形式6：</td><td><input type="radio" {if $strOption[site_urltype]==6}checked="select"{/if} name="option[site_urltype]" value="6" /> group/topic/id/1 </td></tr>
-<tr><td>形式7：</td><td><input type="radio" {if $strOption[site_urltype]==7}checked="select"{/if} name="option[site_urltype]" value="7" /> group/topic/1/ </td></tr>
+	<td  width="200">形式1：</td><td><input type="radio" {if $strOption[site_urltype]==1}checked="select"{/if} name="option[site_urltype]" value="1" /> index.php?app=group&ac=show&id=1</td></tr>
+    <tr><td>形式2：</td><td><input type="radio" {if $strOption[site_urltype]==2}checked="select"{/if} name="option[site_urltype]" value="2" /> index.php/group/show/id-1</td></tr>
+	<tr><td>形式3：</td><td><input type="radio" {if $strOption[site_urltype]==3}checked="select"{/if} name="option[site_urltype]" value="3" /> group-show-id-1.html </td></tr>
+	<tr><td>形式4：</td><td><input type="radio" {if $strOption[site_urltype]==4}checked="select"{/if} name="option[site_urltype]" value="4" /> group/show/id-1 </td></tr>
+<tr><td>形式5：</td><td><input type="radio" {if $strOption[site_urltype]==5}checked="select"{/if} name="option[site_urltype]" value="5" /> group/show/1 </td></tr>
+<tr><td>形式6：</td><td><input type="radio" {if $strOption[site_urltype]==6}checked="select"{/if} name="option[site_urltype]" value="6" /> group/show/id/1 </td></tr>
+<tr><td>形式7：</td><td><input type="radio" {if $strOption[site_urltype]==7}checked="select"{/if} name="option[site_urltype]" value="7" /> group/show/1/ </td></tr>
 
 
 </tbody>
@@ -214,7 +214,7 @@
 <tr><td>图片处理组件：</td><td>
 
     <input type="radio" {if $strOption['photo_driver']=='gd'}checked="select"{/if} name="option[photo_driver]" value="gd" />gd 
-    <input type="radio" {if $strOption['photo_driver']=='imagick'}checked="select"{/if} name="option[photo_driver]" value="imagick" />imagick
+    <input type="radio" {if $strOption['photo_driver']=='imagick'}checked="select"{/if} name="option[photo_driver]" value="imagick" />imagick <small class="text-danger">(服务器和php环境必须支持imagick扩展)</small>
 
 </td></tr>
 

@@ -23,7 +23,7 @@ switch ($ts){
             getJson('帖子不存在！',1,0);
         }
 
-        $strTopic = $new['group']->find('group_topic',array(
+        $strTopic = $new['group']->find('topic',array(
             'topicid'=>$topicid,
         ),'topicid,userid,score');
 
@@ -35,7 +35,7 @@ switch ($ts){
             getJson('自己无需支付阅读自己的帖子！',1,0);
         }
 
-        $isTopicUser = $new['group']->findCount('group_topic_user',array(
+        $isTopicUser = $new['group']->findCount('topic_user',array(
             'topicid'=>$topicid,
             'userid'=>$userid,
         ));
@@ -55,14 +55,14 @@ switch ($ts){
         aac('user')->addScore($strTopic['userid'],'帖子收入'.$strTopic['topicid'],$strTopic['score'],1);
         aac('user')->delScore($userid,'查看帖子'.$strTopic['topicid'],$strTopic['score']);
 
-        $new['group']->create('group_topic_user',array(
+        $new['group']->create('topic_user',array(
             'topicid'=>$topicid,
             'userid'=>$userid,
             'addtime'=>time(),
         ));
 
 
-        getJson('积分支付成功！',1,2,tsUrl('group','topic',array('id'=>$topicid)));
+        getJson('积分支付成功！',1,2,tsUrl('topic','show',array('id'=>$topicid)));
 
         break;
 

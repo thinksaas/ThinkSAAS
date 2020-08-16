@@ -15,7 +15,7 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 
 		case "":
 
-			$arrTopic = $new['group']->findAll('group_topic',array(
+			$arrTopic = $new['group']->findAll('topic',array(
 				'groupid'=>$groupid,
 				'isaudit'=>1,
 			));
@@ -30,20 +30,20 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 			
 			$topicid = intval($_GET['topicid']);
 			
-			$new['group']->update('group_topic',array(
+			$new['group']->update('topic',array(
 				'topicid'=>$topicid,
 			),array(
 				'isaudit'=>'0',
 			));
 			
 			//统计需要审核的帖子
-			$count_topic_audit = $new['group']->findCount('group_topic',array(
+			$count_topic_audit = $new['group']->findCount('topic',array(
 				'groupid'=>$groupid,
 				'isaudit'=>'1',
 			));
 			
 			// 统计小组下帖子数并更新
-			$count_topic = $new['group']->findCount('group_topic',array(
+			$count_topic = $new['group']->findCount('topic',array(
 				'groupid'=>$groupid,
 			));
 			
@@ -63,7 +63,7 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 
 			$topicid = intval($_GET['topicid']);
 
-			$strTopic = $new['group']->getOneTopic($topicid);
+			$strTopic = aac('topic')->getOneTopic($topicid);
 
 			if($strGroup['groupid']!=$groupid){
 				tsNotice('非法操作！');
@@ -72,13 +72,13 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 			$new['group']->deleteTopic($strTopic);
 			
 			//统计需要审核的帖子
-			$count_topic_audit = $new['group']->findCount('group_topic',array(
+			$count_topic_audit = $new['group']->findCount('topic',array(
 				'groupid'=>$groupid,
 				'isaudit'=>'1',
 			));
 			
 			// 统计小组下帖子数并更新
-			$count_topic = $new['group']->findCount('group_topic',array(
+			$count_topic = $new['group']->findCount('topic',array(
 				'groupid'=>$groupid,
 			));
 			

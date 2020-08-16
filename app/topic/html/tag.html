@@ -1,0 +1,90 @@
+{php include pubTemplate("header")}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{$strTag[tagname]}</li>
+        </ol>
+    </nav>
+
+
+
+    <div class="row">
+
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="h3 fw400">{$strTag[tagname]}</h1>
+                </div>
+            </div>
+
+
+
+            <div class="card">
+                <div class="card-header">{$strTag[tagname]}相关的帖子</div>
+                <div class="card-body">
+                    <div class="topic_list">
+                        <ul>
+                            {if $arrTopic}
+                            {loop $arrTopic $key $item}
+                            <li>
+                                <div class="userimg"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="rounded-circle" src="{$item[user][face]}" width="32"></a></div>
+
+                                <div class="topic_title">
+                                    <div class="title"><a title="{$item[title]}" href="{tsUrl('topic','show',array('id'=>$item[topicid]))}">{$item[title]}</a>
+                                    </div>
+
+                                    <div class="topic_info">
+<span style="float:left;">
+<a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[group][groupname]}</a>
+</span>
+
+<span style="float:right;">
+{php echo getTime($item[uptime],time())}
+
+<a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+
+{if $item[count_comment]>0}<a class="rank" style="color:#FFFFFF;" href="{tsUrl('topic','show',array('id'=>$item[topicid]))}">{$item[count_comment]}</a>{/if}
+</span>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            {/loop}
+                            {/if}
+                        </ul>
+                    </div>
+
+                    <div class="page">{$pageUrl}</div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card">
+                <div class="card-header">热门标签</div>
+                <div class="card-body">
+                    {loop $arrTag $key $item}
+                    <a class="badge badge-secondary mr-2 mb-2 fw300" href="{tsUrl('topic','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
+                    {/loop}
+                    
+                </div>
+            </div>
+
+            <div class="clear"></div>
+            <!--广告位-->
+            {php doAction('gobad','300')}
+
+        </div>
+    </div>
+</div>
+
+
+{php include pubTemplate("footer")}

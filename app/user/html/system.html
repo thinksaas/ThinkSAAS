@@ -17,16 +17,8 @@
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="{SITE_URL}public/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{SITE_URL}theme/sample/base.css" />
-
-    {if is_file('app/'.$GLOBALS['TS_URL']['app'].'/skin/style.css')}
     <link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skin/style.css">
-    {else}
-    <link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skins/default/style.css">
-    {/if}
-
-
-
-
+    
     <script>var siteUrl = '{SITE_URL}'; //网站网址</script>
     <script src="{SITE_URL}public/js/jquery.min.js" type="text/javascript"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->

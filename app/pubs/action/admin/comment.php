@@ -6,7 +6,7 @@ switch ($ts){
     case "list":
 
         $userid = intval($_GET['userid']);
-        $ptable = isset($_GET['ptable']) ? trim($_GET['ptable']) : 'group_topic';
+        $ptable = isset($_GET['ptable']) ? trim($_GET['ptable']) : 'topic';
         $pid = intval($_GET['pid']);
 
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;

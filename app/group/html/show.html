@@ -134,11 +134,11 @@
         <div class="card-body" style="position: relative;">
 
 
-            <div style="position: absolute;right: 20px;top: 20px;"><a class="btn btn-info btn-sm" href="{tsUrl('group','add',array('id'=>$strGroup[groupid]))}">发布帖子</a></div>
+            <div style="position: absolute;right: 20px;top: 20px;"><a class="btn btn-info btn-sm" href="{tsUrl('topic','add',array('groupid'=>$strGroup['groupid']))}">发布帖子</a></div>
 
 
             <div class="mb-3">
-                <a class="btn btn-sm {if $typeid==0}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">全部</a>
+                <a class="btn btn-sm {if $typeid==0}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','show',array('id'=>$strGroup['']))}">全部</a>
                 {loop $arrTopicType $key $item}
                 <a class="btn btn-sm {if $typeid==$item['typeid']}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','show',array('id'=>$strGroup['groupid'],typeid=>$item['typeid']))}">{$item['typename']}</a>
                 {/loop}
@@ -171,7 +171,7 @@
 {if $item['typeid'] != 0}<a href="{tsUrl('group','show',array('id'=>$item['groupid'],typeid=>$item['typeid']))}">[{$item['typename']}]</a>{/if}
 
 
-<a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a>
+<a href="{tsUrl('topic','show',array('id'=>$item['topicid']))}">{$item['title']}</a>
 
 
 {if $item['istop']=='1'}
@@ -193,7 +193,7 @@
     {if $item['photos']}
     <div class="photo mt-2">
         {loop $item['photos'] $pkey $pitem}
-        <a href="{tsUrl('group','topic',array('id'=>$item[topicid]))}"><img src="{$pitem}" /></a>
+        <a href="{tsUrl('topic','show',array('id'=>$item[topicid]))}"><img src="{$pitem}" /></a>
         {/loop}
     </div>
     {/if}
@@ -265,17 +265,12 @@
 
     {if $TS_USER['userid'] == $strGroup['userid'] || $TS_USER['isadmin']=='1'}
     <div class="card">
-        <div class="card-header">管理</div>
-        <div class="card-body">
-
-<p class="pl2">&gt; <a href="{tsUrl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">小组设置</a></p>
-
-<p class="pl2">&gt; <a href="{tsUrl('group','audit',array('groupid'=>$strGroup[groupid]))}">帖子审核</a>({$strGroup['count_topic_audit']})</p>
-
-
-</div>
-</div>
-
+    <div class="card-header">管理</div>
+    <div class="card-body">
+        <a class="btn btn-sm btn-outline-info" href="{tsUrl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">小组设置</a>
+        <a class="btn btn-sm btn-outline-info" href="{tsUrl('group','audit',array('groupid'=>$strGroup[groupid]))}">帖子审核({$strGroup['count_topic_audit']})</a>
+    </div>
+    </div>
     {/if}
 
 <div class="clear"></div>

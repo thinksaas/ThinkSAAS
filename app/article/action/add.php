@@ -59,7 +59,7 @@ switch ($ts) {
 			// 过滤内容结束
 		}
 
-		if ($title == '' || $content2 == '')
+		if ($title == '' || $content2 == '' || $content=='')
 			tsNotice("标题和内容都不能为空！");
 
         $isTitle = $new['article']->findCount('article',array(

@@ -1,0 +1,263 @@
+/*最新CSS*/
+.group_show{overflow:hidden;padding: 50px 20px 20px 20px;border-bottom: solid 1px #dddddd;background-color:#bbb;background-image:url('group.jpg');background-repeat: no-repeat;background-size: 100% 100%;}
+.group_show .face{float:left;}
+.group_show .face img{}
+.group_show .title{float:left;margin-left:20px;}
+.group_show .title p{color:#999;margin: 0;margin-top: 6px;}
+.group_show .join{float:right;margin-left:20px;color:#fff;}
+/*最新CSS*/
+
+
+.mbtl {
+    float: left;
+    margin: 8px 7px 0 0;
+    padding: 0;
+    width: 55px;
+}
+.mbtr {
+    border-bottom: 1px solid #EEEEEE;
+    margin: 0px 0 20px 0;
+    min-height: 55px;
+    overflow: hidden;
+    padding: 10px;;
+	background:#f8f8f8;
+}
+.mbtr .author{}
+.mbtr .author a{color:#8f8f8f;}
+.mbtr .title{margin-top:10px;}
+.mbtr .title a{color: #444444;font-size:22px;}
+.mbtr .content{line-height:30px;font-size:14px;}
+
+
+
+/*右侧会员列表*/
+
+.pl {
+    color: #666666;
+    font: 12px/150% Arial;
+	padding:10px 0;
+}
+
+.pl2 {
+    color: #666666;
+    font: 14px/150% Arial;
+}
+
+
+
+.pil {
+    height: 48px;
+    width: 48px;
+}
+
+
+
+.plr {
+    color: #666666;
+    float: right;
+    font: 12px/150% Arial;
+}
+
+
+.mr5 {
+    margin-right: 5px;
+}
+
+
+
+
+
+
+.pl20 {
+    padding-left: 20px;
+}
+
+.topic-content .topic-opt {
+    padding: 15px 0 0;
+}
+.rec-sec {
+    color: #999999;
+    text-align: right;
+}
+.rec-num {
+    margin: 0 4px;
+}
+.clearfix {
+    display: block;
+}
+
+
+
+
+
+
+/*ob*/
+.ob {
+    float: left;
+    margin: 0 0 10px;
+    text-align: center;
+    width: 70px;
+}
+.ob dt {
+    height: 50px;
+    margin: 0;
+    overflow: hidden;
+    text-align: center;
+}
+.ob dd {
+    height: 55px;
+    margin: 0;
+    overflow: hidden;
+    text-align: center;
+}
+.ob span {
+    white-space: nowrap;
+}
+
+
+
+
+
+/*帖子类型列表*/
+.topictype{}
+.topictype td{border-bottom:dashed 1px #DDDDDD;padding:5px;}
+
+
+/*帖子列表*/
+.topic_list{overflow:hidden;}
+.topic_list ul, .topic_list ul li{list-style: none;margin:0;padding:0;}
+.topic_list ul{overflow:hidden;}
+.topic_list ul li{overflow:hidden;padding:15px 0;display: block;border-bottom: 1px dashed #ccc;}
+
+.topic_list .userimg{float:left;width:38px;overflow:hidden;}
+
+.topic_list .topic_title{margin-left:40px;overflow:hidden;}
+
+.topic_list .topic_title .title a{font-size:18px;font-weight: bold;}
+
+.topic_list .topic_info{overflow: hidden;font-size:12px;color:#999999;}
+
+.rank {
+	background: none repeat scroll 0 0 #BBBBBB;
+    height: 15px;
+    line-height: 15px;
+    margin: 0 0 0 5px;
+    padding: 0 3px;
+	border-radius:5px 5px 5px 5px;
+}
+
+/*小组列表*/
+.sub-item{
+   border-bottom: 1px dashed #AAAAAA;
+    height: 72px;
+    margin: 0 2px 15px 0;
+    overflow: hidden;
+    width: 100%;
+	padding-bottom: 15px;
+}
+.sub-item .pic {
+	float: left;
+    width: 48px;
+}
+.sub-item .info {
+    vertical-align: top;
+    word-wrap: break-word;
+	margin-left:60px;
+}
+
+.sub-item .info .content{	line-height:20px;font-size: 12px;color:#999999}
+
+.sub-item .pic img {
+    height: 48px;
+    margin-bottom: -3px;
+    width: 48px;
+}
+.sub-item p {
+    margin: 0;
+}
+
+
+/*热门帖子列表*/
+.group_index_right_hottopic{}
+.group_index_right_hottopic ul {
+    word-wrap: break-word;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.group_index_right_hottopic ul li {
+    border-bottom: 1px dashed #CCCCCC;
+    color: #999999;
+    overflow: hidden;
+    padding: 10px 0;
+    list-style: none;
+    margin: 0;
+}
+.group_index_right_hottopic ul li h3 {margin: 0;padding:0;white-space: nowrap;  overflow: hidden;}
+.group_index_right_hottopic ul li .info{overflow: hidden;margin-top: 10px;font-size: 12px;}
+.group_index_right_hottopic ul li .info .left{float: left}
+.group_index_right_hottopic ul li .info .right{float: right}
+
+
+/*小组分类*/
+.catelist{ margin-bottom: 20px;overflow: hidden;}
+.catelist ul{}
+.catelist ul li{float:left;width:150px;font-size:14px;}
+
+/*分类下小组*/
+.categroup{}
+.categroup ul{}
+.categroup ul li{padding:10px;border-bottom: 1px dashed #CCCCCC;overflow:hidden;}
+.categroup ul li img{float:left;padding:0 10px 0 0;}
+
+/*帖子页*/
+
+.newtopic{}
+.newtopic ul, .newtopic ul li{list-style: none;margin:0;padding:0;}
+.newtopic ul{}
+.newtopic ul li{border-top: 1px dashed #CCCCCC;padding: 5px 0;}
+
+.title2{float:right;border: 1px solid #DDDDDD;border-bottom:none;margin-top:10px;}
+.title2 li{width:150px;border-bottom: 1px solid #DDDDDD;font-size:12px;padding:5px;line-height: 15px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+
+
+
+
+.bltool a{margin-right:10px;padding:0px;}
+.after-view{font-size:14px;}
+
+/*专辑*/
+.album{}
+.album li{float:left;width:225px;margin: 0 5px 10px;height: 80px;}
+.album li .al{float:left;width:50px;height:50px;text-align:center;}
+.album li .al .num{background:#F0F0F0;padding:10px 0}
+.album li .al .tz{background:#CCCCCC;}
+.album li .ar{margin-left:60px;}
+.album li .ar h3{margin:0px;font-weight:bold;}
+.album li .ar .info{}
+.album li .ar .time{color:#999999;}
+
+
+
+/**
+帖子附件
+ */
+.topic_attach{
+    background-color: #FFEAAA;
+    border:dashed 2px #EDCEBA;
+    padding:10px;
+}
+.topic_attach ul{list-style: none;margin:0;padding: 0;}
+.topic_attach ul li{list-style: none;margin: 0;padding: 0;}
+
+/**帖子视频**/
+.topic_video{
+    background-color: #FFFFFF;
+    border:dashed 2px #66afe9;
+    padding:10px;
+}
+
+.topic_video iframe{width: 100%;height:450px;}
+@media (max-width: 575.98px) {
+    .topic_video iframe{width: 100%;height:230px;}
+}

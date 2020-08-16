@@ -138,7 +138,7 @@ switch($ts){
     //帖子分类
     case "type":
         //调出类型
-        $arrGroupType = $new['group']->findAll('group_topic_type',array(
+        $arrGroupType = $new['group']->findAll('topic_type',array(
             'groupid'=>$strGroup['groupid'],
         ));
 
@@ -153,7 +153,7 @@ switch($ts){
 
         $typename = trim($_POST['typename']);
         if($typename){
-            $new['group']->create('group_topic_type',array(
+            $new['group']->create('topic_type',array(
                 'groupid'=>$groupid,
                 'typename'=>$typename,
             ));
@@ -167,7 +167,7 @@ switch($ts){
         $typeid = intval($_POST['typeid']);
         $typename = trim($_POST['typename']);
         if($typeid && $typename){
-            $new['group']->update('group_topic_type',array(
+            $new['group']->update('topic_type',array(
                 'typeid'=>$typeid,
                 'groupid'=>$groupid,
             ),array(
@@ -183,12 +183,12 @@ switch($ts){
 
         $typeid = intval($_GET['typeid']);
 
-        $new['group']->delete('group_topic_type',array(
+        $new['group']->delete('topic_type',array(
             'typeid'=>$typeid,
             'groupid'=>$groupid,
         ));
 
-        $new['group']->update('group_topic',array(
+        $new['group']->update('topic',array(
             'groupid'=>$groupid,
             'typeid'=>$typeid,
         ),array(

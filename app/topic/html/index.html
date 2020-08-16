@@ -1,0 +1,143 @@
+{php include pubTemplate("header")}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item active" aria-current="page">话题</li>
+        </ol>
+    </nav>
+
+
+
+    <div class="row">
+        <div class="col-md-8">
+
+            <div class="card">
+                <div class="card-header">最新话题</div>
+                <div class="card-body">
+                
+                {if $arrTopic}
+                
+                <div class="topic_list">
+                <ul>
+                {loop $arrTopic $key $item}
+                <li>
+                <div class="userimg"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="rounded-circle" src="{$item[user][face]}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" /></a></div>
+                
+                <div class="topic_title">
+                <div class="title">
+                
+                    {if $item['label']}<span class="badge badge-danger fw300">{tsTitle($item['label'])}</span>{/if}
+                
+                    <a href="{tsUrl('topic','show',array('id'=>$item[topicid]))}">{$item[title]}</a>
+                
+                    {if $item['istop']=='1'}
+                    <img src="{SITE_URL}public/images/ding.png" width="24" height="24" title="[置顶]" alt="[置顶]" />
+                    {/if}
+                
+                </div>
+                
+                {if $item['group']['isopen']==0 && $item['score']==0}
+                    <div class="gaiyao mt-2">
+                        {$item['gaiyao']}
+                    </div>
+                
+                    <!--图片-->
+                    {if $item['ptable']=='' && $item['pjson']}
+                    <div class="photo mt-2">
+                        {loop $item['pjson'] $pkey $pitem}
+                        <a href="{tsUrl('topic','show',array('id'=>$item['topicid']))}"><img src="{$pitem}" /></a>
+                        {/loop}
+                    </div>
+                    {/if}
+                
+                    <!--视频-->
+                    {if $item['ptable']=='video' && $item['pjson']['siteid']==0}
+                    <div>
+                        {if $item['pjson']['photo']}
+                        <a href="{tsUrl('topic','show',array('id'=>$item['topicid']))}"><img class="mw-100" src="{$item['pjson']['photo']}"></a>
+                        {else}
+                        <video class="mw-100" controls="controls" src="{$item['pjson']['video']}"></video>
+                        {/if}
+                    </div>
+                    {/if}
+                
+                {/if}
+                
+                
+                    <div class="d-flex flex-row justify-content-between mt-2">
+                        <div class="d-flex fs12 c9">
+                            <a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+                            <span class="ml-1">{php echo getTime($item[uptime],time())}</span>
+                            <span class="ml-1 ts-hide">发表于</span>
+                            <a class="ml-1 ts-hide" href="{tsUrl('group','show',array('id'=>$item[groupid]))}">[{$item[group][groupname]}]</a>
+                        </div>
+                        <div class="d-flex c9 fs12">
+                            <div><i class="far fa-comment-dots"></i> {$item['count_comment']}</div>
+                            <div class="ml-3"><i class="far fa-eye"></i> {$item['count_view']}</div>
+                        </div>
+                    </div>
+                
+                
+                
+                </div>
+                
+                <div class="clear"></div>
+                </li>	
+                {/loop}
+                </ul>
+                </div>
+                
+                {else}
+                
+                <div class="c9">暂无话题</div>
+                
+                {/if}
+                
+                </div>
+                
+                </div>
+
+        </div>
+        <div class="col-md-4">
+
+
+
+            <div class="card">
+                <div class="card-header">推荐话题</div>
+                <div class="card-body commlist">
+                    <ul>
+                        {loop $arrRecommendTopic $key $item}
+                        <li>
+                            <a href="{tsUrl('topic','show',array('id'=>$item[topicid]))}">{php echo tsTitle($item[title])}</a>
+                        </li>
+                        {/loop}
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-header">热门话题</div>
+                <div class="card-body commlist">
+                    <ul>
+                        {loop $arrHotTopic $key $item}
+                        <li>
+                            <a href="{tsUrl('topic','show',array('id'=>$item[topicid]))}">{php echo tsTitle($item[title])}</a>
+                        </li>
+                        {/loop}
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+</div>
+
+{php include pubTemplate("footer")}

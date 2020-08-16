@@ -20,7 +20,7 @@ function recommendtopic(){
 	}
 	
 	//推荐帖子	
-	$arrTopic = aac('group')->findAll('group_topic',$where,'istop desc,uptime desc','topicid,ptable,pkey,pid,pjson,userid,groupid,title,gaiyao,score,label,count_comment,count_view,istop,uptime',35);
+	$arrTopic = aac('group')->findAll('topic',$where,'istop desc,uptime desc','topicid,ptable,pkey,pid,pjson,userid,groupid,title,gaiyao,score,label,count_comment,count_view,istop,uptime',35);
 	
 	foreach($arrTopic as $key=>$item){
 		$arrTopic[$key]['title']=tsTitle($item['title']);

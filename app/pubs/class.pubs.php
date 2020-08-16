@@ -164,7 +164,7 @@ class pubs extends tsApp{
      */
     public function getCommentNum($ptable,$pkey,$pid){
         $commentNum = $this->findCount('comment',array(
-            'ptable'=>'group_topic',
+            'ptable'=>'topic',
             'pkey'=>'topicid',
             'pid'=>$pid,
             'referid'=>0,
@@ -313,7 +313,7 @@ class pubs extends tsApp{
     }
 
     /**
-     * 添加项目数据到ts_group_topic表
+     * 添加项目数据到ts_topic表
      *
      * @param [type] $ptable
      * @param [type] $pkey
@@ -326,7 +326,7 @@ class pubs extends tsApp{
      * @return void
      */
     public function addPtable($ptable,$pkey,$pid,$pjson='',$groupid,$userid,$title,$gaiyao){
-        $topicid = $this->create('group_topic',array(
+        $topicid = $this->create('topic',array(
             'ptable'=>$ptable,
             'pkey'=>$pkey,
             'pid'=>$pid,
@@ -343,7 +343,7 @@ class pubs extends tsApp{
     }
 
     /**
-     * 更新项目数据到ts_group_topic表
+     * 更新项目数据到ts_topic表
      *
      * @param [type] $ptable
      * @param [type] $pkey
@@ -354,7 +354,7 @@ class pubs extends tsApp{
      * @return void
      */
     public function editPtable($ptable,$pkey,$pid,$pjson='',$title,$gaiyao){
-        $this->update('group_topic',array(
+        $this->update('topic',array(
             'ptable'=>$ptable,
             'pkey'=>$pkey,
             'pid'=>$pid,
@@ -366,7 +366,7 @@ class pubs extends tsApp{
     }
 
     /**
-     * 更新项目浏览数到ts_group_topic表
+     * 更新项目浏览数到ts_topic表
      *
      * @param [type] $ptable
      * @param [type] $pkey
@@ -375,7 +375,7 @@ class pubs extends tsApp{
      * @return void
      */
     public function upPtableView($ptable,$pkey,$pid,$count_view){
-        $this->update('group_topic',array(
+        $this->update('topic',array(
             'ptable'=>$ptable,
             'pkey'=>$pkey,
             'pid'=>$pid,
@@ -385,7 +385,7 @@ class pubs extends tsApp{
     }
 
     /**
-     * 更新项目评论数到ts_group_topic表
+     * 更新项目评论数到ts_topic表
      *
      * @param [type] $ptable
      * @param [type] $pkey
@@ -394,8 +394,8 @@ class pubs extends tsApp{
      * @return void
      */
     public function upPtableComment($ptable,$pkey,$pid,$count_comment){
-        if($ptable!='group_topic'){
-            $this->update('group_topic',array(
+        if($ptable!='topic'){
+            $this->update('topic',array(
                 'ptable'=>$ptable,
                 'pkey'=>$pkey,
                 'pid'=>$pid,
@@ -407,7 +407,7 @@ class pubs extends tsApp{
     }
 
     /**
-     *  更新项目点赞数到ts_group_topic表
+     *  更新项目点赞数到ts_topic表
      *
      * @param [type] $ptable
      * @param [type] $pkey
@@ -416,8 +416,8 @@ class pubs extends tsApp{
      * @return void
      */
     public function upPtableLove($ptable,$pkey,$pid,$count_love){
-        if($ptable!='group_topic'){
-            $this->update('group_topic',array(
+        if($ptable!='topic'){
+            $this->update('topic',array(
                 'ptable'=>$ptable,
                 'pkey'=>$pkey,
                 'pid'=>$pid,
@@ -428,7 +428,7 @@ class pubs extends tsApp{
     }
 
     /**
-     * 从ts_group_topic表删除项目数据
+     * 从ts_topic表删除项目数据
      *
      * @param [type] $ptable
      * @param [type] $pkey
@@ -436,7 +436,7 @@ class pubs extends tsApp{
      * @return void
      */
     public function delPtable($ptable,$pkey,$pid){
-        $this->delete('group_topic',array(
+        $this->delete('topic',array(
             'ptable'=>$ptable,
             'pkey'=>$pkey,
             'pid'=>$pid,
@@ -478,8 +478,8 @@ class pubs extends tsApp{
      * @return void
      */
     public function upPtableRecommend($ptable,$pkey,$pid,$isrecommend=1){
-        if($ptable!='group_topic'){
-            $this->update('group_topic',array(
+        if($ptable!='topic'){
+            $this->update('topic',array(
                 'ptable'=>$ptable,
                 'pkey'=>$pkey,
                 'pid'=>$pid,

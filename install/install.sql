@@ -685,16 +685,16 @@ CREATE TABLE IF NOT EXISTS `ts_cache` (
   `cachevalue` text NOT NULL COMMENT '缓存内容',
   PRIMARY KEY (`cacheid`),
   UNIQUE KEY `cachename` (`cachename`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COMMENT='缓存';
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COMMENT='缓存';
 
--- 正在导出表  d_thinksaas.ts_cache 的数据：25 rows
+-- 正在导出表  d_thinksaas.ts_cache 的数据：26 rows
 DELETE FROM `ts_cache`;
 /*!40000 ALTER TABLE `ts_cache` DISABLE KEYS */;
 INSERT INTO `ts_cache` (`cacheid`, `cachename`, `cachevalue`) VALUES
 	(1, 'pubs_plugins', '1589619524a:18:{i:9;s:10:"floatlayer";i:19;s:8:"customer";i:20;s:7:"counter";i:21;s:6:"douban";i:22;s:8:"feedback";i:24;s:7:"gonggao";i:25;s:5:"gotop";i:26;s:4:"navs";i:27;s:2:"qq";i:29;s:5:"weibo";i:30;s:6:"wordad";i:31;s:9:"footertip";i:32;s:8:"leftuser";i:33;s:7:"ueditor";i:34;s:5:"gobad";i:35;s:10:"wangeditor";i:36;s:10:"summernote";i:37;s:7:"morenav";}'),
 	(2, 'home_plugins', '1587443014a:14:{i:11;s:9:"newtopics";i:12;s:5:"slide";i:13;s:8:"signuser";i:14;s:14:"recommendgroup";i:15;s:3:"tag";i:17;s:5:"login";i:18;s:5:"weibo";i:19;s:8:"newgroup";i:20;s:7:"article";i:22;s:5:"photo";i:23;s:5:"links";i:24;s:16:"recommendarticle";i:25;s:14:"recommendtopic";i:26;s:5:"topic";}'),
-	(3, 'system_options', '1589619510a:33:{s:10:"site_title";s:9:"ThinkSAAS";s:13:"site_subtitle";s:24:"又一个ThinkSAAS社区";s:8:"site_key";s:9:"thinksaas";s:9:"site_desc";s:9:"thinksaas";s:8:"site_url";s:22:"http://d.thinksaas.cn/";s:8:"link_url";s:22:"http://d.thinksaas.cn/";s:9:"site_pkey";s:32:"7ab1d34f01d1e8b189e8aabb5e0a3fb2";s:10:"site_email";s:15:"admin@admin.com";s:8:"site_icp";s:20:"豫ICP备00000000号";s:6:"isface";s:1:"0";s:8:"isinvite";s:1:"0";s:7:"regtype";s:1:"0";s:8:"isverify";s:1:"0";s:13:"isverifyphone";s:1:"0";s:6:"istomy";s:1:"0";s:10:"isauthcode";s:1:"0";s:7:"istoken";s:1:"0";s:8:"timezone";s:14:"Asia/Hong_Kong";s:7:"visitor";s:1:"0";s:9:"publisher";s:1:"0";s:7:"pubtime";s:0:"";s:11:"isallowedit";s:1:"0";s:13:"isallowdelete";s:1:"0";s:10:"site_theme";s:6:"sample";s:12:"site_urltype";s:1:"1";s:10:"photo_size";s:1:"2";s:10:"photo_type";s:16:"jpg,gif,png,jpeg";s:11:"photo_check";s:1:"0";s:12:"photo_driver";s:2:"gd";s:11:"attach_size";s:1:"2";s:11:"attach_type";s:19:"zip,rar,doc,txt,ppt";s:11:"dayscoretop";s:2:"10";s:4:"logo";s:8:"logo.png";}'),
-	(4, 'system_appnav', '1586315695a:8:{s:4:"home";s:6:"首页";s:5:"group";s:6:"小组";s:7:"article";s:6:"文章";s:5:"photo";s:6:"相册";s:4:"user";s:6:"用户";s:5:"weibo";s:6:"唠叨";s:6:"search";s:6:"搜索";s:2:"my";s:12:"我的社区";}'),
+	(3, 'system_options', '1597543243a:33:{s:10:"site_title";s:9:"ThinkSAAS";s:13:"site_subtitle";s:24:"又一个ThinkSAAS社区";s:8:"site_key";s:9:"thinksaas";s:9:"site_desc";s:9:"thinksaas";s:8:"site_url";s:22:"http://d.thinksaas.cn/";s:8:"link_url";s:22:"http://d.thinksaas.cn/";s:9:"site_pkey";s:32:"51cbc83973a6ea40ad7314d61a21d7e0";s:10:"site_email";s:15:"admin@admin.com";s:8:"site_icp";s:20:"豫ICP备00000000号";s:6:"isface";s:1:"0";s:8:"isinvite";s:1:"0";s:7:"regtype";s:1:"0";s:8:"isverify";s:1:"0";s:13:"isverifyphone";s:1:"0";s:6:"istomy";s:1:"0";s:10:"isauthcode";s:1:"0";s:7:"istoken";s:1:"0";s:8:"timezone";s:14:"Asia/Hong_Kong";s:7:"visitor";s:1:"0";s:9:"publisher";s:1:"0";s:7:"pubtime";s:0:"";s:11:"isallowedit";s:1:"0";s:13:"isallowdelete";s:1:"0";s:10:"site_theme";s:6:"sample";s:12:"site_urltype";s:1:"1";s:10:"photo_size";s:2:"10";s:10:"photo_type";s:16:"jpg,gif,png,jpeg";s:11:"photo_check";s:1:"0";s:12:"photo_driver";s:2:"gd";s:11:"attach_size";s:2:"10";s:11:"attach_type";s:19:"zip,rar,doc,txt,ppt";s:11:"dayscoretop";s:2:"10";s:4:"logo";s:8:"logo.png";}'),
+	(4, 'system_appnav', '1597542226a:9:{s:4:"home";s:6:"首页";s:5:"group";s:6:"小组";s:5:"topic";s:6:"话题";s:7:"article";s:6:"文章";s:5:"photo";s:6:"相册";s:4:"user";s:6:"用户";s:5:"weibo";s:6:"唠叨";s:6:"search";s:6:"搜索";s:2:"my";s:12:"我的社区";}'),
 	(5, 'system_anti_word', '1430039888s:5733:"国民党|邓小平|江泽民|胡锦涛|共产党|毛主席|毛泽东|中共|中国共产党|枪|弹药|枪支|氣槍|猎槍|来福|雷鸣登|五连发|平式双管|立式双管|麻醉|军用|进口|录入员|招聘兼职|1332566258|直流电阻测试仪|继电保护测试仪|串联谐振|分压器|www.hbyhdl.com|www.bd-seo.net|武汉网站优化|武汉网络推广|武汉网络营销|武汉SEO|大脚骨矫正器|379056061|拇外翻|小姐|习近平|王立军|两会|薄熙来|谷开来|唱红打黑|听党指挥|薄一波|李长春|周永康|政府|zhenfu|傻逼|zhengfu|他杀|枪杀|谋杀|起义|就义|法轮功|邪教|GCD|hege123|菲律宾|薄熙莱|小姐上门|一夜情|性爱|性息|武汉婚纱摄影|武汉婚纱照|武汉艺术照|武汉婚纱摄影工作室|www.yilongphoto.com|www.windyx.com|www.ruile.net|www.wo-niu.com.cn|www.wlzb518.com|www.wufangzhai-zongzi.com|www.hege123.com|按摩|按摩服务|cwsurf.de|出台|包夜|www.maizongzi.com|代刷|微笑网络|刷信誉|53530.cn|waimaodao.com|小 妹|上 门 服 务|小 妹 上 门|王哥|花姐|学妹|姓ˊ感ˊ少ˊ妇|丰ˊ韵ˊ熟ˊ妇|丽人岛休闲会所|越ˊ南ˊ妹|77057|饥ˊ渴ˊ熟ˊ女|饥渴熟女|性感人妻|姓感少妇|51gouku.com|51够酷|585.cc|腋臭|狐臭|兼职学生妹|湘湘|小唐|学生妹|wufangzhai-zongzi.com|冰毒|海洛因|毒品|吸毒|66dao.com|办证|赵小姐|douyapai.com|ntxz.cc|豆芽派|tdjyedu|自考招生|sinoest|身份證买卖|身份证买卖|895316992|爱游中国|上門服务|客人隐私|suoniao.com|男科医院|男性医院|包皮|包茎|男科|做爱|小妹上门|小妹服务|sm|sm女王|成熟少妇|包吹|极品校花|sinoest.com|尖锐湿疣|耳鼻喉医院|过敏性鼻炎|ibuonline.com|福彩|福彩3d|totutu.com|去黑头|东方软峰|yileee.com|新特药|fgt120.com|99spcar.com|meiti520.com|bbswuhan.com|18611314446|丰韵熟妇|越南妹|maizongzi.com|上门服务|小妹|windyx.com|wlzb518.com|wo-niu.com.cn|ruile.net|bd-seo.net|hbyhdl.com|yilongphoto.com|hege123.com|發票|开票电|开票|发票|代开发票|私募|走私车|资本运作|真人视频|造价通|移民网|药商|亚布力|雅思|新皇宝|校花聊天室|消费投资合法|西安卖肾|同城女|丝袜交友|兼职服务|草榴社区|搬家公司|代開|代开|醱票|開瞟|瞟据|瞟务|酒店住宿|13826544598|2645989872|18312006833|费发|314721888|办理假证件|394057341|费發|13533391062|13544261868|13828442144|13728999976|13662622538|897839088|vpswolf.com|vanshen.com|yapai.cc|daqiaogw.com|hfkszdm.com|jinqiaohc.com|0553rl.com|ln580.cn|qifanweb.com|qifanseo.com|qifanit.com|028zfyy.com|aitecentury.com|aite55.com|shentongkang.com|dss.so|3ja.net|sin55.com|2008ns.com|203529769|binhaijincheng.com|美女服务|18611325651|caihua.cc|51mm.com.cn|tbwtmall.net|lubaolin.com|糖尿病治疗仪|tangniaobingok.com|糖尿病|chtip.org|56156.com|07uuu.com|haoyouren.com|便秘|haoyouren|xxcun.com|iisp.com|gmwhy.com|feelyz.com|369in.com|cdtarena.com|肝硬化|youbian.com|162net.com|comnetcnn.com|2233.cn|鸡巴|119tx.com|0377521.com|028zuanji.com|dzwan.net|dodomo.net|sina.com|fobshanghai.com|芬恩|2659477099|58692026|65111117|英文SEO|仿牌SEO|外贸SEO|1550957342|pingan.com|痔疮|86889299|800002356|cqddgc.cn|股票|nyimei.com|天衣坊|宏天景秀|sugon.com|微博008|qqbct.com|qqsuncity.com|99txzq.com|88txzq.com|sdebh.cn|9501317248463|248463|飞机票|网银|火车票|无卡存款|66667959|订票|火车站|57071215|889584017|获奖查询|穫獎查詢|82425|5782|中獎|熱線|1931033|代售点|w1a2.icoc.cc|1317241334|车票改签|嘿咻|加盟|湿疹|塑胶|1817001212|4000318885|800007699|4008521119|花月婷|xpjin.com|新葡京娱乐城|eshibo68.com|tt5201314.com|TT娱乐城|娱乐城|qinzi5.com|21202|火車票|089|8369|退票|改簽|預訂|ruijintc.com|ruijintc.net|草榴|caoliu|5177game.com|cao|wgb320330.com|公關|公关|夜总会|兼职|同性恋|丝足|同志|女王|鸭子|调教|KTV|夜场|娱乐场|陪护|情感陪护|公主|LES|GAY|兼職|18611102232|男妓|妓男|女妓|cs12388.com|liketuan.com|xiunvfang.com|tmall.com|rekuai.com|gyouz.com|u95.cc|ikphp.com|12ik.com|7lo.cn|hufuin.com|fa66.com|itcpa.cn|72jz.com|网赚|ikphp|12ik|weadge.com|mfkds.com|svs123.com|dlnmd.com|nicenic.com|13311372110|58464602|bf3.cn|你妹啊|33md.co|梅毒|你妈|hywww.net|2015230140|淋病|非淋病|damazha.com|mitang.pw|六合彩|赛马|三陪|51shuaige.com|369tong.com|holde.cn|18xi.com|信息代发|推广软件|营销软件|网络推广|营销人|91renren.com|kukud.net|chuntu.cc|jinhusns.com|鼻炎|医院|153075777|hqbsns.com|jjyulecheng77g.com|senlang.net|xiyingmenyulecheng8a.com|osforce.cn|51neixun.com|你妈逼|杀人|操你妈|草泥马|税票|wanlidq.com|醫院|mrdodo.net|188123581|zhengma.com|4008166005|400|800|化妆|陈派|税务|整形|美容|隆胸|jinyuanbao.cn|xkqmj.org|baishiheyuan.com|057160989861|hiici.com|518202.com|微店|60989861|1433607382|18921182443|82835166|官方推荐|百度认证|sh419x.net|hhy021.com|ehuanka.com|柘荣太子参|buluocc.com|buluocc|szprovence.com|上海龙凤|shlf9.net|shlf9.com|shlf99.net|shlf99.com|shlf999.net|shlf999.com|aishiso.com|qhf021.com|cfg021.com|uoko.com|guizubbx.com|esosn.com|win7zhijia.cn|xtcheng.net|867590759|888xitong.com|1378206455|宜人贷|win7qjb.com|xitongcheng|onerare.com|xitong1.com|ghostxpsp3.net|windows114.com|djie.net|999ghost.com|xitongcity.com|51rgb.com|mingtaov.com|228224.com|hb7526.com|jx8091.com|drf8953.com|xpjgj9186.com|hjjb9981.com|dwj5266.com|xq81365.com|nc2787.com|wfgj7656.com|seowhy.com|ceo2351.com|fc5517.com|bg6261.com|fbgj8620.com|ylgj2523.com|zibenzaixian.com|chetips.com|51zhaoji.com|白癜风|kanshijian.com|wudan100.com|治疗|痘|南通|深圳|kongweizhi.com|foxiang86.net|taobaobaobao.com";'),
 	(6, 'user_options', '1586315688a:6:{s:7:"appname";s:6:"用户";s:7:"appdesc";s:12:"用户中心";s:6:"appkey";s:6:"用户";s:8:"isenable";s:1:"0";s:7:"isgroup";s:0:"";s:7:"banuser";s:25:"官方用户|官方团队";}'),
 	(7, 'mail_options', '1586315631a:8:{s:7:"appname";s:0:"";s:7:"appdesc";s:0:"";s:8:"isenable";s:0:"";s:8:"mailhost";s:18:"smtp.exmail.qq.com";s:3:"ssl";s:1:"1";s:8:"mailport";s:3:"587";s:8:"mailuser";s:23:"postmaster@thinksaas.cn";s:7:"mailpwd";s:6:"123456";}'),
@@ -704,18 +704,19 @@ INSERT INTO `ts_cache` (`cacheid`, `cachename`, `cachevalue`) VALUES
 	(11, 'weibo_options', '1586315695a:3:{s:7:"appname";s:6:"唠叨";s:7:"appdesc";s:6:"唠叨";s:6:"appkey";s:6:"唠叨";}'),
 	(12, 'plugins_pubs_wordad', '1400602928a:4:{i:0;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告1";s:3:"url";s:23:"https://www.thinksaas.cn";}i:1;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告2";s:3:"url";s:23:"https://www.thinksaas.cn";}i:2;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告3";s:3:"url";s:23:"https://www.thinksaas.cn";}i:3;a:2:{s:5:"title";s:22:"ThinkSAAS文字广告4";s:3:"url";s:23:"https://www.thinksaas.cn";}}'),
 	(13, 'user_role', '1400602955a:17:{i:0;a:3:{s:8:"rolename";s:6:"列兵";s:11:"score_start";s:1:"0";s:9:"score_end";s:4:"5000";}i:1;a:3:{s:8:"rolename";s:6:"下士";s:11:"score_start";s:4:"5000";s:9:"score_end";s:5:"20000";}i:2;a:3:{s:8:"rolename";s:6:"中士";s:11:"score_start";s:5:"20000";s:9:"score_end";s:5:"40000";}i:3;a:3:{s:8:"rolename";s:6:"上士";s:11:"score_start";s:5:"40000";s:9:"score_end";s:5:"80000";}i:4;a:3:{s:8:"rolename";s:12:"三级准尉";s:11:"score_start";s:5:"80000";s:9:"score_end";s:6:"160000";}i:5;a:3:{s:8:"rolename";s:12:"二级准尉";s:11:"score_start";s:6:"160000";s:9:"score_end";s:6:"320000";}i:6;a:3:{s:8:"rolename";s:12:"一级准尉";s:11:"score_start";s:6:"320000";s:9:"score_end";s:6:"640000";}i:7;a:3:{s:8:"rolename";s:6:"少尉";s:11:"score_start";s:6:"640000";s:9:"score_end";s:7:"1280000";}i:8;a:3:{s:8:"rolename";s:6:"中尉";s:11:"score_start";s:7:"1280000";s:9:"score_end";s:7:"2560000";}i:9;a:3:{s:8:"rolename";s:6:"上尉";s:11:"score_start";s:7:"2560000";s:9:"score_end";s:7:"5120000";}i:10;a:3:{s:8:"rolename";s:6:"少校";s:11:"score_start";s:7:"5120000";s:9:"score_end";s:8:"10240000";}i:11;a:3:{s:8:"rolename";s:6:"中校";s:11:"score_start";s:8:"10240000";s:9:"score_end";s:8:"20480000";}i:12;a:3:{s:8:"rolename";s:6:"上校";s:11:"score_start";s:8:"20480000";s:9:"score_end";s:8:"40960000";}i:13;a:3:{s:8:"rolename";s:6:"准将";s:11:"score_start";s:8:"40960000";s:9:"score_end";s:8:"81920000";}i:14;a:3:{s:8:"rolename";s:6:"少将";s:11:"score_start";s:8:"81920000";s:9:"score_end";s:9:"123840000";}i:15;a:3:{s:8:"rolename";s:6:"中将";s:11:"score_start";s:9:"123840000";s:9:"score_end";s:9:"327680000";}i:16;a:3:{s:8:"rolename";s:6:"上将";s:11:"score_start";s:9:"327680000";s:9:"score_end";s:1:"0";}}'),
-	(14, 'plugins_pubs_gobad', '1400603098a:3:{i:300;s:20:"宽度300px广告位";i:468;s:20:"宽度468px广告位";i:960;s:20:"宽度960px广告位";}'),
+	(14, 'plugins_pubs_gobad', '1597542108a:10:{s:10:"pub_header";s:0:"";i:300;s:20:"宽度300px广告位";i:468;s:20:"宽度468px广告位";i:640;s:0:"";i:960;s:21:"通栏1110px广告位";s:15:"topic_right_top";s:0:"";s:11:"home_left_1";s:0:"";s:11:"content_top";s:0:"";s:11:"home_left_2";s:0:"";s:10:"pub_footer";s:0:"";}'),
 	(15, 'plugins_pubs_feedback', '1406109222s:52:"<a href=\\"https://www.thinksaas.cn\\">意见反馈</a>";'),
 	(16, 'plugins_pubs_counter', '1585042191s:19:"<!--统计代码-->";'),
 	(18, 'plugins_home_links', '1540469938a:2:{i:0;a:2:{s:8:"linkname";s:9:"ThinkSAAS";s:7:"linkurl";s:25:"https://www.thinksaas.cn/";}i:1;a:2:{s:8:"linkname";s:12:"开源社区";s:7:"linkurl";s:25:"https://www.thinksaas.cn/";}}'),
 	(17, 'plugins_pubs_navs', '1532088590a:2:{i:0;a:2:{s:7:"navname";s:15:"ThinkSAAS官网";s:6:"navurl";s:25:"https://www.thinksaas.cn/";}i:1;a:2:{s:7:"navname";s:21:"付费商业版授权";s:6:"navurl";s:38:"https://www.thinksaas.cn/service/down/";}}'),
-	(24, 'system_mynav', '1586315695a:4:{s:5:"group";s:6:"小组";s:7:"article";s:6:"文章";s:5:"photo";s:6:"相册";s:5:"weibo";s:6:"唠叨";}'),
+	(24, 'system_mynav', '1597542226a:5:{s:5:"group";s:6:"小组";s:5:"topic";s:6:"话题";s:7:"article";s:6:"文章";s:5:"photo";s:6:"相册";s:5:"weibo";s:6:"唠叨";}'),
 	(25, 'pubs_options', '1586315671a:1:{s:20:"phone_code_send_time";s:1:"1";}'),
 	(26, 'search_options', '1586315564a:8:{s:7:"appname";s:6:"搜索";s:7:"appdesc";s:6:"搜索";s:6:"appkey";s:6:"搜索";s:2:"ds";s:5:"topic";s:5:"group";s:1:"1";s:5:"topic";s:1:"1";s:4:"user";s:1:"1";s:7:"article";s:1:"1";}'),
 	(27, 'sms_options', '1586315649a:5:{s:10:"sms_server";s:6:"qcloud";s:9:"sms_appid";s:1:"1";s:10:"sms_appkey";s:1:"2";s:8:"sms_tpid";s:1:"3";s:8:"sms_sign";s:1:"4";}'),
 	(28, 'plugins_home_recommendarticle', '1589619069a:1:{s:11:"isrecommend";i:0;}'),
 	(29, 'plugins_home_recommendtopic', '1589619075a:1:{s:11:"isrecommend";i:0;}'),
-	(30, 'plugins_pubs_morenav', '1589619544a:1:{i:0;a:3:{s:7:"navname";s:9:"ThinkSAAS";s:6:"navurl";s:24:"https://www.thinksaas.cn";s:7:"newpage";s:0:"";}}');
+	(30, 'plugins_pubs_morenav', '1589619544a:1:{i:0;a:3:{s:7:"navname";s:9:"ThinkSAAS";s:6:"navurl";s:24:"https://www.thinksaas.cn";s:7:"newpage";s:0:"";}}'),
+	(31, 'topic_options', '1597542226a:3:{s:7:"appname";s:6:"话题";s:7:"appdesc";s:12:"话题帖子";s:6:"appkey";s:6:"话题";}');
 /*!40000 ALTER TABLE `ts_cache` ENABLE KEYS */;
 
 -- 导出  表 d_thinksaas.ts_comment 结构
@@ -841,123 +842,6 @@ CREATE TABLE IF NOT EXISTS `ts_group_cate` (
 DELETE FROM `ts_group_cate`;
 /*!40000 ALTER TABLE `ts_group_cate` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_group_cate` ENABLE KEYS */;
-
--- 导出  表 d_thinksaas.ts_group_topic 结构
-DROP TABLE IF EXISTS `ts_group_topic`;
-CREATE TABLE IF NOT EXISTS `ts_group_topic` (
-  `topicid` int(11) NOT NULL AUTO_INCREMENT COMMENT '话题ID',
-  `ptable` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表名称',
-  `pkey` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段',
-  `pid` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段值',
-  `pjson` varchar(512) NOT NULL DEFAULT '' COMMENT '应用json数据',
-  `typeid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子分类ID',
-  `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '帖子标题',
-  `label` varchar(64) NOT NULL DEFAULT '' COMMENT '快速标注',
-  `content` longtext NOT NULL COMMENT '帖子内容',
-  `gaiyao` varchar(256) NOT NULL DEFAULT '' COMMENT '内容概要',
-  `score` int(11) NOT NULL DEFAULT '0' COMMENT '查看需要积分',
-  `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '回复统计',
-  `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '帖子展示数',
-  `count_love` int(11) NOT NULL DEFAULT '0' COMMENT '喜欢数',
-  `istop` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否置顶',
-  `isclose` int(4) NOT NULL DEFAULT '0' COMMENT '是否关闭帖子',
-  `iscomment` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否允许评论',
-  `iscommentshow` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否评论后显示内容',
-  `isposts` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否精华帖子',
-  `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不审核1审核',
-  `isdelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不删除1删除',
-  `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1为推荐',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`topicid`),
-  KEY `groupid` (`groupid`),
-  KEY `userid` (`userid`),
-  KEY `title` (`title`),
-  KEY `groupid_2` (`groupid`),
-  KEY `typeid` (`typeid`),
-  KEY `addtime` (`addtime`),
-  KEY `count_comment` (`count_comment`),
-  KEY `count_view` (`count_view`),
-  KEY `count_love` (`count_love`),
-  KEY `count_view_2` (`count_view`,`addtime`),
-  KEY `isshow` (`isaudit`,`uptime`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='小组话题(小组帖子)';
-
--- 正在导出表  d_thinksaas.ts_group_topic 的数据：0 rows
-DELETE FROM `ts_group_topic`;
-/*!40000 ALTER TABLE `ts_group_topic` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_group_topic` ENABLE KEYS */;
-
--- 导出  表 d_thinksaas.ts_group_topic_edit 结构
-DROP TABLE IF EXISTS `ts_group_topic_edit`;
-CREATE TABLE IF NOT EXISTS `ts_group_topic_edit` (
-  `editid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增编辑ID',
-  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '话题ID',
-  `title` varchar(128) NOT NULL DEFAULT '' COMMENT '标题',
-  `content` text NOT NULL COMMENT '内容',
-  `isupdate` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未更新1更新',
-  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '修改时间',
-  PRIMARY KEY (`editid`),
-  UNIQUE KEY `topicid` (`topicid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='话题编辑';
-
--- 正在导出表  d_thinksaas.ts_group_topic_edit 的数据：0 rows
-DELETE FROM `ts_group_topic_edit`;
-/*!40000 ALTER TABLE `ts_group_topic_edit` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_group_topic_edit` ENABLE KEYS */;
-
--- 导出  表 d_thinksaas.ts_group_topic_photo 结构
-DROP TABLE IF EXISTS `ts_group_topic_photo`;
-CREATE TABLE IF NOT EXISTS `ts_group_topic_photo` (
-  `photoid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
-  `orderid` INT(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
-  `path` varchar(50) NOT NULL DEFAULT '' COMMENT '路径',
-  `photo` varchar(50) NOT NULL DEFAULT '' COMMENT '图片',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
-  PRIMARY KEY (`photoid`),
-  UNIQUE KEY `photoid` (`photoid`),
-  KEY `topicid` (`topicid`),
-  KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子图片表';
-
--- 正在导出表  d_thinksaas.ts_group_topic_photo 的数据：0 rows
-DELETE FROM `ts_group_topic_photo`;
-/*!40000 ALTER TABLE `ts_group_topic_photo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_group_topic_photo` ENABLE KEYS */;
-
--- 导出  表 d_thinksaas.ts_group_topic_type 结构
-DROP TABLE IF EXISTS `ts_group_topic_type`;
-CREATE TABLE IF NOT EXISTS `ts_group_topic_type` (
-  `typeid` int(11) NOT NULL AUTO_INCREMENT COMMENT '帖子分类ID',
-  `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
-  `typename` varchar(64) NOT NULL DEFAULT '' COMMENT '帖子分类名称',
-  `count_topic` int(11) NOT NULL DEFAULT '0' COMMENT '统计帖子',
-  PRIMARY KEY (`typeid`),
-  KEY `groupid` (`groupid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子分类';
-
--- 正在导出表  d_thinksaas.ts_group_topic_type 的数据：0 rows
-DELETE FROM `ts_group_topic_type`;
-/*!40000 ALTER TABLE `ts_group_topic_type` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_group_topic_type` ENABLE KEYS */;
-
--- 导出  表 d_thinksaas.ts_group_topic_user 结构
-DROP TABLE IF EXISTS `ts_group_topic_user`;
-CREATE TABLE IF NOT EXISTS `ts_group_topic_user` (
-  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
-  UNIQUE KEY `topicid_userid` (`topicid`,`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='积分帖子用户关联表';
-
--- 正在导出表  d_thinksaas.ts_group_topic_user 的数据：0 rows
-DELETE FROM `ts_group_topic_user`;
-/*!40000 ALTER TABLE `ts_group_topic_user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_group_topic_user` ENABLE KEYS */;
 
 -- 导出  表 d_thinksaas.ts_group_user 结构
 DROP TABLE IF EXISTS `ts_group_user`;
@@ -1203,7 +1087,7 @@ INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
 	('site_desc', 'thinksaas'),
 	('site_url', 'http://d.thinksaas.cn/'),
 	('link_url', 'http://d.thinksaas.cn/'),
-	('site_pkey', '7ab1d34f01d1e8b189e8aabb5e0a3fb2'),
+	('site_pkey', '51cbc83973a6ea40ad7314d61a21d7e0'),
 	('site_email', 'admin@admin.com'),
 	('site_icp', '豫ICP备00000000号'),
 	('isface', '0'),
@@ -1222,11 +1106,11 @@ INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
 	('isallowdelete', '0'),
 	('site_theme', 'sample'),
 	('site_urltype', '1'),
-	('photo_size', '2'),
+	('photo_size', '10'),
 	('photo_type', 'jpg,gif,png,jpeg'),
 	('photo_check', '0'),
 	('photo_driver', 'gd'),
-	('attach_size', '2'),
+	('attach_size', '10'),
 	('attach_type', 'zip,rar,doc,txt,ppt'),
 	('dayscoretop', '10'),
 	('logo', 'logo.png');
@@ -1360,6 +1244,123 @@ CREATE TABLE IF NOT EXISTS `ts_task_user` (
 DELETE FROM `ts_task_user`;
 /*!40000 ALTER TABLE `ts_task_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_task_user` ENABLE KEYS */;
+
+-- 导出  表 d_thinksaas.ts_topic 结构
+DROP TABLE IF EXISTS `ts_topic`;
+CREATE TABLE IF NOT EXISTS `ts_topic` (
+  `topicid` int(11) NOT NULL AUTO_INCREMENT COMMENT '话题ID',
+  `ptable` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表名称',
+  `pkey` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段',
+  `pid` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段值',
+  `pjson` varchar(512) NOT NULL DEFAULT '' COMMENT '应用json数据',
+  `typeid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子分类ID',
+  `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '帖子标题',
+  `label` varchar(64) NOT NULL DEFAULT '' COMMENT '快速标注',
+  `content` longtext NOT NULL COMMENT '帖子内容',
+  `gaiyao` varchar(256) NOT NULL DEFAULT '' COMMENT '内容概要',
+  `score` int(11) NOT NULL DEFAULT '0' COMMENT '查看需要积分',
+  `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '回复统计',
+  `count_view` int(11) NOT NULL DEFAULT '0' COMMENT '帖子展示数',
+  `count_love` int(11) NOT NULL DEFAULT '0' COMMENT '喜欢数',
+  `istop` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否置顶',
+  `isclose` int(4) NOT NULL DEFAULT '0' COMMENT '是否关闭帖子',
+  `iscomment` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否允许评论',
+  `iscommentshow` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否评论后显示内容',
+  `isposts` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否精华帖子',
+  `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不审核1审核',
+  `isdelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不删除1删除',
+  `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1为推荐',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `uptime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`topicid`),
+  KEY `groupid` (`groupid`),
+  KEY `userid` (`userid`),
+  KEY `title` (`title`),
+  KEY `groupid_2` (`groupid`),
+  KEY `typeid` (`typeid`),
+  KEY `addtime` (`addtime`),
+  KEY `count_comment` (`count_comment`),
+  KEY `count_view` (`count_view`),
+  KEY `count_love` (`count_love`),
+  KEY `count_view_2` (`count_view`,`addtime`),
+  KEY `isshow` (`isaudit`,`uptime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='话题(帖子)';
+
+-- 正在导出表  d_thinksaas.ts_topic 的数据：0 rows
+DELETE FROM `ts_topic`;
+/*!40000 ALTER TABLE `ts_topic` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_topic` ENABLE KEYS */;
+
+-- 导出  表 d_thinksaas.ts_topic_edit 结构
+DROP TABLE IF EXISTS `ts_topic_edit`;
+CREATE TABLE IF NOT EXISTS `ts_topic_edit` (
+  `editid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增编辑ID',
+  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '话题ID',
+  `title` varchar(128) NOT NULL DEFAULT '' COMMENT '标题',
+  `content` text NOT NULL COMMENT '内容',
+  `isupdate` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未更新1更新',
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '修改时间',
+  PRIMARY KEY (`editid`),
+  UNIQUE KEY `topicid` (`topicid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='话题编辑';
+
+-- 正在导出表  d_thinksaas.ts_topic_edit 的数据：0 rows
+DELETE FROM `ts_topic_edit`;
+/*!40000 ALTER TABLE `ts_topic_edit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_topic_edit` ENABLE KEYS */;
+
+-- 导出  表 d_thinksaas.ts_topic_photo 结构
+DROP TABLE IF EXISTS `ts_topic_photo`;
+CREATE TABLE IF NOT EXISTS `ts_topic_photo` (
+  `photoid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
+  `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
+  `path` varchar(50) NOT NULL DEFAULT '' COMMENT '路径',
+  `photo` varchar(50) NOT NULL DEFAULT '' COMMENT '图片',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`photoid`),
+  UNIQUE KEY `photoid` (`photoid`),
+  KEY `topicid` (`topicid`),
+  KEY `userid` (`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子图片表';
+
+-- 正在导出表  d_thinksaas.ts_topic_photo 的数据：0 rows
+DELETE FROM `ts_topic_photo`;
+/*!40000 ALTER TABLE `ts_topic_photo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_topic_photo` ENABLE KEYS */;
+
+-- 导出  表 d_thinksaas.ts_topic_type 结构
+DROP TABLE IF EXISTS `ts_topic_type`;
+CREATE TABLE IF NOT EXISTS `ts_topic_type` (
+  `typeid` int(11) NOT NULL AUTO_INCREMENT COMMENT '帖子分类ID',
+  `groupid` int(11) NOT NULL DEFAULT '0' COMMENT '小组ID',
+  `typename` varchar(64) NOT NULL DEFAULT '' COMMENT '帖子分类名称',
+  `count_topic` int(11) NOT NULL DEFAULT '0' COMMENT '统计帖子',
+  PRIMARY KEY (`typeid`),
+  KEY `groupid` (`groupid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子分类';
+
+-- 正在导出表  d_thinksaas.ts_topic_type 的数据：0 rows
+DELETE FROM `ts_topic_type`;
+/*!40000 ALTER TABLE `ts_topic_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_topic_type` ENABLE KEYS */;
+
+-- 导出  表 d_thinksaas.ts_topic_user 结构
+DROP TABLE IF EXISTS `ts_topic_user`;
+CREATE TABLE IF NOT EXISTS `ts_topic_user` (
+  `topicid` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
+  UNIQUE KEY `topicid_userid` (`topicid`,`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='积分帖子用户关联表';
+
+-- 正在导出表  d_thinksaas.ts_topic_user 的数据：0 rows
+DELETE FROM `ts_topic_user`;
+/*!40000 ALTER TABLE `ts_topic_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_topic_user` ENABLE KEYS */;
 
 -- 导出  表 d_thinksaas.ts_user 结构
 DROP TABLE IF EXISTS `ts_user`;

@@ -47,7 +47,7 @@ if ($email == '' || $password == '' || $username == '')
 if (valid_email ( $email ) == false)
 	qiMsg ( "Email输入有误！" );
 
-include 'thinksaas/sql/'.$select_sql.'.php';
+include 'thinksaas/'.$select_sql.'.php';
 
 $db = new MySql ( $arrdb );
 

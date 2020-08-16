@@ -22,7 +22,8 @@ switch ($ts) {
 		if ($strArticle ['userid'] == $userid || $TS_USER ['isadmin'] == 1) {
 		
 			$strArticle['title'] = tsTitle($strArticle['title']);
-			$strArticle['content'] = tsDecode($strArticle['content']);
+			//$strArticle['content'] = tsDecode($strArticle['content']); //为有效防止xss攻击，如果前端通过textarea标签加载的编辑器，请注释掉本行；如果编辑器有其他的加载方式，请视情况解除本行注释。
+			$strArticle['gaiyao'] = tsTitle($strArticle['gaiyao']);
 			
 			// 找出TAG
 			$arrTags = aac ( 'tag' )->getObjTagByObjid ( 'article', 'articleid', $articleid );
@@ -78,7 +79,7 @@ switch ($ts) {
 			// 过滤内容结束
 		}
 		
-		if ($title == '' || $content2 == '')
+		if ($title == '' || $content2 == '' || $content=='')
 			qiMsg ( "标题和内容都不能为空！" );
 
         if($score<0){

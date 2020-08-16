@@ -1,0 +1,75 @@
+/*帖子列表*/
+.topic_list{overflow:hidden;}
+.topic_list ul, .topic_list ul li{list-style: none;margin:0;padding:0;}
+.topic_list ul{overflow:hidden;}
+.topic_list ul li{overflow:hidden;padding:15px 0;display: block;border-bottom: 1px dashed #999999;}
+
+.topic_list ul li .other{background: none repeat scroll 0 0 #F8F8F8;
+    border-left: 3px solid #EEEEEE;
+    margin-left: 38px;
+    margin-top: 5px;
+    padding: 5px;}
+.topic_list ul li .other p{margin:0px;padding:5px 0;}
+
+.topic_list .userimg{float:left;width:38px;overflow:hidden;}
+
+.topic_list .topic_title{margin-left:40px;overflow:hidden;}
+
+.topic_list .topic_title .title a{font-size:18px;font-weight: bold;}
+
+.topic_list .topic_title .gaiyao{color:#999999;}
+
+.topic_list .topic_title .photo{}
+.topic_list .topic_title .photo img{max-width: 25%;margin-right: 10px;}
+
+.topic_list .topic_info{overflow: hidden;font-size:12px;color:#999999;}
+
+.rank {
+	background: none repeat scroll 0 0 #BBBBBB;
+    height: 15px;
+    line-height: 15px;
+    margin: 0 0 0 5px;
+    padding: 0 3px;
+	border-radius:5px 5px 5px 5px;
+}
+
+
+
+
+/*内容页*/
+.topic-content{width: 100%;overflow:hidden;}
+
+.topic-content .user-face{float: left;height: 48px;overflow: hidden;width: 48px;}
+
+.topic-content .topic-doc {
+    margin-bottom: 30px;
+	overflow: hidden;
+	margin-left:60px;
+}
+.topic-content .topic-doc .author {
+    height: auto;
+    margin: 0;
+	margin-bottom: 1px;
+	color: #666666;
+	background:#f4f4ec;
+	padding:5px;
+	font-size:12px;
+}
+
+.topic-content img{max-width:100%;}
+.topic-content .topic-view{font-size:16px;line-height:30px;overflow: hidden;word-wrap: break-word;word-break: normal;}
+
+.topic-content .topic-view a{color:#49a5de}
+
+.topic-content .topic-view p{font-size:16px;}
+
+.topic-content .topic-view table{border:#CCCCCC 1px solid;}
+.topic-content .topic-view table td{ border:1px #CCCCCC solid; border-right:none; border-top:none;}
+
+
+.btool{
+    border-top: 1px solid #EEEEEE;
+    font-size: 12px;
+    padding: 10px 10px 0 10px;
+    text-align: right;}
+.btool a{margin-left:10px;padding:0px;color:#999999}

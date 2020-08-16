@@ -2,7 +2,7 @@
 defined('IN_TS') or die('Access Denied.'); 
 function topic(){
 	
-	$arrTopic = aac('group')->findAll('group_topic',array(
+	$arrTopic = aac('home')->findAll('topic',array(
 	    'isaudit'=>0,
     ),'addtime desc','topicid,title',10);
 	

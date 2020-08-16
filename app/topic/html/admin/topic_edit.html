@@ -1,0 +1,45 @@
+{php include pubTemplate("header_admin")}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table class="table table-hover">
+
+
+    <thead>
+
+    <tr><th>ID</th><th>标题</th><th>时间</th><th>状态</th><th>操作</th></tr>
+
+    </thead>
+
+
+    <tbody>
+
+
+
+    </tbody>
+
+
+    <tbody>
+
+    {loop $arrTopic $key $item}
+    <tr><td>{$item['topicid']}</td><td><a href="index.php?app=topic&ac=admin&mg=topic&ts=editview&topicid={$item['topicid']}">{$item['title']}</a></td><td>{$item['addtime']}</td><td>{if $item['isupdate']==1}<font color="green">已更新</font>{else}未更新{/if}</td><td>
+        <a href="{SITE_URL}index.php?app=topic&ac=admin&mg=topic&ts=update&topicid={$item['topicid']}">更新</a>
+    </td>
+    </tr>
+    {/loop}
+
+    </tbody>
+
+
+
+
+
+</table>
+
+</div>
+{php include pubTemplate("footer_admin")}

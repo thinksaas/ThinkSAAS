@@ -185,6 +185,60 @@ switch($ts){
         fileWrite('system_mynav.php','data',$arrMyNav);
         $GLOBALS['tsMySqlCache']->set('system_mynav',$arrMyNav);
         echo '1';
-        break;
+		break;
+		
+	case "applist":
+
+		$arrAppNav = include 'data/system_appnav.php';
+
+		include template("apps_applist");
+		break;
+
+	case "applistdo":
+
+		$arrAppNav = include 'data/system_appnav.php';
+
+		$jsondata = stripslashes($_POST['jsondata']);
+
+		$arrJson = json_decode($jsondata,true);
+
+		foreach($arrJson as $key=>$item){
+			$arrNav[$item['id']] = $arrAppNav[$item['id']];
+		}
+
+		//print_r($arrNav);
+
+
+		fileWrite('system_appnav.php','data',$arrNav);
+		$GLOBALS['tsMySqlCache']->set('system_appnav',$arrNav);
+
+
+		break;
+
+	case "mylist":
+
+		$arrMyNav = include 'data/system_mynav.php';
+
+
+		include template("apps_mylist");
+		break;
+
+
+	case "mylistdo":
+
+		$arrMyNav = include 'data/system_mynav.php';
+
+		$jsondata = stripslashes($_POST['jsondata']);
+
+		$arrJson = json_decode($jsondata,true);
+
+		foreach($arrJson as $key=>$item){
+			$arrNav[$item['id']] = $arrMyNav[$item['id']];
+		}
+
+		fileWrite('system_mynav.php','data',$arrNav);
+		$GLOBALS['tsMySqlCache']->set('system_mynav',$arrNav);
+
+		break;
 		
 }

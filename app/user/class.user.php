@@ -509,7 +509,7 @@ class user extends tsApp {
         $this->delete('editor',array('userid'=>$userid));
 
         #小组
-		$this->delete('group_topic',array('userid'=>$userid));
+		$this->delete('topic',array('userid'=>$userid));
 		$this->delete('group_user',array('userid'=>$userid));
 		
 		//attach

@@ -1,0 +1,62 @@
+{php include pubTemplate("header")}
+<div class="container">
+
+
+
+    <div class="row">
+
+
+        <div class="col-md-3">
+
+            <div class="my_left">
+
+                {php include pubTemplate("my")}
+
+            </div>
+
+        </div>
+        <div class="col-md-9">
+
+
+
+            <div class="card">
+                <div class="card-header">我发布的帖子</div>
+                <div class="card-body">
+
+
+
+
+
+                    <table class="table">
+                        <thead>
+                        <tr><th>发布时间</th><th>标题</th><th>浏览/评论</th><th>操作</th></tr>
+                        </thead>
+                        <tbody>
+                        {loop $arrTopic $key $item}
+                        <tr><td>{php echo date('Y-m-d',$item['addtime'])}</td><td><a href="{tsUrl('topic','show',array('id'=>$item['topicid']))}">{php echo tsTitle($item['title'])}</a></td><td>{$item['count_view']}/{$item['count_comment']}</td>
+                            
+                            <td><a class="btn btn-sm btn-outline-secondary" href="{tsUrl('topic','edit',array('topicid'=>$item['topicid']))}">修改</a></td></tr>
+                        {/loop}
+                        </tbody>
+                    </table>
+
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+</div>
+{php include pubTemplate("footer")}
