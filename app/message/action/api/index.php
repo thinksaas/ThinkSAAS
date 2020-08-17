@@ -2,7 +2,7 @@
 defined('IN_TS') or die('Access Denied.');
 echo '<pre>
 -----------------------------------------------
-Group Http Api List
+Message Http Api List
 URL:https://demo.thinksaas.cn
 -----------------------------------------------
 -----------------------------------------------

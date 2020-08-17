@@ -12,6 +12,7 @@
                     <h1 class="h5 font-weight-bold">移动帖子：{tsTitle($strTopic['title'])}</h1>
                     <hr>
 
+                    {if $arrGroup}
                     <form method="POST" action="{SITE_URL}index.php?app=topic&ac=move&ts=do">
 
                         <div class="form-group">
@@ -30,9 +31,12 @@
                             <button class="btn btn-sm btn-info" type="submit">移动</button>
         
                             <a class="btn btn-sm btn-outline-secondary" href="{tsUrl('topic','show',array('id'=>$topicid))}">返回</a>
-        
-                        
                     </form>
+                    {else}
+                    <div>
+                        没有可以移动的小组！ <a class="btn btn-sm btn-outline-secondary" href="{tsUrl('topic','show',array('id'=>$topicid))}">返回</a>
+                    </div>
+                    {/if}
         
                 </div>
             </div>
