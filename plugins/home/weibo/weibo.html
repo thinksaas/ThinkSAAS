@@ -30,7 +30,7 @@
 {if $item['photo']}
 <div class="d-flex">
     {loop $item['photo'] $pkey $pitem}
-    <a class="w-25" href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}"><img class="w-100" src="{$pitem}">
+    <a class="w-25 p-1" href="{tsUrl('weibo','show',array('id'=>$item['weiboid']))}"><img class="w-100" src="{$pitem}"></a>
     {/loop}
 </div>
 {/if}
