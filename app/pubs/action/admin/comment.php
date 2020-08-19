@@ -10,7 +10,7 @@ switch ($ts){
         $pid = intval($_GET['pid']);
 
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $url = SITE_URL.'index.php?app=pubs&ac=admin&mg=comment&ts=list&&page=';
+        $url = SITE_URL.'index.php?app=pubs&ac=admin&mg=comment&ts=list&ptable='.$ptable.'&userid='.$userid.'&page=';
         $lstart = $page*10-10;
 
         $where = array(

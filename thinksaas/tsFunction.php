@@ -2697,5 +2697,13 @@ function tsIntval($number,$min=0){
 	return $number;
 }
 
+/**
+ * 返回13位时间戳
+ */
+function getUnixTimestamp (){
+    list($s1, $s2) = explode(' ', microtime());
+    return (float)sprintf('%.0f',(floatval($s1) + floatval($s2)) * 1000);
+}
+
 
 if(is_file('thinksaas/wxFunction.php')) include 'thinksaas/wxFunction.php'; //微信内登录
