@@ -77,10 +77,10 @@
                             <input type="text" name="score" value="0" onkeyup="NumberCheck(this)" /> 积分
                         </div>
 
-
+                        <!--图片验证码-->
                         {if $TS_SITE['isauthcode']}
                         <div class="form-group">
-                            <label>验证码</label>
+                            <label>验证码：</label>
 
                             <div class="offset-0">
                                 <input class="form-control form-control-sm w-auto float-left mr-1" name="authcode" />
@@ -91,6 +91,46 @@
 
                         </div>
                         {/if}
+
+
+                        <!--人机验证-->
+                        {if $TS_SITE['is_vaptcha']}
+                        <div class="form-group">
+                            <label>人机验证：</label>
+
+                            <div class="offset-0">
+                                
+                                <div id="vaptchaContainer" style="width: 300px;height: 36px;">
+                                    <div class="vaptcha-init-main">
+                                    <div class="vaptcha-init-loading">
+                                        <a href="/" target="_blank">
+                                        <img src="https://r.vaptcha.net/public/img/vaptcha-loading.gif" />
+                                        </a>
+                                        <span class="vaptcha-text">Vaptcha启动中...</span>
+                                    </div>
+                                    </div>
+                                </div>
+                                <script src="https://v.vaptcha.com/v3.js"></script>
+                                <script>
+                                    vaptcha({
+                                        vid: '{$TS_SITE[vaptcha_vid]}',
+                                        type: 'click',
+                                        container: '#vaptchaContainer',
+                                        offline_server: "{SITE_URL}index.php?app=pubs&ac=vaptcha",
+                                    }).then(function (vaptchaObj) {
+                                        vaptchaObj.render()
+                                        vaptchaObj.renderTokenInput('#vaptcha-token')
+                                    })
+                                </script>
+
+                            </div>
+
+                            <div id="vaptcha-token"></div>
+
+                        </div>
+                        {/if}
+
+
 
                         <input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
                         <input type="hidden" name="token" value="{$_SESSION['token']}" />

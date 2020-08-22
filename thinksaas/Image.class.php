@@ -37,7 +37,7 @@ class Image {
 			imagesetpixel($im, mt_rand(0, $width), mt_rand(0, $height), $pointColor);
 		}
 		for ($i = 0; $i < $length; $i++) {
-			imagestring($im, 5, $i * 10 + 5, mt_rand(1, 8), $randval{$i}, $stringColor);
+			imagestring($im, 5, $i * 10 + 5, mt_rand(1, 8), $randval[$i], $stringColor);
 		}
 		self::output($im, 'png');
 	}
@@ -60,16 +60,6 @@ class Image {
 			} else {// 缩略图尺寸
 				$width = (int)($srcWidth * $scale);
 				$height = (int)($srcHeight * $scale);
-			}
-
-			//sae平台上图片处理
-			if (class_exists('SaeStorage')) {
-				$saeStorage = new SaeStorage();
-				$saeImage = new SaeImage();
-				$saeImage -> setData(file_get_contents($image));
-				$saeImage -> resize($width, $height);
-				$thumbname = str_replace(array('../', './'), '', $thumbname);
-				return $saeStorage -> write($domain, $thumbname, $saeImage -> exec());
 			}
 
 			// 载入原图

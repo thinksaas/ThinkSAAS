@@ -81,16 +81,24 @@ switch ($ts) {
 	
 	// 执行发布帖子
 	case "do" :
-
 		
+		#验证码验证
 		$authcode = strtolower ( $_POST ['authcode'] );
-		
 		if ($TS_SITE['isauthcode']) {
 			if ($authcode != $_SESSION ['verify']) {
 				tsNotice ( "验证码输入有误，请重新输入！" );
 			}
 		}
-		
+
+		#人机验证
+		$vaptcha_token = trim ( $_POST ['vaptcha_token'] );
+		if ($TS_SITE['is_vaptcha']) {
+			$strVt = vaptcha($vaptcha_token);
+			if($strVt['success']==0) {
+				tsNotice('人机验证未通过！');
+			}
+		}
+
 		$groupid = tsIntval ( $_POST ['groupid'] );
 		$title = trim( $_POST ['title'] );
 		
@@ -300,6 +308,6 @@ switch ($ts) {
 		aac('pubs')->addLogs('topic','topicid',$topicid,$userid,$title,$content,0);
 
 		
-		header ( "Location: " . tsUrl('group', 'topic', array ('id' => $topicid)));
+		header ( "Location: " . tsUrl('topic', 'show', array ('id' => $topicid)));
 		break;
 } 

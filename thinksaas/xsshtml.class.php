@@ -154,7 +154,7 @@ class XssHtml {
 		$this->__common_attr($node);
 		$href = $this->__get_link($node, 'href');
 		$this->__setAttr($node, 'href', $href);
-		$this->__set_default_attr($node, 'target', '_blank');
+		//$this->__set_default_attr($node, 'target', '_blank');
 	}
 
 	private function __node_embed($node){

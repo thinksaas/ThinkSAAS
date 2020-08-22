@@ -2705,5 +2705,16 @@ function getUnixTimestamp (){
     return (float)sprintf('%.0f',(floatval($s1) + floatval($s2)) * 1000);
 }
 
+/**
+ * vaptcha人机验证
+ */
+function vaptcha($token,$scene=0){
+	include 'thinksaas/vaptcha.class.php';
+	$vaptcha = new Vaptcha($GLOBALS['TS_SITE']['vaptcha_vid'],$GLOBALS['TS_SITE']['vaptcha_key']);
+	$json =  $vaptcha->validate($token, $scene);
+	$strJson = json_decode($json,true);
+	return $strJson;
+}
+
 
 if(is_file('thinksaas/wxFunction.php')) include 'thinksaas/wxFunction.php'; //微信内登录

@@ -93,6 +93,35 @@
 
 
 
+<tr><td>是否开启人机验证 :</td><td>
+
+    <div>
+        <input type="radio" {if $strOption['is_vaptcha']=='0'}checked="select"{/if} name="option[is_vaptcha]" value="0" />否 
+        <input type="radio" {if $strOption['is_vaptcha']=='1'}checked="select"{/if} name="option[is_vaptcha]" value="1" />是 <small class="text-danger">(请先获取人机验证所需要的参数，<a target="_blank" href="https://www.vaptcha.com/">点击去获取</a>)</small>
+    </div>
+
+
+    <div id="vaptcha_option" {if $strOption['is_vaptcha']=='0'}style="display: none;"{/if}>
+    
+        <div class="d-flex mt-2">
+            <div style="width: 40px;">VID：</div>
+            <div><input style="width:300px;" type="text" name="option[vaptcha_vid]" value="{$strOption['vaptcha_vid']}"></div>
+        </div>
+
+        <div class="d-flex mt-2">
+            <div style="width: 40px;">KEY：</div>
+            <div><input style="width:300px;" type="text" name="option[vaptcha_key]" value="{$strOption['vaptcha_key']}"></div>
+        </div>
+
+    </div>
+
+
+</td></tr>
+
+
+
+
+
 
 <tr><td>时区:</td><td>
 <select name="option[timezone]">
@@ -239,5 +268,17 @@
     function reSitePkey(value) {
         $("#sitepkey").val(value);
     }
+
+
+    $('input[name="option[is_vaptcha]"]').click(function(){
+        var value  = $('input[name="option[is_vaptcha]"]:checked').val();
+        if(value=='1'){
+            $("#vaptcha_option").show()
+        }else if(value=='0'){
+            $("#vaptcha_option").hide()
+        }
+    });
+
+
 </script>
 {php include pubTemplate("footer_admin")}

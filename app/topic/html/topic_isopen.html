@@ -22,12 +22,12 @@
 
       <div class="alert alert-info text-center">
 
-          <p>本小组帖子只有小组成员才可以浏览^_^</p>
+          本小组帖子只有小组成员才可以浏览^_^
 
           {if $strGroup['joinway']==3}
-          <a class="btn btn-success" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">需要支付<font color="orange" style="font-size: 16px;">{$strGroup['price']}金币</font>加入小组</a>
+          <a class="btn btn-sm btn-info" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">需要支付<font color="orange" style="font-size: 16px;">{$strGroup['price']}金币</font>加入小组</a>
           {else}
-          <a class="btn btn-success" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">加入小组</a>
+          <a class="btn btn-sm btn-info" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">加入小组</a>
           {/if}
       </div>
 
