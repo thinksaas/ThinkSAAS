@@ -55,4 +55,15 @@ if($strWeibo['title']==''){
     $title = cututf8($strWeibo['title'],0,100,false);
 }
 
+
+#热门唠叨
+$arrHotWeibo = $new['weibo']->findAll('weibo',null,'count_comment desc',null,10);
+
+foreach($arrHotWeibo as $key=>$item){
+    $arrHotWeibo[$key]['title'] = tsTitle($item['title']);
+    $arrHotWeibo[$key]['user'] = aac('user')->getOneUser($item['userid']);
+    $arrHotWeibo[$key]['photo'] = $new['weibo']->getWeiboPhoto($item['weiboid'],4);
+}
+
+
 include template('show');
