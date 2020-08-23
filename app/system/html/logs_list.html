@@ -2,6 +2,11 @@
 
 <div class="midder">
     {template anti_menu}
+
+
+    <div class="mb-3">
+        <a class="btn btn-sm btn-outline-primary" href="index.php?app=system&ac=logs&ts=clean">一键清空日志</a>
+    </div>
     
     
     <div class="page">{$pageUrl}</div>
@@ -48,7 +53,8 @@
         <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
         <td>
             
-            <a href="index.php?app=system&ac=logs&ts=show&logid={$item['logid']}">详情</a>
+            <a href="index.php?app=system&ac=logs&ts=show&logid={$item['logid']}">详情</a> | 
+            <a href="index.php?app=system&ac=logs&ts=delete&logid={$item['logid']}">删除</a>
         
         </td>
     </tr>

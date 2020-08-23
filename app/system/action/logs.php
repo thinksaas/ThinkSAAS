@@ -29,4 +29,24 @@ switch($ts){
 
     break;
 
+    case "delete":
+
+        $logid = intval($_GET['logid']);
+
+        $new['system']->delete('logs',array(
+            'logid'=>$logid,
+        ));
+
+        qiMsg('删除成功！');
+        
+    break;
+
+    case "clean":
+        
+        $db->query("TRUNCATE `".dbprefix."logs`;");
+
+        qiMsg('操作成功！');
+
+    break;
+
 }
