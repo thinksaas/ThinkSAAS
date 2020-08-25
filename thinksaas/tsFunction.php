@@ -779,9 +779,7 @@ function tsXimgLocal($file, $app, $w, $h, $path = '', $c = '0',$sy='sy.png',$pos
 function tsXimgAliOss($file, $app, $w, $h){
 	$cpath = 'uploadfile/'.$app.'/'.$file;
 	$url = $GLOBALS['TS_SITE']['alioss_bucket_url'].'/'.$cpath;
-	if($w && $h && $w!=$h){
-		$photo = $url.'?x-oss-process=image/crop,x_0,y_0,w_'.$w.',h_'.$h.',g_center';
-	}elseif($w && $h && $w==$h){
+	if($w && $h){
 		$photo = $url.'?x-oss-process=image/resize,m_fill,h_'.$h.',w_'.$w;
 	}elseif($w && $h==''){
 		$photo = $url.'?x-oss-process=image/resize,w_'.$w;

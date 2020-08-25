@@ -34,7 +34,7 @@ switch($ts){
 
             if($TS_SITE['file_upload_type']==1){
                 #阿里云(对象云存储OSS)数据
-                $url = $TS_SITE['alioss_bucket_url'].'/'.'uploadfile/editor/'.$arrUpload['url'];
+                $url = $TS_SITE['alioss_bucket_url'].'/'.'uploadfile/editor/'.$arrUpload['url'].'?x-oss-process=image/resize,w_800';
             }else{
                 #本地数据
                 $url = SITE_URL.'uploadfile/editor/'.$arrUpload['url'];
