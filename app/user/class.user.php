@@ -195,7 +195,13 @@ class user extends tsApp {
      */
 	function getUserFace($strUser){
         if($strUser['face']){
-            $strFace = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1).'?v='.$strUser['uptime'];
+            if($GLOBALS['TS_SITE']['file_upload_type']==1){
+                #阿里云(对象云存储OSS)数据
+                $strFace = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1).'&v='.$strUser['uptime'];
+            }else{
+                #本地数据
+                $strFace = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1).'?v='.$strUser['uptime'];
+            }
         }else{
             $strFace = SITE_URL.'public/images/user_large.jpg';
         }

@@ -32,12 +32,21 @@ switch($ts){
             ));
 
 
+            if($TS_SITE['file_upload_type']==1){
+                #阿里云(对象云存储OSS)数据
+                $url = $TS_SITE['alioss_bucket_url'].'/'.'uploadfile/editor/'.$arrUpload['url'];
+            }else{
+                #本地数据
+                $url = SITE_URL.'uploadfile/editor/'.$arrUpload['url'];
+            }
+
+
             if($js==1){
 
                 echo json_encode(array(
                     'errno'=>0,
                     'data'=>array(
-                        0=>SITE_URL.'uploadfile/editor/'.$arrUpload['url'],
+                        0=>$url,
                         //0=>tsXimg($arrUpload['url'],'editor','640','',$arrUpload['path']),
                     ),
                 ));
@@ -45,7 +54,7 @@ switch($ts){
 
             }else{
 
-                echo SITE_URL.'uploadfile/editor/'.$arrUpload['url'];
+                echo $url;
                 //echo tsXimg($arrUpload['url'],'editor','640','',$arrUpload['path']);
                 exit();
 

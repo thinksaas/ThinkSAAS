@@ -40,7 +40,13 @@ class group extends tsApp{
      */
     function getGroupPhoto($strGroup){
         if($strGroup['photo']){
-            $strFace = tsXimg($strGroup['photo'],'group',200,200,$strGroup['path'],1);
+            if($GLOBALS['TS_SITE']['file_upload_type']==1){
+                #阿里云(对象云存储OSS)数据
+                $strFace = tsXimg($strGroup['photo'],'group',200,200,$strGroup['path'],1).'&v='.$strGroup['uptime'];
+            }else{
+                #本地数据
+                $strFace = tsXimg($strGroup['photo'],'group',200,200,$strGroup['path'],1).'?v='.$strGroup['uptime'];
+            }
         }else{
             $strFace = SITE_URL.'public/images/group.jpg';
         }

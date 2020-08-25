@@ -1,0 +1,36 @@
+{php include pubTemplate("header")}
+
+<div class="container">
+
+
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('topic')}">话题</a></li>
+            <li class="breadcrumb-item active" aria-current="page">标签</li>
+        </ol>
+    </nav>
+
+
+    <div class="card">
+        <div class="card-header">全部标签</div>
+        <div class="card-body">
+
+            <div>
+                {loop $arrTag $key $item}
+                <a class="badge badge-secondary mr-2 mb-2 fw300" href="{tsUrl('topic','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
+                {/loop}
+
+            </div>
+
+            <div class="page">{$pageUrl}</div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+{php include pubTemplate("footer")}

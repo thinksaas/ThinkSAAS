@@ -36,7 +36,7 @@
 <div>
     {loop $arrPhoto $key $item}
     <p class="mb-2">
-        <a target="_blank" href="{SITE_URL}uploadfile/weibo/photo/{$item['photo']}">
+        <a target="_blank" href="{$item['photo_url']}">
             <img src="{php echo tsXimg($item['photo'],'weibo/photo',640,'',$item['path'])}" />
         </a>
     </p>

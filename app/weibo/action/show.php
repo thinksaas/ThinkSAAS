@@ -15,6 +15,16 @@ $arrPhoto = $new['weibo']->findAll('weibo_photo',array(
     'weiboid'=>$weiboid,
 ));
 
+foreach($arrPhoto as $key=>$item){
+    if($TS_SITE['file_upload_type']==1){
+        #阿里云oss
+        $arrPhoto[$key]['photo_url'] = $TS_SITE['alioss_bucket_url'].'/uploadfile/weibo/photo/'.$item['photo'];
+    }else{
+        #本地
+        $arrPhoto[$key]['photo_url'] = SITE_URL.'uploadfile/weibo/photo/'.$item['photo'];
+    }
+}
+
 #评论
 $page = tsIntval($_GET['page'],1);
 $url = tsUrl('weibo','show',array('id'=>$weiboid,'page'=>''));

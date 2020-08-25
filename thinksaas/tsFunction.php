@@ -8,6 +8,8 @@ defined('IN_TS') or die('Access Denied.');
  * @TIME:2010-12-18
  */
 use Intervention\Image\ImageManagerStatic as Image;
+use OSS\OssClient;
+use OSS\Core\OssException;
 /**
  * 加载某一APP类
  * AutoAppClass
@@ -660,7 +662,21 @@ function md10($str = '') {
  */
 function tsXimg($file, $app, $w, $h, $path = '', $c = '0',$sy='sy.png',$position='bottom-left',$x=10,$y=10) {
 
-    if (!$file) {
+	if($GLOBALS['TS_SITE']['file_upload_type']==1){
+		#阿里云oss图片输出
+		$result = tsXimgAliOss($file, $app, $w, $h);
+	}else{
+		#本地图片输出
+		$result = tsXimgLocal($file, $app, $w, $h, $path, $c,$sy,$position,$x,$y);
+	}
+	return $result;
+}
+
+/**
+ * 本地图片输出
+ */
+function tsXimgLocal($file, $app, $w, $h, $path = '', $c = '0',$sy='sy.png',$position='bottom-left',$x=10,$y=10){
+	if (!$file) {
         return false;
     } else {
 
@@ -669,77 +685,113 @@ function tsXimg($file, $app, $w, $h, $path = '', $c = '0',$sy='sy.png',$position
 
         $arrType = explode('.',$name);
         $type = end($arrType);
-        
+		
+		
+		if($w=='' && $h==''){
+			#原图输出
+			$cpath = 'uploadfile/'.$app.'/'.$file;
 
-        if($type!='gif'){
-            $cpath = 'cache/' . $app . '/' . $path . '/' . md5($w . $h . $app . $name) . '.jpg';
-        }else{
-            $cpath = 'uploadfile/'.$app.'/'.$file;
-        }
+		}else{
 
-
-        if (!is_file($cpath) && $type!='gif') {
-
-			$driver = $GLOBALS['TS_SITE']['photo_driver'];
-			if($driver==''){
-				$driver = 'gd';
+			if($type!='gif'){
+				$cpath = 'cache/' . $app . '/' . $path . '/' . md5($w . $h . $app . $name) . '.jpg';
+			}else{
+				$cpath = 'uploadfile/'.$app.'/'.$file;
+			}
+	
+	
+			if (!is_file($cpath) && $type!='gif') {
+	
+				$driver = $GLOBALS['TS_SITE']['photo_driver'];
+				if($driver==''){
+					$driver = 'gd';
+				}
+	
+				Image::configure(array('driver' => $driver));//gd or imagick
+	
+				createFolders('cache/' . $app . '/' . $path);
+				$dest = 'uploadfile/' . $app . '/' . $file;
+				$arrImg = getimagesize($dest);
+	
+				try{
+					$img = Image::make($dest);
+				}catch (Exception $e){
+					//$e->getMessage();
+					return SITE_URL . 'public/images/nopic.jpg';
+					exit();
+				}
+	
+				if ($arrImg[0] <= $w) {
+	
+					if($c){
+						if($w && $h){
+							$img->fit($w, $h);
+						}elseif($w && $h==''){
+							$img->resize($w, null, function ($constraint) {
+								$constraint->aspectRatio();
+							});
+						}
+					}
+	
+				} else {
+	
+					if($w && $h){
+						$img->fit($w, $h);
+					}elseif($w && $h==''){
+						$img->resize($w, null, function ($constraint) {
+							$constraint->aspectRatio();
+						});
+					}
+	
+				}
+	
+	
+				if($arrImg[0]>320 && $w>320 && in_array($type,array('jpg','jpeg','png'))){
+					#图片大于320px加水印
+					//echo $sy;exit;
+					$watermark = Image::make('public/images/'.$sy);
+					$img->insert($watermark, $position,$x,$y);
+				}
+	
+	
+				$img->save($cpath);
+	
 			}
 
-            Image::configure(array('driver' => $driver));//gd or imagick
+		}
 
-            createFolders('cache/' . $app . '/' . $path);
-            $dest = 'uploadfile/' . $app . '/' . $file;
-            $arrImg = getimagesize($dest);
-
-            try{
-                $img = Image::make($dest);
-            }catch (Exception $e){
-                //$e->getMessage();
-                return SITE_URL . 'public/images/nopic.jpg';
-                exit();
-            }
-
-            if ($arrImg[0] <= $w) {
-
-                if($c){
-                    if($w && $h){
-                        $img->fit($w, $h);
-                    }elseif($w && $h==''){
-                        $img->resize($w, null, function ($constraint) {
-                            $constraint->aspectRatio();
-                        });
-                    }
-                }
-
-            } else {
-
-                if($w && $h){
-                    $img->fit($w, $h);
-                }elseif($w && $h==''){
-                    $img->resize($w, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    });
-                }
-
-            }
-
-
-            if($arrImg[0]>320 && $w>320 && in_array($type,array('jpg','jpeg','png'))){
-				#图片大于320px加水印
-				//echo $sy;exit;
-                $watermark = Image::make('public/images/'.$sy);
-                $img->insert($watermark, $position,$x,$y);
-            }
-
-
-            $img->save($cpath);
-
-        }
+        
 
         return SITE_URL . $cpath;
 
-    }
+	}
+}
 
+/**
+ * 阿里云oss图片输出
+ *
+ * @param [type] $file
+ * @param [type] $app
+ * @param [type] $w
+ * @param [type] $h
+ * @return void
+ */
+function tsXimgAliOss($file, $app, $w, $h){
+	$cpath = 'uploadfile/'.$app.'/'.$file;
+	$url = $GLOBALS['TS_SITE']['alioss_bucket_url'].'/'.$cpath;
+	if($w && $h && $w!=$h){
+		$photo = $url.'?x-oss-process=image/crop,x_0,y_0,w_'.$w.',h_'.$h.',g_center';
+	}elseif($w && $h && $w==$h){
+		$photo = $url.'?x-oss-process=image/resize,m_fill,h_'.$h.',w_'.$w;
+	}elseif($w && $h==''){
+		$photo = $url.'?x-oss-process=image/resize,w_'.$w;
+	}elseif($w=='' && $h){
+		$photo = $url.'?x-oss-process=image/resize,h_'.$h;
+	}elseif($w=='' && $h==''){
+		#原图输出
+		$photo = $url;
+	}
+	return $photo;
 }
 
 /**
@@ -1407,7 +1459,20 @@ function delDirFile($dir) {
  * @return void					失败返回false，成功返回数组：array('name'=>'','path'=>'','url'=>'','path'=>'','size'=>'')
  */
 function tsUpload($files, $projectid, $dir, $uptypes=array(),$sy='') {
-	
+	if($GLOBALS['TS_SITE']['file_upload_type']==1){
+		#阿里云oss上传存储
+		$result = tsUploadAliOss($files, $projectid, $dir, $uptypes);
+	}else{
+		#本地上传存储
+		$result = tsUploadLocal($files, $projectid, $dir, $uptypes,$sy);
+	}
+	return $result;
+}
+
+/**
+ * 本地上传存储
+ */
+function tsUploadLocal($files, $projectid, $dir, $uptypes=array(),$sy=''){
 	if ($files['size'] > 0) {
 
         $upload_max_filesize = ini_get('upload_max_filesize')*1048576;
@@ -1502,6 +1567,54 @@ function tsUpload($files, $projectid, $dir, $uptypes=array(),$sy='') {
 			return false;
 		}
 
+	}
+}
+
+/**
+ * 阿里云oss上传存储
+ */
+function tsUploadAliOss($files, $projectid, $dir, $uptypes=array()){
+	if ($files['size'] > 0) {
+		$path = getDirPath($projectid);
+		$dest_dir = 'uploadfile/' . $dir . '/' . $path;
+		$type = getImagetype($files['tmp_name']);
+	
+		if (in_array($type, $uptypes)) {
+			$name = $projectid . '.' . $type;
+			$dest = $dest_dir . '/' . $name;
+			// 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
+			$accessKeyId = $GLOBALS['TS_SITE']['alioss_accesskey_id'];
+			$accessKeySecret = $GLOBALS['TS_SITE']['alioss_accesskey_secret'];
+			// Endpoint以杭州为例，其它Region请按实际情况填写。
+			$endpoint = $GLOBALS['TS_SITE']['alioss_endpoint'];
+			// 设置存储空间名称。
+			$bucket= $GLOBALS['TS_SITE']['alioss_bucket'];
+			// 设置文件名称。
+			$object = $dest;
+			// <yourLocalFile>由本地文件路径加文件名包括后缀组成，例如/users/local/myfile.txt。
+			$filePath = $files['tmp_name'];
+
+			try{
+				$ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
+				$ossClient->uploadFile($bucket, $object, $filePath);
+
+				return array('name' => tsFilter($files['name']), 'path' => $path, 'url' => $path . '/' . $name, 'type' => $type, 'size' => tsFilter($files['size']));
+
+			} catch(OssException $e) {
+				
+				/*
+				printf(__FUNCTION__ . ": FAILED\n");
+				printf($e->getMessage() . "\n");
+				return;
+				*/
+				return false;
+			}
+			//print(__FUNCTION__ . ": OK" . "\n");
+		}else{
+			return false;
+		}
+	}else{
+		return false;
 	}
 }
 

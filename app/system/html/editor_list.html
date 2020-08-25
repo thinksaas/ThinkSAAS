@@ -30,7 +30,7 @@
         <td>
 
             {if $item['type']=='photo'}
-            <a target="_blank" href="{SITE_URL}uploadfile/editor/{$item['url']}"><img src="{SITE_URL}uploadfile/editor/{$item['url']}" width="100"></a>
+            <a target="_blank" href="{php echo tsXimg($item['url'],'editor')}"><img src="{php echo tsXimg($item['url'],'editor')}" width="100"></a>
             {else}
             <a target="_blank" href="{SITE_URL}uploadfile/editor/{$item['url']}">uploadfile/editor/{$item['url']}</a>
             {/if}
