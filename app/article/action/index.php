@@ -25,6 +25,13 @@ foreach ( $arrArticle as $key => $item ) {
 	$arrArticle [$key] ['cate'] = $new ['article']->find( 'article_cate', array (
         'cateid' => $item ['cateid']
 	) );
+
+	#封面图
+	if($item['photo']){
+		$arrArticle[$key]['photo_url'] = $new['article']->getArticlePhoto($item);
+	}
+	
+
 }
 
 // 推荐阅读

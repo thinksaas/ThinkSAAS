@@ -24,6 +24,9 @@ switch ($ts) {
 			$strArticle['title'] = tsTitle($strArticle['title']);
 			//$strArticle['content'] = tsDecode($strArticle['content']); //为有效防止xss攻击，如果前端通过textarea标签加载的编辑器，请注释掉本行；如果编辑器有其他的加载方式，请视情况解除本行注释。
 			$strArticle['gaiyao'] = tsTitle($strArticle['gaiyao']);
+
+			#封面图
+			$strArticle['photo_url'] = $new['article']->getArticlePhoto($strArticle);
 			
 			// 找出TAG
 			$arrTags = aac ( 'tag' )->getObjTagByObjid ( 'article', 'articleid', $articleid );

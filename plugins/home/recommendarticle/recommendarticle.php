@@ -19,7 +19,7 @@ function recommendarticle(){
 		);
 	}
 
-	$arrArticle = aac('article')->findAll('article',$where,'addtime desc','articleid,cateid,userid,title,gaiyao,path,photo,count_view,count_comment,addtime',10);
+	$arrArticle = aac('article')->findAll('article',$where,'addtime desc','articleid,cateid,userid,title,gaiyao,path,photo,count_view,count_comment,addtime,uptime',10);
 	foreach($arrArticle as $key=>$item){
 		$arrArticle[$key]['title'] = tsTitle($item['title']);
 		$arrArticle[$key]['gaiyao'] = tsTitle($item['gaiyao']);
@@ -29,6 +29,12 @@ function recommendarticle(){
 				'cateid'=>$item['cateid'],
 			));
 		}
+
+		#封面图
+		if($item['photo']){
+			$arrArticle[$key]['photo_url'] = aac('article')->getArticlePhoto($item);
+		}
+
 	}
 	
 	include template('recommendarticle','recommendarticle');
