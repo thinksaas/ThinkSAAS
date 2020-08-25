@@ -1577,9 +1577,20 @@ function tsUploadAliOss($files, $projectid, $dir, $uptypes=array()){
 	if ($files['size'] > 0) {
 		$path = getDirPath($projectid);
 		$dest_dir = 'uploadfile/' . $dir . '/' . $path;
-		$type = getImagetype($files['tmp_name']);
+
+		$arrType = explode('.', strtolower($files['name']));
+        $type = end($arrType);
+
+		//上传图片大小控制
+		if(in_array($type,array('jpg','jpeg','png','gif'))) {
+            $type = getImagetype($files['tmp_name']);
+            if (!in_array($type, $uptypes)) {
+                getJson('图片错误!',1);
+            }
+        }
 	
 		if (in_array($type, $uptypes)) {
+			
 			$name = $projectid . '.' . $type;
 			$dest = $dest_dir . '/' . $name;
 			// 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
@@ -1595,10 +1606,17 @@ function tsUploadAliOss($files, $projectid, $dir, $uptypes=array()){
 			$filePath = $files['tmp_name'];
 
 			try{
+				
 				$ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
 				$ossClient->uploadFile($bucket, $object, $filePath);
 
-				return array('name' => tsFilter($files['name']), 'path' => $path, 'url' => $path . '/' . $name, 'type' => $type, 'size' => tsFilter($files['size']));
+				return array(
+					'name' => tsFilter($files['name']), 
+					'path' => $path, 
+					'url' => $path . '/' . $name, 
+					'type' => $type, 
+					'size' => tsFilter($files['size'])
+				);
 
 			} catch(OssException $e) {
 				
@@ -1616,6 +1634,56 @@ function tsUploadAliOss($files, $projectid, $dir, $uptypes=array()){
 	}else{
 		return false;
 	}
+}
+
+/**
+ * 阿里云oss网络文件存储
+ *
+ * @param [type] $fileurl
+ * @param [type] $project
+ * @param [type] $dir
+ * @param [type] $filetype
+ * @return void
+ */
+function tsUploadAliOssUrl($fileurl,$projectid,$dir,$filetype){
+	$path = getDirPath($projectid);
+	$dest_dir = 'uploadfile/' . $dir . '/' . $path;
+	$name = $projectid . '.' . $filetype;
+	$dest = $dest_dir . '/' . $name;
+	// 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
+	$accessKeyId = $GLOBALS['TS_SITE']['alioss_accesskey_id'];
+	$accessKeySecret = $GLOBALS['TS_SITE']['alioss_accesskey_secret'];
+	// Endpoint以杭州为例，其它Region请按实际情况填写。
+	$endpoint = $GLOBALS['TS_SITE']['alioss_endpoint'];
+	// 设置存储空间名称。
+	$bucket= $GLOBALS['TS_SITE']['alioss_bucket'];
+	// 设置文件名称。
+	$object = $dest;
+	// 配置文件内容。
+	$content = file_get_contents($fileurl);
+	try{
+		$ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
+
+		$ossClient->putObject($bucket, $object, $content);
+
+		return array(
+			'name' => $name, 
+			'path' => $path, 
+			'url' => $path . '/' . $name, 
+			'type' => $filetype,
+		);
+
+	} catch(OssException $e) {
+		/*
+		printf(__FUNCTION__ . ": FAILED\n");
+		printf($e->getMessage() . "\n");
+		return;
+		*/
+
+		return false;
+
+	}
+	//print(__FUNCTION__ . ": OK" . "\n");
 }
 
 //网络上传
