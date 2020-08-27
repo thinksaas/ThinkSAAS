@@ -79,24 +79,7 @@ switch($ts){
 			'articleid'=>$articleid,
 		));
 		
-		if($strArticle['photo']){
-			unlink('uploadfile/article/'.$strArticle['photo']);
-		}
-		
-		$new['article']->delete('article',array(
-			'articleid'=>$articleid,
-		));
-
-		#删除评论
-		$new['article']->delete('comment',array(
-			'ptable'=>'article',
-			'pkey'=>'articleid',
-			'pid'=>$articleid,
-		));
-		
-		$new['article']->delete('tag_article_index',array(
-			'articleid'=>$articleid,
-		));
+		$new['article']->deleteArticle($strArticle);
 
         #处理积分
 		aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle['userid'],$TS_URL['mg']);

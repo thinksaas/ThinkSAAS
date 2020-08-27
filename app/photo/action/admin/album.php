@@ -45,20 +45,7 @@ switch($ts){
 	case "del_album":
 		$albumid = intval($_GET['albumid']);
 		
-		$db->query("delete from ".dbprefix."photo_album where albumid='$albumid'");
-		$arrPhoto = $db->fetch_all_assoc("select * from ".dbprefix."photo where albumid='$albumid'");
-		foreach($arrPhoto as $item){
-			unlink('uploadfile/photo/'.$item['photourl']);
-
-			#删除评论
-			$new ['photo']->delete ( 'comment', array (
-				'ptable'=>'photo',
-				'pkey'=>'photoid',
-				'pid'=>$item['photoid'],
-			));
-		}
-		
-		$db->query("delete from ".dbprefix."photo where albumid='$albumid'");
+		$new['photo']->deletePhotoAlbum($albumid);
 		
 		qiMsg("相册删除成功！");
 		
@@ -74,16 +61,7 @@ switch($ts){
 
 		$albumid = $strPhoto['albumid'];
 		
-		$db->query("delete from ".dbprefix."photo where photoid='$photoid'");
-		
-		unlink('uploadfile/photo/'.$strPhoto['photourl']);
-
-		#删除评论
-		$new ['photo']->delete ( 'comment', array (
-			'ptable'=>'photo',
-			'pkey'=>'photoid',
-			'pid'=>$photoid,
-		));
+		$new['photo']->deletePhoto($strPhoto);
 		
 		$count_photo = $db->once_num_rows("select * from ".dbprefix."photo where albumid='$albumid'");
 		

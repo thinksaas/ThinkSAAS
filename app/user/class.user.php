@@ -482,8 +482,19 @@ class user extends tsApp {
 
         #禁用用户手机号
 
+        #用户头像
+        if($strUser['face']){
+
+            if($GLOBALS['TS_SITE']['file_upload_type']==1){
+                deleteAliOssFile('uploadfile/user/'.$strUser['face']);
+            }else{
+                unlink('uploadfile/user/'.$strUser['photo']);
+                tsDimg($strUser['face'],'user','120','120',$strUser['path']);
+            }
+
+        }
+        
         #用户相关数据
-        unlink('uploadfile/user/'.$strUser['face']);
 		$this->delete('user',array('userid'=>$userid));
 		$this->delete('user_info',array('userid'=>$userid));
 		$this->delete('user_follow',array('userid'=>$userid));

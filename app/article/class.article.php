@@ -46,9 +46,15 @@ class article extends tsApp {
 
         #删除封面图
         if($strArticle['photo']){
-            unlink('uploadfile/article/'.$strArticle['photo']);
-            tsDimg($strArticle['photo'],'article','320','180',$strArticle['path']);
-        }
+
+            if($GLOBALS['TS_SITE']['file_upload_type']==1){
+                deleteAliOssFile('uploadfile/article/'.$strArticle['photo']);
+            }else{
+                unlink('uploadfile/article/'.$strArticle['photo']);
+                tsDimg($strArticle['photo'],'article','320','180',$strArticle['path']);
+            }
+
+        } 
 
         #删除ts_article
         $this->delete('article',array(
@@ -59,6 +65,11 @@ class article extends tsApp {
         $this->delete('article_user',array(
             'articleid' => $strArticle['articleid'],
         ));
+
+        #删除关联标签
+        $this->delete('tag_article_index',array(
+			'articleid'=>$strArticle['articleid'],
+		));
 
         #删除评论ts_comment
         aac('pubs')->delComment('article','articleid',$strArticle['articleid']);

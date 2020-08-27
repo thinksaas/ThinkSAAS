@@ -19,20 +19,8 @@ switch($ts){
 		
 			$albumid = $strPhoto['albumid'];
 			
-			unlink('uploadfile/photo/'.$strPhoto['photourl']);
 			
-			$new['photo']->delete('photo',array(
-				'photoid'=>$photoid,
-			));
-
-
-			#删除评论
-            $new ['photo']->delete ( 'comment', array (
-                'ptable'=>'photo',
-                'pkey'=>'photoid',
-                'pid'=>$photoid,
-            ));
-
+			$new['photo']->deletePhoto($strPhoto);
 
 			
 			$count_photo = $new['photo']->findCount('photo',array(

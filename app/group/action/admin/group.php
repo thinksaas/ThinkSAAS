@@ -87,10 +87,12 @@ switch($ts){
 		if($topicNum['count(*)'] > 0){
 			qiMsg("本小组还有帖子，不允许删除。");
 		}
+
+		$strGroup = $new['group']->find('group',array(
+			'groupid'=>$groupid,
+		));
 		
-		$db->query("DELETE FROM ".dbprefix."group WHERE groupid = '$groupid'");
-		
-		$db->query("DELETE FROM ".dbprefix."group_user WHERE groupid = '$groupid'");
+		$new['group']->deleteGroup($strGroup);
 		
 		qiMsg("小组删除成功！");
 		

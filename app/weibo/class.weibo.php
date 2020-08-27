@@ -45,7 +45,61 @@ class weibo extends tsApp{
             }
         }
         return $arrPhoto;
-    }
+	}
+
+	/**
+	 * 删除单个关联的图片
+	 *
+	 * @param [type] $strPhoto
+	 * @return void
+	 */
+	public function deletePhoto($strPhoto){
+		if($strPhoto['photo']){
+            if($GLOBALS['TS_SITE']['file_upload_type']==1){
+                deleteAliOssFile('uploadfile/weibo/photo/'.$strPhoto['photo']);
+            }else{
+                unlink('uploadfile/weibo/photo/'.$strPhoto['photo']);
+                tsDimg($strPhoto['photo'],'weibo/photo','320','320',$strPhoto['path']);
+            }
+		}
+
+		$this->delete('weibo_photo',array(
+			'photoid'=>$strPhoto['photoid'],
+		));
+
+		return true;
+
+	}
+	
+	/**
+	 * 删除微博
+	 *
+	 * @param [type] $strWeibo
+	 * @return void
+	 */
+	public function deleteWeibo($weiboid){
+		#删除图片
+		$arrPhoto = $this->findAll('weibo_photo',array(
+			'weiboid'=>$weiboid,
+		));
+
+		foreach($arrPhoto as $key=>$item){
+			$this->deletePhoto($item);
+		}
+		
+		#删除记录
+		$this->delete('weibo',array(
+			'weiboid'=>$weiboid,
+		));
+		
+		#删除评论ts_comment
+		aac('pubs')->delComment('weibo','weiboid',$weiboid);
+	
+		#删除点赞ts_love
+		aac('pubs')->delLove('weibo','weiboid',$weiboid);
+
+		return true;
+	}
 	
 
 	

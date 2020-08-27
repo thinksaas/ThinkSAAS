@@ -1684,6 +1684,33 @@ function tsUploadAliOssUrl($fileurl,$projectid,$dir,$filetype){
 	//print(__FUNCTION__ . ": OK" . "\n");
 }
 
+/**
+ * 删除阿里云oss文件
+ *
+ * @param [type] $file
+ * @return void
+ */
+function deleteAliOssFile($file){
+	$accessKeyId = $GLOBALS['TS_SITE']['alioss_accesskey_id'];
+	$accessKeySecret = $GLOBALS['TS_SITE']['alioss_accesskey_secret'];
+	$endpoint = $GLOBALS['TS_SITE']['alioss_endpoint'];
+	$bucket= $GLOBALS['TS_SITE']['alioss_bucket'];
+	$object = $file;
+	try{
+		$ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
+		$ossClient->deleteObject($bucket, $object);
+		return true;
+	} catch(OssException $e) {
+		/*
+		printf(__FUNCTION__ . ": FAILED\n");
+		printf($e->getMessage() . "\n");
+		return;
+		*/
+		return false;
+	}
+	//print(__FUNCTION__ . ": OK" . "\n");
+}
+
 //网络上传
 function tsUploadUrl($fileurl, $projectid, $dir, $uptypes) {
 	$menu2 = intval($projectid / 1000);

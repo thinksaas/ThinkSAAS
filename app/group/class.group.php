@@ -54,6 +54,34 @@ class group extends tsApp{
     }
 
     /**
+     * 删除小组
+     *
+     * @param [type] $strGroup
+     * @return void
+     */
+    public function deleteGroup($strGroup){
+        if($strGroup['photo']){
+            if($GLOBALS['TS_SITE']['file_upload_type']==1){
+                deleteAliOssFile('uploadfile/group/'.$strGroup['photo']);
+            }else{
+                unlink('uploadfile/group/'.$strGroup['photo']);
+                tsDimg($strGroup['photo'],'group','120','120',$strGroup['path']);
+            }
+        }
+
+        $this->delete('group',array(
+            'groupid'=>$strGroup['groupid'],
+        ));
+
+        $this->delete('group_user',array(
+            'groupid'=>$strGroup['groupid'],
+        ));
+
+        return true;
+
+    }
+
+    /**
      * 获取推荐的小组
      *
      * @param integer $num

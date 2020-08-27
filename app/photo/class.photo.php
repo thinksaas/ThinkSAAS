@@ -39,6 +39,38 @@ class photo extends tsApp{
 		}
 		
 	}
+
+	/**
+	 * 删除图片
+	 *
+	 * @param [type] $strPhoto
+	 * @return void
+	 */
+	public function deletePhoto($strPhoto){
+		#删除文件
+        if($strPhoto['photo']){
+            if($GLOBALS['TS_SITE']['file_upload_type']==1){
+                deleteAliOssFile('uploadfile/photo/'.$strPhoto['photourl']);
+            }else{
+                unlink('uploadfile/photo/'.$strPhoto['photourl']);
+                tsDimg($strPhoto['photourl'],'photo','320','320',$strPhoto['path']);
+            }
+		}
+		#删除记录
+		$this->delete('photo',array(
+			'photoid'=>$strPhoto['photoid'],
+		));
+
+		#删除评论
+		$this->delete ( 'comment', array (
+			'ptable'=>'photo',
+			'pkey'=>'photoid',
+			'pid'=>$strPhoto['photoid'],
+		));
+
+		return true;
+
+	}
 	
 	//删除相册
 	public function deletePhotoAlbum($albumid){
@@ -52,14 +84,8 @@ class photo extends tsApp{
 			));
 			
 			foreach($arrPhoto as $key=>$item){
-				unlink('uploadfile/photo/'.$item['photourl']);
 
-				#删除评论
-				$this->delete ( 'comment', array (
-					'ptable'=>'photo',
-					'pkey'=>'photoid',
-					'pid'=>$item['photoid'],
-				));
+				$this->deletePhoto($item);
 
 			}
 			

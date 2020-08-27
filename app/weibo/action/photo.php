@@ -53,14 +53,8 @@ switch($ts){
             'photoid'=>$photoid,
             'userid'=>$userid,
         ));
-
         if($strPhoto){
-
-            unlink('uploadfile/weibo/photo/'.$strPhoto['photo']);
-            $new['weibo']->delete('weibo_photo',array(
-                'photoid'=>$photoid,
-            ));
-
+            $new['weibo']->deletePhoto($strPhoto);
         }
 
     break;

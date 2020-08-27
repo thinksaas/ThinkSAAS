@@ -61,33 +61,7 @@ switch($ts){
 
         $weiboid=intval($_GET['weiboid']);
 
-        $strWeibo = $new['weibo']->find('weibo',array(
-            'weiboid'=>$weiboid,
-        ));
-
-        $arrPhoto = $new['weibo']->findAll('weibo_photo',array(
-            'weiboid'=>$weiboid,
-        ));
-
-        foreach($arrPhoto as $key=>$item){
-            unlink('uploadfile/weibo/photo/'.$item['photo']);
-        }
-
-        $new['weibo']->delete('weibo',array(
-            'weiboid'=>$weiboid,
-        ));
-
-        $new['weibo']->delete('weibo_photo',array(
-            'weiboid'=>$weiboid,
-        ));
-
-        
-        #删除评论ts_comment
-        aac('pubs')->delComment('weibo','weiboid',$strWeibo['weiboid']);
-
-        #删除点赞ts_love
-        aac('pubs')->delLove('weibo','weiboid',$strWeibo['weiboid']);
-
+        $new['weibo']->deleteWeibo($weiboid);
 
         qiMsg('删除成功！');
 

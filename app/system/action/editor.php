@@ -25,7 +25,13 @@ switch($ts){
             'id'=>$id,
         ));
 
-        unlink('uploadfile/editor/'.$strEditor['url']);
+        if($strEditor['url']){
+            if($GLOBALS['TS_SITE']['file_upload_type']==1){
+                deleteAliOssFile('uploadfile/editor/'.$strEditor['url']);
+            }else{
+                unlink('uploadfile/editor/'.$strEditor['url']); 
+            }
+        }
 
         $new['system']->delete('editor',array(
             'id'=>$id,
