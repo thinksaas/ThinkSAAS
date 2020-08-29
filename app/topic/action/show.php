@@ -121,7 +121,7 @@ $title = $strTopic['title'];
 
 // 评论列表开始
 $page = tsIntval($_GET['page'],1);
-$url = tsUrl('group', 'topic', array('id' => $topicid, 'page' => ''));
+$url = tsUrl('topic', 'show', array('id' => $topicid, 'page' => ''));
 $lstart = $page * 15-15;
 $arrComment = aac('pubs')->getCommentList('topic','topicid',$strTopic['topicid'],$page,$lstart,$strTopic['userid']);
 $commentNum = aac('pubs')->getCommentNum('topic','topicid',$strTopic['topicid']);
