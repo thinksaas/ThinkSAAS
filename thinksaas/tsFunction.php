@@ -660,7 +660,7 @@ function md10($str = '') {
  * @param integer $y		水印Y轴
  * @return void
  */
-function tsXimg($file, $app, $w, $h, $path = '', $c = '0',$sy='sy.png',$position='bottom-left',$x=10,$y=10) {
+function tsXimg($file, $app, $w='', $h='', $path = '', $c = '0',$sy='sy.png',$position='bottom-left',$x=10,$y=10) {
 
 	if($GLOBALS['TS_SITE']['file_upload_type']==1){
 		#阿里云oss图片输出
