@@ -4,6 +4,9 @@ defined('IN_TS') or die('Access Denied.');
 //插件编辑
 switch($ts){
 	case "set":
+
+		$strAbout = fileRead('plugins/pubs/gobad/about.php');
+
 		$code = fileRead('data/plugins_pubs_gobad.php');
 		
 		if($code==''){

@@ -1,8 +1,13 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
+
+$strAbout = fileRead('plugins/home/slide/about.php');
+
 //插件编辑
 switch($ts){
 	case "set":
+		
+		
 	
 		$arrSlide = $new[$app]->findAll('slide',null,'slideid asc');
 		
@@ -13,7 +18,6 @@ switch($ts){
 				$arrSlide[$key]['photo_url'] = SITE_URL.'uploadfile/slide/'.$item['photo'];
 			}
 		}
-
 		
 		include template('edit_set','slide');
 		break;

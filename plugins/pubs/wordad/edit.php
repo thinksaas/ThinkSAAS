@@ -4,6 +4,9 @@ defined('IN_TS') or die('Access Denied.');
 switch($ts){
 	//编辑
 	case "set":
+
+		$strAbout = fileRead('plugins/pubs/wordad/about.php');
+
 		$arrData = fileRead('data/plugins_pubs_wordad.php');
 		if($arrData==''){
 			$arrData = $tsMySqlCache->get('plugins_pubs_wordad');

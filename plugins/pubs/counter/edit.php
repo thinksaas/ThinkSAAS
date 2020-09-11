@@ -4,6 +4,9 @@ defined('IN_TS') or die('Access Denied.');
 //插件编辑
 switch($ts){
 	case "set":
+
+		$strAbout = fileRead('plugins/pubs/counter/about.php');
+
 		$code = fileRead('data/plugins_pubs_counter.php');
 		if($code==''){
 			$code = $tsMySqlCache->get('plugins_pubs_counter');

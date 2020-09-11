@@ -4,6 +4,9 @@ defined('IN_TS') or die('Access Denied.');
 //插件编辑
 switch($ts){
 	case "set":
+
+		$strAbout = fileRead('plugins/pubs/morenav/about.php');
+
 		$arrNav = fileRead('data/plugins_pubs_morenav.php');
 		
 		if($arrNav==''){

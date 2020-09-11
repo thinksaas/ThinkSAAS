@@ -4,6 +4,8 @@ defined('IN_TS') or die('Access Denied.');
 //插件编辑
 switch($ts){
 	case "set":
+
+		$strAbout = fileRead('plugins/home/recommendtopic/about.php');
 		
 		$strData = fileRead('data/plugins_home_recommendtopic.php');
 		if($strData==''){

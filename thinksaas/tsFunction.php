@@ -1711,34 +1711,59 @@ function deleteAliOssFile($file){
 	//print(__FUNCTION__ . ": OK" . "\n");
 }
 
-//网络上传
-function tsUploadUrl($fileurl, $projectid, $dir, $uptypes) {
-	$menu2 = intval($projectid / 1000);
-	$menu1 = intval($menu2 / 1000);
-	$path = $menu1 . '/' . $menu2;
-	$dest_dir = 'uploadfile/' . $dir . '/' . $path;
-	createFolders($dest_dir);
+/**
+ * 网络文件上传（非图片）
+ *
+ * @param [type] $fileurl
+ * @param [type] $projectid
+ * @param [type] $dir
+ * @param array $uptypes
+ * @return void
+ */
+function tsUploadUrl($fileurl, $projectid, $dir, $uptypes=array()) {
+
 	$arrType = explode('.', $fileurl);
 	//转小写一下
 	$type = array_pop($arrType);
-	if (in_array($type, $uptypes)) {
-		$name = $projectid . '.' . $type;
-		$dest = $dest_dir . '/' . $name;
-		//先删除
-		unlink($dest);
-		//后上传
-		$img = file_get_contents($fileurl);
-		file_put_contents($dest, $img);
-		chmod($dest, 0777);
-		$filesize = filesize($dest);
-		if (intval($filesize) > 0) {
-			return array('name' => $name, 'path' => $path, 'url' => $path . '/' . $name, 'type' => $type, 'size' => $filesize, );
+
+		if (in_array($type, $uptypes)) {
+
+			if($GLOBALS['TS_SITE']['file_upload_type']==1){
+				$result = tsUploadAliOssUrl($fileurl,$projectid,$dir,$type);
+				return $result;
+			}else{
+
+				$menu2 = intval($projectid / 1000);
+				$menu1 = intval($menu2 / 1000);
+				$path = $menu1 . '/' . $menu2;
+				$dest_dir = 'uploadfile/' . $dir . '/' . $path;
+				createFolders($dest_dir);
+	
+				$name = $projectid . '.' . $type;
+				$dest = $dest_dir . '/' . $name;
+				//先删除
+				unlink($dest);
+				//后上传
+				$img = file_get_contents($fileurl);
+				file_put_contents($dest, $img);
+				chmod($dest, 0777);
+				$filesize = filesize($dest);
+				if (intval($filesize) > 0) {
+					return array('name' => $name, 'path' => $path, 'url' => $path . '/' . $name, 'type' => $type, 'size' => $filesize, );
+				} else {
+					return false;
+				}
+
+			}
+
 		} else {
+
 			return false;
+
 		}
-	} else {
-		return false;
-	}
+	
+
+	
 }
 
 
@@ -2323,39 +2348,56 @@ function getJson($msg, $js = 1, $status = 1, $url = '', $data='',$isview=0) {
     }
 }
 
-/*
- * 为项目上传绝对路径的图片
- * @photourl  图片绝对路径http
- * @projectid  项目ID
- * @dir	存储目录，都在uploadfile下，一般根据app名称命名
- */
 /**
- * @param $photourl
- * @param $projectid
- * @param $dir
- * @return array
+ * 为项目上传绝对路径的图片（只针对图片）
+ *
+ * @param [type] $photourl
+ * @param [type] $projectid
+ * @param [type] $dir
+ * @param string $type
+ * @return void
  */
-function tsUploadPhotoUrl($photourl, $projectid, $dir) {
-	$menu2 = intval($projectid / 1000);
-	$menu1 = intval($menu2 / 1000);
-	$path = $menu1 . '/' . $menu2;
-	$dest_dir = 'uploadfile/' . $dir . '/' . $path;
-	createFolders($dest_dir);
+function tsUploadPhotoUrl($photourl, $projectid, $dir,$type='') {
 
-	$arrType = explode('.', strtolower($photourl));
-	// 转小写一下
-	$type = array_pop($arrType);
+	if($type==''){
+		$arrType = explode('.', strtolower($photourl));
+		$type = array_pop($arrType);
+	}
 
-	$name = $projectid . '.' . $type;
+	if($GLOBALS['TS_SITE']['file_upload_type']==1){
 
-	$dest = $dest_dir . '/' . $name;
+		$result = tsUploadAliOssUrl($photourl,$projectid,$dir,$type);
+		return $result;
 
-	$img = file_get_contents($photourl);
+	}else{
 
-	unlink($dest);
-	file_put_contents($dest, $img);
+		$menu2 = intval($projectid / 1000);
+		$menu1 = intval($menu2 / 1000);
+		$path = $menu1 . '/' . $menu2;
+		$dest_dir = 'uploadfile/' . $dir . '/' . $path;
+		createFolders($dest_dir);
+	
+		$name = $projectid . '.' . $type;
+	
+		$dest = $dest_dir . '/' . $name;
+	
+		$fgc = file_get_contents($photourl);
+		if($fgc) {
+			$fpc = file_put_contents($dest, $fgc);
+			if ($fpc){
+				return array(
+					'path' => $path, 
+					'url' => $path . '/' . $name, 
+					'type' => $type, 
+				);
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
 
-	return array('path' => $path, 'url' => $path . '/' . $name, 'type' => $type, );
+	}
 
 }
 

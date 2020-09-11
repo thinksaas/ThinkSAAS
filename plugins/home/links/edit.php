@@ -1,11 +1,11 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-
-
 //插件编辑
 switch($ts){
 	case "set":
+
+		$strAbout = fileRead('plugins/home/links/about.php');
 		
 		$arrLink = fileRead('data/plugins_home_links.php');
 		if($arrLink==''){

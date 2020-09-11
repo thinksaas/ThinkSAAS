@@ -1,1 +1,38 @@
-{php include pubTemplate("header_admin")}<script>function insertMenu(){	$("#before").before('<tr><td><input class="wd350" name="title[]" /></td><td><input class="wd350" name="url[]" /></td></tr>');}</script><div class="midder"><h6>文字广告代码设置</h6>{php include pubTemplate("plugin_menu")}<form method="POST" action="{SITE_URL}index.php?app=pubs&ac=plugin&plugin=wordad&in=edit&ts=do"><table class="table table-hover">    <thead class="thead-light">    <tr><th>广告文字</th><th>广告URL</th></tr>    </thead>    <tbody>    {loop $arrData $key $item}    <tr><td><input class="wd350" name="title[]" value="{$item['title']}" /></td><td><input class="wd350" name="url[]" value="{$item['url']}" /></td></tr>    {/loop}    <tr id="before"><td><input type="submit" value="提 交" /></td><td><a href="javascript:void('0');" onclick="insertMenu();">点击增加文字广告</a>（说明：如需删除某一项，请将要删除的某项清空提交即可。）</td></tr>    </tbody></table></form></div>{php include pubTemplate("footer_admin")}
+{php include pubTemplate("header_admin")}
+
+<script>
+function insertMenu(){
+	$("#before").before('<tr><td><input class="wd350" name="title[]" /></td><td><input class="wd350" name="url[]" /></td></tr>');
+}
+</script>
+
+<div class="midder">
+
+{php include pubTemplate("plugin_menu")}
+
+<form method="POST" action="{SITE_URL}index.php?app=pubs&ac=plugin&plugin=wordad&in=edit&ts=do">
+<table class="table table-hover">
+
+    <thead class="thead-light">
+    <tr><th>广告文字</th><th>广告URL</th></tr>
+    </thead>
+
+
+    <tbody>
+    {loop $arrData $key $item}
+    <tr><td><input class="wd350" name="title[]" value="{$item['title']}" /></td><td><input class="wd350" name="url[]" value="{$item['url']}" /></td></tr>
+    {/loop}
+
+    <tr id="before"><td><input type="submit" value="提 交" /></td><td><a href="javascript:void('0');" onclick="insertMenu();">点击增加文字广告</a>（说明：如需删除某一项，请将要删除的某项清空提交即可。）</td></tr>
+
+
+    </tbody>
+
+
+
+
+</table>
+</form>
+
+</div>
+{php include pubTemplate("footer_admin")}

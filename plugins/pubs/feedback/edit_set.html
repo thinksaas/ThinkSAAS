@@ -1,1 +1,19 @@
-{php include pubTemplate("header_admin")}<div class="midder"><h6>FeedBack反馈设置</h6>{php include pubTemplate("plugin_menu")}<form method="POST" action="{SITE_URL}index.php?app=pubs&ac=plugin&plugin=feedback&in=edit&ts=do"><table class="table table-hover"><tr><td>反馈代码：</td><td><textarea style="width:400px;height:200px;" name="code">{$code}</textarea></td></tr><tr><td></td><td><input type="submit" value="提交修改" /></td></tr></table></form></div>{php include pubTemplate("footer_admin")}
+{php include pubTemplate("header_admin")}
+
+
+<div class="midder">
+
+{php include pubTemplate("plugin_menu")}
+
+<form method="POST" action="{SITE_URL}index.php?app=pubs&ac=plugin&plugin=feedback&in=edit&ts=do">
+<table class="table table-hover">
+
+<tr><td>反馈代码：</td><td><textarea style="width:400px;height:200px;" name="code">{$code}</textarea></td></tr>
+
+<tr><td></td><td><input type="submit" value="提交修改" /></td></tr>
+
+</table>
+</form>
+</div>
+
+{php include pubTemplate("footer_admin")}

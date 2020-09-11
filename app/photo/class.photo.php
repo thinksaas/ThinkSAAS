@@ -48,7 +48,7 @@ class photo extends tsApp{
 	 */
 	public function deletePhoto($strPhoto){
 		#删除文件
-        if($strPhoto['photo']){
+        if($strPhoto['photourl']){
             if($GLOBALS['TS_SITE']['file_upload_type']==1){
                 deleteAliOssFile('uploadfile/photo/'.$strPhoto['photourl']);
             }else{
