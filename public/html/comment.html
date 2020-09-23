@@ -22,12 +22,11 @@
 
                     <i>$item[l]#</i>
                 </h4>
-
+ 
 
                 <div class="fs14">
-                    {if ($item['ispublic'] && $item['userid']==$TS_USER['userid']) || ($item['ispublic'] && $item['iszz']==1)}
-                    {$item[content]}
-                    {elseif ($item['ispublic'] && $item['userid']!=$TS_USER['userid']) || ($item['ispublic'] && $item['iszz']==0)}
+                   
+                    {if $item['ispublic'] && $item['userid']!=$TS_USER['userid'] && $item['zzuid']!=$TS_USER['userid']}
                     <div class="alert alert-warning" role="alert"> 评论内容不公开显示！</div>
                     {else}
 
