@@ -5,9 +5,15 @@
 
 <form method="POST" action="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=edit_do">
 <table  class="table table-hover">
-<tr><td width="100">分类名称：</td><td><input name="catename" value="{$strCate[catename]}" /></td></tr>
+<tr><td>分类名称：</td><td><input class=" form-control" name="catename" value="{$strCate[catename]}" /></td></tr>
 
-<tr><td>排序ID：</td><td><input name="orderid" value="{$strCate[orderid]}" /></td></tr>
+<tr><td>分类介绍：</td><td>
+
+    <textarea class=" form-control" name="cateinfo">{$strCate['cateinfo']}</textarea>
+
+</td></tr>
+
+<tr><td>排序ID：</td><td><input class=" form-control" name="orderid" value="{$strCate[orderid]}" /></td></tr>
 
 <tr><td></td><td>
 <input type="hidden" name="cateid" value="{$strCate[cateid]}" />

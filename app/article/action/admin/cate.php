@@ -35,6 +35,7 @@ switch($ts){
 		$new['article']->create('article_cate',array(
 		    'referid'=>intval($_POST['referid']),
 			'catename'=>trim($_POST['catename']),
+			'cateinfo'=>trim($_POST['cateinfo']),
 			'orderid'=>intval($_POST['orderid']),
 		
 		));
@@ -110,11 +111,13 @@ switch($ts){
 	case "edit_do":
 		$cateid = intval($_POST['cateid']);
 		$catename = trim($_POST['catename']);
+		$cateinfo = trim($_POST['cateinfo']);
 		
 		$new['article']->update('article_cate',array(
 			'cateid'=>$cateid,
 		),array(
 			'catename'=>$catename,
+			'cateinfo'=>$cateinfo,
 			'orderid'=>intval($_POST['orderid']),
 		));
 		

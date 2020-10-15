@@ -73,6 +73,13 @@ foreach ( $arrArticle as $key => $item ) {
         'cateid'=>$strCate['cateid'],
         'catename'=>$strCate['catename'],
     );
+
+
+    #封面图
+	if($item['photo']){
+		$arrArticle[$key]['photo_url'] = $new['article']->getArticlePhoto($item);
+	}
+
 }
 
 // 推荐阅读
