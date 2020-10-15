@@ -654,6 +654,7 @@ CREATE TABLE IF NOT EXISTS `ts_article_cate` (
   `cateid` int(11) NOT NULL AUTO_INCREMENT COMMENT '分类ID',
   `referid` int(11) NOT NULL DEFAULT '0' COMMENT '上级ID',
   `catename` varchar(64) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `cateinfo` varchar(2000) NOT NULL DEFAULT '' COMMENT '分类介绍',
   `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '排序ID',
   PRIMARY KEY (`cateid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章分类';
