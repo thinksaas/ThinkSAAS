@@ -5,7 +5,7 @@
   <nav aria-label="breadcrumb" class="position-relative">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
-      <li class="breadcrumb-item active" aria-current="page">文章</li>
+      <li class="breadcrumb-item active" aria-current="page">{$TS_APP['appname']}</li>
     </ol>
 
       <a class="btn btn-sm btn-info position-absolute" style="z-index: 100;top:6px;right:6px;" href="{tsUrl('article','add')}">发布文章</a>
@@ -30,17 +30,24 @@
 
     <div class="card">
         <div class="card-body">
-            <h1 class="h5 font-weight-bold">
+            <h1 class="h5 font-weight-bold text-info">
                 {if $strCate}
                 {$strCate['catename']}
                 {else}
-                全部文章
+                {$TS_APP['appname']}
                 {/if}
             </h1>
 
             {if $strCate && $strCate['cateinfo']}
             <div class="c9">
                 {tsTitle($strCate['cateinfo'])}
+            </div>
+            {/if}
+
+
+            {if $ac=='index'}
+            <div class="c9">
+                {$TS_APP['appdesc']}
             </div>
             {/if}
 

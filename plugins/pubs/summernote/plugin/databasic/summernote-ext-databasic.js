@@ -1,5 +1,4 @@
 (function(factory) {
-  /* global define */
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(['jquery'], factory);
@@ -28,7 +27,7 @@
       return ui.button({
         contents: self.icon,
         tooltip: lang.databasic.insert,
-        click: context.createInvokeHandler('databasic.showDialog')
+        click: context.createInvokeHandler('databasic.showDialog'),
       }).render();
     });
 
@@ -37,7 +36,7 @@
       return ui.button({
         contents: self.icon,
         tooltip: lang.databasic.edit,
-        click: context.createInvokeHandler('databasic.showDialog')
+        click: context.createInvokeHandler('databasic.showDialog'),
       }).render();
     });
 
@@ -46,21 +45,21 @@
       return ui.button({
         contents: '<span class="note-fontsize-10">100%</span>',
         tooltip: lang.image.resizeFull,
-        click: context.createInvokeHandler('editor.resize', '1')
+        click: context.createInvokeHandler('editor.resize', '1'),
       }).render();
     });
     context.memo('button.databasicSize50', function() {
       return ui.button({
         contents: '<span class="note-fontsize-10">50%</span>',
         tooltip: lang.image.resizeHalf,
-        click: context.createInvokeHandler('editor.resize', '0.5')
+        click: context.createInvokeHandler('editor.resize', '0.5'),
       }).render();
     });
     context.memo('button.databasicSize25', function() {
       return ui.button({
         contents: '<span class="note-fontsize-10">25%</span>',
         tooltip: lang.image.resizeQuarter,
-        click: context.createInvokeHandler('editor.resize', '0.25')
+        click: context.createInvokeHandler('editor.resize', '0.25'),
       }).render();
     });
 
@@ -75,7 +74,7 @@
       },
       'summernote.dialog.shown': function() {
         self.hidePopover();
-      }
+      },
     };
 
     self.initialize = function() {
@@ -92,12 +91,12 @@
         title: lang.databasic.name,
         fade: options.dialogsFade,
         body: body,
-        footer: footer
+        footer: footer,
       }).render().appendTo($container);
 
       // create popover
       self.$popover = ui.popover({
-        className: 'ext-databasic-popover'
+        className: 'ext-databasic-popover',
       }).render().appendTo('body');
       var $content = self.$popover.find('.popover-content');
 
@@ -130,7 +129,7 @@
           self.$popover.css({
             display: 'block',
             left: pos.left,
-            top: pos.top
+            top: pos.top,
           });
 
           // save editor target to let size buttons resize the container
@@ -161,7 +160,7 @@
           // Get the first node on range(for edit).
           return {
             node: $data,
-            test: $data.attr('data-test')
+            test: $data.attr('data-test'),
           };
         }
       }
@@ -265,15 +264,15 @@
   // Extends summernote
   $.extend(true, $.summernote, {
     plugins: {
-      databasic: DataBasicPlugin
+      databasic: DataBasicPlugin,
     },
 
     options: {
       popover: {
         databasic: [
-          ['databasic', ['databasicDialog', 'databasicSize100', 'databasicSize50', 'databasicSize25']]
-        ]
-      }
+          ['databasic', ['databasicDialog', 'databasicSize100', 'databasicSize50', 'databasicSize25']],
+        ],
+      },
     },
 
     // add localization texts
@@ -283,10 +282,10 @@
           name: 'Basic Data Container',
           insert: 'insert basic data container',
           edit: 'edit basic data container',
-          testLabel: 'test input'
-        }
-      }
-    }
+          testLabel: 'test input',
+        },
+      },
+    },
 
   });
 }));

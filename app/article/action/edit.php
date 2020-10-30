@@ -73,6 +73,8 @@ switch ($ts) {
 		$content2 = emptyText ( $_POST ['content'] );
 		$gaiyao = trim ( $_POST ['gaiyao'] );
 
+		$re_gaiyao = intval ( $_POST ['re_gaiyao'] );
+
         $score = intval($_POST ['score']);#积分
 
 		if ($TS_USER ['isadmin'] == 0) {
@@ -87,7 +89,11 @@ switch ($ts) {
 
         if($score<0){
             tsNotice ( '积分填写有误！' );
-        }
+		}
+		
+		if($re_gaiyao==1){
+			$gaiyao = cututf8(t(tsDecode($content)),0,100);
+		}
 
 		$new ['article']->update ( 'article', array (
 			'articleid' => $articleid,

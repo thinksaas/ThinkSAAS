@@ -23,6 +23,14 @@ switch($ts){
 			'isused'=>0,
 		));
 
+
+
+		#邀请的用户
+		$arrInviteUser = $new['user']->findAll('user_info',array(
+			'fuserid'=>$userid,
+		),'addtime desc','userid,username');
+
+
 		$title = '邀请码';
 		include template("invite");
 		

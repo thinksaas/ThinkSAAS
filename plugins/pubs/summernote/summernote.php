@@ -17,6 +17,8 @@ function summernote($loadjs='load'){
         echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/lang/summernote-zh-CN.js"></script>';
         #插入代码插件
         echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/plugin/summernote-ext-highlight.js"></script>';
+        #过滤html
+        echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/plugin/summernote-cleaner.js"></script>';
 
         #附件插件
         if(is_file('plugins/pubs/summernote/plugin/attach/attach.js')) echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/plugin/attach/attach.js"></script>';
@@ -24,7 +26,6 @@ function summernote($loadjs='load'){
         if(is_file('plugins/pubs/summernote/plugin/video/video.js')) echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/plugin/video/video.js"></script>';
         #音频插件
         if(is_file('plugins/pubs/summernote/plugin/audio/audio.js')) echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/plugin/audio/audio.js"></script>';
-
 
         echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/' . $loadjs . '.js?v=' . rand() . '"></script>';
     }

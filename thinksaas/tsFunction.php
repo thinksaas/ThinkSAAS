@@ -1548,7 +1548,7 @@ function tsUploadLocal($files, $projectid, $dir, $uptypes=array(),$sy=''){
                     try{
                         Image::make($dest);
                     }catch (Exception $e){
-                        //echo 'Message: ' .$e->getMessage();
+                        echo 'Message: ' .$e->getMessage();
                         unlink($dest);
                         return false;
                         exit();

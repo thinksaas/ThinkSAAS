@@ -10,9 +10,9 @@
 <div class="alert alert-info">物质匮乏，一码难求，今日您仅剩下 <span style="font-size:24px;color:#FF6600">{$codeNum}</span> 个邀请码</div>
 
 {if $codeNum=='0'}
-<p style="text-align:center;padding:50px;">
-<a class="subab" href="{tsUrl('user','invite',array(ts=>code))}">点击申请邀请码</a>
-</p>
+<div class="text-center">
+    <a class="btn btn-outline-info" href="{tsUrl('user','invite',array(ts=>code))}">点击申请邀请码</a>
+</div>
 {else}
 
 <div class="row">
@@ -24,6 +24,32 @@
 </div>
 
 {/if}
+
+
+<table class="table mt-3">
+    <thead class="thead-light">
+        <tr>
+            <th>用户ID</th>
+            <th>用户名</th>
+            <th>加入时间</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {loop $arrInviteUser $key $item}
+        <tr>
+            <td>{$item['userid']}</td>
+            <td>{$item['username']}</td>
+            <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+        </tr>
+        {/loop}
+
+    </tbody>
+
+</table>
+
+
 </div>
 </div>
 
