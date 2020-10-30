@@ -157,9 +157,13 @@
                 msie = msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./);
             var ffox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
             if (msie)
-              var text = window.clipboardData.getData("Text");
+              var text = window.clipboardData.getData("text");
             else
               var text = e.originalEvent.clipboardData.getData(options.cleaner.keepHtml ? 'text/html' : 'text/plain');
+            if(text==''){
+              var clipboardData = (event.clipboardData || window.clipboardData);
+              var text = clipboardData.getData('text');
+            }
             if (text) {
               if (msie || ffox)
                 setTimeout(function () {
