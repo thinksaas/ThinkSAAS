@@ -183,6 +183,21 @@
 
         <div class="col-md-4">
 
+
+            <div class="card">
+                <div class="card-header">推荐阅读</div>
+                <div class="card-body">
+                    <div class="commlist">
+                        <ul>
+                            {loop $arrRecommend $key $item}
+                            <li><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></li>
+                            {/loop}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="card">
                 <div class="card-header">一周热门</div>
                 <div class="card-body">

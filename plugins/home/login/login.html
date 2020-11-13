@@ -53,7 +53,7 @@
 <div class="card">
 <div class="card-body">
 <div class="login">
-<form action="{tsUrl('user','login',array('ts'=>'do'))}" method="post">
+<div>
 
 <legend>登录</legend>
 <div class="form-group">
@@ -70,13 +70,13 @@
 
 <input type="hidden" name="cktime" value="2592000" />
 <input type="hidden" name="token" value="{$_SESSION['token']}" />
-<button type="submit" class="btn btn-sm btn-info">登 录</button>
+<button id="comm-submit" type="button" class="btn btn-sm btn-info">登 录</button>
 
     <a class="btn btn-sm text-black-50" href="{tsUrl('user','register')}">还没有注册？</a>
 
 
 
-</form>
+</div>
 
     <div class="tac lh30">
         {php doAction('home_login')}
@@ -85,4 +85,94 @@
 </div>
 </div>
 </div>
+
+
+
+
+<!--{if $TS_SITE['is_vaptcha']}-->
+<script src="https://v.vaptcha.com/v3.js"></script>
+<script>
+vaptcha({
+    vid: '{$TS_SITE[vaptcha_vid]}',
+    type: 'invisible',
+    scene: 0,
+    offline_server: "{SITE_URL}index.php?app=pubs&ac=vaptcha",
+}).then(function (vaptchaObj) {
+
+    obj = vaptchaObj; //将VAPTCHA验证实例保存到局部变量中
+
+    vaptchaObj.listen("pass", function () {
+        // 验证成功进行后续操作
+        var email = $("input[name='email']").val();
+        var pwd = $("input[name='pwd']").val();
+        var cktime = $("input[name='cktime']").val();
+        var jump = $("input[name='jump']").val();
+        var token = $("input[name='token']").val();
+            
+        var data = {
+            email:email,
+            pwd:pwd,
+            cktime:cktime,
+            jump:jump,
+            token:token,
+            vaptcha_token: vaptchaObj.getToken(),
+        };
+        tsPost('index.php?app=user&ac=login&ts=do&js=1',data)
+        vaptchaObj.reset(); //重置验证码
+        
+    });
+
+    //关闭验证弹窗时触发
+    vaptchaObj.listen("close", function () {
+        //验证弹窗关闭触发
+    });
+
+})
+
+$("#comm-submit").on("click", function () {
+
+    var email = $("input[name='email']").val();
+    var pwd = $("input[name='pwd']").val();
+
+    if(email && pwd){
+        //人机验证
+        obj.validate();
+    }else{
+        tsNotice('账号和密码必须输入！');
+    }
+
+    
+});
+</script>
+
+<!--{else}-->
+
+<script>
+    $("#comm-submit").on("click", function () {
+        var email = $("input[name='email']").val();
+        var pwd = $("input[name='pwd']").val();
+        var cktime = $("input[name='cktime']").val();
+        var jump = $("input[name='jump']").val();
+        var token = $("input[name='token']").val();
+
+        if(email && pwd){
+            var data = {
+                email:email,
+                pwd:pwd,
+                cktime:cktime,
+                jump:jump,
+                token:token,
+            };
+            tsPost('index.php?app=user&ac=login&ts=do&js=1',data)
+        }else{
+            tsNotice('账号和密码必须输入！');
+        }
+    
+    });
+</script>
+
+<!--{/if}-->
+
+
+
 {/if}

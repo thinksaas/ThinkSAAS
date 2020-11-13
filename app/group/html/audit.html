@@ -2,33 +2,59 @@
 
 <div class="container">
 
-<ol class="breadcrumb">
-  <li><a href="{SITE_URL}">首页</a></li>
-  <li><a href="{tsUrl('group')}">小组</a></li>
-  <li><a href="{tsUrl('group','show',array('id'=>$groupid))}">{$strGroup['groupname']}</a></li>
-  <li class="active">帖子审核</li>
-</ol>
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+        <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+        <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['groupname']}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">帖子审核</li>
+        
+    </ol>
+</nav>
+
+
 
 <div class="row">
 <div class="col-md-8">
 
-<div class="bbox">
+<div class="card">
 
-<div class="bc">
+  <div class="card-header">审核帖子</div>
 
-<h1>审核帖子</h1>
+<div class="card-body">
 
-<table class="table">
+<table class="table table-hover">
 
-<thead>
-<tr><th>帖子</th><th>操作</th></tr>
+<thead class=" thead-light">
+<tr>
+  
+  
+  <th>帖子标题</th>
+
+  <th>用户ID</th>
+
+  <th>时间</th>
+
+  <th>操作</th>
+
+</tr>
 </thead>
 
 <tbody>
 {loop $arrTopic $key $item}
-<tr><td><a target="_blank" href="{tsUrl('topic','show',array('id'=>$item['topicid']))}">{$item['title']}</a></td><td>
+<tr>
+  
+  <td><a target="_blank" href="{tsUrl('topic','show',array('id'=>$item['topicid']))}">{$item['title']}</a></td>
+  
+  <td>{$item['userid']}</td>
 
-<a href="{SITE_URL}index.php?app=group&ac=audit&ts=do&topicid={$item['topicid']}&groupid={$item['groupid']}">审核</a> |  <a href="{SITE_URL}index.php?app=group&ac=audit&ts=delete&topicid={$item['topicid']}&groupid={$item['groupid']}" onClick="return confirm('确定删除吗？')">删除</a>
+  <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+  
+  <td>
+
+<a href="{SITE_URL}index.php?app=group&ac=audit&ts=do&topicid={$item['topicid']}&groupid={$item['groupid']}">审核</a> |  
+<a href="{SITE_URL}index.php?app=group&ac=audit&ts=delete&topicid={$item['topicid']}&groupid={$item['groupid']}" onClick="return confirm('确定删除吗？')">删除</a>
 
 
 </td></tr>
@@ -45,9 +71,9 @@
 
 <div class="col-md-4">
 
-<div class="bbox">
-<div class="bc">
-&gt; <a href="{tsUrl('group','show',array('id'=>$groupid))}">返回小组</a>
+<div class="card">
+<div class="card-body">
+<a class="btn btn-sm btn-outline-info" href="{tsUrl('group','show',array('id'=>$groupid))}">返回《{$strGroup['groupname']}》小组</a>
 </div>
 </div>
 

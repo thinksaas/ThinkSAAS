@@ -66,7 +66,11 @@
                     <input type="hidden" name="token" value="{$_SESSION['token']}" />
                     <button id="comm-submit" type="submit" class="btn btn-block btn-info">点击登录后台</button>
 
-                    <div class="mt-2"><a class="btn btn-block text-secondary" href="{SITE_URL}">返回首页</a></div>
+                    <div class="mt-2"><a class="btn btn-block btn-outline-secondary" href="{SITE_URL}">返回首页</a></div>
+
+                    <div class="fs12 c9 text-center mt-5">
+                        Copyright (C) {$TS_CF['info']['year']}-{php echo date('Y')} <a class="c9" href="{$TS_CF[info][url]}">{$TS_CF['info']['name']} {$TS_CF['info']['version']}</a>
+                    </div>
 
                 </div>
             </form>

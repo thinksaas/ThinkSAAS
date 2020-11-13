@@ -2,7 +2,7 @@
 defined('IN_TS') or die('Access Denied.'); 
 //首页登录框
 function login(){
-	global $TS_USER;
+	global $TS_USER,$TS_SITE;
 	
 	if($TS_USER['userid']){
 		$strUser = aac('user')->getOneUser($TS_USER['userid']);

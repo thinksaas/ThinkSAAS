@@ -325,11 +325,11 @@ class user extends tsApp {
 			if($this->isUser($userid)){
 				return $userid;
 			}else{
-				header("Location: ".tsUrl('user','login',array('ts'=>'out')));
+				header("Location: ".tsUrl('user','logout'));
 				exit;
 			}
 		}else{
-			header("Location: ".tsUrl('user','login',array('ts'=>'out')));
+			header("Location: ".tsUrl('user','logout'));
 			exit;
 		}
 	}

@@ -18,6 +18,9 @@
                   忘记密码
               </div>
 
+
+              <!--{if $TS_SITE['regtype']=='0' || $TS_SITE['regtype']=='2'}-->
+
               <hr />
 
               <form method="post" action="{SITE_URL}index.php?app=user&ac=forgetpwd&ts=do" role="form">
@@ -34,12 +37,13 @@
 
               </form>
 
+              <!--{/if}-->
+
+
+              <!--{if $TS_SITE['regtype']=='1' || $TS_SITE['regtype']=='2'}-->
+
 
               <hr />
-
-
-
-
 
 
               <form id="comm-form" method="post" action="{SITE_URL}index.php?app=user&ac=phone&ts=resetpwd" role="form">
@@ -53,7 +57,7 @@
                       <label>验证码：</label>
                       <div style="overflow: hidden;">
                           <input id="authcode" style="float: left;width:50%;" name="authcode" type="text" class="form-control" placeholder="">
-                          <img align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="float:right;cursor:pointer;" />
+                          <img src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="float:right;cursor:pointer;" />
                       </div>
                   </div>
 
@@ -61,13 +65,13 @@
                       <label>手机验证码：</label>
                       <div style="overflow: hidden;">
                           <input style="float: left;width:50%;" name="phonecode" type="text" class="form-control" placeholder="">
-                          <button onclick="sendPhoneCode(2);" id="mybtn" type="button" class="btn btn-default" style="float: right;">获取验证码</button>
+                          <button id="mybtn" type="button" class="btn btn-outline-secondary" style="float: right;">获取验证码</button>
                       </div>
                   </div>
 
 
                   <div class="form-group">
-                      <label>新密码：</label>
+                      <label>新密码if：</label>
                       <input name="pwd" type="password" class="form-control" placeholder="输入新密码" check-type="required">
                   </div>
 
@@ -79,7 +83,7 @@
 
               </form>
 
-
+              <!--{/if}-->
 
 
 
@@ -102,5 +106,65 @@
 
 
 </div>
+
+<!--{if $TS_SITE['is_vaptcha']}-->
+<script src="https://v.vaptcha.com/v3.js"></script>
+<script>
+vaptcha({
+    vid: '{$TS_SITE[vaptcha_vid]}',
+    type: 'invisible',
+    scene: 0,
+    offline_server: "{SITE_URL}index.php?app=pubs&ac=vaptcha",
+}).then(function (vaptchaObj) {
+
+    obj = vaptchaObj; //将VAPTCHA验证实例保存到局部变量中
+
+    vaptchaObj.listen("pass", function () {
+        // 验证成功进行后续操作
+
+        
+        var vaptcha_token = vaptchaObj.getToken();
+
+        sendPhoneCode(2,vaptcha_token)
+
+        vaptchaObj.reset(); //重置验证码
+        
+    });
+
+    //关闭验证弹窗时触发
+    vaptchaObj.listen("close", function () {
+        //验证弹窗关闭触发
+    });
+
+})
+
+$("#mybtn").on("click", function () {
+    var phone = $("#myphone").val();
+    var authcode = $("#authcode").val();
+
+    if(phone && authcode){
+        //人机验证
+        obj.validate();
+    }else{
+        tsNotice('手机号和图形验证码必须填写！');
+    }
+});
+</script>
+<!--{else}-->
+
+<script>
+$("#mybtn").on("click", function () {
+    var phone = $("#myphone").val();
+    var authcode = $("#authcode").val();
+
+    if(phone && authcode){
+        sendPhoneCode(2)
+    }else{
+        tsNotice('手机号和图形验证码必须填写！');
+    }
+});
+</script>
+
+<!--{/if}-->
 
 {php include pubTemplate("footer")}

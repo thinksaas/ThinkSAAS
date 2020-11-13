@@ -1,0 +1,99 @@
+{php include pubTemplate("header")}
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+
+
+
+            <div class="card">
+                <div class="card-body">
+
+
+
+                    {if intval($strUser['isverifyphone'])==0 && intval($TS_SITE['isverifyphone'])==1}
+                    <div class="alert alert-info">提示：你必须通过手机号验证才可以正常使用本社区</div>
+                    {/if}
+                    {if $strUser['isverifyphone']==1}
+                    <div class="alert alert-success">
+                        您已经通过手机号验证！现在可以随便点点看看我们的社区！
+                    </div>
+
+                    {else}
+
+
+
+                    <form id="comm-form" method="post" action="{SITE_URL}index.php?app=user&ac=phone&ts=verifydo">
+                        <div class="form-group">
+                            <label>手机号</label>
+
+                            <div>
+                                <input id="myphone" type="number" name="phone" class="form-control" value="{if isPhone($strUser['phone'])}{$strUser['phone']}{else}{/if}">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>图片验证码</label>
+
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="d-flex"><input  id="authcode" type="text" name="authcode" class="form-control" value=""></div>
+                                <div class="d-flex ml-1">
+
+                                    <img id="imagecode" align="absmiddle" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;" />
+
+                                    <a href="javascript:void('0');" onclick="changeImageCode();">点击刷新验证码</a>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>手机验证码</label>
+
+                            <div class="d-flex flex-row">
+                                <div class="d-flex"><input type="text" class="form-control" name="phonecode" value=""></div>
+                                <div class="d-flex ml-1"><button onclick="sendPhoneCode();" id="mybtn" type="button" class="btn btn-default">获取验证码</button></div>
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-sm btn-info">点击开始验证</button> <small class="text-danger">(手机号验证通过后下次可以使用手机号登录社区)</small>
+
+                    </form>
+
+                <!--
+                    <hr>
+                
+                    <form method="post" action="{tsUrl('user','phone',array('ts'=>'setphone'))}">
+                        <div class="form-group">
+                            <label>手机号不对吗？更换手机号:</label>
+                            <input type="number" name="phone" class="form-control" placeholder="请输入你要更换的手机号">
+                        </div>
+
+
+                        <input type="hidden" name="token" value="{$_SESSION['token']}" />
+                        <input class="btn btn-sm btn-outline-secondary" type="submit" value="提交修改" />
+                    </form>
+                -->
+
+
+                    {/if}
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+</div>
+
+{php include pubTemplate("footer")}

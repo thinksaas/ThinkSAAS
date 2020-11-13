@@ -222,7 +222,7 @@ $(document).ready(function () {
     });
 });
 
-function sendPhoneCode(typeid){
+function sendPhoneCode(typeid,vaptcha_token){
     var phone = $("#myphone").val();
     var authcode = $("#authcode").val();
     if(phone==''){
@@ -233,7 +233,7 @@ function sendPhoneCode(typeid){
         tsNotice('图片验证码不能为空！');
         return false;
     }
-    $.post(siteUrl+'index.php?app=pubs&ac=phone',{'phone':phone,'authcode':authcode,'typeid':typeid},function(rs){
+    $.post(siteUrl+'index.php?app=pubs&ac=phone',{'phone':phone,'authcode':authcode,'typeid':typeid,'vaptcha_token':vaptcha_token},function(rs){
         if (rs.status == 0) {
 			tsNotice(rs.msg);
         } else if(rs.status==1) {

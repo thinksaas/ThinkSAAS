@@ -11,6 +11,17 @@ $authcode = strtolower($_POST['authcode']);
 
 $typeid = intval($_POST['typeid']); //判断手机号是否存在0不判断1判断存在2判断不存在
 
+
+#人机验证
+$vaptcha_token = trim ( $_POST ['vaptcha_token'] );
+if ($TS_SITE['is_vaptcha']) {
+    $strVt = vaptcha($vaptcha_token);
+    if($strVt['success']==0) {
+        getJson('人机验证未通过！',1,0);
+    }
+}
+
+
 if(isPhone($phone)==false){
     //echo 0;exit;//手机号码输入有误
     getJson('手机号码输入有误',1,0);

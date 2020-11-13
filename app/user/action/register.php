@@ -1,6 +1,10 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
+if(intval($TS_USER['userid']) > 0) {
+	header('Location: '.SITE_URL);exit;
+}
+
 if($TS_SITE['isinvite']==2){
 	tsNotice('暂不开放用户注册！');
 }
@@ -8,9 +12,6 @@ if($TS_SITE['isinvite']==2){
 //用户注册
 switch($ts){
 	case "":
-		if(intval($TS_USER['userid']) > 0) {
-            header('Location: '.SITE_URL);exit;
-        }
 
         #如果网站只采用手机号注册，就跳转到手机号注册
         if($TS_SITE['regtype']==1){

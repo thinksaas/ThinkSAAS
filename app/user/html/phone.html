@@ -1,0 +1,209 @@
+{php include pubTemplate("header")}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+
+
+
+
+
+            <div class="card border-0">
+                <div class="card-body" style="padding: 30px;">
+
+
+                    <ul class="nav nav-tabs mb-4">
+                        {if $TS_SITE['regtype']=='0' || $TS_SITE['regtype']=='2'}
+                        <li class="nav-item">
+                            <a class="nav-link font-weight-bold" href="{tsUrl('user','register')}">Email注册</a>
+                        </li>
+                        {/if}
+                        {if $TS_SITE['regtype']=='1' || $TS_SITE['regtype']=='2'}
+                        <li class="nav-item">
+                            <a class="nav-link font-weight-bold active" href="{tsUrl('user','phone')}">手机号注册</a>
+                        </li>
+                        {/if}
+                    </ul>
+
+
+                    {if $TS_APP[isregister]=='2'}
+                    <p>系统升级中，暂时关闭用户注册！</p>
+                    <p><a href="{SITE_URL}">返回首页</a></p>
+                    {else}
+
+
+
+                    <form id="comm-form" method="POST" action="{SITE_URL}index.php?app=user&ac=phone&ts=do">
+
+                        {if $TS_SITE['isinvite']=='1'}
+                        <div class="form-group">
+                            <label>邀请码</label>
+                            <input name="invitecode" type="text" class="form-control" placeholder="" check-type="required">
+                        </div>
+                        {/if}
+
+                        <div class="form-group">
+                            <label>帐号</label>
+                            <input id="myphone" name="email" type="number" class="form-control" placeholder="手机号" check-type="required">
+                        </div>
+
+                        <div class="form-group">
+                            <label>密码：</label>
+
+                            <input name="pwd" type="password" class="form-control" placeholder="" check-type="required">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>重复密码：</label>
+                            <input name="repwd" type="password" class="form-control" placeholder="" check-type="required">
+                        </div>
+
+                        <div class="form-group">
+                            <label>用户名：</label>
+                            <input name="username" type="text" class="form-control" placeholder="" check-type="required">
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label>验证码：</label>
+
+
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="d-flex">
+                                    <input id="authcode" name="authcode" type="text" class="form-control" placeholder="" >
+                                </div>
+                                <div class="d-flex ml-1">
+
+                                    <img id="imagecode" src="{SITE_URL}index.php?app=pubs&ac=code" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;" />
+
+                                    <a href="javascript:void('0');" onclick="changeImageCode();">点击刷新验证码</a>
+
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>手机验证码：</label>
+
+
+                            <div style="overflow: hidden;">
+                                <input style="float: left;width:60%;" name="phonecode" type="text" class="form-control" placeholder="" >
+                                <button id="mybtn" type="button" class="btn btn-outline-secondary" style="float: right;">获取验证码</button>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                        <div class="form-group">
+
+                            <input type="hidden" name="fuserid" value="{$fuserid}" />
+                            <input type="hidden" name="token" value="{$_SESSION['token']}" />
+                            <button id="comm-submit" type="submit" class="btn btn-fat btn-success btn-lg btn-block">注册</button>
+
+                        </div>
+
+
+                    </form>
+
+                    <div>
+                        {php doAction('user_login_footer')}
+                    </div>
+
+                    {/if}
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+
+        <div class="col-md-3"></div>
+    </div>
+
+
+</div>
+
+<!--{if $TS_SITE['is_vaptcha']}-->
+<script src="https://v.vaptcha.com/v3.js"></script>
+<script>
+vaptcha({
+    vid: '{$TS_SITE[vaptcha_vid]}',
+    type: 'invisible',
+    scene: 0,
+    offline_server: "{SITE_URL}index.php?app=pubs&ac=vaptcha",
+}).then(function (vaptchaObj) {
+
+    obj = vaptchaObj; //将VAPTCHA验证实例保存到局部变量中
+
+    vaptchaObj.listen("pass", function () {
+        // 验证成功进行后续操作
+
+        
+        var vaptcha_token = vaptchaObj.getToken();
+
+        sendPhoneCode(1,vaptcha_token)
+
+        vaptchaObj.reset(); //重置验证码
+        
+    });
+
+    //关闭验证弹窗时触发
+    vaptchaObj.listen("close", function () {
+        //验证弹窗关闭触发
+    });
+
+})
+
+$("#mybtn").on("click", function () {
+    var phone = $("#myphone").val();
+    var authcode = $("#authcode").val();
+
+    if(phone && authcode){
+        //人机验证
+        obj.validate();
+    }else{
+        tsNotice('手机号和图形验证码必须填写！');
+    }
+});
+</script>
+<!--{else}-->
+
+<script>
+$("#mybtn").on("click", function () {
+    var phone = $("#myphone").val();
+    var authcode = $("#authcode").val();
+
+    if(phone && authcode){
+        sendPhoneCode(1)
+    }else{
+        tsNotice('手机号和图形验证码必须填写！');
+    }
+});
+</script>
+
+<!--{/if}-->
+
+{php include pubTemplate("footer")}

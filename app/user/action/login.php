@@ -1,18 +1,21 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
+
+if(intval($TS_USER['userid']) > 0) {
+	header('Location: '.SITE_URL);exit;
+}
+
 //程序主体
 switch($ts){
 	case "":
-		if(intval($TS_USER['userid']) > 0) {
-            header('Location: '.SITE_URL);exit;
-        }
+		
 		
 		//记录上次访问地址
 		$jump = $_SERVER['HTTP_REFERER'];
 
 		$title = '登录';
 		include template("login");
-		break;
+	break;
 	
 	//执行登录
 	case "do":
@@ -37,8 +40,19 @@ switch($ts){
 		$pwd = trim($_POST['pwd']);
 		
 		$cktime = $_POST['cktime'];
+
+
+		#人机验证
+		$vaptcha_token = trim($_POST ['vaptcha_token']);
+		if ($TS_SITE['is_vaptcha']) {
+			$strVt = vaptcha($vaptcha_token);
+			if($strVt['success']==0) {
+				getJson('人机验证未通过！',$js);
+			}
+		}
+
 		
-		if($email=='' || $pwd=='') getJson('Email和密码都不能为空！',$js);
+		if($email=='' || $pwd=='') getJson('账号和密码都不能为空！',$js);
 
 		#先判断是否是Email
 		if(valid_email($email)==true){
@@ -47,7 +61,8 @@ switch($ts){
                 'email'=>$email,
             ));
 
-            if($strUser == '') getJson('Email不存在，你可能还没有注册！',$js);
+            //if($strUser == '') getJson('Email不存在，你可能还没有注册！',$js);
+            if($strUser == '') getJson('账号/密码输入有误！',$js);
 
         }else{
 
@@ -58,15 +73,20 @@ switch($ts){
                     'phone'=>$email,
                 ));
 
-                if($strUser == '') getJson('手机号不存在，你可能还没有注册！',$js);
+                #if($strUser == '') getJson('手机号不存在，你可能还没有注册！',$js);
+                if($strUser == '') getJson('账号/密码输入有误！',$js);
 
             }else{
-                getJson('账号不存在，你可能还没有注册！',$js);
+                #getJson('账号不存在，你可能还没有注册！',$js);
+                getJson('账号/密码输入有误！',$js);
             }
 
         }
 			
-		if(md5($strUser['salt'].$pwd)!==$strUser['pwd']) getJson('密码错误！',$js);
+		if(md5($strUser['salt'].$pwd)!==$strUser['pwd']) {
+			#getJson('密码错误！',$js);
+			getJson('账号/密码输入有误！',$js);
+		}
 		
 		$new['user']->login($strUser['userid']);
 
@@ -91,12 +111,6 @@ switch($ts){
 			
 		}
 		
-		break;
+	break;
 	
-	//退出	
-	case "out":
-		aac('user')->logout();
-		header('Location: '.tsUrl('user','login'));
-		
-		break;
 }
