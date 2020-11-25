@@ -57,7 +57,7 @@
 
                             <div class="d-flex flex-row">
                                 <div class="d-flex"><input type="text" class="form-control" name="phonecode" value=""></div>
-                                <div class="d-flex ml-1"><button onclick="sendPhoneCode();" id="mybtn" type="button" class="btn btn-default">获取验证码</button></div>
+                                <div class="d-flex ml-1"><button id="mybtn" type="button" class="btn btn-outline-secondary">获取验证码</button></div>
                             </div>
 
                         </div>
@@ -95,5 +95,67 @@
     </div>
 
 </div>
+
+
+<!--{if $TS_SITE['is_vaptcha']}-->
+<script src="https://v.vaptcha.com/v3.js"></script>
+<script>
+vaptcha({
+    vid: '{$TS_SITE[vaptcha_vid]}',
+    type: 'invisible',
+    scene: 0,
+    offline_server: "{SITE_URL}index.php?app=pubs&ac=vaptcha",
+}).then(function (vaptchaObj) {
+
+    obj = vaptchaObj; //将VAPTCHA验证实例保存到局部变量中
+
+    vaptchaObj.listen("pass", function () {
+        // 验证成功进行后续操作
+
+        
+        var vaptcha_token = vaptchaObj.getToken();
+
+        sendPhoneCode(0,vaptcha_token)
+
+        vaptchaObj.reset(); //重置验证码
+        
+    });
+
+    //关闭验证弹窗时触发
+    vaptchaObj.listen("close", function () {
+        //验证弹窗关闭触发
+    });
+
+})
+
+$("#mybtn").on("click", function () {
+    var phone = $("#myphone").val();
+    var authcode = $("#authcode").val();
+
+    if(phone && authcode){
+        //人机验证
+        obj.validate();
+    }else{
+        tsNotice('手机号和图形验证码必须填写！');
+    }
+});
+</script>
+<!--{else}-->
+
+<script>
+$("#mybtn").on("click", function () {
+    var phone = $("#myphone").val();
+    var authcode = $("#authcode").val();
+
+    if(phone && authcode){
+        sendPhoneCode(0)
+    }else{
+        tsNotice('手机号和图形验证码必须填写！');
+    }
+});
+</script>
+
+<!--{/if}-->
+
 
 {php include pubTemplate("footer")}
