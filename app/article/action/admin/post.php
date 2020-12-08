@@ -5,7 +5,7 @@ switch($ts){
 
 	case "list":
 		
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 		$url = SITE_URL.'index.php?app=article&ac=admin&mg=post&ts=list&page=';
 		$lstart = $page*20-20;
 		$arrArticle = $new['article']->findAll('article',null,'addtime desc',null,$lstart.',20');
@@ -19,7 +19,7 @@ switch($ts){
 	//审核通过
 	case "isaudit0":
 		
-		$articleid = intval($_GET['articleid']);
+		$articleid = tsIntval($_GET['articleid']);
 		$strArticle = $new['article']->find('article',array(
 			'articleid'=>$articleid,
 		));
@@ -46,7 +46,7 @@ switch($ts){
     #审核不通过
     case "isaudit1":
 
-        $articleid = intval($_GET['articleid']);
+        $articleid = tsIntval($_GET['articleid']);
         $strArticle = $new['article']->find('article',array(
             'articleid'=>$articleid,
         ));
@@ -74,7 +74,7 @@ switch($ts){
 	//删除 
 	case "delete":
 	
-		$articleid = intval($_GET['articleid']);
+		$articleid = tsIntval($_GET['articleid']);
 		$strArticle = $new['article']->find('article',array(
 			'articleid'=>$articleid,
 		));
@@ -94,7 +94,7 @@ switch($ts){
 	//推荐
 	case "isrecommend":
 		
-		$articleid = intval($_GET['articleid']);
+		$articleid = tsIntval($_GET['articleid']);
 		$strArticle = $new['article']->find('article',array(
 			'articleid'=>$articleid,
 		));

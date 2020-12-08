@@ -1,0 +1,70 @@
+{php include pubTemplate("header")}
+<div class="container">
+
+
+<div class="row">
+
+
+<div class="col-md-3">
+<div class="my_left">
+
+{php include pubTemplate("my")}
+
+</div>
+</div>
+
+<div class="col-md-9">
+
+
+    <div class="card">
+        <div class="card-header">我的邀请</div>
+        <div class="card-body">
+
+
+            <div class="input-group mb-3">
+                <input id="invite-link" type="text" class="form-control c9" value="{tsUrl('user','register',array('fuserid'=>$userid))}">
+                <div class="input-group-append">
+                  <button class="invite-btn btn btn-outline-secondary" data-clipboard-target="#invite-link" type="button">点击复制邀请链接</button>
+                </div>
+            </div>
+              
+
+
+            <table class="table mt-3">
+                <thead class="thead-light">
+                    <tr>
+                        <th>用户ID</th>
+                        <th>用户名</th>
+                        <th>加入时间</th>
+                    </tr>
+                </thead>
+            
+                <tbody>
+            
+                    {loop $arrInviteUser $key $item}
+                    <tr>
+                        <td>{$item['userid']}</td>
+                        <td>{$item['username']}</td>
+                        <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+                    </tr>
+                    {/loop}
+            
+                </tbody>
+            
+            </table>
+
+
+
+
+</div>
+</div>
+</div>
+
+
+</div>
+</div>
+<script src="{SITE_URL}public/js/clipboard.js?v=2020"></script>
+<script>
+    new ClipboardJS('.invite-btn');
+</script>
+{php include pubTemplate("footer")}

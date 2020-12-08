@@ -6,7 +6,7 @@ switch($ts){
 	//帖子审核
 	case "topicaudit":
 	
-		$topicid = intval($_POST['topicid']);
+		$topicid = tsIntval($_POST['topicid']);
 		
 		$strTopic = $new['topic']->find('topic',array(
 			'topicid'=>$topicid,
@@ -41,9 +41,9 @@ switch($ts){
 
 		$userid = aac('user')->isLogin();
 	
-		$js = intval($_GET['js']);
+		$js = tsIntval($_GET['js']);
 		
-		$topicid = intval($_POST['topicid']);
+		$topicid = tsIntval($_POST['topicid']);
 		
 		if($TS_USER['isadmin']==1 && $topicid){
 		
@@ -89,7 +89,7 @@ switch($ts){
     case "book":
 
         $userid = aac('user')->isLogin();
-        $topicid = intval($_POST['topicid']);
+        $topicid = tsIntval($_POST['topicid']);
         $book = trim($_POST['book']);
 
         //if($topicid==0 || $book==''){
@@ -130,7 +130,7 @@ switch($ts){
 
 		$userid = aac('user')->isLogin();
 			
-		$topicid = intval($_GET['topicid']);
+		$topicid = tsIntval($_GET['topicid']);
 
 		$strTopic = $new['topic']->find('topic',array(
 			'topicid'=>$topicid,
@@ -170,7 +170,7 @@ switch($ts){
 
 		$userid = aac('user')->isLogin();
 
-		$topicid = intval($_GET['topicid']);
+		$topicid = tsIntval($_GET['topicid']);
 		
 		if($userid == 0 || $topicid == 0) tsNotice("非法操作"); 
 		
@@ -178,7 +178,7 @@ switch($ts){
 		
 		$strGroup = $db->once_fetch_assoc("select userid from ".dbprefix."group where groupid='".$strTopic['groupid']."'");
 		
-		if($userid == $strGroup['userid'] || intval($TS_USER['isadmin']) == 1){
+		if($userid == $strGroup['userid'] || tsIntval($TS_USER['isadmin']) == 1){
 			if($strTopic['isposts']==0){
 				$db->query("update ".dbprefix."topic set `isposts`='1' where `topicid`='$topicid'");
 				

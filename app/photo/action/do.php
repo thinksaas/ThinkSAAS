@@ -8,7 +8,7 @@ switch($ts){
 		//用户是否登录
 		$userid = aac('user')->isLogin();
 		
-		$photoid = intval($_GET['photoid']);
+		$photoid = tsIntval($_GET['photoid']);
 		
 		$strPhoto = $new['photo']->find('photo',array(
 			'photoid'=>$photoid,

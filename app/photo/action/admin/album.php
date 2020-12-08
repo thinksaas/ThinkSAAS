@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
 switch($ts){
 	case "list":
 		
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 		
 		$lstart = $page*10-10;
 		
@@ -23,9 +23,9 @@ switch($ts){
 	
 	//图片 
 	case "photo":
-		$albumid = intval($_GET['albumid']);
+		$albumid = tsIntval($_GET['albumid']);
 		
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 		
 		$lstart = $page*10-10;
 		
@@ -43,7 +43,7 @@ switch($ts){
 		
 	//删除相册
 	case "del_album":
-		$albumid = intval($_GET['albumid']);
+		$albumid = tsIntval($_GET['albumid']);
 		
 		$new['photo']->deletePhotoAlbum($albumid);
 		
@@ -53,7 +53,7 @@ switch($ts){
 		
 	//删除照片
 	case "del_photo":
-		$photoid = intval($_GET['photoid']);
+		$photoid = tsIntval($_GET['photoid']);
 
 		$strPhoto = $new['photo']->find('photo',array(
 			'photoid'=>$photoid,
@@ -73,7 +73,7 @@ switch($ts){
 		
 	//设为封面
 	case "face":
-		$photoid = intval($_GET['photoid']);
+		$photoid = tsIntval($_GET['photoid']);
 		$strPhoto = $db->once_fetch_assoc("select * from ".dbprefix."photo where photoid='$photoid'");
 		
 		$albumid = $strPhoto['albumid'];
@@ -103,7 +103,7 @@ switch($ts){
 	//推荐相册 
 	case "isrecommend":
 	
-		$albumid = intval($_GET['albumid']);
+		$albumid = tsIntval($_GET['albumid']);
 		
 		$strAlbum = $db->once_fetch_assoc("select isrecommend from ".dbprefix."photo_album where `albumid`='$albumid'");
 		
@@ -120,7 +120,7 @@ switch($ts){
     //是否审核
     case "isaudit":
 
-        $albumid = intval($_GET['albumid']);
+        $albumid = tsIntval($_GET['albumid']);
 
         $strAlbum = $new['photo']->find('photo_album',array(
             'albumid'=>$albumid,
@@ -190,7 +190,7 @@ switch($ts){
 		
 	case "isaudit":
 		
-		$albumid = intval($_GET['albumid']);
+		$albumid = tsIntval($_GET['albumid']);
 		
 		$strAlbum = $new['attach']->find('photo_album',array(
 			'albumid'=>$albumid,

@@ -77,7 +77,7 @@ switch($ts){
 			//过滤内容结束
 			
 			//配置文件是否需要审核
-			$isaudit = intval($TS_APP['isaudit']);
+			$isaudit = tsIntval($TS_APP['isaudit']);
 			if($TS_USER['isadmin']==1){
 				$isaudit = 0;
 			}
@@ -136,7 +136,7 @@ switch($ts){
 			));
 			
 			//更新分类统计
-			$cateid = intval($_POST['cateid']);
+			$cateid = tsIntval($_POST['cateid']);
 			if($cateid > 0){
 				$count_group = $new['group']->findCount('group',array(
 					'cateid'=>$cateid,

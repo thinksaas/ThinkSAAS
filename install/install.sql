@@ -1587,8 +1587,8 @@ DELETE FROM `ts_user_score`;
 INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`, `mg`, `ts`, `score`, `status`) VALUES
 	(1, 'user_register', '用户注册', 'user', 'register', '', 'do', 10, 0),
 	(2, 'user_login', '用户登陆', 'user', 'login', '', 'do', 5, 0),
-	(3, 'group_topic_add', '用户小组发帖', 'group', 'add', '', 'do', 10, 0),
-	(4, 'group_topic_comment', '用户小组帖子评论', 'group', 'comment', '', 'do', 5, 0),
+	(3, 'topic_add', '发帖', 'topic', 'add', '', 'do', 10, 0),
+	(4, 'pubs_comment', '评论', 'pubs', 'comment', '', 'do', 5, 0),
 	(5, 'attach_upload', '资料上传', 'attach', 'upload', '', 'do', 10, 0),
 	(6, 'user_signin', '用户签到', 'user', 'signin', '', '', 5, 0),
 	(7, 'group_topic_delete', '删除帖子', 'group', 'do', '', 'deltopic', 5, 1),

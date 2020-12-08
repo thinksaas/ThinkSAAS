@@ -1,7 +1,7 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-if(intval($TS_USER['userid']) > 0) {
+if(tsIntval($TS_USER['userid']) > 0) {
 	header('Location: '.SITE_URL);exit;
 }
 
@@ -21,9 +21,9 @@ switch($ts){
 	case "do":
 		
 		//用于JS提交验证
-		$js = intval($_GET['js']);
+		$js = tsIntval($_GET['js']);
 
-        $ad = intval($_POST['ad']);
+        $ad = tsIntval($_POST['ad']);
 		
 		/*禁止以下IP用户登陆或注册*/
         /*

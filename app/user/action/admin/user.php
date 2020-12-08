@@ -6,9 +6,9 @@ defined('IN_TS') or die('Access Denied.');
 		//用户列表
 		case "list":
 		
-			$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+			$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 			
-			$userid = intval($_GET['userid']);
+			$userid = tsIntval($_GET['userid']);
 			$username = tsFilter($_GET['username']);
 			
 			$arrData = null;
@@ -54,11 +54,11 @@ defined('IN_TS') or die('Access Denied.');
 		//用户停用启用
 		case "isenable":
 		
-			$userid = intval($_GET['userid']);
+			$userid = tsIntval($_GET['userid']);
 
 			if($userid==1) qiMsg('无法停用该用户！');
 
-			$page = intval($_GET['page']);
+			$page = tsIntval($_GET['page']);
 
 			$strUser = $new['user']->find('user_info',array(
 				'userid'=>$userid,
@@ -126,7 +126,7 @@ defined('IN_TS') or die('Access Denied.');
 		//修改密码
 		case "pwd":
 			
-			$userid = intval($_GET['userid']);
+			$userid = tsIntval($_GET['userid']);
 			
 			$strUser = $new['user']->find('user',array(
 				'userid'=>$userid,
@@ -138,7 +138,7 @@ defined('IN_TS') or die('Access Denied.');
 		//执行修改密码
 		case "pwddo":
 			
-			$userid = intval($_POST['userid']);
+			$userid = tsIntval($_POST['userid']);
 			
 			$pwd = trim($_POST['pwd']);
 			
@@ -163,7 +163,7 @@ defined('IN_TS') or die('Access Denied.');
 			
 		//清空用户数据
 		case "deldata":
-			$userid = intval($_GET['userid']);
+			$userid = tsIntval($_GET['userid']);
 
 			if($userid==1) qiMsg('该用户数据无法清空！');
 
@@ -175,7 +175,7 @@ defined('IN_TS') or die('Access Denied.');
 		//管理员 
 		case "admin":
 			
-			$userid = intval($_GET['userid']);
+			$userid = tsIntval($_GET['userid']);
 
 			if($userid==1) qiMsg('该用户无法取消管理员！');
 
@@ -217,7 +217,7 @@ defined('IN_TS') or die('Access Denied.');
 			break;
 			
 		case "face":
-			$userid = intval($_GET['userid']);
+			$userid = tsIntval($_GET['userid']);
 			
 			$new['user']->update('user_info',array(
 				'userid'=>$userid,
@@ -232,7 +232,7 @@ defined('IN_TS') or die('Access Denied.');
 
         //是否手工认证
         case "isrenzheng":
-			$userid = intval($_GET['userid']);
+			$userid = tsIntval($_GET['userid']);
 			
 			if($userid==1) qiMsg('该用户无法操作！');
 

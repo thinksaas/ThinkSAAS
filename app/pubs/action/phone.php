@@ -9,7 +9,7 @@ $phone = trim($_POST['phone']);
 
 $authcode = strtolower($_POST['authcode']);
 
-$typeid = intval($_POST['typeid']); //判断手机号是否存在0不判断1判断存在2判断不存在
+$typeid = tsIntval($_POST['typeid']); //判断手机号是否存在0不判断1判断存在2判断不存在
 
 
 #人机验证
@@ -69,7 +69,7 @@ if($strPhone){
     $ntime = $time-$ptime;
 
     #短信发送间隔时间
-    $phone_code_send_time = intval($TS_APP['phone_code_send_time']);
+    $phone_code_send_time = tsIntval($TS_APP['phone_code_send_time']);
     if($phone_code_send_time==0) $phone_code_send_time = 30;
 
     $time30 = 60*$phone_code_send_time;

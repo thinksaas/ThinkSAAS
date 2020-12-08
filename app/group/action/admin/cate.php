@@ -40,7 +40,7 @@ switch($ts){
 	//分类添加
 	case "add":
 		
-		$referid = intval($_GET['referid']);
+		$referid = tsIntval($_GET['referid']);
 
 		include template("admin/cate_add");
 		
@@ -51,7 +51,7 @@ switch($ts){
 		$new['group']->create('group_cate',array(
 		
 			'catename'=>t($_POST['catename']),
-			'referid'=>intval($_POST['referid']),
+			'referid'=>tsIntval($_POST['referid']),
 		
 		));
 		
@@ -63,7 +63,7 @@ switch($ts){
 	//分类删除
 	case "del":
 		
-		$cateid = intval($_GET['cateid']);
+		$cateid = tsIntval($_GET['cateid']);
 
 		$groupNum = $db->once_fetch_assoc("select count(*) from ".dbprefix."group where `cateid`='$cateid'");
 		
@@ -81,9 +81,9 @@ switch($ts){
 	//分类修改
 	case "edit":
 	
-		$cateid = intval($_GET['cateid']);
+		$cateid = tsIntval($_GET['cateid']);
 		
-		$referid = intval($_GET['referid']);
+		$referid = tsIntval($_GET['referid']);
 		
 		$strCate = $db->once_fetch_assoc("select * from ".dbprefix."group_cate where cateid='$cateid'");
 		
@@ -100,10 +100,10 @@ switch($ts){
 	
 	//分类修改执行 
 	case "edit_do":
-		$cateid = intval($_POST['cateid']);
+		$cateid = tsIntval($_POST['cateid']);
 		$catename = t($_POST['catename']);
 		
-		$referid = intval($_POST['referid']);
+		$referid = tsIntval($_POST['referid']);
 		
 		$refer = '';
 		if($referid){

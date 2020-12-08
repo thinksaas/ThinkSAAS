@@ -3,7 +3,7 @@ defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 
 $userid = aac ( 'user' )->isLogin ();
 
-$articleid = intval ( $_GET ['articleid'] );
+$articleid = tsIntval ( $_GET ['articleid'] );
 
 $strArticle = $new ['article']->find ( 'article', array (
     'articleid' => $articleid

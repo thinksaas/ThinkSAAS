@@ -11,7 +11,7 @@ switch($ts){
 		
 		
 		//分类下小组
-		$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
 		$url = tsUrl('group','cate',array('page'=>''));
 		$lstart = $page*20-20;
 		$arrGroup = $new['group']->findAll('group',null,'isrecommend desc,count_topic desc',null,$lstart.',20');
@@ -28,7 +28,7 @@ switch($ts){
 	
 	//二级分类
 	case "2":
-		$cateid = intval($_GET['cateid']);
+		$cateid = tsIntval($_GET['cateid']);
 		$strCate = $new['group']->find('group_cate',array(
 			'cateid'=>$cateid,
 		));
@@ -40,7 +40,7 @@ switch($ts){
 		
 		
 		//分类下小组
-		$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
 		$url = tsUrl('group','cate',array('ts'=>'2','page'=>''));
 		$lstart = $page*20-20;
 		$arrGroup = $new['group']->findAll('group',array(
@@ -62,7 +62,7 @@ switch($ts){
 	//三级分类
 	case "3":
 	
-		$cateid = intval($_GET['cateid']);
+		$cateid = tsIntval($_GET['cateid']);
 		
 		$strCate = $new['group']->find('group_cate',array(
 			'cateid'=>$cateid,
@@ -80,7 +80,7 @@ switch($ts){
 		
 			
 		//分类下小组
-		$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
 		$url = tsUrl('group','cate',array('ts'=>'3','page'=>''));
 		$lstart = $page*20-20;
 		$arrGroup = $new['group']->findAll('group',array(
@@ -99,7 +99,7 @@ switch($ts){
 	//展示小组
 	case "group":
 	
-		$cateid = intval($_GET['cateid']);
+		$cateid = tsIntval($_GET['cateid']);
 		
 		$strCate = $new['group']->find('group_cate',array(
 			'cateid'=>$cateid,
@@ -131,10 +131,10 @@ switch($ts){
 	//绑定分类
 	case "do":
 		
-		$groupid = intval($_POST['groupid']);
-		$cateid = intval($_POST['cateid']);
-		$cateid2 = intval($_POST['cateid2']);
-		$cateid3 = intval($_POST['cateid3']);
+		$groupid = tsIntval($_POST['groupid']);
+		$cateid = tsIntval($_POST['cateid']);
+		$cateid2 = tsIntval($_POST['cateid2']);
+		$cateid3 = tsIntval($_POST['cateid3']);
 		
 		$new['group']->update('group',array(
 			'groupid'=>$groupid,
@@ -188,7 +188,7 @@ switch($ts){
 
 	//二级分类	
 	case "two":
-		$cateid = intval($_GET['cateid']);
+		$cateid = tsIntval($_GET['cateid']);
 		$arrCate = $db->fetch_all_assoc("select * from ".dbprefix."group_cate where referid='$cateid'");
 		
 		if($arrCate){
@@ -205,7 +205,7 @@ switch($ts){
 	
 	//三级分类
 	case "three":
-		$cateid2 = intval($_GET['cateid2']);
+		$cateid2 = tsIntval($_GET['cateid2']);
 		$arrCate = $db->fetch_all_assoc("select * from ".dbprefix."group_cate where referid='$cateid2'");
 		
 		if($arrCate){

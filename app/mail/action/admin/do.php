@@ -9,7 +9,7 @@ switch($ts){
 			'appdesc' => trim($_POST['appdesc']),
 			'isenable' => trim($_POST['isenable']),
 			'mailhost' => trim($_POST['mailhost']),
-			'ssl' => intval($_POST['ssl']),
+			'ssl' => tsIntval($_POST['ssl']),
 			'mailport' => trim($_POST['mailport']),
 			'mailuser' => trim($_POST['mailuser']),
 			'mailpwd' => trim($_POST['mailpwd']),

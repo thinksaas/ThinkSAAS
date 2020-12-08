@@ -5,7 +5,7 @@ switch($ts){
 	
 	case "list":
 		
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 		
 		$lstart = $page*10-10;
 		
@@ -23,7 +23,7 @@ switch($ts){
 	//推荐图片 
 	case "isrecommend":
 	
-		$photoid = intval($_GET['photoid']);
+		$photoid = tsIntval($_GET['photoid']);
 		
 		$strPhoto = $db->once_fetch_assoc("select isrecommend from ".dbprefix."photo where `photoid`='$photoid'");
 		

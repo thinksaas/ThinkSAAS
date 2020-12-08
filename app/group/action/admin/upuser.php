@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
 exit();
 
 //将用户全部绑定到群组
-$groupid = intval($_GET['groupid']);
+$groupid = tsIntval($_GET['groupid']);
 
 $arrUser = $db->fetch_all_assoc("select userid from ".dbprefix."user order by userid desc");
 

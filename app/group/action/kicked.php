@@ -1,7 +1,7 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-$groupuserid = intval($TS_USER['userid']);
+$groupuserid = tsIntval($TS_USER['userid']);
 
 if($groupuserid==0){
 	echo 0;exit;

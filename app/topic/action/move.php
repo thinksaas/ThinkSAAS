@@ -25,19 +25,30 @@ switch($ts){
 			
 			if($strTopic['userid']==$userid || $strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 			
-				$arrGroups = $new['topic']->findAll('group_user',array(
-					'userid'=>$strTopic['userid'],
-				));
-				foreach($arrGroups as $item){
-					if($item['groupid'] != $strGroup['groupid']){
-					
-						$arrGroup[] = $new['topic']->find('group',array(
-							'groupid'=>$item['groupid'],
-						));
-					
-					}
 
+				if($TS_USER['isadmin']==1){
+					#如果是系统管理员，就调出所有的群组
+					$arrGroup = $new['topic']->findAll('group',array(
+						'isaudit'=>0
+					),'groupid desc','groupid,groupname');
+
+				}else{
+					$arrGroups = $new['topic']->findAll('group_user',array(
+						'userid'=>$strTopic['userid'],
+					));
+					foreach($arrGroups as $item){
+						if($item['groupid'] != $strGroup['groupid']){
+						
+							$arrGroup[] = $new['topic']->find('group',array(
+								'groupid'=>$item['groupid'],
+							));
+						
+						}
+	
+					}
 				}
+
+
 				
 				$title = '移动帖子';
 				include template("move");

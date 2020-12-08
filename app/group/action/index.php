@@ -1,7 +1,7 @@
 <?php
 defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 
-$cateid = intval($_GET['cateid']);
+$cateid = tsIntval($_GET['cateid']);
 
 //小组分类
 $arrGroupCate = $new['group']->findAll('group_cate',array(

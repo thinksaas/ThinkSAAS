@@ -8,7 +8,7 @@ switch($ts){
      */
     case "twocate":
 
-        $referid = intval($_GET['referid']);
+        $referid = tsIntval($_GET['referid']);
 
         $arrCate = $new['article']->findAll('article_cate',array(
             'referid'=>$referid,

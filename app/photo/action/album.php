@@ -25,7 +25,7 @@ switch($ts){
 		$strAlbum['albumdesc'] = tsTitle($strAlbum['albumdesc']);
 		
 		
-		$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
 		
 		$url = tsUrl('photo','album',array('id'=>$albumid,'page'=>''));
 		
@@ -69,7 +69,7 @@ switch($ts){
 		//用户是否登录
 		$userid = aac('user')->isLogin();
 		
-		$albumid = intval($_GET['albumid']);
+		$albumid = tsIntval($_GET['albumid']);
 		
 		$strAlbum = $new['photo']->find('photo_album',array(
 			'albumid'=>$albumid,
@@ -96,7 +96,7 @@ switch($ts){
 		//用户是否登录
 		$userid = aac('user')->isLogin();
 	
-		$albumid = intval($_POST['albumid']);
+		$albumid = tsIntval($_POST['albumid']);
 		
 		$strAlbum = $new['photo']->find('photo_album',array(
 			'albumid'=>$albumid,
@@ -137,8 +137,8 @@ switch($ts){
 		//用户是否登录
 		$userid = aac('user')->isLogin();
 		
-		$albumid = intval($_GET['albumid']);
-		$addtime = intval($_GET['addtime']);
+		$albumid = tsIntval($_GET['albumid']);
+		$addtime = tsIntval($_GET['addtime']);
 		
 		$strAlbum = $new['photo']->find('photo_album',array(
 			'albumid'=>$albumid,
@@ -207,9 +207,9 @@ switch($ts){
 		//用户是否登录
 		$userid = aac('user')->isLogin();
 	
-		$albumid = intval($_POST['albumid']);
+		$albumid = tsIntval($_POST['albumid']);
 		
-		$albumface = intval($_POST['albumface']);
+		$albumface = tsIntval($_POST['albumface']);
 		
 		$arrPhotoId = $_POST['photoid'];
 		$arrPhotoDesc = $_POST['photodesc'];
@@ -239,7 +239,7 @@ switch($ts){
 
 			if($item){
 
-				$photoid = intval($arrPhotoId[$key]);
+				$photoid = tsIntval($arrPhotoId[$key]);
 				
 				$new['photo']->update('photo',array(
 					'photoid'=>$photoid,
@@ -280,7 +280,7 @@ switch($ts){
 		//用户是否登录
 		$userid = aac('user')->isLogin();
 	
-		$albumid = intval($_GET['albumid']);
+		$albumid = tsIntval($_GET['albumid']);
 		
 		$strAlbum = $new['photo']->find('photo_album',array(
 			'albumid'=>$albumid,

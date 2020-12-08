@@ -5,7 +5,7 @@ switch($ts){
 		
 		$objname = tsUrlCheck($_GET['objname']);
 		$idname = tsUrlCheck($_GET['idname']);
-		$objid = intval($_GET['objid']);
+		$objid = tsIntval($_GET['objid']);
 		
 		include template("add_ajax");
 		break;
@@ -14,7 +14,7 @@ switch($ts){
 	
 		$objname = tsUrlCheck($_POST['objname']);
 		$idname = tsUrlCheck($_POST['idname']);
-		$objid = intval($_POST['objid']);
+		$objid = tsIntval($_POST['objid']);
 		$tags = t($_POST['tags']);
 		
 		$new['tag']->addTag($objname,$idname,$objid,$tags);

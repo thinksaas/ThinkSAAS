@@ -85,7 +85,7 @@ switch($ts){
     //手动升级检测
     case "hand":
 
-        $upid = intval($_GET['upid']);
+        $upid = tsIntval($_GET['upid']);
 
         include template('update_hand');
         break;

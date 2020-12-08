@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 //消息盒子
 $userid = aac('user')->isLogin();
 
-$touserid= intval($_GET['touserid']);
+$touserid= tsIntval($_GET['touserid']);
 
 
 $strTouser = aac('user')->getSimpleUser($touserid);

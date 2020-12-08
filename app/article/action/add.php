@@ -20,7 +20,7 @@ switch ($ts) {
 			tsNotice('系统设置不允许会员发文章！');
 		}
 
-		$cateid = intval($_GET['cateid']);
+		$cateid = tsIntval($_GET['cateid']);
 
 
         foreach ($arrCate as $key=>$item){
@@ -54,8 +54,8 @@ switch ($ts) {
 		}
 
 
-		$cateid = intval($_POST['cateid']);
-		$cateid2 = intval($_POST['cateid2']);
+		$cateid = tsIntval($_POST['cateid']);
+		$cateid2 = tsIntval($_POST['cateid2']);
 
 		if($cateid2) $cateid = $cateid2;
         
@@ -66,9 +66,9 @@ switch ($ts) {
 		$tag = tsClean($_POST['tag']);
 		$addtime = date('Y-m-d H:i:s');
 
-        $score = intval($_POST ['score']);#积分
+        $score = tsIntval($_POST ['score']);#积分
 
-		if (intval($TS_USER['isadmin']) == 0) {
+		if (tsIntval($TS_USER['isadmin']) == 0) {
 			// 过滤内容开始
 			$title = antiWord($title);
 			$content = antiWord($content);

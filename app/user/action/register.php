@@ -1,7 +1,7 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-if(intval($TS_USER['userid']) > 0) {
+if(tsIntval($TS_USER['userid']) > 0) {
 	header('Location: '.SITE_URL);exit;
 }
 
@@ -19,7 +19,10 @@ switch($ts){
         }
 		
 		//邀请用户ID
-		$fuserid = intval($_GET['fuserid']);
+		$fuserid = tsIntval($_GET['fuserid']);
+		if($fuserid){
+			$strFuser = $new['user']->getSimpleUser($fuserid);
+		}
 	
 		$title = '注册';
 		
@@ -29,14 +32,14 @@ switch($ts){
 	case "do":
 
 		//用于JS提交验证
-		$js = intval($_GET['js']);
+		$js = tsIntval($_GET['js']);
 	
 		$email		= trim($_POST['email']);
 		$pwd			= trim($_POST['pwd']);
 		$repwd		= trim($_POST['repwd']);
 		$username		= t($_POST['username']);
 		
-		$fuserid = intval($_POST['fuserid']);
+		$fuserid = tsIntval($_POST['fuserid']);
 		
 		$authcode = strtolower($_POST['authcode']);
 

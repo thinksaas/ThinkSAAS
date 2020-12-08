@@ -7,7 +7,7 @@ switch($ts){
 	
 		include 'userinfo.php';
 		
-		$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
 		$url = tsUrl('user','guestbook',array('id'=>$strUser['userid'],'page'=>''));
 		$lstart = $page*20-20;
 
@@ -41,7 +41,7 @@ switch($ts){
 	case "do":
 		
 		$userid = $new['user']->isLogin();
-		$touserid = intval($_POST['touserid']);
+		$touserid = tsIntval($_POST['touserid']);
 		$content = trim($_POST['content']);
 		
 		if($content == ''){
@@ -74,8 +74,8 @@ switch($ts){
 		
 	case "redo":
 		$userid = $new['user']->isLogin();
-		$touserid = intval($_POST['touserid']);
-		$reid = intval($_POST['reid']);
+		$touserid = tsIntval($_POST['touserid']);
+		$reid = tsIntval($_POST['reid']);
 		$content = trim($_POST['content']);
 		
 		$arrContent = explode('#',$content);
@@ -109,7 +109,7 @@ switch($ts){
 	case "delete":
 	
 		$userid = $new['user']->isLogin();
-		$gbid = intval($_GET['gbid']);
+		$gbid = tsIntval($_GET['gbid']);
 		
 		$strGuest = $new['user']->find('user_gb',array(
 			'id'=>$gbid,

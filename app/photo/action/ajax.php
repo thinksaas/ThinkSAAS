@@ -1,7 +1,7 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 
-$userid = intval($TS_USER['userid']);
+$userid = tsIntval($TS_USER['userid']);
 
 if($userid==0){
 	return false;
@@ -26,7 +26,7 @@ switch($ts){
 	//Flash上传
 	case "flash":
 		
-		$albumid = intval($_GET['albumid']);
+		$albumid = tsIntval($_GET['albumid']);
 		$addtime = time();
 		
 		include template("ajax/flash");
@@ -67,12 +67,12 @@ switch($ts){
 	//图片 
 	case "photo":
 		
-		$albumid = intval($_GET['albumid']);
+		$albumid = tsIntval($_GET['albumid']);
 		$strAlbum = $new['photo']->find('photo_album',array(
 			'albumid'=>$albumid,
 		));
 		
-		$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
 		$url = SITE_URL."index.php?app=photo&ac=ajax&ts=photo&albumid=".$albumid."&page=";
 		$lstart = $page*6-6;
 		
@@ -117,8 +117,8 @@ switch($ts){
 	
 	//
 	case "info":
-		$albumid = intval($_GET['albumid']);
-		$addtime = intval($_GET['addtime']);
+		$albumid = tsIntval($_GET['albumid']);
+		$addtime = tsIntval($_GET['addtime']);
 		
 		$strAlbum = $new['photo']->find('photo_album',array(
 			'albumid'=>$albumid,

@@ -34,9 +34,9 @@ if($strTopic['groupid']){
     $strGroup = aac('group')->getOneGroup($strTopic['groupid']);
     // 判断会员是否加入该小组
     $strGroupUser = '';
-    if(intval($TS_USER['userid'])){
+    if(tsIntval($TS_USER['userid'])){
         $strGroupUser = $new['topic']->find('group_user',array(
-            'userid'=>intval($TS_USER['userid']),
+            'userid'=>tsIntval($TS_USER['userid']),
             'groupid'=>$strTopic['groupid'],
         ));
     }
@@ -62,10 +62,10 @@ $isComment = $new['topic']->findCount('comment', array(
     'ptable'=>'topic',
     'pkey'=>'topicid',
     'pid' => $strTopic['topicid'],
-    'userid' => intval($TS_USER['userid']),
+    'userid' => tsIntval($TS_USER['userid']),
 ));
 
-if($strTopic['iscommentshow']==1 && $isComment==0 && $strTopic['userid']!=intval($TS_USER['userid'])){
+if($strTopic['iscommentshow']==1 && $isComment==0 && $strTopic['userid']!=tsIntval($TS_USER['userid'])){
     $strTopic['content'] = '<div class="alert alert-info">你需要回复后才可以浏览帖子内容！</div>';
 }
 

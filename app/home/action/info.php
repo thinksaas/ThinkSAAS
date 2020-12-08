@@ -1,7 +1,7 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 
-$infoid = intval($_GET['id']);
+$infoid = tsIntval($_GET['id']);
 
 $strInfo = $new['home']->find('home_info',array(
 	'infoid'=>$infoid,

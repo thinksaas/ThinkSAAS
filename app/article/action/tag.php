@@ -11,7 +11,7 @@ $strTag = $new ['article']->find ( 'tag', array (
 
 $strTag ['tagname'] = htmlspecialchars ( $strTag ['tagname'] );
 
-$page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : 1;
+$page = isset ( $_GET ['page'] ) ? tsIntval ( $_GET ['page'] ) : 1;
 
 $url = tsUrl ( 'article', 'tag', array (
 		'id' => urlencode ( $name ),

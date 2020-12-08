@@ -5,7 +5,7 @@ defined('IN_TS') or die('Access Denied.');
  * 存草稿箱
  */
 
-$userid = intval($TS_USER['userid']);
+$userid = tsIntval($TS_USER['userid']);
 
 if($userid==0){
     getJson('非法操作！',1,0);

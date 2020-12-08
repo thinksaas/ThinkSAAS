@@ -94,7 +94,7 @@ switch($ts){
         break;
 	
 	case "worddel":
-		$id = intval($_GET['id']);
+		$id = tsIntval($_GET['id']);
 		$new['system']->delete('anti_word',array(
 			'id'=>$id,
 		));
@@ -170,7 +170,7 @@ switch($ts){
 		
 	case "ipdel":
 
-		$id = intval($_GET['id']);
+		$id = tsIntval($_GET['id']);
 		$new['system']->delete('anti_ip',array(
 			'id'=>$id,
 		));
@@ -197,7 +197,7 @@ switch($ts){
     #内容举报
     case "report":
 
-        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        $page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
         $url = SITE_URL.'index.php?app=system&ac=anti&ts=report&page=';
         $lstart = $page*20-20;
         $arrReport = $new['system']->findAll('anti_report',null,'addtime desc',null,$lstart.',20');
@@ -209,7 +209,7 @@ switch($ts){
     #内容举报删除
     case "reportdelete":
 
-        $reportid = intval($_GET['reportid']);
+        $reportid = tsIntval($_GET['reportid']);
 
         $new['system']->delete('anti_report',array(
            'reportid'=>$reportid,

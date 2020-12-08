@@ -2,7 +2,7 @@
 defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 
 
-$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
 
 $url = tsUrl('photo','my',array('my'=>'index','page'=>''));
 

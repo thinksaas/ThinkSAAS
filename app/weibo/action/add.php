@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
 switch($ts){
 
     case "":
-        $js = intval($_GET['js']);
+        $js = tsIntval($_GET['js']);
 
         $userid = aac('user')->isLogin(1);
 

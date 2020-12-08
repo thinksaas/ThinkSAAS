@@ -4,7 +4,7 @@ switch($ts){
 	case "":
 		include 'userinfo.php';
 		
-		$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
 		$url = tsUrl('user','follow',array('id'=>$strUser['userid'],'page'=>''));
 		$lstart = $page*80-80;
 		
@@ -32,8 +32,8 @@ switch($ts){
 	//关注执行 
 	case "do":
 	
-		$userid = intval($TS_USER['userid']);
-		$userid_follow = intval($_POST['userid']);
+		$userid = tsIntval($TS_USER['userid']);
+		$userid_follow = tsIntval($_POST['userid']);
 
 		
 		if($userid == 0){
@@ -105,8 +105,8 @@ switch($ts){
 	//取消关注
 	case "un":
 	
-		$userid = intval($TS_USER['userid']);
-		$userid_follow = intval($_POST['userid']);
+		$userid = tsIntval($TS_USER['userid']);
+		$userid_follow = tsIntval($_POST['userid']);
 
 		
 		if($userid == 0){

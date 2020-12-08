@@ -5,7 +5,7 @@ switch($ts){
 
 	//小组列表
 	case "list":
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 		$url = SITE_URL.'index.php?app=group&ac=admin&mg=group&ts=list&page=';
 		$lstart = $page*10-10;
 		$arrGroup = $db->fetch_all_assoc("select * from ".dbprefix."group order by addtime desc limit $lstart,10");
@@ -43,9 +43,9 @@ switch($ts){
 
         foreach($arrGroupid as $key=>$item){
             $new['group']->update('group',array(
-                'groupid'=>intval($item)
+                'groupid'=>tsIntval($item)
             ),array(
-                'orderid'=>intval($arrOrderid[$key])
+                'orderid'=>tsIntval($arrOrderid[$key])
             ));
         }
 
@@ -56,19 +56,19 @@ switch($ts){
 	
 	//小组编辑
 	case "edit":
-		$groupid = intval($_GET['groupid']);
+		$groupid = tsIntval($_GET['groupid']);
 		$arrGroup = $db->once_fetch_assoc("select * from ".dbprefix."group where groupid='$groupid'");
 		include template("admin/group_edit");
 		break;
 	
 	//小组编辑执行
 	case "editdo":
-		$groupid = intval($_POST['groupid']);
+		$groupid = tsIntval($_POST['groupid']);
 		
 		$new['group']->update('group',array(
 			'groupid'=>$groupid,
 		),array(
-			'userid'			=> intval($_POST['userid']),
+			'userid'			=> tsIntval($_POST['userid']),
 		));
 		
 		qiMsg("小组信息修改成功！");
@@ -76,7 +76,7 @@ switch($ts){
 	
 	//小组删除
 	case "del":
-		$groupid = intval($_GET['groupid']);
+		$groupid = tsIntval($_GET['groupid']);
 		
 		if($groupid == 1){
 			qiMsg("默认小组不能删除！");
@@ -101,7 +101,7 @@ switch($ts){
 	//审核小组 
 	case "isaudit":
 
-		$groupid = intval($_GET['groupid']);
+		$groupid = tsIntval($_GET['groupid']);
 
 		$strGroup = $db->once_fetch_assoc("select groupid,userid,groupname,isaudit from ".dbprefix."group where groupid='$groupid'");
 
@@ -130,7 +130,7 @@ switch($ts){
 	
 	//推荐小组 
 	case "isrecommend":
-		$groupid = intval($_GET['groupid']);
+		$groupid = tsIntval($_GET['groupid']);
 		
 		$strGroup = $db->once_fetch_assoc("select groupid,userid,groupname,isrecommend from ".dbprefix."group where groupid='$groupid'");
 		

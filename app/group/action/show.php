@@ -40,10 +40,10 @@ $strLeader = aac('user')->getSimpleUser($strGroup['userid']);
 
 //判断会员是否加入该小组
 $isGroupUser = '';
-if(intval($TS_USER['userid'])){
-	$strUser = aac('user')->getSimpleUser(intval($TS_USER['userid']));
+if(tsIntval($TS_USER['userid'])){
+	$strUser = aac('user')->getSimpleUser(tsIntval($TS_USER['userid']));
 	$isGroupUser = $new['group']->find('group_user',array(
-		'userid'=>intval($TS_USER['userid']),
+		'userid'=>tsIntval($TS_USER['userid']),
 		'groupid'=>$groupid,
 	));
 }

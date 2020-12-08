@@ -24,8 +24,8 @@ switch ($ts){
 	
 	//禁用-启用
 	case "isenable":
-		$tagid = intval($_GET['tagid']);
-		$isenable = intval($_GET['isenable']);
+		$tagid = tsIntval($_GET['tagid']);
+		$isenable = tsIntval($_GET['isenable']);
 		
 		$db->query("update ".dbprefix."tag set `isenable`='$isenable' where tagid = '$tagid'");
 		
@@ -35,8 +35,8 @@ switch ($ts){
 		
 	//删除
 	case "del":
-		$tagid = intval($_GET['tagid']);
-		$page = intval($_GET['page']);
+		$tagid = tsIntval($_GET['tagid']);
+		$page = tsIntval($_GET['page']);
 		
 		$new['tag']->delete('tag',array('tagid'=>$tagid));
 		$new['tag']->delete('tag_article_index',array('tagid'=>$tagid));
@@ -53,7 +53,7 @@ switch ($ts){
 		
 	//优化标签
 	case "opt":
-		$tagid = intval($_GET['tagid']);
+		$tagid = tsIntval($_GET['tagid']);
 		$strTag = $new['tag']->getOneTag($tagid);
 		
 		$tagname = t($strTag['tagname']);

@@ -5,11 +5,11 @@ switch ($ts){
 
     case "list":
 
-        $userid = intval($_GET['userid']);
+        $userid = tsIntval($_GET['userid']);
         $ptable = isset($_GET['ptable']) ? trim($_GET['ptable']) : 'topic';
-        $pid = intval($_GET['pid']);
+        $pid = tsIntval($_GET['pid']);
 
-        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        $page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
         $url = SITE_URL.'index.php?app=pubs&ac=admin&mg=comment&ts=list&ptable='.$ptable.'&userid='.$userid.'&page=';
         $lstart = $page*10-10;
 
@@ -44,7 +44,7 @@ switch ($ts){
 
     case "delete":
 
-        $commentid = intval($_GET['commentid']);
+        $commentid = tsIntval($_GET['commentid']);
 
         $strComment = $new['pubs']->find('comment',array(
             'commentid'=>$commentid,

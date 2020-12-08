@@ -15,7 +15,7 @@ switch($ts){
         if(aac('system')->pubTime()==false) tsNotice('不好意思，当前时间不允许发布内容！');
 
 
-		$albumid = intval($_GET['albumid']);
+		$albumid = tsIntval($_GET['albumid']);
 
 		$strAlbum = $new['photo']->find('photo_album',array(
 			'albumid'=>$albumid,
@@ -41,9 +41,9 @@ switch($ts){
 
         $userid = aac('user')->isLogin();
 		
-		$albumid = intval($_POST['albumid']);
+		$albumid = tsIntval($_POST['albumid']);
 
-		$addtime = intval($_POST['addtime']);
+		$addtime = tsIntval($_POST['addtime']);
 
 		if($albumid==0){
 		    getJson('非法操作1！');

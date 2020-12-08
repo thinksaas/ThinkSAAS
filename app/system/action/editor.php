@@ -5,7 +5,7 @@ switch($ts){
 
     case "list":
 
-        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        $page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 		$url = SITE_URL.'index.php?app=system&ac=editor&ts=list&page=';
 		$lstart = $page*20-20;
 		$arrEditor = $new['system']->findAll('editor',null,'addtime desc',null,$lstart.',20');
@@ -19,7 +19,7 @@ switch($ts){
 
     case "delete":
 
-        $id = intval($_GET['id']);
+        $id = tsIntval($_GET['id']);
 
         $strEditor = $new['system']->find('editor',array(
             'id'=>$id,

@@ -69,7 +69,7 @@
 
         <div class="commentform">
             
-            {if intval($GLOBALS['TS_USER'][userid])==0}
+            {if tsIntval($GLOBALS['TS_USER'][userid])==0}
                 <div class="tac pd20 fw300">
                     <a href="{tsUrl('user','login')}">登录</a> | <a href="{tsUrl('user','register')}">注册</a>
                 </div>

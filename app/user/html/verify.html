@@ -14,7 +14,7 @@
 
 
 
-                    {if intval($strUser['isverify'])==0 && intval($TS_SITE['isverify'])==1}
+                    {if tsIntval($strUser['isverify'])==0 && tsIntval($TS_SITE['isverify'])==1}
                     <div class="alert alert-info">提示：你必须通过Email验证才可以正常使用本社区</div>
                     {/if}
                     {if $strUser['isverify']==1}

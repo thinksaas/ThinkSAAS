@@ -26,8 +26,8 @@ class message extends tsApp{
      */
     public function sendmsg($userid,$touserid,$content,$tourl='',$extend=''){
 	
-		$userid = intval($userid);
-		$touserid = intval($touserid);
+		$userid = tsIntval($userid);
+		$touserid = tsIntval($touserid);
 		$content = addslashes(trim($content));
 		
 		if($touserid && $content){

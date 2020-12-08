@@ -7,7 +7,7 @@ $userid = aac('user')->isLogin();
 //普通用户不允许删除内容
 if($TS_SITE['isallowdelete'] && $TS_USER ['isadmin'] == 0) tsNotice('系统不允许用户删除内容，请联系管理员删除！');
 		
-$topicid = intval($_GET['topicid']);
+$topicid = tsIntval($_GET['topicid']);
 $strTopic = $new['topic']->getOneTopic($topicid);
 $strGroup = aac('group')->getOneGroup($strTopic['groupid']);
 $strGroupUser = $new['topic']->find('group_user',array(

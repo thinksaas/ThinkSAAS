@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 /**
  * 手机验证码登录
  */
-if(intval($TS_USER['userid']) > 0) {
+if(tsIntval($TS_USER['userid']) > 0) {
 	header('Location: '.SITE_URL);exit;
 }
 
@@ -16,7 +16,7 @@ switch($ts){
 
     case "do":
 
-        $js = intval($_GET['js']);
+        $js = tsIntval($_GET['js']);
         $phone = trim($_POST['email']);
         $authcode = strtolower($_POST['authcode']);
         $phonecode = trim($_POST['phonecode']);

@@ -14,13 +14,13 @@ switch($ts){
 	
 		$scorekey = trim($_POST['scorekey']);
 		$scorename = trim($_POST['scorename']);
-		$score = intval($_POST['score']);
+		$score = tsIntval($_POST['score']);
 		
 		$app = trim($_POST['app']);
 		$action = trim($_POST['action']);
 		$mg = trim($_POST['mg']);
 		$ts = trim($_POST['ts']);
-		$status = intval($_POST['status']);
+		$status = tsIntval($_POST['status']);
 		
 		$new['user']->create('user_score',array(
 			'scorekey'=>$scorekey,
@@ -39,13 +39,13 @@ switch($ts){
 		
 	case "editdo":
 	
-		$scoreid = intval($_POST['scoreid']);
-		$score = intval($_POST['score']);
+		$scoreid = tsIntval($_POST['scoreid']);
+		$score = tsIntval($_POST['score']);
 		$app = trim($_POST['app']);
 		$action = trim($_POST['action']);
 		$mg = trim($_POST['mg']);
 		$ts = trim($_POST['ts']);
-		$status = intval($_POST['status']);
+		$status = tsIntval($_POST['status']);
 		
 		$new['user']->update('user_score',array(
 			'scoreid'=>$scoreid,
@@ -71,9 +71,9 @@ switch($ts){
 		
 	case "senddo":
 	
-		$userid = intval($_POST['userid']);
-		$score = intval($_POST['score']);
-		$status = intval($_POST['status']);
+		$userid = tsIntval($_POST['userid']);
+		$score = tsIntval($_POST['score']);
+		$status = tsIntval($_POST['status']);
 		$scorename = trim($_POST['scorename']);
 		
 		if($userid && $score && $scorename){
@@ -106,7 +106,7 @@ switch($ts){
 		break;
 		
 	case "delete":
-		$scoreid = intval($_GET['scoreid']);
+		$scoreid = tsIntval($_GET['scoreid']);
 		
 		$new['user']->delete('user_score',array(
 			'scoreid'=>$scoreid,

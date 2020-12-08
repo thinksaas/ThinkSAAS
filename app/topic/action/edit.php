@@ -80,8 +80,8 @@ switch($ts){
             }
         }
 		
-		$topicid = intval($_POST['topicid']);
-		$typeid = intval($_POST['typeid']);
+		$topicid = tsIntval($_POST['topicid']);
+		$typeid = tsIntval($_POST['typeid']);
 		
 		$title = trim($_POST['title']);
 		
@@ -90,10 +90,10 @@ switch($ts){
 		$content = tsClean($_POST['content']);
 		$content2 = emptyText($_POST['content']);
 
-        $score = intval($_POST ['score']);#积分
+        $score = tsIntval($_POST ['score']);#积分
 
-		$iscomment = intval($_POST['iscomment']);
-		$iscommentshow = intval($_POST['iscommentshow']);
+		$iscomment = tsIntval($_POST['iscomment']);
+		$iscommentshow = tsIntval($_POST['iscommentshow']);
 		
 		if($topicid == '' || $title=='' || $content2=='' || $content=='') tsNotice("都不能为空的哦!");
 

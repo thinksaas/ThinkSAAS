@@ -5,8 +5,8 @@ switch($ts){
 
 	case "recomment":
 
-        $referid = intval($_GET['referid']);
-        $userid = intval($_GET['userid']);
+        $referid = tsIntval($_GET['referid']);
+        $userid = tsIntval($_GET['userid']);
 
         $arrRecomment = $new['pubs']->recomment($referid,$userid);
 

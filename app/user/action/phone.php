@@ -6,7 +6,7 @@ switch($ts){
     //手机号注册
     case "":
 
-        if(intval($TS_USER['userid']) > 0) {
+        if(tsIntval($TS_USER['userid']) > 0) {
             header('Location: '.SITE_URL);exit;
         }
 
@@ -16,7 +16,7 @@ switch($ts){
         }
 
         //邀请用户ID
-        $fuserid = intval($_GET['fuserid']);
+        $fuserid = tsIntval($_GET['fuserid']);
 
         $title = '手机号注册';
 
@@ -28,14 +28,14 @@ switch($ts){
     case "do":
 
         //用于JS提交验证
-        $js = intval($_GET['js']);
+        $js = tsIntval($_GET['js']);
 
         $phone		= trim($_POST['email']);
         $pwd			= trim($_POST['pwd']);
         $repwd		= trim($_POST['repwd']);
         $username		= t($_POST['username']);
 
-        $fuserid = intval($_POST['fuserid']);
+        $fuserid = tsIntval($_POST['fuserid']);
 
         $authcode = strtolower($_POST['authcode']);
 
@@ -227,7 +227,7 @@ switch($ts){
 
     case "verifydo":
 
-        $js = intval($_GET['js']);
+        $js = tsIntval($_GET['js']);
 
         $userid = aac('user')->isLogin();
 
@@ -335,7 +335,7 @@ switch($ts){
     //修改成新手机号
     case "editphone":
 
-        $js = intval($_GET['js']);
+        $js = tsIntval($_GET['js']);
 
         $userid = aac('user')->isLogin();
 
@@ -395,7 +395,7 @@ switch($ts){
      */
     case "resetpwd":
 
-        $js = intval($_GET['js']);
+        $js = tsIntval($_GET['js']);
 
 
         $phone = trim($_POST['phone']);

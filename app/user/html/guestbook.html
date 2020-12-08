@@ -13,7 +13,7 @@
 
 
 
-                    {if intval($TS_USER['userid']) >0 && intval($TS_USER['userid']) != $strUser['userid']}
+                    {if tsIntval($TS_USER['userid']) >0 && tsIntval($TS_USER['userid']) != $strUser['userid']}
                     <div class="guest">
                         <img class="rounded-circle" src="{SITE_URL}public/images/user_large.jpg" />
                         <form method="post" action="{SITE_URL}index.php?app=user&ac=guestbook&ts=do">
@@ -69,7 +69,7 @@
 
                                     <p class="text-right fs12">
 
-                                        {if intval($TS_USER['userid'] == $strUser['userid'])}
+                                        {if tsIntval($TS_USER['userid'] == $strUser['userid'])}
                                         <a href="#reguest" onclick="reguest('{$item['userid']}','{$item['id']}','{$item['user']['username']}')"><i class="fas fa-reply"></i> 回复</a>
                                         <a class="ml-2" href="{tsUrl('user','guestbook',array('ts'=>'delete','gbid'=>$item['id']))}" onclick="return confirm('确定删除?')"><i class="far fa-trash-alt"></i> 删除</a>
                                         {/if}

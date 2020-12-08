@@ -52,7 +52,7 @@ switch($ts){
 	
 		$apps = tsFilter($_GET['apps']);
 		
-		$isused =  intval($_GET['isused']);
+		$isused =  tsIntval($_GET['isused']);
 		$pname = tsFilter($_GET['pname']);
 		
 		$app_plugins = fileRead('data/'.$apps.'_plugins.php');

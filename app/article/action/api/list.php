@@ -62,10 +62,10 @@ $jsonData = json_encode(array(
     'msg'=> 'success',
     'data'=> array(
 
-        'previous'=>intval($page-1),
-        'page'=>intval($page),
-        'next'=>intval($page+1),
-        'total'=>intval(ceil($articleNum/$limit)),
+        'previous'=>tsIntval($page-1),
+        'page'=>tsIntval($page),
+        'next'=>tsIntval($page+1),
+        'total'=>tsIntval(ceil($articleNum/$limit)),
         'list'=>$arrArticle,
 
     ),

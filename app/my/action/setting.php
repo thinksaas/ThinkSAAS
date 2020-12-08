@@ -56,7 +56,7 @@ switch($ts){
 			}
 		}
 		
-		if(intval($TS_USER['isadmin'])==0){
+		if(tsIntval($TS_USER['isadmin'])==0){
 			//过滤内容开始
 			$username = antiWord($username);
 			$signed = antiWord($signed);

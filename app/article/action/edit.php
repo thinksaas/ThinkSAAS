@@ -13,7 +13,7 @@ switch ($ts) {
 		
 		$articleid = tsIntval ( $_GET ['articleid'] );
 		
-		$cateid = intval ( $_GET ['cateid'] );
+		$cateid = tsIntval ( $_GET ['cateid'] );
 		
 		$strArticle = $new ['article']->find ( 'article', array (
 				'articleid' => $articleid 
@@ -63,8 +63,8 @@ switch ($ts) {
 			tsNotice('非法操作！');
 		}
 		
-		$cateid = intval ( $_POST ['cateid'] );
-		$cateid2 = intval ( $_POST ['cateid2'] );
+		$cateid = tsIntval ( $_POST ['cateid'] );
+		$cateid2 = tsIntval ( $_POST ['cateid2'] );
 
 		if($cateid2) $cateid = $cateid2;
 
@@ -73,9 +73,9 @@ switch ($ts) {
 		$content2 = emptyText ( $_POST ['content'] );
 		$gaiyao = trim ( $_POST ['gaiyao'] );
 
-		$re_gaiyao = intval ( $_POST ['re_gaiyao'] );
+		$re_gaiyao = tsIntval ( $_POST ['re_gaiyao'] );
 
-        $score = intval($_POST ['score']);#积分
+        $score = tsIntval($_POST ['score']);#积分
 
 		if ($TS_USER ['isadmin'] == 0) {
 			// 过滤内容开始

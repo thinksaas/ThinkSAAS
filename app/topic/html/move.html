@@ -16,8 +16,8 @@
                     <form method="POST" action="{SITE_URL}index.php?app=topic&ac=move&ts=do">
 
                         <div class="form-group">
-                            <label>选择小组：</label>
-                            <select name="groupid">
+                            <label>选择要转移的小组：</label>
+                            <select name="groupid" class="form-control">
                                 {loop $arrGroup $key $item}
                                 <option value="{$item['groupid']}">{tsTitle($item['groupname'])}</option>
                                 {/loop}

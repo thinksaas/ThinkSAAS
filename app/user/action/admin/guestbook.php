@@ -5,7 +5,7 @@ switch($ts){
 
 	case "list":
 	
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 		$url = SITE_URL.'index.php?app=user&ac=admin&mg=guestbook&ts=list&page=';
 		$lstart = $page*20-20;
 		
@@ -21,8 +21,8 @@ switch($ts){
 		
 	case "delete":
 	
-		$guestid = intval($_GET['guestid']);
-		$page = intval($_GET['page']);
+		$guestid = tsIntval($_GET['guestid']);
+		$page = tsIntval($_GET['page']);
 		
 		$new['user']->delete('user_gb',array(
 			'id'=>$guestid,

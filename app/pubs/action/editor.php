@@ -10,7 +10,7 @@ switch($ts){
     #图片上传
     case "photo":
 
-        $js = intval($_GET['js']);
+        $js = tsIntval($_GET['js']);
 
         $userid = aac('user')->isLogin();
 

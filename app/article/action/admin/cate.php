@@ -22,7 +22,7 @@ switch($ts){
 	//分类添加
 	case "add":
 
-	    $referid = intval($_GET['referid']);
+	    $referid = tsIntval($_GET['referid']);
 
 		include template("admin/cate_add");
 		
@@ -33,10 +33,10 @@ switch($ts){
 
 		
 		$new['article']->create('article_cate',array(
-		    'referid'=>intval($_POST['referid']),
+		    'referid'=>tsIntval($_POST['referid']),
 			'catename'=>trim($_POST['catename']),
 			'cateinfo'=>trim($_POST['cateinfo']),
-			'orderid'=>intval($_POST['orderid']),
+			'orderid'=>tsIntval($_POST['orderid']),
 		
 		));
 		
@@ -48,7 +48,7 @@ switch($ts){
 	//分类删除
 	case "del":
 		
-		$cateid = intval($_GET['cateid']);
+		$cateid = tsIntval($_GET['cateid']);
 
 
 		$strCate = $new['article']->find('article_cate',array(
@@ -96,7 +96,7 @@ switch($ts){
 	//分类修改
 	case "edit":
 	
-		$cateid = intval($_GET['cateid']);
+		$cateid = tsIntval($_GET['cateid']);
 		
 		$strCate = $new['article']->find('article_cate',array(
 			'cateid'=>$cateid,
@@ -109,7 +109,7 @@ switch($ts){
 	
 	//分类修改执行 
 	case "edit_do":
-		$cateid = intval($_POST['cateid']);
+		$cateid = tsIntval($_POST['cateid']);
 		$catename = trim($_POST['catename']);
 		$cateinfo = trim($_POST['cateinfo']);
 		
@@ -118,7 +118,7 @@ switch($ts){
 		),array(
 			'catename'=>$catename,
 			'cateinfo'=>$cateinfo,
-			'orderid'=>intval($_POST['orderid']),
+			'orderid'=>tsIntval($_POST['orderid']),
 		));
 		
 		header("Location: ".SITE_URL."index.php?app=article&ac=admin&mg=cate&ts=list");

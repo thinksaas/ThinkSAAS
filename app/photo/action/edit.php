@@ -8,7 +8,7 @@ switch($ts){
 
 	case "":
 	
-		$photoid = intval($_GET['photoid']);
+		$photoid = tsIntval($_GET['photoid']);
 
 		$strPhoto = $new['photo']->find('photo',array(
 			'photoid'=>$photoid,
@@ -34,7 +34,7 @@ switch($ts){
 		
 	case "do":
 	
-		$photoid = intval($_POST['photoid']);
+		$photoid = tsIntval($_POST['photoid']);
 		$title = trim($_POST['title']);
 		$photodesc = trim($_POST['photodesc']);
 		

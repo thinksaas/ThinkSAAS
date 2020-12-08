@@ -14,7 +14,7 @@
 
 
 
-                    {if intval($strUser['isverifyphone'])==0 && intval($TS_SITE['isverifyphone'])==1}
+                    {if tsIntval($strUser['isverifyphone'])==0 && tsIntval($TS_SITE['isverifyphone'])==1}
                     <div class="alert alert-info">提示：你必须通过手机号验证才可以正常使用本社区</div>
                     {/if}
                     {if $strUser['isverifyphone']==1}

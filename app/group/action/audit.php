@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 
 $userid = aac('user')->isLogin();
 
-$groupid = intval($_GET['groupid']);
+$groupid = tsIntval($_GET['groupid']);
 
 $strGroup = $new['group']->find('group',array(
 	'groupid'=>$groupid,
@@ -28,7 +28,7 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 		//执行审核
 		case "do":
 			
-			$topicid = intval($_GET['topicid']);
+			$topicid = tsIntval($_GET['topicid']);
 			
 			$new['group']->update('topic',array(
 				'topicid'=>$topicid,
@@ -61,7 +61,7 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 		//删除审核
 		case "delete":
 
-			$topicid = intval($_GET['topicid']);
+			$topicid = tsIntval($_GET['topicid']);
 
 			$strTopic = aac('topic')->getOneTopic($topicid);
 

@@ -34,7 +34,7 @@ switch($ts){
 
 	case "do":
 	
-		$js = intval($_GET['js']);
+		$js = tsIntval($_GET['js']);
 	
 		$email 	= trim($_POST['email']);
 		$pwd 	= trim($_POST['pwd']);

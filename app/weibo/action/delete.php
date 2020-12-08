@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 
 $userid = aac('user')->isLogin();
 
-$weiboid = intval($_GET['weiboid']);
+$weiboid = tsIntval($_GET['weiboid']);
 
 $strWeibo = $new['weibo']->find('weibo',array(
     'weiboid'=>$weiboid,

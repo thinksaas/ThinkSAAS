@@ -14,11 +14,11 @@ switch($ts){
 			'site_url' => trim($_POST['site_url']),
 			'site_email' => trim($_POST['site_email']),
 			'site_icp' => trim($_POST['site_icp']),
-			'isface'	=> intval($_POST['isface']),
-			'isinvite'=> intval($_POST['isinvite']),
-			'isgzip'	=> intval($_POST['isgzip']),
+			'isface'	=> tsIntval($_POST['isface']),
+			'isinvite'=> tsIntval($_POST['isinvite']),
+			'isgzip'	=> tsIntval($_POST['isgzip']),
 			'timezone'	=> $_POST['timezone'],
-			'isverify'=>intval($_POST['isverify']),
+			'isverify'=>tsIntval($_POST['isverify']),
 		);
 	
 		foreach ($arrData as $key => $val){

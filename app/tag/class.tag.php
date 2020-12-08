@@ -19,7 +19,7 @@ class tag extends tsApp{
 	
 		$objname = tsUrlCheck($objname);
 		$idname = tsUrlCheck($idname);
-		$objid = intval($objid);
+		$objid = tsIntval($objid);
 	
 		if($objname != '' && $idname != '' && $objid!=0 && $tags!=''){
 			$tags = str_replace ( '，', ',', $tags );
@@ -145,7 +145,7 @@ class tag extends tsApp{
 			'tagname'=>$tagname,
 		));
 		
-		return intval($strTag['tagid']);
+		return tsIntval($strTag['tagid']);
 	}
 	
 	//统计标签

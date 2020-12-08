@@ -7,7 +7,7 @@ switch($ts){
 	//小组成员首页
 	case "":
 	
-		$groupid = intval($_GET['id']);
+		$groupid = tsIntval($_GET['id']);
 
 		//判断是否存在这个群组
 		$strGroup = $new['group']->getOneGroup($groupid);
@@ -42,7 +42,7 @@ switch($ts){
 
 		//小组会员分页
 
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 
 		$url = tsUrl('group','user',array('id'=>$groupid,'page'=>''));
 

@@ -309,7 +309,7 @@ class user extends tsApp {
      */
     public function isLogin($js=0, $userkey=''){
 	
-		$userid = intval($_SESSION['tsuser']['userid']);
+		$userid = tsIntval($_SESSION['tsuser']['userid']);
 
         if($js && $userid==0 && $userkey==''){
             getJson('你还没有登录',$js);
@@ -443,7 +443,7 @@ class user extends tsApp {
 	
 	//处理积分
 	function doScore($app,$ac,$ts='',$uid=0,$mg=''){
-		$userid = intval($_SESSION['tsuser']['userid']);
+		$userid = tsIntval($_SESSION['tsuser']['userid']);
 		if($uid) $userid=$uid;
 		$strScore = $this->find('user_score',array(
 			'app'=>$app,
@@ -575,7 +575,7 @@ class user extends tsApp {
     //用户签到
     function signin(){
 
-        $userid = intval($GLOBALS['TS_USER']['userid']);
+        $userid = tsIntval($GLOBALS['TS_USER']['userid']);
 
         $zuotian = date('Y-m-d',strtotime("-1 day"));
 
@@ -626,7 +626,7 @@ class user extends tsApp {
      */
     public function isPublisher(){
         $publisher = $GLOBALS['TS_SITE']['publisher'];
-        $userid = intval($GLOBALS['TS_USER']['userid']);
+        $userid = tsIntval($GLOBALS['TS_USER']['userid']);
 
         if($publisher){
 

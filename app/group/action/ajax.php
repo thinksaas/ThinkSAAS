@@ -6,9 +6,9 @@ switch($ts){
 	//加入小组
 	case "joingroup":
 		
-		$userid = intval($TS_USER['userid']);
+		$userid = tsIntval($TS_USER['userid']);
 	
-		$groupid = intval($_POST['groupid']);
+		$groupid = tsIntval($_POST['groupid']);
 		
 		$strGroup = $new['group']->find('group',array(
 			'groupid'=>$groupid
@@ -106,9 +106,9 @@ switch($ts){
 	//退出小组
 	case "exitgroup":
 	
-		$userid = intval($TS_USER['userid']);
+		$userid = tsIntval($TS_USER['userid']);
 		
-		$groupid = intval($_POST['groupid']);
+		$groupid = tsIntval($_POST['groupid']);
 		
 		//判断是否是组长，是组长不能退出小组
 		$strGroup = $new['group']->find('group',array(

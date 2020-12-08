@@ -14,6 +14,24 @@
           <div class="card-body" style="padding: 30px;">
 
 
+            {if $strFuser}
+            <div class="d-flex align-items-center">
+                <div>
+                    <img width="56" height="56" class="rounded-circle" src="{$strFuser['face']}">
+                </div>
+
+                <div class="ml-2">
+                    <div>您好！我是 <span class=" font-weight-bold">{$strFuser['username']}</span>。</div>
+                    <div>我正在邀请您加入 <span class=" font-weight-bold">{$TS_SITE['site_title']}</span> ，欢迎来和我一起交流！</div>
+                </div>
+
+            </div>
+
+            <hr />
+
+            {/if}
+
+
 
               <ul class="nav nav-tabs mb-4">
                   {if $TS_SITE['regtype']=='0' || $TS_SITE['regtype']=='2'}

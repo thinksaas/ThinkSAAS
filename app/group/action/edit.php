@@ -67,11 +67,11 @@ switch($ts){
         ),array(
             'groupname'	=> $groupname,
             'groupdesc'	=> $groupdesc,
-            'joinway'		=> intval($_POST['joinway']),
-            'price'		=> intval($_POST['price']),
-            'ispost'	=> intval($_POST['ispost']),
-            'isopen'		=> intval($_POST['isopen']),
-            'ispostaudit'		=> intval($_POST['ispostaudit']),
+            'joinway'		=> tsIntval($_POST['joinway']),
+            'price'		=> tsIntval($_POST['price']),
+            'ispost'	=> tsIntval($_POST['ispost']),
+            'isopen'		=> tsIntval($_POST['isopen']),
+            'ispostaudit'		=> tsIntval($_POST['ispostaudit']),
         ));
 
         // 处理标签
@@ -168,7 +168,7 @@ switch($ts){
 
     //修改帖子分类
     case "typeedit":
-        $typeid = intval($_POST['typeid']);
+        $typeid = tsIntval($_POST['typeid']);
         $typename = trim($_POST['typename']);
         if($typeid && $typename){
             $new['group']->update('topic_type',array(
@@ -185,7 +185,7 @@ switch($ts){
     //删除帖子分类
     case "typedelete":
 
-        $typeid = intval($_GET['typeid']);
+        $typeid = tsIntval($_GET['typeid']);
 
         $new['group']->delete('topic_type',array(
             'typeid'=>$typeid,
@@ -252,8 +252,8 @@ switch($ts){
     //成员审核执行
     case "userauditdo":
 
-        $userid = intval($_GET['userid']);
-        $status = intval($_GET['status']);
+        $userid = tsIntval($_GET['userid']);
+        $status = tsIntval($_GET['status']);
 
 
         //0加入1删除
@@ -310,7 +310,7 @@ switch($ts){
     case "transferdo":
 
 
-        $touserid = intval($_POST['touserid']);
+        $touserid = tsIntval($_POST['touserid']);
 
         $strTouser = $new['group']->find('group_user',array(
             'userid'=>$touserid,
@@ -334,10 +334,10 @@ switch($ts){
     #添加用户
     case "adduser":
 
-        $js = intval($_GET['js']);
+        $js = tsIntval($_GET['js']);
 
 
-        $userid = intval($_POST['userid']);
+        $userid = tsIntval($_POST['userid']);
 
         if($userid==0){
             getJson('用户ID输入有误！',$js);
@@ -399,10 +399,10 @@ switch($ts){
 
     case "isadmindo":
 
-        $js = intval($_GET['js']);
+        $js = tsIntval($_GET['js']);
 
 
-        $userid = intval($_POST['userid']);
+        $userid = tsIntval($_POST['userid']);
 
         if($userid==0){
             getJson('用户ID输入有误！',$js);
@@ -444,10 +444,10 @@ switch($ts){
     #取消管理员
     case "isadmindel":
 
-        $js = intval($_GET['js']);
+        $js = tsIntval($_GET['js']);
 
 
-        $userid = intval($_POST['userid']);
+        $userid = tsIntval($_POST['userid']);
 
         if($userid==0){
             getJson('用户ID输入有误！',$js);
@@ -490,10 +490,10 @@ switch($ts){
     case "user":
 
 
-        $guserid = intval($_GET['guserid']);
+        $guserid = tsIntval($_GET['guserid']);
 
 
-        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        $page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 
         $url = tsUrl('group','edit',array('ts'=>'user','groupid'=>$groupid,'page'=>''));
 
@@ -538,10 +538,10 @@ switch($ts){
 
     case "xuqi":
 
-        $js = intval($_GET['js']);
+        $js = tsIntval($_GET['js']);
 
 
-        $userid = intval($_POST['userid']);
+        $userid = tsIntval($_POST['userid']);
         $endtime = trim($_POST['endtime']);
 
         if($userid==0){

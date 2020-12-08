@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
 //消息盒子
 $userid = aac('user')->isLogin();
 
-$touserid= intval($_GET['userid']);
+$touserid= tsIntval($_GET['userid']);
 
 if($userid == 0 || $touserid == 0) {
 	exit;

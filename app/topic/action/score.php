@@ -11,7 +11,7 @@ switch ($ts){
             getJson('请登录后再支付！',1,0);
         }
 
-        $topicid = intval($_POST['topicid']);
+        $topicid = tsIntval($_POST['topicid']);
 
         if($topicid==0){
             getJson('帖子不存在！',1,0);

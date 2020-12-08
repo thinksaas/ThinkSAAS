@@ -5,14 +5,14 @@ switch($ts){
 	
 	case "list":
 
-        $isrecommend = intval($_GET['isrecommend']);
-        $istop = intval($_GET['istop']);
+        $isrecommend = tsIntval($_GET['isrecommend']);
+        $istop = tsIntval($_GET['istop']);
 
-        $topicid = intval($_GET['topicid']);
+		$topicid = tsIntval($_GET['topicid']);
 
-        $title = urldecode($_GET['title']);
+		$kw=urldecode(tsFilter($_GET['kw']));
 		
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 		$url = SITE_URL.'index.php?app=topic&ac=admin&mg=topic&ts=list&page=';
 		$lstart = $page*10-10;
 
@@ -38,8 +38,8 @@ switch($ts){
             );
         }
 
-        if($title){
-            $where = "`title` like '%$title%'";
+        if($kw){
+            $where = "`title` like '%$kw%'";
         }
 		
 		$arrTopic = $new['topic']->findAll('topic',$where,'addtime desc',null,$lstart.',10');
@@ -56,7 +56,7 @@ switch($ts){
 	 * 删除帖子
 	 */
 	case "delete":
-		$topicid = intval($_GET['topicid']);
+		$topicid = tsIntval($_GET['topicid']);
 		$strTopic = $new['topic']->getOneTopic($topicid);
 
 		#用户记录
@@ -69,7 +69,7 @@ switch($ts){
 	//帖子审核
 	case "isaudit":
 	
-		$topicid = intval($_GET['topicid']);
+		$topicid = tsIntval($_GET['topicid']);
 		
 		$strTopic = $new['topic']->find('topic',array(
 			'topicid'=>$topicid,
@@ -99,7 +99,7 @@ switch($ts){
     //推荐
     case "isrecommend":
 
-        $topicid = intval($_GET['topicid']);
+        $topicid = tsIntval($_GET['topicid']);
 
         $strTopic = $new['topic']->find('topic',array(
             'topicid'=>$topicid,
@@ -128,7 +128,7 @@ switch($ts){
     //置顶
     case "istop":
 
-        $topicid = intval($_GET['topicid']);
+        $topicid = tsIntval($_GET['topicid']);
 
         $strTopic = $new['topic']->find('topic',array(
             'topicid'=>$topicid,
@@ -159,7 +159,7 @@ switch($ts){
 	//删除的帖子
 	case "deletetopic":
 	
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 		$url = SITE_URL.'index.php?app=topic&ac=admin&mg=topic&ts=deletetopic&page=';
 		$lstart = $page*10-10;
 		
@@ -178,7 +178,7 @@ switch($ts){
 	//编辑的帖子
 	case "edittopic":
 	
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 		$url = SITE_URL.'index.php?app=topic&ac=admin&mg=topic&ts=edittopic&page=';
 		$lstart = $page*10-10;
 		
@@ -195,7 +195,7 @@ switch($ts){
 	//执行更新帖子
 	case "update":
 	
-		$topicid = intval($_GET['topicid']);
+		$topicid = tsIntval($_GET['topicid']);
 		
 		$strTopic = $new['topic']->find('topic_edit',array(
 			'topicid'=>$topicid,
@@ -220,7 +220,7 @@ switch($ts){
 		
 	//查看单独某个修改的帖子
 	case "editview":
-		$topicid = intval($_GET['topicid']);
+		$topicid = tsIntval($_GET['topicid']);
 		
 		$strTopic = $new['topic']->find('topic_edit',array(
 			'topicid'=>$topicid,

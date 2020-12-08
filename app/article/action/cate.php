@@ -1,7 +1,7 @@
 <?php
 defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 
-$cateid = intval ( $_GET ['id'] );
+$cateid = tsIntval ( $_GET ['id'] );
 
 if($cateid==0){
     ts404();
@@ -55,7 +55,7 @@ if($strCate['referid']==0){
 }
 
 // 列表
-$page = isset ( $_GET ['page'] ) ? intval ( $_GET ['page'] ) : 1;
+$page = isset ( $_GET ['page'] ) ? tsIntval ( $_GET ['page'] ) : 1;
 $url = tsUrl ( 'article', 'cate', array ('id' => $cateid, 'page' => ''));
 $lstart = $page * 10 - 10;
 

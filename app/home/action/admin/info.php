@@ -22,7 +22,7 @@ switch($ts){
 		$title = trim($_POST['title']);
 		$content = tsClean($_POST['content']);
 
-		$orderid = intval($_POST['orderid']);
+		$orderid = tsIntval($_POST['orderid']);
 		
 		$new['home']->create('home_info',array(
 
@@ -39,7 +39,7 @@ switch($ts){
 	//编辑 
 	case "edit":
 	
-		$infoid = intval($_GET['infoid']);
+		$infoid = tsIntval($_GET['infoid']);
 
 		$strInfo = $new['home']->find('home_info',array(
 			'infoid'=>$infoid,
@@ -54,13 +54,13 @@ switch($ts){
 		
 	case "editdo":
 	
-		$infoid = intval($_POST['infoid']);
+		$infoid = tsIntval($_POST['infoid']);
 
 		$title = trim($_POST['title']);
 
 		$content = tsClean($_POST['content']);
 
-        $orderid = intval($_POST['orderid']);
+        $orderid = tsIntval($_POST['orderid']);
 		
 		$new['home']->update('home_info',array(
 		
@@ -81,7 +81,7 @@ switch($ts){
 	//删除 
 	case "delete":
 	
-		$infoid = intval($_GET['infoid']);
+		$infoid = tsIntval($_GET['infoid']);
 
 		$new['home']->delete('home_info',array(
 			'infoid'=>$infoid,

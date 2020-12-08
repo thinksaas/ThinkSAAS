@@ -11,13 +11,13 @@ switch ($ts){
 
     case "pay":
 
-        $userid = intval($TS_USER['userid']);
+        $userid = tsIntval($TS_USER['userid']);
 
         if($userid==0){
             getJson('请登录后再支付！',1,0);
         }
 
-        $articleid = intval($_POST['articleid']);
+        $articleid = tsIntval($_POST['articleid']);
 
         if($articleid==0){
             getJson('文章不存在！',1,0);
