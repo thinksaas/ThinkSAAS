@@ -1556,7 +1556,13 @@ function tsUploadLocal($files, $projectid, $dir, $uptypes=array(),$sy=''){
 
                 }
 
-				return array('name' => tsFilter($files['name']), 'path' => $path, 'url' => $path . '/' . $name, 'type' => $type, 'size' => tsFilter($files['size']));
+				return array(
+					'name' => tsFilter($files['name']), 
+					'path' => $path, 
+					'url' => $path . '/' . $name, 
+					'type' => $type, 
+					'size' => tsFilter($files['size'])
+				);
 
 			} else {
 				return false;
@@ -1632,6 +1638,52 @@ function tsUploadAliOss($files, $projectid, $dir, $uptypes=array()){
 	}else{
 		return false;
 	}
+}
+
+/**
+ * 阿里云分片上传
+ *
+ * @param [type] $projectid
+ * @param [type] $dir
+ * @param [type] $type
+ * @return void
+ */
+function AliOssChunkUpload($projectid,$dir,$type){
+
+	$path = getDirPath($projectid);
+	$dest_dir = 'uploadfile/' . $dir . '/' . $path;
+	$name = $projectid . '.' . $type;
+	$dest = $dest_dir . '/' . $name;
+
+	// 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
+	$accessKeyId = $GLOBALS['TS_SITE']['alioss_accesskey_id'];
+	$accessKeySecret = $GLOBALS['TS_SITE']['alioss_accesskey_secret'];
+	// Endpoint以杭州为例，其它Region请按实际情况填写。
+	$endpoint = $GLOBALS['TS_SITE']['alioss_endpoint'];
+	$bucket= $GLOBALS['TS_SITE']['alioss_bucket'];
+	$object = $dest;
+	$file = $dest;
+
+	$options = array(
+		OssClient::OSS_CHECK_MD5 => true,
+		OssClient::OSS_PART_SIZE => 2, //2M
+	);
+	try{
+		$ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
+		$ossClient->multiuploadFile($bucket, $object, $file, $options);
+
+		return true;
+
+	} catch(OssException $e) {
+		#printf(__FUNCTION__ . ": FAILED\n");
+		#printf($e->getMessage() . "\n");
+		#return;
+
+		return false;
+
+	}
+	#print(__FUNCTION__ . ":  OK" . "\n"); 
+
 }
 
 /**

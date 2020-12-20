@@ -54,7 +54,7 @@
         <br /><input {if $strGroup[joinway]=='2'}checked="select"{/if}  name="joinway" type="radio" value="2" />申请加入(需要审核)
 
         {if $TS_APP['ispayjoin']==1}
-        <br /><input {if $strGroup[joinway]=='3'}checked="select"{/if}  name="joinway" type="radio" value="3" />付费加入 需要<input type="number" name="price" value="{if $strGroup['price']}{$strGroup['price']}{else}10{/if}" /> 金币
+        <br /><input {if $strGroup[joinway]=='3'}checked="select"{/if}  name="joinway" type="radio" value="3" />付费加入 需要<input type="number" name="price" value="{$strGroup['price']}" /> 金币
         {/if}
 
     </div>

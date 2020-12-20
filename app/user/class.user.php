@@ -184,7 +184,11 @@ class user extends tsApp {
 			),array(
 				'isused'=>'1',
 			));
-		}
+        }
+        
+
+        return $userid;
+
     }
 
 

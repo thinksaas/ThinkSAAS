@@ -3,6 +3,7 @@
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 -- 导出  表 d_thinksaas.ts_anti_email 结构
 DROP TABLE IF EXISTS `ts_anti_email`;
@@ -800,7 +801,7 @@ CREATE TABLE IF NOT EXISTS `ts_group` (
   `count_user` int(11) NOT NULL DEFAULT '0' COMMENT '小组成员数',
   `count_topic_audit` int(11) NOT NULL DEFAULT '0' COMMENT '统计未审核帖子数',
   `joinway` tinyint(1) NOT NULL DEFAULT '0' COMMENT '加入方式',
-  `price` float(10,2) NOT NULL DEFAULT '0.00' COMMENT '加入支付金币',
+  `price` int(11) NOT NULL DEFAULT '0' COMMENT '加入支付金币',
   `role_leader` char(32) NOT NULL DEFAULT '组长' COMMENT '组长角色名称',
   `role_admin` char(32) NOT NULL DEFAULT '管理员' COMMENT '管理员角色名称',
   `role_user` char(32) NOT NULL DEFAULT '成员' COMMENT '成员角色名称',
@@ -914,9 +915,9 @@ CREATE TABLE IF NOT EXISTS `ts_logs` (
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
   PRIMARY KEY (`logid`),
   KEY `userid` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户操作记录表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户操作记录表';
 
--- 正在导出表  d_thinksaas.ts_logs 的数据：~0 rows (大约)
+-- 正在导出表  d_thinksaas.ts_logs 的数据：0 rows
 DELETE FROM `ts_logs`;
 /*!40000 ALTER TABLE `ts_logs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_logs` ENABLE KEYS */;
@@ -931,9 +932,9 @@ CREATE TABLE IF NOT EXISTS `ts_love` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
   PRIMARY KEY (`loveid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='点赞/喜欢表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='点赞/喜欢表';
 
--- 正在导出表  d_thinksaas.ts_love 的数据：~0 rows (大约)
+-- 正在导出表  d_thinksaas.ts_love 的数据：0 rows
 DELETE FROM `ts_love`;
 /*!40000 ALTER TABLE `ts_love` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_love` ENABLE KEYS */;
@@ -1372,6 +1373,25 @@ DELETE FROM `ts_topic_user`;
 /*!40000 ALTER TABLE `ts_topic_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_topic_user` ENABLE KEYS */;
 
+-- 导出  表 d_thinksaas.ts_upload 结构
+DROP TABLE IF EXISTS `ts_upload`;
+CREATE TABLE IF NOT EXISTS `ts_upload` (
+  `upid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `fileurl` varchar(50) NOT NULL DEFAULT '' COMMENT '文件存储地址',
+  `filename` varchar(50) NOT NULL DEFAULT '' COMMENT '文件名称',
+  `filesize` varchar(50) NOT NULL DEFAULT '' COMMENT '文件大小',
+  `filetype` varchar(50) NOT NULL DEFAULT '' COMMENT '文件类型',
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
+  PRIMARY KEY (`upid`) USING BTREE,
+  KEY `userid` (`userid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='分块上传临时存储';
+
+-- 正在导出表  d_thinksaas.ts_upload 的数据：0 rows
+DELETE FROM `ts_upload`;
+/*!40000 ALTER TABLE `ts_upload` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_upload` ENABLE KEYS */;
+
 -- 导出  表 d_thinksaas.ts_user 结构
 DROP TABLE IF EXISTS `ts_user`;
 CREATE TABLE IF NOT EXISTS `ts_user` (
@@ -1670,3 +1690,4 @@ DELETE FROM `ts_weibo_photo`;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

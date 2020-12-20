@@ -489,5 +489,141 @@ class pubs extends tsApp{
         }
     }
 
+    /**
+     * ThinkSAAS分块上传文件
+     * upsize和upcount为空的情况下就是单个文件，并且该文件比设定的大小要小
+     *
+     * @param [type] $userid    用户ID
+     * @param [type] $upsize    总共分几段上传
+     * @param [type] $upcount   每次分段的size
+     * @param array $uptype     上传文件类型
+     * @return void
+     */
+    public function chunkUpload($userid,$files,$upsize,$upcount,$uptype=array()){
+
+        $upid = $this->create('upload',array(
+            'userid'=>$userid,
+            'addtime'=>date('Y-m-d H:i:s'),
+        ));
+
+        #分块上传到本地服务器
+        $arrUpload = tsUploadLocal($files,$upid,'upload',$uptype);
+
+        if($arrUpload['size']){
+
+            $this->update('upload',array(
+                'upid'=>$upid,
+            ),array(
+                'fileurl'=>$arrUpload['url'],
+                'filename'=>$arrUpload['name'],
+                'filesize'=>$arrUpload['size'],
+                'filetype'=>$arrUpload['type'],
+            ));
+
+            if($arrUpload['size']<$upsize || $upsize==''){
+                
+                $arrUp = $this->findAll('upload',array(
+                    'userid'=>$userid,
+                ),'upid asc');
+
+                if(count($arrUp)==$upcount || ($arrUp && $upcount=='')){
+
+                    return $arrUp;
+
+                }else{
+                    
+                    return 1;
+
+                }
+
+            }else{
+                
+                return 1;
+
+            }
+
+        }else{
+
+            return 0;
+
+        }
+
+    }
+
+    /**
+     * 合并上传文件
+     *
+     * @param [type] $userid
+     * @param [type] $projectid
+     * @param [type] $dir
+     * @param array $arrUp
+     * @return void
+     */
+    public function mergeUpload($projectid,$dir,$arrUp=array()){
+
+        $path = getDirPath($projectid);
+        $dest_dir = 'uploadfile/' . $dir . '/' . $path;
+        createFolders($dest_dir);
+        $name = $projectid . '.' . $arrUp[0]['filetype'];
+        $dest = $dest_dir . '/' . $name;
+
+        #删除原文件
+        unlink($dest);
+
+        $fp = fopen($dest, "ab");
+
+        $filesize = 0;
+        
+        foreach($arrUp as $key=>$item){
+
+            $upfile = 'uploadfile/upload/'.$item['fileurl'];
+            $handle = fopen($upfile,"rb");
+            fwrite($fp, fread($handle,$item['filesize']));
+            fclose($handle);
+            unset($handle);
+            unlink($upfile);//合并完毕的文件就删除
+
+            $filesize = $item['filesize'];
+            $filesize++;
+
+            #删除ts_upload
+            $this->delete('upload',array(
+                'upid'=>$item['upid'],
+            ));
+
+        }
+
+        return array(
+            'name' => $arrUp[0]['filename'], 
+            'path' => $path, 
+            'url' => $path . '/' . $name, 
+            'type' => $arrUp[0]['filetype'], 
+            'size' => $filesize,
+        );
+
+    }
+
+    /**
+     * 删除用户分段上传的文件ts_upload
+     *
+     * @param [type] $userid
+     * @return void
+     */
+    public function delUpload($userid){
+        $arrUp = $this->findAll('upload',array(
+            'userid'=>$userid,
+        ),'upid asc');
+        foreach($arrUp as $key=>$item){
+            $upfile = 'uploadfile/upload/'.$item['fileurl'];
+            unlink($upfile);
+        }
+
+        #删除ts_upload
+        $this->delete('upload',array(
+            'userid'=>$userid,
+        ));
+
+    }
+
 
 }
