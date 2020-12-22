@@ -18,7 +18,25 @@
 
             {loop $arrScore $key $item}
             <form method="post" action="{SITE_URL}index.php?app=user&ac=admin&mg=score&ts=editdo">
-                <tr><td>{$item['scorename']}</td><td>{$item['scorekey']}</td><td><input style="width:50px" name="score" value="{$item['score']}" /></td><td><input style="width:50px" name="app" value="{$item['app']}" /></td><td><input style="width:50px" name="action" value="{$item['action']}" /></td><td><input style="width:50px" name="mg" value="{$item['mg']}" /></td><td><input style="width:50px" name="ts" value="{$item['ts']}" /></td><td><select name="status"><option value="0" {if $item['status']=='0'}selected{/if}>加积分</option><option value="1" {if $item['status']=='1'}selected{/if}>减积分</option></select></td><td><input type="hidden" name="scoreid" value="{$item['scoreid']}" /><input type="submit" value="修改" /> | <a href="{SITE_URL}index.php?app=user&ac=admin&mg=score&ts=delete&scoreid={$item['scoreid']}" onclick="return confirm('确定删除吗？')">删除</a></td></tr>
+                <tr>
+                    <td>{$item['scorename']}</td>
+                    <td>{$item['scorekey']}</td>
+                    <td><input style="width:70px" name="score" value="{$item['score']}" /></td>
+                    <td><input style="width:70px" name="app" value="{$item['app']}" /></td>
+                    <td><input style="width:70px" name="action" value="{$item['action']}" /></td>
+                    <td><input style="width:70px" name="mg" value="{$item['mg']}" /></td>
+                    <td><input style="width:70px" name="ts" value="{$item['ts']}" /></td>
+                    <td>
+                        <select name="status">
+                            <option value="0" {if $item['status']=='0'}selected{/if}>加积分</option>
+                            <option value="1" {if $item['status']=='1'}selected{/if}>减积分</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="hidden" name="scoreid" value="{$item['scoreid']}" /><input type="submit" value="修改" /> | 
+                        <a href="{SITE_URL}index.php?app=user&ac=admin&mg=score&ts=delete&scoreid={$item['scoreid']}" onclick="return confirm('确定删除吗？')">删除</a>
+                    </td>
+                </tr>
             </form>
             {/loop}
 

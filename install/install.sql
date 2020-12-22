@@ -1599,7 +1599,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_score` (
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '积分数',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0加积分1减积分',
   PRIMARY KEY (`scoreid`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COMMENT='用户积分设置表';
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COMMENT='用户积分设置表';
 
 -- 正在导出表  d_thinksaas.ts_user_score 的数据：16 rows
 DELETE FROM `ts_user_score`;
@@ -1620,7 +1620,8 @@ INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`
 	(14, 'ask_admin_topic_isaudit1', '后台问题审核不通过', 'ask', 'admin', 'topic', 'isaudit1', 5, 1),
 	(15, 'ask_new_do', '前台发布问题', 'ask', 'new', '', 'do', 5, 0),
 	(16, 'ask_ajax_ask2commentid', '前台问题采纳', 'ask', 'ajax', '', 'ask2commentid', 5, 0),
-	(17, 'article_admin_post_delete', '后台文章删除', 'article', 'admin', 'post', 'delete', 5, 1);
+	(17, 'article_admin_post_delete', '后台文章删除', 'article', 'admin', 'post', 'delete', 5, 1),
+	(18, 'user_phone_do', '手机号注册', 'user', 'phone', '', 'do', 10, 0);
 /*!40000 ALTER TABLE `ts_user_score` ENABLE KEYS */;
 
 -- 导出  表 d_thinksaas.ts_user_score_log 结构

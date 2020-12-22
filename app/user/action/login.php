@@ -91,7 +91,7 @@ switch($ts){
 		$new['user']->login($strUser['userid']);
 
 		//对积分进行处理
-		aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
+		aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts'],0,'',1);
 
         if($ad==1){
             getJson('登录成功！',$js,2,SITE_URL.'index.php?app=system');

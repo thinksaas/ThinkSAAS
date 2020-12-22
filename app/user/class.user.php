@@ -445,8 +445,18 @@ class user extends tsApp {
 		}
 	}
 	
-	//处理积分
-	function doScore($app,$ac,$ts='',$uid=0,$mg=''){
+	/**
+     * 处理积分
+     *
+     * @param [type] $app
+     * @param [type] $ac
+     * @param string $ts
+     * @param integer $uid     指定用户ID
+     * @param string $mg       指向后台管理文件(用于后台操作得积分处理)
+     * @param integer $isday   是否一天只给一次积分，默认0否1是
+     * @return void
+     */
+	function doScore($app,$ac,$ts='',$uid=0,$mg='',$isday=0){
 		$userid = tsIntval($_SESSION['tsuser']['userid']);
 		if($uid) $userid=$uid;
 		$strScore = $this->find('user_score',array(
@@ -455,18 +465,26 @@ class user extends tsApp {
 			'mg'=>$mg,
 			'ts'=>$ts,
 		));
-		
 		if($strScore && $userid){
 			if($strScore['status']=='0'){
-				$this->addScore($userid,$strScore['scorename'],$strScore['score']);
-			}
-			
-			if($strScore['status']=='1'){
+                if($isday==1){
+                    //获取最新得一条积分记录
+                    $strScoreLog = $this->find('user_score_log',array(
+                        'userid'=>$userid,
+                        'scorename'=>$strScore['scorename'],
+                    ),null,'addtime desc');
+                    if(($strScoreLog && date('Y-m-d H:i:s',$strScoreLog['addtime'])<date('Y-m-d 00:00:01')) || $strScoreLog==''){
+                        $this->addScore($userid,$strScore['scorename'],$strScore['score']);
+                    }
+                }else{
+                    //0加积分
+                    $this->addScore($userid,$strScore['scorename'],$strScore['score']);
+                }
+			}elseif($strScore['status']=='1'){
+                //1减积分
 				$this->delScore($userid,$strScore['scorename'],$strScore['score']);
 			}
-			
 		}
-		
     }
 	
 	//删除用户一切数据
