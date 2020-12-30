@@ -284,6 +284,52 @@ defined('IN_TS') or die('Access Denied.');
             }
 
             qiMsg('操作成功！');
-            break;
+			break;
+			
+		case "isverify":
+
+			$userid = tsIntval($_GET['userid']);
+			$strUser = $new['user']->find('user_info',array(
+				'userid'=>$userid,
+			));
+			
+			if($strUser['isverify']==0){
+				$isverify = 1;
+			}else{
+				$isverify = 0;
+			}
+
+			$new['user']->update('user_info',array(
+				'userid'=>$userid,
+			),array(
+				'isverify'=>$isverify,
+			));
+
+			qiMsg('操作成功！');
+
+			break;
+
+		case "isverifyphone":
+
+			$userid = tsIntval($_GET['userid']);
+			$strUser = $new['user']->find('user_info',array(
+				'userid'=>$userid,
+			));
+			
+			if($strUser['isverifyphone']==0){
+				$isverifyphone = 1;
+			}else{
+				$isverifyphone = 0;
+			}
+
+			$new['user']->update('user_info',array(
+				'userid'=>$userid,
+			),array(
+				'isverifyphone'=>$isverifyphone,
+			));
+
+			qiMsg('操作成功！');
+
+			break;
 		
 	}

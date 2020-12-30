@@ -6,14 +6,14 @@ switch($ts){
 	case "list":
 		
 		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
-		$url = SITE_URL.'index.php?app=article&ac=admin&mg=post&ts=list&page=';
+		$url = SITE_URL.'index.php?app=article&ac=admin&mg=article&ts=list&page=';
 		$lstart = $page*20-20;
 		$arrArticle = $new['article']->findAll('article',null,'addtime desc',null,$lstart.',20');
 		
 		$articleNum = $new['article']->findCount('article');
 		$pageUrl = pagination($articleNum, 20, $page, $url);
 		
-		include template('admin/post_list');
+		include template('admin/article_list');
 		break;
 		
 	//审核通过

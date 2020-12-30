@@ -32,7 +32,9 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
         <th>姓名</th>
         <th>注册时间</th>
         <th>登录IP</th>
-        <th>来自</th><th>验证Email</th><th>操作</th></tr>
+        <th>来自</th>
+        
+        <th>操作</th></tr>
 
     </thead>
 
@@ -47,14 +49,43 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
 
         <td>{$item[fuserid]}</td>
 
-        <td>{$item[email]}</td>
-        <td>{$item['phone']}</td>
+        <td>
+            
+            {$item[email]}
+
+            
+            {if $TS_USER['userid']==1 && $item['userid']!=1}
+            <div class="fs12">
+                {if $item['isverify']==1}
+                已验证 <a onclick="return confirm('确定取消?')" href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isverify&userid={$item['userid']}">[取消]</a>
+                {else}
+                <font color="red">未验证</font> <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isverify&userid={$item['userid']}">[验证]</a>
+                {/if}
+            </div>
+            {/if}
+
+        </td>
+        <td>
+            
+            {$item['phone']}
+
+            {if $TS_USER['userid']==1 && $item['userid']!=1}
+            <div class="fs12">
+                {if $item['isverifyphone']==1}
+                已验证 <a onclick="return confirm('确定取消?')" href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isverifyphone&userid={$item['userid']}">[取消]</a>
+                {else}
+                <font color="red">未验证</font> <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isverifyphone&userid={$item['userid']}">[验证]</a>
+                {/if}
+            </div>
+            {/if}
+
+        </td>
 
         <td>{$item[username]}</td><td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td>
 
         <td>{$item['ip']}</td>
         <td>{$item['comefrom']}</td>
-        <td>{if $item['isverify']==1}已验证{else}<font color="red">未验证</font>{/if}</td>
+        
         <td>
 
 
