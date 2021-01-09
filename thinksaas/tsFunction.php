@@ -135,7 +135,7 @@ function pagination($count, $perlogs, $page, $url ,$suffix = '') {
         $suffix = '.html';
     }
 
-    $pnums = @ceil($count / $perlogs);
+    $pnums = ceil($count / $perlogs);
     $res = '<nav aria-label="Page navigation example"><ul class="pagination justify-content-center">';
     $re = '';
     for ($i = $page - 5; $i <= $page + 5 && $i <= $pnums; $i++) {

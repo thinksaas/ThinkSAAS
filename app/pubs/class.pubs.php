@@ -164,8 +164,8 @@ class pubs extends tsApp{
      */
     public function getCommentNum($ptable,$pkey,$pid){
         $commentNum = $this->findCount('comment',array(
-            'ptable'=>'topic',
-            'pkey'=>'topicid',
+            'ptable'=>$ptable,
+            'pkey'=>$pkey,
             'pid'=>$pid,
             'referid'=>0,
         ));

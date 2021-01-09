@@ -253,7 +253,7 @@ p, li, dd, dt {
 	var curWwwPath=window.document.location.href;
 	var pathName=window.document.location.pathname;
 	var pos=curWwwPath.indexOf(pathName);
-	var localhostPaht=curWwwPath.substring(0,pos)+'/';
+	var localhostPaht=curWwwPath.substring(0,pos)+pathName.replace('index.php', '');
 	var inputUrl = document.getElementById("site-url")
 	inputUrl.value = localhostPaht;
 </script>
