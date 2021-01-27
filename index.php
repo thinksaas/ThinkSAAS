@@ -11,8 +11,8 @@
 define('IN_TS', true);
 header('Content-Type: text/html; charset=UTF-8');
 #php版本限制
-if (substr(PHP_VERSION, 0, 3)<5.5) {
-    exit("ThinkSAAS运行环境要求PHP5.5或者更高！");
+if (substr(PHP_VERSION, 0, 3)<7.0) {
+    exit("ThinkSAAS运行环境要求PHP7.0或者更高！建议使用PHP7.2！");
 }
 #定义一些路径
 define('THINKROOT', dirname(__FILE__));

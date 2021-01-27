@@ -56,7 +56,7 @@ $(document).ready(function() {
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
-            <li class="breadcrumb-item"><a href="{tsUrl('group')}">小组</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">{$TS_APP['appname']}</a></li>
             <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
             <li class="breadcrumb-item active" aria-current="page">小组设置</li>
         </ol>

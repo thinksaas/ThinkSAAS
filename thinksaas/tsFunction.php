@@ -3059,6 +3059,15 @@ function tsIntval($number,$min=0){
 }
 
 /**
+ * 只保留中文，英文以及数字
+ */
+function match_chinese($chars,$encoding='utf8'){
+    $pattern =($encoding=='utf8')?'/[\x{4e00}-\x{9fa5}a-zA-Z0-9]/u':'/[\x80-\xFF]/';
+    preg_match_all($pattern,$chars,$result);
+    return join('',$result[0]);
+}
+
+/**
  * 返回13位时间戳
  */
 function getUnixTimestamp (){
@@ -3077,5 +3086,19 @@ function vaptcha($token,$scene=0){
 	return $strJson;
 }
 
-
-if(is_file('thinksaas/wxFunction.php')) include 'thinksaas/wxFunction.php'; //微信内登录
+/**
+ * 根据省份获取快递费用
+ *
+ * @param [type] $province
+ * @return void
+ */
+function getPostPrice($province){
+    if(in_array($province,array('新疆维吾尔自治区','西藏自治区','青海省','宁夏回族自治区','甘肃省','云南省','贵州省','海南省'))){
+        $postprice = 20;
+    }elseif(in_array($province,array('台湾省','香港特别行政区','澳门特别行政区'))){
+        $postprice = 300;
+    }else{
+        $postprice = 0;
+    }
+    return $postprice;
+}

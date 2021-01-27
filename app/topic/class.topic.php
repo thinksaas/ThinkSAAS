@@ -102,7 +102,7 @@ class topic extends tsApp {
 
         $endTime = time();
 
-        $arr = "`addtime`>'$startTime' and `count_view`>'0' and `addtime`<'$endTime'";
+        $arr = "`addtime`>'$startTime' and `count_view`>'0' and `addtime`<'$endTime' and `isaudit`='0'";
 
         $arrTopic = $this->findAll('topic',$arr,'addtime desc','topicid,title,count_view,count_comment',10);
         foreach($arrTopic as $key=>$item){
@@ -119,10 +119,12 @@ class topic extends tsApp {
             $arr = array(
                 'groupid'=>$groupid,
                 'isrecommend'=>1,
+                'isaudit'=>0,
             );
         }else{
             $arr = array(
                 'isrecommend'=>1,
+                'isaudit'=>0,
             );
         }
         $arrTopic = $this->findAll('topic',$arr,'addtime desc','topicid,title',$num);

@@ -1,5 +1,5 @@
 {
-  "name": "thinksaas",
+  "name": "thinksaas/3.43",
   "description": "www.thinksaas.cn",
   "minimum-stability": "stable",
   "license": "proprietary",
@@ -14,6 +14,7 @@
     "intervention/image": "^2.5",
     "qcloudsms/qcloudsms_php": "^0.1.4",
     "alibabacloud/client": "^1.5",
-    "aliyuncs/oss-sdk-php": "^2.3"
+    "aliyuncs/oss-sdk-php": "^2.3",
+    "overtrue/wechat": "~4.0"
   }
 }

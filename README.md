@@ -6,8 +6,8 @@ ThinkSAAS可以帮你快速开发和搭建与众不同的交流社区。
 
 ## 开发环境
 
-php >= 5.5 (支持php7，建议php7.2)  
-MySQL >= 5.5 (建议mysql5.6，不支持mysql8) 
+php >= 7.0 (支持php7，建议php7.2)  
+MySQL >= 5.5 (建议mysql5.6/5.7，不支持mysql8) +
 Apache / Nginx  
 Windows / Linux  
 建议采用lnmp或者lamp环境  
