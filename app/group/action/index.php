@@ -32,8 +32,9 @@ if($cateid){
 $arrGroup = $new ['group']->findAll ( 'group', $arr, 'isrecommend desc,addtime asc', null, $lstart . ',32' );
 
 foreach ( $arrGroup as $key => $item ) {
-	$arrGroup [$key] ['groupname'] = tsTitle ( $item['groupname'] );
-	$arrGroup [$key] ['groupdesc'] = cututf8 (tsTitle($item ['groupdesc']), 0, 35 );
+	$arrGroup[$key]['groupname'] = tsTitle ( $item['groupname'] );
+	$arrGroup[$key]['groupdesc'] = cututf8 (tsTitle($item ['groupdesc']), 0, 35 );
+	$arrGroup[$key]['photo_url'] = $new['group']->getGroupPhoto($item);
 }
 
 $groupNum = $new ['group']->findCount ( 'group',$arr);

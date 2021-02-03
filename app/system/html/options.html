@@ -93,6 +93,33 @@
 
 
 
+<tr><td>是否开启公众平台登录:</td><td>
+
+    <div>
+        <input type="radio" {if $strOption['is_weixin']=='0'}checked="select"{/if} name="option[is_weixin]" value="0" />否 
+        <input type="radio" {if $strOption['is_weixin']=='1'}checked="select"{/if} name="option[is_weixin]" value="1" />是 <small class="text-danger">(请先获取微信公众号所需要的参数，<a class="font-weight-bold" target="_blank" href="https://mp.weixin.qq.com/">点击去获取</a>)</small>
+    </div>
+
+
+    <div id="weixin_option" {if $strOption['is_weixin']=='0' || $strOption['is_weixin']==''}style="display: none;"{/if}>
+    
+        <div class="d-flex mt-2">
+            <div style="width: 80px;">AppID：</div>
+            <div><input style="width:300px;" type="text" name="option[weixin_appid]" value="{$strOption['weixin_appid']}"></div>
+        </div>
+
+        <div class="d-flex mt-2">
+            <div style="width: 80px;">AppSecret：</div>
+            <div><input style="width:300px;" type="text" name="option[weixin_appsecret]" value="{$strOption['weixin_appsecret']}"></div>
+        </div>
+
+    </div>
+
+
+</td></tr>
+
+
+
 <tr><td>是否开启人机验证 :</td><td>
 
     <div>
@@ -322,6 +349,16 @@
         $("#sitepkey").val(value);
     }
 
+    //微信公众号选项
+    $('input[name="option[is_weixin]"]').click(function(){
+        var value  = $('input[name="option[is_weixin]"]:checked').val();
+        if(value=='1'){
+            $("#weixin_option").show()
+        }else if(value=='0'){
+            $("#weixin_option").hide()
+        }
+    });
+
     //人机验证选项
     $('input[name="option[is_vaptcha]"]').click(function(){
         var value  = $('input[name="option[is_vaptcha]"]:checked').val();
@@ -332,7 +369,6 @@
         }
     });
 
-
     //文件存储选项
     $('input[name="option[file_upload_type]"]').click(function(){
         var value  = $('input[name="option[file_upload_type]"]:checked').val();
@@ -342,7 +378,6 @@
             $("#alioss_option").hide()
         }
     });
-
 
 </script>
 {php include pubTemplate("footer_admin")}

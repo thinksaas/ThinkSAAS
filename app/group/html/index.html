@@ -45,7 +45,7 @@
                     <div class="sub-item">
                         <div class="pic">
                             <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">
-                                <img class="rounded" src="{if $item[photo]}{php echo tsXimg($item['photo'],'group','120','120',$item['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" alt="{$item[groupname]}" />
+                                <img class="rounded" src="{$item['photo_url']}" alt="{$item[groupname]}" />
                             </a>
 
                         </div>

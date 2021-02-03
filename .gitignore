@@ -6,7 +6,6 @@
 .vscode
 .htaccess
 .DS_Store
-composer.lock
 upgrade.sql
 upgrade.txt
 auto_install.json

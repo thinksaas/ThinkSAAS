@@ -1,8 +1,25 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
+use EasyWeChat\Factory;
+
 if(tsIntval($TS_USER['userid']) > 0) {
 	header('Location: '.SITE_URL);exit;
+}
+
+#微信公众号授权
+if(isWeixin()==true && $TS_SITE['is_weixin']==1){
+	$config = [
+		'app_id' => $TS_SITE['weixin_appid'],
+		'oauth' => [
+			'scopes'   => ['snsapi_userinfo'],
+			'callback' => SITE_URL.'index.php?app=user&ac=wxlogin',
+		],	
+	];
+	$app = Factory::officialAccount($config);
+	$oauth = $app->oauth;
+	$oauth->redirect()->send();
+	exit();
 }
 
 //程序主体
