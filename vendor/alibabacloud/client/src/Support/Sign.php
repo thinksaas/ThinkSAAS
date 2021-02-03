@@ -111,6 +111,9 @@ class Sign
         ksort($parameters);
         $canonicalized = '';
         foreach ($parameters as $key => $value) {
+            if ($value === null || $value === '') {
+                continue;
+            }
             $canonicalized .= '&' . self::percentEncode($key) . '=' . self::percentEncode($value);
         }
 

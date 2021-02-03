@@ -125,7 +125,7 @@ class RoaRequest extends Request
 
         $signature                                           = $this->httpClient()->getSignature();
         $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();
-        $this->options['headers']['x-acs-signature-nonce']   = Sign::uuid($this->product . $this->realRegionId());
+        $this->options['headers']['x-acs-signature-nonce']   = Sign::uuid($this->product . $this->action);
         $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
         if ($signature->getType()) {
             $this->options['headers']['x-acs-signature-type'] = $signature->getType();

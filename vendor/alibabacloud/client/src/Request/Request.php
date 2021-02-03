@@ -2,35 +2,35 @@
 
 namespace AlibabaCloud\Client\Request;
 
-use Exception;
-use ArrayAccess;
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\Middleware;
-use AlibabaCloud\Client\SDK;
-use GuzzleHttp\HandlerStack;
-use AlibabaCloud\Client\Encode;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Filter\Filter;
-use AlibabaCloud\Client\Result\Result;
-use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Promise\PromiseInterface;
-use AlibabaCloud\Client\Filter\ApiFilter;
-use AlibabaCloud\Client\Log\LogFormatter;
-use AlibabaCloud\Client\Traits\HttpTrait;
-use GuzzleHttp\Exception\GuzzleException;
-use AlibabaCloud\Client\Filter\HttpFilter;
-use AlibabaCloud\Client\Traits\RegionTrait;
-use AlibabaCloud\Client\Filter\ClientFilter;
-use AlibabaCloud\Client\Request\Traits\AcsTrait;
-use AlibabaCloud\Client\Traits\ArrayAccessTrait;
-use AlibabaCloud\Client\Traits\ObjectAccessTrait;
-use AlibabaCloud\Client\Request\Traits\RetryTrait;
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
+use AlibabaCloud\Client\Encode;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Filter\ApiFilter;
+use AlibabaCloud\Client\Filter\ClientFilter;
+use AlibabaCloud\Client\Filter\Filter;
+use AlibabaCloud\Client\Filter\HttpFilter;
+use AlibabaCloud\Client\Request\Traits\AcsTrait;
 use AlibabaCloud\Client\Request\Traits\ClientTrait;
 use AlibabaCloud\Client\Request\Traits\DeprecatedTrait;
-use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
+use AlibabaCloud\Client\Request\Traits\RetryTrait;
+use AlibabaCloud\Client\Result\Result;
+use AlibabaCloud\Client\SDK;
+use AlibabaCloud\Client\Traits\ArrayAccessTrait;
+use AlibabaCloud\Client\Traits\HttpTrait;
+use AlibabaCloud\Client\Traits\ObjectAccessTrait;
+use AlibabaCloud\Client\Traits\RegionTrait;
+use ArrayAccess;
+use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Uri;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class Request
@@ -382,7 +382,7 @@ abstract class Request implements ArrayAccess
         if (AlibabaCloud::getLogger()) {
             $stack->push(Middleware::log(
                 AlibabaCloud::getLogger(),
-                new LogFormatter(AlibabaCloud::getLogFormat())
+                new MessageFormatter(AlibabaCloud::getLogFormat())
             ));
         }
 

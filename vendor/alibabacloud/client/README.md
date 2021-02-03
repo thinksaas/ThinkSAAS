@@ -47,6 +47,11 @@ use AlibabaCloud\Client\AlibabaCloud;
 AlibabaCloud::accessKeyClient('accessKeyId', 'accessKeySecret')->asDefaultClient();
 ```
 
+
+## Request
+> Request styles are divided into `ROA` and `RPC`. Different product styles are different. Please refer to the product documentation before using. It is recommended to use [Alibaba cloud SDK for PHP][SDK], the details have been encapsulated, and you do not need to care about the style.
+
+
 ### ROA Request
 ```php
 <?php
@@ -107,7 +112,7 @@ try {
 ## Documentation
 * [Prerequisites](/docs/en-US/0-Prerequisites.md)
 * [Installation](/docs/en-US/1-Installation.md)
-* [Client](/docs/en-US/2-Client.md)
+* [Client & Credentials](/docs/en-US/2-Client.md)
 * [Request](/docs/en-US/3-Request.md)
 * [Result](/docs/en-US/4-Result.md)
 * [Region](/docs/en-US/5-Region.md)

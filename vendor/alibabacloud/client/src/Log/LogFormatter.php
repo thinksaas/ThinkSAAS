@@ -10,11 +10,12 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
+ * @deprecated Use GuzzleHttp\MessageFormatter.
  * Class LogFormatter
  *
  * @package AlibabaCloud\Client\Log
  */
-class LogFormatter extends MessageFormatter
+class LogFormatter
 {
     /**
      * @var float

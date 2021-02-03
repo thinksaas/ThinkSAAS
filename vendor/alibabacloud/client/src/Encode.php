@@ -42,7 +42,11 @@ class Encode
         $string = '';
         foreach ($this->data as $key => $value) {
             $encode = rawurlencode($value);
-            $string .= "$key=$encode&";
+            if ($encode === '') {
+                $string .= "$key&";
+            } else {
+                $string .= "$key=$encode&";
+            }
         }
 
         if (0 < count($this->data)) {

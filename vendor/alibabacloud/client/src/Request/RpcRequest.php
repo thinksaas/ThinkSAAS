@@ -80,7 +80,7 @@ class RpcRequest extends Request
         $this->options['query']['Format']           = $this->format;
         $this->options['query']['SignatureMethod']  = $signature->getMethod();
         $this->options['query']['SignatureVersion'] = $signature->getVersion();
-        $this->options['query']['SignatureNonce']   = Sign::uuid($this->product . $this->realRegionId());
+        $this->options['query']['SignatureNonce']   = Sign::uuid($this->product . $this->action);
         $this->options['query']['Timestamp']        = gmdate($this->dateTimeFormat);
         $this->options['query']['Action']           = $this->action;
         if ($this->credential()->getAccessKeyId()) {
