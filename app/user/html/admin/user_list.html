@@ -88,26 +88,21 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
         
         <td>
 
-
             <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isrenzheng&&userid={$item[userid]}">
                 {if $item[isrenzheng]=='0'}[手工认证]{else}<font color="green">[取消认证]</font>{/if}
             </a>
 
-
             <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=view&userid={$item[userid]}">[明细]</a>
-
 
             {if $item['isadmin']==0}
             <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isenable&&userid={$item[userid]}&page={$page}">
                 {if $item[isenable]=='0'}[停用]{else}<font color="red">[启用]</font>{/if}</a>
             {/if}
 
+            {if $item['userid']!=1}
             <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=pwd&userid={$item[userid]}">[修改密码]</a>
-
-
             <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=face&userid={$item[userid]}">[清除头像]</a>
-
-
+            {/if}
 
             {if $TS_USER['userid']==1 && $item['userid']!=1}
             <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=deldata&userid={$item[userid]}">[删除]</a>
