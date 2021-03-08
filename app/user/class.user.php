@@ -46,12 +46,12 @@ class user extends tsApp {
         //用户session信息
         $sessionData = array(
             'userid' => $strUserInfo['userid'],
-            'username'	=> $strUserInfo['username'],
-            'path'	=> $strUserInfo['path'],
-            'face'	=> $strUserInfo['face'],
-            'isadmin'	=> $strUserInfo['isadmin'],
-            'signin'=>$strUserInfo['signin'],
-            'uptime'	=> $strUserInfo['uptime'],
+            'username' => $strUserInfo['username'],
+            'path' => $strUserInfo['path'],
+            'face' => $strUserInfo['face'],
+            'isadmin' => $strUserInfo['isadmin'],
+            'signin' =>$strUserInfo['signin'],
+            'uptime' => $strUserInfo['uptime'],
         );
 
         $_SESSION['tsuser']	= $sessionData;
@@ -503,6 +503,12 @@ class user extends tsApp {
         ));
 
         #禁用用户手机号
+        $this->replace('anti_phone',array(
+            'phone'=>$strUser['phone'],
+        ),array(
+            'phone'=>$strUser['phone'],
+			'addtime'=>date('Y-m-d H:i:s'),
+        ));
 
         #用户头像
         if($strUser['face']){

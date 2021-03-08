@@ -34,6 +34,21 @@ DELETE FROM `ts_anti_ip`;
 /*!40000 ALTER TABLE `ts_anti_ip` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_anti_ip` ENABLE KEYS */;
 
+-- 导出  表 d_thinksaas.ts_anti_phone 结构
+DROP TABLE IF EXISTS `ts_anti_phone`;
+CREATE TABLE IF NOT EXISTS `ts_anti_phone` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `phone` varchar(64) NOT NULL DEFAULT '' COMMENT '手机号',
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '添加时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `phone` (`phone`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='过滤手机号';
+
+-- 正在导出表  d_thinksaas.ts_anti_phone 的数据：0 rows
+DELETE FROM `ts_anti_phone`;
+/*!40000 ALTER TABLE `ts_anti_phone` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_anti_phone` ENABLE KEYS */;
+
 -- 导出  表 d_thinksaas.ts_anti_report 结构
 DROP TABLE IF EXISTS `ts_anti_report`;
 CREATE TABLE IF NOT EXISTS `ts_anti_report` (

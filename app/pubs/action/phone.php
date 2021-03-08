@@ -32,8 +32,15 @@ if ($authcode != $_SESSION['verify']) {
     getJson('图片验证码输入有误！',1,0);
 }
 
-if($typeid==1){
+#过滤手机号
+$is_anti_phone = $new['pubs']->find('anti_phone',array(
+    'phone'=>$phone,
+));
+if($is_anti_phone>0){
+    getJson('非法操作！',1,0);
+}
 
+if($typeid==1){
     $strUserPhone = $new['pubs']->find('user',array(
         'phone'=>$phone,
     ));

@@ -198,7 +198,6 @@ if($app=='api' || $ac=='api'){
     $allow_origin = array(
         $TS_SITE['link_url'],
         'https://h5.thinksaas.cn',
-        'https://www.qiniao.com',
         'https://www.thinksaas.cn',
         'http://localhost:8080',
     );

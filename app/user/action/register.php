@@ -51,10 +51,10 @@ switch($ts){
 		//用于JS提交验证
 		$js = tsIntval($_GET['js']);
 	
-		$email		= trim($_POST['email']);
-		$pwd			= trim($_POST['pwd']);
-		$repwd		= trim($_POST['repwd']);
-		$username		= t($_POST['username']);
+		$email = trim($_POST['email']);
+		$pwd = trim($_POST['pwd']);
+		$repwd = trim($_POST['repwd']);
+		$username = t($_POST['username']);
 		
 		$fuserid = tsIntval($_POST['fuserid']);
 		
@@ -63,7 +63,17 @@ switch($ts){
 
         //检测垃圾Email后缀
         $arrEmail = explode('@',$email);
-        if($arrEmail[1]=='chacuo.net' || $arrEmail[1]=='mail.ru' || $arrEmail[1]=='yandex.ru' || $arrEmail[1]=='yandex.com' || $arrEmail[1]=='027168.net' || $arrEmail[1]=='027168.com'){
+
+		$emails = array(
+			'chacuo.net',
+			'mail.ru',
+			'yandex.ru',
+			'yandex.com',
+			'027168.net',
+			'027168.com',
+		);
+
+        if(in_array($arrEmail[1],$emails)){
             getJson('Fuck you every day！',$js);
         }
 		
@@ -75,7 +85,6 @@ switch($ts){
 			getJson('你的IP已被锁定，暂无法登录！',$js);
 		}
         */
-		
 		
 		//是否开启邀请注册
 		if($TS_SITE['isinvite']=='1'){
@@ -95,15 +104,19 @@ switch($ts){
 
 		
 		if($email=='' || $pwd=='' || $repwd=='' || $username==''){
-		
 			getJson('所有必选项都不能为空！',$js);
-		
 		}
 		
 		if(valid_email($email) == false){
-		
 			getJson('Email邮箱输入有误',$js);
-			
+		}
+
+		#Email过滤
+		$is_anti_email = $new['user']->find('anti_email',array(
+			'email'=>$email,
+		));
+		if($is_anti_email>0){
+			getJson('非法操作！',$js);
 		}
 
 		#判断Email是否存在
