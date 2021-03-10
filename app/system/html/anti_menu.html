@@ -3,9 +3,14 @@
 <ul>
 <li {if $ts=='word'}class="select"{/if}><a href="index.php?app=system&ac=anti&ts=word">敏感词过滤</a></li>
 
+<li {if $ts=='cloud'}class="select"{/if}><a href="index.php?app=system&ac=anti&ts=cloud">远程云过滤</a></li>
+
 <li {if $ts=='ip'}class="select"{/if}><a href="index.php?app=system&ac=anti&ts=ip">IP过滤</a></li>
 
-<li {if $ts=='cloud'}class="select"{/if}><a href="index.php?app=system&ac=anti&ts=cloud">远程云过滤</a></li>
+<li {if $ts=='email'}class="select"{/if}><a href="index.php?app=system&ac=anti&ts=email">Email过滤</a></li>
+<li {if $ts=='phone'}class="select"{/if}><a href="index.php?app=system&ac=anti&ts=phone">手机号过滤</a></li>
+
+
 
 <li {if $ts=='report'}class="select"{/if}><a href="index.php?app=system&ac=anti&ts=report">内容举报</a></li>
 

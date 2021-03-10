@@ -219,5 +219,85 @@ switch($ts){
         break;
 
 
+	case "email":
+
+		$arrEmail = $new['system']->findAll('anti_email',null,'addtime desc');
+
+		include template('anti_email');
+		break;
+	
+	case "email_add":
+
+		$email = trim($_POST['email']);
+		if($email){
+			
+			$new['system']->replace('anti_email',array(
+				'email'=>$email,
+			),array(
+				'email'=>$email,
+				'addtime'=>date('Y-m-d H:i:s'),
+			));
+			
+			qiMsg('Email添加成功！');
+		
+		}else{
+		
+			qiMsg('Email不能为空！');
+			
+		}
+
+		break;
+
+	case "email_del":
+
+		$id = tsIntval($_GET['id']);
+		$new['system']->delete('anti_email',array(
+			'id'=>$id,
+		));
+		
+		qiMsg('删除成功！');
+
+		break;
+
+	case "phone":
+
+		$arrPhone = $new['system']->findAll('anti_phone',null,'addtime desc');
+
+		include template('anti_phone');
+		break;
+
+	case "phone_add":
+
+		$phone = trim($_POST['phone']);
+		if($phone){
+			
+			$new['system']->replace('anti_phone',array(
+				'phone'=>$phone,
+			),array(
+				'phone'=>$phone,
+				'addtime'=>date('Y-m-d H:i:s'),
+			));
+			
+			qiMsg('Phone添加成功！');
+		
+		}else{
+		
+			qiMsg('Phone不能为空！');
+			
+		}
+
+		break;
+
+	case "phone_del":
+
+		$id = tsIntval($_GET['id']);
+		$new['system']->delete('anti_phone',array(
+			'id'=>$id,
+		));
+		
+		qiMsg('删除成功！');
+
+		break;
+
 		
 }

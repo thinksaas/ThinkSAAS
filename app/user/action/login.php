@@ -61,7 +61,7 @@ switch($ts){
 
 		#人机验证
 		$vaptcha_token = trim($_POST ['vaptcha_token']);
-		if ($TS_SITE['is_vaptcha']) {
+		if ($TS_SITE['is_vaptcha'] && $ad==0) {
 			$strVt = vaptcha($vaptcha_token);
 			if($strVt['success']==0) {
 				getJson('人机验证未通过！',$js);
