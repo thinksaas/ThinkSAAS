@@ -69,7 +69,7 @@ if($strGroup['userid']==$userid || $TS_USER['isadmin']==1){
 				tsNotice('非法操作！');
 			}
 			
-			$new['group']->deleteTopic($strTopic);
+			aac('topic')->deleteTopic($strTopic);
 			
 			//统计需要审核的帖子
 			$count_topic_audit = $new['group']->findCount('topic',array(
