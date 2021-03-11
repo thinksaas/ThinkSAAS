@@ -221,7 +221,12 @@ switch($ts){
 
 	case "email":
 
-		$arrEmail = $new['system']->findAll('anti_email',null,'addtime desc');
+		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$url = SITE_URL.'index.php?app=system&ac=anti&ts=email&page=';
+		$lstart = $page*100-100;
+		$arrEmail = $new['system']->findAll('anti_email',null,'addtime desc',null,$lstart.',100');
+		$emailNum = $new['system']->findCount('anti_email');
+		$pageUrl = pagination($emailNum, 100, $page, $url);
 
 		include template('anti_email');
 		break;
