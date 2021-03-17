@@ -26,7 +26,7 @@
                 <div class="card-body">
 
 
-                    <h1 class="h5 pt-0 pb-3 font-weight-bold">{if $strTopic['label']}<span class="badge badge-danger fw300">{tsTitle($strTopic['label'])}</span>{/if}{if $strTopic[typeid] !='0'}<a href="{tsUrl('group','show',array('id'=>$strTopic[groupid],typeid=>$strTopic[typeid]))}">[{$strTopic[type][typename]}]</a>{/if}{$strTopic[title]}</h1>
+                    <h1 class="h5 pt-0 pb-3 font-weight-bold">{if $strTopic['label']}<span class="badge badge-danger fw300">{tsTitle($strTopic['label'])}</span>{/if}{if $strTopic['typeid'] !='0'}<a href="{tsUrl('group','show',array('id'=>$strTopic['groupid'],typeid=>$strTopic['typeid']))}">[{$strTopic['type']['typename']}]</a>{/if}{$strTopic['title']}</h1>
 
 
                     <div class="d-flex flex-row justify-content-between">
@@ -36,13 +36,13 @@
 
 
                             <div>
-                                <a href="{tsUrl('user','space',array('id'=>$strTopic[user][userid]))}">
-                                    <img class="rounded-circle" title="{$strTopic[user][username]}" alt="{$strTopic[user][username]}" src="{$strTopic[user][face]}" width="36" height="36">
+                                <a href="{tsUrl('user','space',array('id'=>$strTopic['user']['userid']))}">
+                                    <img class="rounded-circle" title="{$strTopic['user']['username']}" alt="{$strTopic['user']['username']}" src="{$strTopic['user']['face']}" width="36" height="36">
                                 </a>
                             </div>
                             <div class="ml-2">
-                                <div class="fs14"><a href="{tsUrl('user','space',array('id'=>$strTopic[userid]))}">{$strTopic[user][username]}</a></div>
-                                <div class="c9 fs12">{php echo date('Y-m-d H:i:s',$strTopic[addtime])}</div>
+                                <div class="fs14"><a href="{tsUrl('user','space',array('id'=>$strTopic['userid']))}">{$strTopic['user']['username']}</a></div>
+                                <div class="c9 fs12">{php echo date('Y-m-d H:i:s',$strTopic['addtime'])}</div>
                             </div>
 
 
@@ -64,7 +64,7 @@
 
                     <div class="mb-3 mt-3">
                         {loop $strTopic[tags] $key $item}
-                        <a class="badge badge-secondary fw300 mr-2" href="{tsUrl('topic','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
+                        <a class="badge badge-secondary fw300 mr-2" href="{tsUrl('topic','tag',array('id'=>urlencode($item['tagname'])))}">{$item['tagname']}</a>
                         {/loop}
                     </div>
 
@@ -115,7 +115,7 @@
 
 
 
-                    {if $TS_USER['userid'] == $strTopic['userid'] || $TS_USER['userid']==$strGroup['userid'] ||$strGroupUser['isadmin']=="1" || $TS_USER['isadmin']=="1"}
+                    {if $TS_USER['userid'] == $strTopic['userid'] || $TS_USER['userid']==$strGroup['userid'] || $strGroupUser['isadmin']=='1' || $TS_USER['isadmin']=='1'}
                     <div class="btool mt-3">
                         {if $TS_USER['userid']==$strGroup['userid'] ||$strGroupUser['isadmin']=="1" || $TS_USER['isadmin']=="1"}
 
@@ -134,7 +134,7 @@
                         <a href="{SITE_URL}index.php?app=topic&ac=move&topicid={$strTopic['topicid']}">移动</a>
 
                         {/if}
-                        <a href="{SITE_URL}index.php?app=topic&ac=edit&topicid={$strTopic[topicid]}">编辑</a>
+                        <a href="{SITE_URL}index.php?app=topic&ac=edit&topicid={$strTopic['topicid']}">编辑</a>
                         <a href="{SITE_URL}index.php?app=topic&ac=delete&topicid={$strTopic['topicid']}&token={$_SESSION['token']}" onClick="return confirm('确定删除吗?')"><i class="far fa-trash-alt"></i> 删除</a>
 
                     </div>
@@ -191,7 +191,7 @@
                                     <div class="col-md-2 text-right">
                                         <input type="hidden" name="ptable" value="topic">
                                         <input type="hidden" name="pkey" value="topicid">
-                                        <input type="hidden" name="pid" value="{$strTopic[topicid]}" />
+                                        <input type="hidden" name="pid" value="{$strTopic['topicid']}" />
                                         <input type="hidden" name="token" value="{$_SESSION['token']}" />
                                         <button class="btn btn-sm btn-info btn-block" type="submit">提交评论</button>
                                     </div>

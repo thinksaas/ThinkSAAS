@@ -9,14 +9,14 @@
 <ul>
 {loop $arrTopic $key $item}
 <li>
-<div class="userimg"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="rounded-circle" src="{$item[user][face]}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" /></a></div>
+<div class="userimg"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img class="rounded-circle" src="{$item['user']['face']}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" /></a></div>
 
 <div class="topic_title">
 <div class="title">
 
     {if $item['label']}<span class="badge badge-danger fw300">{tsTitle($item['label'])}</span>{/if}
 
-    <a href="{tsUrl('topic','show',array('id'=>$item[topicid]))}">{$item[title]}</a>
+    <a href="{tsUrl('topic','show',array('id'=>$item['topicid']))}">{$item[title]}</a>
 
     {if $item['istop']=='1'}
     <img src="{SITE_URL}public/images/ding.png" width="24" height="24" title="[置顶]" alt="[置顶]" />
@@ -54,10 +54,10 @@
 
     <div class="d-flex flex-row justify-content-between mt-2">
         <div class="d-flex fs12 c9">
-            <a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
-            <span class="ml-1">{php echo getTime($item[uptime],time())}</span>
+            <a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['user']['username']}</a>
+            <span class="ml-1">{php echo getTime($item['uptime'],time())}</span>
             <span class="ml-1 ts-hide">发表于</span>
-            <a class="ml-1 ts-hide" href="{tsUrl('group','show',array('id'=>$item[groupid]))}">[{$item[group][groupname]}]</a>
+            <a class="ml-1 ts-hide" href="{tsUrl('group','show',array('id'=>$item['groupid']))}">[{$item['group']['groupname']}]</a>
         </div>
         <div class="d-flex c9 fs12">
             <div><i class="far fa-comment-dots"></i> {$item['count_comment']}</div>

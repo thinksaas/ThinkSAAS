@@ -6,7 +6,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
             <li class="breadcrumb-item"><a href="{tsUrl('group')}">{$TS_APP['appname']}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{$strGroup[groupname]}</li>
+            <li class="breadcrumb-item active" aria-current="page">{$strGroup['groupname']}</li>
         </ol>
     </nav>
 
@@ -31,9 +31,9 @@
 
 
                     <div class="media">
-                        <img class="mr-3 rounded" src="{$strGroup[photo]}" alt="{$strGroup[groupname]}" width="70">
+                        <img class="mr-3 rounded" src="{$strGroup['photo']}" alt="{$strGroup['groupname']}" width="70">
                         <div class="media-body">
-                            <h1 class="mt-0 fw400 fs18 text-light">{$strGroup[groupname]}</h1>
+                            <h1 class="mt-0 fw400 fs18 text-light">{$strGroup['groupname']}</h1>
                             <div class="fs12 text-light fw300">
 
                                 <span class="mr-2">{$strGroup['count_topic']} 帖子</span>
@@ -45,7 +45,7 @@
 
                                 <span class="mr-2">创建于 {php echo date('Y-m-d',$strGroup[addtime])}</span>
 
-                                组长：<a class="mr-2 text-light" href="{tsUrl('user','space',array('id'=>$strLeader[userid]))}"  rel="face" uid="{$strLeader['userid']}">{$strLeader[username]}</a>
+                                组长：<a class="mr-2 text-light" href="{tsUrl('user','space',array('id'=>$strLeader['userid']))}"  rel="face" uid="{$strLeader['userid']}">{$strLeader['username']}</a>
                                 {if $arrGroupAdminUser}
                                 管理员：
                                 {loop $arrGroupAdminUser $key $item}
@@ -65,13 +65,13 @@
 
 
                     <div class="join">
-                        {if $isGroupUser > 0 && $TS_USER[userid] != $strGroup[userid]}
-                        <span>我是这个小组的{$strGroup[role_user]} <a href="javascript:void('0')" onclick="exitGroup('{$strGroup['groupid']}')">退出小组</a></span>
-                        {elseif $isGroupUser > 0 && $TS_USER[userid] == $strGroup[userid]}
-                        <span>我是这个小组的{$strGroup[role_leader]}</span>
-                        {elseif $strGroup[joinway] == '0'}
+                        {if $isGroupUser > 0 && $TS_USER['userid'] != $strGroup['userid']}
+                        <span>我是这个小组的{$strGroup['role_user']} <a href="javascript:void('0')" onclick="exitGroup('{$strGroup['groupid']}')">退出小组</a></span>
+                        {elseif $isGroupUser > 0 && $TS_USER['userid'] == $strGroup['userid']}
+                        <span>我是这个小组的{$strGroup['role_leader']}</span>
+                        {elseif $strGroup['joinway'] == '0'}
                         <span><a class="btn btn-success btn-sm" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">加入小组</a></span>
-                        {elseif $strGroup[joinway] == '2'}
+                        {elseif $strGroup['joinway'] == '2'}
                         <span><a class="btn btn-success btn-sm" href="javascript:void('0')" onclick="joinGroup('{$strGroup['groupid']}')">申请加入小组</a></span>
 
                         {elseif $strGroup['joinway']==3}
@@ -97,7 +97,7 @@
 
         <div class="card-body">
 
-            <div class="text-black-50">{php echo nl2br($strGroup[groupdesc])}</div>
+            <div class="text-black-50">{php echo nl2br($strGroup['groupdesc'])}</div>
 
             {if $strGroup ['tags']}
             <div class="mt-2">
@@ -158,8 +158,8 @@
 {loop $arrTopic $key $item}
 <li>
 <div class="userimg">
-<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">
-    <img class="rounded-circle" src="{$item[user][face]}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" />
+<a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">
+    <img class="rounded-circle" src="{$item['user']['face']}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" />
 </a>
 </div>
 
@@ -193,7 +193,7 @@
     {if $item['photos']}
     <div class="photo mt-2">
         {loop $item['photos'] $pkey $pitem}
-        <a href="{tsUrl('topic','show',array('id'=>$item[topicid]))}"><img src="{$pitem}" /></a>
+        <a href="{tsUrl('topic','show',array('id'=>$item['topicid']))}"><img src="{$pitem}" /></a>
         {/loop}
     </div>
     {/if}
@@ -202,9 +202,9 @@
 
     <div class="d-flex flex-row justify-content-between mt-2">
         <div class="d-flex fs12 c9">
-            <a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[user][username]}</a>
+            <a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['user']['username']}</a>
             <span class="ml-1">发表于</span>
-            <span class="ml-1">{php echo getTime($item[uptime],time())}</span>
+            <span class="ml-1">{php echo getTime($item['uptime'],time())}</span>
         </div>
         <div class="d-flex c9 fs12">
             <div><i class="far fa-comment-dots"></i> {$item['count_comment']}</div>
@@ -250,8 +250,8 @@
             <div class="row">
                 {loop $arrGroupUser $key $item}
                 <div class="col-3 text-light mb-3">
-                    <a href="{tsUrl('user','space',array('id'=>$item[userid]))}"><img class="rounded-circle" src="{$item[face]}" width="48" height="48" alt="{$item[username]}" title="{$item[username]}" /></a>
-                    <div class="title-cut fs12 text-black-50 mt-1 text-center"><a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[username]}</a></div>
+                    <a href="{tsUrl('user','space',array('id'=>$item['userid']))}"><img class="rounded-circle" src="{$item['face']}" width="48" height="48" alt="{$item['username']}" title="{$item['username']}" /></a>
+                    <div class="title-cut fs12 text-black-50 mt-1 text-center"><a href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a></div>
                 </div>
                 {/loop}
             </div>
@@ -267,8 +267,8 @@
     <div class="card">
     <div class="card-header">管理</div>
     <div class="card-body">
-        <a class="btn btn-sm btn-outline-info" href="{tsUrl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">小组设置</a>
-        <a class="btn btn-sm btn-outline-info" href="{tsUrl('group','audit',array('groupid'=>$strGroup[groupid]))}">帖子审核({$strGroup['count_topic_audit']})</a>
+        <a class="btn btn-sm btn-outline-info" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'base'))}">小组设置</a>
+        <a class="btn btn-sm btn-outline-info" href="{tsUrl('group','audit',array('groupid'=>$strGroup['groupid']))}">帖子审核({$strGroup['count_topic_audit']})</a>
     </div>
     </div>
     {/if}

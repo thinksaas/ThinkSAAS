@@ -73,15 +73,15 @@ function unismynav(appkey){
 <tr>
 <td>
     <img width="24" height="24" src="{$item['icon']}">
-    {$item[about][name]}({$item[name]})
+    {$item['about']['name']}({$item['name']})
 </td>
-<td class="fs12 c9">{$item[about][version]}
+<td class="fs12 c9">{$item['about']['version']}
 </td>
-<td class="fs12 c9">{$item[about][desc]}</td>
-<td class="fs12 c9">{$item[about][author]}</td>
+<td class="fs12 c9">{$item['about']['desc']}</td>
+<td class="fs12 c9">{$item['about']['author']}</td>
 <td>
-{if $item[about][isoption] == '1' && $item[about][isinstall]=='1'}
-    <a class="btn btn-sm btn-outline-info fs12" href="index.php?app={$item[name]}&ac=admin&mg=options"><i class="fas fa-tasks"></i>管理</a>
+{if $item['about']['isoption'] == '1' && $item['about']['isinstall']=='1'}
+    <a class="btn btn-sm btn-outline-info fs12" href="index.php?app={$item['name']}&ac=admin&mg=options"><i class="fas fa-tasks"></i>管理</a>
     {/if}
 </td>
 
@@ -89,12 +89,12 @@ function unismynav(appkey){
 <td>
 
 
-{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] == ''}
-    <a class="btn btn-outline-primary btn-sm fs12" href="javascript:void('0');" onclick="isappnav('{$item[name]}','{$item[about][name]}');"><i class="far fa-play-circle"></i>开启</a>
+{if $item['about']['isappnav'] == '1' && $TS_SITE['appnav'][$item['name']] == ''}
+    <a class="btn btn-outline-primary btn-sm fs12" href="javascript:void('0');" onclick="isappnav('{$item['name']}','{$item['about']['name']}');"><i class="far fa-play-circle"></i>开启</a>
     {/if}
 
-{if $item[about][isappnav] == '1' && $TS_SITE[appnav][$item[name]] != ''}
-    <a class="btn btn-outline-secondary btn-sm fs12" href="javascript:void('0');" onclick="unisappnav('{$item[name]}');"><i class="far fa-stop-circle"></i>取消</a>
+{if $item['about']['isappnav'] == '1' && $TS_SITE['appnav'][$item['name']] != ''}
+    <a class="btn btn-outline-secondary btn-sm fs12" href="javascript:void('0');" onclick="unisappnav('{$item['name']}');"><i class="far fa-stop-circle"></i>取消</a>
     {/if}
 
 
@@ -104,12 +104,12 @@ function unismynav(appkey){
 
     <td>
 
-        {if $item[about]['ismy'] == '1' && $TS_SITE[mynav][$item[name]] == ''}
-        <a class="btn btn-outline-primary btn-sm fs12" href="javascript:void('0');" onclick="ismynav('{$item[name]}','{$item[about][name]}');"><i class="far fa-play-circle"></i>开启</a>
+        {if $item[about]['ismy'] == '1' && $TS_SITE['mynav'][$item['name']] == ''}
+        <a class="btn btn-outline-primary btn-sm fs12" href="javascript:void('0');" onclick="ismynav('{$item['name']}','{$item['about']['name']}');"><i class="far fa-play-circle"></i>开启</a>
         {/if}
 
-        {if $item[about]['ismy'] == '1' && $TS_SITE[mynav][$item[name]] != ''}
-        <a class="btn btn-outline-secondary btn-sm fs12" href="javascript:void('0');" onclick="unismynav('{$item[name]}');"><i class="far fa-stop-circle"></i>取消</a>
+        {if $item['about']['ismy'] == '1' && $TS_SITE['mynav'][$item['name']] != ''}
+        <a class="btn btn-outline-secondary btn-sm fs12" href="javascript:void('0');" onclick="unismynav('{$item['name']}');"><i class="far fa-stop-circle"></i>取消</a>
         {/if}
 
     </td>

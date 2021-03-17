@@ -8,13 +8,13 @@
     <meta name="applicable-device" content="pc,mobile">
     <meta name="robots" content="all" />
     <meta name="save" content="history" />
-    <meta name="author" content="{$GLOBALS['TS_CF'][info][email]}" />
-    <meta name="Copyright" content="{$GLOBALS['TS_CF'][info][name]}" />
-    <title>{if $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_SITE']['site_title']}{if $title} - {$title}{/if}{elseif $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']!='index'}{$title} - {$GLOBALS['TS_SITE'][site_title]}{elseif  $GLOBALS['TS_URL']['app']!='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE'][site_title]}{else}{$title}_{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE'][site_title]}{/if}
+    <meta name="author" content="{$GLOBALS['TS_CF']['info']['email']}" />
+    <meta name="Copyright" content="{$GLOBALS['TS_CF']['info']['name']}" />
+    <title>{if $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_SITE']['site_title']}{if $title} - {$title}{/if}{elseif $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']!='index'}{$title} - {$GLOBALS['TS_SITE']['site_title']}{elseif  $GLOBALS['TS_URL']['app']!='home' && $GLOBALS['TS_URL']['ac']=='index'}{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE']['site_title']}{else}{$title}_{$GLOBALS['TS_APP']['appname']}_{$GLOBALS['TS_SITE']['site_title']}{/if}
     </title>
     {if  $GLOBALS['TS_URL']['app']=='home' && $GLOBALS['TS_URL']['ac']=='index'}
-    <meta name="keywords" content="{$GLOBALS['TS_SITE'][site_key]}" />
-    <meta name="description" content="{$GLOBALS['TS_SITE'][site_desc]}" />
+    <meta name="keywords" content="{$GLOBALS['TS_SITE']['site_key']}" />
+    <meta name="description" content="{$GLOBALS['TS_SITE']['site_desc']}" />
     {else}
     {if $sitekey}<meta name="keywords" content="{$sitekey}" /> {/if}
     {if $sitedesc}<meta name="description" content="{$sitedesc}" /> {/if}
@@ -60,7 +60,7 @@
     <div class="container">
 
 
-            <a class="navbar-brand" href="{SITE_URL}"><img title="{$GLOBALS['TS_SITE'][site_title]}" src="{SITE_URL}uploadfile/logo/{$GLOBALS['TS_SITE'][logo]}?v=2.70" alt="{$GLOBALS['TS_SITE'][site_title]}" height="30" /></a>
+            <a class="navbar-brand" href="{SITE_URL}"><img title="{$GLOBALS['TS_SITE']['site_title']}" src="{SITE_URL}uploadfile/logo/{$GLOBALS['TS_SITE']['logo']}?v=2.70" alt="{$GLOBALS['TS_SITE']['site_title']}" height="30" /></a>
 
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,8 +95,8 @@
             {if $GLOBALS['TS_USER']}
 
             <a style="color:#fff" href="#" class="ts-user-nav-dropdown">
-                {$GLOBALS['TS_USER'][username]}
-                <img width="24" class="rounded-circle" alt="{$GLOBALS['TS_USER'][username]}" src="{if $GLOBALS['TS_USER']['face']==""}{SITE_URL}public/images/user_large.jpg{else}{php echo tsXimg($GLOBALS['TS_USER']['face'],'user','120','120',$GLOBALS['TS_USER'][path],'1')}{/if}">
+                {$GLOBALS['TS_USER']['username']}
+                <img width="24" class="rounded-circle" alt="{$GLOBALS['TS_USER']['username']}" src="{if $GLOBALS['TS_USER']['face']==""}{SITE_URL}public/images/user_large.jpg{else}{php echo tsXimg($GLOBALS['TS_USER']['face'],'user','120','120',$GLOBALS['TS_USER']['path'],'1')}{/if}">
             </a>
 
             <div class="ts-dropdown dropdown-list pull-right">
@@ -136,7 +136,7 @@
 <div class="appnav mb-3">
     <div class="container">
 
-            {loop $GLOBALS['TS_SITE'][appnav] $key $item}
+            {loop $GLOBALS['TS_SITE']['appnav'] $key $item}
             {if $key=='home'}
             <a {if $GLOBALS['TS_URL']['app']==$key}class="on"{/if} href="{SITE_URL}">{$item}</a>
             {else}

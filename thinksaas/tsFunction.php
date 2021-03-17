@@ -285,7 +285,7 @@ function h($text) {
  * @param string $append
  * @return string
  */
-function cututf8($string, $start = 0, $sublen, $append = true) {
+function cututf8($string, $start = 0, $sublen=100, $append = true) {
 	$pa = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf7][\x80-\xbf][\x80-\xbf][\x80-\xbf]/";
 	preg_match_all($pa, $string, $t_string);
 	if (count($t_string[0]) - $start > $sublen && $append == true) {
@@ -532,16 +532,12 @@ function template($file, $plugin = '', $self = '') {
 function pubTemplate($file) {
 	$tplfile = 'public/html/' . $file . '.html';
 	$objfile = 'cache/template/public.' . $file . '.tpl.php';
-
-	if (@filemtime($tplfile) > @filemtime($objfile)) {
+	if (filemtime($tplfile) > filemtime($objfile)) {
 		// note 加载模板类文件
-
 		require_once 'thinksaas/tsTemplate.php';
 		$T = new tsTemplate();
-
 		$T -> complie($tplfile, $objfile);
 	}
-
 	return $objfile;
 }
 
@@ -555,10 +551,7 @@ function pubTemplate($file) {
  */
 function addAction($hook, $actionFunc) {
 	global $tsHooks;
-	if (!in_array($actionFunc, $tsHooks[$hook])) {
-		$tsHooks[$hook][] = $actionFunc;
-	}
-
+	$tsHooks[$hook][] = $actionFunc;
 	return true;
 }
 
@@ -574,9 +567,8 @@ function doAction($hook) {
 			$string = call_user_func_array($function, $args);
 		}
 	}
-
-	if ($GLOBALS['TS_CF']['hook'])
-		var_dump($hook);
+	#打印钩子信息
+	if ($GLOBALS['TS_CF']['hook']) var_dump($hook);
 }
 
 function createFolders($path) {

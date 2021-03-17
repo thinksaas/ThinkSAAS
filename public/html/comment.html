@@ -6,21 +6,21 @@
 
         <li class="clearfix" id="l_{$item[commentid]}">
             <div class="user-face">
-                <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="rounded-circle border" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="32" height="32" /></a>
+                <a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img class="rounded-circle border" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}" width="32" height="32" /></a>
             </div>
 
             <div class="reply-doc">
                 <h4>
 
-                    <a class="fs14 c9" href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a>
+                    <a class="fs14 c9" href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a>
 
                     {if $item['iszz']}
                     <span class="text-danger">作者</span>
                     {/if}
 
-                    <span class="ml-3">{php echo date('Y-m-d H:i:s',$item[addtime])}</span>
+                    <span class="ml-3">{php echo date('Y-m-d H:i:s',$item['addtime'])}</span>
 
-                    <i>$item[l]#</i>
+                    <i>$item['l']#</i>
                 </h4>
  
 
@@ -30,7 +30,7 @@
                     <div class="alert alert-warning" role="alert"> 评论内容不公开显示！</div>
                     {else}
 
-                    {$item[content]}
+                    {$item['content']}
 
                     <div id="recomment_{$item['commentid']}">
                         {if $item['recomment']}
@@ -38,8 +38,8 @@
                         <div class="recomment">
 
                             <div>
-                                <a href="{tsUrl('user','space',array('id'=>$ritem[user][userid]))}"><img src="{$ritem[user][face]}" width="24" height="24" class="rounded-circle"></a>
-                                <a class="c9" href="{tsUrl('user','space',array('id'=>$ritem[user][userid]))}">{$ritem[user][username]}</a>
+                                <a href="{tsUrl('user','space',array('id'=>$ritem['user']['userid']))}"><img src="{$ritem['user']['face']}" width="24" height="24" class="rounded-circle"></a>
+                                <a class="c9" href="{tsUrl('user','space',array('id'=>$ritem['user']['userid']))}">{$ritem['user']['username']}</a>
 
                                 {if $ritem['iszz']}
                                 <span class="text-danger">作者</span>
@@ -54,7 +54,7 @@
                                     {/if}
 
                                     {if $TS_USER['userid'] && $ritem['userid']==$TS_USER['userid']}
-                                    <a class="fs12 ml-2" href="{SITE_URL}index.php?app=pubs&ac=comment&ts=delete&commentid={$ritem[commentid]}" onClick="return confirm('确定删除吗?')">删除</a>
+                                    <a class="fs12 ml-2" href="{SITE_URL}index.php?app=pubs&ac=comment&ts=delete&commentid={$ritem['commentid']}" onClick="return confirm('确定删除吗?')">删除</a>
                                     {/if}
 
 
@@ -66,12 +66,12 @@
                                 {if $ritem['touserid']}
                                 <span class="text-black-50">回复 <a target="_blank" class="text-info" href="{tsUrl('user','space',array('id'=>$ritem['touserid']))}">@{$ritem['touser']['username']}</a> ：</span>
                                 {/if}
-                                {$ritem[content]}
+                                {$ritem['content']}
 
                             </div>
                             <!----回复的回复---->
-                            <div class="mb-2" id="rcomment_{$ritem[commentid]}" style="padding-left:30px;display:none">
-                                <textarea class="form-control-sm w-100 border border-secondary" id="recontent_{$ritem[commentid]}" type="text" ></textarea>
+                            <div class="mb-2" id="rcomment_{$ritem['commentid']}" style="padding-left:30px;display:none">
+                                <textarea class="form-control-sm w-100 border border-secondary" id="recontent_{$ritem['commentid']}" type="text" ></textarea>
 
                                 <div class="mt-1">
                                     <a class="btn btn-sm btn-outline-info" href="javascript:void(0);" onClick="recomment('{$ritem[commentid]}','{$item['commentid']}','{$item[ptable]}','{$item[pkey]}',{$ritem[pid]},'{$ritem[userid]}')" id="recomm_btn_$ritem[commentid]">提交</a>
@@ -100,8 +100,8 @@
                 </div>
 
 
-                <div class="mb-2" id="rcomment_{$item[commentid]}" style="display:none">
-                    <textarea class="form-control-sm w-100 border border-secondary" id="recontent_{$item[commentid]}" type="text"></textarea>
+                <div class="mb-2" id="rcomment_{$item['commentid']}" style="display:none">
+                    <textarea class="form-control-sm w-100 border border-secondary" id="recontent_{$item['commentid']}" type="text"></textarea>
 
                     <div class="mt-1">
                         <a class="btn btn-sm btn-outline-info" href="javascript:void(0);" onClick="recomment('{$item[commentid]}','{$item[commentid]}','{$item[ptable]}','{$item[pkey]}','{$item[pid]}')" id="recomm_btn_$item[commentid]">提交</a>

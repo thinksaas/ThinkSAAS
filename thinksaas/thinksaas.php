@@ -176,7 +176,7 @@ date_default_timezone_set($TS_SITE['timezone']);
 
 
 //接管SESSION，前台用户基本数据,$TS_USER数组
-$TS_USER = isset($_SESSION['tsuser']) ? $_SESSION['tsuser'] : '';
+$TS_USER = isset($_SESSION['tsuser']) ? $_SESSION['tsuser'] : array();
 
 //记录日志
 if ($TS_CF['logs']) {

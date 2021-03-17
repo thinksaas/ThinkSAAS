@@ -50,7 +50,9 @@ if($weiboNum<20){
     $userid = $strWeibo['userid'];
     $arrNewWeibo = $new['weibo']->findAll('weibo',"`userid`!='$userid'",'addtime desc',null,$num);
 
-    $arrWeibo = array_merge($arrWeibo, $arrNewWeibo);
+    if($arrNewWeibo){
+        $arrWeibo = array_merge($arrWeibo, $arrNewWeibo);
+    }
 
 }
 

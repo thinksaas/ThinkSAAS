@@ -101,10 +101,10 @@
                         <ul>
                             {loop $arrWeibo $key $item}
                             <li class="mbtl">
-                                <a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><img class="rounded-circle" title="{$item[user][username]}" alt="{$item[user][username]}" src="{$item[user][face]}" width="36" /></a>
+                                <a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img class="rounded-circle" title="{$item['user']['username']}" alt="{$item['user']['username']}" src="{$item['user']['face']}" width="36" /></a>
                             </li>
                             <li class="mbtr rounded">
-                                <div class="author"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> <span class="fs12 c9">{$item['addtime']}</span></div>
+                                <div class="author"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a> <span class="fs12 c9">{$item['addtime']}</span></div>
                                 
                                 <div class="title">
                                     {$item['title']}

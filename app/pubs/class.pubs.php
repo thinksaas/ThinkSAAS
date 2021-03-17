@@ -325,7 +325,7 @@ class pubs extends tsApp{
      * @param [type] $gaiyao
      * @return void
      */
-    public function addPtable($ptable,$pkey,$pid,$pjson='',$groupid,$userid,$title,$gaiyao){
+    public function addPtable($ptable,$pkey,$pid,$pjson,$groupid,$userid,$title,$gaiyao){
         $topicid = $this->create('topic',array(
             'ptable'=>$ptable,
             'pkey'=>$pkey,
@@ -353,7 +353,7 @@ class pubs extends tsApp{
      * @param [type] $gaiyao
      * @return void
      */
-    public function editPtable($ptable,$pkey,$pid,$pjson='',$title,$gaiyao){
+    public function editPtable($ptable,$pkey,$pid,$pjson,$title,$gaiyao){
         $this->update('topic',array(
             'ptable'=>$ptable,
             'pkey'=>$pkey,
