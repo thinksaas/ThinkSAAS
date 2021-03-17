@@ -9,7 +9,7 @@ $name = trim ( $_POST ['name'] );
 $pre = trim ( $_POST ['pre'] );
 $select_sql = trim ( $_POST ['sql'] );
 
-define(dbprefix, $pre);
+define('dbprefix', $pre);
 
 if(!function_exists('mysqli_connect') && $select_sql=='mysqli') qiMsg('PHP环境未安装MySQLi函数库！');
 
@@ -21,8 +21,6 @@ $arrdb = array (
 		'name' => $name,
 		'pre' => $pre 
 );
-
-
 
 // 网站信息
 $site_title = trim ( $_POST ['site_title'] );
