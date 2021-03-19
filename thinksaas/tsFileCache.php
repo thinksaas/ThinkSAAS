@@ -5,7 +5,7 @@ class tsFileCache {
 	private $cache_expire; // seconds that the cache expires
 	                       
 	// cache constructor, optional expiring time and cache path
-	public function tsFileCache($exp_time = 3600, $path = "data/") {
+	public function __construct($exp_time = 3600, $path = "data/") {
 		$this->cache_expire = $exp_time;
 		$this->cache_path = $path;
 	}
