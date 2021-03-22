@@ -192,6 +192,9 @@
         <tr><td>用户发布内容时间 :</td><td><textarea style="width:500px;" type="text" name="option[pubtime]">{$strOption['pubtime']}</textarea> <br />(24小时制，以|分割。留空为不限制)</td></tr>
 
 
+        <tr><td>发布内容间隔时间 :</td><td><input type="text" name="option[timeblank]" value="{$strOption['timeblank']}"> <small class="text-danger">(0不限制；例如1分钟=60秒，30分钟就是30*60=1800秒；1小时3600秒)</small></td></tr>
+
+
         <tr><td>用户修改内容权限 :</td><td><input type="radio" {if $strOption['isallowedit']=='0'}checked="select"{/if} name="option[isallowedit]" value="0" />允许 <input type="radio" {if $strOption['isallowedit']=='1'}checked="select"{/if} name="option[isallowedit]" value="1" />不允许 (管理员除外)</td></tr>
 
 

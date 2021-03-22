@@ -13,6 +13,33 @@ if(aac('user')->isPublisher()==false) tsNotice('不好意思，你还没有权�
 //发布时间限制
 if(aac('system')->pubTime()==false) tsNotice('不好意思，当前时间不允许发布内容！');
 
+//发布时间间隔限制
+if($TS_SITE['timeblank']){
+	$lastTopic = $new['topic']->find('topic',array(
+		'userid'=>$userid,
+	),'topicid,addtime','addtime desc');
+	if($lastTopic){
+		if((time()-$lastTopic['addtime'])<$TS_SITE['timeblank']){
+			tsNotice('不好意思，您的内容发送频率过高！请等等再发布！');
+		}
+	}
+}
+
+//发布内容扣除积分限制
+$strScoreOption = $new['topic']->find('user_score',array(
+	'app'=>'topic',
+	'action'=>'add',
+	'ts'=>'do',
+));
+if($strScoreOption && $strScoreOption['status']==1){
+	#用户积分数
+	$strUserScore = $new['topic']->find('user_info',array(
+		'userid'=>$userid,
+	),'count_score');
+	if($strUserScore['count_score']<$strScoreOption['score']){
+		tsNotice('不好意思，您的积分不足！');
+	}
+}
 
 switch ($ts) {
 	// 发布帖子

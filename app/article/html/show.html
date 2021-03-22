@@ -29,19 +29,19 @@
 
                     <div class="media mt-3 mb-3">
 
-                        <a class="mr-3" href="{tsUrl('user','space',array('id'=>$strArticle[user][userid]))}"><img class="media-object rounded-circle" title="{$strArticle[user][username]}" alt="{$strArticle[user][username]}" src="{$strArticle[user][face]}" width="36" height="36"></a>
+                        <a class="mr-3" href="{tsUrl('user','space',array('id'=>$strArticle['user']['userid']))}"><img class="media-object rounded-circle" title="{$strArticle['user']['username']}" alt="{$strArticle['user']['username']}" src="{$strArticle['user']['face']}" width="36" height="36"></a>
 
 
                         <div class="media-body">
-                            <div><a href="{tsUrl('user','space',array('id'=>$strArticle[userid]))}">{$strArticle[user][username]}</a></div>
-                            <div class="c9 fs12">发表于 {$strArticle[addtime]}</div>
+                            <div><a href="{tsUrl('user','space',array('id'=>$strArticle['userid']))}">{$strArticle['user']['username']}</a></div>
+                            <div class="c9 fs12">发表于 {$strArticle['addtime']}</div>
                         </div>
                     </div>
 
                     {if $strArticle['tags']}
                     <div class="mb-3 mt-3">
-                        {loop $strArticle[tags] $key $item}
-                        <a class="badge badge-secondary fw300 mr-2" href="{tsUrl('article','tag',array('id'=>$item['tagname']))}">{$item[tagname]}</a>
+                        {loop $strArticle['tags'] $key $item}
+                        <a class="badge badge-secondary fw300 mr-2" href="{tsUrl('article','tag',array('id'=>$item['tagname']))}">{$item['tagname']}</a>
                         {/loop}
                     </div>
                     <div class="clear"></div>
@@ -83,8 +83,8 @@
                         {if $TS_USER[isadmin]==1 || $TS_USER['userid']==$strArticle['userid']}
                         <div class="float-right text-right">
 
-                            <a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=edit&articleid={$strArticle[articleid]}"><i class="far fa-edit"></i> 修改</a>
-                            <a onclick="return confirm('确定删除?')" class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=delete&articleid={$strArticle[articleid]}&token={$_SESSION['token']}"><i class="far fa-trash-alt"></i> 删除</a>
+                            <a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=edit&articleid={$strArticle['articleid']}"><i class="far fa-edit"></i> 修改</a>
+                            <a onclick="return confirm('确定删除?')" class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=delete&articleid={$strArticle['articleid']}&token={$_SESSION['token']}"><i class="far fa-trash-alt"></i> 删除</a>
                         </div>
                         {/if}
 
@@ -146,7 +146,7 @@
                                     <div class="col-md-2 text-right">
                                         <input type="hidden" name="ptable" value="article">
                                         <input type="hidden" name="pkey" value="articleid">
-                                        <input type="hidden" name="pid" value="{$strArticle[articleid]}" />
+                                        <input type="hidden" name="pid" value="{$strArticle['articleid']}" />
                                         <input type="hidden" name="token" value="{$_SESSION['token']}" />
                                         <button class="btn btn-sm btn-info btn-block" type="submit">提交评论</button>
                                     </div>
