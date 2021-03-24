@@ -64,18 +64,18 @@ switch ($ts) {
 	case "do" :
 
 		#验证码验证
-		$authcode = strtolower ( $_POST ['authcode'] );
-		if ($TS_SITE['isauthcode']) {
-			if ($authcode != $_SESSION ['verify']) {
-				tsNotice ( "验证码输入有误，请重新输入！" );
+		$authcode = strtolower($_POST ['authcode']);
+		if ($TS_SITE['isauthcode']){
+			if ($authcode != $_SESSION['verify']){
+				tsNotice("验证码输入有误，请重新输入！" );
 			}
 		}
 
 		#人机验证
-		$vaptcha_token = trim ( $_POST ['vaptcha_token'] );
-		if ($TS_SITE['is_vaptcha']) {
+		$vaptcha_token = trim($_POST['vaptcha_token']);
+		if ($TS_SITE['is_vaptcha']){
 			$strVt = vaptcha($vaptcha_token);
-			if($strVt['success']==0) {
+			if($strVt['success']==0){
 				tsNotice('人机验证未通过！');
 			}
 		}
@@ -135,45 +135,56 @@ switch ($ts) {
             'userid' => $userid,
             'cateid' => $cateid,
             'title' => $title,
-            'content' => $content,
+            #'content' => $content,
             'gaiyao' => $gaiyao,
             'score'=>$score,
             'isaudit' => $isaudit,
             'addtime' => date('Y-m-d H:i:s')
         ));
 
-		// 上传图片开始
-		$arrUpload = tsUpload($_FILES['photo'], $articleid, 'article', array('jpg', 'gif', 'png', 'jpeg'));
-		if ($arrUpload) {
-			$new['article'] -> update('article', array(
-                'articleid' => $articleid
-            ), array(
-                'path' => $arrUpload['path'],
-                'photo' => $arrUpload['url']
-            ));
+		if($articleid){
+
+			$new['article'] -> create('article_content', array(
+				'articleid' => $articleid,
+				'content' => $content,
+			));
+
+			// 上传图片开始
+			$arrUpload = tsUpload($_FILES['photo'], $articleid, 'article', array('jpg', 'gif', 'png', 'jpeg'));
+			if ($arrUpload) {
+				$new['article'] -> update('article', array(
+					'articleid' => $articleid
+				), array(
+					'path' => $arrUpload['path'],
+					'photo' => $arrUpload['url']
+				));
+
+				#生成不同尺寸的图片
+				tsXimg($arrUpload['url'],'article',320,180,$arrUpload['path'],'1');
+				//tsXimg($arrUpload['url'],'article',640,'',$arrUpload['path']);
+
+			}
+			// 上传图片结束
+
+			// 处理标签
+			aac('tag') -> addTag('article', 'articleid', $articleid, $tag);
 
 
-			#生成不同尺寸的图片
-            tsXimg($arrUpload['url'],'article',320,180,$arrUpload['path'],'1');
-            //tsXimg($arrUpload['url'],'article',640,'',$arrUpload['path']);
+			// 对积分进行处理
+			if($isaudit==0){
+				aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
+			}
 
+			#用户记录
+			aac('pubs')->addLogs('article','articleid',$articleid,$userid,$title,$content,0);
+
+			header("Location: " . tsUrl('article', 'show', array('id' => $articleid)));
+
+		}else{
+
+			tsNotice ( '文章发布失败！' );
 
 		}
-		// 上传图片结束
-
-		// 处理标签
-		aac('tag') -> addTag('article', 'articleid', $articleid, $tag);
-
-
-		// 对积分进行处理
-        if($isaudit==0){
-            aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
-        }
-
-		#用户记录
-		aac('pubs')->addLogs('article','articleid',$articleid,$userid,$title,$content,0);
-
-		header("Location: " . tsUrl('article', 'show', array('id' => $articleid)));
 
 		break;
 }

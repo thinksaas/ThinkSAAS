@@ -60,6 +60,14 @@ switch($ts){
 		
 		$authcode = strtolower($_POST['authcode']);
 
+		#人机验证
+		$vaptcha_token = trim($_POST ['vaptcha_token']);
+		if ($TS_SITE['is_vaptcha']) {
+			$strVt = vaptcha($vaptcha_token);
+			if($strVt['success']==0) {
+				getJson('人机验证未通过！',$js);
+			}
+		}
 
         //检测垃圾Email后缀
         $arrEmail = explode('@',$email);

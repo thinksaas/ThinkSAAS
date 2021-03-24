@@ -102,7 +102,6 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `cateid` int(11) NOT NULL DEFAULT '0' COMMENT '分类ID',
   `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
-  `content` longtext NOT NULL COMMENT '内容',
   `tags` varchar(128) NOT NULL DEFAULT '' COMMENT '标签',
   `gaiyao` varchar(128) NOT NULL DEFAULT '' COMMENT '内容概要',
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '阅读文章所需积分',
@@ -146,6 +145,19 @@ CREATE TABLE IF NOT EXISTS `ts_article_cate` (
 DELETE FROM `ts_article_cate`;
 /*!40000 ALTER TABLE `ts_article_cate` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_article_cate` ENABLE KEYS */;
+
+-- 导出  表 d_thinksaas.ts_article_content 结构
+DROP TABLE IF EXISTS `ts_article_content`;
+CREATE TABLE IF NOT EXISTS `ts_article_content` (
+  `articleid` int(11) NOT NULL DEFAULT '0' COMMENT '文章ID',
+  `content` longtext NOT NULL COMMENT '文章内容',
+  UNIQUE KEY `articleid` (`articleid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章内容';
+
+-- 正在导出表  d_thinksaas.ts_article_content 的数据：0 rows
+DELETE FROM `ts_article_content`;
+/*!40000 ALTER TABLE `ts_article_content` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_article_content` ENABLE KEYS */;
 
 -- 导出  表 d_thinksaas.ts_article_user 结构
 DROP TABLE IF EXISTS `ts_article_user`;
@@ -248,11 +260,15 @@ DELETE FROM `ts_draft`;
 DROP TABLE IF EXISTS `ts_editor`;
 CREATE TABLE IF NOT EXISTS `ts_editor` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `ptable` varchar(50) NOT NULL DEFAULT '' COMMENT '项目表名',
+  `pkey` varchar(50) NOT NULL DEFAULT '' COMMENT '项目字段名',
+  `pid` int(11) NOT NULL DEFAULT '0' COMMENT '项目ID',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `type` char(32) NOT NULL DEFAULT 'photo' COMMENT '类型photo,file',
   `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
   `url` char(32) NOT NULL DEFAULT '' COMMENT '图片或者文件',
+  `isface` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'photo类型，是否为封面0否1是',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='编辑器上传图片和文件';
@@ -260,8 +276,8 @@ CREATE TABLE IF NOT EXISTS `ts_editor` (
 -- 正在导出表  d_thinksaas.ts_editor 的数据：1 rows
 DELETE FROM `ts_editor`;
 /*!40000 ALTER TABLE `ts_editor` DISABLE KEYS */;
-INSERT INTO `ts_editor` (`id`, `userid`, `type`, `title`, `path`, `url`, `addtime`) VALUES
-	(1, 1, 'photo', '4106d6112c28886e183a1e600f92723e.jpg', '0/0', '0/0/1.jpg', 1563675585);
+INSERT INTO `ts_editor` (`id`, `ptable`, `pkey`, `pid`, `userid`, `type`, `title`, `path`, `url`, `isface`, `addtime`) VALUES
+	(1, '', '', 0, 1, 'photo', '4106d6112c28886e183a1e600f92723e.jpg', '0/0', '0/0/1.jpg', 0, 1563675585);
 /*!40000 ALTER TABLE `ts_editor` ENABLE KEYS */;
 
 -- 导出  表 d_thinksaas.ts_group 结构
@@ -561,7 +577,7 @@ CREATE TABLE IF NOT EXISTS `ts_system_options` (
   UNIQUE KEY `optionname` (`optionname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='系统管理配置';
 
--- 正在导出表  dev_thinksaas.ts_system_options 的数据：45 rows
+-- 正在导出表  d_thinksaas.ts_system_options 的数据：45 rows
 DELETE FROM `ts_system_options`;
 /*!40000 ALTER TABLE `ts_system_options` DISABLE KEYS */;
 INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
@@ -1086,7 +1102,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_score` (
   PRIMARY KEY (`scoreid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COMMENT='用户积分设置表';
 
--- 正在导出表  d_thinksaas.ts_user_score 的数据：16 rows
+-- 正在导出表  d_thinksaas.ts_user_score 的数据：17 rows
 DELETE FROM `ts_user_score`;
 /*!40000 ALTER TABLE `ts_user_score` DISABLE KEYS */;
 INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`, `mg`, `ts`, `score`, `status`) VALUES
@@ -1174,6 +1190,6 @@ DELETE FROM `ts_weibo_photo`;
 /*!40000 ALTER TABLE `ts_weibo_photo` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

@@ -22,6 +22,13 @@ switch ($ts) {
 		if ($strArticle ['userid'] == $userid || $TS_USER ['isadmin'] == 1) {
 		
 			$strArticle['title'] = tsTitle($strArticle['title']);
+
+			$articleContent = $new['article']->find('article_content',array(
+				'articleid'=>$articleid,
+			));
+
+			$strArticle['content'] = $articleContent['content'];
+
 			//$strArticle['content'] = tsDecode($strArticle['content']); //为有效防止xss攻击，如果前端通过textarea标签加载的编辑器，请注释掉本行；如果编辑器有其他的加载方式，请视情况解除本行注释。
 			$strArticle['gaiyao'] = tsTitle($strArticle['gaiyao']);
 
@@ -98,11 +105,16 @@ switch ($ts) {
 		$new ['article']->update ( 'article', array (
 			'articleid' => $articleid,
 		), array (		
-			//'cateid' => $cateid,
 			'title' => $title,
-			'content' => $content ,
 			'gaiyao' => $gaiyao,
             'score'=>$score,
+		));
+
+		$new['article']->replace('article_content',array(
+			'articleid'=>$articleid,
+		),array(
+			'articleid'=>$articleid,
+			'content'=>$content,
 		));
 
 		#更新分类

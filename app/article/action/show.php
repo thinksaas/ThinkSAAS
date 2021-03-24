@@ -24,9 +24,11 @@ $cateid = $strArticle['cateid'];
 
 $strArticle['title'] = tsTitle($strArticle['title']);
 
-$tpUrl = tpPage($strArticle['content'],'article','show',array('id'=>$strArticle['articleid']));
+$articleContent = $new['article']->find('article_content',array(
+	'articleid'=>$articleid,
+));
 
-$strArticle['content'] = tsDecode($strArticle['content'],$tp);
+$strArticle['content'] = tsDecode($articleContent['content']);
 
 $strArticle ['tags'] = aac ( 'tag' )->getObjTagByObjid ( 'article', 'articleid', $articleid );
 $strArticle ['user'] = aac ( 'user' )->getSimpleUser ( $strArticle ['userid'] );

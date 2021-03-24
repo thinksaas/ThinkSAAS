@@ -61,6 +61,11 @@ class article extends tsApp {
             'articleid' => $strArticle['articleid'],
         ));
 
+        #删除ts_article_content
+        $this->delete('article_content',array(
+            'articleid' => $strArticle['articleid'],
+        ));
+
         #删除ts_article_user
         $this->delete('article_user',array(
             'articleid' => $strArticle['articleid'],
