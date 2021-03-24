@@ -577,7 +577,7 @@ CREATE TABLE IF NOT EXISTS `ts_system_options` (
   UNIQUE KEY `optionname` (`optionname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='系统管理配置';
 
--- 正在导出表  d_thinksaas.ts_system_options 的数据：45 rows
+-- 正在导出表  d_thinksaas.ts_system_options 的数据：46 rows
 DELETE FROM `ts_system_options`;
 /*!40000 ALTER TABLE `ts_system_options` DISABLE KEYS */;
 INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
@@ -585,9 +585,9 @@ INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
 	('site_subtitle', '又一个ThinkSAAS社区'),
 	('site_key', 'thinksaas'),
 	('site_desc', 'thinksaas'),
-	('site_url', 'http://dev.thinksaas.org/'),
-	('link_url', 'http://dev.thinksaas.org/'),
-	('site_pkey', '77bb8fd9e22e5d951bc2fd19bfd8bd1f'),
+	('site_url', 'http://d.thinksaas.cn/'),
+	('link_url', 'http://d.thinksaas.cn/'),
+	('site_pkey', '2de1d83ce25dd33477b6bee1aa0f39bb'),
 	('site_email', 'admin@admin.com'),
 	('site_icp', '豫ICP备00000000号'),
 	('isface', '0'),
@@ -608,6 +608,7 @@ INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
 	('visitor', '0'),
 	('publisher', '0'),
 	('pubtime', ''),
+	('timeblank', '0'),
 	('isallowedit', '0'),
 	('isallowdelete', '0'),
 	('site_theme', 'sample'),
