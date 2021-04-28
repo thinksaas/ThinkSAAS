@@ -19,7 +19,7 @@
                 <div class="fs24">用户登录</div>
                 
 
-                {if $TS_SITE['regtype']=='1' || $TS_SITE['regtype']=='2'}
+                {if $TS_SITE['isplogin']==1}
                 <div><a href="{tsUrl('user','plogin')}"><i class="fas fa-mobile-alt"></i> 短信登录</a></div>
                 {/if}
 
@@ -34,7 +34,7 @@
                   <div class="form-group">
                       <label>账号</label>
 
-                      <input name="email" type="text" class="form-control" placeholder="Email/手机号" check-type="required">
+                      <input name="email" type="text" class="form-control" placeholder="Email/手机号" onkeyup="this.value=this.value.replace(/[, ]/g,'')" check-type="required">
 
                   </div>
                   <div class="form-group">

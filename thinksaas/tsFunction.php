@@ -2138,16 +2138,19 @@ function tsCleanContent($text){
  */
 function tsDecode($text, $tp = 1) {
     $text = trim($text);
-	$text = html_entity_decode(stripslashes($text), ENT_NOQUOTES, "utf-8");
+	//$text = html_entity_decode(stripslashes($text), ENT_NOQUOTES, "utf-8");
+	$text = html_entity_decode($text, ENT_NOQUOTES, "utf-8");
 	$text = str_replace('<br /><br />', '<br />', $text);
 
 	//分页处理
+	/*
 	$arrText = explode('_ueditor_page_break_tag_', $text);
 
 	if ($arrText) {
 		$tp = $tp - 1;
 		$text = $arrText[$tp];
 	}
+	*/
 
 	return $text;
 }

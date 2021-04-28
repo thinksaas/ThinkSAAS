@@ -33,6 +33,14 @@ $(document).ready(function() {
 
         placeholder:'开始创作吧...',
         height:300,
+
+        //处理图片大小
+        imageCompression: {
+            enabled: true,
+            maxSizeMB: 0.5,
+            maxWidthOrHeight: 800
+        },
+
 		lang: 'zh-CN',
 		
 		callbacks: {

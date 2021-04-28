@@ -12,6 +12,7 @@ function summernote($loadjs='load'){
     }
 
     if($GLOBALS['TS_USER']) {
+
         echo '<link href="' . SITE_URL . 'plugins/pubs/summernote/summernote-lite.css" rel="stylesheet">';
         echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/summernote-lite.js"></script>';
         echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/lang/summernote-zh-CN.js"></script>';

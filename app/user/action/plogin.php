@@ -1,5 +1,10 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
+
+if($TS_SITE['isplogin']!=1){
+    tsNotice('短信登录未开启！');
+}
+
 /**
  * 手机验证码登录
  */
