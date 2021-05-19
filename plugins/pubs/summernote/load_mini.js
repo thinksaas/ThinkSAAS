@@ -1,10 +1,12 @@
+document.emojiSource = '/plugins/pubs/summernote/plugin/emojis/'; //relative path to emojis
 var content = $('textarea[name="content"]')
 $(document).ready(function() {
 
     var $summernote = $('#tseditor').summernote({
         height:100,
         toolbar: [
-            ['Insert', ['link','picture','ts_attach','ts_video','ts_audio']]
+            ['Insert', ['link','picture','ts_attach','ts_video','ts_audio']],
+            ['misc', ['emoji']]
         ],
 
         lang: 'zh-CN',

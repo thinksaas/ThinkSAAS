@@ -77,7 +77,7 @@ switch($ts){
         }
         */
 
-
+		$username = str_replace('.','',$username);
 		
 		//更新数据
 		$new['my']->update('user_info',array(

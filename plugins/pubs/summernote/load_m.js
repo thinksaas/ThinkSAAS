@@ -3,7 +3,6 @@ $(document).ready(function() {
     var $summernote = $('#tseditor').summernote({
 
         toolbar: [
-
             ['font', ['bold', 'clear']],
             //['para', ['ul', 'ol', 'paragraph']],
             ['insert', ['picture','ts_attach','ts_video','ts_audio']]

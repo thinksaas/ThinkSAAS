@@ -146,6 +146,7 @@ switch($ts){
 
 		#用户名敏感词
         $username = antiWord ($username);
+		$username = str_replace('.','',$username);
 
 		#判断用户名是否存在
         $isUserName = $new['user']->findCount('user_info',array(
