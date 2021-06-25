@@ -57,6 +57,13 @@ switch ($ts) {
         }
 
 
+		#加载草稿箱
+        $strDraft = $new['article']->find('draft',array(
+            'userid'=>$userid,
+            'types'=>'article',
+        ));
+
+
 		$title = '发布文章';
 		include  template('add');
 		break;
@@ -148,6 +155,14 @@ switch ($ts) {
 				'articleid' => $articleid,
 				'content' => $content,
 			));
+
+
+			#清空草稿箱
+			$new['article']->delete('draft',array(
+				'userid'=>$userid,
+				'types'=>'article',
+			));
+
 
 			// 上传图片开始
 			$arrUpload = tsUpload($_FILES['photo'], $articleid, 'article', array('jpg', 'gif', 'png', 'jpeg'));

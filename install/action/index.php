@@ -11,7 +11,7 @@ $f_upgrade =  iswriteable('upgrade');
 
 
 #检测必要组件
-$e_mysql = 0;
+#$e_mysql = 0;
 $e_dom = 0;
 $e_mbstring = 0;
 $e_gd = 0;
@@ -28,7 +28,7 @@ $e_curl = 0;
 if(extension_loaded('dom')) $e_dom=1;#dom
 if(extension_loaded('mbstring')) $e_mbstring=1;#mbstring
 if(extension_loaded('gd')) $e_gd=1;#gd
-if(extension_loaded('mysql')) $e_mysql=1;#mysql
+#if(extension_loaded('mysql')) $e_mysql=1;#mysql
 if(extension_loaded('mysqli')) $e_mysqli=1;#mysqli
 if(extension_loaded('openssl')) $e_openssl=1;#openssl
 if(extension_loaded('session')) $e_session=1;#session

@@ -5,7 +5,7 @@
         <div class="commlist">
             <ul>
             {loop $arrTopic $key $item}
-                <li><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{tsTitle($item['title'])}</a></li>
+                <li><a href="{tsUrl('topic','show',array('id'=>$item['topicid']))}">{tsTitle($item['title'])}</a></li>
             {/loop}
             </ul>
         </div>

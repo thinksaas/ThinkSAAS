@@ -2442,6 +2442,7 @@ function getJson($msg, $js = 1, $status = 1, $url = '', $data='',$isview=0) {
                 'status' => $status,
                 'msg'=>$msg,
                 'data' => $data,
+				'url' => '',
             ));
         }
         exit ;

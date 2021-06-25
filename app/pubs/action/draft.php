@@ -17,7 +17,7 @@ $content = tsClean($_POST['content']);
 
 if($types && $title && $content){
 
-    if(!in_array($types,array('topic'))){
+    if(!in_array($types,array('topic','article'))){
         getJson('非法操作！',1,0);
     }
 

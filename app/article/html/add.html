@@ -54,7 +54,7 @@
 
   <div class="form-group">
     <label>标题：</label>
-    <input name="title" type="text" class="form-control">
+    <input name="title" type="text" class="form-control" value="{if $strDraft['title']}{tsTitle($strDraft['title'])}{/if}">
   </div>
 {if $arrCate}  
   <div class="form-group">
@@ -85,7 +85,7 @@
   <div class="form-group">
     <label>内容：</label>
       <div>
-          <textarea  id="tseditor" name="content"></textarea>
+          <textarea  id="tseditor" name="content">{if $strDraft['content']}{php echo tsDecode($strDraft['content'])}{/if}</textarea>
       </div>
   </div>
 
@@ -206,4 +206,21 @@
 
 </div>
 {php doAction('tseditor')}
+
+<script>
+    //自动保存到草稿箱
+    var int=self.setInterval('toDraft()',60000);//轮询执行，一分钟一次
+    function toDraft() {
+        $(document).ready(function() {
+            var title = $('input[name="title"]').val();
+            var content = $('textarea[name="content"]').val();
+            $.post(siteUrl+'index.php?app=pubs&ac=draft',{'types':'article','title':title,'content':content},function (rs) {
+                if(rs.status==1){
+                    tsAlert(rs.msg)
+                }
+            },'json')
+        });
+    }
+</script>
+
 {php include pubTemplate("footer")}
