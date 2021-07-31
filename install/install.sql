@@ -107,6 +107,7 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '阅读文章所需积分',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
   `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片路径',
+  `istop` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '是否置顶0否1是',
   `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否审核',
   `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否推荐',
   `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '统计评论数',
