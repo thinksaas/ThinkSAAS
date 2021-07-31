@@ -10,7 +10,7 @@ switch($ts){
 
 		$topicid = tsIntval($_GET['topicid']);
 
-		$kw=urldecode(tsFilter($_GET['kw']));
+		$kw=tsFilter($_GET['kw']);
 		
 		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
 		$url = SITE_URL.'index.php?app=topic&ac=admin&mg=topic&ts=list&page=';

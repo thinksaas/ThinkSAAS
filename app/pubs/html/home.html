@@ -63,7 +63,7 @@
 
             <div class="pubs_home_login">
 
-                <form id="comm-form" id="comm-form" method="POST" action="{SITE_URL}index.php?app=user&ac=login&ts=do" role="form">
+                
                     <div class="form-group">
                         <label>账号</label>
                         <input name="email" type="text" class="form-control" placeholder="Email/手机号">
@@ -77,7 +77,7 @@
 
                     <input type="hidden" name="cktime" value="31536000">
                     <input type="hidden" name="token" value="{$_SESSION['token']}" />
-                    <button type="submit" class="btn btn-info btn-block">登 录</button>
+                    <button type="submit" id="comm-submit" class="btn btn-info btn-block">登 录</button>
 
 
                     <a class="btn btn-link" href="{tsUrl('user','register')}">注册帐号</a>
@@ -86,7 +86,7 @@
 
 
 
-                </form>
+               
 
             </div>
 
@@ -123,6 +123,93 @@
 <script src="{SITE_URL}public/js/common.js" type="text/javascript"></script>
 
 {php doAction('pub_footer')}
+
+
+
+<!--{if $TS_SITE['is_vaptcha']}-->
+<script src="https://v.vaptcha.com/v3.js"></script>
+<script>
+vaptcha({
+    vid: '{$TS_SITE[vaptcha_vid]}',
+    type: 'invisible',
+    scene: 0,
+    offline_server: "{SITE_URL}index.php?app=pubs&ac=vaptcha",
+}).then(function (vaptchaObj) {
+
+    obj = vaptchaObj; //将VAPTCHA验证实例保存到局部变量中
+
+    vaptchaObj.listen("pass", function () {
+        // 验证成功进行后续操作
+        var email = $("input[name='email']").val();
+        var pwd = $("input[name='pwd']").val();
+        var cktime = $("input[name='cktime']").val();
+        var jump = $("input[name='jump']").val();
+        var token = $("input[name='token']").val();
+            
+        var data = {
+            email:email,
+            pwd:pwd,
+            cktime:cktime,
+            jump:jump,
+            token:token,
+            vaptcha_token: vaptchaObj.getToken(),
+        };
+        tsPost('index.php?app=user&ac=login&ts=do&js=1',data)
+        vaptchaObj.reset(); //重置验证码
+        
+    });
+
+    //关闭验证弹窗时触发
+    vaptchaObj.listen("close", function () {
+        //验证弹窗关闭触发
+    });
+
+})
+
+$("#comm-submit").on("click", function () {
+
+    var email = $("input[name='email']").val();
+    var pwd = $("input[name='pwd']").val();
+
+    if(email && pwd){
+        //人机验证
+        obj.validate();
+    }else{
+        tsNotice('账号和密码必须输入！');
+    }
+
+    
+});
+</script>
+
+<!--{else}-->
+
+<script>
+    $("#comm-submit").on("click", function () {
+        var email = $("input[name='email']").val();
+        var pwd = $("input[name='pwd']").val();
+        var cktime = $("input[name='cktime']").val();
+        var jump = $("input[name='jump']").val();
+        var token = $("input[name='token']").val();
+
+        if(email && pwd){
+            var data = {
+                email:email,
+                pwd:pwd,
+                cktime:cktime,
+                jump:jump,
+                token:token,
+            };
+            tsPost('index.php?app=user&ac=login&ts=do&js=1',data)
+        }else{
+            tsNotice('账号和密码必须输入！');
+        }
+    
+    });
+</script>
+
+<!--{/if}-->
+
 
 </body>
 </html>

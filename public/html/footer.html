@@ -26,12 +26,24 @@
 {if intval($GLOBALS['TS_USER']['userid'])}
 <script src="{SITE_URL}public/js/imbox/imbox.js" type="text/javascript"></script>
 {/if}
-<script src="{SITE_URL}public/js/common.js?v=20201113" type="text/javascript"></script>
+<script src="{SITE_URL}public/js/common.js?v=202107250352" type="text/javascript"></script>
 {if is_file('app/'.$GLOBALS['TS_URL']['app'].'/js/extend.func.js')}
 <script src="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/js/extend.func.js?v=20200223" type="text/javascript"></script>
 {/if}
 
 {php doAction('pub_footer')}
 
+{if !in_array($ac,array('add','create','edit','upload','show'))}
+<script>
+//控制footer
+footer = $('.footer');//元素
+footer_height = footer.height();//元素高度
+window_height = $(window).height();//浏览器窗口高度
+footer_juli=window_height-(footer_height+footer.offset().top-$(document).scrollTop());//元素到浏览器底部的高度
+if(footer_juli>120){
+    footer.attr("style","position: fixed;width: 100%;bottom: 0px;")
+}
+</script>
+{/if}
 </body>
 </html>

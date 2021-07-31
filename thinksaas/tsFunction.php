@@ -2271,7 +2271,7 @@ function tsFilter($value) {
 	$value = strtolower($value);
 	//转换为小写
 	foreach ($words as $word) {
-		if (strstr($value, $word)) {
+		while (strstr($value, $word)) {
 			$value = str_replace($word, '', $value);
 		}
 	}

@@ -19,7 +19,7 @@ function recommendarticle(){
 		);
 	}
 
-	$arrArticle = aac('article')->findAll('article',$where,'addtime desc','articleid,cateid,userid,title,gaiyao,path,photo,count_view,count_comment,addtime,uptime',10);
+	$arrArticle = aac('article')->findAll('article',$where,'istop desc,addtime desc','articleid,cateid,userid,title,gaiyao,path,photo,count_view,count_comment,istop,addtime,uptime',10);
 	foreach($arrArticle as $key=>$item){
 		$arrArticle[$key]['title'] = tsTitle($item['title']);
 		$arrArticle[$key]['gaiyao'] = tsTitle($item['gaiyao']);

@@ -14,7 +14,12 @@
                 </div>
                 <div class="col-md-8">
 
-                    <div class="fs18 font-weight-bold"><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></div>
+                    <div class="fs18 font-weight-bold">
+                        <a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a>
+                        {if $item['istop']=='1'}
+                        <img src="{SITE_URL}public/images/ding.png" width="24" height="24" title="[置顶]" alt="[置顶]" />
+                        {/if}
+                    </div>
 
                     <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a> 发表于 {$item['addtime']}</div>
 
@@ -53,7 +58,12 @@
 
             {else}
 
-            <div class="fs18 font-weight-bold"><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></div>
+            <div class="fs18 font-weight-bold">
+                <a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a>
+                {if $item['istop']=='1'}
+                <img src="{SITE_URL}public/images/ding.png" width="24" height="24" title="[置顶]" alt="[置顶]" />
+                {/if}
+            </div>
 
             <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a> 发表于 {$item['addtime']}</div>
 

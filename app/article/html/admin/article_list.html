@@ -35,6 +35,16 @@
 {/if}
 
 
+
+<a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=admin&mg=article&ts=istop&articleid={$item['articleid']}">
+    {if $item['istop']==1}
+    取消置顶
+    {else}
+    置顶
+    {/if}
+</a>
+
+
 <a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=admin&mg=article&ts=isrecommend&articleid={$item['articleid']}">{if $item['isrecommend']==1}
 取消推荐
 {else}

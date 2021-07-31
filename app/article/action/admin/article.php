@@ -117,4 +117,27 @@ switch($ts){
 		qiMsg('操作成功！');
 		break;
 
+	//置顶
+	case "istop":
+		
+		$articleid = tsIntval($_GET['articleid']);
+		$strArticle = $new['article']->find('article',array(
+			'articleid'=>$articleid,
+		));
+		
+		if($strArticle['istop']==0){
+			$istop = 1;
+		}else{
+			$istop = 0;
+		}
+
+		$new['article']->update('article',array(
+			'articleid'=>$articleid,
+		),array(
+			'istop'=>$istop,
+		));
+		
+		qiMsg('操作成功！');
+		break;
+
 }
