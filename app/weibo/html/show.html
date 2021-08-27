@@ -46,7 +46,7 @@
 
 <div class="text-right fs12">
 {if $GLOBALS['TS_USER']['isadmin'] == 1}
-<a onclick="return confirm('确定删除?')" href="{tsUrl('weibo','delete',array('weiboid'=>$strWeibo['weiboid']))}"><i class="far fa-trash-alt"></i> 删除</a>
+<a onclick="return confirm('确定删除?')" href="{tsUrl('weibo','delete',array('weiboid'=>$strWeibo['weiboid']))}"><i class="bi bi-trash"></i> 删除</a>
 {/if}
 </div>
 </li>

@@ -5,40 +5,29 @@
 {template anti_menu}
 
 
-    <div class="row">
-        <div class="col-md-6">
+<div>
+    <form method="post" action="{SITE_URL}index.php?app=system&ac=anti&ts=worddo">
+        敏感词：<input name="word" /> <input type="submit" value="添加" /> 
+        <a class="btn btn-sm btn-outline-primary" href="{SITE_URL}index.php?app=system&ac=anti&ts=worddelall">一键删除所有敏感词</a> 
+        
+        
 
-            <div>
-                <form method="post" action="{SITE_URL}index.php?app=system&ac=anti&ts=worddo">
-                    敏感词：<input name="word" /> <input type="submit" value="添加" /> 
-                    <a class="btn btn-sm btn-outline-primary" href="{SITE_URL}index.php?app=system&ac=anti&ts=worddelall">一键删除所有敏感词</a> <small class="text-danger">请至少保留一个敏感词</small>
-                </form>
-            </div>
+        <a class="btn btn-sm btn-outline-primary" href="{SITE_URL}index.php?app=system&ac=anti&ts=wordadd">批量添加敏感词</a>
 
-        </div>
-        <div class="col-md-6">
-
-            <!--
-            <form method="post" action="" enctype="multipart/form-data">
-                <input type="file" name="file">
-                <input type="submit" value="上传xml文件">  <a href="">下载xml模板文件</a>
-            </form>
-            -->
-
-        </div>
-    </div>
+    </form>
+</div>
 
 
 
 <div class="mt-3">
 <table class="table table-hover">
 <thead class="thead-light">
-<tr><th>ID</th><th>敏感词</th><th>添加时间</th><th>操作</th></tr>
+<tr><th>ID</th><th>敏感词 <small class="text-danger">请至少保留一个敏感词</small></th><th>添加时间</th><th>操作</th></tr>
 </thead>
 
 <tbody class="fs12 c9">
 {loop $arrWord $key $item}
-<tr><td>{$item['id']}</td><td>{$item['word']}</td><td>{$item['addtime']}</td><td><a href="{SITE_URL}index.php?app=system&ac=anti&ts=worddel&id={$item['id']}"><i class="far fa-trash-alt"></i> 删除</a></td></tr>
+<tr><td>{$item['id']}</td><td>{$item['word']}</td><td>{$item['addtime']}</td><td><a href="{SITE_URL}index.php?app=system&ac=anti&ts=worddel&id={$item['id']}"><i class="bi bi-trash"></i> 删除</a></td></tr>
 {/loop}
 </tbody>
 

@@ -11,15 +11,27 @@
 
 
     <thead class="thead-light">
-    <tr><th>ID</th><th>UserID</th><th>内容</th><th>操作</th></tr>
+    <tr><th>ID</th><th>UserID</th>
+        
+        <th>内容</th>
+
+        <th>统计</th>
+        
+        <th>操作</th>
+    
+    </tr>
     </thead>
 
 
 
-    <tbody>
+    <tbody class="fs12">
 
     {loop $arrWeibo $key $item}
-    <tr><td>{$item['weiboid']}</td><td>{$item['userid']}</td><td>{$item['title']}
+    <tr>
+        <td>{$item['weiboid']}</td>
+        <td>{$item['userid']}</td>
+        
+        <td>{$item['title']}
 
         {if $item['photo']}
         <div>
@@ -29,7 +41,12 @@
         </div>
         {/if}
 
-    </td><td>
+    </td>
+
+    <td>评论：{$item['count_comment']}</td>
+    
+    
+    <td>
 
 
         <a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=weibo&ts=isaudit&weiboid={$item['weiboid']}">
@@ -44,7 +61,8 @@
         <a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=weibo&ts=delete&weiboid={$item['weiboid']}">[删除]</a>
 
 
-    </td></tr>
+    </td>
+</tr>
     {/loop}
 
     </tbody>

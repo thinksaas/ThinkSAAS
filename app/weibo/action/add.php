@@ -17,13 +17,22 @@ switch($ts){
         //发布时间限制
         if(aac('system')->pubTime()==false) getJson('不好意思，当前时间不允许发布内容！',$js);
 
+        if ($TS_APP['allowpost'] == 0 && $TS_USER['isadmin'] == 0) {
+			getJson('应用设置不允许会员发布唠叨！',$js);
+		}
+
         $title = trim($_POST['title']);
 
         if($title == '') {
             getJson('内容不能为空',$js);
         }
 
-        $isaudit = 0;
+        //1审核后显示0不审核
+		if ($TS_APP['isaudit'] == 1) {
+			$isaudit = 1;
+		} else {
+			$isaudit = 0;
+		}
 
         if($GLOBALS['TS_USER']['isadmin']==0){
             //过滤内容开始
@@ -53,6 +62,9 @@ switch($ts){
         if($count_weibo<4){
             aac('user') -> doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
         }
+
+        #用户记录
+		aac('pubs')->addLogs('weibo','weiboid',$weiboid,$userid,$title,$title,0);
 
         getJson('发布成功！',$js,2,tsurl('weibo','show',array('id'=>$weiboid)));
 

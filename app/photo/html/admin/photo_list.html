@@ -10,11 +10,16 @@
 
 
     <thead class="thead-light">
-    <tr><th>PhotoId</th><th>图片</th><th>AlbumID</th><th>UserId</th><th>操作</th></tr>
+    <tr><th>PhotoId</th><th>图片</th><th>AlbumID</th>
+        
+        <th>UserId</th>
+        <th>统计</th>
+        
+        <th>操作</th></tr>
     </thead>
 
 
-    <tbody>
+    <tbody class="fs12">
 
     {loop $arrPhoto $key $item}
     <tr><td>{$item[photoid]}</td><td><a target="_blank" href="{SITE_URL}uploadfile/photo/{$item[photourl]}">
@@ -25,7 +30,16 @@
         <img src="{SITE_URL}public/images/event_dft.jpg" />
         {/if}
 
-    </a></td><td>{$item[albumid]}</td><td>{$item[userid]}</td><td>
+    </a></td><td>{$item[albumid]}</td>
+    
+    <td>{$item[userid]}</td>
+
+    <td>
+        浏览：{$item['count_view']}<br>
+        评论：{$item['count_comment']}
+    </td>
+    
+    <td>
 
         <a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=face&photoid={$item[photoid]}">设为封面</a>
 

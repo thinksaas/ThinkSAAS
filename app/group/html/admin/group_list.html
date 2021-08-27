@@ -14,8 +14,7 @@
         <th>ID</th>
         <th>小组名字</th>
         <th>小组介绍</th>
-        <th>帖子统计</th>
-        <th>成员统计</th>
+        <th>统计</th>
         <th>创建时间</th>
         <th>操作</th>
     </tr>
@@ -28,8 +27,13 @@
 <tr>
     <td>{$item[groupid]}</td>
     <td><a href="{tsUrl('group','show',array('id'=>$item['groupid']))}" target="_blank">[{tsTitle($item['groupname'])}]</a></td>
-    <td>{php echo cututf8(t($item[groupdesc]),0,20)}</td><td>{$item[count_topic]}</td>
-    <td>{$item[count_user]}</td>
+    <td>{php echo cututf8(t($item[groupdesc]),0,20)}</td>
+    
+    <td>帖子数：{$item['count_topic']}
+        <br>
+        成员数：{$item['count_user']}
+    </td>
+    
     <td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td>
     <td>
 

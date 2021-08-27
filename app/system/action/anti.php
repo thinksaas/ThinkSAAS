@@ -114,7 +114,7 @@ switch($ts){
 				} else {
 					$strWord .= '|'.$item;
 				}
-					$count++;
+				$count++;
 			}
 		}
 		
@@ -122,6 +122,58 @@ switch($ts){
 		$tsMySqlCache->set('system_anti_word',$strWord);
 		
 		qiMsg('删除成功！');
+		break;
+
+	case "wordadd":
+
+		include template('anti_wordadd');
+		break;
+
+	case "wordadddo":
+
+		$word = trim($_POST['word']);
+        if($word==''){
+            qiMsg('敏感词必须填写！');
+        }
+        $arrWord = explode(PHP_EOL,$word);
+		foreach($arrWord as $key=>$item){
+			$word = $item;
+			$isWord = $new['system']->findCount('anti_word',array(
+				'word'=>$word,
+			));
+			if($isWord == 0){
+				$new['system']->create('anti_word',array(
+					'word'=>$word,
+					'addtime'=>date('Y-m-d H:i:s'),
+				));
+			}
+		}
+
+		//生成缓存
+		$arrWords = $new['system']->findAll('anti_word');
+		foreach($arrWords as $key=>$item){
+			$arrWord2[] = $item['word'];
+		}
+		
+		$strWord = '';
+		$count = 1;
+		if(is_array($arrWord2)){
+			foreach ($arrWord2 as $item) {
+				if ($count==1) {
+					$strWord .= $item;
+				} else {
+					$strWord .= '|'.$item;
+				}
+					$count++;
+			}
+		}
+		
+		fileWrite('system_anti_word.php','data',$strWord);
+		$tsMySqlCache->set('system_anti_word',$strWord);
+
+		header('Location: '.SITE_URL.'app=system&ac=anti&ts=word');
+		exit();
+
 		break;
 		
 	//垃圾IP 

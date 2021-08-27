@@ -30,12 +30,12 @@
 
 <ul class="menus">
 
-<li><a {if $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='my' || $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='system'  || $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='friend'  || $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='user'}class="active"{/if} href="{tsUrl('message','my')}"><i class="far fa-envelope"></i> 消息</a></li>
+<li><a {if $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='my' || $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='system'  || $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='friend'  || $GLOBALS['TS_URL']['app']=='message' && $GLOBALS['TS_URL']['ac']=='user'}class="active"{/if} href="{tsUrl('message','my')}"><i class="bi bi-chat-square-text"></i> 消息</a></li>
     
-    <li><a {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='score'}class="active"{/if} href="{tsUrl('my','score')}"><i class="fas fa-coins"></i> 积分</a></li>
+    <li><a {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='score'}class="active"{/if} href="{tsUrl('my','score')}"><i class="bi bi-gem"></i> 积分</a></li>
 
 
-    <li><a {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='invite'}class="active"{/if} href="{tsUrl('my','invite')}"><i class="fas fa-user-friends"></i> 邀请用户</a></li>
+    <li><a {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='invite'}class="active"{/if} href="{tsUrl('my','invite')}"><i class="bi bi-person-plus"></i> 邀请用户</a></li>
 
 
 </ul>
@@ -44,7 +44,7 @@
 
 <ul class="menus">
 
-<li><a {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='setting'}class="active"{/if} href="{tsUrl('my','setting',array('ts'=>'base'))}"><i class="fas fa-user-cog"></i> 账户设置</a></li>
+<li><a {if $GLOBALS['TS_URL']['app']=='my' && $GLOBALS['TS_URL']['ac']=='setting'}class="active"{/if} href="{tsUrl('my','setting',array('ts'=>'base'))}"><i class="bi bi-gear"></i> 账户设置</a></li>
 
 </ul>
     

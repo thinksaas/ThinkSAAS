@@ -1,0 +1,24 @@
+{php include pubTemplate("header_admin")}
+
+<!--main-->
+<div class="midder">
+{template anti_menu}
+
+
+<form method="post" action="{SITE_URL}index.php?app=system&ac=anti&ts=wordadddo">
+
+    <div class="form-group">
+        <label class="text-danger">输入敏感词(一行一个)：</label>
+        <textarea style="height: 300px;" class="form-control" name="word"></textarea>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">执行批量添加</button>
+    </div>
+
+</form>
+
+
+</div>
+
+{php include pubTemplate("footer_admin")}

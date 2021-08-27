@@ -74,17 +74,17 @@
 
                         <div class="float-left c9 fw300 pt-1">
 
-                            <i class="far fa-eye"></i> {$strArticle['count_view']}
+                            <i class="bi bi-eye"></i> {$strArticle['count_view']}
 
-                            <i class="far fa-comment ml-3"></i> {$strArticle['count_comment']}
+                            <i class="bi bi-chat-text ml-3"></i> {$strArticle['count_comment']}
 
                         </div>
 
                         {if $TS_USER[isadmin]==1 || $TS_USER['userid']==$strArticle['userid']}
                         <div class="float-right text-right">
 
-                            <a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=edit&articleid={$strArticle['articleid']}"><i class="far fa-edit"></i> 修改</a>
-                            <a onclick="return confirm('确定删除?')" class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=delete&articleid={$strArticle['articleid']}&token={$_SESSION['token']}"><i class="far fa-trash-alt"></i> 删除</a>
+                            <a class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=edit&articleid={$strArticle['articleid']}"><i class="bi bi-pen"></i> 修改</a>
+                            <a onclick="return confirm('确定删除?')" class="btn btn-outline-secondary btn-sm" href="{SITE_URL}index.php?app=article&ac=delete&articleid={$strArticle['articleid']}&token={$_SESSION['token']}"><i class="bi bi-trash"></i> 删除</a>
                         </div>
                         {/if}
 

@@ -85,7 +85,7 @@
             context.memo('button.emoji', function () {
                 // create button
                 var button = ui.button({
-                    contents: '<i class="fa fa-smile"/>',
+                    contents: '<i class="bi bi-emoji-smile"></i>',
                     //tooltip: 'emoji',
                     click: function () {
                         if(document.emojiSource === undefined)

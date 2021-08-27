@@ -15,7 +15,7 @@
 
 
 
-    <tbody>
+    <tbody class="fs12">
 
     {loop $arrAlbum $key $item}
     <tr><td>{$item[albumid]}</td><td><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=photo&albumid={$item[albumid]}">
@@ -30,7 +30,8 @@
 
         <td>{tsTitle($item['albumname'])}</td>
 
-        <td>{$item[userid]}</td><td>{$item[count_photo]}</td>
+        <td>{$item[userid]}</td>
+        <td>图片：{$item['count_photo']}</td>
 
 
         <td>{$item['addtime']}</td>

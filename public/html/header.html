@@ -22,6 +22,9 @@
     <link rel="shortcut icon" href="{SITE_URL}favicon.ico" />
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="{SITE_URL}public/bootstrap/css/bootstrap.min.css">
+    <!--bootstrap图标库-->
+    <link rel="stylesheet" href="{SITE_URL}public/bootstrap-icons/bootstrap-icons.css">
+
     <link rel="stylesheet" type="text/css" href="{SITE_URL}theme/sample/base.css?v={php echo rand();}" />
     {if is_file('app/'.$GLOBALS['TS_URL']['app'].'/skin/style.css')}
     <link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skin/style.css">
@@ -46,8 +49,6 @@
         var urllock="$GLOBALS['TS_CF']['urllock']";if(document.domain!=urllock){top.location.href=siteUrl;}
     </script>
     {/if}
-    <!--CSS图标-->
-    <link href="{SITE_URL}public/fontawesome/css/fontawesome-all.css" rel="stylesheet">
     <style>
         {php doAction('pub_header_css')}
     </style>

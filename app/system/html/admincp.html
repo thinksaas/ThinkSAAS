@@ -5,7 +5,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>{$title} - {$TS_SITE['site_title']}</title>
 
-    <link href="{SITE_URL}public/fontawesome/css/fontawesome-all.css" rel="stylesheet">
+<link rel="stylesheet" href="{SITE_URL}public/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="{SITE_URL}public/bootstrap-icons/bootstrap-icons.css">
 
 <style type="text/css">
 html {height:100%;max-height:100%;padding:0;margin:0;border:0;background:#fff;font-size:12px;font-family:Arial;
@@ -17,18 +18,18 @@ overflow: hidden;
 
 body{height:100%;max-height:100%;overflow:hidden;padding:0;margin:0; border:0;}
 
-.midder{overflow:hidden; position:absolute; z-index:3; top:65px; width:100%;bottom:60px;}
+.midder{overflow:hidden; position:absolute; z-index:3; top:75px; width:100%;bottom:60px;}
 
 *html .midder {top:0; height:100%; max-height:100%; width:100%; overflow:auto;position:absolute; z-index:3;border-bottom:60px solid #fff;padding-top:60px;}
 
-.header{position:absolute;margin:0;top:0;display:block;width:100%;height:65px;background:#3A81C0;background-position:0 0; background-repeat:no-repeat;z-index:5;overflow:hidden;box-shadow: 0px 1px 5px #ddd;}
-.header .logo{float:left;padding-top:15px;padding-left: 10px;}
+.header{position:absolute;margin:0;top:0;display:block;width:100%;background:#3A81C0;background-position:0 0; background-repeat:no-repeat;z-index:5;overflow:hidden;box-shadow: 0px 1px 5px #ddd;}
+.header .logo{float:left;padding-top:20px;padding-left: 10px;}
 
 .header .right{margin-left:200px;overflow:hidden;}
 
 
 .header .menu{overflow:hidden;padding-right:20px;}
-.header .menu a{float:left;color:#FFFFFF;font-size:14px;text-align:center;padding:10px 20px;font-weight: bold;}
+.header .menu a{float:left;color:#FFFFFF;font-size:16px;text-align:center;padding:10px 20px;font-weight: bold;}
 .header .menu .on{background:#FFFFFF;color:#3A81C0;}
 
 
@@ -60,22 +61,23 @@ $(function(){
 <div class="right">
 
 <div class="user">
-欢迎您，<i class="far fa-user-circle"></i>{$TS_USER[username]}
-<a href="index.php" target="_blank"><i class="fas fa-home"></i>返回前台</a>
-<a href="index.php?app=user&ac=logout"><i class="fas fa-sign-out-alt"></i>退出</a>
+欢迎您，<i class="bi bi-person-circle"></i> {$TS_USER[username]}
+<a href="index.php" target="_blank"><i class="bi bi-house"></i> 回前台</a>
+<a href="index.php?app=user&ac=logout"><i class="bi bi-box-arrow-right"></i> 退出</a>
 </div>
 
 
 <div class="menu">
-<a class="on" href="index.php?app=system&ac=main"  target="main">首页</a>
-<a href="index.php?app=system&ac=options"  target="main">系统管理</a>
-<a href="index.php?app=system&ac=apps&ts=list"  target="main">应用管理</a>
-<a href="index.php?app=system&ac=plugin&ts=list&apps=pubs"  target="main">插件管理</a>
-<a href="index.php?app=system&ac=anti&ts=word"  target="main"><i class="fas fa-shield-alt"></i> 安全中心</a>
-<a href="index.php?app=system&ac=update"  target="main"><i class="fas fa-cloud-upload-alt"></i> 系统升级</a>
+<a class="on" href="index.php?app=system&ac=main"  target="main"><i class="bi bi-house-door"></i> 首页</a>
+<a href="index.php?app=system&ac=options"  target="main"><i class="bi bi-gear"></i> 系统管理</a>
+<a href="index.php?app=system&ac=apps&ts=list"  target="main"><i class="bi bi-grid"></i> 应用管理</a>
+<a href="index.php?app=system&ac=plugin&ts=list&apps=pubs"  target="main"><i class="bi bi-sliders"></i> 插件管理</a>
+<a href="index.php?app=system&ac=anti&ts=word"  target="main"><i class="bi bi-shield-shaded"></i> 安全中心</a>
+<a href="index.php?app=system&ac=update"  target="main"><i class="bi bi-cloud-arrow-up"></i> 系统升级</a>
 
 
-<a href="https://www.aliyun.com/minisite/goods?userCode=t0dihnz2"  target="_blank"><i class="fas fa-server"></i> 云小站</a>
+<a href="https://www.aliyun.com/minisite/goods?userCode=t0dihnz2"  target="_blank"><i class="bi bi-menu-button-wide"></i> 云小站</a>
+<a href="https://www.thinksaas.cn/service/cloud/"  target="_blank"><i class="bi bi-cpu"></i> 云服务器5折</a>
 
 
 </div>

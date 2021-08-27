@@ -52,8 +52,8 @@
 
                         <div class="d-flex flex-row justify-content-end c9">
 
-                            <div><i class="far fa-comment-dots"></i> {$strTopic['count_comment']}</div>
-                            <div class="ml-3"><i class="far fa-eye"></i> {$strTopic['count_view']}</div>
+                            <div><i class="bi-chat-text"></i> {$strTopic['count_comment']}</div>
+                            <div class="ml-3"><i class="bi bi-eye"></i> {$strTopic['count_view']}</div>
 
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                         {if $TS_USER['userid']==$strGroup['userid'] ||$strGroupUser['isadmin']=="1" || $TS_USER['isadmin']=="1"}
 
 
-                        <a href="#" data-toggle="modal" data-target="#bookModal"><i class="far fa-bookmark"></i> 标注</a>
+                        <a href="#" data-toggle="modal" data-target="#bookModal"><i class="bi bi-bookmark-check"></i> 标注</a>
 
 
                         <a href="javascript:void('0');" onclick="topicAudit('{$strTopic['topicid']}','{$_SESSION['token']}');">{if $strTopic['isaudit']=='1'}审核{else}取消审核{/if}</a>
@@ -135,7 +135,7 @@
 
                         {/if}
                         <a href="{SITE_URL}index.php?app=topic&ac=edit&topicid={$strTopic['topicid']}">编辑</a>
-                        <a href="{SITE_URL}index.php?app=topic&ac=delete&topicid={$strTopic['topicid']}&token={$_SESSION['token']}" onClick="return confirm('确定删除吗?')"><i class="far fa-trash-alt"></i> 删除</a>
+                        <a href="{SITE_URL}index.php?app=topic&ac=delete&topicid={$strTopic['topicid']}&token={$_SESSION['token']}" onClick="return confirm('确定删除吗?')"><i class="bi bi-trash"></i> 删除</a>
 
                     </div>
                     {/if}

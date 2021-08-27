@@ -39,7 +39,7 @@
             context.memo('button.highlight', function () {
                 // create button
                 var button = ui.button({
-                    contents: '<i class="fas fa-code"></i>',
+                    contents: '<i class="bi bi-code"></i>',
                     tooltip: 'highlight',
                     click: function () {
                         self.show()

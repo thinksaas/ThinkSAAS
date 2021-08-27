@@ -46,6 +46,7 @@
         <th>用户ID</th>
         <th>圈子ID</th>
         <th>标题</th>
+        <th>统计</th>
         <th>时间</th>
         <th>操作</th>
     </tr>
@@ -62,6 +63,13 @@
     <td>{$item['userid']}</td>
     <td>{$item['groupid']}</td>
     <td><a target="_blank" href="{tsUrl('topic','show',array('id'=>$item['topicid']))}">{tsTitle($item['title'])}</a></td>
+
+
+    <td>
+       浏览：{$item['count_view']}<br>
+       评论：{$item['count_comment']}
+    </td>
+
     <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
     <td>
 
