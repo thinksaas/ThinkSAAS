@@ -171,7 +171,7 @@ switch($ts){
 		fileWrite('system_anti_word.php','data',$strWord);
 		$tsMySqlCache->set('system_anti_word',$strWord);
 
-		header('Location: '.SITE_URL.'app=system&ac=anti&ts=word');
+		header('Location: '.SITE_URL.'index.php?app=system&ac=anti&ts=word');
 		exit();
 
 		break;
