@@ -12,12 +12,11 @@ function summernote($loadjs='load'){
     }
 
     if($GLOBALS['TS_USER']) {
-
         echo '<link href="' . SITE_URL . 'plugins/pubs/summernote/summernote-lite.css" rel="stylesheet">';
         echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/summernote-lite.js"></script>';
         echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/lang/summernote-zh-CN.js"></script>';
         #插入代码插件
-        echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/plugin/summernote-ext-highlight.js?v=2021"></script>';
+        echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/plugin/summernote-ext-highlight.js?v=202109060947"></script>';
         #过滤html
         echo '<script src="' . SITE_URL . 'plugins/pubs/summernote/plugin/summernote-cleaner.js"></script>';
         #附件插件

@@ -41,64 +41,60 @@ if($strScoreOption && $strScoreOption['status']==1){
 	}
 }
 
+
+$groupid = tsIntval($_GET ['groupid']);
+
+// 小组数目
+$groupNum = $new ['topic']->findCount ( 'group', array (
+	'groupid' => $groupid 
+) );
+
+if ($groupNum == 0) {
+	header ( "Location: " . SITE_URL );
+	exit ();
+}
+
+// 小组会员
+$isGroupUser = $new ['topic']->findCount ( 'group_user', array (
+	'userid' => $userid,
+	'groupid' => $groupid 
+) );
+
+//小组信息
+$strGroup = $new ['topic']->find ( 'group', array (
+	'groupid' => $groupid
+));
+$strGroup ['groupname'] = tsTitle( $strGroup ['groupname'] );
+$strGroup ['groupdesc'] = tsTitle( $strGroup ['groupdesc'] );
+
+if ($strGroup ['isaudit'] == 1) {
+	tsNotice ( '小组还未审核通过，不允许发帖！' );
+}
+
+// 允许小组成员发帖
+if ($strGroup ['ispost'] == 0 && $isGroupUser == 0 && $userid != $strGroup ['userid']) {
+	tsNotice ( "本小组只允许小组成员发贴，请加入小组后再发帖！" );
+}
+// 不允许小组成员发帖
+if ($strGroup ['ispost'] == 1 && $userid != $strGroup ['userid']) {
+	tsNotice ( "本小组只允许小组组长发帖！" );
+}
+
 switch ($ts) {
+
 	// 发布帖子
 	case "" :
 		
-		$groupid = tsIntval ( $_GET ['groupid'] );
-		// 小组数目
-		$groupNum = $new ['topic']->findCount ( 'group', array (
-				'groupid' => $groupid 
-		) );
-		
-		if ($groupNum == 0) {
-			header ( "Location: " . SITE_URL );
-			exit ();
-		}
-		
-		// 小组会员
-		$isGroupUser = $new ['topic']->findCount ( 'group_user', array (
-				'userid' => $userid,
-				'groupid' => $groupid 
-		) );
-
-
-
-		//小组信息
-		$strGroup = $new ['topic']->find ( 'group', array (
-            'groupid' => $groupid
-		));
-		$strGroup ['groupname'] = tsTitle( $strGroup ['groupname'] );
-		$strGroup ['groupdesc'] = tsTitle( $strGroup ['groupdesc'] );
-
-
-
-		if ($strGroup ['isaudit'] == 1) {
-			tsNotice ( '小组还未审核通过，不允许发帖！' );
-		}
-		
-		// 允许小组成员发帖
-		if ($strGroup ['ispost'] == 0 && $isGroupUser == 0 && $userid != $strGroup ['userid']) {
-			tsNotice ( "本小组只允许小组成员发贴，请加入小组后再发帖！" );
-		}
-		// 不允许小组成员发帖
-		if ($strGroup ['ispost'] == 1 && $userid != $strGroup ['userid']) {
-			tsNotice ( "本小组只允许小组组长发帖！" );
-		}
 		// 帖子类型
 		$arrGroupType = $new ['topic']->findAll ( 'topic_type', array (
-				'groupid' => $strGroup ['groupid'] 
+			'groupid' => $strGroup ['groupid'] 
 		) );
-
-
 
 		#加载草稿箱
         $strDraft = $new['topic']->find('draft',array(
             'userid'=>$userid,
             'types'=>'topic',
         ));
-
-
 		
 		$title = '发布帖子';
 		// 包含模版
@@ -126,7 +122,6 @@ switch ($ts) {
 			}
 		}
 
-		$groupid = tsIntval ( $_POST ['groupid'] );
 		$title = trim( $_POST ['title'] );
 		
 		$content =  tsClean( $_POST ['content'] );
@@ -144,15 +139,6 @@ switch ($ts) {
 		
 		if ($isTitle > 0) {
 			tsNotice ( '有重复标题出现哦^_^' );
-		}
-		
-		// 小组
-		$strGroup = $new ['topic']->find ( 'group', array (
-				'groupid' => $groupid 
-		) );
-		
-		if ($strGroup ['isaudit'] == 1) {
-			tsNotice ( '小组还未审核通过，不允许发帖！' );
 		}
 
 		if ($TS_USER ['isadmin'] == 0) {

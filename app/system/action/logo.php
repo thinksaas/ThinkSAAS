@@ -29,7 +29,7 @@ if (in_array ( $type, array('jpg','jpeg','gif','png') )) {
 	));
 	$new['system']->create('system_options',array(
 		'optionname'=>'logo',
-		'optionvalue'=>$name,
+		'optionvalue'=>$name.'?v='.time(),
 	));
 	
 	$arrOptions = $new['system']->findAll('system_options',null,null,'optionname,optionvalue');

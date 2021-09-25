@@ -26,7 +26,7 @@ class user extends tsApp {
         
         $strUserInfo = $this->find('user_info',array(
             'userid'=>$userid,
-        ),'userid,username,path,face,isadmin,signin,uptime');
+        ),'userid,username,email,path,face,isadmin,signin,uptime');
 
         $this->update('user_info',array(
             'userid'=>$strUserInfo['userid'],

@@ -63,7 +63,9 @@
     <div class="form-group">
     <label class="col-sm-2 control-label">发帖方式：</label>
     <div class="col-sm-10">
-  <input {if $strGroup[ispost]=='0'}checked="select"{/if} type="radio" name="ispost" value="0" />允许会员发帖 <input {if $strGroup[ispost]=='1'}checked="select"{/if} type="radio" name="ispost" value="1" />不允许会员发帖
+  <input {if $strGroup['ispost']=='0'}checked="select"{/if} type="radio" name="ispost" value="0" />仅允许成员发帖 
+  <input {if $strGroup['ispost']=='1'}checked="select"{/if} type="radio" name="ispost" value="1" />不允许成员和非成员发帖
+  <input {if $strGroup['ispost']=='2'}checked="select"{/if} type="radio" name="ispost" value="2" />允许成员和非成员发帖
     </div>
   </div>
   

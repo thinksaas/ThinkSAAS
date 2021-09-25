@@ -140,9 +140,6 @@ if($strGroup['isaudit']=='1'){
 
 	
 	$sitedesc = tsCutContent($strGroup['groupdesc'],50);
-
-	if($TS_CF['mobile']) $sitemb = tsUrl('moblie','group',array('ts'=>'show','groupid'=>$strGroup['groupid']));
-		
 	include template("show");
 
 }

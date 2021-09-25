@@ -18,11 +18,7 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
 
-                    {if $isGroupUser == '0'}
-                    <div class="alert alert-info" role="alert">不好意思，你不是本组成员不能发表帖子，请加入后再发帖</div>
-                    {else}
-
-                    <form method="POST" action="{SITE_URL}index.php?app=topic&ac=add&ts=do"  enctype="multipart/form-data">
+                    <form method="POST" action="{SITE_URL}index.php?app=topic&ac=add&ts=do&groupid={$groupid}"  enctype="multipart/form-data">
 
                         <div class="form-group">
                             <label>标题</label>
@@ -145,8 +141,6 @@
 
                     </form>
 
-
-                    {/if}
 
                 </div>
                 <div class="col-md-2"></div>
