@@ -8,6 +8,8 @@
 {if $mg=='user' && $ts=='view'}<li class="select"><a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=list">{$strUser[username]}用户信息</a></li>
 {/if}
 
+<li {if $mg=='group' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=group&ts=list">用户组</a></li>
+
 <li {if $mg=='role' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=role&ts=list">角色管理</a></li>
 
 <li {if $mg=='score' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=score&ts=list">积分设置</a></li>

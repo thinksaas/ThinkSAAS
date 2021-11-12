@@ -1,0 +1,148 @@
+{php include pubTemplate("header_admin")}
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+
+
+<div class="mb-3">
+    {loop $arrUg $key $item}
+    <a class="btn btn-sm {if $item['ugid']==$ugid}btn-secondary{else}btn-outline-secondary{/if}" href="{SITE_URL}index.php?app=article&ac=admin&mg=permissions&ugid={$item['ugid']}">{$item['ugname']}</a>
+    {/loop}
+</div>
+
+
+    <form  method="POST" action="index.php?app=article&ac=admin&mg=permissions&ts=do">
+
+
+        <h6 class="font-weight-bold fs14">前台权限</h6>
+
+        <table class="table table-hover">
+
+            <tr>
+                <td width="150">查看文章：</td>
+                <td>
+                    <select name="option[article_show]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['article_show']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['article_show']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+
+            <!--不允许游客发布、修改、删除-->
+            {if $ugid==1 || $ugid==2 || $ugid==3}
+            <tr>
+                <td>发布文章：</td>
+                <td>
+                    <select name="option[article_add]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['article_add']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['article_add']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>修改文章：</td>
+                <td>
+                    <select name="option[article_edit]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['article_edit']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['article_edit']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>删除文章：</td>
+                <td>
+                    <select name="option[article_delete]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['article_delete']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['article_delete']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+            {/if}
+
+
+
+
+        </table>
+
+
+        <!--管理权限-->
+        {if $ugid==1 || $ugid==2}
+        <h6 class="font-weight-bold fs14">后台权限</h6>
+        <table class="table table-hover">
+            <tr>
+                <td width="150">文章配置：</td>
+                <td>
+                    <select name="option[article_admin_options]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['article_admin_options']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['article_admin_options']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>权限配置：</td>
+                <td>
+                    <select name="option[article_admin_permissions]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['article_admin_permissions']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['article_admin_permissions']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>添加分类：</td>
+                <td>
+                    <select name="option[article_admin_cate_add]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['article_admin_cate_add']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['article_admin_cate_add']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>修改分类：</td>
+                <td>
+                    <select name="option[article_admin_cate_edit]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['article_admin_cate_edit']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['article_admin_cate_edit']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        {/if}
+
+
+
+        <h6 class="font-weight-bold fs14">API权限</h6>
+
+        <table class="table table-hover">
+
+            <tr>
+                <td width="150">查看文章：</td>
+                <td>
+                    <select name="option[article_api_show]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['article_api_show']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['article_api_show']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+
+            
+
+
+        </table>
+
+
+        <input type="hidden" name="ugid" value="{$ugid}">
+
+        <input class="btn btn-primary" type="submit" value="提交修改" />
+
+    </form>
+
+</div>
+
+{php include pubTemplate("footer_admin")}

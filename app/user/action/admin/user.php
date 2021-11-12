@@ -30,6 +30,14 @@ defined('IN_TS') or die('Access Denied.');
 			
 			$pageUrl = pagination($userNum, 20, $page, $url);
 
+
+			#用户组
+			$arrUg = $new['user']->findAll('user_group',"`ugid`!=4",'ugid asc');
+			foreach($arrUg as $key=>$item){
+				$arrUg1[$item['ugid']] = $item['ugname'];
+			}
+
+
 			include template("admin/user_list");
 			
 			break;
@@ -329,6 +337,23 @@ defined('IN_TS') or die('Access Denied.');
 			));
 
 			qiMsg('操作成功！');
+
+			break;
+
+		case "ugid":
+
+			$userid = tsIntval($_POST['userid']);
+			$ugid = tsIntval($_POST['ugid']);
+
+			if($userid==1) $ugid=1;
+
+			if($ugid==4) qiMsg('非法操作！');
+
+			$new['user']->update('user_info',array(
+				'userid'=>$userid,
+			),array(
+				'ugid'=>$ugid,
+			));
 
 			break;
 		

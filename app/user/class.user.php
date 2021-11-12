@@ -26,7 +26,7 @@ class user extends tsApp {
         
         $strUserInfo = $this->find('user_info',array(
             'userid'=>$userid,
-        ),'userid,username,email,path,face,isadmin,signin,uptime');
+        ),'userid,ugid,username,email,path,face,isadmin,signin,isverify,isverifyphone,uptime');
 
         $this->update('user_info',array(
             'userid'=>$strUserInfo['userid'],
@@ -46,11 +46,15 @@ class user extends tsApp {
         //用户session信息
         $sessionData = array(
             'userid' => $strUserInfo['userid'],
+            'ugid' => $strUserInfo['ugid'],
             'username' => $strUserInfo['username'],
+            'email' => $strUserInfo['email'],
             'path' => $strUserInfo['path'],
             'face' => $strUserInfo['face'],
             'isadmin' => $strUserInfo['isadmin'],
             'signin' =>$strUserInfo['signin'],
+            'isverify'=>$strUserInfo['isverify'],
+            'isverifyphone'=>$strUserInfo['isverifyphone'],
             'uptime' => $strUserInfo['uptime'],
         );
 
@@ -115,6 +119,7 @@ class user extends tsApp {
 		$this->create('user_info',array(
 			'userid'	=> $userid,
 			'fuserid'	=> $fuserid,
+			'ugid'	=> 3,
 			'username' 	=> $username,
             'email'		=> $email,
             'phone'		=> $email,
@@ -157,7 +162,7 @@ class user extends tsApp {
 		//用户信息
 		$userData = $this->find('user_info',array(
 			'userid'=>$userid,
-		),'userid,username,path,face,isadmin,signin,uptime');
+		),'userid,ugid,username,email,path,face,isadmin,signin,isverify,isverifyphone,uptime');
 		
 		//用户session信息
 		$_SESSION['tsuser']	= $userData;
@@ -329,11 +334,11 @@ class user extends tsApp {
 			if($this->isUser($userid)){
 				return $userid;
 			}else{
-				header("Location: ".tsUrl('user','logout'));
+				header("Location: ".tsUrl('user','login'));
 				exit;
 			}
 		}else{
-			header("Location: ".tsUrl('user','logout'));
+			header("Location: ".tsUrl('user','login'));
 			exit;
 		}
 	}

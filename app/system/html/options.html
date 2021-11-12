@@ -75,7 +75,10 @@
 
 <tr><td>是否验证Email :</td><td>
     <input type="radio" {if $strOption[isverify]=='0'}checked="select"{/if} name="option[isverify]" value="0" />不验证Email 
-    <input type="radio" {if $strOption[isverify]=='1'}checked="select"{/if} name="option[isverify]" value="1" />验证Email
+    <input type="radio" {if $strOption[isverify]=='1'}checked="select"{/if} name="option[isverify]" value="1" />验证Email 
+
+    <small class="text-danger">(当开启Email注册的时候才会验证email)</small>
+
 </td></tr>
 
 

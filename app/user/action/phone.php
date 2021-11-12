@@ -174,7 +174,7 @@ switch($ts){
         //用户信息
         $userData = $new['user']->find('user_info',array(
             'userid'=>$userid,
-        ),'userid,username,path,face,isadmin,signin,uptime');
+        ),'userid,username,email,path,face,isadmin,signin,isverify,isverifyphone,uptime');
 
         //用户session信息
         $_SESSION['tsuser']	= $userData;
@@ -278,6 +278,7 @@ switch($ts){
         ),array(
             'phone'=>$phone,
         ));
+
         #更新手机号和手机验证状态
         $new['user']->update('user_info',array(
             'userid'=>$userid,
@@ -285,6 +286,8 @@ switch($ts){
             'phone'=>$phone,
             'isverifyphone'=>'1',
         ));
+
+        $_SESSION['tsuser']['isverifyphone']=1;
 
         getJson('手机号验证成功！',$js,2,SITE_URL);
 
@@ -385,6 +388,8 @@ switch($ts){
             'isverifyphone'=>'1',
         ));
 
+        $_SESSION['tsuser']['isverifyphone']=1;
+
         getJson('手机号修改成功！',$js,2,tsUrl('my','setting',array('ts'=>'email')));
 
         break;
@@ -447,6 +452,7 @@ switch($ts){
             'isverifyphone'=>'1',
         ));
 
+        $_SESSION['tsuser']['isverifyphone']=1;
 
         getJson('密码修改成功！',$js,2,tsUrl('user','login'));
 

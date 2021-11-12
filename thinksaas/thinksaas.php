@@ -178,6 +178,22 @@ date_default_timezone_set($TS_SITE['timezone']);
 //接管SESSION，前台用户基本数据,$TS_USER数组
 $TS_USER = isset($_SESSION['tsuser']) ? $_SESSION['tsuser'] : array();
 
+//APP独立用户组权限控制
+$route_key = $app.'_'.$ac;
+if($mg && $mg!='index') $route_key .= '_'.$mg;
+if($api && $api!='index') $route_key .= '_'.$api;
+if($ts) $route_key .= '_'.$ts;
+$TS_APP['permissions'] = fileRead('data/' . $TS_URL['app'] . '_permissions.php');
+if ($TS_APP['permissions'] == '') $TS_APP['permissions'] = $tsMySqlCache -> get($TS_URL['app'] . '_permissions');
+$common_ugid = tsIntval($TS_USER['ugid'],4);
+if($TS_APP['permissions']){
+    if($TS_APP['permissions'][$common_ugid]){
+        if($TS_APP['permissions'][$common_ugid][$route_key]!=null && $TS_APP['permissions'][$common_ugid][$route_key]==0){
+            tsNotice('权限不够！不允许访问！');
+        }
+    }
+}
+
 //记录日志
 if ($TS_CF['logs']) {
     //打印用户日志记录
@@ -210,20 +226,29 @@ if($app=='api' || $ac=='api'){
 
     //用户自动登录
     if (intval($TS_USER['userid']) == 0 && $_COOKIE['ts_email'] && $_COOKIE['ts_autologin']) {
-        $loginUserNum = aac('user') -> findCount('user_info', array('email' => $_COOKIE['ts_email'], 'autologin' => $_COOKIE['ts_autologin'], ));
+        $loginUserNum = aac('user') -> findCount('user_info', array(
+            'email' => $_COOKIE['ts_email'], 
+            'autologin' => $_COOKIE['ts_autologin']
+        ));
         if ($loginUserNum > 0) {
-            $loginUserData = aac('user') -> find('user_info', array('email' => $_COOKIE['ts_email'], ), 'userid,username,path,face,ip,isadmin,signin,uptime');
+            $loginUserData = aac('user') -> find('user_info', array(
+                'email' => $_COOKIE['ts_email'],
+            ), 'userid,ugid,username,email,path,face,ip,isadmin,signin,isverify,isverifyphone,uptime');
             if ($loginUserData['ip'] != getIp() && $TS_URL['app'] != 'user' && $TS_URL['ac'] != 'login') {
                 tsHeaderUrl(tsUrl('user', 'login', array('ts' => 'out')));
             }
             //用户session信息
             $_SESSION['tsuser'] = array(
                 'userid' => $loginUserData['userid'],
+                'ugid' => $loginUserData['ugid'],
                 'username' => $loginUserData['username'],
+                'email' => $loginUserData['email'],
                 'path' => $loginUserData['path'],
                 'face' => $loginUserData['face'],
                 'isadmin' => $loginUserData['isadmin'],
                 'signin' => $loginUserData['signin'],
+                'isverify' => $loginUserData['isverify'],
+                'isverifyphone' => $loginUserData['isverifyphone'],
                 'uptime' => $loginUserData['uptime'],
             );
             $TS_USER = $_SESSION['tsuser'];
@@ -231,7 +256,7 @@ if($app=='api' || $ac=='api'){
     }
 
     //控制访客权限
-    if($TS_USER=='' && $TS_SITE['visitor'] == 1){
+    if($TS_USER==null && $TS_SITE['visitor'] == 1){
         if(!in_array($app,array('pubs','pay')) && !in_array($ac,array('info','home','register','phone','login','forgetpwd','resetpwd','wxlogin'))){
             tsHeaderUrl(tsUrl('pubs','home'));
         }
@@ -248,25 +273,22 @@ if($app=='api' || $ac=='api'){
     }
 
     //判断用户是否需要验证Email,管理员除外
-    if ($TS_SITE['isverify'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
-        $verifyUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'isverify');
-        if (intval($verifyUser['isverify']) == 0 && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
+    if ($TS_SITE['isverify'] == 1 && tsIntval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
+        if (valid_email($TS_USER['email'])==true && tsIntval($TS_USER['isverify']) == 0 && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
             tsHeaderUrl(tsUrl('user', 'verify'));
         }
     }
 
     //判断用户是否需要验证手机号,管理员除外
-    if ($TS_SITE['isverifyphone'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
-        $verifyUserPhone = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'isverifyphone');
-        if (intval($verifyUserPhone['isverifyphone']) == 0 && $TS_URL['app'] != 'user' && $TS_URL['app'] != 'pubs' && $TS_USER['isadmin'] != 1) {
+    if ($TS_SITE['isverifyphone'] == 1 && tsIntval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
+        if (tsIntval($TS_USER['isverifyphone']) == 0 && $TS_URL['app'] != 'user' && $TS_URL['app'] != 'pubs' && $TS_USER['isadmin'] != 1) {
             tsHeaderUrl(tsUrl('user', 'phone',array('ts'=>'verify')));
         }
     }
 
     //判断用户是否上传头像,管理员除外
-    if ($TS_SITE['isface'] == 1 && intval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin' && $TS_URL['app'] != 'pubs') {
-        $faceUser = aac('user') -> find('user_info', array('userid' => intval($TS_USER['userid'])),'face');
-        if ($faceUser['face'] == '' && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
+    if ($TS_SITE['isface'] == 1 && tsIntval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin' && $TS_URL['app'] != 'pubs') {
+        if ($TS_USER['face'] == '' && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
             tsHeaderUrl(tsUrl('user', 'verify', array('ts' => 'face')));
         }
     }
@@ -326,18 +348,16 @@ if (is_file('app/' . $TS_URL['app'] . '/class.' . $TS_URL['app'] . '.php')) {
     //全站通用数据加载
     include 'thinksaas/common.php';
 
-    if(is_file('app/'.$TS_URL['app'].'/action.'.$TS_URL['app'].'.php')){
-        //面向对象的写法
-        include_once 'app/'.$TS_URL['app'].'/action.'.$TS_URL['app'].'.php';
-        $appAction = $TS_URL['app'].'Action';
-        $newAction = new $appAction($db);
-        if(!method_exists($newAction,$ac)){
-            qiMsg( '未定义'.$ac.'方法！');
-        }
-        $newAction->$ac();
-    }else{
-        //面向目录和文件的逻辑加载写法
-        include 'app.php';
+    //面向目录和文件的逻辑加载写法
+    if (is_file('app/' . $TS_URL['app'] . '/action/' . $TS_URL['ac'] . '.php')) {
+        //开始执行APP action
+        if (is_file('app/' . $TS_URL['app'] . '/action/common.php'))
+            include 'app/' . $TS_URL['app'] . '/action/common.php';
+    
+        include 'app/' . $TS_URL['app'] . '/action/' . $TS_URL['ac'] . '.php';
+    
+    } else {
+        ts404();
     }
     
 } else {

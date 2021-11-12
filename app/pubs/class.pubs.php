@@ -625,5 +625,75 @@ class pubs extends tsApp{
 
     }
 
+    /**
+     * 更新APP用户组权限
+     * 
+     * 权限参数说明，app,action必须，其他参数可选
+     * app-action-ts
+     * app-action-mg-ts     当action=admin
+     * app-action-api-ts    当action=api
+     * 
+     */
+    public function upAppPermissions($ugid,$app,array $arrOption){
+        foreach($arrOption as $key=>$item){
+            $status = $item;
+            if($ugid==1) $status=1;
+            $arrKey = explode('_',$key);
+            $key_app = $arrKey[0];
+            $key_ac = $arrKey[1];
+            $key_mg = '';
+            $key_api = '';
+            $key_ts = '';
+            
+            if($key_ac=='admin'){
+                $key_mg = $arrKey[2];
+                $key_ts = $arrKey[3];
+            }elseif($key_ac=='api'){
+                $key_api = $arrKey[2];
+                $key_ts = $arrKey[3];
+            }else{
+                $key_ts = $arrKey[2];
+            }
+            if($key_ts==null) $key_ts='';
+
+            $this->replace('permissions',array(
+                'ugid'=>$ugid,
+                'app'=>$key_app,
+                'action'=>$key_ac,
+                'mg'=>$key_mg,
+                'api'=>$key_api,
+                'ts'=>$key_ts,
+            ),array(
+                'ugid'=>$ugid,
+                'app'=>$key_app,
+                'action'=>$key_ac,
+                'mg'=>$key_mg,
+                'api'=>$key_api,
+                'ts'=>$key_ts,
+                'status'=>$status,
+            ));
+
+        }
+
+        //存储permissions到本地文件
+        $arrPermissions = $this->findAll('permissions',array(
+            'app'=>$app,
+        ));
+        foreach($arrPermissions as $key=>$item){
+            
+            $option = $item['app'].'_'.$item['action'];
+            if($item['mg']) $option .= '_'.$item['mg'];
+            if($item['api']) $option .= '_'.$item['api'];
+            if($item['ts']) $option .= '_'.$item['ts'];
+            
+            $arrData[$item['ugid']][$option] = $item['status'];
+
+        }
+
+        fileWrite($app.'_permissions.php','data',$arrData);
+        $GLOBALS['tsMySqlCache']->set($app.'_permissions',$arrData);
+
+    }
+
 
 }

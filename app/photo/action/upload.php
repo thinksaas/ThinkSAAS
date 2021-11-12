@@ -77,7 +77,7 @@ switch($ts){
 		));
 		
 		//上传
-		$arrUpload = tsUpload($_FILES['file'],$photoid,'photo',array('jpg','png','jpeg'));
+		$arrUpload = tsUpload($_FILES['file'],$photoid,'photo',array('jpg','png','jpeg','gif'));
 
 		if($arrUpload && $arrUpload['path'] && $arrUpload['url']){
 

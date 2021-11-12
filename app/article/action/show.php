@@ -4,15 +4,11 @@ defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 $articleid = tsIntval($_GET ['id']);
 
 $strArticle = $new ['article']->find ( 'article', array (
-		'articleid' => $articleid 
-) );
+	'articleid' => $articleid 
+));
 
-if ($articleid == 0 || $strArticle == '') {
-	header ( "HTTP/1.1 404 Not Found" );
-	header ( "Status: 404 Not Found" );
-	$title = '404';
-	include pubTemplate ( "404" );
-	exit ();
+if ($strArticle == '') {
+	ts404();
 }
 
 // 是否审核

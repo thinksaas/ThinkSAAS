@@ -8,7 +8,7 @@ $lstart = $page * 20 - 20;
 
 $arrTopic = $new['topic']->findAll('topic',array(
     'isaudit'=>0,
-),'istop desc,uptime desc','topicid,ptable,pkey,pid,pjson,userid,groupid,title,gaiyao,score,label,count_comment,count_view,iscommentshow,istop,uptime',$lstart,20);
+),'istop desc,uptime desc','topicid,ptable,pkey,pid,pjson,userid,groupid,title,gaiyao,score,label,count_comment,count_view,iscommentshow,istop,uptime',$lstart.',20');
 	
 foreach($arrTopic as $key=>$item){
     $arrTopic[$key]['title']=tsTitle($item['title']);

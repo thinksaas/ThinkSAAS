@@ -27,6 +27,7 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
     <tr>
         <th>UID</th>
         <th>邀请ID</th>
+        <th>用户组</th>
         <th>Email</th>
         <th>手机号</th>
         <th>姓名</th>
@@ -48,6 +49,16 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
         <td>{$item[userid]}</td>
 
         <td>{$item[fuserid]}</td>
+        <td>
+
+            <select id="user_{$item['userid']}" onchange="changeGroup('{$item['userid']}')">
+                <option value="0" {if $item['ugid']==0}selected{/if}>未分组</option>
+                {loop $arrUg1 $ukey $uitem}
+                <option value="{$ukey}" {if $item['ugid']==$ukey}selected{/if}>{$uitem}</option>
+                {/loop}
+            </select>
+
+        </td>
 
         <td>
             
@@ -81,9 +92,11 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
 
         </td>
 
-        <td>{$item[username]}</td><td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td>
+        <td>{$item[username]}</td>
+        
+        <td class="fs12 c9">{php echo date('Y-m-d H:i:s',$item[addtime])}</td>
 
-        <td>{$item['ip']}</td>
+        <td class="fs12 c9">{$item['ip']}</td>
         <td>{$item['comefrom']}</td>
         
         <td>
@@ -130,4 +143,14 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
 </table>
 
 </div>
+
+<script>
+    function changeGroup(userid){
+        var ugid = document.getElementById("user_"+userid).value;
+        $.post('index.php?app=user&ac=admin&mg=user&ts=ugid',{'userid':userid,'ugid':ugid},function(rs){
+
+        })
+    }
+</script>
+
 {php include pubTemplate("footer_admin")}

@@ -65,6 +65,9 @@ switch($ts){
 			),array(
 				'isverify'=>'1',
 			));
+			
+			$_SESSION['tsuser']['isverify']=1;
+
 			tsNotice("Email验证成功!",'点击回首页！',SITE_URL);
 		}else{
 			tsNotice("Email验证失败！");
