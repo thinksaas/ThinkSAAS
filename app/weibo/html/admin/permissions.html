@@ -1,0 +1,121 @@
+{php include pubTemplate("header_admin")}
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+
+
+<div class="mb-3">
+    {loop $arrUg $key $item}
+    <a class="btn btn-sm {if $item['ugid']==$ugid}btn-secondary{else}btn-outline-secondary{/if}" href="{SITE_URL}index.php?app=weibo&ac=admin&mg=permissions&ugid={$item['ugid']}">{$item['ugname']}</a>
+    {/loop}
+</div>
+
+
+    <form  method="POST" action="index.php?app=weibo&ac=admin&mg=permissions&ts=do">
+
+
+        <h6 class="font-weight-bold fs14">前台权限</h6>
+
+        <table class="table table-hover">
+
+            <tr>
+                <td width="150">查看唠叨：</td>
+                <td>
+                    <select name="option[weibo_show]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['weibo_show']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['weibo_show']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+
+            <!--不允许游客发布、修改、删除-->
+            {if $ugid==1 || $ugid==2 || $ugid==3}
+            <tr>
+                <td>发布唠叨：</td>
+                <td>
+                    <select name="option[weibo_add]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['weibo_add']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['weibo_add']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>删除唠叨：</td>
+                <td>
+                    <select name="option[weibo_delete]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['weibo_delete']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['weibo_delete']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+            {/if}
+
+
+
+
+        </table>
+
+
+        <!--管理权限-->
+        {if $ugid==1 || $ugid==2}
+        <h6 class="font-weight-bold fs14">后台权限</h6>
+        <table class="table table-hover">
+            <tr>
+                <td width="150">唠叨配置：</td>
+                <td>
+                    <select name="option[weibo_admin_options]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['weibo_admin_options']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['weibo_admin_options']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>权限配置：</td>
+                <td>
+                    <select name="option[weibo_admin_permissions]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['weibo_admin_permissions']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['weibo_admin_permissions']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+
+        </table>
+        {/if}
+
+
+
+        <h6 class="font-weight-bold fs14">API权限</h6>
+
+        <table class="table table-hover">
+
+            <tr>
+                <td width="150">查看唠叨：</td>
+                <td>
+                    <select name="option[weibo_api_show]">
+                        <option value="1" {if $TS_APP['permissions'][$ugid]['weibo_api_show']==1}selected{/if}>允许</option>
+                        <option value="0" {if $TS_APP['permissions'][$ugid]['weibo_api_show']==0}selected{/if}>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+
+            
+
+
+        </table>
+
+
+        <input type="hidden" name="ugid" value="{$ugid}">
+
+        <input class="btn btn-primary" type="submit" value="提交修改" />
+
+    </form>
+
+</div>
+
+{php include pubTemplate("footer_admin")}

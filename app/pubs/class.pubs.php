@@ -99,6 +99,47 @@ class pubs extends tsApp{
     }
 
     /**
+     * 验证Email验证码
+     */
+    public function verifyEmailCode($email, $code){
+        $strEmailCode = $this->find('email_code',array(
+            'email'=>$email,
+        ));
+
+        #空数据
+        if($strEmailCode==''){
+            return false;exit;
+        }
+
+        #空验证码
+        if($strEmailCode['code']==''){
+            return false;exit;
+        }
+
+        #验证码错误次数>=2
+        if($strEmailCode['nums']>=2){
+            $this->update('email_code',array(
+                'email'=>$email,
+            ),array(
+                'code'=>'',
+                'nums'=>0,
+            ));
+            return false;exit;
+        }
+
+        #验证码错误
+        if($strEmailCode['code']!=$code){
+            $this->update('email_code',array(
+                'email'=>$email,
+            ),array(
+                'nums'=>$strEmailCode['nums']+1,
+            ));
+            return false;exit;
+        }
+        return true;
+    }
+
+    /**
      * 获取评论列表
      *
      * @param [type] $ptable

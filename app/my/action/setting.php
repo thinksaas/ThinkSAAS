@@ -28,7 +28,7 @@ switch($ts){
 			tsNotice("不管做什么都需要有一个名号吧^_^");
 		
 		}
-		if(strlen($username) < 4 || strlen($username) > 20) {
+		if(mb_strlen($username) < 4 || mb_strlen($username) > 20) {
 		
 			tsNotice("用户名长度必须在4到20字符之间!");
 		

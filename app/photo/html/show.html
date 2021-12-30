@@ -76,7 +76,7 @@
       <div class="tar c9 fs12">
           {if $TS_USER[userid] == $strPhoto[userid] || $TS_USER[isadmin]==1}<a href="{tsUrl('photo','edit',array('photoid'=>$strPhoto['photoid']))}">修改</a> |
 
-          <a title="删除这张照片" rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$strPhoto[photoid]}">删除照片</a>
+          <a onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=photo&ac=delete&photoid={$strPhoto[photoid]}">删除照片</a>
 
 
           {/if}

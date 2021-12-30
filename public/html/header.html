@@ -65,7 +65,7 @@
 
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="bi bi-justify"></span>
         </button>
 
 
@@ -80,20 +80,17 @@
         </div>
 
 
-        <div class="mr-3"><a class="text-light" href="{tsUrl('search')}"><i class="fas fa-search"></i>搜索</a></div>
+        <div class="mr-3"><a class="text-light" href="{tsUrl('search')}"><i class="bi bi-search"></i> 搜索</a></div>
 
 
-        {if $GLOBALS['TS_USER']}
-        <div class="mr-3">
-            <a class="text-light" href="{tsUrl('message','my')}"><span class="badge badge-pill badge-light" id="newmsg">0</span>  消息</a>
-        </div>
-        {/if}
 
 
 
         <div class="ts-user-nav">
 
             {if $GLOBALS['TS_USER']}
+
+            <a style="color:#fff" class="mr-3" href="{tsUrl('message','my')}"><span class="badge badge-pill badge-light" id="newmsg">0</span>  消息</a>
 
             <a style="color:#fff" href="#" class="ts-user-nav-dropdown">
                 {$GLOBALS['TS_USER']['username']}

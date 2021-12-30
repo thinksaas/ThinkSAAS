@@ -329,8 +329,7 @@ if($app=='api' || $ac=='api'){
 
 //运行统计结束
 $time_end = getmicrotime();
-
-$runTime = $time_end - $time_start;
+$runTime = intval($time_end) - intval($time_start);
 $TS_CF['runTime'] = number_format($runTime, 6);
 
 //定义全局变量

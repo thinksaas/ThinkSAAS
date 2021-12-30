@@ -184,18 +184,6 @@ jQuery(document).ready(function(){
 
 });
 
-
-if ($('html').hasClass('lt-ie8')) {
-	var message = '<div class="alert alert-warning" style="margin-bottom:0;text-align:center;">';
-	message += '您的浏览器版本太低，不能正常使用本站，请使用';
-	message += '<a href="http://windows.microsoft.com/zh-CN/internet-explorer/downloads/ie" target="_blank">IE8浏览器</a>、';
-	message += '<a href="http://www.baidu.com/s?wd=%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8" target="_blank">谷歌浏览器</a><strong>(推荐)</strong>、';
-	message += '<a href="http://firefox.com.cn/download/" target="_blank">Firefox浏览器</a>，访问本站。';
-	message += '</div>';
-
-	$('body').prepend(message);
-}
-
 //前台提交验证
 $(function(){
     $("#comm-form").validation();
@@ -210,18 +198,7 @@ $(function(){
     })
 });
 
-
-$(document).ready(function () {
-    //响应式导航条效果
-    $('.ts-top-nav .navbar-toggle').click(function() {
-        if ($(this).parents('.ts-top-nav').find('.navbar-collapse').hasClass('active')) {
-            $(this).parents('.ts-top-nav').find('.navbar-collapse').removeClass('active');
-        } else {
-            $(this).parents('.ts-top-nav').find('.navbar-collapse').addClass('active');
-        }
-    });
-});
-
+//发送手机验证码
 function sendPhoneCode(typeid,vaptcha_token){
     var phone = $("#myphone").val();
     var authcode = $("#authcode").val();
@@ -255,6 +232,36 @@ function sendPhoneCode(typeid,vaptcha_token){
     },'json');
 }
 
+//发送Email验证码
+function sendEmailCode(typeid,vaptcha_token){
+    var email = $("#myemail").val();
+    var authcode = $("#authcode").val();
+    if(email==''){
+        tsNotice('Email不能为空！');
+        return false;
+    }
+    $.post(siteUrl+'index.php?app=pubs&ac=email',{'email':email,'authcode':authcode,'typeid':typeid,'vaptcha_token':vaptcha_token},function(rs){
+        if (rs.status == 0) {
+			tsNotice(rs.msg);
+        } else if(rs.status==1) {
+            var step = 59;
+            $('#mybtn').val('重新发送60');
+            var _res = setInterval(function()
+            {
+                $("#mybtn").attr("disabled", true);//设置disabled属性
+                $('#mybtn').html('重新发送'+step);
+                step-=1;
+                if(step <= 0){
+                    $("#mybtn").removeAttr("disabled"); //移除disabled属性
+                    $('#mybtn').html('获取验证码');
+                    clearInterval(_res);//清除setInterval
+                }
+            },1000);
+        }
+
+    },'json');
+}
+
 function NumberCheck(t){
     var num = t.value;
     var re=/^\d*$/;
@@ -263,7 +270,7 @@ function NumberCheck(t){
     }
 }
 
-
+//图片预览
 function imgView () {
     var r= new FileReader();
     f=document.getElementById('img-file').files[0];

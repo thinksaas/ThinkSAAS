@@ -36,7 +36,7 @@
               <ul class="nav nav-tabs mb-4">
                   {if $TS_SITE['regtype']=='0' || $TS_SITE['regtype']=='2'}
                   <li class="nav-item">
-                      <a class="nav-link font-weight-bold active" href="{tsUrl('user','register')}">Email注册</a>
+                      <a class="nav-link font-weight-bold active" href="{tsUrl('user','register')}">Email邮箱注册</a>
                   </li>
                   {/if}
                   {if $TS_SITE['regtype']=='1' || $TS_SITE['regtype']=='2'}
@@ -68,8 +68,8 @@
                   {/if}
 
                   <div class="form-group">
-                      <label>Email</label>
-                      <input name="email" type="email" class="form-control" placeholder="Email" onkeyup="this.value=this.value.replace(/[, ]/g,'')" check-type="required">
+                      <label>Email邮箱：</label>
+                      <input id="myemail" name="email" type="email" class="form-control" placeholder="" onkeyup="this.value=this.value.replace(/[, ]/g,'')" check-type="required">
                   </div>
 
                   <div class="form-group">
@@ -90,7 +90,7 @@
                   </div>
 
 
-                  <!--人机验证-->
+                    <!--人机验证-->
                     {if $TS_SITE['is_vaptcha']}
                     <div class="form-group">
                         <label>人机验证：</label>
@@ -127,13 +127,11 @@
                     </div>
                     {/if}
 
-
-                  {if $TS_SITE['isauthcode']}
-                  <div class="form-group">
+                
+                <!--图形验证码-->
+                {if $TS_SITE['isauthcode']}
+                <div class="form-group">
                       <label>验证码：</label>
-
-
-
                       <div class="d-flex flex-row align-items-start">
                           <div class="d-flex flex-column">
                               <input name="authcode" type="text" class="form-control" placeholder="" check-type="required">
@@ -145,16 +143,20 @@
 
                           </div>
                       </div>
+                </div>
+                {/if}
 
-
-
-
-
-
-
-
-                  </div>
-                  {/if}
+                <!--Email邮箱验证-->
+                {if $TS_SITE['isverify']}
+                <div class="form-group">
+                    <label>Email邮箱验证码：</label>
+                    <div style="overflow: hidden;">
+                        <input style="float: left;width:60%;" name="emailcode" type="text" class="form-control" placeholder="" >
+                        <button id="mybtn" type="button" class="btn btn-outline-secondary" style="float: right;">获取验证码</button>
+                    </div>
+                    <div class="fs12 text-danger">获取验证码后请登录邮箱查看验证码</div>
+                </div>
+                {/if}
 
 
 
@@ -195,4 +197,64 @@
 
 
 </div>
+
+
+
+<!--{if $TS_SITE['is_vaptcha']}-->
+<script src="https://v.vaptcha.com/v3.js"></script>
+<script>
+vaptcha({
+    vid: '{$TS_SITE[vaptcha_vid]}',
+    type: 'invisible',
+    scene: 0,
+    offline_server: "{SITE_URL}index.php?app=pubs&ac=vaptcha",
+}).then(function (vaptchaObj) {
+
+    obj = vaptchaObj; //将VAPTCHA验证实例保存到局部变量中
+
+    vaptchaObj.listen("pass", function () {
+        // 验证成功进行后续操作
+
+        
+        var vaptcha_token = vaptchaObj.getToken();
+
+        sendPhoneCode(1,vaptcha_token)
+
+        vaptchaObj.reset(); //重置验证码
+        
+    });
+
+    //关闭验证弹窗时触发
+    vaptchaObj.listen("close", function () {
+        //验证弹窗关闭触发
+    });
+
+})
+
+$("#mybtn").on("click", function () {
+    var email = $("#myemail").val();
+    if(email){
+        //人机验证
+        obj.validate();
+    }else{
+        tsNotice('Email邮箱必须填写！');
+    }
+});
+</script>
+<!--{else}-->
+
+<script>
+$("#mybtn").on("click", function () {
+    var email = $("#myemail").val();
+    if(email){
+        sendEmailCode(1)
+    }else{
+        tsNotice('Email邮箱必须填写！');
+    }
+});
+</script>
+
+<!--{/if}-->
+
+
 {php include pubTemplate("footer")}

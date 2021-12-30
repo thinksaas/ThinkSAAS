@@ -60,6 +60,8 @@ switch($ts){
 		
 		$authcode = strtolower($_POST['authcode']);
 
+		
+
 		#人机验证
 		$vaptcha_token = trim($_POST ['vaptcha_token']);
 		if ($TS_SITE['is_vaptcha']) {
@@ -82,7 +84,7 @@ switch($ts){
 		);
 
         if(in_array($arrEmail[1],$emails)){
-            getJson('Fuck you every day！',$js);
+            getJson('禁止该邮箱注册！',$js);
         }
 		
 		
@@ -109,7 +111,6 @@ switch($ts){
 			if($codeNum == 0) getJson('邀请码已经被使用，请更换其他邀请码！',$js);
 		
 		}
-
 		
 		if($email=='' || $pwd=='' || $repwd=='' || $username==''){
 			getJson('所有必选项都不能为空！',$js);
@@ -125,6 +126,15 @@ switch($ts){
 		));
 		if($is_anti_email>0){
 			getJson('非法操作！',$js);
+		}
+
+
+		#验证Email验证码
+		if($TS_SITE['isverify']){
+			$emailcode = trim($_POST['emailcode']);
+			if(aac('pubs')->verifyEmailCode($email,$emailcode)==false){
+				getJson('Email验证码输入有误',$js);
+			}
 		}
 
 		#判断Email是否存在

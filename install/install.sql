@@ -282,6 +282,16 @@ INSERT INTO `ts_editor` (`id`, `ptable`, `pkey`, `pid`, `userid`, `type`, `title
 	(1, '', '', 0, 1, 'photo', '4106d6112c28886e183a1e600f92723e.jpg', '0/0', '0/0/1.jpg', 0, 1563675585);
 /*!40000 ALTER TABLE `ts_editor` ENABLE KEYS */;
 
+-- 导出  表 d_thinksaas.ts_email_code 结构
+DROP TABLE IF EXISTS `ts_email_code`;
+CREATE TABLE IF NOT EXISTS `ts_email_code` (
+  `email` varchar(32) CHARACTER SET utf8 NOT NULL COMMENT 'Email',
+  `code` varchar(32) CHARACTER SET utf8 NOT NULL COMMENT '验证码',
+  `nums` int(11) NOT NULL DEFAULT '0' COMMENT '错误次数',
+  `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间',
+  UNIQUE KEY `email` (`email`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='Email验证码';
+
 -- 导出  表 d_thinksaas.ts_group 结构
 DROP TABLE IF EXISTS `ts_group`;
 CREATE TABLE IF NOT EXISTS `ts_group` (

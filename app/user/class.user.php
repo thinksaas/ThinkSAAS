@@ -100,19 +100,28 @@ class user extends tsApp {
 
         if($username=='') $username = 'TS'.$userid;
 
+        #Email验证
+        $isverify = 0;
+        if(valid_email($email)==true && $GLOBALS['TS_SITE']['isverify']){
+            $isverify = 1;
+            #清空Email验证码
+            $this->update('email_code',array(
+                'email'=>$email,
+            ),array(
+                'code'=>'',
+            ));
+        }
+
+        #手机验证
         $isverifyphone = 0;
-
         if(isPhone($email)==true){
-
             $isverifyphone = 1;
-
-            #清空验证码
+            #清空手机验证码
             $this->update('phone_code',array(
                 'phone'=>$email,
             ),array(
                 'code'=>'',
             ));
-
         }
 		
 		//插入用户信息			
@@ -124,6 +133,7 @@ class user extends tsApp {
             'email'		=> $email,
             'phone'		=> $email,
             'ip'		=> getIp(),
+            'isverify'=>$isverify,
             'isverifyphone'=>$isverifyphone,
 			'addtime'	=> time(),
 			'uptime'	=> time(),

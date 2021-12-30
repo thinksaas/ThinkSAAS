@@ -10,13 +10,12 @@ defined('IN_TS') or die('Access Denied.');
 use Intervention\Image\ImageManagerStatic as Image;
 use OSS\OssClient;
 use OSS\Core\OssException;
+
 /**
  * 加载某一APP类
- * AutoAppClass
- * @app APP名称
- * 
- * @param $app
- * @return bool
+ *
+ * @param string $app
+ * @return object
  */
 function aac($app) {
 	spl_autoload_register(function ($app) {
@@ -24,6 +23,17 @@ function aac($app) {
 	});
 	$obj = new $app($GLOBALS['db']);
 	return $obj;
+}
+
+/**
+ * 打印输出（右键查看源代码浏览输出结果，不影响前端网页运行效果）
+ */
+function tsPrint($value){
+	echo '<!--';
+	echo "\n";
+	var_dump($value);
+	echo '-->';
+	echo "\n";
 }
 
 /**
@@ -121,10 +131,10 @@ EOT;
 
 /**
  * 分页函数
- * @param unknown $count
- * @param unknown $perlogs
- * @param unknown $page
- * @param unknown $url
+ * @param int $count
+ * @param int $perlogs
+ * @param int $page
+ * @param string $url
  * @param string $suffix
  * @return string
  */
@@ -163,7 +173,7 @@ function pagination($count, $perlogs, $page, $url ,$suffix = '') {
 
 /**
  * 验证Email
- * @param unknown $email
+ * @param string $email
  * @return boolean
  */
 function valid_email($email) {
@@ -267,7 +277,7 @@ function t($text) {
 
 /**
  * 输入安全的html，针对存入数据库中的数据进行的过滤和转义
- * @param unknown $text
+ * @param string $text
  * @return string
  */
 function h($text) {
@@ -279,7 +289,7 @@ function h($text) {
 
 /**
  * utf-8截取
- * @param unknown $string
+ * @param string $string
  * @param number $start
  * @param unknown $sublen
  * @param string $append
@@ -307,7 +317,7 @@ function getmicrotime() {
 /**
  * 写入文件，支持Memcache缓存
  * @param unknown $file 缓存文件
- * @param unknown $dir 缓存目录
+ * @param string $dir 缓存目录
  * @param unknown $data	缓存内容
  * @param number $isphp
  * @return boolean
@@ -337,7 +347,7 @@ function fileWrite($file, $dir, $data, $isphp = 1) {
 
 /**
  * 读取文件 支持Memcache缓存 $dfile 文件
- * @param unknown $dfile
+ * @param string $dfile
  */
 function fileRead($dfile) {
 
@@ -418,7 +428,7 @@ function getHtmlByCurl($url, $proxy, $timeout) {
 
 /**
  * 计算文件大小
- * @param unknown $size
+ * @param int $size
  * @return string
  */
 function format_bytes($size) {
@@ -476,7 +486,7 @@ function isWriteFile($file, $content, $mod = 'w', $exit = TRUE) {
 
 /**
  * 创建目录
- * @param unknown $dir
+ * @param string $dir
  * @return boolean
  */
 function makedir($dir) {
@@ -587,7 +597,7 @@ function createFolders($path) {
  */
 function delDir($dir = '') {
 	if (empty($dir)) {
-		$dir = rtrim(RUNTIME_PATH, '/');
+		return false;
 	}
 	if (substr($dir, -1) == '/') {
 		$dir = rtrim($dir, '/');
@@ -786,7 +796,7 @@ function tsXimgAliOss($file, $app, $w, $h){
 
 /**
  * TS专用删除缓存图片
- * @param unknown $file 数据库里的图片url
+ * @param string $file 数据库里的图片url
  * @param unknown $app app名称
  * @param unknown $w 缩略图片宽度
  * @param unknown $h 缩略图片高度
@@ -803,22 +813,6 @@ function tsDimg($file, $app, $w, $h, $path) {
 	unlink($cpath);
 
 	return true;
-}
-
-/**
- * gzip压缩输出
- * @param unknown $content
- * @return string
- */
-function ob_gzip($content) {
-	if (!headers_sent() && extension_loaded("zlib") && strstr($_SERVER["HTTP_ACCEPT_ENCODING"], "gzip")) {
-		// $content = gzencode($content." \n//此页已压缩",9);
-		$content = gzencode($content, 9);
-		header("Content-Encoding: gzip");
-		header("Vary: Accept-Encoding");
-		header("Content-Length: " . strlen($content));
-	}
-	return $content;
 }
 
 /**
@@ -1402,7 +1396,7 @@ function reurlsubdomain() {
 
 /**
  * 检测目录是否可写1可写，0不可写
- * @param unknown $file
+ * @param string $file
  * @return number
  */
 function iswriteable($file) {
@@ -1922,7 +1916,7 @@ function tsScanDir($dir, $isDir = null) {
 
 /**
  * 删除目录下所有文件
- * @param unknown $dir
+ * @param string $dir
  */
 function rmrf($dir) {
 	foreach (glob ( $dir ) as $file) {
@@ -1937,7 +1931,7 @@ function rmrf($dir) {
 
 /**
  * 内容url解析
- * @param unknown $content
+ * @param string $content
  * @return mixed
  */
 function urlcontent($content) {
@@ -1948,7 +1942,7 @@ function urlcontent($content) {
 
 /**
  * 反序列化为UTF-8
- * @param unknown $serial_str
+ * @param string $serial_str
  * @return mixed
  */
 function mb_unserialize($serial_str, $t = NULL) {
@@ -1960,7 +1954,7 @@ function mb_unserialize($serial_str, $t = NULL) {
 }
 /**
  * 反序列化为ASC
- * @param unknown $serial_str
+ * @param string $serial_str
  * @return mixed
  */
 function asc_unserialize($serial_str) {
@@ -1973,7 +1967,7 @@ function asc_unserialize($serial_str) {
 
 /**
  * 二进制上传
- * @param unknown $projectid
+ * @param int $projectid
  * @param unknown $dir
  * @param unknown $type
  * @return multitype:string unknown
@@ -1993,9 +1987,8 @@ function tsXupload($projectid, $dir, $type) {
 	// 先删除
 	unlink($dest);
 
-	$xmlstr = $GLOBALS[HTTP_RAW_POST_DATA];
-	if (empty($xmlstr))
-		$xmlstr = file_get_contents('php://input');
+	$xmlstr = file_get_contents('php://input');
+		
 	$jpg = $xmlstr;
 	// 得到post过来的二进制原始数据
 	$file = fopen($dest, "w");
@@ -2013,7 +2006,7 @@ function tsXupload($projectid, $dir, $type) {
 /**
  * 记录日志
  * @param unknown $file
- * @param unknown $data
+ * @param string $data
  */
 function logging($file, $data) {
 	!is_dir('tslogs') ? mkdir('tslogs', 0777) : '';
@@ -2056,7 +2049,7 @@ function userlog(&$array, $userid) {
 
 /**
  * 过滤脚本代码
- * @param unknown $text
+ * @param string $text
  * @return mixed
  */
 function cleanJs($text) {
@@ -2082,7 +2075,7 @@ function cleanJs($text) {
 
 /**
  * 输入安全过滤
- * @param unknown $text
+ * @param string $text
  * @return mixed
  */
 function tsClean($text,$js=0) {
@@ -2173,7 +2166,7 @@ function tsCutContent($text, $length = 50) {
 }
 
 /**
- * 敏感词直接替换成**
+ * 敏感词直接替换成***
  *
  * @param [type] $text
  * @return void
@@ -2184,8 +2177,23 @@ function antiWord($text){
         $strWord = $GLOBALS['tsMySqlCache']->get('system_anti_word');
 	}
 	$arrWord = explode('|',$strWord);
-	$arrWords = array_combine($arrWord, array_fill(0, count($arrWord), '**'));
-	return strtr($text, $arrWords);
+	$arrWords = array_combine($arrWord, array_fill(0, count($arrWord), '***'));
+
+	$result = strtr($text, $arrWords);
+
+	#敏感词处理方式
+	if($GLOBALS['TS_SITE']['anti_word_type']==1){
+		return $result;
+	}else{
+		if(stristr($result, '***') === FALSE) {
+			return $result;
+		}else{
+			tsNotice('非法操作！');
+		}
+	}
+
+	
+
 }
 
 /*
@@ -2215,7 +2223,7 @@ function tpPage($text, $app, $ac, $arr) {
 
 /**
  * 统计字符长度
- * @param unknown $str
+ * @param string $str
  * @return number
  */
 function count_string_len($str) {
@@ -2236,7 +2244,7 @@ function count_string_len($str) {
 
 /**
  * 针对特殊字符或者内容的特殊过滤
- * @param unknown $value
+ * @param string $value
  * @return Ambigous <string, mixed>
  */
 function tsFilter($value) {
@@ -2568,8 +2576,9 @@ function string2array($data) {
 		return $data;
 	}
 	if (strpos ( $data, 'array' ) !== false && strpos ( $data, 'array' ) === 0) {
-		@eval ( "\$array = $data;" );
-		return $array;
+		//eval ( "\$data = $data;" );
+		eval("\$data = \"$data\";");
+		return $data;
 	}
 	return unserialize ( ($data) ); //unserialize ( new_stripslashes ( $data ) );
 }
@@ -2693,7 +2702,7 @@ function getTimestamp(){
 
 /**
  * 取得根域名
- * @param type $domain 域名
+ * @param string $domain 域名
  * @return string 返回根域名
  */
 function GetUrlToDomain($domain) {
@@ -3073,8 +3082,12 @@ function getUnixTimestamp (){
 
 /**
  * vaptcha人机验证
+ *
+ * @param string $token
+ * @param integer $scene
+ * @return array
  */
-function vaptcha($token,$scene=0){
+function vaptcha(string $token,$scene=0){
 	include 'thinksaas/vaptcha.class.php';
 	$vaptcha = new Vaptcha($GLOBALS['TS_SITE']['vaptcha_vid'],$GLOBALS['TS_SITE']['vaptcha_key']);
 	$json =  $vaptcha->validate($token, $scene);

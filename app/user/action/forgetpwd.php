@@ -4,6 +4,9 @@ defined('IN_TS') or die('Access Denied.');
 
 switch($ts){
 
+	/**
+	 * 通过Email找回密码
+	 */
 	case "":
 
         if ($GLOBALS['TS_USER']){
@@ -13,6 +16,79 @@ switch($ts){
 
 		$title = '找回登陆密码';
 		include template("forgetpwd");
+
+		break;
+	
+	/**
+	 * 重置Email密码
+	 */
+	case "resetpwd":
+
+		$js = tsIntval($_GET['js']);
+
+
+        $email = trim($_POST['email']);
+        $pwd	= trim($_POST['pwd']);
+        $authcode = strtolower($_POST['authcode']);
+        $emailcode = trim($_POST['emailcode']);
+
+        if($email == '' || $pwd=='' || $authcode=='' || $emailcode==''){
+            getJson('所有输入项都不能为空',$js);
+        }
+
+        if(valid_email($email)==false){
+            getJson('Email邮箱输入不正确',$js);
+        }
+
+        $strUser = $new['user']->find('user',array(
+            'email'=>$email,
+        ));
+
+        if($strUser==''){
+            getJson("Email邮箱不存在，你可能还没有注册^_^",$js);
+        }
+
+
+        if ($authcode != $_SESSION['verify']) {
+            getJson('图片验证码输入有误，请重新输入！', $js);
+        }
+
+
+        #验证手机验证码
+        if(aac('pubs')->verifyEmailCode($email,$emailcode)==false){
+            getJson('Email验证码输入有误',$js);
+        }
+
+        $salt = md5(rand());
+
+        $new['user']->update('user',array(
+            'userid'=>$strUser['userid'],
+        ),array(
+            'pwd'=>md5($salt.$pwd),
+            'salt'=>$salt,
+        ));
+
+
+        $new['user']->update('user_info',array(
+            'userid'=>$strUser['userid'],
+        ),array(
+            'email'=>$strUser['email'],
+            'isverify'=>'1',
+        ));
+
+        $_SESSION['tsuser']['isverify']=1;
+
+        getJson('密码修改成功！',$js,2,tsUrl('user','login'));
+
+		break;
+
+	/**
+	 * 通过手机号找回密码
+	 */
+	case "phone":
+
+		$title = '找回登陆密码';
+		include template("forgetpwd_phone");
 
 		break;
 	

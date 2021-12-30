@@ -208,6 +208,8 @@
 
         <tr><td>用户删除内容权限 :</td><td><input type="radio" {if $strOption['isallowdelete']=='0'}checked="select"{/if} name="option[isallowdelete]" value="0" />允许 <input type="radio" {if $strOption['isallowdelete']=='1'}checked="select"{/if} name="option[isallowdelete]" value="1" />不允许 (管理员除外)</td></tr>
 
+        <tr><td>内容敏感词处理方式 :</td><td><input type="radio" {if $strOption['anti_word_type']=='0'}checked="select"{/if} name="option[anti_word_type]" value="0" />拦截发布 <input type="radio" {if $strOption['anti_word_type']=='1'}checked="select"{/if} name="option[anti_word_type]" value="1" />替换成*** (管理员除外)</td></tr>
+
 
         <tr><td ></td><td></td></tr>
         </tbody>

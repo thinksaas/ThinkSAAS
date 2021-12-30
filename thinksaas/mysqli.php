@@ -29,7 +29,7 @@ class MySql {
 	
 	/**
 	 * 对特殊字符进行过滤
-	 * @param unknown $value
+	 * @param string $value
 	 * @return string|number
 	 */
 	public function escape($value) {
@@ -61,8 +61,9 @@ class MySql {
 	
 	/**
 	 * 发送查询语句
-	 * @param unknown $sql
-	 * @return resource
+	 *
+	 * @param string $sql
+	 * @return
 	 */
 	function query($sql) {
 
@@ -102,30 +103,23 @@ class MySql {
 			$log .= "--------------------------------------\n";
 			logging ( date ( 'Ymd' ) . '-mysqli.txt', $log );
 		}
-
-
-		
 		return $this->result;
 	}
 	
 	/**
-	 * @param unknown $sql
+	 * @param string $sql
 	 * @param number $max
 	 * @return multitype:
 	 */
 	function fetch_all_assoc($sql, $max = 0) {
 		$query = $this->query ( $sql );
 		while ( $list_item = mysqli_fetch_assoc ( $query ) ) {
-			
 			$current_index ++;
-			
 			if ($current_index > $max && $max != 0) {
 				break;
 			}
-			
 			$all_array [] = $list_item;
 		}
-		
 		return $all_array;
 	}
 	function once_fetch_assoc($sql) {
@@ -146,7 +140,7 @@ class MySql {
 	
 	/**
 	 * 获得结果集中字段的数目
-	 * @param unknown $query
+	 * @param $query
 	 * @return number
 	 */
 	function num_fields($query) {

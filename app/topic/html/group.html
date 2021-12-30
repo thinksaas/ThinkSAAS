@@ -1,0 +1,42 @@
+{php include pubTemplate("header")}
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('topic')}">话题</a></li>
+            <li class="breadcrumb-item active" aria-current="page">选择发帖小组</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+        <div class="card-body">
+
+            <h1 class="h3 text-center">选择发帖小组</h1>
+            <hr>
+            
+            <div class="d-flex flex-wrap justify-content-center">
+
+                {loop $arrGroup $key $item}
+                <div class="m-3" style="width: 100px;text-align: center;">
+                    <a href="{tsUrl('topic','add',array('groupid'=>$item['groupid']))}"><img class="mw-100 rounded" src="{$item['photo']}"></a>
+                    <div class="fs16">{$item['groupname']}</div>
+                </div>
+                {/loop}
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>
+
+{php include pubTemplate("footer")}

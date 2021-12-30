@@ -23,7 +23,7 @@ class Vaptcha{
    * @param String $knock 流水号
    * @param String $token 验证成功后返回的标记
    * @param Int $scene 场景号
-   * @return void
+   * @return string
    */
   public static function validate($token, $scene = 0)
   {

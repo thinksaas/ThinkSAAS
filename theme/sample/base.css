@@ -118,32 +118,9 @@ code {
 .ts-dropdown .ts-dropdown-list li a{display:block;color: #666;}
 
 
-.ts-top-nav{position:relative;float: left;}
+
 .ts-user-nav{position:relative;float: right;}
-
-.ts-top-nav{margin:0;border: none;}
-.ts-top-nav .collapse{visibility: visible;}
-
-.ts-top-nav > nav > ul > li > a{padding:16px;color: #fff;}
-.ts-top-nav > nav > ul > li > a.active{background: #49a5de;font-weight: bold;}
-.ts-top-nav > nav > ul > li > a:hover, .ts-top-nav > nav > ul > li > a:focus{background: #49a5de;}
-
-
-
-.ts-top-nav ul li:hover .ts-dropdown{display: block;}
-.ts-top-nav .ts-dropdown{display:none;top:100%;min-width:300px;border-top: none;border-radius: 0 0 4px 4px;}
-.ts-top-nav .ts-dropdown .more{font-size: 12px;}
-.ts-top-nav .ts-dropdown .close{display: none;}
-.ts-top-nav .ts-dropdown ul li{padding:5px 10px;border-top:1px solid #f5f5f5;}
-.ts-top-nav .ts-dropdown ul li:first-child{border-top: none;}
-.ts-top-nav .ts-dropdown ul li:hover{background: #f5faff;}
-.ts-top-nav .ts-dropdown ul li:last-child{border-radius: 0 0 4px 4px;}
-
-
-
 .ts-user-nav:hover .dropdown-list{display: block;}
-
-.ts-user-nav .ts-user-nav-dropdown{display:block;}
 .ts-user-nav .ts-user-nav-dropdown .badge{position: absolute;top: -8px;right: -8px;}
 .ts-user-nav .dropdown-list{top:100%;width:122px;border-top:none;border-radius: 0 0 4px 4px;}
 .ts-user-nav .dropdown-list ul li a i{vertical-align:-2px;margin-right: 5px;font-size: 16px;}

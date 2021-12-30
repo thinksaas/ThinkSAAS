@@ -4,6 +4,8 @@
 <ul>
 <li {if $GLOBALS['TS_URL']['mg']=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=options">配置</a></li>
 
+<li {if $mg=='permissions'}class="select"{/if}><a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=permissions">权限配置</a></li>
+
 <li {if $GLOBALS['TS_URL']['mg']=='weibo'}class="select"{/if}><a href="{SITE_URL}index.php?app=weibo&ac=admin&mg=weibo&ts=list">唠叨列表</a></li>
 
 

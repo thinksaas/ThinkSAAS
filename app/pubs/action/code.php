@@ -9,4 +9,4 @@ require_once('thinksaas/Image.class.php');
 
 $Image = new Image();
 
-echo $Image->buildImageVerify($width=48,$height=22,$randval=NULL,$verifyName='verify');
+echo $Image->buildImageVerify($width=65,$height=30,$randval=NULL,$verifyName='verify');
