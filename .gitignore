@@ -2,6 +2,7 @@
 /data
 /tslogs
 /uploadfile
+.gitignore
 .idea
 .vscode
 .htaccess
