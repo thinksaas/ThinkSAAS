@@ -1,9 +1,7 @@
-/app/news
 /cache
 /data
 /tslogs
 /uploadfile
-.gitignore
 .idea
 .vscode
 .htaccess
@@ -11,4 +9,3 @@
 upgrade.sql
 upgrade.txt
 auto_install.json
-Dockerfile
