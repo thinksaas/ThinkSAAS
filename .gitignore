@@ -1,3 +1,4 @@
+/app/news
 /cache
 /data
 /tslogs
@@ -10,4 +11,4 @@
 upgrade.sql
 upgrade.txt
 auto_install.json
-/Dockerfile
+Dockerfile
