@@ -16,5 +16,10 @@
     "alibabacloud/client": "^1.5",
     "aliyuncs/oss-sdk-php": "^2.3",
     "overtrue/wechat": "~4.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "easywechat-composer/easywechat-composer": true
+    }
   }
 }
