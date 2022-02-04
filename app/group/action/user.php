@@ -42,7 +42,7 @@ switch($ts){
 
 		//小组会员分页
 
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 
 		$url = tsUrl('group','user',array('id'=>$groupid,'page'=>''));
 

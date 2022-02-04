@@ -51,6 +51,12 @@ switch($ts){
 		$content2	= emptyText($_POST['content']);//测试空内容
         $ispublic = tsIntval($_POST['ispublic']);
 
+
+        //匿名用户
+		$isniming = tsIntval($_POST['isniming']);
+		if($TS_SITE['isniming']==1 && $isniming==1) $userid = aac('user')->getNimingId();
+
+
 		//过滤内容开始
 		if($TS_USER['isadmin']==0){
 			$content = antiWord($content);
@@ -118,7 +124,7 @@ switch($ts){
                 }
     
                 #上级评论用户加分
-                aac ( 'user' )->doScore ( $TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strComment['userid']);
+                aac ( 'user' )->doScore ( $TS_URL['app'], $TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'], $TS_URL['ts'],$strComment['userid']);
     
     
             }else{
@@ -144,7 +150,7 @@ switch($ts){
 
             #每日前1条给积分
             if($count_comment<2){
-                aac('user') -> doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
+                aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'], $TS_URL['ts']);
             }
 
 			getJson('评论成功',$js,2,getProjectUrl($ptable,$pid));
@@ -173,7 +179,7 @@ switch($ts){
 			$new['pubs']->delComment($ptable,$pkey,$pid,$commentid);
 
             //处理积分
-            aac('user')->doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts'],$strComment['userid']);
+            aac('user')->doScore($TS_URL['app'], $TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'], $TS_URL['ts'],$strComment['userid']);
 			
         }
         

@@ -3,6 +3,9 @@
     <h6>用户管理</h6>
 <ul>
 <li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=options">用户配置</a></li>
+
+<li {if $mg=='permissions'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=permissions">权限配置</a></li>
+
 <li {if $mg=='user' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=list">用户管理</a></li>
 
 {if $mg=='user' && $ts=='view'}<li class="select"><a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=list">{$strUser[username]}用户信息</a></li>

@@ -12,7 +12,7 @@ switch($ts){
 
 		$kw=tsFilter($_GET['kw']);
 		
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 		$url = SITE_URL.'index.php?app=topic&ac=admin&mg=topic&ts=list&page=';
 		$lstart = $page*10-10;
 
@@ -159,7 +159,7 @@ switch($ts){
 	//删除的帖子
 	case "deletetopic":
 	
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 		$url = SITE_URL.'index.php?app=topic&ac=admin&mg=topic&ts=deletetopic&page=';
 		$lstart = $page*10-10;
 		
@@ -178,7 +178,7 @@ switch($ts){
 	//编辑的帖子
 	case "edittopic":
 	
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 		$url = SITE_URL.'index.php?app=topic&ac=admin&mg=topic&ts=edittopic&page=';
 		$lstart = $page*10-10;
 		

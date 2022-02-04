@@ -197,6 +197,13 @@
         </td></tr>
 
 
+
+        <tr><td>是否开启匿名发布内容：</td><td>
+            <input type="radio" name="option[isniming]" value="0" {if $strOption['isniming']=='0'}checked="select"{/if} />不开启
+            <input type="radio" name="option[isniming]" value="1" {if $strOption['isniming']=='1'}checked="select"{/if} />开启
+        </td></tr>
+
+
         <tr><td>用户发布内容时间 :</td><td><textarea style="width:500px;" type="text" name="option[pubtime]">{$strOption['pubtime']}</textarea> <br />(24小时制，以|分割。留空为不限制)</td></tr>
 
 

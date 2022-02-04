@@ -84,7 +84,7 @@ if ($db) {
 	
 	$userid = $db->query ( "insert into " . $pre . "user (`pwd` , `salt`,`email`,`phone`) values ('" . md5 ( $salt . $password ) . "', '$salt' ,'$email','$email');" );
 	
-	$db->query ( "insert into " . $pre . "user_info (`userid`,`username`,`email`,`phone`,`isadmin`,`isverify`,`isverifyphone`,`isrenzheng`,`addtime`,`uptime`) values ('$userid','$username','$email','$email','1','1','1','1','" . time () . "','" . time () . "')" );
+	$db->query ( "insert into " . $pre . "user_info (`userid`,`ugid`,`username`,`email`,`phone`,`isadmin`,`isverify`,`isverifyphone`,`isrenzheng`,`addtime`,`uptime`) values ('$userid',1,'$username','$email','$email','1','1','1','1','" . time () . "','" . time () . "')" );
 	
 	// 更改网站信息
 	$db->query ( "update " . $pre . "system_options set `optionvalue`='$site_title' where `optionname`='site_title'" );
@@ -121,14 +121,11 @@ if ($db) {
 	
 	$fw = fwrite ( $fp, $config );
 	
-	$strUser ['email'] = $email;
-	$strUser ['password'] = $password;
-	
 	// 清空SESSION
 	unset ( $_SESSION ['tsuser'] );
 	session_destroy ();
 	setcookie ( "ts_email", '', time () + 3600, '/' );
-	setcookie ( "ts_uptime", '', time () + 3600, '/' );
+	setcookie ( "ts_autologin", '', time () + 3600, '/' );
 	
 	include 'install/html/result.html';
 } else {

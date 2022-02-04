@@ -35,7 +35,7 @@ if($userid == $strTopic['userid'] || $userid == $strGroup['userid'] || $strGroup
     ));
 
     //处理积分
-    aac('user')->doScore($GLOBALS['TS_URL']['app'],$GLOBALS['TS_URL']['ac'],$GLOBALS['TS_URL']['ts'],$strTopic['userid']);
+    aac('user')->doScore($TS_URL['app'],$TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'],$TS_URL['ts'],$strTopic['userid']);
 
     tsNotice('你的删除帖子申请已经提交！');
     

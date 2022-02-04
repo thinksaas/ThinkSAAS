@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: qiniao
- * Date: 2018/6/12
- * Time: 下午7:58
- */
 defined('IN_TS') or die('Access Denied.');
 
 $userid = tsIntval($_GET['id']);
@@ -13,7 +7,7 @@ if($userid == 0) header("Location: ".SITE_URL."index.php");
 
 $strUser = aac('user')->getSimpleUser($userid);
 
-$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
+$page = tsIntval($_GET['page'],1);
 
 $url = tsUrl('photo','user',array('id'=>$userid,'page'=>''));
 

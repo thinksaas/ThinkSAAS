@@ -155,7 +155,7 @@ switch($ts){
 
 
             // 对积分进行处理
-			aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
+			aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'],$TS_URL['ts']);
 			
 
 			#用户记录

@@ -72,7 +72,7 @@ switch($ts){
 			'albumid'=>$albumid,
 		));
 		
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
+		$page = tsIntval($_GET['page'],1);
 		$url = SITE_URL."index.php?app=photo&ac=ajax&ts=photo&albumid=".$albumid."&page=";
 		$lstart = $page*6-6;
 		

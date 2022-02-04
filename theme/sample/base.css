@@ -1,5 +1,5 @@
 body {
-	font-family: '微软雅黑',Helvetica,Arial,Verdana,sans-serif,宋体;
+	font-family: Helvetica,Arial,Verdana,sans-serif,"黑体";
 	margin: 0 auto;
 	color: #434343;
 	background: #f5f8fa;
@@ -23,7 +23,9 @@ pre code{width:99%;}
 	line-height: 0
 }
 
-
+.note-editor .note-editing-area{
+	background: #FFFFFF;
+}
 
 /***字体大小***/
 .fs12 {

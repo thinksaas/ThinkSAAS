@@ -5,7 +5,7 @@ switch($ts){
 
 	//小组列表
 	case "list":
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 		$url = SITE_URL.'index.php?app=group&ac=admin&mg=group&ts=list&page=';
 		$lstart = $page*10-10;
 		$arrGroup = $db->fetch_all_assoc("select * from ".dbprefix."group order by addtime desc limit $lstart,10");

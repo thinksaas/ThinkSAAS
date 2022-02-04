@@ -73,6 +73,18 @@
                             <input type="text" name="score" value="0" onkeyup="NumberCheck(this)" /> 积分
                         </div>
 
+
+                        <!--匿名发布-->
+                        {if $TS_SITE['isniming']==1}
+                        <div class="form-group">
+                            <label>匿名发布：</label>
+                            <input type="radio" name="isniming" value="0" checked> 否
+                            <input type="radio" name="isniming" value="1"> 是 <span class="text-danger">(匿名发布后用户将无法对内容进行管理)</span>
+                        </div>
+                        {/if}
+
+                        
+
                         <!--图片验证码-->
                         {if $TS_SITE['isauthcode']}
                         <div class="form-group">

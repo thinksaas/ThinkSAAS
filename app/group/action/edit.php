@@ -493,7 +493,7 @@ switch($ts){
         $guserid = tsIntval($_GET['guserid']);
 
 
-        $page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+        $page = tsIntval($_GET['page'],1);
 
         $url = tsUrl('group','edit',array('ts'=>'user','groupid'=>$groupid,'page'=>''));
 

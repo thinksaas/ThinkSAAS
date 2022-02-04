@@ -1,6 +1,6 @@
 <?php
 defined ( 'IN_TS' ) or die ( 'Access Denied.' );
-$page = isset ( $_GET ['page'] ) ? $_GET ['page'] : '1';
+$page = tsIntval($_GET['page'],1);
 
 $url = tsUrl ( 'article', 'tags', array (
 		'page' => '' 

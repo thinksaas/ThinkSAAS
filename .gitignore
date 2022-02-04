@@ -2,7 +2,9 @@
 /data
 /tslogs
 /uploadfile
+.git
 .idea
+.history
 .vscode
 .htaccess
 .DS_Store

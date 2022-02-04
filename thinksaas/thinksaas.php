@@ -68,10 +68,10 @@ $_COOKIE = tsgpc($_COOKIE);
 $TS_URL = array(
     'app'=>isset($_GET['app']) ? tsUrlCheck($_GET['app']) : 'home',//APP专用
     'ac'=>isset($_GET['ac']) ? tsUrlCheck($_GET['ac']) : 'index',//Action专用
-    'ts'=>isset($_GET['ts']) ? tsUrlCheck($_GET['ts']) : '',//ThinkSAAS专用
-    'mg'=>isset($_GET['mg']) ? tsUrlCheck($_GET['mg']) : 'index',//Admin管理专用
+    'mg'=>isset($_GET['mg']) ? tsUrlCheck($_GET['mg']) : '',//Admin管理专用
     'my'=>isset($_GET['my']) ? tsUrlCheck($_GET['my']) : 'index',//我的社区专用
-    'api'=>isset($_GET['api']) ? tsUrlCheck($_GET['api']) : 'index',//Api专用
+    'api'=>isset($_GET['api']) ? tsUrlCheck($_GET['api']) : '',//Api专用
+    'ts'=>isset($_GET['ts']) ? tsUrlCheck($_GET['ts']) : '',//ThinkSAAS专用
     'plugin'=>isset($_GET['plugin']) ? tsUrlCheck($_GET['plugin']) : '',//plugin专用
     'in'=>isset($_GET['in']) ? tsUrlCheck($_GET['in']) : '',//plugin专用
     'tp'=>isset($_GET['tp']) ? tsUrlCheck($_GET['tp']) : '1',//tp 内容分页
@@ -177,7 +177,6 @@ date_default_timezone_set($TS_SITE['timezone']);
 
 //接管SESSION，前台用户基本数据,$TS_USER数组
 $TS_USER = isset($_SESSION['tsuser']) ? $_SESSION['tsuser'] : array();
-
 //APP独立用户组权限控制
 $route_key = $app.'_'.$ac;
 if($mg && $mg!='index') $route_key .= '_'.$mg;
@@ -185,7 +184,7 @@ if($api && $api!='index') $route_key .= '_'.$api;
 if($ts) $route_key .= '_'.$ts;
 $TS_APP['permissions'] = fileRead('data/' . $TS_URL['app'] . '_permissions.php');
 if ($TS_APP['permissions'] == '') $TS_APP['permissions'] = $tsMySqlCache -> get($TS_URL['app'] . '_permissions');
-$common_ugid = tsIntval($TS_USER['ugid'],4);
+$common_ugid = tsIntval($TS_USER['ugid'],0,4);//默认4为游客
 if($TS_APP['permissions']){
     if($TS_APP['permissions'][$common_ugid]){
         if($TS_APP['permissions'][$common_ugid][$route_key]!=null && $TS_APP['permissions'][$common_ugid][$route_key]==0){

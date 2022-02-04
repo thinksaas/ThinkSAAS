@@ -5,7 +5,7 @@ switch($ts){
 
     case "list":
 
-        $page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+        $page = tsIntval($_GET['page'],1);
 		$url = SITE_URL.'index.php?app=system&ac=logs&ts=list&page=';
 		$lstart = $page*20-20;
 		$arrLogs = $new['system']->findAll('logs',null,'addtime desc',null,$lstart.',20');

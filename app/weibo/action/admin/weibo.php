@@ -5,7 +5,7 @@ switch($ts){
 
     case "list":
 
-        $page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+        $page = tsIntval($_GET['page'],1);
         $url = SITE_URL.'index.php?app=weibo&ac=admin&mg=weibo&ts=list&page=';
         $lstart = $page*20-20;
         $arrWeibo = $new['weibo']->findAll('weibo',null,'addtime desc',null,$lstart.',20');

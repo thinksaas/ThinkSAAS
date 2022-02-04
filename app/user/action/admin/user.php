@@ -6,7 +6,7 @@ defined('IN_TS') or die('Access Denied.');
 		//用户列表
 		case "list":
 		
-			$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+			$page = tsIntval($_GET['page'],1);
 			
 			$userid = tsIntval($_GET['userid']);
 			$username = tsFilter($_GET['username']);

@@ -25,7 +25,7 @@ switch($ts){
 		$strAlbum['albumdesc'] = tsTitle($strAlbum['albumdesc']);
 		
 		
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
+		$page = tsIntval($_GET['page'],1);
 		
 		$url = tsUrl('photo','album',array('id'=>$albumid,'page'=>''));
 		

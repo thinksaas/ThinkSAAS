@@ -249,7 +249,7 @@ switch($ts){
     #内容举报
     case "report":
 
-        $page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+        $page = tsIntval($_GET['page'],1);
         $url = SITE_URL.'index.php?app=system&ac=anti&ts=report&page=';
         $lstart = $page*20-20;
         $arrReport = $new['system']->findAll('anti_report',null,'addtime desc',null,$lstart.',20');
@@ -273,7 +273,7 @@ switch($ts){
 
 	case "email":
 
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 		$url = SITE_URL.'index.php?app=system&ac=anti&ts=email&page=';
 		$lstart = $page*100-100;
 		$arrEmail = $new['system']->findAll('anti_email',null,'addtime desc',null,$lstart.',100');

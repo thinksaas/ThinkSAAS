@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 
 include 'userinfo.php';
 
-$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
+$page = tsIntval($_GET['page'],1);
 $url = tsUrl('user','followed',array('id'=>$strUser['userid'],'page'=>''));
 $lstart = $page*80-80;
 
@@ -19,7 +19,7 @@ $pageUrl = pagination($userNum, 80, $page, $url);
 
 if(is_array($arrUsers)){
 	foreach($arrUsers as $item){
-		$arrUser[] =  $new['user']->getSimpleUser($item['userid']);
+		$arrUser[$key] =  $new['user']->getSimpleUser($item['userid']);
 	}
 }
 

@@ -9,7 +9,7 @@ switch ($ts){
         $ptable = isset($_GET['ptable']) ? trim($_GET['ptable']) : 'topic';
         $pid = tsIntval($_GET['pid']);
 
-        $page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+        $page = tsIntval($_GET['page'],1);
         $url = SITE_URL.'index.php?app=pubs&ac=admin&mg=comment&ts=list&ptable='.$ptable.'&userid='.$userid.'&page=';
         $lstart = $page*10-10;
 
@@ -61,7 +61,7 @@ switch ($ts){
         $new['pubs']->delComment($ptable,$pkey,$pid,$commentid);
 
         #处理积分
-        aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strComment['userid'],$TS_URL['mg']);
+        aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'], $TS_URL['ts'],$strComment['userid']);
 
         qiMsg('删除成功');
 

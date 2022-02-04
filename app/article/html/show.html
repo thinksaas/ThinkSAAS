@@ -133,24 +133,39 @@
                                 <div >
                                     <textarea id="tseditor" name="content"></textarea>
                                 </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
+
+                                <div class="mt-3 d-flex justify-content-between align-items-center">
+                                    <div>
                                         {if $TS_SITE['isauthcode']}
                                         <input class="form-control form-control-sm w-auto float-left" name="authcode" placeholder="输入验证码" />
                                         <img class="mt-1 ml-1" src="{tsUrl('pubs','code')}" onclick="javascript:newgdcode(this,this.src);" title="点击刷新验证码" alt="点击刷新验证码" style="cursor:pointer;"/>
                                         {/if}
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="mt-1">是否公开：<input type="radio" name="ispublic" value="0" checked />公开 <input type="radio" name="ispublic" value="1" />不公开</div>
-                                    </div>
-                                    <div class="col-md-2 text-right">
-                                        <input type="hidden" name="ptable" value="article">
-                                        <input type="hidden" name="pkey" value="articleid">
-                                        <input type="hidden" name="pid" value="{$strArticle['articleid']}" />
-                                        <input type="hidden" name="token" value="{$_SESSION['token']}" />
-                                        <button class="btn btn-sm btn-info btn-block" type="submit">提交评论</button>
-                                    </div>
+                                    
+                                    <div>是否公开：<input type="radio" name="ispublic" value="0" checked />公开 <input type="radio" name="ispublic" value="1" />不公开</div>
+                                   
+                                   
                                 </div>
+
+
+                                <!--匿名发布-->
+                                {if $TS_SITE['isniming']==1}
+                                <div class="text-right">
+                                    <span>匿名发布：</span>
+                                    <input type="radio" name="isniming" value="0" checked> 否
+                                    <input type="radio" name="isniming" value="1"> 是
+                                </div>
+                                {/if}
+
+
+                                <div class="text-right">
+                                    <input type="hidden" name="ptable" value="article">
+                                    <input type="hidden" name="pkey" value="articleid">
+                                    <input type="hidden" name="pid" value="{$strArticle['articleid']}" />
+                                    <input type="hidden" name="token" value="{$_SESSION['token']}" />
+                                    <button class="btn btn-sm btn-info" type="submit">提交评论</button>
+                                </div>
+
                             </form>
                             {/if}
 

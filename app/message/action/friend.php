@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
 //用户是否登录
 $userid = aac('user')->isLogin();
 
-$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
+$page = tsIntval($_GET['page'],1);
 $url = tsUrl('message','friend',array('page'=>''));
 $lstart = $page*40-40;
 

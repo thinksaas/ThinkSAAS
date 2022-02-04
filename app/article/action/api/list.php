@@ -24,7 +24,7 @@ $locationid = tsIntval($_GET['locationid']);
 
 $kw = trim($_GET['kw']);
 
-$page = isset($_GET['page']) ? $_GET['page'] : '1';
+$page = tsIntval($_GET['page'],1);
 $limit = isset($_GET['limit']) ? $_GET['limit'] : '10';
 
 $lstart = $limit*$page-$limit;

@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 
 include 'userinfo.php';
 
-$page = isset ( $_GET ['page'] ) ? tsIntval ( $_GET ['page'] ) : 1;
+$page = tsIntval($_GET['page'],1);
 $url = tsUrl ( 'user', 'article', array ('id'=>$strUser['userid'],'page' => '' ) );
 $lstart = $page * 20 - 20;
 

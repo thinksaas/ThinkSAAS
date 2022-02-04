@@ -23,7 +23,7 @@ switch($ts){
 	//小组 
 	case "group":
 		
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 		$url = tsUrl('search','s',array('ts'=>'group','kw'=>$kw,'page'=>''));
 		$lstart = $page*10-10;
 		
@@ -40,7 +40,7 @@ switch($ts){
 	//帖子
 	case "topic":
 	
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 		$url = tsUrl('search','s',array('ts'=>'topic','kw'=>$kw,'page'=>''));
 		$lstart = $page*10-10;
 	
@@ -57,7 +57,7 @@ switch($ts){
 	//用户
 	case "user":
 		
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 		$url = tsUrl('search','s',array('ts'=>'user','kw'=>$kw,'page'=>''));
 		$lstart = $page*10-10;
 	
@@ -74,7 +74,7 @@ switch($ts){
 		
 	case "article":
 		
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 		$url = tsUrl('search','s',array('ts'=>'article','kw'=>$kw,'page'=>''));
 		$lstart = $page*10-10;
 	

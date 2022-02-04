@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '阅读文章所需积分',
   `path` char(32) NOT NULL DEFAULT '' COMMENT '路径',
   `photo` char(32) NOT NULL DEFAULT '' COMMENT '图片路径',
-  `istop` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '是否置顶0否1是',
+  `istop` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否置顶0否1是',
   `isaudit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否审核',
   `isrecommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否推荐',
   `count_comment` int(11) NOT NULL DEFAULT '0' COMMENT '统计评论数',
@@ -174,7 +174,7 @@ DELETE FROM `ts_article_user`;
 /*!40000 ALTER TABLE `ts_article_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_article_user` ENABLE KEYS */;
 
--- 导出  表 test_thinksaas.ts_cache 结构
+-- 导出  表 d_thinksaas.ts_cache 结构
 DROP TABLE IF EXISTS `ts_cache`;
 CREATE TABLE IF NOT EXISTS `ts_cache` (
   `cacheid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增缓存ID',
@@ -184,13 +184,13 @@ CREATE TABLE IF NOT EXISTS `ts_cache` (
   UNIQUE KEY `cachename` (`cachename`)
 ) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COMMENT='缓存';
 
--- 正在导出表  test_thinksaas.ts_cache 的数据：26 rows
+-- 正在导出表  d_thinksaas.ts_cache 的数据：27 rows
 DELETE FROM `ts_cache`;
 /*!40000 ALTER TABLE `ts_cache` DISABLE KEYS */;
 INSERT INTO `ts_cache` (`cacheid`, `cachename`, `cachevalue`) VALUES
 	(1, 'pubs_plugins', '1613877203a:18:{i:9;s:10:"floatlayer";i:19;s:8:"customer";i:20;s:7:"counter";i:21;s:6:"douban";i:22;s:8:"feedback";i:24;s:7:"gonggao";i:25;s:5:"gotop";i:26;s:4:"navs";i:27;s:2:"qq";i:29;s:5:"weibo";i:30;s:6:"wordad";i:31;s:9:"footertip";i:32;s:8:"leftuser";i:33;s:7:"ueditor";i:35;s:10:"wangeditor";i:36;s:10:"summernote";i:37;s:7:"morenav";i:38;s:5:"gobad";}'),
 	(2, 'home_plugins', '1587443014a:14:{i:11;s:9:"newtopics";i:12;s:5:"slide";i:13;s:8:"signuser";i:14;s:14:"recommendgroup";i:15;s:3:"tag";i:17;s:5:"login";i:18;s:5:"weibo";i:19;s:8:"newgroup";i:20;s:7:"article";i:22;s:5:"photo";i:23;s:5:"links";i:24;s:16:"recommendarticle";i:25;s:14:"recommendtopic";i:26;s:5:"topic";}'),
-	(3, 'system_options', '1636680620a:47:{s:10:"site_title";s:9:"ThinkSAAS";s:13:"site_subtitle";s:24:"又一个ThinkSAAS社区";s:8:"site_key";s:9:"thinksaas";s:9:"site_desc";s:9:"thinksaas";s:8:"site_url";s:26:"https://test.thinksaas.cn/";s:8:"link_url";s:26:"https://test.thinksaas.cn/";s:9:"site_pkey";s:32:"e934eb6ba76b90a6b30199281a442931";s:10:"site_email";s:15:"admin@admin.com";s:8:"site_icp";s:20:"豫ICP备00000000号";s:6:"isface";s:1:"0";s:8:"isinvite";s:1:"0";s:7:"regtype";s:1:"0";s:8:"isplogin";s:1:"0";s:8:"isverify";s:1:"0";s:13:"isverifyphone";s:1:"0";s:6:"istomy";s:1:"0";s:10:"isauthcode";s:1:"0";s:7:"istoken";s:1:"0";s:9:"is_weixin";s:1:"0";s:12:"weixin_appid";s:0:"";s:16:"weixin_appsecret";s:0:"";s:10:"is_vaptcha";s:1:"0";s:11:"vaptcha_vid";s:0:"";s:11:"vaptcha_key";s:0:"";s:8:"timezone";s:14:"Asia/Hong_Kong";s:7:"visitor";s:1:"0";s:9:"publisher";s:1:"0";s:7:"pubtime";s:0:"";s:9:"timeblank";s:1:"0";s:11:"isallowedit";s:1:"0";s:13:"isallowdelete";s:1:"0";s:10:"site_theme";s:6:"sample";s:12:"site_urltype";s:1:"1";s:16:"file_upload_type";s:1:"0";s:19:"alioss_accesskey_id";s:0:"";s:23:"alioss_accesskey_secret";s:0:"";s:13:"alioss_bucket";s:0:"";s:15:"alioss_endpoint";s:0:"";s:17:"alioss_bucket_url";s:0:"";s:10:"photo_size";s:2:"10";s:10:"photo_type";s:16:"jpg,gif,png,jpeg";s:11:"photo_check";s:1:"0";s:12:"photo_driver";s:2:"gd";s:11:"attach_size";s:2:"10";s:11:"attach_type";s:19:"zip,rar,doc,txt,ppt";s:11:"dayscoretop";s:2:"10";s:4:"logo";s:8:"logo.png";}'),
+	(3, 'system_options', '1643953720a:49:{s:10:"site_title";s:9:"ThinkSAAS";s:13:"site_subtitle";s:24:"又一个ThinkSAAS社区";s:8:"site_key";s:9:"thinksaas";s:9:"site_desc";s:9:"thinksaas";s:8:"site_url";s:20:"http://d.qiniao.com/";s:8:"link_url";s:20:"http://d.qiniao.com/";s:9:"site_pkey";s:32:"47f2a997e381a5861603715e61dfb64d";s:10:"site_email";s:15:"admin@admin.com";s:8:"site_icp";s:20:"豫ICP备00000000号";s:6:"isface";s:1:"0";s:8:"isinvite";s:1:"0";s:7:"regtype";s:1:"0";s:8:"isplogin";s:1:"0";s:8:"isverify";s:1:"0";s:13:"isverifyphone";s:1:"0";s:6:"istomy";s:1:"0";s:10:"isauthcode";s:1:"0";s:7:"istoken";s:1:"0";s:9:"is_weixin";s:1:"0";s:12:"weixin_appid";s:0:"";s:16:"weixin_appsecret";s:0:"";s:10:"is_vaptcha";s:1:"0";s:11:"vaptcha_vid";s:0:"";s:11:"vaptcha_key";s:0:"";s:8:"timezone";s:14:"Asia/Hong_Kong";s:7:"visitor";s:1:"0";s:9:"publisher";s:1:"0";s:8:"isniming";s:1:"0";s:7:"pubtime";s:0:"";s:9:"timeblank";s:1:"0";s:11:"isallowedit";s:1:"0";s:13:"isallowdelete";s:1:"0";s:14:"anti_word_type";s:1:"0";s:10:"site_theme";s:6:"sample";s:12:"site_urltype";s:1:"1";s:16:"file_upload_type";s:1:"0";s:19:"alioss_accesskey_id";s:0:"";s:23:"alioss_accesskey_secret";s:0:"";s:13:"alioss_bucket";s:0:"";s:15:"alioss_endpoint";s:0:"";s:17:"alioss_bucket_url";s:0:"";s:10:"photo_size";s:2:"10";s:10:"photo_type";s:16:"jpg,gif,png,jpeg";s:11:"photo_check";s:1:"0";s:12:"photo_driver";s:2:"gd";s:11:"attach_size";s:2:"10";s:11:"attach_type";s:19:"zip,rar,doc,txt,ppt";s:11:"dayscoretop";s:2:"10";s:4:"logo";s:8:"logo.png";}'),
 	(4, 'system_appnav', '1630058550a:9:{s:4:"home";s:6:"首页";s:5:"group";s:6:"小组";s:5:"topic";s:6:"话题";s:7:"article";s:6:"文章";s:5:"photo";s:6:"相册";s:4:"user";s:6:"用户";s:5:"weibo";s:6:"唠叨";s:6:"search";s:6:"搜索";s:2:"my";s:12:"我的社区";}'),
 	(5, 'system_anti_word', '1614133155s:6:"迷药";'),
 	(6, 'user_options', '1586315688a:6:{s:7:"appname";s:6:"用户";s:7:"appdesc";s:12:"用户中心";s:6:"appkey";s:6:"用户";s:8:"isenable";s:1:"0";s:7:"isgroup";s:0:"";s:7:"banuser";s:25:"官方用户|官方团队";}'),
@@ -216,6 +216,24 @@ INSERT INTO `ts_cache` (`cacheid`, `cachename`, `cachevalue`) VALUES
 	(31, 'topic_options', '1597542226a:3:{s:7:"appname";s:6:"话题";s:7:"appdesc";s:12:"话题帖子";s:6:"appkey";s:6:"话题";}'),
 	(32, 'article_permissions', '1636679009a:4:{i:1;a:9:{s:11:"article_add";s:1:"1";s:12:"article_show";s:1:"1";s:12:"article_edit";s:1:"1";s:14:"article_delete";s:1:"1";s:21:"article_admin_options";s:1:"1";s:25:"article_admin_permissions";s:1:"1";s:22:"article_admin_cate_add";s:1:"1";s:23:"article_admin_cate_edit";s:1:"1";s:16:"article_api_show";s:1:"1";}i:2;a:9:{s:11:"article_add";s:1:"1";s:12:"article_show";s:1:"1";s:12:"article_edit";s:1:"1";s:14:"article_delete";s:1:"1";s:21:"article_admin_options";s:1:"1";s:25:"article_admin_permissions";s:1:"1";s:22:"article_admin_cate_add";s:1:"1";s:23:"article_admin_cate_edit";s:1:"1";s:16:"article_api_show";s:1:"1";}i:3;a:5:{s:11:"article_add";s:1:"1";s:12:"article_show";s:1:"1";s:12:"article_edit";s:1:"1";s:14:"article_delete";s:1:"1";s:16:"article_api_show";s:1:"1";}i:4;a:2:{s:12:"article_show";s:1:"1";s:16:"article_api_show";s:1:"1";}}');
 /*!40000 ALTER TABLE `ts_cache` ENABLE KEYS */;
+
+-- 导出  表 d_thinksaas.ts_collect 结构
+DROP TABLE IF EXISTS `ts_collect`;
+CREATE TABLE IF NOT EXISTS `ts_collect` (
+  `collectid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `ptable` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表名称',
+  `pkey` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段',
+  `pid` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段值',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `title` varchar(128) NOT NULL DEFAULT '' COMMENT '标题',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`collectid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='收藏表';
+
+-- 正在导出表  d_thinksaas.ts_collect 的数据：0 rows
+DELETE FROM `ts_collect`;
+/*!40000 ALTER TABLE `ts_collect` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_collect` ENABLE KEYS */;
 
 -- 导出  表 d_thinksaas.ts_comment 结构
 DROP TABLE IF EXISTS `ts_comment`;
@@ -291,6 +309,11 @@ CREATE TABLE IF NOT EXISTS `ts_email_code` (
   `addtime` datetime NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '时间',
   UNIQUE KEY `email` (`email`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='Email验证码';
+
+-- 正在导出表  d_thinksaas.ts_email_code 的数据：0 rows
+DELETE FROM `ts_email_code`;
+/*!40000 ALTER TABLE `ts_email_code` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ts_email_code` ENABLE KEYS */;
 
 -- 导出  表 d_thinksaas.ts_group 结构
 DROP TABLE IF EXISTS `ts_group`;
@@ -440,6 +463,7 @@ CREATE TABLE IF NOT EXISTS `ts_love` (
   `pkey` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段',
   `pid` varchar(64) NOT NULL DEFAULT '' COMMENT '应用表字段值',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `title` varchar(128) NOT NULL DEFAULT '' COMMENT '标题',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
   PRIMARY KEY (`loveid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='点赞/喜欢表';
@@ -508,7 +532,7 @@ CREATE TABLE IF NOT EXISTS `ts_permissions` (
   PRIMARY KEY (`permissionsid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='用户组权限表';
 
--- 正在导出表  d_thinksaas.ts_permissions 的数据：~22 rows (大约)
+-- 正在导出表  d_thinksaas.ts_permissions 的数据：~25 rows (大约)
 DELETE FROM `ts_permissions`;
 /*!40000 ALTER TABLE `ts_permissions` DISABLE KEYS */;
 INSERT INTO `ts_permissions` (`permissionsid`, `ugid`, `app`, `action`, `mg`, `api`, `ts`, `status`) VALUES
@@ -642,9 +666,9 @@ INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
 	('site_subtitle', '又一个ThinkSAAS社区'),
 	('site_key', 'thinksaas'),
 	('site_desc', 'thinksaas'),
-	('site_url', 'http://d.thinksaas.cn/'),
-	('link_url', 'http://d.thinksaas.cn/'),
-	('site_pkey', 'd114194afdca3e09f85430ba602db110'),
+	('site_url', 'http://d.qiniao.com/'),
+	('link_url', 'http://d.qiniao.com/'),
+	('site_pkey', '4c523b534c11b6f5de89a53d0e6af0c4'),
 	('site_email', 'admin@admin.com'),
 	('site_icp', '豫ICP备00000000号'),
 	('isface', '0'),
@@ -665,10 +689,12 @@ INSERT INTO `ts_system_options` (`optionname`, `optionvalue`) VALUES
 	('timezone', 'Asia/Hong_Kong'),
 	('visitor', '0'),
 	('publisher', '0'),
+	('isniming', '0'),
 	('pubtime', ''),
 	('timeblank', '0'),
 	('isallowedit', '0'),
 	('isallowdelete', '0'),
+	('anti_word_type', '0'),
 	('site_theme', 'sample'),
 	('site_urltype', '1'),
 	('file_upload_type', '0'),
@@ -1022,7 +1048,7 @@ DELETE FROM `ts_user_group`;
 /*!40000 ALTER TABLE `ts_user_group` DISABLE KEYS */;
 INSERT INTO `ts_user_group` (`ugid`, `ugname`, `uginfo`) VALUES
 	(1, '系统管理员', '系统管理最高权限组'),
-  (2, '内容管理员', '对用户发布的内容进行管理操作'),
+	(2, '内容管理员', '对用户发布的内容进行管理操作'),
 	(3, '普通用户', '默认普通用户组'),
 	(4, '游客', '未登录用户');
 /*!40000 ALTER TABLE `ts_user_group` ENABLE KEYS */;
@@ -1055,6 +1081,7 @@ CREATE TABLE IF NOT EXISTS `ts_user_info` (
   `count_followed` int(11) NOT NULL DEFAULT '0' COMMENT '统计用户被跟随的',
   `count_group` int(11) NOT NULL DEFAULT '0' COMMENT '统计小组数',
   `count_topic` int(11) NOT NULL DEFAULT '0' COMMENT '统计帖子',
+  `count_collect` int(11) NOT NULL DEFAULT '0' COMMENT '统计收藏',
   `isadmin` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否是管理员',
   `isenable` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否启用：0启用1禁用',
   `isverify` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未验证1验证',
@@ -1158,33 +1185,35 @@ CREATE TABLE IF NOT EXISTS `ts_user_score` (
   `app` char(32) NOT NULL DEFAULT '' COMMENT 'APP',
   `action` char(32) NOT NULL DEFAULT '' COMMENT 'ACTION',
   `mg` char(32) NOT NULL DEFAULT '' COMMENT 'MG',
+  `api` char(32) NOT NULL DEFAULT '' COMMENT 'API',
   `ts` char(32) NOT NULL DEFAULT '' COMMENT 'TS',
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '积分数',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0加积分1减积分',
-  PRIMARY KEY (`scoreid`)
+  PRIMARY KEY (`scoreid`),
+  UNIQUE KEY `app_action_mg_api_ts` (`app`,`action`,`mg`,`api`,`ts`)
 ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COMMENT='用户积分设置表';
 
 -- 正在导出表  d_thinksaas.ts_user_score 的数据：17 rows
 DELETE FROM `ts_user_score`;
 /*!40000 ALTER TABLE `ts_user_score` DISABLE KEYS */;
-INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`, `mg`, `ts`, `score`, `status`) VALUES
-	(1, 'user_register', '用户注册', 'user', 'register', '', 'do', 10, 0),
-	(2, 'user_login', '用户登陆', 'user', 'login', '', 'do', 5, 0),
-	(3, 'topic_add', '发帖', 'topic', 'add', '', 'do', 10, 0),
-	(4, 'pubs_comment', '评论', 'pubs', 'comment', '', 'do', 5, 0),
-	(5, 'attach_upload', '资料上传', 'attach', 'upload', '', 'do', 10, 0),
-	(6, 'user_signin', '用户签到', 'user', 'signin', '', '', 5, 0),
-	(7, 'group_topic_delete', '删除帖子', 'group', 'do', '', 'deltopic', 5, 1),
-	(8, 'article_add', '发布文章', 'article', 'add', '', 'do', 5, 0),
-	(9, 'article_delete', '删除文章', 'article', 'delete', '', '', 5, 1),
-	(11, 'article_admin_post_isaudit0', '后台文章审核通过', 'article', 'admin', 'post', 'isaudit0', 5, 0),
-	(12, 'article_admin_post_isaudit1', '后台文章审核不通过', 'article', 'admin', 'post', 'isaudit1', 5, 1),
-	(13, 'ask_admin_topic_isaudit0', '后台问题审核通过', 'ask', 'admin', 'topic', 'isaudit0', 5, 0),
-	(14, 'ask_admin_topic_isaudit1', '后台问题审核不通过', 'ask', 'admin', 'topic', 'isaudit1', 5, 1),
-	(15, 'ask_new_do', '前台发布问题', 'ask', 'new', '', 'do', 5, 0),
-	(16, 'ask_ajax_ask2commentid', '前台问题采纳', 'ask', 'ajax', '', 'ask2commentid', 5, 0),
-	(17, 'article_admin_post_delete', '后台文章删除', 'article', 'admin', 'post', 'delete', 5, 1),
-	(18, 'user_phone_do', '手机号注册', 'user', 'phone', '', 'do', 10, 0);
+INSERT INTO `ts_user_score` (`scoreid`, `scorekey`, `scorename`, `app`, `action`, `mg`, `api`, `ts`, `score`, `status`) VALUES
+	(1, 'user_register', '用户注册', 'user', 'register', '', '', 'do', 10, 0),
+	(2, 'user_login', '用户登陆', 'user', 'login', '', '', 'do', 5, 0),
+	(3, 'topic_add', '发帖', 'topic', 'add', '', '', 'do', 10, 0),
+	(4, 'pubs_comment', '评论', 'pubs', 'comment', '', '', 'do', 5, 0),
+	(5, 'attach_upload', '资料上传', 'attach', 'upload', '', '', 'do', 10, 0),
+	(6, 'user_signin', '用户签到', 'user', 'signin', '', '', '', 5, 0),
+	(7, 'group_topic_delete', '删除帖子', 'group', 'do', '', '', 'deltopic', 5, 1),
+	(8, 'article_add', '发布文章', 'article', 'add', '', '', 'do', 5, 0),
+	(9, 'article_delete', '删除文章', 'article', 'delete', '', '', '', 5, 1),
+	(11, 'article_admin_post_isaudit0', '后台文章审核通过', 'article', 'admin', 'post', '', 'isaudit0', 5, 0),
+	(12, 'article_admin_post_isaudit1', '后台文章审核不通过', 'article', 'admin', 'post', '', 'isaudit1', 5, 1),
+	(13, 'ask_admin_topic_isaudit0', '后台问题审核通过', 'ask', 'admin', 'topic', '', 'isaudit0', 5, 0),
+	(14, 'ask_admin_topic_isaudit1', '后台问题审核不通过', 'ask', 'admin', 'topic', '', 'isaudit1', 5, 1),
+	(15, 'ask_new_do', '前台发布问题', 'ask', 'new', '', '', 'do', 5, 0),
+	(16, 'ask_ajax_ask2commentid', '前台问题采纳', 'ask', 'ajax', '', '', 'ask2commentid', 5, 0),
+	(17, 'article_admin_post_delete', '后台文章删除', 'article', 'admin', 'post', '', 'delete', 5, 1),
+	(18, 'user_phone_do', '手机号注册', 'user', 'phone', '', '', 'do', 10, 0);
 /*!40000 ALTER TABLE `ts_user_score` ENABLE KEYS */;
 
 -- 导出  表 d_thinksaas.ts_user_score_log 结构

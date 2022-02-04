@@ -22,7 +22,7 @@ $strTag = $new['topic']->find('tag',array(
 $strTag['tagname'] = htmlspecialchars($strTag['tagname']); 
 
 
-$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+$page = tsIntval($_GET['page'],1);
 
 $url = tsUrl('group','tag',array('id'=>urlencode($name),'page'=>''));
 

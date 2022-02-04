@@ -23,6 +23,12 @@ switch($ts){
 
         $title = trim($_POST['title']);
 
+
+        //匿名用户
+		$isniming = tsIntval($_POST['isniming']);
+		if($TS_SITE['isniming']==1 && $isniming==1) $userid = aac('user')->getNimingId();
+
+
         if($title == '') {
             getJson('内容不能为空',$js);
         }
@@ -60,7 +66,7 @@ switch($ts){
 
         #每日前三条给积分
         if($count_weibo<4){
-            aac('user') -> doScore($GLOBALS['TS_URL']['app'], $GLOBALS['TS_URL']['ac'], $GLOBALS['TS_URL']['ts']);
+            aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'], $TS_URL['ts']);
         }
 
         #用户记录

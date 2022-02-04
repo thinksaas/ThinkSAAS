@@ -7,7 +7,18 @@
 
             <thead class="thead-light">
 
-            <tr><th>积分名称</th><th>key</th><th>分数</th><th>对应app</th><th>对应action</th><th>对应mg</th><th>对应ts</th><th>状态</th><th>设置</th> </tr>
+            <tr>
+                <th>积分名称</th>
+                <th>key</th>
+                <th>分数</th>
+                <th>对应app</th>
+                <th>对应action</th>
+                <th>对应mg</th>
+                <th>对应api</th>
+                <th>对应ts</th>
+                <th>状态</th>
+                <th>设置</th> 
+            </tr>
 
             </thead>
 
@@ -25,6 +36,7 @@
                     <td><input style="width:70px" name="app" value="{$item['app']}" /></td>
                     <td><input style="width:70px" name="action" value="{$item['action']}" /></td>
                     <td><input style="width:70px" name="mg" value="{$item['mg']}" /></td>
+                    <td><input style="width:70px" name="api" value="{$item['api']}" /></td>
                     <td><input style="width:70px" name="ts" value="{$item['ts']}" /></td>
                     <td>
                         <select name="status">
@@ -58,6 +70,7 @@
                 <tr><td>对应APP：</td><td><input type="text" name="app" /></td></tr>
                 <tr><td>对应ACTION：</td><td><input type="text" name="action" /></td></tr>
                 <tr><td>对应MG：</td><td><input type="text" name="mg" /></td></tr>
+                <tr><td>对应API：</td><td><input type="text" name="api" /></td></tr>
                 <tr><td>对应TS：</td><td><input type="text" name="ts" /></td></tr>
                 <tr><td>状态：</td><td><input type="radio" name="status" value="0" checked="select" />加积分 <input type="radio" name="status" value="1" />减积分</td></tr>
                 <tr><td></td><td><input type="submit" value="提交" /></td></tr>
@@ -68,9 +81,9 @@
         <h6>积分使用帮助</h6>
         <p>1、在需要使用积分的php代码处加：</p>
         <code>
-            aac('user')->doScore({php echo '$app'},{php echo '$ac'},{php echo '$ts'},{php echo '$uid'},{php echo '$mg'})
+            aac('user')->doScore({php echo '$app'},{php echo '$ac'},{php echo '$mg'},{php echo '$api'},{php echo '$ts'},{php echo '$uid'})
         </code>
         <p>以上代码具体使用方式请看app/user/class.user.php中doScore方法</p>
-        <p>2、根据对应的app,action,ts,uid,mg变量配置好积分</p>
+        <p>2、根据对应的app,action,mg,api,ts,uid变量配置好积分</p>
     </div>
 </div>{php include pubTemplate("footer_admin")}

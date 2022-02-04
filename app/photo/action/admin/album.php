@@ -4,7 +4,7 @@ defined('IN_TS') or die('Access Denied.');
 switch($ts){
 	case "list":
 		
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 		
 		$lstart = $page*10-10;
 		
@@ -25,7 +25,7 @@ switch($ts){
 	case "photo":
 		$albumid = tsIntval($_GET['albumid']);
 		
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 		
 		$lstart = $page*10-10;
 		

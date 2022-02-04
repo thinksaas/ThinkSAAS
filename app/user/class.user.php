@@ -269,9 +269,11 @@ class user extends tsApp {
     function getSimpleUser($userid){
         $strUser = $this->find('user_info',array(
             'userid'=>$userid,
-        ),'userid,username,face,path,uptime');
+        ),'userid,username,face,path,signed,allscore,uptime');
         if($strUser){
             $strUser['face'] = $this->getUserFace($strUser);
+            $strUser['signed'] = tsTitle($strUser['signed']);
+            $strUser['rolename'] = $this->getRole($strUser['allscore']);
             return $strUser;
         }else{
             return '';
@@ -460,26 +462,29 @@ class user extends tsApp {
 		}
 	}
 	
-	/**
+    /**
      * 处理积分
      *
      * @param [type] $app
      * @param [type] $ac
+     * @param string $mg        指向后台管理文件(用于后台操作得积分处理)
+     * @param string $api       指向API接口文件(用于API接口得积分处理)
      * @param string $ts
-     * @param integer $uid     指定用户ID
-     * @param string $mg       指向后台管理文件(用于后台操作得积分处理)
-     * @param integer $isday   是否一天只给一次积分，默认0否1是
+     * @param integer $uid      指定用户ID
+     * @param integer $isday    是否一天只给一次积分，默认0否1是
      * @return void
      */
-	function doScore($app,$ac,$ts='',$uid=0,$mg='',$isday=0){
+	function doScore($app,$ac,$mg='',$api='',$ts='',$uid=0,$isday=0){
 		$userid = tsIntval($_SESSION['tsuser']['userid']);
 		if($uid) $userid=$uid;
 		$strScore = $this->find('user_score',array(
 			'app'=>$app,
 			'action'=>$ac,
 			'mg'=>$mg,
+			'api'=>$api,
 			'ts'=>$ts,
 		));
+
 		if($strScore && $userid){
 			if($strScore['status']=='0'){
                 if($isday==1){
@@ -731,6 +736,72 @@ class user extends tsApp {
             return $userid;
 
         }
+    }
+
+    /**
+     * 统计用户关注数和粉丝数
+     *
+     * @param [type] $userid
+     * @return void
+     */
+    public function countFollowFans($userid){
+
+        //关注数
+        $count_follow = $this->findCount('user_follow',array(
+            'userid'=>$userid,
+        ));
+
+        //粉丝数
+        $count_followed = $this->findCount('user_follow',array(
+            'userid_follow'=>$userid,
+        ));
+
+        $this->update('user_info',array(
+			'userid'=>$userid,
+		),array(
+			'count_follow'=>$count_follow,
+			'count_followed'=>$count_followed,
+		));
+
+    }
+
+    /**
+     * 获取匿名用户ID
+     *
+     * @return void
+     */
+    public function getNimingId(){
+        $email = 'null@null.com';
+        $strUser = $this->find('user',array(
+            'email'=>$email,
+        ));
+        if($strUser){
+            $userid = $strUser['userid'];
+        }else{
+            $salt = md5(rand());
+            $pwd = random(6);
+            $userid = $this->create('user',array(
+                'pwd'=>md5($salt.$pwd),
+                'salt'=>$salt,
+                'email'=>$email,
+                'phone'=>$email,
+            ));
+            //插入用户信息			
+            $this->create('user_info',array(
+                'userid'	=> $userid,
+                'fuserid'	=> 0,
+                'ugid'	=> 3,
+                'username' 	=> '匿名用户',
+                'email'		=> $email,
+                'phone'		=> $email,
+                'ip'		=> getIp(),
+                'isverify'=>1,
+                'isverifyphone'=>1,
+                'addtime'	=> time(),
+                'uptime'	=> time(),
+            ));
+        }
+        return $userid;
     }
 
 

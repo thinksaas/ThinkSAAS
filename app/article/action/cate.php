@@ -55,7 +55,7 @@ if($strCate['referid']==0){
 }
 
 // 列表
-$page = isset ( $_GET ['page'] ) ? tsIntval ( $_GET ['page'] ) : 1;
+$page = tsIntval($_GET['page'],1);
 $url = tsUrl ( 'article', 'cate', array ('id' => $cateid, 'page' => ''));
 $lstart = $page * 10 - 10;
 

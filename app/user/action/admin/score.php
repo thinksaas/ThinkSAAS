@@ -19,6 +19,7 @@ switch($ts){
 		$app = trim($_POST['app']);
 		$action = trim($_POST['action']);
 		$mg = trim($_POST['mg']);
+		$api = trim($_POST['api']);
 		$ts = trim($_POST['ts']);
 		$status = tsIntval($_POST['status']);
 		
@@ -29,6 +30,7 @@ switch($ts){
 			'app'=>$app,
 			'action'=>$action,
 			'mg'=>$mg,
+			'api'=>$api,
 			'ts'=>$ts,
 			'status'=>$status,
 		));
@@ -44,6 +46,7 @@ switch($ts){
 		$app = trim($_POST['app']);
 		$action = trim($_POST['action']);
 		$mg = trim($_POST['mg']);
+		$api = trim($_POST['api']);
 		$ts = trim($_POST['ts']);
 		$status = tsIntval($_POST['status']);
 		
@@ -54,6 +57,7 @@ switch($ts){
 			'app'=>$app,
 			'action'=>$action,
 			'mg'=>$mg,
+			'api'=>$api,
 			'ts'=>$ts,
 			'status'=>$status,
 		));

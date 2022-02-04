@@ -5,7 +5,7 @@ switch($ts){
 
 	case "list":
 		
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : 1;
+		$page = tsIntval($_GET['page'],1);
 		$url = SITE_URL.'index.php?app=article&ac=admin&mg=article&ts=list&page=';
 		$lstart = $page*20-20;
 		$arrArticle = $new['article']->findAll('article',null,'addtime desc',null,$lstart.',20');
@@ -38,7 +38,7 @@ switch($ts){
         aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_url);
 
         #处理积分
-        aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle['userid'],$TS_URL['mg']);
+        aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'],$TS_URL['ts'],$strArticle['userid']);
 		
 		qiMsg('操作成功！');
 		break;
@@ -65,7 +65,7 @@ switch($ts){
         aac('message')->sendmsg($msg_userid,$msg_touserid,$msg_content,$msg_url);
 
         #处理积分
-        aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle['userid'],$TS_URL['mg']);
+        aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'],$TS_URL['ts'],$strArticle['userid']);
 
         qiMsg('操作成功！');
 
@@ -82,7 +82,7 @@ switch($ts){
 		$new['article']->deleteArticle($strArticle);
 
         #处理积分
-		aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'],$strArticle['userid'],$TS_URL['mg']);
+		aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'],$TS_URL['ts'],$strArticle['userid']);
 		
 		#用户记录
 		aac('pubs')->addLogs('article','articleid',$articleid,$TS_USER['userid'],$strArticle['title'],$strArticle['content'],2);

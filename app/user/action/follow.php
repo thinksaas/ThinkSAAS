@@ -4,7 +4,7 @@ switch($ts){
 	case "":
 		include 'userinfo.php';
 		
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
+		$page = tsIntval($_GET['page'],1);
 		$url = tsUrl('user','follow',array('id'=>$strUser['userid'],'page'=>''));
 		$lstart = $page*80-80;
 		
@@ -72,27 +72,9 @@ switch($ts){
 			'userid_follow'=>$userid_follow,
 		));
 		
-		//统计关注和被关注
-		$strUser = $new['user']->find('user_info',array(
-			'userid'=>$userid,
-		));
-		
-		$followUser = $new['user']->find('user_info',array(
-			'userid'=>$userid_follow,
-		));
-		
-		$new['user']->update('user_info',array(
-			'userid'=>$userid,
-		),array(
-			'count_follow'=>$strUser['count_follow']+1,
-		));
-		
-		$new['user']->update('user_info',array(
-			'userid'=>$userid_follow,
-		),array(
-			'count_followed'=>$followUser['count_followed']+1,
-		));
-		//统计关注和被关注结束
+		//统计用户关注数和粉丝数
+		$new['user']->countFollowFans($userid);
+		$new['user']->countFollowFans($userid_follow);
 		
 		echo json_encode(array(
 			'status'=>2,
@@ -122,27 +104,9 @@ switch($ts){
 			'userid_follow'=>$userid_follow,
 		));
 		
-		//统计关注和被关注
-		$strUser = $new['user']->find('user_info',array(
-			'userid'=>$userid,
-		));
-		
-		$followUser = $new['user']->find('user_info',array(
-			'userid'=>$userid_follow,
-		));
-		
-		$new['user']->update('user_info',array(
-			'userid'=>$userid,
-		),array(
-			'count_follow'=>$strUser['count_follow']-1,
-		));
-		
-		$new['user']->update('user_info',array(
-			'userid'=>$userid_follow,
-		),array(
-			'count_followed'=>$followUser['count_followed']-1,
-		));
-		//统计关注和被关注结束
+		//统计用户关注数和粉丝数
+		$new['user']->countFollowFans($userid);
+		$new['user']->countFollowFans($userid_follow);
 		
 		echo json_encode(array(
 			'status'=>1,

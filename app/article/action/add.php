@@ -102,6 +102,13 @@ switch ($ts) {
 
         $score = tsIntval($_POST ['score']);#积分
 
+
+		//匿名用户
+		$isniming = tsIntval($_POST['isniming']);
+		if($TS_SITE['isniming']==1 && $isniming==1) $userid = aac('user')->getNimingId();
+		
+
+
 		if (tsIntval($TS_USER['isadmin']) == 0) {
 			// 过滤内容开始
 			$title = antiWord($title);
@@ -187,7 +194,7 @@ switch ($ts) {
 
 			// 对积分进行处理
 			if($isaudit==0){
-				aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'], $TS_URL['ts']);
+				aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'],$TS_URL['ts']);
 			}
 
 			#用户记录

@@ -38,10 +38,10 @@ function tsPrint($value){
 
 /**
  * 二维数组的根据不同键值来排序。 第一个参数是二位数组名，第二个是依据键，第三个是升序还是降序，默认是升序
- * @param unknown $arr
- * @param unknown $keys
- * @param string $type
- * @return multitype:unknown
+ * @param $arr
+ * @param $keys
+ * @param $type
+ * @return array
  */
 function array2sort($arr, $keys, $type = 'asc') {
 	$keysvalue = $new_array = array();
@@ -62,10 +62,11 @@ function array2sort($arr, $keys, $type = 'asc') {
 
 /**
  * ThinkSAAS Notice
- * @param unknown $notice
- * @param string $button
- * @param string $url
- * @param string $isAutoGo
+ * @param $notice
+ * @param $button
+ * @param $url
+ * @param $isAutoGo
+ * @return void
  */
 function tsNotice($notice, $button = '点击返回', $url = 'javascript:history.back(-1);', $isAutoGo = false) {
 	global $runTime;
@@ -76,10 +77,11 @@ function tsNotice($notice, $button = '点击返回', $url = 'javascript:history.
 
 /**
  * 系统消息
- * @param unknown $msg
- * @param string $button
- * @param string $url
- * @param string $isAutoGo
+ * @param $msg
+ * @param $button
+ * @param $url
+ * @param $isAutoGo
+ * @return void
  */
 function qiMsg($msg, $button = '点击返回>>', $url = 'javascript:history.back(-1);', $isAutoGo = false) {
     echo <<<EOT
@@ -796,12 +798,12 @@ function tsXimgAliOss($file, $app, $w, $h){
 
 /**
  * TS专用删除缓存图片
- * @param string $file 数据库里的图片url
- * @param unknown $app app名称
- * @param unknown $w 缩略图片宽度
- * @param unknown $h 缩略图片高度
- * @param unknown $path
- * @return boolean
+ * @param $file
+ * @param $app
+ * @param $w
+ * @param $h
+ * @param $path
+ * @return bool
  */
 function tsDimg($file, $app, $w, $h, $path) {
 
@@ -3011,7 +3013,7 @@ function getAppOptions($app){
 }
 
 /**
- * 获取
+ * 获取项目PC网址
  *
  * @param [type] $ptable
  * @param [type] $pid
@@ -3036,13 +3038,36 @@ function getProjectUrl($ptable,$pid){
 }
 
 /**
+ * 获取uniapp页面路径
+ *
+ * @param [type] $ptable
+ * @param [type] $pid
+ * @return void
+ */
+function getUniappPage($ptable,$pid){
+	$arrProjectUrl = array(
+		'topic'=>'../topic/show?topicid='.$pid,//帖子
+		'article'=>'../article/show?articleid='.$pid,//文章
+		'video'=>'../video/show?videoid='.$pid,//视频
+		'event'=>'../event/show?eventid='.$pid,//活动
+		'ask'=>'../ask/show?askid='.$pid,//问答
+		'weibo'=>'../weibo/show?weiboid='.$pid,//唠叨
+		'attach'=>'../attach/show?attachid='.$pid,//附件
+		'vote'=>'../vote/show?voteid='.$pid,//投票
+		'audio'=>'../audio/show?audioid='.$pid,//音频
+	);
+	return $arrProjectUrl[$ptable];
+}
+
+/**
  * 取0以上的整数，GET数字变量专用
  *
  * @param [type] $number
  * @param integer $min
+ * @param integer $default_number
  * @return void
  */
-function tsIntval($number,$min=0){
+function tsIntval($number,$min=0,$default_number=0){
 	#判断是否空变量
 	if(empty($number)==true){
 		$number = 0;
@@ -3057,9 +3082,17 @@ function tsIntval($number,$min=0){
 	if($number<0){
 		ts404();
 	}
+
+	//最小值
 	if($number==0 && $min>0){
 		$number = $min;
 	}
+
+	//默认值
+	if($default_number>0 && $number==0){
+		$number = $default_number;
+	}
+
 	return $number;
 }
 

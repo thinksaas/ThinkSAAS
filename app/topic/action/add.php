@@ -132,6 +132,12 @@ switch ($ts) {
 
 		$score = tsIntval($_POST ['score']);#积分
 
+
+		//匿名用户
+		$isniming = tsIntval($_POST['isniming']);
+		if($TS_SITE['isniming']==1 && $isniming==1) $userid = aac('user')->getNimingId();
+
+
 		// 判断一下Title是否重复
 		$isTitle = $new ['topic']->findCount ( 'topic', array (
 		    'title' => $title
@@ -315,7 +321,7 @@ switch ($ts) {
 		) );
 		
 		// 对积分进行处理
-		aac ( 'user' )->doScore ( $TS_URL['app'], $TS_URL['ac'], $TS_URL['ts'] );
+		aac ( 'user' )->doScore ( $TS_URL['app'], $TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'], $TS_URL['ts'] );
 
 		#用户记录
 		aac('pubs')->addLogs('topic','topicid',$topicid,$userid,$title,$content,0);

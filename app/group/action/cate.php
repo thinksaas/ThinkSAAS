@@ -11,7 +11,7 @@ switch($ts){
 		
 		
 		//分类下小组
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
+		$page = tsIntval($_GET['page'],1);
 		$url = tsUrl('group','cate',array('page'=>''));
 		$lstart = $page*20-20;
 		$arrGroup = $new['group']->findAll('group',null,'isrecommend desc,count_topic desc',null,$lstart.',20');
@@ -40,7 +40,7 @@ switch($ts){
 		
 		
 		//分类下小组
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
+		$page = tsIntval($_GET['page'],1);
 		$url = tsUrl('group','cate',array('ts'=>'2','page'=>''));
 		$lstart = $page*20-20;
 		$arrGroup = $new['group']->findAll('group',array(
@@ -80,7 +80,7 @@ switch($ts){
 		
 			
 		//分类下小组
-		$page = isset($_GET['page']) ? tsIntval($_GET['page']) : '1';
+		$page = tsIntval($_GET['page'],1);
 		$url = tsUrl('group','cate',array('ts'=>'3','page'=>''));
 		$lstart = $page*20-20;
 		$arrGroup = $new['group']->findAll('group',array(

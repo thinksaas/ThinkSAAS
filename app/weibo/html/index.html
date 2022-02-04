@@ -15,7 +15,7 @@
             action: "{SITE_URL}index.php?app=weibo&ac=photo&ts=upload", //上传地址
             fileName: "filedata",    //文件名称。用于后台接收
             params: {token:'{$_SESSION["token"]}'},         //参数
-            accept: ".jpg,.png",     //文件类型
+            accept: ".jpg,.png,.jpeg",     //文件类型
             complete: function (rs) {  //上传完成
                 //window.location.reload()
                 getPhotoList()
@@ -69,7 +69,7 @@
 
 
                         
-                        <div class="d-flex justify-content-between align-content-center mt-2">
+                        <div class="d-flex justify-content-between align-items-center mt-2">
 
                            <div>
                               
@@ -77,7 +77,19 @@
                             
                            </div>
 
+
+                           
+
+
                             <div>
+
+                                <!--匿名发布-->
+                                {if $TS_SITE['isniming']==1}
+                                <span>匿名发布：</span>
+                                <input type="radio" name="isniming" value="0" checked> 否
+                                <input type="radio" name="isniming" value="1"> 是
+                                {/if}
+
                                 <input type="hidden" name="token" value="{$_SESSION['token']}" />
                                 <button  class="btn btn-sm btn-info"  type="submit">唠叨一下</button>
                             </div>
