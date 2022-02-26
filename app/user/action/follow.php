@@ -20,7 +20,7 @@ switch($ts){
 
 		if(is_array($arrUsers)){
 			foreach($arrUsers as $item){
-				$arrUser[] =  $new['user']->getSimpleUser($item['userid_follow']);
+				$arrUser[] =  $new['user']->getSimpleUser($item['touserid']);
 			}
 		}
 
@@ -33,7 +33,7 @@ switch($ts){
 	case "do":
 	
 		$userid = tsIntval($TS_USER['userid']);
-		$userid_follow = tsIntval($_POST['userid']);
+		$touserid = tsIntval($_POST['userid']);
 
 		
 		if($userid == 0){
@@ -44,7 +44,7 @@ switch($ts){
 			exit;
 		}
 		
-		if($userid == $userid_follow){
+		if($userid == $touserid){
 			echo json_encode(array(
 				'status'=>0,
 				'msg'=>'自己不能关注自己哦',
@@ -54,7 +54,7 @@ switch($ts){
 		
 		$isFollow = $new['user']->findCount('user_follow',array(
 			'userid'=>$userid,
-			'userid_follow'=>$userid_follow,
+			'touserid'=>$touserid,
 		));
 		
 		if($isFollow>0){
@@ -69,13 +69,17 @@ switch($ts){
 		
 		$new['user']->create('user_follow',array(
 			'userid'=>$userid,
-			'userid_follow'=>$userid_follow,
+			'touserid'=>$touserid,
 		));
 		
 		//统计用户关注数和粉丝数
 		$new['user']->countFollowFans($userid);
-		$new['user']->countFollowFans($userid_follow);
+		$new['user']->countFollowFans($touserid);
 		
+
+		#发个消息
+
+
 		echo json_encode(array(
 			'status'=>2,
 			'msg'=>'关注成功！',
@@ -88,7 +92,7 @@ switch($ts){
 	case "un":
 	
 		$userid = tsIntval($TS_USER['userid']);
-		$userid_follow = tsIntval($_POST['userid']);
+		$touserid = tsIntval($_POST['userid']);
 
 		
 		if($userid == 0){
@@ -101,12 +105,12 @@ switch($ts){
 		
 		$new['user']->delete('user_follow',array(
 			'userid'=>$userid,
-			'userid_follow'=>$userid_follow,
+			'touserid'=>$touserid,
 		));
 		
 		//统计用户关注数和粉丝数
 		$new['user']->countFollowFans($userid);
-		$new['user']->countFollowFans($userid_follow);
+		$new['user']->countFollowFans($touserid);
 		
 		echo json_encode(array(
 			'status'=>1,

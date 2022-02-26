@@ -61,15 +61,21 @@
 
 
 
+
             <div class="pubs_home_login">
+
+                <div class="pubs_home_login_bg"></div>
+
+
+                <div class="pubs_home_login_form">
 
                 
                     <div class="form-group">
-                        <label>账号</label>
+                        <label class="text-light">账号</label>
                         <input name="email" type="text" class="form-control" placeholder="Email/手机号">
                     </div>
                     <div class="form-group">
-                        <label>密码</label>
+                        <label class="text-light">密码</label>
                         <input name="pwd" type="password" class="form-control" placeholder="Password">
                     </div>
 
@@ -80,15 +86,19 @@
                     <button type="submit" id="comm-submit" class="btn btn-info btn-block">登 录</button>
 
 
-                    <a class="btn btn-link" href="{tsUrl('user','register')}">注册帐号</a>
-                    <a class="btn btn-link" href="{tsUrl('user','forgetpwd')}">忘记密码</a>
-
-
+                    <a class="btn btn-link text-light" href="{tsUrl('user','register')}">注册帐号</a>
+                    <a class="btn btn-link text-light" href="{tsUrl('user','forgetpwd')}">忘记密码</a>
 
 
                
 
+                </div>
+
+
             </div>
+
+
+            
 
 
 
@@ -127,13 +137,13 @@
 
 
 <!--{if $TS_SITE['is_vaptcha']}-->
-<script src="https://v.vaptcha.com/v3.js"></script>
+<script src="https://v-cn.vaptcha.com/v3.js"></script>
 <script>
 vaptcha({
-    vid: '{$TS_SITE[vaptcha_vid]}',
-    type: 'invisible',
-    scene: 0,
-    offline_server: "{SITE_URL}index.php?app=pubs&ac=vaptcha",
+    vid: '{$TS_SITE[vaptcha_vid]}',// 验证单元id
+    mode: 'invisible',// 显示类型 隐藏式
+    scene: 0,// 场景值 默认0
+    area: 'auto' //验证节点区域,默认 auto,可选值 auto,sea,na,cn
 }).then(function (vaptchaObj) {
 
     obj = vaptchaObj; //将VAPTCHA验证实例保存到局部变量中
@@ -145,14 +155,17 @@ vaptcha({
         var cktime = $("input[name='cktime']").val();
         var jump = $("input[name='jump']").val();
         var token = $("input[name='token']").val();
-            
+        
+        serverToken = vaptchaObj.getServerToken()
+
         var data = {
             email:email,
             pwd:pwd,
             cktime:cktime,
             jump:jump,
             token:token,
-            vaptcha_token: vaptchaObj.getToken(),
+            vaptcha_token: serverToken.token,
+            vaptcha_server: serverToken.server,
         };
         tsPost('index.php?app=user&ac=login&ts=do&js=1',data)
         vaptchaObj.reset(); //重置验证码

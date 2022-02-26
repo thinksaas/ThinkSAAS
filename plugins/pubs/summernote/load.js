@@ -1,4 +1,4 @@
-document.emojiSource = '/plugins/pubs/summernote/plugin/emojis/'; //relative path to emojis
+document.emojiSource = siteUrl+'plugins/pubs/summernote/plugin/emojis/'; //relative path to emojis
 var content = $('textarea[name="content"]')
 $(document).ready(function() {
     var $summernote = $('#tseditor').summernote({

@@ -85,7 +85,7 @@ class user extends tsApp {
      * @param integer $fuserid
      * @return void
      */
-    public function register($email,$username='',$pwd='',$fuserid=0,$invitecode=''){
+    public function register($email,$username='',$pwd='',$fuserid=0,$invitecode='',$islogin=0){
 
         $salt = md5(rand());
         
@@ -127,7 +127,7 @@ class user extends tsApp {
 		//插入用户信息			
 		$this->create('user_info',array(
 			'userid'	=> $userid,
-			'fuserid'	=> $fuserid,
+			'fuserid'	=> intval($fuserid),
 			'ugid'	=> 3,
 			'username' 	=> $username,
             'email'		=> $email,
@@ -169,13 +169,17 @@ class user extends tsApp {
 			}
 		}
 		
-		//用户信息
-		$userData = $this->find('user_info',array(
-			'userid'=>$userid,
-		),'userid,ugid,username,email,path,face,isadmin,signin,isverify,isverifyphone,uptime');
+
+        if($islogin==0){
+            //用户信息
+            $userData = $this->find('user_info',array(
+                'userid'=>$userid,
+            ),'userid,ugid,username,email,path,face,isadmin,signin,isverify,isverifyphone,uptime');
+
+            //用户session信息
+            $_SESSION['tsuser']	= $userData;
+        }
 		
-		//用户session信息
-		$_SESSION['tsuser']	= $userData;
 		
 		//发送消息
 		aac('message')->sendmsg(0,$userid,'亲爱的 '.$username.' ：您成功加入了 '.$GLOBALS['TS_SITE']['site_title'].'。在遵守本站的规定的同时，享受您的愉快之旅吧!');
@@ -190,7 +194,7 @@ class user extends tsApp {
 			
 			$this->create('user_follow',array(
 				'userid'=>$userid,
-				'userid_follow'=>$strInviteCode['userid'],
+				'touserid'=>$strInviteCode['userid'],
 			));
 			
 			//注销
@@ -546,7 +550,7 @@ class user extends tsApp {
 		$this->delete('user',array('userid'=>$userid));
 		$this->delete('user_info',array('userid'=>$userid));
 		$this->delete('user_follow',array('userid'=>$userid));
-		$this->delete('user_follow',array('userid_follow'=>$userid));
+		$this->delete('user_follow',array('touserid'=>$userid));
 		$this->delete('user_gb',array('userid'=>$userid));
 		$this->delete('user_gb',array('touserid'=>$userid));
 		$this->delete('user_open',array('userid'=>$userid));
@@ -597,7 +601,7 @@ class user extends tsApp {
 		
 		//活动ts_event
 		$this->delete('event',array('userid'=>$userid));
-		$this->delete('event_users',array('userid'=>$userid));
+		$this->delete('event_user',array('userid'=>$userid));
 		
         //问答ts_ask
         $this->delete('ask',array('userid'=>$userid));
@@ -753,7 +757,7 @@ class user extends tsApp {
 
         //粉丝数
         $count_followed = $this->findCount('user_follow',array(
-            'userid_follow'=>$userid,
+            'touserid'=>$userid,
         ));
 
         $this->update('user_info',array(

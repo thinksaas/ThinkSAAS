@@ -30,7 +30,13 @@
                     <div class="alert alert-warning" role="alert"> 评论内容不公开显示！</div>
                     {else}
 
-                    {$item['content']}
+                        {if $item['isaudit']==1}
+                        内容审核中...
+                        {else}
+                        {$item['content']}
+                        {/if}
+
+                    
 
                     <div id="recomment_{$item['commentid']}">
                         {if $item['recomment']}
@@ -66,7 +72,12 @@
                                 {if $ritem['touserid']}
                                 <span class="text-black-50">回复 <a target="_blank" class="text-info" href="{tsUrl('user','space',array('id'=>$ritem['touserid']))}">@{$ritem['touser']['username']}</a> ：</span>
                                 {/if}
+
+                                {if $ritem['isaudit']==1}
+                                内容审核中...
+                                {else}
                                 {$ritem['content']}
+                                {/if}
 
                             </div>
                             <!----回复的回复---->

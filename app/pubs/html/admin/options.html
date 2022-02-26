@@ -11,6 +11,17 @@
 
             <tr><td>Email验证码发送间隔时间：</td><td><input type="number" name="option[email_code_send_time]" value="{$strOption['email_code_send_time']}" /> 分钟</td></tr>
 
+            <tr><td>评论是否审核后显示：</td>
+                
+                <td>
+
+                    <input type="radio" name="option[comment_isaudit]" value="0" {if $strOption['comment_isaudit']=='0'}checked="select"{/if} />不审核
+                    <input type="radio" name="option[comment_isaudit]" value="1" {if $strOption['comment_isaudit']=='1'}checked="select"{/if} />审核
+
+                </td>
+            
+            </tr>
+
             <tr><td></td><td>
 
                 <input class="btn btn-primary" type="submit" value="提交修改" /></td>

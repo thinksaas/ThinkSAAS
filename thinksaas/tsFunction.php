@@ -3118,14 +3118,24 @@ function getUnixTimestamp (){
  *
  * @param string $token
  * @param integer $scene
- * @return array
+ * @param [type] $url
+ * @return void
  */
-function vaptcha(string $token,$scene=0){
-	include 'thinksaas/vaptcha.class.php';
-	$vaptcha = new Vaptcha($GLOBALS['TS_SITE']['vaptcha_vid'],$GLOBALS['TS_SITE']['vaptcha_key']);
-	$json =  $vaptcha->validate($token, $scene);
-	$strJson = json_decode($json,true);
-	return $strJson;
+function vaptcha(string $token,$scene=0,$url){
+
+	$json = sendDataByCurl($url,array(
+		'id'=>$GLOBALS['TS_SITE']['vaptcha_vid'],
+		'secretkey'=>$GLOBALS['TS_SITE']['vaptcha_key'],
+		'scene'=>$scene,
+		'token'=>$token,
+		'ip'=>getIp(),
+	));
+
+	$res = json_decode($json,true);
+
+	return $res;
+	
+
 }
 
 /**

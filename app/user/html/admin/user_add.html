@@ -1,0 +1,66 @@
+{php include pubTemplate("header_admin")}
+<div class="midder">
+
+{php include template("admin/menu");}
+
+
+
+
+<div>
+
+
+
+   <form method="post" action="index.php?app=user&ac=admin&mg=user&ts=adddo">
+       <table class="table">
+           <tr>
+               <td width="200">账号(Email/手机号)：</td>
+               <td>
+                   <input class="form-control" type="text" name="email">
+               </td>
+               <td></td>
+           </tr>
+
+           <tr>
+                <td>用户名：</td>
+                <td>
+
+                    <input class="form-control" type="text" name="username">
+
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>密码：</td>
+                <td>
+
+                    <input class="form-control" type="password" name="pwd">
+
+                </td>
+                <td></td>
+            </tr>
+
+
+            <tr>
+                <td></td>
+                <td>
+                    <input class="btn btn-sm btn-primary" type="submit" value="创建用户">
+                </td>
+                <td></td>
+            </tr>
+
+
+       </table>
+   </form>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+{php include pubTemplate("footer_admin")}

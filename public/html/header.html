@@ -25,9 +25,9 @@
     <!--bootstrap图标库-->
     <link rel="stylesheet" href="{SITE_URL}public/bootstrap-icons/bootstrap-icons.css">
 
-    <link rel="stylesheet" type="text/css" href="{SITE_URL}theme/sample/base.css?v={php echo rand();}" />
+    <link rel="stylesheet" type="text/css" href="{SITE_URL}theme/sample/base.css?v={php echo time();}" />
     {if is_file('app/'.$GLOBALS['TS_URL']['app'].'/skin/style.css')}
-    <link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skin/style.css">
+    <link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skin/style.css?v=2022">
     {else}
     <link rel="stylesheet" type="text/css" href="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/skins/default/style.css">
     {/if}

@@ -21,6 +21,12 @@
 
 <li {if $mg=='guestbook' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=guestbook&ts=list">留言管理</a></li>
 
+
+<li {if $mg=='user' && $ts=='add'}class="select"{/if}>
+    <a href="index.php?app=user&ac=admin&mg=user&ts=add">创建新用户</a>
+</li>
+
+
 </ul>
 </div>
 

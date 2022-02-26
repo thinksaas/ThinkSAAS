@@ -356,5 +356,48 @@ defined('IN_TS') or die('Access Denied.');
 			));
 
 			break;
+
+		case "add":
+
+			include template('admin/user_add');
+			break;
+
+		case "adddo":
+
+			$email = trim($_POST['email']);
+			$username = trim($_POST['username']);
+			$pwd = trim($_POST['pwd']);
+
+			if($email=='' || $username=='' || $pwd==''){
+				qiMsg('信息输入不完整');
+			}
+
+			#判断Email是否存在
+			$isEmail = $new['user']->findCount('user',array(
+				'email'=>$email,
+			));
+	
+			if($isEmail > 0){
+				qiMsg('账号已经注册');
+			}
+	
+			if(count_string_len($username) < 4 || count_string_len($username) > 20){
+				qiMsg('姓名长度必须在4和20之间');
+			}
+	
+			#判断用户名是否存在
+			$isUserName = $new['user']->findCount('user_info',array(
+				'username'=>$username,
+			));
+	
+			if($isUserName > 0){
+				qiMsg('用户名已经存在，请换个用户名！');
+			}	
+			
+			$new['user']->register($email,$username,$pwd,$fuserid,$invitecode,1);
+
+			header('Location: '.SITE_URL.'index.php?app=user&ac=admin&mg=user&ts=list');
+
+			break;
 		
 	}

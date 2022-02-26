@@ -21,19 +21,53 @@
 {template menu}
 
 <div class="system fs13">
-<ul>
-{loop $arrMessage $key $item}
-<li>
-<span style="color:#42b475;">{php echo date('H:i:s',$item[addtime])}</span>
-<br />
-{$item[content]}
 
-    {if $item['tourl']}
-    <a href="{$item['tourl']}">[点击查看]</a>
-    {/if}
-</li>
-{/loop}
-</ul>
+
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th>消息</th>
+               
+                <th>状态</th>
+                <th class="text-right">操作</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {loop $arrMessage $key $item}
+            <tr>
+                
+                <td>
+                    <p class="c9">{php echo date('Y-m-d H:i:s',$item[addtime])}</p>
+                    {if $item['userid']}{$item['user']['username']}{/if} {$item[content]}
+                </td>
+                <td>
+                    {if $item['isread']==1} 
+                    已读
+                    {else} 
+                    未读
+                    {/if}
+                </td>
+                <td class="text-right">
+                    {if $item['tourl']}
+                    <a class="btn btn-sm btn-outline-secondary" target="_blank" href="{$item['tourl']}">查看</a>
+                    {/if}
+
+                    {if $item['userid'] && $item['tourl']==''}
+                    <a class="btn btn-sm btn-outline-secondary" href="{tsUrl('message','user',array('touserid'=>$item['userid']))}">聊天</a>
+                    {/if}
+
+                </td>
+            </tr>
+            {/loop}
+        </tbody>
+
+    </table>
+
+
+
+
+
 </div>
 
 

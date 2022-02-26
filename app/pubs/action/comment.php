@@ -66,6 +66,11 @@ switch($ts){
 		if($ptable=='' || $pkey=='' || $pid=='' || $content2=='' || $content==''){
 			getJson('没有任何内容是不允许你通过滴^_^',$js);
 		}else{
+
+
+            $isaudit = 0;
+            if($TS_APP['comment_isaudit']==1 && $TS_USER['isadmin']==0) $isaudit=1;
+
 			$commentid = $new['pubs']->create('comment',array(
                 'ptable'=>$ptable,
                 'pkey'=>$pkey,
@@ -77,6 +82,7 @@ switch($ts){
                 
 				'content'	=> $content,
                 'ispublic'=>$ispublic,
+                'isaudit'=>$isaudit,
 				'addtime'=> time(),
 			));
 			

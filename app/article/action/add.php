@@ -80,8 +80,9 @@ switch ($ts) {
 
 		#人机验证
 		$vaptcha_token = trim($_POST['vaptcha_token']);
+		$vaptcha_server = trim($_POST['vaptcha_server']);
 		if ($TS_SITE['is_vaptcha']){
-			$strVt = vaptcha($vaptcha_token);
+			$strVt = vaptcha($vaptcha_token,0,$vaptcha_server);
 			if($strVt['success']==0){
 				tsNotice('人机验证未通过！');
 			}

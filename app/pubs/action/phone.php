@@ -13,9 +13,10 @@ $typeid = tsIntval($_POST['typeid']); //判断手机号是否存在0不判断1�
 
 
 #人机验证
-$vaptcha_token = trim ( $_POST ['vaptcha_token'] );
+$vaptcha_token = trim($_POST ['vaptcha_token']);
+$vaptcha_server = trim($_POST['vaptcha_server']);
 if ($TS_SITE['is_vaptcha']) {
-    $strVt = vaptcha($vaptcha_token);
+    $strVt = vaptcha($vaptcha_token,0,$vaptcha_server);
     if($strVt['success']==0) {
         getJson('人机验证未通过！',1,0);
     }

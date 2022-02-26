@@ -199,7 +199,7 @@ $(function(){
 });
 
 //发送手机验证码
-function sendPhoneCode(typeid,vaptcha_token){
+function sendPhoneCode(typeid,vaptcha_token,vaptcha_server){
     var phone = $("#myphone").val();
     var authcode = $("#authcode").val();
     if(phone==''){
@@ -210,7 +210,7 @@ function sendPhoneCode(typeid,vaptcha_token){
         tsNotice('图片验证码不能为空！');
         return false;
     }
-    $.post(siteUrl+'index.php?app=pubs&ac=phone',{'phone':phone,'authcode':authcode,'typeid':typeid,'vaptcha_token':vaptcha_token},function(rs){
+    $.post(siteUrl+'index.php?app=pubs&ac=phone',{'phone':phone,'authcode':authcode,'typeid':typeid,'vaptcha_token':vaptcha_token,'vaptcha_server':vaptcha_server},function(rs){
         if (rs.status == 0) {
 			tsNotice(rs.msg);
         } else if(rs.status==1) {

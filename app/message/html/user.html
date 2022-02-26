@@ -32,13 +32,15 @@
 </ul>
 </div>
 
+<hr>
+
 <div class="sendbox">
-<p>和<span style="color:#0066cc;">{$strTouser[username]}</span>进行及时消息通话中</p>
-<p><textarea class="form-control" id="boxcontent"></textarea> </p>
-<p>
-<span id="sendbutton" style="display:block;"><a class="btn btn-success" href="javascript:void('0');" onclick="window.parent.sendmsg('{$TS_USER[userid]}','{$strTouser[userid]}');">发送</a></span>
-<span id="loading" style="display:none;">消息送达中<img src="{SITE_URL}public/images/loading.gif" alt="Loading..." /></span>
-</p>
+    <p>和<span style="color:#0066cc;">{$strTouser[username]}</span>进行及时消息通话中</p>
+    <p><textarea class="form-control" id="boxcontent"></textarea> </p>
+    <p class="mt-1">
+    <span id="sendbutton" style="display:block;"><a class="btn btn-sm btn-info" href="javascript:void('0');" onclick="window.parent.sendmsg('{$TS_USER[userid]}','{$strTouser[userid]}');">发送</a></span>
+    <span id="loading" style="display:none;">消息送达中<img src="{SITE_URL}public/images/loading.gif" alt="Loading..." /></span>
+    </p>
 </div>
 
 

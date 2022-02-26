@@ -192,7 +192,7 @@ switch($ts){
 
             $new['user']->create('user_follow',array(
                 'userid'=>$userid,
-                'userid_follow'=>$strInviteCode['userid'],
+                'touserid'=>$strInviteCode['userid'],
             ));
 
             //注销

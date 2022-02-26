@@ -602,8 +602,31 @@ margin-top: 20px;
 
 
 
-.pubs_home{background: url('bg-2.jpg') no-repeat;background-size: cover;}
-.pubs_home_login{background: #000000;padding:30px 20px;margin-top:50px;margin-bottom: 20px;}
+.pubs_home{
+	background: url('bg-2.jpg') repeat-y;background-size: cover;
+}
+
+.pubs_home_login{
+	position: relative;
+	overflow: hidden;
+	height: 300px;
+	margin-top:50px;
+	margin-bottom: 20px;
+}
+.pubs_home_login_bg{
+	position: absolute;
+	background: #000000;
+	opacity: 0.4;
+	width: 100%;
+	height: 300px;
+}
+.pubs_home_login_form{
+	position: absolute;
+	padding:30px 20px;
+	width: 100%;
+}
+
+
 .pubs_home_footer{text-align: right;width: 100%;}
 
 .br0{border-radius: 0px;}

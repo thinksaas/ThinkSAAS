@@ -7,12 +7,15 @@ $userid = '0';
 $touserid= aac('user')->isLogin();
 
 $arrMessage = $new['message']->findAll('message',array(
-	'userid'=>0,
+	//'userid'=>0,
 	'touserid'=>$touserid,
 ),'addtime desc',null,10);
 
 foreach($arrMessage as $key=>$item){
     $arrMessage[$key]['content'] = tsTitle($item['content']);
+	if($item['userid']){
+		$arrMessage[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
+	}
 }
 
 //isread设为已读

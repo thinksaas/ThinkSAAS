@@ -8,10 +8,11 @@ $touserid= tsIntval($_GET['touserid']);
 
 $strTouser = aac('user')->getSimpleUser($touserid);
 
+$where = "(userid='$userid' and touserid='$touserid' and `tourl`='') or (userid='$touserid' and touserid='$userid' and `tourl`='')";
 
-$msgCount = $new['message']->findCount('message',"(userid='$userid' and touserid='$touserid') or (userid='$touserid' and touserid='$userid')");
+$msgCount = $new['message']->findCount('message',$where);
 
-$arrMessage = $new['message']->findAll('message',"(userid='$userid' and touserid='$touserid') or (userid='$touserid' and touserid='$userid')",'addtime desc',null,10);
+$arrMessage = $new['message']->findAll('message',$where,'addtime desc',null,10);
 
 
 foreach($arrMessage as $key=>$item){

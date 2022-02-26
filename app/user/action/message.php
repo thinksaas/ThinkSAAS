@@ -17,12 +17,12 @@ switch($ts){
         #互为粉丝的2个人才可以发送消息
         $isFollow = $new['user']->findCount('user_follow',array(
             'userid'=>$userid,
-            'userid_follow'=>$touserid,
+            'touserid'=>$touserid,
         ));
 
         $isFollow2 = $new['user']->findCount('user_follow',array(
             'userid'=>$touserid,
-            'userid_follow'=>$userid,
+            'touserid'=>$userid,
         ));
 
         if($isFollow && $isFollow2){
@@ -57,12 +57,12 @@ switch($ts){
         #互为粉丝的2个人才可以发送消息
         $isFollow = $new['user']->findCount('user_follow',array(
             'userid'=>$msg_userid,
-            'userid_follow'=>$msg_touserid,
+            'touserid'=>$msg_touserid,
         ));
 
         $isFollow2 = $new['user']->findCount('user_follow',array(
             'userid'=>$msg_touserid,
-            'userid_follow'=>$msg_userid,
+            'touserid'=>$msg_userid,
         ));
 
         if($isFollow && $isFollow2){

@@ -18,6 +18,8 @@
             <input type="hidden" name="ts" value="list">
 
             <select name="ptable">
+                
+                <option value="" {if $ptable==''}selected{/if}>全部</option>
                 <option value="topic" {if $ptable=='topic'}selected{/if}>帖子</option>
                 <option value="article" {if $ptable=='article'}selected{/if}>文章</option>
                 <option value="photo" {if $ptable=='photo'}selected{/if}>图片</option>
@@ -27,7 +29,8 @@
                 <option value="event" {if $ptable=='event'}selected{/if}>活动</option>
                 <option value="vote" {if $ptable=='vote'}selected{/if}>投票</option>
                 <option value="study_lesson" {if $ptable=='study_lesson'}selected{/if}>课时</option>
-                <option value="shop_goods" {if $ptable=='shop_goods'}selected{/if}>商品</option>
+                <option value="goods" {if $ptable=='goods'}selected{/if}>商品</option>
+                
             </select>
 
             <input type="number" name="pid" placeholder="PID">
@@ -89,7 +92,18 @@
 
 
 
-            <a onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=pubs&ac=admin&mg=comment&ts=delete&commentid={$item['commentid']}">删除</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{SITE_URL}index.php?app=pubs&ac=admin&mg=comment&ts=isaudit&commentid={$item['commentid']}">
+
+                    {if $item['isaudit']==1}
+                    审核
+                    {else}
+                    取消审核
+                    {/if}
+
+                </a>
+
+
+            <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=pubs&ac=admin&mg=comment&ts=delete&commentid={$item['commentid']}">删除</a>
 
         </td></tr>
         {/loop}

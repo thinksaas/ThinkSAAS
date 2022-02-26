@@ -1,6 +1,10 @@
 <?php
 defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 
+if($TS_APP['allowpost']==1 && $TS_USER['isadmin']==0){
+	tsNotice('APP设置不允许会员发布帖子！');
+}
+
 // 用户是否登录
 $userid = aac ( 'user' )->isLogin ();
 
@@ -114,9 +118,10 @@ switch ($ts) {
 		}
 
 		#人机验证
-		$vaptcha_token = trim ( $_POST ['vaptcha_token'] );
+		$vaptcha_token = trim($_POST ['vaptcha_token']);
+		$vaptcha_server = trim($_POST['vaptcha_server']);
 		if ($TS_SITE['is_vaptcha']) {
-			$strVt = vaptcha($vaptcha_token);
+			$strVt = vaptcha($vaptcha_token,0,$vaptcha_server);
 			if($strVt['success']==0) {
 				tsNotice('人机验证未通过！');
 			}
@@ -164,7 +169,7 @@ switch ($ts) {
 		}
 
 		#应用后台设置发帖是否需要审核，只针对普通用户
-		if($TS_APP['topicisaudit']==1 && $TS_USER['isadmin']==0){
+		if($TS_APP['isaudit']==1 && $TS_USER['isadmin']==0){
 			$isaudit = 1;
 		}
 

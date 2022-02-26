@@ -20,7 +20,6 @@ switch($ts){
             'addtime'=>time(),
         ));
 
-
         $arrUpload = tsUpload($_FILES['photo'], $id, 'editor', array('jpg', 'gif', 'png', 'jpeg'),'sy.png');
         if ($arrUpload) {
             $new['pubs'] -> update('editor', array(
@@ -31,7 +30,6 @@ switch($ts){
                 'url' => $arrUpload['url']
             ));
 
-
             if($TS_SITE['file_upload_type']==1){
                 #阿里云(对象云存储OSS)数据
                 $url = $TS_SITE['alioss_bucket_url'].'/'.'uploadfile/editor/'.$arrUpload['url'].'?x-oss-process=image/resize,w_800';
@@ -39,7 +37,6 @@ switch($ts){
                 #本地数据
                 $url = SITE_URL.'uploadfile/editor/'.$arrUpload['url'];
             }
-
 
             if($js==1){
 
@@ -61,7 +58,6 @@ switch($ts){
             }
 
 
-
         }else{
 
             $new['pubs']->delete('editor',array(
@@ -71,11 +67,60 @@ switch($ts){
         }
 
 
+    break;
 
 
+    //针对editor.md编辑器的图片上传
+    case "markdown":
+        //var_dump($_FILES['editormd-image-file']);
+        $userid = aac('user')->isLogin();
+
+        $id = $new['pubs']->create('editor',array(
+            'userid'=>$userid,
+            'type'=>'photo',
+            'addtime'=>time(),
+        ));
+
+        $arrUpload = tsUpload($_FILES['editormd-image-file'], $id, 'editor', array('jpg', 'gif', 'png', 'jpeg'),'sy.png');
+        if ($arrUpload) {
+            $new['pubs'] -> update('editor', array(
+                'id' => $id
+            ), array(
+                'title'=>$arrUpload['name'],
+                'path' => $arrUpload['path'],
+                'url' => $arrUpload['url']
+            ));
 
 
+            if($TS_SITE['file_upload_type']==1){
+                #阿里云(对象云存储OSS)数据
+                $url = $TS_SITE['alioss_bucket_url'].'/'.'uploadfile/editor/'.$arrUpload['url'].'?x-oss-process=image/resize,w_800';
+            }else{
+                #本地数据
+                $url = SITE_URL.'uploadfile/editor/'.$arrUpload['url'];
+            }
 
-        break;
+            echo json_encode(array(
+                'success'=>1,
+                'message'=>'图片上传成功！',
+                'url'=>$url,
+            ));
+
+
+        }else{
+
+            $new['pubs']->delete('editor',array(
+                'id'=>$id,
+            ));
+
+            echo json_encode(array(
+                'success'=>0,
+                'message'=>'图片上传失败！',
+                'url'=>'',
+            ));
+
+        }
+        
+    break;
 
 }
