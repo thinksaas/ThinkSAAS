@@ -1,3 +1,4 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
-return 3.6;
+
+$TS_APP['appname'] = '评论';

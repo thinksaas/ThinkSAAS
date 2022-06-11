@@ -22,12 +22,12 @@ switch ($ts){
 		
 		break;
 	
-	//禁用-启用
-	case "isenable":
+	//审核
+	case "isaudit":
 		$tagid = tsIntval($_GET['tagid']);
-		$isenable = tsIntval($_GET['isenable']);
+		$isaudit = tsIntval($_GET['isaudit']);
 		
-		$db->query("update ".dbprefix."tag set `isenable`='$isenable' where tagid = '$tagid'");
+		$db->query("update ".dbprefix."tag set `isaudit`='$isaudit' where tagid = '$tagid'");
 		
 		qiMsg("设置成功！");
 		

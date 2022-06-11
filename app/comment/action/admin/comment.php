@@ -10,7 +10,7 @@ switch ($ts){
         $pid = tsIntval($_GET['pid']);
 
         $page = tsIntval($_GET['page'],1);
-        $url = SITE_URL.'index.php?app=pubs&ac=admin&mg=comment&ts=list&ptable='.$ptable.'&userid='.$userid.'&page=';
+        $url = SITE_URL.'index.php?app=comment&ac=admin&mg=comment&ts=list&ptable='.$ptable.'&userid='.$userid.'&page=';
         $lstart = $page*10-10;
 
         $where = null;
@@ -27,9 +27,9 @@ switch ($ts){
             $where .= "`pid`='$pid'";
         }
 
-        $arrComment = $new['pubs']->findAll('comment',$where,'addtime desc',null,$lstart.',10');
+        $arrComment = $new['comment']->findAll('comment',$where,'addtime desc',null,$lstart.',10');
 
-        $commentNum = $new['pubs']->findCount('comment',$where);
+        $commentNum = $new['comment']->findCount('comment',$where);
 
         $pageUrl = pagination($commentNum, 10, $page, $url);
 
@@ -42,7 +42,7 @@ switch ($ts){
 
         $commentid = tsIntval($_GET['commentid']);
 
-        $strComment = $new['pubs']->find('comment',array(
+        $strComment = $new['comment']->find('comment',array(
             'commentid'=>$commentid,
         ));
 
@@ -50,11 +50,11 @@ switch ($ts){
         $pkey = $strComment['pkey'];
         $pid = $strComment['pid'];
 
-        $new['pubs']->delete('comment',array(
+        $new['comment']->delete('comment',array(
             'commentid'=>$commentid,
         ));
 
-        $new['pubs']->delComment($ptable,$pkey,$pid,$commentid);
+        $new['comment']->delComment($ptable,$pkey,$pid,$commentid);
 
         #处理积分
         aac('user') -> doScore($TS_URL['app'], $TS_URL['ac'],$TS_URL['mg'],$TS_URL['api'], $TS_URL['ts'],$strComment['userid']);
@@ -67,7 +67,7 @@ switch ($ts){
 
         $commentid = tsIntval($_GET['commentid']);
 
-        $strComment = $new['pubs']->find('comment',array(
+        $strComment = $new['comment']->find('comment',array(
             'commentid'=>$commentid,
         ));
 
@@ -77,7 +77,7 @@ switch ($ts){
             $isaudit = 1;
         }
 
-        $new['pubs']->update('comment',array(
+        $new['comment']->update('comment',array(
             'commentid'=>$commentid,
         ),array(
             'isaudit'=>$isaudit,

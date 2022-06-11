@@ -1,0 +1,38 @@
+{php include pubTemplate("header_admin")}
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+    <form  method="POST" action="index.php?app=comment&ac=admin&mg=options&ts=do">
+        <table class="table table-hover">
+
+
+            <tr><td width="200">APP名称：</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
+
+            <tr><td>APP介绍：</td><td><textarea style="width:300px;" name="option[appdesc]">{$strOption[appdesc]}</textarea></td></tr>
+
+            <tr><td>APP关键词：</td><td><input style="width:300px;" name="option[appkey]" value="{$strOption[appkey]}" /></td></tr>
+
+            
+            <tr><td>评论是否审核后显示：</td>
+                
+                <td>
+
+                    <input type="radio" name="option[comment_isaudit]" value="0" {if $strOption['comment_isaudit']=='0'}checked="select"{/if} />不审核
+                    <input type="radio" name="option[comment_isaudit]" value="1" {if $strOption['comment_isaudit']=='1'}checked="select"{/if} />审核
+
+                </td>
+            
+            </tr>
+
+            <tr><td></td><td>
+
+                <input class="btn btn-primary" type="submit" value="提交修改" /></td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+{php include pubTemplate("footer_admin")}

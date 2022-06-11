@@ -34,11 +34,8 @@ switch($ts){
         }
 
         //1审核后显示0不审核
-		if ($TS_APP['isaudit'] == 1) {
-			$isaudit = 1;
-		} else {
-			$isaudit = 0;
-		}
+        $isaudit = 0;
+		if ($TS_APP['isaudit'] == 1 && $TS_USER['isadmin']==0) $isaudit = 1;
 
         if($GLOBALS['TS_USER']['isadmin']==0){
             //过滤内容开始

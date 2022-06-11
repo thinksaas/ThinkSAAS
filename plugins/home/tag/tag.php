@@ -10,9 +10,9 @@ function tag(){
     }
 
     if($tag=='topic'){
-        $where = "`count_topic`>'0'";
+        $where = "`count_topic`>'0' and `isaudit`=0";
     }elseif($tag=='article'){
-        $where = "`count_article`>'0'";
+        $where = "`count_article`>'0' and `isaudit`=0";
     }
 
 	//最新标签

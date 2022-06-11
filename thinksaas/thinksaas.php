@@ -256,7 +256,7 @@ if($app=='api' || $ac=='api'){
 
     //控制访客权限
     if($TS_USER==null && $TS_SITE['visitor'] == 1){
-        if(!in_array($app,array('pubs','pay')) && !in_array($ac,array('info','home','register','phone','login','forgetpwd','resetpwd','wxlogin'))){
+        if(!in_array($app,array('pubs','pay')) && !in_array($ac,array('info','home','register','phone','login','forgetpwd','resetpwd','wxlogin','plogin'))){
             tsHeaderUrl(tsUrl('pubs','home'));
         }
     }

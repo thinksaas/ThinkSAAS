@@ -16,6 +16,14 @@ class tag extends tsApp{
 	
 	//添加多个标签 
 	function addTag($objname,$idname,$objid,$tags){
+
+		$isaudit = 0;
+
+		$strOption = getAppOptions('tag');
+
+		if($strOption && $strOption['isaudit']==1){
+			$isaudit = 1;
+		}
 	
 		$objname = tsUrlCheck($objname);
 		$idname = tsUrlCheck($idname);
@@ -37,6 +45,7 @@ class tag extends tsApp{
 						
 						$tagid = $this->create('tag',array(
 							'tagname'=>$tagname,
+							'isaudit'=>$isaudit,
 							'uptime'=>$uptime,
 						));
 						
@@ -114,14 +123,17 @@ class tag extends tsApp{
 		$arrTagIndex = $this->findAll("tag_".$objname."_index",array(
 			$idname=>$objid,
 		));
-		
-		if(is_array($arrTagIndex)){
-		foreach($arrTagIndex as $item){
-			$strTag = $this->getOneTag($item['tagid']);
-			if($strTag){
-				$arrTag[] = $strTag;
+
+		$arrTag = array();
+
+		if($arrTagIndex){
+			foreach($arrTagIndex as $item){
+				$arrTagId[] = $item['tagid'];
 			}
-		}
+	
+			$tagids = arr2str($arrTagId);
+	
+			$arrTag = $this->findAll('tag',"`tagid` in ($tagids) and `isaudit`=0");	
 		}
 		
 		return $arrTag;
@@ -131,21 +143,25 @@ class tag extends tsApp{
 	//通过tagid获得tagname
 	function getOneTag($tagid){
 		
-		$tagData = $this->find('tag',array(
+		$strTag = $this->find('tag',array(
 			'tagid'=>$tagid,
 		));
+
+		if($strTag=='') ts404();
+
+		if($strTag['isaduit']==1) tsNotice('标签审核中...');
 		
-		return $tagData;
+		return $strTag;
 	}
 	
-	//通过tagname获取tagid
-	function getTagId($tagname){
-
+	//通过tagname获取tag
+	function getTagByName($tagname){
 		$strTag = $this->find('tag',array(
 			'tagname'=>$tagname,
 		));
-		
-		return tsIntval($strTag['tagid']);
+		if($strTag=='') ts404();
+		if($strTag['isaudit']==1) tsNotice('标签审核中...');
+		return $strTag;
 	}
 	
 	//统计标签

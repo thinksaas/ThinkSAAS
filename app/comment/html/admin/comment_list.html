@@ -12,7 +12,7 @@
 
 
         <form method="get" action="index.php">
-            <input type="hidden" name="app" value="pubs">
+            <input type="hidden" name="app" value="comment">
             <input type="hidden" name="ac" value="admin">
             <input type="hidden" name="mg" value="comment">
             <input type="hidden" name="ts" value="list">
@@ -40,7 +40,7 @@
 
             <input type="submit" value="搜索">
 
-            <a class="btn btn-sm btn-outline-secondary" href="index.php?app=pubs&ac=admin&mg=comment&ts=list&ptable={$ptable}">全部</a>
+            <a class="btn btn-sm btn-outline-secondary" href="index.php?app=comment&ac=admin&mg=comment&ts=list&ptable={$ptable}">全部</a>
 
 
         </form>
@@ -92,7 +92,7 @@
 
 
 
-                <a class="btn btn-sm btn-outline-secondary" href="{SITE_URL}index.php?app=pubs&ac=admin&mg=comment&ts=isaudit&commentid={$item['commentid']}">
+                <a class="btn btn-sm btn-outline-secondary" href="{SITE_URL}index.php?app=comment&ac=admin&mg=comment&ts=isaudit&commentid={$item['commentid']}">
 
                     {if $item['isaudit']==1}
                     审核
@@ -103,7 +103,7 @@
                 </a>
 
 
-            <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=pubs&ac=admin&mg=comment&ts=delete&commentid={$item['commentid']}">删除</a>
+            <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=comment&ac=admin&mg=comment&ts=delete&commentid={$item['commentid']}">删除</a>
 
         </td></tr>
         {/loop}

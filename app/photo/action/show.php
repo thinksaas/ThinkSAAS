@@ -74,8 +74,8 @@ $strUser = aac('user')->getSimpleUser($userid);
 $page = tsIntval($_GET['page'],1);
 $url = tsUrl('photo','show',array('id'=>$photoid,'page'=>''));
 $lstart = $page*15-15;
-$arrComment = aac('pubs')->getCommentList('photo','photoid',$strPhoto['photoid'],$page,$lstart,$strPhoto['userid']);
-$commentNum = aac('pubs')->getCommentNum('photo','photoid',$strPhoto['photoid']);
+$arrComment = aac('comment')->getCommentList('photo','photoid',$strPhoto['photoid'],$page,$lstart,$strPhoto['userid']);
+$commentNum = aac('comment')->getCommentNum('photo','photoid',$strPhoto['photoid']);
 $pageUrl = pagination($commentNum, 15, $page, $url);
 
 

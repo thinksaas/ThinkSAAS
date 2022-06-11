@@ -2132,20 +2132,25 @@ function tsCleanContent($text){
  * @url URL
  */
 function tsDecode($text, $tp = 1) {
-    $text = trim($text);
-	//$text = html_entity_decode(stripslashes($text), ENT_NOQUOTES, "utf-8");
-	$text = html_entity_decode($text, ENT_NOQUOTES, "utf-8");
-	$text = str_replace('<br /><br />', '<br />', $text);
+	if($text){
 
-	//分页处理
-	/*
-	$arrText = explode('_ueditor_page_break_tag_', $text);
+		$text = trim($text);
+		//$text = html_entity_decode(stripslashes($text), ENT_NOQUOTES, "utf-8");
+		$text = html_entity_decode($text, ENT_NOQUOTES, "utf-8");
+		$text = str_replace('<br /><br />', '<br />', $text);
 
-	if ($arrText) {
-		$tp = $tp - 1;
-		$text = $arrText[$tp];
+		//分页处理
+		/*
+		$arrText = explode('_ueditor_page_break_tag_', $text);
+
+		if ($arrText) {
+			$tp = $tp - 1;
+			$text = $arrText[$tp];
+		}
+		*/
+
 	}
-	*/
+    
 
 	return $text;
 }
@@ -2250,7 +2255,7 @@ function count_string_len($str) {
  * @return Ambigous <string, mixed>
  */
 function tsFilter($value) {
-	$value = trim($value);
+	$value = trim((string) $value);
 	//定义不允许提交的SQl命令和关键字
 	$words = array();
 	$words[] = "add ";
@@ -3121,7 +3126,7 @@ function getUnixTimestamp (){
  * @param [type] $url
  * @return void
  */
-function vaptcha(string $token,$scene=0,$url){
+function vaptcha(string $token,$scene,$url){
 
 	$json = sendDataByCurl($url,array(
 		'id'=>$GLOBALS['TS_SITE']['vaptcha_vid'],

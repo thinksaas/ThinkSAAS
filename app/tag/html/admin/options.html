@@ -3,7 +3,27 @@
 <div class="midder">
 {php include template("admin/menu");}
 
-<div>暂无配置文件！</div>
+
+
+
+<form  method="POST" action="index.php?app={$app}&ac=admin&mg=options&ts=do">
+    <table class="table table-hover">
+    
+    <tr><td width="150">APP名称：</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
+    
+    <tr><td>APP介绍：</td><td><textarea style="width:300px;" name="option[appdesc]">{$strOption[appdesc]}</textarea></td></tr>
+    
+    <tr><td>APP关键词：</td><td><input style="width:300px;" name="option[appkey]" value="{$strOption[appkey]}" /></td></tr>
+    
+    <tr><td>标签是否审核显示：</td><td><input type="radio" name="option[isaudit]" value="0" {if $strOption['isaudit']=='0'}checked{/if}  />不审核 <input type="radio" name="option[isaudit]" value="1" {if $strOption['isaudit']=='1'}checked{/if} />审核</td></tr>
+    
+    <tr><td></td><td>
+    <input type="hidden" name="token" value="{$_SESSION['token']}" />
+    <input class="btn btn-primary" type="submit" value="提交修改" /></td></tr>
+    </table>
+    </form>
+
+
 
 </div>
 

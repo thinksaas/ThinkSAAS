@@ -46,8 +46,8 @@ if($strNext) $strNext['title'] = tsTitle($strNext['title']);
 $page = tsIntval($_GET['page'],1);
 $url = tsUrl ('article','show', array ('id' => $articleid,'page'=>''));
 $lstart = $page * 15 - 15;
-$arrComment = aac('pubs')->getCommentList('article','articleid',$strArticle['articleid'],$page,$lstart,$strArticle['userid']);
-$commentNum = aac('pubs')->getCommentNum('article','articleid',$strArticle['articleid']);
+$arrComment = aac('comment')->getCommentList('article','articleid',$strArticle['articleid'],$page,$lstart,$strArticle['userid']);
+$commentNum = aac('comment')->getCommentNum('article','articleid',$strArticle['articleid']);
 $pageUrl = pagination ( $commentNum, 15, $page, $url );
 
 // 标签

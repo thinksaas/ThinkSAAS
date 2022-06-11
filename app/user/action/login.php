@@ -50,18 +50,18 @@ switch($ts){
 		}
         */
 		
-		$jump = trim($_POST['jump']);
+		$jump = trim((string) $_POST['jump']);
 		
-		$email = trim($_POST['email']);
+		$email = trim((string) $_POST['email']);
 		
-		$pwd = trim($_POST['pwd']);
+		$pwd = trim((string) $_POST['pwd']);
 		
-		$cktime = $_POST['cktime'];
+		$cktime = tsIntval($_POST['cktime']);
 
 
 		#人机验证
-		$vaptcha_token = trim($_POST ['vaptcha_token']);
-		$vaptcha_server = trim($_POST ['vaptcha_server']);
+		$vaptcha_token = trim((string) $_POST ['vaptcha_token']);
+		$vaptcha_server = trim((string) $_POST ['vaptcha_server']);
 		if ($TS_SITE['is_vaptcha'] && $ad==0) {
 			$strVt = vaptcha($vaptcha_token,0,$vaptcha_server);
 			if($strVt['success']==0) {

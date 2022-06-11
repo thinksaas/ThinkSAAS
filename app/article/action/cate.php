@@ -19,7 +19,7 @@ if($strCate==''){
 if($strCate['referid']==0){
     $arrTwoCate = $new['article']->findAll('article_cate',array(
         'referid'=>$strCate['cateid'],
-    ));
+    ),'orderid asc');
 
     if($arrTwoCate){
 
@@ -46,7 +46,7 @@ if($strCate['referid']==0){
 
     $arrTwoCate = $new['article']->findAll('article_cate',array(
         'referid'=>$strCate['referid'],
-    ));
+    ),'orderid asc');
 
     $where = array(
         'cateid'=>$cateid,

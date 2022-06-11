@@ -8,9 +8,9 @@ $url = tsUrl ( 'article', 'tags', array (
 
 $lstart = $page * 200 - 200;
 
-$arrTag = $new ['article']->findAll ( 'tag', "`count_article`>'0'", null, null, $lstart . ',200' );
+$arrTag = $new ['article']->findAll ( 'tag', "`count_article`>'0' and `isaudit`=0", null, null, $lstart . ',200' );
 
-$tagNum = $new ['article']->findCount ( 'tag', "`count_topic`>'0'" );
+$tagNum = $new ['article']->findCount ( 'tag', "`count_article`>'0' and `isaudit`=0" );
 
 $pageUrl = pagination ( $tagNum, 200, $page, $url );
 

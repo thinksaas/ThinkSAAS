@@ -9,7 +9,10 @@ class tsMySqlCache extends tsApp {
 				'cachename' => $name 
 		), 'cachevalue', 'cacheid DESC' );
 		
-		return mb_unserialize(substr($strCache['cachevalue'],10));
+		if($strCache){
+			return mb_unserialize(substr($strCache['cachevalue'],10));
+		}
+		
 		
 		//if (! $result = array_pop ( $result )) return FALSE;
 			// if( substr($result, 0, 10) < time() ){$this->del($name);return FALSE;}

@@ -60,7 +60,7 @@
                                     {/if}
 
                                     {if $TS_USER['userid'] && $ritem['userid']==$TS_USER['userid']}
-                                    <a class="fs12 ml-2" href="{SITE_URL}index.php?app=pubs&ac=comment&ts=delete&commentid={$ritem['commentid']}" onClick="return confirm('确定删除吗?')">删除</a>
+                                    <a class="fs12 ml-2" href="{SITE_URL}index.php?app=comment&ac=delete&commentid={$ritem['commentid']}" onClick="return confirm('确定删除吗?')">删除</a>
                                     {/if}
 
 
@@ -106,7 +106,7 @@
                     {/if}
 
                     {if $TS_USER['userid'] && $item['userid']==$TS_USER['userid']}
-                    <a class="fs12 ml-2" href="{SITE_URL}index.php?app=pubs&ac=comment&ts=delete&commentid={$item[commentid]}" onClick="return confirm('确定删除吗?')">删除</a>
+                    <a class="fs12 ml-2" href="{SITE_URL}index.php?app=comment&ac=delete&commentid={$item[commentid]}" onClick="return confirm('确定删除吗?')">删除</a>
                     {/if}
                 </div>
 

@@ -123,8 +123,8 @@ $title = $strTopic['title'];
 $page = tsIntval($_GET['page'],1);
 $url = tsUrl('topic', 'show', array('id' => $topicid, 'page' => ''));
 $lstart = $page * 15-15;
-$arrComment = aac('pubs')->getCommentList('topic','topicid',$strTopic['topicid'],$page,$lstart,$strTopic['userid']);
-$commentNum = aac('pubs')->getCommentNum('topic','topicid',$strTopic['topicid']);
+$arrComment = aac('comment')->getCommentList('topic','topicid',$strTopic['topicid'],$page,$lstart,$strTopic['userid']);
+$commentNum = aac('comment')->getCommentNum('topic','topicid',$strTopic['topicid']);
 $pageUrl = pagination($commentNum, 15, $page, $url);
 // 评论列表结束
 

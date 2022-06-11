@@ -25,7 +25,7 @@ switch($ts){
             'touserid'=>$userid,
         ));
 
-        if($isFollow && $isFollow2){
+        if(($isFollow && $isFollow2) || $TS_USER['isadmin']==1){
 
             $strUser = $new['user']->getSimpleUser($userid);
 		
@@ -65,7 +65,7 @@ switch($ts){
             'touserid'=>$msg_userid,
         ));
 
-        if($isFollow && $isFollow2){
+        if(($isFollow && $isFollow2) || $TS_USER['isadmin']==1){
 
             $msg_content = trim($_POST['content']);
 

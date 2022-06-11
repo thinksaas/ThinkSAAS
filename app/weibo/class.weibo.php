@@ -22,6 +22,8 @@ class weibo extends tsApp{
 		$strWeibo = $this->find('weibo',array(
 			'weiboid'=>$weiboid,
 		));
+
+		if($strWeibo=='') ts404();
 		
 		$strWeibo['user']=aac('user')->getSimpleUser($strWeibo['userid']);
 		$strWeibo['title'] = nl2br(tsTitle($strWeibo['title']));

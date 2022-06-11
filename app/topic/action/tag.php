@@ -1,32 +1,21 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 
-$name = urldecode(tsFilter($_GET['id']));
+$name = urldecode(tsUrlCheck($_GET['id']));
 
 //$name=mb_convert_encoding($name,'UTF-8', 'GB2312'); //针对IIS环境可能出现的问题请取消此行注释
 
-$tagid = aac('tag')->getTagId(t($name));
-
-if($tagid==0){
-	header("HTTP/1.1 404 Not Found");
-	header("Status: 404 Not Found");
-	$title = '404';
-	include pubTemplate("404");
-	exit;
-}
-
-$strTag = $new['topic']->find('tag',array(
-	'tagid'=>$tagid,
-));
+$strTag = aac('tag')->getTagByName($name);
 
 $strTag['tagname'] = htmlspecialchars($strTag['tagname']); 
-
 
 $page = tsIntval($_GET['page'],1);
 
 $url = tsUrl('group','tag',array('id'=>urlencode($name),'page'=>''));
 
 $lstart = $page*30-30;
+
+$tagid = $strTag['tagid'];
 
 $arrTagId = $new['topic']->findAll('tag_topic_index',array(
 	'tagid'=>$tagid,
@@ -79,7 +68,7 @@ foreach($arrTopics as $key=>$item){
 }
 
 //热门tag
-$arrTag = $new['topic']->findAll('tag',"`count_topic`!=''",'uptime desc',null,30);
+$arrTag = $new['topic']->findAll('tag',"`count_topic`>'0' and `isaudit`=0",'uptime desc',null,30);
 
 $sitekey = $strTag['tagname'];
 $title = $strTag['tagname'];

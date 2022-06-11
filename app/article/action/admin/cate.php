@@ -7,12 +7,12 @@ switch($ts){
 		
 		$arrCate = $new['article']->findAll('article_cate',array(
 		    'referid'=>0,
-        ),'orderid desc');
+        ),'orderid asc');
 
 		foreach($arrCate as $key=>$item){
 		    $arrCate[$key]['twocate'] = $new['article']->findAll('article_cate',array(
 		        'referid'=>$item['cateid'],
-            ));
+            ),'orderid asc');
         }
 
 		include template("admin/cate_list");

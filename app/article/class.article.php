@@ -23,13 +23,7 @@ class article extends tsApp {
      */
     public function getArticlePhoto($strArticle){
         if($strArticle['photo']){
-            if($GLOBALS['TS_SITE']['file_upload_type']==1){
-                #阿里云(对象云存储OSS)数据
-                $strFace = tsXimg($strArticle['photo'],'article',320,180,$strArticle['path'],1).'&v='.$strArticle['uptime'];
-            }else{
-                #本地数据
-                $strFace = tsXimg($strArticle['photo'],'article',320,180,$strArticle['path'],1).'?v='.$strArticle['uptime'];
-            }
+            $strFace = tsXimg($strArticle['photo'],'article',320,180,$strArticle['path'],1).'?v='.$strArticle['uptime'];
         }else{
             $strFace = SITE_URL.'public/images/group.jpg';
         }

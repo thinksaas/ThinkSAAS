@@ -3,9 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 
 $weiboid = tsIntval($_GET['id']);
 $strWeibo = $new['weibo']->getOneWeibo($weiboid);
-if($weiboid==0 || $strWeibo==''){
-    ts404();
-}
+
 if($strWeibo['isaudit']==1){
     tsNotice('内容审核中...');
 }
@@ -29,8 +27,8 @@ foreach($arrPhoto as $key=>$item){
 $page = tsIntval($_GET['page'],1);
 $url = tsUrl('weibo','show',array('id'=>$weiboid,'page'=>''));
 $lstart = $page*15-15;
-$arrComment = aac('pubs')->getCommentList('weibo','weiboid',$strWeibo['weiboid'],$page,$lstart,$strWeibo['userid']);
-$commentNum = aac('pubs')->getCommentNum('weibo','weiboid',$strWeibo['weiboid']);
+$arrComment = aac('comment')->getCommentList('weibo','weiboid',$strWeibo['weiboid'],$page,$lstart,$strWeibo['userid']);
+$commentNum = aac('comment')->getCommentNum('weibo','weiboid',$strWeibo['weiboid']);
 $pageUrl = pagination($commentNum, 15, $page, $url);
 
 

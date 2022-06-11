@@ -1,0 +1,72 @@
+{php include pubTemplate("header")}
+<div class="container">
+
+
+
+    <div class="row">
+
+
+        <div class="col-md-3">
+            <div class="my_left">
+
+                {php include pubTemplate("my")}
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-9">
+
+
+            <div class="card">
+                <div class="card-header">我的评论</div>
+                <div class="card-body">
+
+
+                    <table class="table mt-3">
+                        <thead class="thead-light">
+                        <tr><th>评论内容</th><th>时间</th><th>操作</th></tr>
+                        </thead>
+
+                        <tbody>
+                        {loop $arrComment $key $item}
+                        <tr>
+                            
+                            <td>
+
+                            <a target="_blank" href="{php echo getProjectUrl($item['ptable'],$item['pid']);}">{php echo tsDecode($item['content'])}</a></td>
+                            
+                            <td class="text-black-50 fs12">{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+                            
+                            
+                            <td>
+
+                            
+
+                            <a class="fs12 text-black-50" href="{SITE_URL}index.php?app=comment&ac=delete&commentid={$item['commentid']}">删除</a>
+
+                        </td></tr>
+                        {/loop}
+                        <tbody>
+                    </table>
+
+                    <div class="clear"></div>
+                    <div class="page">{$pageUrl}</div>
+
+
+
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+
+
+
+
+</div>
+
+
+{php include pubTemplate("footer")}

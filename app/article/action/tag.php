@@ -1,13 +1,9 @@
 <?php
 defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 
-$name = urldecode ( trim ( $_GET ['id'] ) );
+$name = urldecode(tsUrlCheck($_GET['id']));
 
-$tagid = aac ( 'tag' )->getTagId ( t ( $name ) );
-
-$strTag = $new ['article']->find ( 'tag', array (
-		'tagid' => $tagid 
-) );
+$strTag = aac('tag')->getTagByName(t($name));
 
 $strTag ['tagname'] = htmlspecialchars ( $strTag ['tagname'] );
 
@@ -19,6 +15,8 @@ $url = tsUrl ( 'article', 'tag', array (
 ) );
 
 $lstart = $page * 30 - 30;
+
+$tagid = $strTag['tagid'];
 
 $arrTagId = $new ['article']->findAll ( 'tag_article_index', array (
 		'tagid' => $tagid 
@@ -58,7 +56,7 @@ foreach ( $arrArticle as $key => $item ) {
 }
 
 // 热门tag
-$arrTag = $new ['article']->findAll ( 'tag', "`count_article`>'0'", 'count_article desc', null, 30 );
+$arrTag = $new ['article']->findAll ( 'tag', "`count_article`>'0' and `isaudit`=0", 'count_article desc', null, 30 );
 
 $sitekey = $strTag ['tagname'];
 $title = $strTag ['tagname'];

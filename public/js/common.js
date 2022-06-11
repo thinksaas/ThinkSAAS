@@ -307,7 +307,7 @@ function recomment(commentid,referid,ptable,pkey,pid,touid){
 
         $('#recomm_btn_'+commentid).hide();
 
-        tsPost('index.php?app=pubs&ac=comment&ts=do&js=1',{
+        tsPost('index.php?app=comment&ac=add&js=1',{
             ptable:ptable,
             pkey:pkey,
             pid:pid,
@@ -327,7 +327,7 @@ function recomment(commentid,referid,ptable,pkey,pid,touid){
  * @param {*} userid //项目用户ID
  */
 function loadRecomment(commentid,userid){
-    $.get(siteUrl+'index.php?app=pubs&ac=ajax&ts=recomment&referid='+commentid+'&userid='+userid,function (rs) {
+    $.get(siteUrl+'index.php?app=comment&ac=recomment&referid='+commentid+'&userid='+userid,function (rs) {
         $("#recomment_"+commentid).html(rs)
     })
 }
