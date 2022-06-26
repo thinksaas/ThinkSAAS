@@ -249,32 +249,39 @@ function getIp() {
  * @return mixed
  */
 function t($text) {
-	$text = tsDecode($text);
-	$text = preg_replace('/\[.*?\]/is', '', $text);
-	$text = cleanJs($text);
-	// 彻底过滤空格BY QINIAO
-	$text = preg_replace('/\s(?=\s)/', '', $text);
-	$text = preg_replace('/[\n\r\t]/', ' ', $text);
-	$text = str_replace('  ', ' ', $text);
-	// $text = str_replace ( ' ', '', $text );
-	$text = str_replace('&nbsp;', '', $text);
-	$text = str_replace('&', '', $text);
-	$text = str_replace('=', '', $text);
-	$text = str_replace('-', '', $text);
-	$text = str_replace('#', '', $text);
-	$text = str_replace('%', '', $text);
-	$text = str_replace('!', '', $text);
-	$text = str_replace('@', '', $text);
-	$text = str_replace('^', '', $text);
-	$text = str_replace('*', '', $text);
-	$text = str_replace('amp;', '', $text);
-
-	$text = str_replace('position', '', $text);
-
-	$text = strip_tags($text);
-	$text = htmlspecialchars($text);
-	$text = str_replace("'", "", $text);
-	return $text;
+	if($text!='' && $text!=null){
+		$text = tsDecode($text);
+		$text = preg_replace('/\[.*?\]/is', '', $text);
+		
+		$text = cleanJs($text);
+		// 彻底过滤空格BY QINIAO
+		$text = preg_replace('/\s(?=\s)/', '', $text);
+		$text = preg_replace('/[\n\r\t]/', ' ', $text);
+		$text = str_replace('  ', ' ', $text);
+		// $text = str_replace ( ' ', '', $text );
+		$text = str_replace('&nbsp;', '', $text);
+		$text = str_replace('&', '', $text);
+		$text = str_replace('=', '', $text);
+		$text = str_replace('-', '', $text);
+		$text = str_replace('#', '', $text);
+		$text = str_replace('%', '', $text);
+		$text = str_replace('!', '', $text);
+		$text = str_replace('@', '', $text);
+		$text = str_replace('^', '', $text);
+		$text = str_replace('*', '', $text);
+		$text = str_replace('amp;', '', $text);
+	
+		$text = str_replace('position', '', $text);
+	
+		$text = strip_tags($text);
+		$text = htmlspecialchars($text);
+		$text = str_replace("'", "", $text);
+		return $text;
+	}else{
+		return '';
+	}
+	
+	
 }
 
 /**
@@ -298,12 +305,16 @@ function h($text) {
  * @return string
  */
 function cututf8($string, $start = 0, $sublen=100, $append = true) {
-	$pa = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf7][\x80-\xbf][\x80-\xbf][\x80-\xbf]/";
-	preg_match_all($pa, $string, $t_string);
-	if (count($t_string[0]) - $start > $sublen && $append == true) {
-		return join('', array_slice($t_string[0], $start, $sublen)) . "...";
-	} else {
-		return join('', array_slice($t_string[0], $start, $sublen));
+	if($string!='' && $string!=null){
+		$pa = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf7][\x80-\xbf][\x80-\xbf][\x80-\xbf]/";
+		preg_match_all($pa, $string, $t_string);
+		if (count($t_string[0]) - $start > $sublen && $append == true) {
+			return join('', array_slice($t_string[0], $start, $sublen)) . "...";
+		} else {
+			return join('', array_slice($t_string[0], $start, $sublen));
+		}
+	}else{
+		return '';
 	}
 }
 

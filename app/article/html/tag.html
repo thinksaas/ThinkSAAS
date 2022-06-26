@@ -34,17 +34,17 @@
                     <div class="row">
 
                         <div class="col-md-4">
-                            <a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">
+                            <a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">
                                 <img class="mw-100" src="{php echo tsXimg($item['photo'],'article',320,180,$item['path'],'1')}" />
                             </a>
                         </div>
                         <div class="col-md-8">
 
-                            <div class="h5 fw400"><a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{$item[title]}</a></div>
+                            <div class="h5 fw400"><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></div>
 
-                            <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {$item[addtime]}</div>
+                            <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item['user']['username']}</a> 发表于 {$item['addtime']}</div>
 
-                            <div class="text-black-50 mt-1">{if $item['gaiyao']}{tsTitle($item['gaiyao'])}{else}暂无概要{/if} (<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">查看全文</a>)</div>
+                            <div class="text-black-50 mt-1">{if $item['gaiyao']}{tsTitle($item['gaiyao'])}{else}暂无概要{/if} (<a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">查看全文</a>)</div>
 
 
 
@@ -78,11 +78,11 @@
 
                     {else}
 
-                    <div class="h5 fw400"><a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{$item[title]}</a></div>
+                    <div class="h5 fw400"><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item[title]}</a></div>
 
-                    <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> 发表于 {$item[addtime]}</div>
+                    <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a> 发表于 {$item['addtime']}</div>
 
-                    <div class="text-black-50 mt-1">{if $item['gaiyao']}{$item['gaiyao']}{else}暂无概要{/if} (<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">查看全文</a>)</div>
+                    <div class="text-black-50 mt-1">{if $item['gaiyao']}{$item['gaiyao']}{else}暂无概要{/if} (<a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">查看全文</a>)</div>
 
 
 
@@ -134,7 +134,7 @@
         <div class="card-body">
 <div>
 {loop $arrTag $key $item}
-<a class="badge badge-secondary mr-2 mb-2 fw300" href="{tsUrl('article','tag',array('id'=>urlencode($item[tagname])))}">{$item[tagname]}</a>
+<a class="badge badge-secondary mr-2 mb-2 fw300" href="{tsUrl('article','tag',array('id'=>urlencode($item['tagname'])))}">{$item['tagname']}</a>
 {/loop}
 
 </div>

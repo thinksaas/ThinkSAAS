@@ -30,27 +30,11 @@ foreach($arrTagId as $item){
 			'topicid'=>$item['topicid'],
 			'tagid'=>$item['tagid'],
 		));
-	}
-	
-	if($strTopic){
-		$arrTopics[] = $strTopic;
+	}else{
+		$arrTopic[] = $strTopic;
 	}
 }
 
-$arrTagIds = $new['topic']->findAll('tag_topic_index',array(
-	'tagid'=>$tagid,
-));
-foreach($arrTagIds as $item){
-	$strTopic = $new['topic']->find('topic',array(
-		'topicid'=>$item['topicid'],
-	));
-	if($strTopic==''){
-		$new['topic']->delete('tag_topic_index',array(
-			'topicid'=>$item['topicid'],
-			'tagid'=>$item['tagid'],
-		));
-	}
-}
 
 aac('tag')->countObjTag('topic',$tagid);
 
@@ -60,8 +44,7 @@ $topicNum = $new['topic']->findCount('tag_topic_index',array(
 
 $pageUrl = pagination($topicNum, 30, $page, $url);
 
-foreach($arrTopics as $key=>$item){
-	$arrTopic[] = $item;
+foreach($arrTopic as $key=>$item){
 	$arrTopic[$key]['title'] = htmlspecialchars($item['title']);
 	$arrTopic[$key]['user'] = aac('user')->getSimpleUser($item['userid']);
 	$arrTopic[$key]['group'] = aac('group')->getOneGroup($item['groupid']);

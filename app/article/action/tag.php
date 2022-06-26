@@ -3,10 +3,10 @@ defined ( 'IN_TS' ) or die ( 'Access Denied.' );
 
 $name = urldecode(tsUrlCheck($_GET['id']));
 
-$strTag = aac('tag')->getTagByName(t($name));
+$strTag = aac('tag')->getTagByName($name);
 
 $strTag ['tagname'] = htmlspecialchars ( $strTag ['tagname'] );
-
+ 
 $page = tsIntval($_GET['page'],1);
 
 $url = tsUrl ( 'article', 'tag', array (
