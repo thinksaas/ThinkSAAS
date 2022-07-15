@@ -42,7 +42,7 @@ switch($ts){
 		
 		$userid = $new['user']->isLogin();
 		$touserid = tsIntval($_POST['touserid']);
-		$content = trim($_POST['content']);
+		$content = tsTrim($_POST['content']);
 		
 		if($content == ''){
 		
@@ -76,7 +76,7 @@ switch($ts){
 		$userid = $new['user']->isLogin();
 		$touserid = tsIntval($_POST['touserid']);
 		$reid = tsIntval($_POST['reid']);
-		$content = trim($_POST['content']);
+		$content = tsTrim($_POST['content']);
 		
 		$arrContent = explode('#',$content);
 		

@@ -22,9 +22,9 @@ switch($ts){
     case "do":
 
         $js = tsIntval($_GET['js']);
-        $phone = trim($_POST['email']);
+        $phone = tsTrim($_POST['email']);
         $authcode = strtolower($_POST['authcode']);
-        $phonecode = trim($_POST['phonecode']);
+        $phonecode = tsTrim($_POST['phonecode']);
 
         if($phone=='' || $phonecode==''){
             getJson('所有输入项都不能为空！',$js);

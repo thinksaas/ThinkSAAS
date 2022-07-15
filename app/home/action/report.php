@@ -17,7 +17,7 @@ switch ($ts){
 
     case "do":
 
-        $url = trim($_POST['url']);
+        $url = tsTrim($_POST['url']);
         $content = t($_POST['content']);
 
         if($url==''){

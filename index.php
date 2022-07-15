@@ -53,4 +53,5 @@ session_start();
 require_once THINKROOT . '/vendor/autoload.php';
 #装载ThinkSAAS核心
 include THINKSAAS.'/thinksaas.php';
-unset($GLOBALS['TS_CF']);
+unset($GLOBALS['TS_APP']);
+unset($GLOBALS['TS_URL']);

@@ -5,7 +5,7 @@ defined('IN_TS') or die('Access Denied.');
  * 发送手机验证码
  */
 
-$phone = trim($_POST['phone']);
+$phone = tsTrim($_POST['phone']);
 
 $authcode = strtolower($_POST['authcode']);
 
@@ -13,8 +13,8 @@ $typeid = tsIntval($_POST['typeid']); //判断手机号是否存在0不判断1�
 
 
 #人机验证
-$vaptcha_token = trim($_POST ['vaptcha_token']);
-$vaptcha_server = trim($_POST['vaptcha_server']);
+$vaptcha_token = tsTrim($_POST ['vaptcha_token']);
+$vaptcha_server = tsTrim($_POST['vaptcha_server']);
 if ($TS_SITE['is_vaptcha']) {
     $strVt = vaptcha($vaptcha_token,0,$vaptcha_server);
     if($strVt['success']==0) {

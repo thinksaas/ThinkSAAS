@@ -16,7 +16,7 @@ switch($ts){
 		break;
 		
 	case "do":
-		$tag = trim($_POST['tag']);
+		$tag = tsTrim($_POST['tag']);
 		fileWrite('plugins_home_tag.php','data',$tag);
 		$tsMySqlCache->set('plugins_home_tag',$tag);
 		

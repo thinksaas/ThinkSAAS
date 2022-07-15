@@ -67,7 +67,7 @@ switch($ts){
 
         if(($isFollow && $isFollow2) || $TS_USER['isadmin']==1){
 
-            $msg_content = trim($_POST['content']);
+            $msg_content = tsTrim($_POST['content']);
 
             if($msg_content==''){
                 getJson('消息内容不能为空！',$js,0);

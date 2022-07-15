@@ -62,8 +62,8 @@ switch($ts){
 	
 		if($TS_APP['iscreate'] == 0 || $TS_USER['isadmin']==1){
 			
-			$groupname = trim($_POST['groupname']);
-			$groupdesc = trim($_POST['groupdesc']);
+			$groupname = tsTrim($_POST['groupname']);
+			$groupdesc = tsTrim($_POST['groupdesc']);
 			
 			if($groupname=='' || $groupdesc=='') {
 				tsNotice('小组名称和介绍不能为空！');

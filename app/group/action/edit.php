@@ -42,8 +42,8 @@ switch($ts){
     //编辑小组基本信息
     case "basedo":
 
-        $groupname = trim($_POST['groupname']);
-        $groupdesc = trim($_POST['groupdesc']);
+        $groupname = tsTrim($_POST['groupname']);
+        $groupdesc = tsTrim($_POST['groupdesc']);
 
         if($groupname=='' || $groupdesc=='') tsNotice("小组名称和介绍都不能为空！");
 
@@ -155,7 +155,7 @@ switch($ts){
     //添加帖子分类
     case "typeadd":
 
-        $typename = trim($_POST['typename']);
+        $typename = tsTrim($_POST['typename']);
         if($typename){
             $new['group']->create('topic_type',array(
                 'groupid'=>$groupid,
@@ -169,7 +169,7 @@ switch($ts){
     //修改帖子分类
     case "typeedit":
         $typeid = tsIntval($_POST['typeid']);
-        $typename = trim($_POST['typename']);
+        $typename = tsTrim($_POST['typename']);
         if($typeid && $typename){
             $new['group']->update('topic_type',array(
                 'typeid'=>$typeid,
@@ -542,7 +542,7 @@ switch($ts){
 
 
         $userid = tsIntval($_POST['userid']);
-        $endtime = trim($_POST['endtime']);
+        $endtime = tsTrim($_POST['endtime']);
 
         if($userid==0){
             getJson('用户ID输入有误！',$js);

@@ -171,9 +171,9 @@ switch($ts){
 			'userid'=>$strUser['userid'],
 		));
 		
-		$oldpwd = trim($_POST['oldpwd']);
-		$newpwd = trim($_POST['newpwd']);
-		$renewpwd = trim($_POST['renewpwd']);
+		$oldpwd = tsTrim($_POST['oldpwd']);
+		$newpwd = tsTrim($_POST['newpwd']);
+		$renewpwd = tsTrim($_POST['renewpwd']);
 		
 		if($oldpwd == '' || $newpwd=='' || $renewpwd=='') tsNotice("所有项都不能为空！");
 		
@@ -203,7 +203,7 @@ switch($ts){
 		
 	case "emaildo":
 		
-		$email = trim($_POST['email']);
+		$email = tsTrim($_POST['email']);
 		
 		if($email=='') tsNotice('Email不能为空！');
 		
@@ -248,8 +248,8 @@ switch($ts){
 		
 	case "citydo":
 	
-		$province = trim($_POST['province']);
-		$city = trim($_POST['city']);
+		$province = tsTrim($_POST['province']);
+		$city = tsTrim($_POST['city']);
 		
 
 		$new['my']->update('user_info',array(

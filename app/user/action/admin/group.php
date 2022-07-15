@@ -14,8 +14,8 @@ switch($ts){
     //创建用户组
     case "add":
 
-        $ugname = trim($_POST['ugname']);
-        $uginfo = trim($_POST['uginfo']);
+        $ugname = tsTrim($_POST['ugname']);
+        $uginfo = tsTrim($_POST['uginfo']);
 
         if($ugname && $uginfo){
             $new['user']->create('user_group',array(
@@ -31,8 +31,8 @@ switch($ts){
     case "edit":
 
         $ugid = tsIntval($_POST['ugid']);
-        $ugname = trim($_POST['ugname']);
-        $uginfo = trim($_POST['uginfo']);
+        $ugname = tsTrim($_POST['ugname']);
+        $uginfo = tsTrim($_POST['uginfo']);
 
         if(in_array($ugid,array(1,2,3,4))) qiMsg('非法操作！');
 

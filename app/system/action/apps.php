@@ -44,7 +44,7 @@ switch($ts){
 	//安装APP
 	/*
 	case "install":
-		$appname = trim($_GET['appname']);
+		$appname = tsTrim($_GET['appname']);
 		
 		$appAbout = require_once 'app/'.$appname.'/about.php';
 		
@@ -61,7 +61,7 @@ switch($ts){
 				$array_sql = preg_split("/;[\r\n]/", $sql);
 				
 				foreach($array_sql as $sql){
-					$sql = trim($sql);
+					$sql = tsTrim($sql);
 					if ($sql){
 						if (strstr($sql, 'CREATE TABLE')){
 							preg_match('/CREATE TABLE ([^ ]*)/', $sql, $matches);
@@ -88,7 +88,7 @@ switch($ts){
 				$array_sql = preg_split("/;[\r\n]/", $sql);
 				
 				foreach($array_sql as $sql){
-					$sql = trim($sql);
+					$sql = tsTrim($sql);
 					if ($sql){
 						$ret = $db->query($sql);
 					}
@@ -153,8 +153,8 @@ switch($ts){
 
     //我的社区导航
     case "mynav":
-        $appkey = trim($_POST['appkey']);
-        $appname = trim($_POST['appname']);
+        $appkey = tsTrim($_POST['appkey']);
+        $appname = tsTrim($_POST['appname']);
 
         $arrMyNav = include 'data/system_mynav.php';
 
@@ -179,7 +179,7 @@ switch($ts){
         break;
 
     case "unmynav":
-        $appkey = trim($_POST['appkey']);
+        $appkey = tsTrim($_POST['appkey']);
         $arrMyNav = include 'data/system_mynav.php';
         unset($arrMyNav[$appkey]);
         fileWrite('system_mynav.php','data',$arrMyNav);

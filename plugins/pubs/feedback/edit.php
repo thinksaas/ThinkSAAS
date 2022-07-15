@@ -19,7 +19,7 @@ switch($ts){
 		break;
 		
 	case "do":
-		$code = trim($_POST['code']);
+		$code = tsTrim($_POST['code']);
 		
 		fileWrite('plugins_pubs_feedback.php','data',$code);
 		$tsMySqlCache->set('plugins_pubs_feedback',$code);

@@ -12,15 +12,15 @@ switch($ts){
 		
 	case "adddo":
 	
-		$scorekey = trim($_POST['scorekey']);
-		$scorename = trim($_POST['scorename']);
+		$scorekey = tsTrim($_POST['scorekey']);
+		$scorename = tsTrim($_POST['scorename']);
 		$score = tsIntval($_POST['score']);
 		
-		$app = trim($_POST['app']);
-		$action = trim($_POST['action']);
-		$mg = trim($_POST['mg']);
-		$api = trim($_POST['api']);
-		$ts = trim($_POST['ts']);
+		$app = tsTrim($_POST['app']);
+		$action = tsTrim($_POST['action']);
+		$mg = tsTrim($_POST['mg']);
+		$api = tsTrim($_POST['api']);
+		$ts = tsTrim($_POST['ts']);
 		$status = tsIntval($_POST['status']);
 		
 		$new['user']->create('user_score',array(
@@ -43,11 +43,11 @@ switch($ts){
 	
 		$scoreid = tsIntval($_POST['scoreid']);
 		$score = tsIntval($_POST['score']);
-		$app = trim($_POST['app']);
-		$action = trim($_POST['action']);
-		$mg = trim($_POST['mg']);
-		$api = trim($_POST['api']);
-		$ts = trim($_POST['ts']);
+		$app = tsTrim($_POST['app']);
+		$action = tsTrim($_POST['action']);
+		$mg = tsTrim($_POST['mg']);
+		$api = tsTrim($_POST['api']);
+		$ts = tsTrim($_POST['ts']);
 		$status = tsIntval($_POST['status']);
 		
 		$new['user']->update('user_score',array(
@@ -78,7 +78,7 @@ switch($ts){
 		$userid = tsIntval($_POST['userid']);
 		$score = tsIntval($_POST['score']);
 		$status = tsIntval($_POST['status']);
-		$scorename = trim($_POST['scorename']);
+		$scorename = tsTrim($_POST['scorename']);
 		
 		if($userid && $score && $scorename){
 

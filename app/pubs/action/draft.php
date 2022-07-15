@@ -11,8 +11,8 @@ if($userid==0){
     getJson('非法操作！',1,0);
 }
 
-$types = trim($_POST['types']);
-$title = trim($_POST['title']);
+$types = tsTrim($_POST['types']);
+$title = tsTrim($_POST['title']);
 $content = tsClean($_POST['content']);
 
 if($types && $title && $content){

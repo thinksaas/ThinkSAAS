@@ -20,8 +20,8 @@ switch($ts){
 		$arrLinkUrl = $_POST['linkurl'];
 		
 		foreach($arrLinkName as $key=>$item){
-			$linkname = trim($item);
-			$linkurl = trim($arrLinkUrl[$key]);
+			$linkname = tsTrim($item);
+			$linkurl = tsTrim($arrLinkUrl[$key]);
 			if($linkname && $linkurl){
 				$arrLink[] = array(
 					'linkname'	=> $linkname,

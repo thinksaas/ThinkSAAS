@@ -105,13 +105,13 @@ switch($ts){
 		
 	case "twodo":
 		
-		$upsql = trim($_POST['upsql']);
+		$upsql = tsTrim($_POST['upsql']);
 
 		if($upsql){
 		
 			$arrSql = explode('--------------------',$upsql);
 			foreach($arrSql as $item){
-				$item = trim($item);
+				$item = tsTrim($item);
 				if ($item){
 					$db->query($item);
 				}
@@ -139,7 +139,7 @@ switch($ts){
 		
 	case "threedo":
 
-		$upversion = trim($_GET['upversion']);
+		$upversion = tsTrim($_GET['upversion']);
 
 		if($upversion==''){
 		    getJson('版本号有问题',1,0);

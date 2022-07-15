@@ -83,7 +83,7 @@ switch($ts){
 		$topicid = tsIntval($_POST['topicid']);
 		$typeid = tsIntval($_POST['typeid']);
 		
-		$title = trim($_POST['title']);
+		$title = tsTrim($_POST['title']);
 		
 		//echo br2nl($_POST['content']);exit;
 		
@@ -142,7 +142,7 @@ switch($ts){
 
 
 			//处理标签
-			$tag = trim($_POST['tag']);
+			$tag = tsTrim($_POST['tag']);
 			if($tag){
 				aac('tag')->delIndextag('topic','topicid',$topicid);
 				aac('tag') -> addTag('topic', 'topicid', $topicid, $tag); 

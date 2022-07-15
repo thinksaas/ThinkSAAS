@@ -30,16 +30,16 @@ switch($ts){
         //用于JS提交验证
         $js = tsIntval($_GET['js']);
 
-        $phone		= trim($_POST['email']);
-        $pwd			= trim($_POST['pwd']);
-        $repwd		= trim($_POST['repwd']);
+        $phone		= tsTrim($_POST['email']);
+        $pwd			= tsTrim($_POST['pwd']);
+        $repwd		= tsTrim($_POST['repwd']);
         $username		= t($_POST['username']);
 
         $fuserid = tsIntval($_POST['fuserid']);
 
         $authcode = strtolower($_POST['authcode']);
 
-        $phonecode = trim($_POST['phonecode']);
+        $phonecode = tsTrim($_POST['phonecode']);
 
 
         /*禁止以下IP用户登陆或注册*/
@@ -52,7 +52,7 @@ switch($ts){
         //是否开启邀请注册
         if($TS_SITE['isinvite']=='1'){
 
-            $invitecode = trim($_POST['invitecode']);
+            $invitecode = tsTrim($_POST['invitecode']);
             if($invitecode == '') getJson('邀请码不能为空！',$js);
 
             $codeNum = $new['user']->findCount('user_invites',array(
@@ -231,10 +231,10 @@ switch($ts){
 
         $userid = aac('user')->isLogin();
 
-        $phone = trim($_POST['phone']);
+        $phone = tsTrim($_POST['phone']);
 
         $authcode = strtolower($_POST['authcode']);
-        $phonecode = trim($_POST['phonecode']);
+        $phonecode = tsTrim($_POST['phonecode']);
 
         if($phone == '' || $authcode=='' || $phonecode==''){
             getJson('所有输入项都不能为空',$js);
@@ -299,7 +299,7 @@ switch($ts){
 
         $userid = aac('user')->isLogin();
 
-        $phone = trim($_POST['phone']);
+        $phone = tsTrim($_POST['phone']);
 
         if($phone==''){
             tsNotice('手机号不能为空！');
@@ -342,10 +342,10 @@ switch($ts){
 
         $userid = aac('user')->isLogin();
 
-        $phone = trim($_POST['phone']);
+        $phone = tsTrim($_POST['phone']);
 
         $authcode = strtolower($_POST['authcode']);
-        $phonecode = trim($_POST['phonecode']);
+        $phonecode = tsTrim($_POST['phonecode']);
 
         if($phone == '' || $authcode=='' || $phonecode==''){
             getJson('所有输入项都不能为空',$js);
@@ -403,10 +403,10 @@ switch($ts){
         $js = tsIntval($_GET['js']);
 
 
-        $phone = trim($_POST['phone']);
-        $pwd	= trim($_POST['pwd']);
+        $phone = tsTrim($_POST['phone']);
+        $pwd	= tsTrim($_POST['pwd']);
         $authcode = strtolower($_POST['authcode']);
-        $phonecode = trim($_POST['phonecode']);
+        $phonecode = tsTrim($_POST['phonecode']);
 
         if($phone == '' || $pwd=='' || $authcode=='' || $phonecode==''){
             getJson('所有输入项都不能为空',$js);

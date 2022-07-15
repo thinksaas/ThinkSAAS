@@ -9,8 +9,8 @@ switch($ts){
 		
 	case "do":
 		
-		$email = trim($_POST['email']);
-		$pwd = trim($_POST['pwd']);
+		$email = tsTrim($_POST['email']);
+		$pwd = tsTrim($_POST['pwd']);
 		$cktime = $_POST['cktime'];
 		
 		if($email=='' || $pwd=='') qiMsg("所有输入项都不能为空^_^");

@@ -290,7 +290,7 @@ function t($text) {
  * @return string
  */
 function h($text) {
-	$text = trim($text);
+	$text = tsTrim($text);
 	$text = htmlspecialchars($text);
 	$text = addslashes($text);
 	return $text;
@@ -2066,7 +2066,7 @@ function userlog(&$array, $userid) {
  * @return mixed
  */
 function cleanJs($text) {
-	$text = trim($text);
+	$text = tsTrim($text);
 	//$text = stripslashes ( $text );
 	// 完全过滤注释
 	$text = @preg_replace('/<!--?.*-->/', '', $text);
@@ -2092,7 +2092,7 @@ function cleanJs($text) {
  * @return mixed
  */
 function tsClean($text,$js=0) {
-	$text = stripslashes(trim($text));
+	$text = stripslashes(tsTrim($text));
 	//去除前后空格，并去除反斜杠
 	//$text = br2nl($text); //将br转换成/n
 
@@ -2132,7 +2132,7 @@ function tsClean($text,$js=0) {
  * 针对tsClean函数会过滤很多html标签的补充函数
  */
 function tsCleanContent($text){
-    $text = stripslashes(trim($text));
+    $text = stripslashes(tsTrim($text));
     $text = htmlentities($text, ENT_NOQUOTES, "utf-8");
     return $text;
 }
@@ -2145,7 +2145,7 @@ function tsCleanContent($text){
 function tsDecode($text, $tp = 1) {
 	if($text){
 
-		$text = trim($text);
+		$text = tsTrim($text);
 		//$text = html_entity_decode(stripslashes($text), ENT_NOQUOTES, "utf-8");
 		$text = html_entity_decode($text, ENT_NOQUOTES, "utf-8");
 		$text = str_replace('<br /><br />', '<br />', $text);
@@ -2189,7 +2189,7 @@ function tsCutContent($text, $length = 50) {
  * @param [type] $text
  * @return void
  */
-function antiWord($text){
+function antiWord($text,$isjs=0){
 	$strWord = fileRead('system_anti_word.php');
     if($strWord==''){
         $strWord = $GLOBALS['tsMySqlCache']->get('system_anti_word');
@@ -2206,7 +2206,7 @@ function antiWord($text){
 		if(stristr($result, '***') === FALSE) {
 			return $result;
 		}else{
-			tsNotice('非法操作！');
+			getJson('非法操作！',$isjs,0);
 		}
 	}
 
@@ -2266,7 +2266,7 @@ function count_string_len($str) {
  * @return Ambigous <string, mixed>
  */
 function tsFilter($value) {
-	$value = trim((string) $value);
+	$value = tsTrim($value);
 	//定义不允许提交的SQl命令和关键字
 	$words = array();
 	$words[] = "add ";
@@ -2351,20 +2351,20 @@ function closetags($html) {
  */
 function tsUrlCheck($parameter) {
 	
-	$parameter = trim($parameter);
+	$parameter = tsTrim($parameter);
 	if($parameter){
         $arrStr = str_split($parameter);
-        $strOk = '%-_1234567890abcdefghijklmnopqrstuvwxyz';
+        $strOk = '%-_1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         foreach ($arrStr as $key => $item) {
             if (stripos($strOk, $item) === false) {
-                //qiMsg('非法URL参数！');
                 header ( "HTTP/1.1 404 Not Found" );
                 header ( "Status: 404 Not Found" );
-                #header('Location: /');
                 exit;
             }
         }
-        return strtolower($parameter);//转小写
+
+        //return strtolower($parameter);//转小写
+        return $parameter;
     }
 
 }
@@ -2378,7 +2378,7 @@ function ludou_width_height($content) {
 			preg_match_all('/(width)=("[^"]*")/i', $images[1][$index], $img);
 
 			if (!empty($img[2])) {
-				$width = trim($img[2][0], '"');
+				$width = tsTrim($img[2][0], '"');
 				if ($width > 630) {
 					$new_img = @preg_replace('/(width)=("[^"]*")/i', 'width="630"', $images[0][$index]);
 					$content = str_replace($images[0][$index], $new_img, $content);
@@ -2954,11 +2954,11 @@ function dengBi($width,$height,$maxX=1280,$maxY=1280){
  * 编辑器存在有html标签的空内容
  */
 function emptyText($text=''){
-    $text = trim($text);
+    $text = tsTrim($text);
     $text = str_replace('<p>','',$text);
     $text = str_replace('<br>','',$text);
     $text = str_replace('</p>','',$text);
-    $text = trim($text);
+    $text = tsTrim($text);
     return $text;
 }
 
@@ -3169,4 +3169,14 @@ function getPostPrice($province){
         $postprice = 0;
     }
     return $postprice;
+}
+
+/**
+ * 替代trim
+ *
+ * @param [type] $text
+ * @return void
+ */
+function tsTrim($text){
+	return trim((string) $text);
 }

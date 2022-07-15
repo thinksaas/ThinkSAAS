@@ -22,7 +22,7 @@ foreach($arrCate1 as $key=>$item){
 $cateid = tsIntval($_GET['cateid']);
 $locationid = tsIntval($_GET['locationid']);
 
-$kw = trim($_GET['kw']);
+$kw = tsTrim($_GET['kw']);
 
 $page = tsIntval($_GET['page'],1);
 $limit = isset($_GET['limit']) ? $_GET['limit'] : '10';

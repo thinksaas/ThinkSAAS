@@ -6,7 +6,7 @@ switch ($ts){
 	//添加标签
 	case "adddo":
 		
-		$tag = trim($_POST['tag']);
+		$tag = tsTrim($_POST['tag']);
 		if($tag==''){
 			qiMsg('标签不能为空');
 		}

@@ -14,7 +14,7 @@ switch($ts){
 		
 	case "worddo":
 
-		$word = trim($_POST['word']);
+		$word = tsTrim($_POST['word']);
 		
 		if($word){
 		
@@ -131,7 +131,7 @@ switch($ts){
 
 	case "wordadddo":
 
-		$word = trim($_POST['word']);
+		$word = tsTrim($_POST['word']);
         if($word==''){
             qiMsg('敏感词必须填写！');
         }
@@ -186,7 +186,7 @@ switch($ts){
 		
 	case "ipdo":
 	
-		$ip = trim($_POST['ip']);
+		$ip = tsTrim($_POST['ip']);
 		if($ip){
 		
 			$isIp = $new['system']->findCount('anti_ip',array(
@@ -285,7 +285,7 @@ switch($ts){
 	
 	case "email_add":
 
-		$email = trim($_POST['email']);
+		$email = tsTrim($_POST['email']);
 		if($email){
 			
 			$new['system']->replace('anti_email',array(
@@ -325,7 +325,7 @@ switch($ts){
 
 	case "phone_add":
 
-		$phone = trim($_POST['phone']);
+		$phone = tsTrim($_POST['phone']);
 		if($phone){
 			
 			$new['system']->replace('anti_phone',array(

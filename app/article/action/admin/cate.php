@@ -34,8 +34,8 @@ switch($ts){
 		
 		$new['article']->create('article_cate',array(
 		    'referid'=>tsIntval($_POST['referid']),
-			'catename'=>trim($_POST['catename']),
-			'cateinfo'=>trim($_POST['cateinfo']),
+			'catename'=>tsTrim($_POST['catename']),
+			'cateinfo'=>tsTrim($_POST['cateinfo']),
 			'orderid'=>tsIntval($_POST['orderid']),
 		
 		));
@@ -110,8 +110,8 @@ switch($ts){
 	//分类修改执行 
 	case "edit_do":
 		$cateid = tsIntval($_POST['cateid']);
-		$catename = trim($_POST['catename']);
-		$cateinfo = trim($_POST['cateinfo']);
+		$catename = tsTrim($_POST['catename']);
+		$cateinfo = tsTrim($_POST['cateinfo']);
 		
 		$new['article']->update('article_cate',array(
 			'cateid'=>$cateid,

@@ -35,7 +35,7 @@ switch($ts){
 		foreach($_POST['option'] as $key=>$item){
 			
 			$optionname = $key;
-			$optionvalue = trim($item);
+			$optionvalue = tsTrim($item);
 			
 			$new['system']->create('system_options',array(
 			

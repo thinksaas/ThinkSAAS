@@ -19,7 +19,7 @@ switch($ts){
 		
 	case "adddo":
 
-		$title = trim($_POST['title']);
+		$title = tsTrim($_POST['title']);
 		$content = tsClean($_POST['content']);
 
 		$orderid = tsIntval($_POST['orderid']);
@@ -56,7 +56,7 @@ switch($ts){
 	
 		$infoid = tsIntval($_POST['infoid']);
 
-		$title = trim($_POST['title']);
+		$title = tsTrim($_POST['title']);
 
 		$content = tsClean($_POST['content']);
 

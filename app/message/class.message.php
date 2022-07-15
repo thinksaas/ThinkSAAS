@@ -28,7 +28,7 @@ class message extends tsApp{
 	
 		$userid = tsIntval($userid);
 		$touserid = tsIntval($touserid);
-		$content = addslashes(trim($content));
+		$content = addslashes(tsTrim($content));
 		
 		if($touserid && $content){
 		

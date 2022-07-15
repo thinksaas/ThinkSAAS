@@ -6,7 +6,7 @@ switch ($ts){
     case "list":
 
         $userid = tsIntval($_GET['userid']);
-        $ptable = isset($_GET['ptable']) ? trim($_GET['ptable']) : '';
+        $ptable = isset($_GET['ptable']) ? tsTrim($_GET['ptable']) : '';
         $pid = tsIntval($_GET['pid']);
 
         $page = tsIntval($_GET['page'],1);

@@ -6,7 +6,7 @@ defined('IN_TS') or die('Access Denied.');
 switch($ts){
 	case "":
 	
-		$email = trim($_GET['mail']);
+		$email = tsTrim($_GET['mail']);
 		$resetpwd = tsUrlCheck($_GET['set']);
 
         if(valid_email($email)==false){
@@ -36,11 +36,11 @@ switch($ts){
 	
 		$js = tsIntval($_GET['js']);
 	
-		$email 	= trim($_POST['email']);
-		$pwd 	= trim($_POST['pwd']);
-		$repwd	= trim($_POST['repwd']);
+		$email 	= tsTrim($_POST['email']);
+		$pwd 	= tsTrim($_POST['pwd']);
+		$repwd	= tsTrim($_POST['repwd']);
 		
-		$resetpwd = trim($_POST['resetpwd']);
+		$resetpwd = tsTrim($_POST['resetpwd']);
 
 
 		

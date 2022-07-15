@@ -22,9 +22,9 @@ switch($ts){
 		$arrNewPage = $_POST['newpage'];
 
 		foreach($arrNavName as $key=>$item){
-			$navname = trim($item);
-			$navurl = trim($arrNavUrl[$key]);
-			$newpage = trim($arrNewPage[$key]);
+			$navname = tsTrim($item);
+			$navurl = tsTrim($arrNavUrl[$key]);
+			$newpage = tsTrim($arrNewPage[$key]);
 			if($navname && $navurl){
 				$arrNav[] = array(
 					'navname'	=> $navname,

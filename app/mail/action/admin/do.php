@@ -5,14 +5,14 @@ switch($ts){
 	//APP配置选项
 	case "options":
 		$arrData = array(
-			'appname' => trim($_POST['appname']),
-			'appdesc' => trim($_POST['appdesc']),
-			'isenable' => trim($_POST['isenable']),
-			'mailhost' => trim($_POST['mailhost']),
+			'appname' => tsTrim($_POST['appname']),
+			'appdesc' => tsTrim($_POST['appdesc']),
+			'isenable' => tsTrim($_POST['isenable']),
+			'mailhost' => tsTrim($_POST['mailhost']),
 			'ssl' => tsIntval($_POST['ssl']),
-			'mailport' => trim($_POST['mailport']),
-			'mailuser' => trim($_POST['mailuser']),
-			'mailpwd' => trim($_POST['mailpwd']),
+			'mailport' => tsTrim($_POST['mailport']),
+			'mailuser' => tsTrim($_POST['mailuser']),
+			'mailpwd' => tsTrim($_POST['mailpwd']),
 		);
 
 		//先清空数据 
@@ -49,11 +49,11 @@ switch($ts){
     case "sms":
 
         $arrData = array(
-            'sms_server' => trim($_POST['sms_server']),
-            'sms_appid' => trim($_POST['sms_appid']),
-            'sms_appkey' => trim($_POST['sms_appkey']),
-            'sms_tpid' => trim($_POST['sms_tpid']),
-            'sms_sign' => trim($_POST['sms_sign']),
+            'sms_server' => tsTrim($_POST['sms_server']),
+            'sms_appid' => tsTrim($_POST['sms_appid']),
+            'sms_appkey' => tsTrim($_POST['sms_appkey']),
+            'sms_tpid' => tsTrim($_POST['sms_tpid']),
+            'sms_sign' => tsTrim($_POST['sms_sign']),
         );
 
         //更新缓存

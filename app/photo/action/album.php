@@ -104,10 +104,10 @@ switch($ts){
 		
 		if($strAlbum['userid']==$userid || $TS_USER['isadmin']==1){
 		
-			$albumname = trim($_POST['albumname']);
+			$albumname = tsTrim($_POST['albumname']);
 			if($albumname == '') qiMsg("相册名称不能为空！");
 			
-			$albumdesc = trim($_POST['albumdesc']);
+			$albumdesc = tsTrim($_POST['albumdesc']);
 			
 			
 			if($TS_USER['isadmin']==0){
@@ -246,7 +246,7 @@ switch($ts){
                     'userid'=>$userid,
 				),array(
 				
-					'photodesc'=>trim($item),
+					'photodesc'=>tsTrim($item),
 				
 				));
 			

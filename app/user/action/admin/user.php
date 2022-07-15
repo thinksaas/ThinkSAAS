@@ -148,7 +148,7 @@ defined('IN_TS') or die('Access Denied.');
 			
 			$userid = tsIntval($_POST['userid']);
 			
-			$pwd = trim($_POST['pwd']);
+			$pwd = tsTrim($_POST['pwd']);
 			
 			if($pwd == '') qiMsg('密码不能为空！');
 			
@@ -364,9 +364,9 @@ defined('IN_TS') or die('Access Denied.');
 
 		case "adddo":
 
-			$email = trim($_POST['email']);
-			$username = trim($_POST['username']);
-			$pwd = trim($_POST['pwd']);
+			$email = tsTrim($_POST['email']);
+			$username = tsTrim($_POST['username']);
+			$pwd = tsTrim($_POST['pwd']);
 
 			if($email=='' || $username=='' || $pwd==''){
 				qiMsg('信息输入不完整');

@@ -19,8 +19,8 @@ switch($ts){
 		$arrTitle = $_POST['title'];
 		$arrUrl = $_POST['url'];
 		foreach($arrTitle as $key=>$item){
-			$title = trim($item);
-			$url = trim($arrUrl[$key]);
+			$title = tsTrim($item);
+			$url = tsTrim($arrUrl[$key]);
 			if($title && $url){
 				$arrData[] = array(
 					'title'	=> $title,

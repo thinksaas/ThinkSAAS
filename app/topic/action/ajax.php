@@ -90,7 +90,7 @@ switch($ts){
 
         $userid = aac('user')->isLogin();
         $topicid = tsIntval($_POST['topicid']);
-        $book = trim($_POST['book']);
+        $book = tsTrim($_POST['book']);
 
         //if($topicid==0 || $book==''){
         if($topicid==0){

@@ -25,8 +25,8 @@ switch($ts){
 		//用户是否登录
 		$userid = aac('user')->isLogin();
 		
-		$albumname = trim($_POST['albumname']);
-		$albumdesc = trim($_POST['albumdesc']);
+		$albumname = tsTrim($_POST['albumname']);
+		$albumdesc = tsTrim($_POST['albumdesc']);
 		
 		if($albumname == '') {
 			tsNotice("相册名称不能为空！");

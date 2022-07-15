@@ -21,7 +21,7 @@ switch($ts){
 			getJson('应用设置不允许会员发布唠叨！',$js);
 		}
 
-        $title = trim($_POST['title']);
+        $title = tsTrim($_POST['title']);
 
 
         //匿名用户

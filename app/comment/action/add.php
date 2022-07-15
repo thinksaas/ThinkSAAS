@@ -11,12 +11,12 @@ if ($TS_SITE ['isauthcode'] && $authcode) {
     }
 }
 
-$ptable = trim($_POST['ptable']);
+$ptable = tsTrim($_POST['ptable']);
 if(!preg_match("/^[a-z_]*$/i", $ptable)){
     getJson('非法操作！',$js);
 }
 
-$pkey = trim($_POST['pkey']);
+$pkey = tsTrim($_POST['pkey']);
 if(!preg_match("/^[a-z_]*$/i", $pkey)){
     getJson('非法操作！',$js);
 }

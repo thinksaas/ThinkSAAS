@@ -83,7 +83,7 @@ switch($ts){
 		
 		$strUser = $new['user']->getOneUser($userid);
 		
-		$email = trim($_POST['email']);
+		$email = tsTrim($_POST['email']);
 		
 		if($email=='') tsNotice('Email不能为空！');
 		

@@ -23,9 +23,9 @@ switch($ts){
 		
 		//后添加
 		foreach($arrRoleName as $key=>$item){
-			$rolename = trim($item);
-			$score_start = trim($arrScoreStart[$key]);
-			$score_end = trim($arrScoreEnd[$key]);
+			$rolename = tsTrim($item);
+			$score_start = tsTrim($arrScoreStart[$key]);
+			$score_end = tsTrim($arrScoreEnd[$key]);
 			
 			if($rolename){
 				$new['user']->create('user_role',array(

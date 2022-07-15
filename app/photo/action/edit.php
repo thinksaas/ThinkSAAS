@@ -35,8 +35,8 @@ switch($ts){
 	case "do":
 	
 		$photoid = tsIntval($_POST['photoid']);
-		$title = trim($_POST['title']);
-		$photodesc = trim($_POST['photodesc']);
+		$title = tsTrim($_POST['title']);
+		$photodesc = tsTrim($_POST['photodesc']);
 		
 		$new['photo']->update('photo',array(
 			'photoid'=>$photoid,

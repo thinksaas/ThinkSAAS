@@ -7,13 +7,13 @@ switch($ts){
 	case "options":
 	
 		$arrData = array(
-			'site_title' => trim($_POST['site_title']),
-			'site_subtitle' => trim($_POST['site_subtitle']),
-			'site_key' => trim($_POST['site_key']),
-			'site_desc' => trim($_POST['site_desc']),
-			'site_url' => trim($_POST['site_url']),
-			'site_email' => trim($_POST['site_email']),
-			'site_icp' => trim($_POST['site_icp']),
+			'site_title' => tsTrim($_POST['site_title']),
+			'site_subtitle' => tsTrim($_POST['site_subtitle']),
+			'site_key' => tsTrim($_POST['site_key']),
+			'site_desc' => tsTrim($_POST['site_desc']),
+			'site_url' => tsTrim($_POST['site_url']),
+			'site_email' => tsTrim($_POST['site_email']),
+			'site_icp' => tsTrim($_POST['site_icp']),
 			'isface'	=> tsIntval($_POST['isface']),
 			'isinvite'=> tsIntval($_POST['isinvite']),
 			'isgzip'	=> tsIntval($_POST['isgzip']),

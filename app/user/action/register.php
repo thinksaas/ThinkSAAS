@@ -51,20 +51,20 @@ switch($ts){
 		//用于JS提交验证
 		$js = tsIntval($_GET['js']);
 	
-		$email = trim($_POST['email']);
-		$pwd = trim($_POST['pwd']);
-		$repwd = trim($_POST['repwd']);
+		$email = tsTrim($_POST['email']);
+		$pwd = tsTrim($_POST['pwd']);
+		$repwd = tsTrim($_POST['repwd']);
 		$username = t($_POST['username']);
 		
 		$fuserid = tsIntval($_POST['fuserid']);
 		
-		$authcode = strtolower($_POST['authcode']);
+		$authcode = strtolower(tsTrim($_POST['authcode']));
 
 		
 
 		#人机验证
-		$vaptcha_token = trim($_POST['vaptcha_token']);
-		$vaptcha_server = trim($_POST['vaptcha_server']);
+		$vaptcha_token = tsTrim($_POST['vaptcha_token']);
+		$vaptcha_server = tsTrim($_POST['vaptcha_server']);
 		if ($TS_SITE['is_vaptcha']) {
 			$strVt = vaptcha($vaptcha_token,0,$vaptcha_server);
 			if($strVt['success']==0) {
@@ -100,7 +100,7 @@ switch($ts){
 		//是否开启邀请注册
 		if($TS_SITE['isinvite']=='1'){
 		
-			$invitecode = trim($_POST['invitecode']);
+			$invitecode = tsTrim($_POST['invitecode']);
 
 			if($invitecode == '') getJson('邀请码不能为空！',$js);
 
@@ -132,7 +132,7 @@ switch($ts){
 
 		#验证Email验证码
 		if($TS_SITE['isverify']){
-			$emailcode = trim($_POST['emailcode']);
+			$emailcode = tsTrim($_POST['emailcode']);
 			if(aac('pubs')->verifyEmailCode($email,$emailcode)==false){
 				getJson('Email验证码输入有误',$js);
 			}

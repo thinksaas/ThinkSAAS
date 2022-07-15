@@ -16,7 +16,7 @@ switch($ts){
 	
 		$apps = tsFilter($_GET['apps']);
 
-		$hook = trim((string) $_GET['hook']);
+		$hook = tsTrim($_GET['hook']);
 
 
 		$arrPlugins = tsScanDir('plugins/'.$apps);

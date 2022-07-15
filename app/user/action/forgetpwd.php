@@ -27,10 +27,10 @@ switch($ts){
 		$js = tsIntval($_GET['js']);
 
 
-        $email = trim($_POST['email']);
-        $pwd	= trim($_POST['pwd']);
+        $email = tsTrim($_POST['email']);
+        $pwd	= tsTrim($_POST['pwd']);
         $authcode = strtolower($_POST['authcode']);
-        $emailcode = trim($_POST['emailcode']);
+        $emailcode = tsTrim($_POST['emailcode']);
 
         if($email == '' || $pwd=='' || $authcode=='' || $emailcode==''){
             getJson('所有输入项都不能为空',$js);
@@ -98,7 +98,7 @@ switch($ts){
 		$js = tsIntval($_GET['js']);
 
 	
-		$email	= trim($_POST['email']);
+		$email	= tsTrim($_POST['email']);
 
         if(valid_email($email)==false){
             getJson('Email输入不正确',$js);

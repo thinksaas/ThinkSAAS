@@ -26,9 +26,9 @@ switch($ts){
 	
 
 		$typeid = intval($_POST['typeid']);
-		$title = trim($_POST['title']);
-		$info = trim($_POST['info']);
-		$url = trim($_POST['url']);
+		$title = tsTrim($_POST['title']);
+		$info = tsTrim($_POST['info']);
+		$url = tsTrim($_POST['url']);
 		
 		$slideid = $new[$app]->create('slide',array(
             'typeid'=>$typeid,
@@ -71,9 +71,9 @@ switch($ts){
 		
 		$slideid = intval($_POST['slideid']);
 		$typeid = intval($_POST['typeid']);
-		$title = trim($_POST['title']);
-		$info = trim($_POST['info']);
-		$url = trim($_POST['url']);
+		$title = tsTrim($_POST['title']);
+		$info = tsTrim($_POST['info']);
+		$url = tsTrim($_POST['url']);
 		
 		$new[$app]->update('slide',array(
 			'slideid'=>$slideid,

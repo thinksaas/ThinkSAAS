@@ -5,13 +5,13 @@ defined('IN_TS') or die('Access Denied.');
  * 发送Email验证码
  */
 
-$email = trim($_POST['email']);
+$email = tsTrim($_POST['email']);
 
 $typeid = tsIntval($_POST['typeid']); //判断Email是否存在：0不判断、1判断存在、2判断不存在
 
 #人机验证
-$vaptcha_token = trim($_POST ['vaptcha_token']);
-$vaptcha_server = trim($_POST['vaptcha_server']);
+$vaptcha_token = tsTrim($_POST ['vaptcha_token']);
+$vaptcha_server = tsTrim($_POST['vaptcha_server']);
 if ($TS_SITE['is_vaptcha']) {
     $strVt = vaptcha($vaptcha_token,0,$vaptcha_server);
     if($strVt['success']==0) {

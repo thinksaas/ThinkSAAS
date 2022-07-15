@@ -125,7 +125,7 @@ class system extends tsApp{
 		foreach($option as $key=>$item){
 			
 			$optionname = $key;
-			$optionvalue = trim($item);
+			$optionvalue = tsTrim($item);
 			
 			$this->create($app.'_options',array(
 			
