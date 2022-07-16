@@ -100,9 +100,11 @@ switch($ts){
 		
 	case "face":
 
+
+		$_SESSION['tsuser']['face'] = $strUser['face'];
+
+
 		$title = '头像设置';
-		
-		$arrFace = tsScanDir('uploadfile/user/face',1);
 		
 		include template("setting_face");
 
@@ -122,6 +124,7 @@ switch($ts){
 				),array(
 					'path'=>$arrUpload['path'],
 					'face'=>$arrUpload['url'],
+					'uptime'=>time(),
 				));
 				
 
@@ -138,11 +141,6 @@ switch($ts){
 						tsNotice('上传头像失败，你可以使用系统默认头像！');	
 					}
 				}
-				
-
-				//更新缓存头像
-				$_SESSION['tsuser']['face'] = $arrUpload['url'];
-				$_SESSION['tsuser']['path'] = $arrUpload['path'];
 				
 				tsDimg($arrUpload['url'],'user','120','120',$arrUpload['path']);
 

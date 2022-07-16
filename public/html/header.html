@@ -94,7 +94,7 @@
 
             <a style="color:#fff" href="#" class="ts-user-nav-dropdown">
                 {$GLOBALS['TS_USER']['username']}
-                <img width="24" class="rounded-circle" alt="{$GLOBALS['TS_USER']['username']}" src="{if $GLOBALS['TS_USER']['face']==""}{SITE_URL}public/images/user_large.jpg{else}{php echo tsXimg($GLOBALS['TS_USER']['face'],'user','120','120',$GLOBALS['TS_USER']['path'],'1')}{/if}">
+                <img width="24" class="rounded-circle" alt="{$GLOBALS['TS_USER']['username']}" src="{$GLOBALS['TS_USER']['face']}">
             </a>
 
             <div class="ts-dropdown dropdown-list pull-right">

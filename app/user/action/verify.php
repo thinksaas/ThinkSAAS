@@ -125,6 +125,8 @@ switch($ts){
 		$userid = aac('user')->isLogin();
 
 		$strUser = $new['user']->getOneUser($userid);
+
+		$_SESSION['tsuser']['face'] = $strUser['face'];
 		
 		$title = '上传头像';
 		include template('verify_face');
@@ -146,6 +148,7 @@ switch($ts){
 				),array(
 					'path'=>$arrUpload['path'],
 					'face'=>$arrUpload['url'],
+					'uptime'=>time(),
 				));
 
 				#本地图片验证
@@ -170,10 +173,6 @@ switch($ts){
 				        tsNotice('请选择1M以内的头像图片');
                     }
 				}
-
-				//更新缓存头像
-				$_SESSION['tsuser']['face'] = $arrUpload['url'];
-				$_SESSION['tsuser']['path'] = $arrUpload['path'];
 				
 				tsDimg($arrUpload['url'],'user','120','120',$arrUpload['path']);
 			

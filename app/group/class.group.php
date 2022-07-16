@@ -40,7 +40,14 @@ class group extends tsApp{
      */
     function getGroupPhoto($strGroup){
         if($strGroup['photo']){
-            $strFace = tsXimg($strGroup['photo'],'group',200,200,$strGroup['path'],1).'?v='.$strGroup['uptime'];
+            $strFace = tsXimg($strGroup['photo'],'group',200,200,$strGroup['path'],1);
+
+            if($GLOBALS['TS_SITE']['file_upload_type']==1){
+                $strFace .= '&v='.$strGroup['uptime'];
+            }else{
+                $strFace .= '?v='.$strGroup['uptime'];
+            }
+
         }else{
             $strFace = SITE_URL.'public/images/group.jpg';
         }

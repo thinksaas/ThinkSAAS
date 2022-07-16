@@ -23,7 +23,14 @@ class article extends tsApp {
      */
     public function getArticlePhoto($strArticle){
         if($strArticle['photo']){
-            $strFace = tsXimg($strArticle['photo'],'article',320,180,$strArticle['path'],1).'?v='.$strArticle['uptime'];
+            $strFace = tsXimg($strArticle['photo'],'article',320,180,$strArticle['path'],1);
+            
+            if($GLOBALS['TS_SITE']['file_upload_type']==1){
+                $strFace .= '&v='.$strArticle['uptime'];
+            }else{
+                $strFace .= '?v='.$strArticle['uptime'];
+            }
+
         }else{
             $strFace = SITE_URL.'public/images/group.jpg';
         }

@@ -49,8 +49,7 @@ class user extends tsApp {
             'ugid' => $strUserInfo['ugid'],
             'username' => $strUserInfo['username'],
             'email' => $strUserInfo['email'],
-            'path' => $strUserInfo['path'],
-            'face' => $strUserInfo['face'],
+            'face'=>$this->getUserFace($strUserInfo),
             'isadmin' => $strUserInfo['isadmin'],
             'signin' =>$strUserInfo['signin'],
             'isverify'=>$strUserInfo['isverify'],
@@ -219,6 +218,13 @@ class user extends tsApp {
 	function getUserFace($strUser){
         if($strUser['face']){
             $strFace = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1).'?v='.$strUser['uptime'];
+
+            if($GLOBALS['TS_SITE']['file_upload_type']==1){
+                $strFace .= '&v='.$strUser['uptime'];
+            }else{
+                $strFace .= '?v='.$strUser['uptime'];
+            }
+
         }else{
             $strFace = SITE_URL.'public/images/user_large.jpg';
         }
