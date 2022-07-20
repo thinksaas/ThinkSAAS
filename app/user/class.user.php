@@ -217,7 +217,7 @@ class user extends tsApp {
      */
 	function getUserFace($strUser){
         if($strUser['face']){
-            $strFace = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1).'?v='.$strUser['uptime'];
+            $strFace = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1);
 
             if($GLOBALS['TS_SITE']['file_upload_type']==1){
                 $strFace .= '&v='.$strUser['uptime'];

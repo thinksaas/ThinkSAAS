@@ -95,7 +95,7 @@ class weibo extends tsApp{
 		));
 		
 		#删除评论ts_comment
-		aac('pubs')->delComment('weibo','weiboid',$weiboid);
+		aac('comment')->delComment('weibo','weiboid',$weiboid);
 	
 		#删除点赞ts_love
 		aac('pubs')->delLove('weibo','weiboid',$weiboid);

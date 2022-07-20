@@ -54,7 +54,7 @@ class topic extends tsApp {
         
 
         #删除评论ts_comment
-        aac('pubs')->delComment('topic','topicid',$strTopic['topicid']);
+        aac('comment')->delComment('topic','topicid',$strTopic['topicid']);
 
         #删除点赞ts_love
         aac('pubs')->delLove('topic','topicid',$strTopic['topicid']);

@@ -78,7 +78,7 @@ class article extends tsApp {
 		));
 
         #删除评论ts_comment
-        aac('pubs')->delComment('article','articleid',$strArticle['articleid']);
+        aac('comment')->delComment('article','articleid',$strArticle['articleid']);
 
         #删除点赞ts_love
         aac('pubs')->delLove('article','articleid',$strArticle['articleid']);
