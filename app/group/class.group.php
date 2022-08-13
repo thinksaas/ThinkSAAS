@@ -28,6 +28,7 @@ class group extends tsApp{
             $strGroup['groupname'] = tsTitle($strGroup['groupname']);
             $strGroup['groupdesc'] = tsTitle($strGroup['groupdesc']);
             $strGroup['photo'] = $this->getGroupPhoto($strGroup);
+            $strGroup['bgphoto'] = $this->getGroupBgPhoto($strGroup);
         }
         return $strGroup;
     }
@@ -52,6 +53,27 @@ class group extends tsApp{
             $strFace = SITE_URL.'public/images/group.jpg';
         }
         return $strFace;
+    }
+
+    /**
+     * 小组背景图
+     *
+     * @param [type] $strGroup
+     * @return void
+     */
+    function getGroupBgPhoto($strGroup){
+        if($strGroup['bgphoto']){
+
+            if($GLOBALS['TS_SITE']['file_upload_type']==1){
+                $strPhoto = $GLOBALS['TS_SITE']['alioss_bucket_url'].'/uploadfile/group/bgphoto/'.$strGroup['bgphoto'].'?v='.$strGroup['uptime'];
+            }else{
+                $strPhoto = SITE_URL.'uploadfile/group/bgphoto/'.$strGroup['bgphoto'].'?v='.$strGroup['uptime'];
+            }
+
+        }else{
+            $strPhoto = SITE_URL.'app/group/skin/group.jpg';
+        }
+        return $strPhoto;
     }
 
     /**

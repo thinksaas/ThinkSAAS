@@ -18,6 +18,7 @@ if($strGroup['userid']!=$userid && $TS_USER['isadmin']==0){
 $strGroup['groupname'] = tsDecode($strGroup['groupname']);
 $strGroup['groupdesc'] = tsDecode($strGroup['groupdesc']);
 $strGroup['photo'] = $new['group']->getGroupPhoto($strGroup);
+$strGroup['bgphoto'] = $new['group']->getGroupBgPhoto($strGroup);
 
 
 
