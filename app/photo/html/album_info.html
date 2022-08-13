@@ -38,7 +38,7 @@
 
 
 
-                                    <input type="radio" {if $strAlbum['albumface']==$item['photourl']}checked="checked"{/if} value="{$item['photoid']}" name="albumface"><label>设置为封面</label>
+                                    <input type="radio" {if $strAlbum['albumface']==$item['photourl']}checked="checked"{/if} value="{$item['photoid']}" name="albumface" {if $key==0}checked{/if}><label>设置为封面</label>
 
 
                                 </div>
