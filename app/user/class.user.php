@@ -175,8 +175,23 @@ class user extends tsApp {
                 'userid'=>$userid,
             ),'userid,ugid,username,email,path,face,isadmin,signin,isverify,isverifyphone,uptime');
 
+
             //用户session信息
-            $_SESSION['tsuser']	= $userData;
+            $sessionData = array(
+                'userid' => $userData['userid'],
+                'ugid' => $userData['ugid'],
+                'username' => $userData['username'],
+                'email' => $userData['email'],
+                'face'=>$this->getUserFace($userData),
+                'isadmin' => $userData['isadmin'],
+                'signin' =>$userData['signin'],
+                'isverify'=>$userData['isverify'],
+                'isverifyphone'=>$userData['isverifyphone'],
+                'uptime' => $userData['uptime'],
+            );
+
+            //用户session信息
+            $_SESSION['tsuser']	= $sessionData;
         }
 		
 		
