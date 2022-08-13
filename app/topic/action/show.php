@@ -33,7 +33,7 @@ if($strTopic['isaudit']==1 && $GLOBALS['TS_USER']['isadmin']==0){
 if($strTopic['groupid']){
     $strGroup = aac('group')->getOneGroup($strTopic['groupid']);
     // 判断会员是否加入该小组
-    $strGroupUser = '';
+    $strGroupUser = array();
     if(tsIntval($TS_USER['userid'])){
         $strGroupUser = $new['topic']->find('group_user',array(
             'userid'=>tsIntval($TS_USER['userid']),
