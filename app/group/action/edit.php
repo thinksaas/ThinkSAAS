@@ -103,7 +103,7 @@ switch($ts){
 
     case "icondo":
 
-        //上传
+        //上传图标
         $arrUpload = tsUpload($_FILES['photo'],$groupid,'group',array('jpg','gif','png','jpeg'));
 
         if($arrUpload){
@@ -119,11 +119,27 @@ switch($ts){
             tsDimg($arrUpload['url'],'group','200','200',$arrUpload['path']);
             tsXimg($arrUpload['url'],'group','200','200',$arrUpload['path'],1);
 
-            tsNotice("小组图标修改成功！");
 
-        }else{
-            tsNotice("上传出问题啦！");
         }
+
+
+        //上传背景
+        $arrBgUpload = tsUpload($_FILES['bgphoto'],$groupid,'group/bgphoto',array('jpg','gif','png','jpeg'));
+
+        if($arrBgUpload){
+
+            $new['group']->update('group',array(
+                'groupid'=>$groupid,
+            ),array(
+                'path'=>$arrBgUpload['path'],
+                'bgphoto'=>$arrBgUpload['url'],
+                'uptime'=>time(),
+            ));
+
+        }
+
+
+        tsNotice('修改成功！');
 
         break;
 

@@ -20,7 +20,7 @@
 
 
 
-        <div class="group_show">
+        <div class="group_show" style="background: url('{$strGroup['bgphoto']}');">
 
 
 
@@ -140,7 +140,7 @@
             <div class="mb-3">
                 <a class="btn btn-sm {if $typeid==0}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">全部</a>
                 {loop $arrTopicType $key $item}
-                <a class="btn btn-sm {if $typeid==$item['typeid']}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','show',array('id'=>$strGroup['groupid'],typeid=>$item['typeid']))}">{$item['typename']}</a>
+                <a class="btn btn-sm {if $typeid==$item['typeid']}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','show',array('id'=>$strGroup['groupid'],'typeid'=>$item['typeid']))}">{$item['typename']}</a>
                 {/loop}
             </div>
 

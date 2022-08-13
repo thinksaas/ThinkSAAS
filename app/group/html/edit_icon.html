@@ -24,26 +24,45 @@
 <form method="POST" action="{SITE_URL}index.php?app=group&ac=edit&ts=icondo&groupid={$groupid}" enctype="multipart/form-data" >
 
 
+  
   <div class="form-group">
-    <label class="col-sm-2 control-label">小组图标：</label>
-    <div class="col-sm-10">
+    <label>小组图标：</label>
+    <div>
      <img class="rounded" src="{$strGroup['photo']}" width="100">
     </div>
   </div>
   
   <div class="form-group">
-    <label class="col-sm-2 control-label pd10">选择图片：</label>
-    <div class="col-sm-10">
+    <label>选择图片：</label>
+    <div>
      <input type="file" name="photo">
     </div>
   </div>
+
+
+
+  <hr>
+
+  <div class="form-group">
+    <label>背景图片：</label>
+    <div>
+     <img class="rounded" src="{$strGroup['bgphoto']}" width="200">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label>选择背景图片：</label>
+    <div>
+     <input type="file" name="bgphoto">
+    </div>
+  </div>
+
+  <hr />
   
  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10 pd10">
-
-        <hr />
+    <div >
 	<input type="hidden" name="groupid" value="{$strGroup[groupid]}" />
-      <button type="submit" class="btn btn-sm btn-info">上传照片</button>
+      <button type="submit" class="btn btn-sm btn-info">点击修改</button>
         <a class="btn btn-sm text-black-50" href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">返回小组</a>
     </div>
   </div>

@@ -437,7 +437,7 @@ class user extends tsApp {
 				'userid'=>$userid,
 			));
 
-			if($strUser['count_score']>$score){
+			if($strUser['count_score']>=$score){
 
                 //添加积分记录
                 $this->create('user_score_log',array(
