@@ -109,7 +109,7 @@ switch($ts){
 				'isused'=>0,
 			));
 			
-			if($codeNum == 0) getJson('邀请码已经被使用，请更换其他邀请码！',$js);
+			if($codeNum == 0) getJson('邀请码已经被使用/或者不存在，请更换其他邀请码！',$js);
 		
 		}
 		
@@ -156,7 +156,7 @@ switch($ts){
 		}
 
 		#用户名敏感词
-        $username = antiWord ($username);
+        $username = antiWord ($username,1);
 		$username = str_replace('.','',$username);
 
 		#判断用户名是否存在
