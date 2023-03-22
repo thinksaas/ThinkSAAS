@@ -174,8 +174,7 @@ DELETE FROM `ts_article_user`;
 /*!40000 ALTER TABLE `ts_article_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ts_article_user` ENABLE KEYS */;
 
-
--- 导出  表 d_thinksaas.ts_cache 结构
+-- 导出  表 thinksaas.ts_cache 结构
 DROP TABLE IF EXISTS `ts_cache`;
 CREATE TABLE IF NOT EXISTS `ts_cache` (
   `cacheid` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增缓存ID',
@@ -183,15 +182,15 @@ CREATE TABLE IF NOT EXISTS `ts_cache` (
   `cachevalue` text NOT NULL COMMENT '缓存内容',
   PRIMARY KEY (`cacheid`),
   UNIQUE KEY `cachename` (`cachename`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COMMENT='缓存';
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='缓存';
 
--- 正在导出表  d_thinksaas.ts_cache 的数据：29 rows
+-- 正在导出表  thinksaas.ts_cache 的数据：29 rows
 DELETE FROM `ts_cache`;
 /*!40000 ALTER TABLE `ts_cache` DISABLE KEYS */;
 INSERT INTO `ts_cache` (`cacheid`, `cachename`, `cachevalue`) VALUES
 	(1, 'pubs_plugins', '1613877203a:18:{i:9;s:10:"floatlayer";i:19;s:8:"customer";i:20;s:7:"counter";i:21;s:6:"douban";i:22;s:8:"feedback";i:24;s:7:"gonggao";i:25;s:5:"gotop";i:26;s:4:"navs";i:27;s:2:"qq";i:29;s:5:"weibo";i:30;s:6:"wordad";i:31;s:9:"footertip";i:32;s:8:"leftuser";i:33;s:7:"ueditor";i:35;s:10:"wangeditor";i:36;s:10:"summernote";i:37;s:7:"morenav";i:38;s:5:"gobad";}'),
 	(2, 'home_plugins', '1587443014a:14:{i:11;s:9:"newtopics";i:12;s:5:"slide";i:13;s:8:"signuser";i:14;s:14:"recommendgroup";i:15;s:3:"tag";i:17;s:5:"login";i:18;s:5:"weibo";i:19;s:8:"newgroup";i:20;s:7:"article";i:22;s:5:"photo";i:23;s:5:"links";i:24;s:16:"recommendarticle";i:25;s:14:"recommendtopic";i:26;s:5:"topic";}'),
-	(3, 'system_options', '1660374835a:49:{s:10:"site_title";s:9:"ThinkSAAS";s:13:"site_subtitle";s:24:"又一个ThinkSAAS社区";s:8:"site_key";s:9:"thinksaas";s:9:"site_desc";s:9:"thinksaas";s:8:"site_url";s:20:"http://d.qiniao.com/";s:8:"link_url";s:20:"http://d.qiniao.com/";s:9:"site_pkey";s:32:"8a9da346eaff2256cbc970484fdf3ca6";s:10:"site_email";s:15:"admin@admin.com";s:8:"site_icp";s:20:"豫ICP备00000000号";s:6:"isface";s:1:"0";s:8:"isinvite";s:1:"0";s:7:"regtype";s:1:"0";s:8:"isplogin";s:1:"0";s:8:"isverify";s:1:"0";s:13:"isverifyphone";s:1:"0";s:6:"istomy";s:1:"0";s:10:"isauthcode";s:1:"0";s:7:"istoken";s:1:"0";s:9:"is_weixin";s:1:"0";s:12:"weixin_appid";s:0:"";s:16:"weixin_appsecret";s:0:"";s:10:"is_vaptcha";s:1:"0";s:11:"vaptcha_vid";s:0:"";s:11:"vaptcha_key";s:0:"";s:8:"timezone";s:14:"Asia/Hong_Kong";s:7:"visitor";s:1:"0";s:9:"publisher";s:1:"0";s:8:"isniming";s:1:"0";s:7:"pubtime";s:0:"";s:9:"timeblank";s:1:"0";s:11:"isallowedit";s:1:"0";s:13:"isallowdelete";s:1:"0";s:14:"anti_word_type";s:1:"0";s:10:"site_theme";s:6:"sample";s:12:"site_urltype";s:1:"1";s:16:"file_upload_type";s:1:"0";s:19:"alioss_accesskey_id";s:0:"";s:23:"alioss_accesskey_secret";s:0:"";s:13:"alioss_bucket";s:0:"";s:15:"alioss_endpoint";s:0:"";s:17:"alioss_bucket_url";s:0:"";s:10:"photo_size";s:2:"10";s:10:"photo_type";s:16:"jpg,gif,png,jpeg";s:11:"photo_check";s:1:"0";s:12:"photo_driver";s:2:"gd";s:11:"attach_size";s:2:"10";s:11:"attach_type";s:19:"zip,rar,doc,txt,ppt";s:11:"dayscoretop";s:2:"10";s:4:"logo";s:8:"logo.png";}'),
+	(3, 'system_options', '1679448064a:49:{s:10:"site_title";s:9:"ThinkSAAS";s:13:"site_subtitle";s:24:"又一个ThinkSAAS社区";s:8:"site_key";s:9:"thinksaas";s:9:"site_desc";s:9:"thinksaas";s:8:"site_url";s:27:"http://localhost/thinksaas/";s:8:"link_url";s:27:"http://localhost/thinksaas/";s:9:"site_pkey";s:32:"0c527c6d73fee5d9bf36ab0b2b4ae53f";s:10:"site_email";s:15:"admin@admin.com";s:8:"site_icp";s:20:"豫ICP备00000000号";s:6:"isface";s:1:"0";s:8:"isinvite";s:1:"0";s:7:"regtype";s:1:"0";s:8:"isplogin";s:1:"0";s:8:"isverify";s:1:"0";s:13:"isverifyphone";s:1:"0";s:6:"istomy";s:1:"0";s:10:"isauthcode";s:1:"0";s:7:"istoken";s:1:"0";s:9:"is_weixin";s:1:"0";s:12:"weixin_appid";s:0:"";s:16:"weixin_appsecret";s:0:"";s:10:"is_vaptcha";s:1:"0";s:11:"vaptcha_vid";s:0:"";s:11:"vaptcha_key";s:0:"";s:8:"timezone";s:14:"Asia/Hong_Kong";s:7:"visitor";s:1:"0";s:9:"publisher";s:1:"0";s:8:"isniming";s:1:"0";s:7:"pubtime";s:0:"";s:9:"timeblank";s:1:"0";s:11:"isallowedit";s:1:"0";s:13:"isallowdelete";s:1:"0";s:14:"anti_word_type";s:1:"0";s:10:"site_theme";s:6:"sample";s:12:"site_urltype";s:1:"1";s:16:"file_upload_type";s:1:"0";s:19:"alioss_accesskey_id";s:0:"";s:23:"alioss_accesskey_secret";s:0:"";s:13:"alioss_bucket";s:0:"";s:15:"alioss_endpoint";s:0:"";s:17:"alioss_bucket_url";s:0:"";s:10:"photo_size";s:2:"10";s:10:"photo_type";s:16:"jpg,gif,png,jpeg";s:11:"photo_check";s:1:"0";s:12:"photo_driver";s:2:"gd";s:11:"attach_size";s:2:"10";s:11:"attach_type";s:19:"zip,rar,doc,txt,ppt";s:11:"dayscoretop";s:2:"10";s:4:"logo";s:8:"logo.png";}'),
 	(4, 'system_appnav', '1660378868a:9:{s:4:"home";s:6:"首页";s:5:"group";s:6:"小组";s:5:"topic";s:6:"话题";s:7:"article";s:6:"文章";s:5:"photo";s:6:"相册";s:4:"user";s:6:"用户";s:5:"weibo";s:6:"唠叨";s:6:"search";s:6:"搜索";s:2:"my";s:12:"我的社区";}'),
 	(5, 'system_anti_word', '1614133155s:6:"迷药";'),
 	(6, 'user_options', '1645847032a:6:{s:7:"appname";s:6:"用户";s:7:"appdesc";s:12:"用户中心";s:6:"appkey";s:6:"用户";s:8:"isenable";s:1:"0";s:7:"isgroup";s:0:"";s:7:"banuser";s:25:"官方用户|官方团队";}'),
@@ -205,8 +204,8 @@ INSERT INTO `ts_cache` (`cacheid`, `cachename`, `cachevalue`) VALUES
 	(14, 'plugins_pubs_gobad', '1597542108a:10:{s:10:"pub_header";s:0:"";i:300;s:20:"宽度300px广告位";i:468;s:20:"宽度468px广告位";i:640;s:0:"";i:960;s:21:"通栏1110px广告位";s:15:"topic_right_top";s:0:"";s:11:"home_left_1";s:0:"";s:11:"content_top";s:0:"";s:11:"home_left_2";s:0:"";s:10:"pub_footer";s:0:"";}'),
 	(15, 'plugins_pubs_feedback', '1406109222s:52:"<a href=\\"https://www.thinksaas.cn\\">意见反馈</a>";'),
 	(16, 'plugins_pubs_counter', '1585042191s:19:"<!--统计代码-->";'),
-	(18, 'plugins_home_links', '1630058952a:3:{i:0;a:2:{s:8:"linkname";s:9:"ThinkSAAS";s:7:"linkurl";s:25:"https://www.thinksaas.cn/";}i:1;a:2:{s:8:"linkname";s:12:"开源社区";s:7:"linkurl";s:25:"https://www.thinksaas.cn/";}i:2;a:2:{s:8:"linkname";s:12:"云服务器";s:7:"linkurl";s:25:"https://www.huocloud.com/";}}'),
-	(17, 'plugins_pubs_navs', '1532088590a:2:{i:0;a:2:{s:7:"navname";s:15:"ThinkSAAS官网";s:6:"navurl";s:25:"https://www.thinksaas.cn/";}i:1;a:2:{s:7:"navname";s:21:"付费商业版授权";s:6:"navurl";s:38:"https://www.thinksaas.cn/service/down/";}}'),
+	(18, 'plugins_home_links', '1679448128a:2:{i:0;a:2:{s:8:"linkname";s:9:"ThinkSAAS";s:7:"linkurl";s:25:"https://www.thinksaas.cn/";}i:1;a:2:{s:8:"linkname";s:12:"开源社区";s:7:"linkurl";s:25:"https://www.thinksaas.cn/";}}'),
+	(17, 'plugins_pubs_navs', '1679448108a:1:{i:0;a:3:{s:7:"navname";s:15:"ThinkSAAS官网";s:6:"navurl";s:25:"https://www.thinksaas.cn/";s:7:"newpage";s:1:"1";}}'),
 	(24, 'system_mynav', '1660378868a:6:{s:5:"group";s:6:"小组";s:5:"topic";s:6:"话题";s:7:"article";s:6:"文章";s:5:"photo";s:6:"相册";s:5:"weibo";s:6:"唠叨";s:7:"comment";s:6:"评论";}'),
 	(25, 'pubs_options', '1645846991a:3:{s:20:"phone_code_send_time";s:1:"1";s:20:"email_code_send_time";s:1:"1";s:15:"comment_isaudit";s:1:"0";}'),
 	(26, 'search_options', '1645846998a:8:{s:7:"appname";s:6:"搜索";s:7:"appdesc";s:6:"搜索";s:6:"appkey";s:6:"搜索";s:2:"ds";s:5:"topic";s:5:"group";s:1:"1";s:5:"topic";s:1:"1";s:4:"user";s:1:"1";s:7:"article";s:1:"1";}'),
