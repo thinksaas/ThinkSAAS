@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `ts_cache` (
   `cachevalue` text NOT NULL COMMENT '缓存内容',
   PRIMARY KEY (`cacheid`),
   UNIQUE KEY `cachename` (`cachename`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='缓存';
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COMMENT='缓存';
 
 -- 正在导出表  thinksaas.ts_cache 的数据：29 rows
 DELETE FROM `ts_cache`;
