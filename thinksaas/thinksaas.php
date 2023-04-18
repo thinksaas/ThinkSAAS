@@ -286,7 +286,7 @@ if($app=='api' || $ac=='api'){
 
     //判断用户是否上传头像,管理员除外
     if ($TS_SITE['isface'] == 1 && tsIntval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin' && $TS_URL['app'] != 'pubs') {
-        if ($TS_USER['face'] == '' && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
+        if ($TS_USER['face'] == SITE_URL.'public/images/user_large.jpg' && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
             tsHeaderUrl(tsUrl('user', 'verify', array('ts' => 'face')));
         }
     }

@@ -118,7 +118,7 @@ vaptcha({
 
         serverToken = vaptchaObj.getServerToken()
 
-        sendPhoneCode(2,serverToken.token,serverToken.server)
+        sendEmailCode(2,serverToken.token,serverToken.server)
 
         vaptchaObj.reset(); //重置验证码
         

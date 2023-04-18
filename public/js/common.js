@@ -233,14 +233,20 @@ function sendPhoneCode(typeid,vaptcha_token,vaptcha_server){
 }
 
 //发送Email验证码
-function sendEmailCode(typeid,vaptcha_token){
+function sendEmailCode(typeid,vaptcha_token,vaptcha_server){
     var email = $("#myemail").val();
     var authcode = $("#authcode").val();
     if(email==''){
         tsNotice('Email不能为空！');
         return false;
     }
-    $.post(siteUrl+'index.php?app=pubs&ac=email',{'email':email,'authcode':authcode,'typeid':typeid,'vaptcha_token':vaptcha_token},function(rs){
+    $.post(siteUrl+'index.php?app=pubs&ac=email',{
+        'email':email,
+        'authcode':authcode,
+        'typeid':typeid,
+        'vaptcha_token':vaptcha_token,
+        'vaptcha_server':vaptcha_server
+    },function(rs){
         if (rs.status == 0) {
 			tsNotice(rs.msg);
         } else if(rs.status==1) {
