@@ -14,6 +14,32 @@ class user extends tsApp {
 		
 		parent::__construct($db);
     }
+
+    /**
+     * 用户session信息【修改此处返回session参数，也请修改thinksaas/thinksaas.php文件中自动登录的返回参数，保持同步】
+     * 
+     * @param [type] $userid
+     */
+    public function sessionData($userid){
+        $strUserInfo = $this->find('user_info',array(
+            'userid'=>$userid,
+        ),'userid,ugid,username,email,path,face,isadmin,signin,isverify,isverifyphone,uptime');
+
+        return array(
+            'userid' => $strUserInfo['userid'],
+            'ugid' => $strUserInfo['ugid'],
+            'username' => $strUserInfo['username'],
+            'email' => $strUserInfo['email'],
+            'face'=>$this->getUserFace($strUserInfo),
+            'isadmin' => $strUserInfo['isadmin'],
+            'signin' =>$strUserInfo['signin'],
+            'isverify'=>$strUserInfo['isverify'],
+            'isverifyphone'=>$strUserInfo['isverifyphone'],
+            'uptime' => $strUserInfo['uptime'],
+        );
+
+    }
+
     
     /**
      * 用户登录
@@ -23,13 +49,9 @@ class user extends tsApp {
      * @return void
      */
     public function login($userid,$phone=''){
-        
-        $strUserInfo = $this->find('user_info',array(
-            'userid'=>$userid,
-        ),'userid,ugid,username,email,path,face,isadmin,signin,isverify,isverifyphone,uptime');
 
         $this->update('user_info',array(
-            'userid'=>$strUserInfo['userid'],
+            'userid'=>$userid,
         ),array(
             'uptime'=>time(),
         ));
@@ -44,25 +66,14 @@ class user extends tsApp {
         }
         
         //用户session信息
-        $sessionData = array(
-            'userid' => $strUserInfo['userid'],
-            'ugid' => $strUserInfo['ugid'],
-            'username' => $strUserInfo['username'],
-            'email' => $strUserInfo['email'],
-            'face'=>$this->getUserFace($strUserInfo),
-            'isadmin' => $strUserInfo['isadmin'],
-            'signin' =>$strUserInfo['signin'],
-            'isverify'=>$strUserInfo['isverify'],
-            'isverifyphone'=>$strUserInfo['isverifyphone'],
-            'uptime' => $strUserInfo['uptime'],
-        );
+        $sessionData = $this->sessionData($userid);
 
         $_SESSION['tsuser']	= $sessionData;
         
         //更新登录时间，用作自动登录
         $autologin = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->update('user_info',array(
-            'userid'=>$strUserInfo['userid'],
+            'userid'=>$userid,
         ),array(
             'ip'=>getIp(),  //更新登录ip
             'autologin'=>$autologin,
@@ -70,7 +81,7 @@ class user extends tsApp {
         ));
         
         //记住登录Cookie，根据用户Email和最后登录时间
-        setcookie("ts_email", $strUserInfo['email'], time()+2592000,'/');
+        setcookie("ts_email", $sessionData['email'], time()+2592000,'/');
         setcookie("ts_autologin", $autologin, time()+2592000,'/');
         
     }
@@ -170,25 +181,9 @@ class user extends tsApp {
 		
 
         if($islogin==0){
-            //用户信息
-            $userData = $this->find('user_info',array(
-                'userid'=>$userid,
-            ),'userid,ugid,username,email,path,face,isadmin,signin,isverify,isverifyphone,uptime');
-
-
+            
             //用户session信息
-            $sessionData = array(
-                'userid' => $userData['userid'],
-                'ugid' => $userData['ugid'],
-                'username' => $userData['username'],
-                'email' => $userData['email'],
-                'face'=>$this->getUserFace($userData),
-                'isadmin' => $userData['isadmin'],
-                'signin' =>$userData['signin'],
-                'isverify'=>$userData['isverify'],
-                'isverifyphone'=>$userData['isverifyphone'],
-                'uptime' => $userData['uptime'],
-            );
+            $sessionData = $this->sessionData($userid);
 
             //用户session信息
             $_SESSION['tsuser']	= $sessionData;

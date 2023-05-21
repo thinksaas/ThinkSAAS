@@ -225,14 +225,14 @@ if($app=='api' || $ac=='api'){
 
     //用户自动登录
     if (intval($TS_USER['userid']) == 0 && $_COOKIE['ts_email'] && $_COOKIE['ts_autologin']) {
-        $loginUserNum = aac('user') -> findCount('user_info', array(
-            'email' => $_COOKIE['ts_email'], 
+
+        $loginUserData = aac('user') -> find('user_info', array(
+            'email' => $_COOKIE['ts_email'],
             'autologin' => $_COOKIE['ts_autologin']
         ));
-        if ($loginUserNum > 0) {
-            $loginUserData = aac('user') -> find('user_info', array(
-                'email' => $_COOKIE['ts_email'],
-            ), 'userid,ugid,username,email,path,face,ip,isadmin,signin,isverify,isverifyphone,uptime');
+
+        if ($loginUserData) {
+            
             if ($loginUserData['ip'] != getIp() && $TS_URL['app'] != 'user' && $TS_URL['ac'] != 'login') {
                 tsHeaderUrl(tsUrl('user', 'login', array('ts' => 'out')));
             }
