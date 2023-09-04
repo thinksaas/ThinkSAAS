@@ -249,5 +249,11 @@
 
     </div>
 </div>
+<script>
+    <!--{if $strArticle['photo']}-->
+    //微信分享带图片
+    var wxshare_imgurl = '{php echo tsXimg($strArticle['photo'],'article',320,180,$strArticle['path'],'1')}';
+    <!--{/if}-->
+</script>
 {php doAction('tseditor','mini')}
 {php include pubTemplate("footer")}
