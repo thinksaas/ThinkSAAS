@@ -75,11 +75,6 @@ return array(
     'urllock'=>'',
 
 
-	/* ThinkSAAS软件版权信息
-	 * ThinkSAAS
-	 * 请尊重ThinkSAAS版权信息，如需去除请购买ThinkSAAS商业授权
-	 * 联系QQ:1078700473，微信:thinksaas
-	 */
 	'info' => array(
 		'name' => 'ThinkSAAS',
 		'url' => 'https://www.thinksaas.cn/',
