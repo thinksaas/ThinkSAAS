@@ -149,8 +149,13 @@ if($user->getToken() && $user->getId()){
             $dfile = $dir.'/'.$photo;
             createFolders($dir);
             if(!is_file($dfile)){
+
+                /*
                 $img = file_get_contents($userface);
                 file_put_contents($dfile,$img);
+                */
+                tsUpload($userface,$userid,'user',array('jpg','gif','png','jpeg'));
+
             };
             $new['user']->update('user_info',array(
                 'userid'=>$userid,
@@ -158,6 +163,11 @@ if($user->getToken() && $user->getId()){
                 'path'=>$menu,
                 'face'=>$photos,
             ));
+
+
+            
+
+
         }
 
         //发送系统消息(恭喜注册成功)

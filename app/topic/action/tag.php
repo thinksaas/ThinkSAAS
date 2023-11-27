@@ -1,7 +1,11 @@
 <?php 
 defined('IN_TS') or die('Access Denied.');
 
-$name = urldecode(tsUrlCheck($_GET['id']));
+if($TS_SITE['site_urltype']==1){
+	$name = urldecode(tsUrlCheck(urlencode($_GET['id'])));
+}else{
+	$name = urldecode(tsUrlCheck($_GET['id']));
+}
 
 //$name=mb_convert_encoding($name,'UTF-8', 'GB2312'); //针对IIS环境可能出现的问题请取消此行注释
 

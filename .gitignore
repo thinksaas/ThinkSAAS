@@ -11,3 +11,4 @@
 upgrade.sql
 upgrade.txt
 auto_install.json
+nginx.htaccess
