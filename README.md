@@ -1,28 +1,28 @@
 ## ThinkSAAS
 
-ThinkSAAS is a lightweight open source community system that can be used to build vertical networks.<br>
-ThinkSAAS is a simple, highly scalable community development system.<br>
+ThinkSAAS is a lightweight open source community system that can be used to build vertical networks.  
+ThinkSAAS is a simple, highly scalable community development system.  
 ThinkSAAS can help you quickly develop and build a unique communication community.
 
 ## Development environment
 
-php >= 7.0 <br>
-MySQL >= 5.6 <br>
-MariaDB >= 5.6 <br>
-Apache / Nginx  <br>
-Windows / Linux  <br>
-It is recommended to use lnmp or lamp environment
+php >= 7.0  
+MySQL >= 5.6  
+MariaDB >= 5.6  
+Apache / Nginx  
+Windows / Linux  
+It is recommended to use lnmp or lamp environment  
 
 ## System Features
 
-Development is simple, and PHP novices can also develop powerful functions.
-single entrance.
-The extension is powerful, supports application extension and plug-in extension, and supports http api interface extension.
-Modules can be individually configured with independent databases.
-Multi-terminal adaptive, integrated bootstrap.
-The bottom layer loads quickly and has strong pressure resistance and concurrency capabilities.
-Support composer method to install PHP third-party extension library.
-The system is stable, functionally modular, simple in secondary development, and continuously upgraded.
+Development is simple, and PHP novices can also develop powerful functions.  
+single entrance.  
+The extension is powerful, supports application extension and plug-in extension, and supports http api interface extension.  
+Modules can be individually configured with independent databases.  
+Multi-terminal adaptive, integrated bootstrap.  
+The bottom layer loads quickly and has strong pressure resistance and concurrency capabilities.  
+Support composer method to install PHP third-party extension library.  
+The system is stable, functionally modular, simple in secondary development, and continuously upgraded.  
 Suitable for individual and team collaboration development.
 
 ## System basic functions
@@ -76,7 +76,7 @@ SOFTWARE.
 
 ## Installation Notes
 
-1. Upload all files in the directory to the root directory of your website (Linux systems must use FTP binary upload)
-2. Directly enter your website address to install (do not include install)
-3. Enter the database connection information, website information and administrator information according to the installation prompts (please manually create an empty database for ThinkSAAS before installation)
-4. The installation is successful.
+1. Upload all files in the directory to the root directory of your website (Linux systems must use FTP binary upload)  
+2. Directly enter your website address to install (do not include install)  
+3. Enter the database connection information, website information and administrator information according to the installation prompts (please manually create an empty database for ThinkSAAS before installation)  
+4. The installation is successful.  
