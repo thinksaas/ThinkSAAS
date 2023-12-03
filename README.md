@@ -1,16 +1,16 @@
-## Introduction to ThinkSAAS
+## ThinkSAAS
 
-ThinkSAAS is a lightweight open source community system that can be used to build vertical networks.
-ThinkSAAS is a simple, highly scalable community development system.
+ThinkSAAS is a lightweight open source community system that can be used to build vertical networks.<br>
+ThinkSAAS is a simple, highly scalable community development system.<br>
 ThinkSAAS can help you quickly develop and build a unique communication community.
 
 ## Development environment
 
-php >= 7.0 
-MySQL >= 5.6 
-MariaDB >= 5.6 
-Apache / Nginx  
-Windows / Linux  
+php >= 7.0 <br>
+MySQL >= 5.6 <br>
+MariaDB >= 5.6 <br>
+Apache / Nginx  <br>
+Windows / Linux  <br>
 It is recommended to use lnmp or lamp environment
 
 ## System Features
