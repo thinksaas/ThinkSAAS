@@ -161,6 +161,7 @@ switch ($ts) {
 
 			$new['article'] -> create('article_content', array(
 				'articleid' => $articleid,
+				'userid' => $userid,
 				'content' => $content,
 			));
 

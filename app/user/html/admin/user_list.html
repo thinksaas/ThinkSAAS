@@ -11,7 +11,7 @@
 <input type="hidden" name="ts" value="list" />
 UID：<input type="text" name="userid" /> 用户名：<input type="text" name="username" /> <input type="submit" value="搜索" />  
 
-<a class="btn btn-sm btn-outline-primary" href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=clean">一键删除被停用用户</a>
+<a onclick="return confirm('确定删除?')" class="btn btn-sm btn-outline-primary" href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=clean">一键删除被停用用户</a>
 
 
 </form>
@@ -119,7 +119,7 @@ UID：<input type="text" name="userid" /> 用户名：<input type="text" name="u
             {/if}
 
             {if $TS_USER['userid']==1 && $item['userid']!=1}
-            <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=deldata&userid={$item[userid]}">[删除]</a>
+            <a onclick="return confirm('确定删除?')" href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=deldata&userid={$item[userid]}">[删除]</a>
             <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=admin&userid={$item['userid']}&token={$_SESSION['token']}">
                 {if $item['isadmin']==0}
                 [设为管理员]

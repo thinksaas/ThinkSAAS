@@ -12,7 +12,11 @@
 
 <tr><td width="150">邮箱Host :</td><td><input name="mailhost" value="{$strOption[mailhost]}" /> (例如：smtp.exmail.qq.com)</td></tr>
 
-<tr><td>使用ssl/tls:</td><td><input type="radio" name="ssl" value="0" {if $strOption['ssl']==0}checked{/if} />不使用 <input type="radio" name="ssl" value="1" {if $strOption['ssl']==1}checked{/if} /> 使用(使用SSL需要空间开启php_openssl扩展)</td></tr>
+<tr><td>使用ssl/tls:</td><td>
+    <input type="radio" name="ssl" value="0" {if $strOption['ssl']==0}checked{/if} /> 不使用 
+    <input type="radio" name="ssl" value="1" {if $strOption['ssl']==1}checked{/if} /> 使用ssl <small>(需要php开启php_openssl扩展)</small>
+    <input type="radio" name="ssl" value="2" {if $strOption['ssl']==2}checked{/if} /> 使用tls <small>(需要php开启php_openssl扩展)</small>
+</td></tr>
 
 <tr><td>邮箱端口 :</td><td><input name="mailport" value="{$strOption[mailport]}" /> (例如：默认为25，ssl为465，tls为587)</td></tr>
 <tr><td>邮箱用户 :</td><td><input name="mailuser" value="{$strOption[mailuser]}" /> (例如：user@qq.com)</td></tr>
@@ -23,7 +27,7 @@
     <p>建议使用QQ企业邮箱 <a target="_blank" href="https://exmail.qq.com/">去申请</a></p>
 
     <p>
-        不懂怎么配置？ <a target="_blank" href="https://www.thinksaas.cn/article/show/48/">ThinkSAAS邮件配置教程</a>
+        不懂怎么配置？ <a target="_blank" href="https://www.thinksaas.cn/article/show/48/">ThinkSAAS邮件配置教程（支持qq、163邮箱）</a>
     </p>
 
 

@@ -26,7 +26,15 @@
 
 
 {loop $arrArticle $key $item}
-<tr><td>{$item['articleid']}</td><td>{$item['userid']}</td>
+<tr><td>{$item['articleid']}</td><td>
+    
+    {$item['userid']}
+
+    <br />
+
+    <a href="{SITE_URL}index.php?app=article&ac=admin&mg=article&ts=deleteuser&userid={$item['userid']}" onclick="return confirm('确定删除用户全部内容?')">[删除用户全部内容]</a>
+
+</td>
     
     <td><a target="_blank" href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{tsTitle($item['title'])}</a></td>
     

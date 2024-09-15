@@ -47,8 +47,13 @@ class mail extends tsApp{
             $mail->Username = $options['mailuser'];                 // SMTP username
             $mail->Password = $options['mailpwd'];                           // SMTP password
 
+            //ssl
+            if($options['ssl']==1){
+                $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+            }
 
-            if($options['ssl']){
+            //tls
+            if($options['ssl']==2){
                 $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
             }
 

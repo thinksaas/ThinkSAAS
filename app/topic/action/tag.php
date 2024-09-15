@@ -15,7 +15,7 @@ $strTag['tagname'] = htmlspecialchars($strTag['tagname']);
 
 $page = tsIntval($_GET['page'],1);
 
-$url = tsUrl('group','tag',array('id'=>urlencode($name),'page'=>''));
+$url = tsUrl('topic','tag',array('id'=>urlencode($name),'page'=>''));
 
 $lstart = $page*30-30;
 

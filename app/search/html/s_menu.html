@@ -6,10 +6,10 @@
 
         <div class="s_menu">
             搜索：
-            {if $TS_APP['group']==1} | <a {if $ts=='group'}class="s_select"{/if} href="{tsUrl('search','s',array(ts=>group,kw=>urldecode($kw)))}">小组</a> {/if}
-            {if $TS_APP['topic']==1} | <a {if $ts=='topic'}class="s_select"{/if} href="{tsUrl('search','s',array(ts=>topic,kw=>urldecode($kw)))}">帖子</a> {/if}
-            {if $TS_APP['user']==1} | <a {if $ts=='user'}class="s_select"{/if} href="{tsUrl('search','s',array(ts=>user,kw=>urldecode($kw)))}">用户</a> {/if}
-            {if $TS_APP['article']==1} | <a {if $ts=='article'}class="s_select"{/if} href="{tsUrl('search','s',array(ts=>article,kw=>urldecode($kw)))}">文章</a> {/if}
+            {if $TS_APP['group']==1} | <a {if $ts=='group'}class="s_select"{/if} href="{tsUrl('search','s',array('ts'=>'group','kw'=>urldecode($kw)))}">小组</a> {/if}
+            {if $TS_APP['topic']==1} | <a {if $ts=='topic'}class="s_select"{/if} href="{tsUrl('search','s',array('ts'=>'topic','kw'=>urldecode($kw)))}">帖子</a> {/if}
+            {if $TS_APP['user']==1} | <a {if $ts=='user'}class="s_select"{/if} href="{tsUrl('search','s',array('ts'=>'user','kw'=>urldecode($kw)))}">用户</a> {/if}
+            {if $TS_APP['article']==1} | <a {if $ts=='article'}class="s_select"{/if} href="{tsUrl('search','s',array('ts'=>'article','kw'=>urldecode($kw)))}">文章</a> {/if}
         </div>
 
         <div class="clearfix">

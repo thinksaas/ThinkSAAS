@@ -123,8 +123,9 @@ CREATE TABLE IF NOT EXISTS `ts_article` (
   KEY `title` (`title`),
   KEY `count_view` (`count_view`),
   KEY `count_view_2` (`count_view`,`addtime`),
-  KEY `tags` (`tags`,`isaudit`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='文章';
+  KEY `tags` (`tags`,`isaudit`),
+  KEY `userid` (`userid`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='文章';
 
 -- 正在导出表  d_thinksaas.ts_article 的数据：0 rows
 DELETE FROM `ts_article`;
@@ -151,8 +152,10 @@ DELETE FROM `ts_article_cate`;
 DROP TABLE IF EXISTS `ts_article_content`;
 CREATE TABLE IF NOT EXISTS `ts_article_content` (
   `articleid` int(11) NOT NULL DEFAULT '0' COMMENT '文章ID',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `content` longtext NOT NULL COMMENT '文章内容',
-  UNIQUE KEY `articleid` (`articleid`) USING BTREE
+  UNIQUE KEY `articleid` (`articleid`) USING BTREE,
+  KEY `userid` (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章内容';
 
 -- 正在导出表  d_thinksaas.ts_article_content 的数据：0 rows

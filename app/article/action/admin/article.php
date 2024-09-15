@@ -90,6 +90,24 @@ switch($ts){
 		qiMsg('删除成功！');
 	
 		break;
+
+
+	//删除用户内容
+	case "deleteuser":
+	
+		$userid = tsIntval($_GET['userid']);
+        
+        $new['article']->delete('article',array(
+            'userid'=>$userid,    
+        ));
+        
+        $new['article']->delete('article_content',array(
+            'userid'=>$userid,    
+        ));
+		
+		qiMsg('删除成功！');
+	
+		break;
 	
 	//推荐
 	case "isrecommend":

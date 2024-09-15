@@ -25,7 +25,7 @@ if (!is_file('data/config.inc.php')) {
 }
 
 //开始计算程序执行时间
-$time_start = getmicrotime();
+$time_start = microtime(true);
 
 //处理fileurl
 if ($TS_CF['fileurl']['url']) {
@@ -326,8 +326,8 @@ if($app=='api' || $ac=='api'){
 }
 
 //运行统计结束
-$time_end = getmicrotime();
-$runTime = intval($time_end) - intval($time_start);
+$time_end = microtime(true);
+$runTime = $time_end - $time_start;
 $TS_CF['runTime'] = number_format($runTime, 6);
 
 //定义全局变量

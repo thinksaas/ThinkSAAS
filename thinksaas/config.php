@@ -74,7 +74,8 @@ return array(
     //域名锁定，防止网站被恶意缓存仿站。例如我的网址是http://www.thinksaas.cn/,只要输入www.thinksaas.cn即可
     'urllock'=>'',
 
-
+	//系统信息【请勿修改】
+	//系统名称，系统网址，系统邮箱，系统QQ，微信号，版权信息，版权网址，创立时间，作者
 	'info' => array(
 		'name' => 'ThinkSAAS',
 		'url' => 'https://www.thinksaas.cn/',
