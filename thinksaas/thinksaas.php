@@ -1,7 +1,7 @@
 <?php
 /**
  * @copyright (c) ThinkSAAS All Rights Reserved
- * @code by QiuJun
+ * @code by qiniao
  * @Email:thinksaas@qq.com
  * @site:www.thinksaas.cn
  */

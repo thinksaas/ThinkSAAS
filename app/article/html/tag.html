@@ -42,7 +42,7 @@
 
                             <div class="h5 fw400"><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></div>
 
-                            <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item['user']['username']}</a> 发表于 {$item['addtime']}</div>
+                            <div class="fs12 text-black-50"><a class="text-black-50" href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}">{$item['user']['username']}</a> 发表于 {$item['addtime']}</div>
 
                             <div class="text-black-50 mt-1">{if $item['gaiyao']}{tsTitle($item['gaiyao'])}{else}暂无概要{/if} (<a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">查看全文</a>)</div>
 

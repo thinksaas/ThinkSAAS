@@ -8,7 +8,7 @@ return array(
     'desc' => '社区标签',
     'url' => 'http://www.thinksaas.cn',
     'email' => 'thinksaas@qq.com',
-    'author' => '邱君',
+    'author' => 'qiniao',
     'author_url' => 'http://www.thinksaas.cn',
     'isedit'	=> '1',
 );

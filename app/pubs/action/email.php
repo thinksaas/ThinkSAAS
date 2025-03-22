@@ -70,7 +70,7 @@ if($strEmail){
 
     if($ntime<$time30){
         //echo 1;exit;//30分钟内只能发送一次短信验证码
-        getJson('30分钟内只能发送一次Email验证码！',1,0);
+        getJson($email_code_send_time.'分钟内只能发送一次Email验证码！',1,0);
     }else{
 
         $new['pubs']->update('email_code',array(

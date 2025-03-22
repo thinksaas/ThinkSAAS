@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 /*
  *ThinkSAAS 安装程序
  * @copyright (c) 2010-3000 ThinkSAAS All Rights Reserved
- * @code by QiuJun
+ * @code by qiniao
  * @Email:thinksaas@qq.com
  */
 

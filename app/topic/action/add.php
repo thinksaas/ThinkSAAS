@@ -110,7 +110,8 @@ switch ($ts) {
 	case "do" :
 		
 		#验证码验证
-		$authcode = strtolower ( $_POST ['authcode'] );
+        $inputString = isset($_POST ['authcode']) ? $_POST ['authcode'] : '';
+		$authcode = strtolower ($inputString);
 		if ($TS_SITE['isauthcode']) {
 			if ($authcode != $_SESSION ['verify']) {
 				tsNotice ( "验证码输入有误，请重新输入！" );

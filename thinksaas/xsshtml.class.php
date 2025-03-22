@@ -181,11 +181,13 @@ class XssHtml {
         //$link = strtolower($this->__get_link($node, 'src'));
         $link = $this->__get_link($node, 'src');
 
-        $url = str_replace('//','',$link);
-
+        //$url = str_replace('//','',$link);
+        $parsedUrl = parse_url($link);
+        $host = isset($parsedUrl['host']) ? $parsedUrl['host'] : '';
+        
         $arrUrl = explode('/',$url);
 
-        if(!in_array($arrUrl[0],array('v.qq.com','player.youku.com','player.bilibili.com'))) {
+        if(!in_array($host,array('v.qq.com','player.youku.com','player.bilibili.com'))) {
             tsNotice('不支持的第三方视频！');
         }
 

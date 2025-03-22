@@ -16,7 +16,7 @@ if ($strArticle ['userid'] == $userid || $TS_USER ['isadmin'] == 1) {
 
 
     #用户记录
-	aac('pubs')->addLogs('article','articleid',$articleid,$userid,$strArticle['title'],$strArticle['content'],2);
+	aac('pubs')->addLogs('article','articleid',$articleid,$userid,$strArticle['title'],$strArticle['gaiyao'],2);
 
 
     #删除文章

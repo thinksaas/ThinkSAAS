@@ -8,7 +8,7 @@ return array(
     'desc' => '首页推荐文章',
     'url' => 'https://www.thinksaas.cn',
     'email' => 'thinksaas@qq.com',
-    'author' => '邱君',
+    'author' => 'qiniao',
     'author_url' => 'https://www.thinksaas.cn',
     'isedit'	=> '1',
 );

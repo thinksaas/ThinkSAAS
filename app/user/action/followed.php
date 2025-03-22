@@ -18,7 +18,7 @@ $userNum = $new['user']->findCount('user_follow',array(
 $pageUrl = pagination($userNum, 80, $page, $url);
 
 if(is_array($arrUsers)){
-	foreach($arrUsers as $item){
+	foreach($arrUsers as $key=>$item){
 		$arrUser[$key] =  $new['user']->getSimpleUser($item['userid']);
 	}
 }

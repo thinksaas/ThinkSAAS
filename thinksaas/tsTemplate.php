@@ -34,9 +34,9 @@ class tsTemplate {
 		// 清除模板中换行
 		// $template = @preg_replace('/[\n\r\t]/', '', $template);
 		
-		// BY QIUJUN 2011-10-22 增加tsurl路由模板标签
+		// BY qiniao 2011-10-22 增加tsurl路由模板标签
 		$template = @preg_replace ( "/\{tsUrl(.*?)\}/s", "{php echo tsurl\\1}", $template );
-		//BY QIUJUN 2014 增加tsTitle过滤标题输出
+		//BY qiniao 2014 增加tsTitle过滤标题输出
 		$template = @preg_replace ( "/\{tsTitle(.*?)\}/s", "{php echo tsTitle\\1}", $template );
 		
 		$template = @preg_replace ( "/\<\!\-\-\{(.+?)\}\-\-\>/s", "{\\1}", $template ); // 去除html注释符号<!---->

@@ -3,7 +3,7 @@
  * ThinkSAAS开源社区
  * copyright (c) 2010-3000 ThinkSAAS All Rights Reserved
  * 官网：https://www.thinksaas.cn
- * 作者：邱君
+ * 作者：qiniao
  * Email:thinksaas@qq.com
  * QQ:1078700473
  * 微信：thinksaas

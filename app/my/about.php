@@ -6,7 +6,7 @@ return array(
 	'desc'	=> '我的社区',
 	'url' => 'http://www.thinksaas.cn',
 	'email' => 'thinksaas@qq.com',
-	'author' => '邱君',
+	'author' => 'qiniao',
 	'author_url' => 'http://www.thinksaas.cn',
 	'isoption'	=> '0',
 	'isinstall'	=> '1',

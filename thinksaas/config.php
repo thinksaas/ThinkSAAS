@@ -79,13 +79,13 @@ return array(
 	'info' => array(
 		'name' => 'ThinkSAAS',
 		'url' => 'https://www.thinksaas.cn/',
-		'email' => 'qiujun@thinksaas.cn',
+		'email' => 'qiniao@thinksaas.cn',
 		'qq' => '1078700473',
 		'weixin' => 'thinksaas',
 		'copyright' => 'ThinkSAAS',
 		'copyurl' => 'http://www.thinksaas.cn/',
 		'year' => '2012',#创立时间2012年
-		'author' => '邱君',
+		'author' => 'qiniao',
 	),
 	
 );

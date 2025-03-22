@@ -104,7 +104,7 @@ class topic extends tsApp {
 
         $arr = "`addtime`>'$startTime' and `count_view`>'0' and `addtime`<'$endTime' and `isaudit`='0'";
 
-        $arrTopic = $this->findAll('topic',$arr,'addtime desc','topicid,title,count_view,count_comment',10);
+        $arrTopic = $this->findAll('topic',$arr,'count_view desc','topicid,title,count_view,count_comment',10);
         foreach($arrTopic as $key=>$item){
             $arrTopic[$key]['title']=tsTitle($item['title']);
         }

@@ -168,7 +168,7 @@
 
 {if $item['label']}<span class="badge badge-danger fw300">{tsTitle($item['label'])}</span>{/if}
 
-{if $item['typeid'] != 0}<a href="{tsUrl('group','show',array('id'=>$item['groupid'],typeid=>$item['typeid']))}">[{$item['typename']}]</a>{/if}
+{if $item['typeid'] != 0}<a href="{tsUrl('group','show',array('id'=>$item['groupid'],'typeid'=>$item['typeid']))}">[{$item['typename']}]</a>{/if}
 
 
 <a href="{tsUrl('topic','show',array('id'=>$item['topicid']))}">{$item['title']}</a>

@@ -3,7 +3,7 @@ defined('IN_TS') or die('Access Denied.');
 /*
  * ThinkSAAS core function
  * @copyright (c) ThinkSAAS All Rights Reserved
- * @code by QiuJun
+ * @code by qiniao
  * @Email:thinksaas@qq.com
  * @TIME:2010-12-18
  */
@@ -1148,7 +1148,9 @@ function reurl() {
                 $params = explode('?',$params);
                 $otherParams = $params[1];
                 $params = explode('/', $params[0]);
+                if($otherParams){
                 $arrOther = explode('&',$otherParams);
+                }
 
 				foreach ($params as $p => $v) {
 					switch ($p) {

@@ -8,7 +8,7 @@ return array(
     'desc' => '开启友情连接插件后，将在首页显示友情链接',
     'url' => 'http://www.thinksaas.cn',
     'email' => 'thinksaas@qq.com',
-    'author' => '邱君',
+    'author' => 'qiniao',
     'author_url' => 'http://www.thinksaas.cn',
     'isedit'	=> '1',
 );
