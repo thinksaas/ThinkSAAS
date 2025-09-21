@@ -57,12 +57,8 @@ class weibo extends tsApp{
 	 */
 	public function deletePhoto($strPhoto){
 		if($strPhoto['photo']){
-            if($GLOBALS['TS_SITE']['file_upload_type']==1){
-                deleteAliOssFile('uploadfile/weibo/photo/'.$strPhoto['photo']);
-            }else{
-                unlink('uploadfile/weibo/photo/'.$strPhoto['photo']);
-                tsDimg($strPhoto['photo'],'weibo/photo','320','320',$strPhoto['path']);
-            }
+            unlink('uploadfile/weibo/photo/'.$strPhoto['photo']);
+            tsDimg($strPhoto['photo'],'weibo/photo','320','320',$strPhoto['path']);
 		}
 
 		$this->delete('weibo_photo',array(

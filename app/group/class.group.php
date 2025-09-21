@@ -43,11 +43,7 @@ class group extends tsApp{
         if($strGroup['photo']){
             $strFace = tsXimg($strGroup['photo'],'group',200,200,$strGroup['path'],1);
 
-            if($GLOBALS['TS_SITE']['file_upload_type']==1){
-                $strFace .= '&v='.$strGroup['uptime'];
-            }else{
-                $strFace .= '?v='.$strGroup['uptime'];
-            }
+            $strFace .= '?v='.$strGroup['uptime'];
 
         }else{
             $strFace = SITE_URL.'public/images/group.jpg';
@@ -64,11 +60,7 @@ class group extends tsApp{
     function getGroupBgPhoto($strGroup){
         if($strGroup['bgphoto']){
 
-            if($GLOBALS['TS_SITE']['file_upload_type']==1){
-                $strPhoto = $GLOBALS['TS_SITE']['alioss_bucket_url'].'/uploadfile/group/bgphoto/'.$strGroup['bgphoto'].'?v='.$strGroup['uptime'];
-            }else{
-                $strPhoto = SITE_URL.'uploadfile/group/bgphoto/'.$strGroup['bgphoto'].'?v='.$strGroup['uptime'];
-            }
+            $strPhoto = SITE_URL.'uploadfile/group/bgphoto/'.$strGroup['bgphoto'].'?v='.$strGroup['uptime'];
 
         }else{
             $strPhoto = SITE_URL.'app/group/skin/group.jpg';
@@ -84,12 +76,8 @@ class group extends tsApp{
      */
     public function deleteGroup($strGroup){
         if($strGroup['photo']){
-            if($GLOBALS['TS_SITE']['file_upload_type']==1){
-                deleteAliOssFile('uploadfile/group/'.$strGroup['photo']);
-            }else{
-                unlink('uploadfile/group/'.$strGroup['photo']);
-                tsDimg($strGroup['photo'],'group','120','120',$strGroup['path']);
-            }
+            unlink('uploadfile/group/'.$strGroup['photo']);
+            tsDimg($strGroup['photo'],'group','120','120',$strGroup['path']);
         }
 
         $this->delete('group',array(

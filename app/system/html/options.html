@@ -59,19 +59,6 @@
     <input type="radio" {if $strOption[isinvite]=='2'}checked="select"{/if} name="option[isinvite]" value="2" />关闭注册
 </td></tr>
 
-<tr><td>注册方式 :</td><td>
-    <input type="radio" {if $strOption['regtype']=='0'}checked="select"{/if} name="option[regtype]" value="0" />Email邮箱
-    <input type="radio" {if $strOption['regtype']=='1'}checked="select"{/if} name="option[regtype]" value="1" />手机号
-    <input type="radio" {if $strOption['regtype']=='2'}checked="select"{/if} name="option[regtype]" value="2" />Email邮箱+手机号
-    <small class="text-danger">(手机号注册需要先安装手机号注册功能)</small>
-</td></tr>
-
-
-<tr><td>是否开启短信登录:</td><td>
-    <input type="radio" {if $strOption[isplogin]=='0'}checked="select"{/if} name="option[isplogin]" value="0" />不开启
-    <input type="radio" {if $strOption[isplogin]=='1'}checked="select"{/if} name="option[isplogin]" value="1" />开启
-</td></tr>
-
 
 <tr><td>是否验证Email :</td><td>
     <input type="radio" {if $strOption[isverify]=='0'}checked="select"{/if} name="option[isverify]" value="0" />不验证Email 
@@ -82,14 +69,7 @@
 </td></tr>
 
 
-<tr><td>是否验证手机号 :</td><td>
 
-    <input type="radio" {if $strOption[isverifyphone]=='0'}checked="select"{/if} name="option[isverifyphone]" value="0" />不验证手机号
-    <input type="radio" {if $strOption[isverifyphone]=='1'}checked="select"{/if} name="option[isverifyphone]" value="1" />验证手机号
-
-    <small class="text-danger">(手机号验证后同时可以使用手机号登录网站，注册方式中使用手机号注册的自动验证)</small>
-
-</td></tr>
 
 <tr><td>登录是否跳转 :</td><td><input type="radio" {if $strOption[istomy]=='0'}checked="select"{/if} name="option[istomy]" value="0" />不跳转 <input type="radio" {if $strOption[istomy]=='1'}checked="select"{/if} name="option[istomy]" value="1" />跳转到我的社区</td></tr>
 
@@ -99,59 +79,6 @@
 
     <tr><td>是否token验证 :</td><td><input type="radio" {if $strOption[istoken]=='0'}checked="select"{/if} name="option[istoken]" value="0" />否 <input type="radio" {if $strOption[istoken]=='1'}checked="select"{/if} name="option[istoken]" value="1" />是</td></tr>
 
-
-
-<tr><td>是否开启公众平台登录:</td><td>
-
-    <div>
-        <input type="radio" {if $strOption['is_weixin']=='0'}checked="select"{/if} name="option[is_weixin]" value="0" />否 
-        <input type="radio" {if $strOption['is_weixin']=='1'}checked="select"{/if} name="option[is_weixin]" value="1" />是 <small class="text-danger">(请先获取微信公众号所需要的参数，<a class="font-weight-bold" target="_blank" href="https://mp.weixin.qq.com/">点击去获取</a>)</small>
-    </div>
-
-
-    <div id="weixin_option" {if $strOption['is_weixin']=='0' || $strOption['is_weixin']==''}style="display: none;"{/if}>
-    
-        <div class="d-flex mt-2">
-            <div style="width: 80px;">AppID：</div>
-            <div><input style="width:300px;" type="text" name="option[weixin_appid]" value="{$strOption['weixin_appid']}"></div>
-        </div>
-
-        <div class="d-flex mt-2">
-            <div style="width: 80px;">AppSecret：</div>
-            <div><input style="width:300px;" type="text" name="option[weixin_appsecret]" value="{$strOption['weixin_appsecret']}"></div>
-        </div>
-
-    </div>
-
-
-</td></tr>
-
-
-
-<tr><td>是否开启人机验证 :</td><td>
-
-    <div>
-        <input type="radio" {if $strOption['is_vaptcha']=='0'}checked="select"{/if} name="option[is_vaptcha]" value="0" />否 
-        <input type="radio" {if $strOption['is_vaptcha']=='1'}checked="select"{/if} name="option[is_vaptcha]" value="1" />是 <small class="text-danger">(请先获取人机验证所需要的参数，<a class="font-weight-bold" target="_blank" href="https://www.vaptcha.com/">点击去获取</a>)</small>
-    </div>
-
-
-    <div id="vaptcha_option" {if $strOption['is_vaptcha']=='0'}style="display: none;"{/if}>
-    
-        <div class="d-flex mt-2">
-            <div style="width: 40px;">VID：</div>
-            <div><input style="width:300px;" type="text" name="option[vaptcha_vid]" value="{$strOption['vaptcha_vid']}"></div>
-        </div>
-
-        <div class="d-flex mt-2">
-            <div style="width: 40px;">KEY：</div>
-            <div><input style="width:300px;" type="text" name="option[vaptcha_key]" value="{$strOption['vaptcha_key']}"></div>
-        </div>
-
-    </div>
-
-
-</td></tr>
 
 
 
@@ -191,7 +118,7 @@
         <tr><td>用户发布内容权限：</td><td>
             <input type="radio" name="option[publisher]" value="0" {if $strOption['publisher']=='0'}checked="select"{/if} />注册用户
             <input type="radio" name="option[publisher]" value="isverify" {if $strOption['publisher']=='isverify'}checked="select"{/if} />仅Email验证用户
-            <input type="radio" name="option[publisher]" value="isverifyphone" {if $strOption['publisher']=='isverifyphone'}checked="select"{/if} />仅手机注册用户
+
             <input type="radio" name="option[publisher]" value="isrenzheng" {if $strOption['publisher']=='isrenzheng'}checked="select"{/if} />仅手工认证用户
             <input type="radio" name="option[publisher]" value="isadmin" {if $strOption['publisher']=='isadmin'}checked="select"{/if} />仅管理员
         </td></tr>
@@ -276,56 +203,6 @@
         <tbody>
 
 
-<tr><td>文件存储方式：<br><span class="text-danger font-weight-bold">【重要：用户上传数据后切勿来回切换存储方式，后果自负！如本地存储数据需要上云存储，请联系ThinkSAAS官方指导处理！】</span></td><td>
-
-
-    <input type="radio" {if $strOption['file_upload_type']=='0'}checked="select"{/if} name="option[file_upload_type]" value="0" /> 本地存储 
-    <input type="radio" {if $strOption['file_upload_type']=='1'}checked="select"{/if} name="option[file_upload_type]" value="1" /> 阿里云(对象存储OSS)
-
-
-    <div id="alioss_option" {if $strOption['file_upload_type']=='0' || $strOption['file_upload_type']==''}style="display: none;"{/if}>
-
-        <hr />
-
-        <div class="text-danger">
-            使用阿里云(对象云存储OSS)，需要购买阿里云对象存储，<a class="font-weight-bold" target="_blank" href="https://www.aliyun.com/minisite/goods?userCode=t0dihnz2">点击去购买</a>，并获取以下参数。
-        </div>
-    
-        <div class="d-flex mt-2">
-            <div style="width: 180px;">AccessKey ID：</div>
-            <div><input style="width:300px;" type="text" name="option[alioss_accesskey_id]" value="{$strOption['alioss_accesskey_id']}"></div>
-            
-        </div>
-
-        <div class="d-flex mt-2">
-            <div style="width: 180px;">AccessKey Secret：</div>
-            <div><input style="width:300px;" type="text" name="option[alioss_accesskey_secret]" value="{$strOption['alioss_accesskey_secret']}"></div>
-        </div>
-
-
-        <div class="d-flex mt-2">
-            <div style="width: 180px;">Bucket 名称：</div>
-            <div><input style="width:300px;" type="text" name="option[alioss_bucket]" value="{$strOption['alioss_bucket']}"></div>
-            <div class="ml-2 c9">例如：thinksaas</div>
-        </div>
-
-        <div class="d-flex mt-2">
-            <div style="width: 180px;">Endpoint（地域节点）：</div>
-            <div><input style="width:300px;" type="text" name="option[alioss_endpoint]" value="{$strOption['alioss_endpoint']}"></div>
-            <div class="ml-2 c9">例如：https://oss-cn-beijing.aliyuncs.com</div>
-        </div>
-
-        <div class="d-flex mt-2">
-            <div style="width: 180px;">Bucket 域名：</div>
-            <div><input style="width:300px;" type="text" name="option[alioss_bucket_url]" value="{$strOption['alioss_bucket_url']}"></div>
-            <div class="ml-2 c9">例如：https://thinksaas.oss-cn-beijing.aliyuncs.com</div>
-        </div>
-
-
-    </div>
-
-
-</td></tr>
 
 
 <tr><td width="200">图片上传大小：</td><td><input name="option[photo_size]" value="$strOption['photo_size']" />M (请填写数字，例如2)</td></tr>
@@ -368,36 +245,6 @@
     function reSitePkey(value) {
         $("#sitepkey").val(value);
     }
-
-    //微信公众号选项
-    $('input[name="option[is_weixin]"]').click(function(){
-        var value  = $('input[name="option[is_weixin]"]:checked').val();
-        if(value=='1'){
-            $("#weixin_option").show()
-        }else if(value=='0'){
-            $("#weixin_option").hide()
-        }
-    });
-
-    //人机验证选项
-    $('input[name="option[is_vaptcha]"]').click(function(){
-        var value  = $('input[name="option[is_vaptcha]"]:checked').val();
-        if(value=='1'){
-            $("#vaptcha_option").show()
-        }else if(value=='0'){
-            $("#vaptcha_option").hide()
-        }
-    });
-
-    //文件存储选项
-    $('input[name="option[file_upload_type]"]').click(function(){
-        var value  = $('input[name="option[file_upload_type]"]:checked').val();
-        if(value=='1'){
-            $("#alioss_option").show()
-        }else if(value=='0'){
-            $("#alioss_option").hide()
-        }
-    });
 
 </script>
 {php include pubTemplate("footer_admin")}

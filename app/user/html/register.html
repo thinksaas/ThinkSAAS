@@ -33,19 +33,11 @@
 
 
 
-              <ul class="nav nav-tabs mb-4">
-                  {if $TS_SITE['regtype']=='0' || $TS_SITE['regtype']=='2'}
-                  <li class="nav-item">
-                      <a class="nav-link font-weight-bold active" href="{tsUrl('user','register')}">Email邮箱注册</a>
-                  </li>
-                  {/if}
-                  {if $TS_SITE['regtype']=='1' || $TS_SITE['regtype']=='2'}
-                  <li class="nav-item">
-                      <a class="nav-link font-weight-bold" href="{tsUrl('user','phone')}">手机号注册</a>
-                  </li>
-                  {/if}
-              </ul>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="fs24">用户注册</div>
+            </div>
 
+            <hr />
 
 
 
@@ -88,45 +80,6 @@
                       <label>用户名：</label>
                       <input name="username" type="text" class="form-control" placeholder="" check-type="required">
                   </div>
-
-
-                    <!--人机验证-->
-                    {if $TS_SITE['is_vaptcha']}
-                    <div class="form-group">
-                        <label>人机验证：</label>
-
-                        <div class="offset-0">
-                            
-                            <div id="vaptchaContainer" style="width: 300px;height: 36px;">
-                                <div class="vaptcha-init-main">
-                                <div class="vaptcha-init-loading">
-                                    <a href="/" target="_blank">
-                                    <img src="https://r.vaptcha.net/public/img/vaptcha-loading.gif" />
-                                    </a>
-                                    <span class="vaptcha-text">Vaptcha启动中...</span>
-                                </div>
-                                </div>
-                            </div>
-                            <script src="https://v-cn.vaptcha.com/v3.js"></script>
-                            <script>
-                                vaptcha({
-                                    vid: '{$TS_SITE[vaptcha_vid]}',
-                                    mode: 'click',
-                                    scene: 0, // 场景值 默认0
-                                    container: '#vaptchaContainer',
-                                    area: 'auto' //验证节点区域,默认 auto,可选值 auto,sea,na,cn
-                                }).then(function (vaptchaObj) {
-                                    vaptchaObj.render()
-                                    vaptchaObj.renderTokenInput('#vaptcha-token')
-                                })
-                            </script>
-
-                        </div>
-
-                        <div id="vaptcha-token"></div>
-
-                    </div>
-                    {/if}
 
                 
                 <!--图形验证码-->
@@ -200,61 +153,16 @@
 </div>
 
 
-
-<!--{if $TS_SITE['is_vaptcha']}-->
-<script src="https://v-cn.vaptcha.com/v3.js"></script>
 <script>
-vaptcha({
-    vid: '{$TS_SITE[vaptcha_vid]}',// 验证单元id
-    mode: 'invisible',// 显示类型 隐藏式
-    scene: 0,// 场景值 默认0
-    area: 'auto' //验证节点区域,默认 auto,可选值 auto,sea,na,cn
-}).then(function (vaptchaObj) {
-
-    obj = vaptchaObj; //将VAPTCHA验证实例保存到局部变量中
-
-    vaptchaObj.listen("pass", function () {
-        // 验证成功进行后续操作
-        
-        serverToken = vaptchaObj.getServerToken()
-
-        sendEmailCode(1,serverToken.token,serverToken.server)
-
-        vaptchaObj.reset(); //重置验证码
-        
+    $("#mybtn").on("click", function () {
+        var email = $("#myemail").val();
+        if(email){
+            sendEmailCode(1)
+        }else{
+            tsNotice('Email邮箱必须填写！');
+        }
     });
-
-    //关闭验证弹窗时触发
-    vaptchaObj.listen("close", function () {
-        //验证弹窗关闭触发
-    });
-
-})
-
-$("#mybtn").on("click", function () {
-    var email = $("#myemail").val();
-    if(email){
-        //人机验证
-        obj.validate();
-    }else{
-        tsNotice('Email邮箱必须填写！');
-    }
-});
 </script>
-<!--{else}-->
-
-<script>
-$("#mybtn").on("click", function () {
-    var email = $("#myemail").val();
-    if(email){
-        sendEmailCode(1)
-    }else{
-        tsNotice('Email邮箱必须填写！');
-    }
-});
-</script>
-
-<!--{/if}-->
 
 
 {php include pubTemplate("footer")}

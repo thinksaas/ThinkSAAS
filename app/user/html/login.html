@@ -17,14 +17,6 @@
 
               <div class="d-flex justify-content-between align-items-center">
                 <div class="fs24">用户登录</div>
-                
-
-                {if $TS_SITE['isplogin']==1}
-                <div><a href="{tsUrl('user','plogin')}"><i class="bi bi-phone"></i> 短信登录</a></div>
-                {/if}
-
-
-                
               </div>
 
               <hr />
@@ -34,7 +26,7 @@
                   <div class="form-group">
                       <label>账号</label>
 
-                      <input name="email" type="text" class="form-control" placeholder="Email/手机号" onkeyup="this.value=this.value.replace(/[, ]/g,'')" check-type="required">
+                      <input name="email" type="text" class="form-control" placeholder="Email" onkeyup="this.value=this.value.replace(/[, ]/g,'')" check-type="required">
 
                   </div>
                   <div class="form-group">
@@ -94,67 +86,6 @@
 
 </div>
 
-<!--{if $TS_SITE['is_vaptcha']}-->
-<script src="https://v-cn.vaptcha.com/v3.js"></script>
-<script>
-vaptcha({
-    vid: '{$TS_SITE[vaptcha_vid]}',// 验证单元id
-    mode: 'invisible',// 显示类型 隐藏式
-    scene: 0,// 场景值 默认0
-    area: 'auto' //验证节点区域,默认 auto,可选值 auto,sea,na,cn
-}).then(function (vaptchaObj) {
-
-    obj = vaptchaObj; //将VAPTCHA验证实例保存到局部变量中
-
-    vaptchaObj.listen("pass", function () {
-        // 验证成功进行后续操作
-        var email = $("input[name='email']").val();
-        var pwd = $("input[name='pwd']").val();
-        var cktime = $("input[name='cktime']").val();
-        var jump = $("input[name='jump']").val();
-        var token = $("input[name='token']").val();
-
-        serverToken = vaptchaObj.getServerToken()
-
-        var data = {
-            email:email,
-            pwd:pwd,
-            cktime:cktime,
-            jump:jump,
-            token:token,
-            vaptcha_server:serverToken.server,
-            vaptcha_token:serverToken.token,
-        };
-        tsPost('index.php?app=user&ac=login&ts=do&js=1',data)
-        vaptchaObj.reset(); //重置验证码
-        
-    });
-
-    //关闭验证弹窗时触发
-    vaptchaObj.listen("close", function () {
-        //验证弹窗关闭触发
-    });
-
-})
-
-$("#comm-submit").on("click", function () {
-
-    var email = $("input[name='email']").val();
-    var pwd = $("input[name='pwd']").val();
-
-    if(email && pwd){
-        //人机验证
-        obj.validate();
-    }else{
-        tsNotice('账号和密码必须输入！');
-    }
-
-    
-});
-</script>
-
-<!--{else}-->
-
 <script>
     $("#comm-submit").on("click", function () {
         var email = $("input[name='email']").val();
@@ -178,6 +109,4 @@ $("#comm-submit").on("click", function () {
     
     });
 </script>
-
-<!--{/if}-->
 {php include pubTemplate("footer")}

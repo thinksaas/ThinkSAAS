@@ -1,4 +1,4 @@
-<?phpqiniao
+<?php 
 defined('IN_TS') or die('Access Denied.');
 return array(
     'name' => '通栏文字广告位',

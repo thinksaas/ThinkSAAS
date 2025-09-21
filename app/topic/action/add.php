@@ -118,16 +118,6 @@ switch ($ts) {
 			}
 		}
 
-		#人机验证
-		$vaptcha_token = tsTrim($_POST ['vaptcha_token']);
-		$vaptcha_server = tsTrim($_POST['vaptcha_server']);
-		if ($TS_SITE['is_vaptcha']) {
-			$strVt = vaptcha($vaptcha_token,0,$vaptcha_server);
-			if($strVt['success']==0) {
-				tsNotice('人机验证未通过！');
-			}
-		}
-
 		$title = tsTrim( $_POST ['title'] );
 		
 		$content =  tsClean( $_POST ['content'] );

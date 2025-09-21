@@ -71,20 +71,10 @@ switch ($ts) {
 	case "do" :
 
 		#验证码验证
-		$authcode = strtolower($_POST ['authcode']);
+		$authcode = strtolower((string)$_POST ['authcode']);
 		if ($TS_SITE['isauthcode']){
 			if ($authcode != $_SESSION['verify']){
 				tsNotice("验证码输入有误，请重新输入！" );
-			}
-		}
-
-		#人机验证
-		$vaptcha_token = tsTrim($_POST['vaptcha_token']);
-		$vaptcha_server = tsTrim($_POST['vaptcha_server']);
-		if ($TS_SITE['is_vaptcha']){
-			$strVt = vaptcha($vaptcha_token,0,$vaptcha_server);
-			if($strVt['success']==0){
-				tsNotice('人机验证未通过！');
 			}
 		}
 

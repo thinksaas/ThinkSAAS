@@ -1,7 +1,7 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-use EasyWeChat\Factory;
+
 
 if(tsIntval($TS_USER['userid']) > 0) {
 	header('Location: '.SITE_URL);exit;
@@ -11,29 +11,11 @@ if($TS_SITE['isinvite']==2){
 	tsNotice('暂不开放用户注册！');
 }
 
-#微信公众号授权
-if(isWeixin()==true && $TS_SITE['is_weixin']==1){
-	$config = [
-		'app_id' => $TS_SITE['weixin_appid'],
-		'oauth' => [
-			'scopes'   => ['snsapi_userinfo'],
-			'callback' => SITE_URL.'index.php?app=user&ac=wxlogin',
-		],	
-	];
-	$app = Factory::officialAccount($config);
-	$oauth = $app->oauth;
-	$oauth->redirect()->send();
-	exit();
-}
+
 
 //用户注册
 switch($ts){
 	case "":
-
-        #如果网站只采用手机号注册，就跳转到手机号注册
-        if($TS_SITE['regtype']==1){
-            header('Location: '.tsUrl('user','phone'));exit;
-        }
 		
 		//邀请用户ID
 		$fuserid = tsIntval($_GET['fuserid']);
@@ -59,18 +41,6 @@ switch($ts){
 		$fuserid = tsIntval($_POST['fuserid']);
 		
 		$authcode = strtolower(tsTrim($_POST['authcode']));
-
-		
-
-		#人机验证
-		$vaptcha_token = tsTrim($_POST['vaptcha_token']);
-		$vaptcha_server = tsTrim($_POST['vaptcha_server']);
-		if ($TS_SITE['is_vaptcha']) {
-			$strVt = vaptcha($vaptcha_token,0,$vaptcha_server);
-			if($strVt['success']==0) {
-				getJson('人机验证未通过！',$js);
-			}
-		}
 
         //检测垃圾Email后缀
         $arrEmail = explode('@',$email);

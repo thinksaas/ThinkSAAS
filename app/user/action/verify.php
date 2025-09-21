@@ -152,26 +152,24 @@ switch($ts){
 				));
 
 				#本地图片验证
-				if($TS_SITE['file_upload_type']=='0' || $TS_SITE['file_upload_type']==''){
-					$filesize=abs(filesize('uploadfile/user/'.$arrUpload['url']));
-					if($filesize<=0){
-						$new['user']->update('user_info',array(
-							'userid'=>$userid,
-						),array(
-							'path'=>'',
-							'face'=>'',
-						));
-						tsNotice('上传头像失败！请联系网站管理员处理！');	
-					}elseif($filesize>1048576){
-						#限制头像图片1M以内
-						$new['user']->update('user_info',array(
-							'userid'=>$userid,
-						),array(
-							'path'=>'',
-							'face'=>'',
-						));
-				        tsNotice('请选择1M以内的头像图片');
-                    }
+				$filesize=abs(filesize('uploadfile/user/'.$arrUpload['url']));
+				if($filesize<=0){
+					$new['user']->update('user_info',array(
+						'userid'=>$userid,
+					),array(
+						'path'=>'',
+						'face'=>'',
+					));
+					tsNotice('上传头像失败！请联系网站管理员处理！');	
+				}elseif($filesize>1048576){
+					#限制头像图片1M以内
+					$new['user']->update('user_info',array(
+						'userid'=>$userid,
+					),array(
+						'path'=>'',
+						'face'=>'',
+					));
+					tsNotice('请选择1M以内的头像图片');
 				}
 				
 				tsDimg($arrUpload['url'],'user','120','120',$arrUpload['path']);

@@ -1,4 +1,4 @@
-<?phpqiniao
+<?php 
 defined('IN_TS') or die('Access Denied.');
 return array(
     'name' => '回到顶部插件',

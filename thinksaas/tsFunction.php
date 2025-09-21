@@ -8,8 +8,6 @@ defined('IN_TS') or die('Access Denied.');
  * @TIME:2010-12-18
  */
 use Intervention\Image\ImageManagerStatic as Image;
-use OSS\OssClient;
-use OSS\Core\OssException;
 
 /**
  * 加载某一APP类
@@ -677,13 +675,8 @@ function md10($str = '') {
  */
 function tsXimg($file, $app, $w='', $h='', $path = '', $c = '0',$sy='sy.png',$position='bottom-left',$x=10,$y=10) {
 
-	if($GLOBALS['TS_SITE']['file_upload_type']==1){
-		#阿里云oss图片输出
-		$result = tsXimgAliOss($file, $app, $w, $h);
-	}else{
-		#本地图片输出
-		$result = tsXimgLocal($file, $app, $w, $h, $path, $c,$sy,$position,$x,$y);
-	}
+	#本地图片输出
+	$result = tsXimgLocal($file, $app, $w, $h, $path, $c,$sy,$position,$x,$y);
 	return $result;
 }
 
@@ -1457,21 +1450,8 @@ function delDirFile($dir) {
  * @param string $sy			图片水印文件sy.png，文件请放到public/images/目录下
  * @return void					失败返回false，成功返回数组：array('name'=>'','path'=>'','url'=>'','path'=>'','size'=>'')
  */
-function tsUpload($files, $projectid, $dir, $uptypes=array(),$sy='') {
-	if($GLOBALS['TS_SITE']['file_upload_type']==1){
-		#阿里云oss上传存储
-		$result = tsUploadAliOss($files, $projectid, $dir, $uptypes);
-	}else{
-		#本地上传存储
-		$result = tsUploadLocal($files, $projectid, $dir, $uptypes,$sy);
-	}
-	return $result;
-}
 
-/**
- * 本地上传存储
- */
-function tsUploadLocal($files, $projectid, $dir, $uptypes=array(),$sy=''){
+function tsUpload($files, $projectid, $dir, $uptypes=array(),$sy=''){
 	if ($files['size'] > 0) {
 
         $upload_max_filesize = ini_get('upload_max_filesize')*1048576;
@@ -1575,194 +1555,6 @@ function tsUploadLocal($files, $projectid, $dir, $uptypes=array(),$sy=''){
 	}
 }
 
-/**
- * 阿里云oss上传存储
- */
-function tsUploadAliOss($files, $projectid, $dir, $uptypes=array()){
-	if ($files['size'] > 0) {
-		$path = getDirPath($projectid);
-		$dest_dir = 'uploadfile/' . $dir . '/' . $path;
-
-		$arrType = explode('.', strtolower($files['name']));
-        $type = end($arrType);
-
-		//上传图片大小控制
-		if(in_array($type,array('jpg','jpeg','png','gif'))) {
-            $type = getImagetype($files['tmp_name']);
-            if (!in_array($type, $uptypes)) {
-                getJson('图片错误!',1);
-            }
-        }
-	
-		if (in_array($type, $uptypes)) {
-			
-			$name = $projectid . '.' . $type;
-			$dest = $dest_dir . '/' . $name;
-			// 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
-			$accessKeyId = $GLOBALS['TS_SITE']['alioss_accesskey_id'];
-			$accessKeySecret = $GLOBALS['TS_SITE']['alioss_accesskey_secret'];
-			// Endpoint以杭州为例，其它Region请按实际情况填写。
-			$endpoint = $GLOBALS['TS_SITE']['alioss_endpoint'];
-			// 设置存储空间名称。
-			$bucket= $GLOBALS['TS_SITE']['alioss_bucket'];
-			// 设置文件名称。
-			$object = $dest;
-			// <yourLocalFile>由本地文件路径加文件名包括后缀组成，例如/users/local/myfile.txt。
-			$filePath = $files['tmp_name'];
-
-			try{
-				
-				$ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
-				$ossClient->uploadFile($bucket, $object, $filePath);
-
-				return array(
-					'name' => tsFilter($files['name']), 
-					'path' => $path, 
-					'url' => $path . '/' . $name, 
-					'type' => $type, 
-					'size' => tsFilter($files['size'])
-				);
-
-			} catch(OssException $e) {
-				
-				/*
-				printf(__FUNCTION__ . ": FAILED\n");
-				printf($e->getMessage() . "\n");
-				return;
-				*/
-				return false;
-			}
-			//print(__FUNCTION__ . ": OK" . "\n");
-		}else{
-			return false;
-		}
-	}else{
-		return false;
-	}
-}
-
-/**
- * 阿里云分片上传
- *
- * @param [type] $projectid
- * @param [type] $dir
- * @param [type] $type
- * @return void
- */
-function AliOssChunkUpload($projectid,$dir,$type){
-
-	$path = getDirPath($projectid);
-	$dest_dir = 'uploadfile/' . $dir . '/' . $path;
-	$name = $projectid . '.' . $type;
-	$dest = $dest_dir . '/' . $name;
-
-	// 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
-	$accessKeyId = $GLOBALS['TS_SITE']['alioss_accesskey_id'];
-	$accessKeySecret = $GLOBALS['TS_SITE']['alioss_accesskey_secret'];
-	// Endpoint以杭州为例，其它Region请按实际情况填写。
-	$endpoint = $GLOBALS['TS_SITE']['alioss_endpoint'];
-	$bucket= $GLOBALS['TS_SITE']['alioss_bucket'];
-	$object = $dest;
-	$file = $dest;
-
-	$options = array(
-		OssClient::OSS_CHECK_MD5 => true,
-		OssClient::OSS_PART_SIZE => 2, //2M
-	);
-	try{
-		$ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
-		$ossClient->multiuploadFile($bucket, $object, $file, $options);
-
-		return true;
-
-	} catch(OssException $e) {
-		#printf(__FUNCTION__ . ": FAILED\n");
-		#printf($e->getMessage() . "\n");
-		#return;
-
-		return false;
-
-	}
-	#print(__FUNCTION__ . ":  OK" . "\n"); 
-
-}
-
-/**
- * 阿里云oss网络文件存储
- *
- * @param [type] $fileurl
- * @param [type] $project
- * @param [type] $dir
- * @param [type] $filetype
- * @return void
- */
-function tsUploadAliOssUrl($fileurl,$projectid,$dir,$filetype){
-	$path = getDirPath($projectid);
-	$dest_dir = 'uploadfile/' . $dir . '/' . $path;
-	$name = $projectid . '.' . $filetype;
-	$dest = $dest_dir . '/' . $name;
-	// 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
-	$accessKeyId = $GLOBALS['TS_SITE']['alioss_accesskey_id'];
-	$accessKeySecret = $GLOBALS['TS_SITE']['alioss_accesskey_secret'];
-	// Endpoint以杭州为例，其它Region请按实际情况填写。
-	$endpoint = $GLOBALS['TS_SITE']['alioss_endpoint'];
-	// 设置存储空间名称。
-	$bucket= $GLOBALS['TS_SITE']['alioss_bucket'];
-	// 设置文件名称。
-	$object = $dest;
-	// 配置文件内容。
-	$content = file_get_contents($fileurl);
-	try{
-		$ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
-
-		$ossClient->putObject($bucket, $object, $content);
-
-		return array(
-			'name' => $name, 
-			'path' => $path, 
-			'url' => $path . '/' . $name, 
-			'type' => $filetype,
-		);
-
-	} catch(OssException $e) {
-		/*
-		printf(__FUNCTION__ . ": FAILED\n");
-		printf($e->getMessage() . "\n");
-		return;
-		*/
-
-		return false;
-
-	}
-	//print(__FUNCTION__ . ": OK" . "\n");
-}
-
-/**
- * 删除阿里云oss文件
- *
- * @param [type] $file
- * @return void
- */
-function deleteAliOssFile($file){
-	$accessKeyId = $GLOBALS['TS_SITE']['alioss_accesskey_id'];
-	$accessKeySecret = $GLOBALS['TS_SITE']['alioss_accesskey_secret'];
-	$endpoint = $GLOBALS['TS_SITE']['alioss_endpoint'];
-	$bucket= $GLOBALS['TS_SITE']['alioss_bucket'];
-	$object = $file;
-	try{
-		$ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
-		$ossClient->deleteObject($bucket, $object);
-		return true;
-	} catch(OssException $e) {
-		/*
-		printf(__FUNCTION__ . ": FAILED\n");
-		printf($e->getMessage() . "\n");
-		return;
-		*/
-		return false;
-	}
-	//print(__FUNCTION__ . ": OK" . "\n");
-}
 
 function gmt_iso8601($time) {
     $dtStr = date("c", $time);
@@ -1773,57 +1565,6 @@ function gmt_iso8601($time) {
     return $expiration."Z";
 }
 
-/**
- * 阿里云oss直传签名
- */
-function AliOssSIgn(){
-	$id= $GLOBALS['TS_SITE']['alioss_accesskey_id'];          // 请填写您的AccessKeyId。
-	$key= $GLOBALS['TS_SITE']['alioss_accesskey_secret'];     // 请填写您的AccessKeySecret。
-	// $host的格式为 bucketname.endpoint，请替换为您的真实信息。
-	$host = $GLOBALS['TS_SITE']['alioss_endpoint'];  
-	// $callbackUrl为上传回调服务器的URL，请将下面的IP和Port配置为您自己的真实URL信息。
-	$callbackUrl = SITE_URL.'index.php?app=pubs&ac=aliyun&ts=callback';
-	//$dir = 'user-dir-prefix/';          // 用户上传文件时指定的前缀。
-	$dir = '';
-	
-	$callback_param = array('callbackUrl'=>$callbackUrl, 
-				'callbackBody'=>'filename=${object}&size=${size}&mimeType=${mimeType}&height=${imageInfo.height}&width=${imageInfo.width}', 
-				'callbackBodyType'=>"application/x-www-form-urlencoded");
-	$callback_string = json_encode($callback_param);
-
-	$base64_callback_body = base64_encode($callback_string);
-	$now = time();
-	$expire = 30;  //设置该policy超时时间是10s. 即这个policy过了这个有效时间，将不能访问。
-	$end = $now + $expire;
-	$expiration = gmt_iso8601($end);
-
-	//最大文件大小.用户可以自己设置
-	$condition = array(0=>'content-length-range', 1=>0, 2=>1048576000);
-	$conditions[] = $condition; 
-
-	// 表示用户上传的数据，必须是以$dir开始，不然上传会失败，这一步不是必须项，只是为了安全起见，防止用户通过policy上传到别人的目录。
-	$start = array(0=>'starts-with', 1=>'$key', 2=>$dir);
-	$conditions[] = $start; 
-
-	$arr = array('expiration'=>$expiration,'conditions'=>$conditions);
-	$policy = json_encode($arr);
-	$base64_policy = base64_encode($policy);
-	$string_to_sign = $base64_policy;
-	$signature = base64_encode(hash_hmac('sha1', $string_to_sign, $key, true));
-
-	$response = array();
-	$response['accessid'] = $id;
-	$response['host'] = $host;
-	$response['policy'] = $base64_policy;
-	$response['signature'] = $signature;
-	$response['expire'] = $end;
-	$response['callback'] = $base64_callback_body;
-	$response['dir'] = $dir;  // 这个参数是设置用户上传文件时指定的前缀。
-	//echo json_encode($response);
-
-	return $response;
-
-}
 
 /**
  * 网络文件上传（非图片）
@@ -1842,32 +1583,25 @@ function tsUploadUrl($fileurl, $projectid, $dir, $uptypes=array()) {
 
 		if (in_array($type, $uptypes)) {
 
-			if($GLOBALS['TS_SITE']['file_upload_type']==1){
-				$result = tsUploadAliOssUrl($fileurl,$projectid,$dir,$type);
-				return $result;
-			}else{
+			$menu2 = intval($projectid / 1000);
+			$menu1 = intval($menu2 / 1000);
+			$path = $menu1 . '/' . $menu2;
+			$dest_dir = 'uploadfile/' . $dir . '/' . $path;
+			createFolders($dest_dir);
 
-				$menu2 = intval($projectid / 1000);
-				$menu1 = intval($menu2 / 1000);
-				$path = $menu1 . '/' . $menu2;
-				$dest_dir = 'uploadfile/' . $dir . '/' . $path;
-				createFolders($dest_dir);
-	
-				$name = $projectid . '.' . $type;
-				$dest = $dest_dir . '/' . $name;
-				//先删除
-				unlink($dest);
-				//后上传
-				$img = file_get_contents($fileurl);
-				file_put_contents($dest, $img);
-				chmod($dest, 0777);
-				$filesize = filesize($dest);
-				if (intval($filesize) > 0) {
-					return array('name' => $name, 'path' => $path, 'url' => $path . '/' . $name, 'type' => $type, 'size' => $filesize, );
-				} else {
-					return false;
-				}
-
+			$name = $projectid . '.' . $type;
+			$dest = $dest_dir . '/' . $name;
+			//先删除
+			unlink($dest);
+			//后上传
+			$img = file_get_contents($fileurl);
+			file_put_contents($dest, $img);
+			chmod($dest, 0777);
+			$filesize = filesize($dest);
+			if (intval($filesize) > 0) {
+				return array('name' => $name, 'path' => $path, 'url' => $path . '/' . $name, 'type' => $type, 'size' => $filesize, );
+			} else {
+				return false;
 			}
 
 		} else {
@@ -2501,39 +2235,30 @@ function tsUploadPhotoUrl($photourl, $projectid, $dir,$type='') {
 		$type = array_pop($arrType);
 	}
 
-	if($GLOBALS['TS_SITE']['file_upload_type']==1){
+	$menu2 = intval($projectid / 1000);
+	$menu1 = intval($menu2 / 1000);
+	$path = $menu1 . '/' . $menu2;
+	$dest_dir = 'uploadfile/' . $dir . '/' . $path;
+	createFolders($dest_dir);
 
-		$result = tsUploadAliOssUrl($photourl,$projectid,$dir,$type);
-		return $result;
+	$name = $projectid . '.' . $type;
 
-	}else{
+	$dest = $dest_dir . '/' . $name;
 
-		$menu2 = intval($projectid / 1000);
-		$menu1 = intval($menu2 / 1000);
-		$path = $menu1 . '/' . $menu2;
-		$dest_dir = 'uploadfile/' . $dir . '/' . $path;
-		createFolders($dest_dir);
-	
-		$name = $projectid . '.' . $type;
-	
-		$dest = $dest_dir . '/' . $name;
-	
-		$fgc = file_get_contents($photourl);
-		if($fgc) {
-			$fpc = file_put_contents($dest, $fgc);
-			if ($fpc){
-				return array(
-					'path' => $path, 
-					'url' => $path . '/' . $name, 
-					'type' => $type, 
-				);
-			}else{
-				return false;
-			}
+	$fgc = file_get_contents($photourl);
+	if($fgc) {
+		$fpc = file_put_contents($dest, $fgc);
+		if ($fpc){
+			return array(
+				'path' => $path, 
+				'url' => $path . '/' . $name, 
+				'type' => $type, 
+			);
 		}else{
 			return false;
 		}
-
+	}else{
+		return false;
 	}
 
 }

@@ -127,19 +127,15 @@ switch($ts){
 					'uptime'=>time(),
 				));
 				
-
-
-				if($TS_SITE['file_upload_type']=='0' || $TS_SITE['file_upload_type']==''){
-					$filesize=abs(filesize('uploadfile/user/'.$arrUpload['url']));
-					if($filesize<=0){
-						$new['my']->update('user_info',array(
-							'userid'=>$userid,
-						),array(
-							'path'=>'',
-							'face'=>'',
-						));
-						tsNotice('上传头像失败，你可以使用系统默认头像！');	
-					}
+				$filesize=abs(filesize('uploadfile/user/'.$arrUpload['url']));
+				if($filesize<=0){
+					$new['my']->update('user_info',array(
+						'userid'=>$userid,
+					),array(
+						'path'=>'',
+						'face'=>'',
+					));
+					tsNotice('上传头像失败，你可以使用系统默认头像！');	
 				}
 				
 				tsDimg($arrUpload['url'],'user','120','120',$arrUpload['path']);

@@ -15,17 +15,4 @@ switch($ts){
 
         break;
 
-    //短信配置
-    case "sms":
-
-        $strOption = fileRead('data/sms_options.php');
-        if($strOption==''){
-            $strOption = $GLOBALS['tsMySqlCache']->get('sms_options');
-        }
-
-
-        include template("admin/options_sms");
-
-        break;
-
 }

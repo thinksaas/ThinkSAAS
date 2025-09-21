@@ -9,16 +9,6 @@ $email = tsTrim($_POST['email']);
 
 $typeid = tsIntval($_POST['typeid']); //判断Email是否存在：0不判断、1判断存在、2判断不存在
 
-#人机验证
-$vaptcha_token = tsTrim($_POST ['vaptcha_token']);
-$vaptcha_server = tsTrim($_POST['vaptcha_server']);
-if ($TS_SITE['is_vaptcha']) {
-    $strVt = vaptcha($vaptcha_token,0,$vaptcha_server);
-    if($strVt['success']==0) {
-        getJson('人机验证未通过！',1,0);
-    }
-}
-
 if(valid_email($email) == false){
     getJson('Email输入有误',1,0);
 }

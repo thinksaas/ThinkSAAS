@@ -19,14 +19,8 @@ if($strPhoto == ''){
 $strPhoto['title'] = tsTitle($strPhoto['title']);
 $strPhoto['photodesc'] = tsTitle($strPhoto['photodesc']);
 
-#原图
-if($TS_SITE['file_upload_type']==1){
-	#阿里云oss
-	$strPhoto['photo_url'] = $TS_SITE['alioss_bucket_url'].'/uploadfile/photo/'.$strPhoto['photourl'];
-}else{
-	#本地
-	$strPhoto['photo_url'] = SITE_URL.'uploadfile/photo/'.$strPhoto['photourl'];
-}
+#本地
+$strPhoto['photo_url'] = SITE_URL.'uploadfile/photo/'.$strPhoto['photourl'];
 
 $albumid = $strPhoto['albumid'];
 

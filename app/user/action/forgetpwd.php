@@ -82,15 +82,7 @@ switch($ts){
 
 		break;
 
-	/**
-	 * 通过手机号找回密码
-	 */
-	case "phone":
 
-		$title = '找回登陆密码';
-		include template("forgetpwd_phone");
-
-		break;
 	
 	//执行登录
 	case "do":

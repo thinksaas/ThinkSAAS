@@ -23,7 +23,7 @@ class user extends tsApp {
     public function sessionData($userid){
         $strUserInfo = $this->find('user_info',array(
             'userid'=>$userid,
-        ),'userid,ugid,username,email,path,face,isadmin,signin,isverify,isverifyphone,uptime');
+        ),'userid,ugid,username,email,path,face,isadmin,signin,isverify,uptime');
 
         return array(
             'userid' => $strUserInfo['userid'],
@@ -34,7 +34,6 @@ class user extends tsApp {
             'isadmin' => $strUserInfo['isadmin'],
             'signin' =>$strUserInfo['signin'],
             'isverify'=>$strUserInfo['isverify'],
-            'isverifyphone'=>$strUserInfo['isverifyphone'],
             'uptime' => $strUserInfo['uptime'],
         );
 
@@ -122,17 +121,7 @@ class user extends tsApp {
             ));
         }
 
-        #手机验证
-        $isverifyphone = 0;
-        if(isPhone($email)==true){
-            $isverifyphone = 1;
-            #清空手机验证码
-            $this->update('phone_code',array(
-                'phone'=>$email,
-            ),array(
-                'code'=>'',
-            ));
-        }
+ 
 		
 		//插入用户信息			
 		$this->create('user_info',array(
@@ -144,7 +133,6 @@ class user extends tsApp {
             'phone'		=> $email,
             'ip'		=> getIp(),
             'isverify'=>$isverify,
-            'isverifyphone'=>$isverifyphone,
 			'addtime'	=> time(),
 			'uptime'	=> time(),
 		));
@@ -229,11 +217,7 @@ class user extends tsApp {
         if($strUser['face']){
             $strFace = tsXimg($strUser['face'],'user',120,120,$strUser['path'],1);
 
-            if($GLOBALS['TS_SITE']['file_upload_type']==1){
-                $strFace .= '&v='.$strUser['uptime'];
-            }else{
-                $strFace .= '?v='.$strUser['uptime'];
-            }
+            $strFace .= '?v='.$strUser['uptime'];
 
         }else{
             $strFace = SITE_URL.'public/images/user_large.jpg';
@@ -547,12 +531,8 @@ class user extends tsApp {
         #用户头像
         if($strUser['face']){
 
-            if($GLOBALS['TS_SITE']['file_upload_type']==1){
-                deleteAliOssFile('uploadfile/user/'.$strUser['face']);
-            }else{
-                unlink('uploadfile/user/'.$strUser['photo']);
-                tsDimg($strUser['face'],'user','120','120',$strUser['path']);
-            }
+            unlink('uploadfile/user/'.$strUser['photo']);
+            tsDimg($strUser['face'],'user','120','120',$strUser['path']);
 
         }
         
@@ -810,7 +790,6 @@ class user extends tsApp {
                 'phone'		=> $email,
                 'ip'		=> getIp(),
                 'isverify'=>1,
-                'isverifyphone'=>1,
                 'addtime'	=> time(),
                 'uptime'	=> time(),
             ));

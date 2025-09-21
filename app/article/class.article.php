@@ -25,11 +25,7 @@ class article extends tsApp {
         if($strArticle['photo']){
             $strFace = tsXimg($strArticle['photo'],'article',320,180,$strArticle['path'],1);
             
-            if($GLOBALS['TS_SITE']['file_upload_type']==1){
-                $strFace .= '&v='.$strArticle['uptime'];
-            }else{
-                $strFace .= '?v='.$strArticle['uptime'];
-            }
+            $strFace .= '?v='.$strArticle['uptime'];
 
         }else{
             $strFace = SITE_URL.'public/images/group.jpg';
@@ -48,12 +44,8 @@ class article extends tsApp {
         #删除封面图
         if($strArticle['photo']){
 
-            if($GLOBALS['TS_SITE']['file_upload_type']==1){
-                deleteAliOssFile('uploadfile/article/'.$strArticle['photo']);
-            }else{
-                unlink('uploadfile/article/'.$strArticle['photo']);
-                tsDimg($strArticle['photo'],'article','320','180',$strArticle['path']);
-            }
+            unlink('uploadfile/article/'.$strArticle['photo']);
+            tsDimg($strArticle['photo'],'article','320','180',$strArticle['path']);
 
         } 
 

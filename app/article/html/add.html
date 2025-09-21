@@ -154,43 +154,7 @@
     {/if}
 
 
-    <!--人机验证-->
-    {if $TS_SITE['is_vaptcha']}
-    <div class="form-group">
-        <label>人机验证：</label>
 
-        <div class="offset-0">
-            
-            <div id="vaptchaContainer" style="width: 300px;height: 36px;">
-                <div class="vaptcha-init-main">
-                <div class="vaptcha-init-loading">
-                    <a href="/" target="_blank">
-                    <img src="https://r.vaptcha.net/public/img/vaptcha-loading.gif" />
-                    </a>
-                    <span class="vaptcha-text">Vaptcha启动中...</span>
-                </div>
-                </div>
-            </div>
-            <script src="https://v-cn.vaptcha.com/v3.js"></script>
-            <script>
-                vaptcha({
-                    vid: '{$TS_SITE[vaptcha_vid]}',
-                    mode: 'click',
-                    scene: 0, // 场景值 默认0
-                    container: '#vaptchaContainer',
-                    area: 'auto' //验证节点区域,默认 auto,可选值 auto,sea,na,cn
-                }).then(function (vaptchaObj) {
-                    vaptchaObj.render()
-                    vaptchaObj.renderTokenInput('#vaptcha-token')
-                })
-            </script>
-
-        </div>
-
-        <div id="vaptcha-token"></div>
-
-    </div>
-    {/if}
 
 
   

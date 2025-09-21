@@ -197,7 +197,6 @@ defined('IN_TS') or die('Access Denied.');
 				),array(
 					'isadmin'=>'0',
 					'isverify'=>'0',
-					'isverifyphone'=>'0',
 					'isrenzheng'=>'0',
 				));
 			}elseif($strUser['isadmin']==0){
@@ -206,7 +205,6 @@ defined('IN_TS') or die('Access Denied.');
 				),array(
 					'isadmin'=>'1',//系统管理员
 					'isverify'=>'1',//Email验证
-					'isverifyphone'=>'1',//手机号验证
 					'isrenzheng'=>'1',//人工认证
 				));
 			}
@@ -311,29 +309,6 @@ defined('IN_TS') or die('Access Denied.');
 				'userid'=>$userid,
 			),array(
 				'isverify'=>$isverify,
-			));
-
-			qiMsg('操作成功！');
-
-			break;
-
-		case "isverifyphone":
-
-			$userid = tsIntval($_GET['userid']);
-			$strUser = $new['user']->find('user_info',array(
-				'userid'=>$userid,
-			));
-			
-			if($strUser['isverifyphone']==0){
-				$isverifyphone = 1;
-			}else{
-				$isverifyphone = 0;
-			}
-
-			$new['user']->update('user_info',array(
-				'userid'=>$userid,
-			),array(
-				'isverifyphone'=>$isverifyphone,
 			));
 
 			qiMsg('操作成功！');

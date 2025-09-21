@@ -1,25 +1,8 @@
 <?php
 defined('IN_TS') or die('Access Denied.');
 
-use EasyWeChat\Factory;
-
 if(tsIntval($TS_USER['userid']) > 0) {
 	header('Location: '.SITE_URL);exit;
-}
-
-#微信公众号授权
-if(isWeixin()==true && $TS_SITE['is_weixin']==1){
-	$config = [
-		'app_id' => $TS_SITE['weixin_appid'],
-		'oauth' => [
-			'scopes'   => ['snsapi_userinfo'],
-			'callback' => SITE_URL.'index.php?app=user&ac=wxlogin',
-		],	
-	];
-	$app = Factory::officialAccount($config);
-	$oauth = $app->oauth;
-	$oauth->redirect()->send();
-	exit();
 }
 
 //程序主体
@@ -57,17 +40,6 @@ switch($ts){
 		$pwd = tsTrim($_POST['pwd']);
 		
 		$cktime = tsIntval($_POST['cktime']);
-
-
-		#人机验证
-		$vaptcha_token = tsTrim($_POST ['vaptcha_token']);
-		$vaptcha_server = tsTrim($_POST ['vaptcha_server']);
-		if ($TS_SITE['is_vaptcha'] && $ad==0) {
-			$strVt = vaptcha($vaptcha_token,0,$vaptcha_server);
-			if($strVt['success']==0) {
-				getJson('人机验证未通过！',$js);
-			}
-		}
 
 		
 		if($email=='' || $pwd=='') getJson('账号和密码都不能为空！',$js);

@@ -246,7 +246,6 @@ if($app=='api' || $ac=='api'){
                 'isadmin' => $loginUserData['isadmin'],
                 'signin' => $loginUserData['signin'],
                 'isverify' => $loginUserData['isverify'],
-                'isverifyphone' => $loginUserData['isverifyphone'],
                 'uptime' => $loginUserData['uptime'],
             );
             $TS_USER = $_SESSION['tsuser'];
@@ -274,13 +273,6 @@ if($app=='api' || $ac=='api'){
     if ($TS_SITE['isverify'] == 1 && tsIntval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
         if (valid_email($TS_USER['email'])==true && tsIntval($TS_USER['isverify']) == 0 && $TS_URL['app'] != 'user' && $TS_USER['isadmin'] != 1) {
             tsHeaderUrl(tsUrl('user', 'verify'));
-        }
-    }
-
-    //判断用户是否需要验证手机号,管理员除外
-    if ($TS_SITE['isverifyphone'] == 1 && tsIntval($TS_USER['userid']) > 0 && $TS_URL['app'] != 'system' && $TS_URL['ac'] != 'admin') {
-        if (tsIntval($TS_USER['isverifyphone']) == 0 && $TS_URL['app'] != 'user' && $TS_URL['app'] != 'pubs' && $TS_USER['isadmin'] != 1) {
-            tsHeaderUrl(tsUrl('user', 'phone',array('ts'=>'verify')));
         }
     }
 
